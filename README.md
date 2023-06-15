@@ -156,7 +156,7 @@ The deffault access modifier is also known as the package-private, which means a
 
 ```Abstract``` -  non-access modifier, used for classes and methods
 
-```Strictfp``` -  non-access modifier, used for classes and methods
+```Strictfp``` -  (Removed in java 17)to ensure that floating points operations give the same result on any platform
 
 ***
 
@@ -239,11 +239,9 @@ In Java, a Marker interface is an interface without any methods or fields declar
 
 This is an interface class, which implements Clonable/Runnable
 
-Callable – run()
-
-Runable – call()
-
-Comparable – compareTo()
+- Callable – run()
+- Runable – call()
+- Comparable – compareTo()
 
 Note:
 
@@ -308,133 +306,86 @@ Used for specific data structures
 |-------------------------------------------------------|
 
 
-1.	Java does not provide direct implementations of the Collection
+1.	Java does not provide direct implementations of the Collection interface but provides implementations of its sub interfaces like
 
-interface but provides implementations of its
+- List Interface - List is an orderd collection like java
 
-sub interfaces like
+- Set Interface - It cant have duplicate elements
 
-1. List Interface - List is an orderd collection like java
-
-2. Set Interface - It cant have duplicate elements
-
-3. Queue Interface - First in first out
+- Queue Interface - First in first out
 
 
 
-List - Can have many values also duplicate values
+      List - Can have many values also duplicate values
+      
+      Set - To have unique data
+      
+      Map - To store data in key value
 
-Set - To have unique data
+### Methods used:-
 
-Map - To store data in key value
-
-
-
-
-
-Methods used:-
-
-add() 
-
-addall() 
-
-size() 
-
-remove() 
-
-removeall() 
-
-clear() 
+- add()
+- addall()
+- size()
+- remove() 
+- removeall() 
+- clear() 
 
   
 
-Collection<intiger> numb = new ArrayList<>(); --> Collection does work with index number. 
+      Collection<intiger> numb = new ArrayList<>(); --> Collection does work with index number. 
 
  
 
-1. List 
-
- 
-
-List<String> fruitList = new ArrayList<>();    
-
-fruitList.add("Strawberry"); 
-
-String[] array = fruitList.toArray(new String[fruitList.size()]);  
+## 1. List
+      List<String> fruitList = new ArrayList<>();
+      fruitList.add("Strawberry");
+      String[] array = fruitList.toArray(new String[fruitList.size()]);  
 
   
 
-ArrayList	-	internally uses dinamic Array, non syncronized 
+* ```ArrayList```	-	internally uses dinamic Array, non syncronized 
+
+      ArrayList<String> list=new ArrayList<String>();
+      list.add("Ajay");
+      list.add("Viky");
+      List.add(1, “sarath”);	//To add a value at particular position
+      Iterator itr=list.iterator();
+      while(itr.hasNext()) 
 
  
 
-ArrayList<String> list=new ArrayList<String>(); 
+- ```LinkedList``` - internally uses doubly linked list, non syncronized, manipulation is fast because no shifting is required 
 
-list.add("Ajay"); 
-
-list.add("Viky"); 
-
-List.add(1, “sarath”);	//To add a value at particular position 
-
-Iterator itr=list.iterator();   
-
-while(itr.hasNext()) 
+      LinkedList<String> al=new LinkedList<String>();
+      al.add("Ajay");
+      Iterator<String> itr=al.iterator();
+      while(itr.hasNext()) 
 
  
 
-LinkedList - internally uses doubly linked list, non syncronized, manipulation is fast because no shifting is required 
-
- 
-
-LinkedList<String> al=new LinkedList<String>(); 
-
-al.add("Ajay");   
-
-Iterator<String> itr=al.iterator();   
-
-while(itr.hasNext()) 
-
- 
-
-Singly LinkedList  - Java Program to create and display a singly linked list - javatpoint 
+- ```Singly LinkedList```  - Java Program to create and display a singly linked list - javatpoint 
 
 Linear data structure, in which each pointer points to the next element in list. 
 
- 
-
- 
-
-Doubly LinkedList - Java program to create and display a doubly linked list - javatpoint 
+- ```Doubly LinkedList``` - Java program to create and display a doubly linked list - javatpoint 
 
 Linear data structure, which can be described as the collection of nodes. Nodes are connected through the pointers.  
 
- 
+#### One of the limitations of the singly linked list is that it can be traversed in only one direction that is forward. The doubly linked list has overcome this limitation by providing an additional pointer that points to the previous node. With the help of the previous pointer, the doubly linked list can be traversed in a backward direction thus making insertion and deletion operation easier to perform. So, a typical node in the doubly linked list consists of three fields: 
 
-One of the limitations of the singly linked list is that it can be traversed in only one direction that is forward. The doubly linked list has overcome this limitation by providing an additional pointer that points to the previous node. With the help of the previous pointer, the doubly linked list can be traversed in a backward direction thus making insertion and deletion operation easier to perform. So, a typical node in the doubly linked list consists of three fields: 
+___Data___ represents the data value stored in the node. 
 
-Data represents the data value stored in the node. 
+___Previous___ represents a pointer that points to the previous node. 
 
-Previous represents a pointer that points to the previous node. 
+___Next___ represents a pointer that points to next node in the list.
 
-Next represents a pointer that points to next node in the list. 
+* ```Vector```	 - similar to ArrayList, but syncronized and contains many methods which are not part of collection frame work
 
- 
-
- 
-
- 
-
-Vector	 - similar to ArrayList, but syncronized and contains many methods which are not part of collection frame work 
-
- 
-
-Vector<String> v=new Vector<String>(); 
-
-v.add("Ayush"); 
-
-Iterator<String> itr=v.iterator(); 
-
-while(itr.hasNext()) 
+      Vector<String> v=new Vector<String>();
+      v.add("Ayush");
+      Iterator<String> itr=v.iterator();
+      while(itr.hasNext()) 
 
  
 
@@ -444,207 +395,129 @@ while(itr.hasNext())
 
  
 
-2. Set 
+## 2. Set 
 
 Unorderd set which means it doesnt allow to store duplicate values. Can store one null value. 
 
- 
-
 Set can be instanciated as 
 
-Set<data-type> s1 = new HashSet<data-type>();   
-
-Set<data-type> s2 = new LinkedHashSet<data-type>();   
-
-Set<data-type> s3 = new TreeSet<data-type>();  
-
- 
+      Set<data-type> s1 = new HashSet<data-type>();   
+      
+      Set<data-type> s2 = new LinkedHashSet<data-type>();   
+      
+      Set<data-type> s3 = new TreeSet<data-type>();  
 
 Set is implemented by HashSet, LinkedHashSet, TreeSet 
 
- 
+- ```HashSet``` - No insertion order. same as set. 
 
-HashSet - No insertion order. same as set. 
-
- 
-
-HashSet<String> set=new HashSet<String>();   
-
-set.add("Ajay"); 
-
-Iterator<String> itr=set.iterator();   
-
-while(itr.hasNext()) 
+      HashSet<String> set=new HashSet<String>();
+      set.add("Ajay");
+      Iterator<String> itr=set.iterator();
+      while(itr.hasNext()) 
 
  
 
-LinkedHashSet - Maintains insertion order. Same as set 
+- ```LinkedHashSet``` - Maintains insertion order. Same as set 
 
  
 
-LinkedHashSet<String> set=new LinkedHashSet<String>(); 
-
-set.add("Ajay"); 
-
-Iterator<String> itr=set.iterator(); 
-
-while(itr.hasNext()) 
+      LinkedHashSet<String> set=new LinkedHashSet<String>();
+      set.add("Ajay");
+      Iterator<String> itr=set.iterator();
+      while(itr.hasNext()) 
 
  
 
-TreeSet - One of the most important implementations of the SortedSet interface in Java that uses a Tree for storage. 
+- ```TreeSet``` - One of the most important implementations of the SortedSet interface in Java that uses a Tree for storage.
 
- 
+## 3. Map 
 
- 
+Map is used for key,value purpose. Key should be unique.
 
-3. Map 
+__HashMap__ 
 
-Map is used for key,value purpose. Key should be unique. 
-
- 
-
- 
-
-HashMap 
-
-| 
-
-|__	* Hashmap is non syncronized in nature so performance is also high. 
-
-* Not thread safe. 
-
+* Hashmap is non syncronized in nature so performance is also high.
+* Not thread safe.
 * If one thread is iterating HashMap and the other try to add/modify then lead to run-time exception. 
 
- 
-
-ConcurrentHashMap 
-
-| 
-
-|__ 	* ConcurrentHashMap is syncronized, so performance is slow. 
-
-* Tread safe. 
-
+__ConcurrentHashMap__ 
+* ConcurrentHashMap is syncronized, so performance is slow.
+* Tread safe.
 * We wont get exception during modification. 
 
+1. HashMap makes absolutely no guarantees about the iteration order. It can (and will) even change completely when new elements are added. 
+
+2. It has pair values(keys,values) 
+
+3. NO duplication key values 
+
+4. unordered unsorted 
+
+5. It allows one null key and more than one null values.
  
 
- 
+      public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneable, Serializable 
 
-HashMap makes absolutely no guarantees about the iteration order. It can (and will) even change completely when new elements are added. 
+__TreeMap__ will iterate according to the "natural ordering" of the keys according to their compareTo() method (or an externally supplied Comparator). Additionally, it implements the SortedMap interface, which contains methods that depend on this sort order. 
 
-It has pair values(keys,values) 
+- Ordered and sortered version
+- based on hashing data structures 
 
-NO duplication key values 
+      public class TreeMap<K,V> extends AbstractMap<K,V> implements NavigableMap<K,V>, Cloneable, Serializable 
 
-unordered unsorted 
+__LinkedHashMap__ will iterate in the order in which the entries were put into the map 
 
-it allows one null key and more than one null values 
+- It is ordered version of map implementation
+- Based on linked list and hashing data structures
 
-~public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneable, Serializable 
 
-TreeMap will iterate according to the "natural ordering" of the keys according to their compareTo() method (or an externally supplied Comparator). Additionally, it implements the SortedMap interface, which contains methods that depend on this sort order. 
+     public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V>
 
-Ordered and sortered version 
+__HashTable__ 
 
-based on hashing data structures 
+- same as hash map 
 
-~public class TreeMap<K,V> extends AbstractMap<K,V> implements NavigableMap<K,V>, Cloneable, Serializable 
+- It does not allows null keys and null values 
 
-LinkedHashMap will iterate in the order in which the entries were put into the map 
 
-It is ordered version of map implementation 
+      public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneable, Serializable 
 
-Based on linked list and hashing data structures 
-
-~public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V> 
-
-HashTable 
-
-same as hash map 
-
-it does not allows null keys and null values 
-
-~public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneable, Serializable 
-
- 
-
- 
-
- 
-
-Exception Handling 
-
- 
+## Exception Handling 
 
 In Java, an exception is an event that disrupts the normal flow of the program. It is an object which is thrown at runtime. 
 
-  
-
-Throwable  
-
-|__ Exception  
-
-| 
-
-|__ (IOException, SQLException, ClassNotFoundException, RuntimeException) Checked Exceptions 
-
-| 
-
-|__ (ArithmeticException, NullPointerException, NumberFormatException, IndexOutOfBoundException 
-
-| 
-
-|__ ArrayOutOfBoundException, StringIndexOutOfBoundException)Unchecked Exceptions 
-
+```
+Throwable
+|
+|__ Exception
+   |
+   |__ (IOException, SQLException, ClassNotFoundException, RuntimeException) Checked Exceptions 
+         | 
+         |__ (ArithmeticException, NullPointerException, NumberFormatException, IndexOutOfBoundException
+                  |
+                  |__ ArrayOutOfBoundException, StringIndexOutOfBoundException)Unchecked Exceptions 
+```
  
+__throw and throws__
 
-throw and throws 
+__Checked and Unchecked Exceptions__
 
- 
 
-Checked and Unchecked Exceptions 
-
-Exception Handling in Java | Java Exceptions - javatpoint 
-
- 
-
- 
-
-Syncronization 
+## Syncronization 
 
  	Process syncronizatin 
 
  	Tread Syncronization 
 
-  
+## Aplet
 
- 
+   - public void init(): is used to initialized the Applet. It is invoked only once.
+   - public void start(): is invoked after the init() method or browser is maximized. It is used to start the Applet.
+   - public void stop(): is used to stop the Applet. It is invoked when Applet is stop or browser is minimized.
+   - public void destroy(): is used to destroy the Applet. It is invoked only once. 
 
-  
-
-  
-
- 
-
-Aplet 
-
-public void init(): is used to initialized the Applet. It is invoked only once. 
-
-public void start(): is invoked after the init() method or browser is maximized. It is used to start the Applet. 
-
-public void stop(): is used to stop the Applet. It is invoked when Applet is stop or browser is minimized. 
-
-public void destroy(): is used to destroy the Applet. It is invoked only once. 
-
-  
-
-  
-
-Serialization and Deserialization 
-
-Autoboxing and Unboxing in Java - GeeksforGeeks 
+## Serialization and Deserialization
 
 Serialization in Java allows us to convert an Object to stream that we can send over the network or save it as file or store in DB for later usage. Deserialization is the process of converting Object stream to actual Java Object to be used in our program. 
 
@@ -656,101 +529,45 @@ Serialization in Java allows us to convert an Object to stream that we can send 
 
 - Only objects that supports the java.io.serializable interface can be written to streams. 
 
- 
 
- 
 
-String Manipulation 
+__Autoboxing and Unboxing in Java - GeeksforGeeks__ 
 
-String-Manipulation-In-Java 
+__String Manipulation__
 
-  
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
-Cohesion and Coupling in Java 
+# Cohesion and Coupling in Java 
 
 Sofware should be Highly Cohesive and Loosely coupled 
 
 https://stackoverflow.com/a/227957/11962586 
 
-Coupling 
+## Coupling 
 
 Coupling in Java - GeeksforGeeks 
 
  
 
-Loose coupling 
+### Loose coupling 
 
 They are mostly independent. If the only knowledge that class A has about class B, is what class B has exposed through its interface, then class A and class B are said to be loosely coupled. In order to over come from the problems of tight coupling between objects, spring framework uses dependency injection mechanism with the help of POJO/POJI model and through dependency injection its possible to achieve loose coupling. 
 
- 
-
-Tight Coupling 
+### Tight Coupling 
 
 Here if the class A method is changed, then all other classes which create the object of A class should also be 		changed. 
 
  
 
-Cohesion in Java 
-
-Cohesion in Java - GeeksforGeeks 
-
- 
+## Cohesion
 
 Explanation: In the above image, we can see that in low cohesion only one class is responsible to execute lots of jobs that are not in common which reduces the chance of reusability and maintenance. But in high cohesion, there is a separate class for all the jobs to execute a specific job, which results in better usability and maintenance. 
 
-Difference between high cohesion and low cohesion:  
+__Difference between high cohesion and low cohesion:__
 
 High cohesion is when you have a class that does a well-defined job. Low cohesion is when a class does a lot of jobs that don’t have much in common. 
 
-High cohesion gives us better-maintaining facility and Low cohesion results in monolithic classes that are difficult to maintain, understand and reduce re-usability 
+High cohesion gives us better-maintaining facility and Low cohesion results in monolithic classes that are difficult to maintain, understand and reduce re-usability
 
-  
-
-  
-
-GenericServlet 
-
-~~~~~~~~~~~~~~ 
+## GenericServlet
 
 GenericServlet is a class which implements Servlet, ServletConfig, Serializable  
 
@@ -758,16 +575,152 @@ GenericServlet is a class which implements Servlet, ServletConfig, Serializable
 
  
 
-Session factory in hibernate 
+## Session factory in hibernate 
 
-Jsp litterals 
+## Jsp litterals 
 
 Classloader 
-
-  
 
 <tiles:importAttribute name="body" scope="page" ignore="true"/> 
 
 <tiles:useAttribute id="jspform" name="body"/> 
 
- 
+---
+
+---
+
+
+
+Java Questions from Customer
+
+
+
+
+
+
+| Communication      | Check                                                                                           |                
+|--------------------|-------------------------------------------------------------------------------------------------|
+| Coding Skill       | Should be ready for write pseudo code                                                           |
+| Java Concept       | Java Concept, Spring, collections, Threads , Java 8                                             |
+| Database knowledge | Schema, data model…etc                                                                          |
+| Unix               | Basic commands , cp, grep, mv, cd, pwd, ls, ftp, ssh, find. Ps,                                 |
+| SQL/PLSQL          | Joining of the two table ( one to many, may to One mapping scenario), inter join, Outerjoin etc |
+| CI/CD              | Deployments..                                                                                   |
+
+
+
+# Java Questions
+
+1. Brief of the projects undertaken
+2. What is the roles and responsibilities
+3. Project – Explain Application architecture
+4. What are the framework used in the project and candidate familiarized with
+## 5. What is Rest API
+   - Representationl state transfer.
+## 6. How to understand the dependency
+   - Dependency injection is used to make a class independent of its dependencies or to create a loosely coupled program. Dependency injection is useful for improving the reusability of code. Likewise, by decoupling the usage of an object, more dependencies can be replaced without needing to change class.
+7. What is Spring framework and how its works
+8. How security implemented
+## 9. What design patterns are used, explain the reason for the usage
+
+10. How configuration works in Spring
+11. How data connection setup, configuration and steps
+12. Details the spring configuration call
+13. Boot sequence of the application
+14. How to compile simple applications
+15. What are required to run simple Java applications
+16. What is the difference between JDK and JRE
+17. Is it possible run the application with JRE
+18. What is JVM
+19. What are collection, how collections are used
+20. Hashmap, what is the complexity of traversing
+21. Java version work, and what features are used
+## 22. Stream API
+- Using collections framework in Java, a developer has to use loops and make repeated checks. Another concern is efficiency; as multi-core processors are available at ease, a Java developer has to write parallel code processing that can be pretty error-prone.
+- To resolve such issues, Java 8 introduced the concept of stream that lets the developer to process data declaratively and leverage multicore architecture without the need to write any specific code for it.
+- https://www.tutorialspoint.com/java8/java8_streams.htm
+  - __forEach()__ - to iterate each element of the stream.
+  ```
+     Random random = new Random();
+     random.ints().limit(10).forEach(System.out::println);
+  ```
+  - __map()__ - used to map each element to its corresponding result.
+  ```
+   List<Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
+   //get list of unique squares
+   List<Integer> squaresList = numbers.stream().map( i -> i*i).distinct().collect(Collectors.toList());
+  ```
+  - __filter()__ - used to eliminate elements based on a criteria.
+  ```
+      List<String>strings = Arrays.asList("abc", "", "bc", "efg", "abcd","", "jkl");
+      //get count of empty string
+      int count = strings.stream().filter(string -> string.isEmpty()).count();
+  ```
+  - __sorted()__ - Used to sort the stream
+  ```
+     Random random = new Random();
+     random.ints().limit(10).sorted().forEach(System.out::println);
+  ```
+23. Hibernate and implementation
+24. Cqrs Pattern, what is the solution scenario used
+25. What build tool used
+26. What is the difference between install and deploy
+27. connection pooling in java
+## 28. Equals() & HashCode(), Equals() vs compareTo()
+   - ![img_6.png](img_6.png)
+   - ```
+        String a = "Andrew";  
+        String b = "Andrew";  
+  
+        if(a.equals(b)){   //checking the equality of objects using equals() methods  
+            System.out.println("a & b are equal variables, and their respective hashvalues are:" + " "+ a.hashCode() + " & " + b.hashCode());
+     
+        String c = "Maria";  
+        String d= "Julie";  
+  
+        if(!c.equals(d)){    //checking  the equality of objects using equals() method  
+            System.out.println("\nc & d are Un-equal variables, and their respective hashvalues are:" + " "+ c.hashCode() + " & " + d.hashCode());    
+     ```
+     ___Output___
+   - ```
+         a & b are equal variables, and their respective hash values are: 1965574029 & 1965574029
+
+         c & d are Un-equal variables, and their respective hash values are: 74113750 & 71933245
+     ```
+29. Eden space in java
+30. PermGen Space (Permanent Generation)
+![img.png](img.png)
+## 31. URL vs URI
+
+- In short, all URLs are URIs, but not all URIs are URLs.
+- URI syntax ```scheme:[//authority]path[?query][#fragment]```
+- ![img_1.png](img_1.png)
+## 32. Session management
+- Session management can be achieved in one of the following ways-
+  - Cookies
+  - Hidden form field
+  - URL Rewriting
+  - HttpSession
+  - https://www.javainuse.com/spring/springboot_session
+
+***
+
+# SQL Ques
+## 1. Find max and second max salary for a employee table MySQL
+   - Try this, n would be the nth item you would want to return
+   - https://stackoverflow.com/a/21520159/11962586
+   - ```SELECT DISTINCT(Salary) FROM table ORDER BY Salary DESC LIMIT n,1```
+
+   In your case 
+   - ```SELECT DISTINCT(column_name) FROM table_name ORDER BY column_name DESC limit 2,1;```
+
+## 2. Types of Relationship in DBMS
+   - One to One relationship
+   - ![img_2.png](img_2.png)
+   - One to many or many to one relationship
+   - ![img_3.png](img_3.png)
+   - ![img_4.png](img_4.png)
+   - Many to many relationships
+   - ![img_5.png](img_5.png)
+   - https://www.javatpoint.com/types-of-relationship-in-database-table
+
