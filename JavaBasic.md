@@ -709,7 +709,12 @@ Java Questions from Customer
 
   ### String vs StringBuffer
 
-<pre tabindex="5" style="color:#ece7e7;-moz-tab-size:2;-o-tab-size:2;tab-size:2; padding: 13px 10px 13px 5px;border-radius: 45px;background:rgba(13,111,224,0.18);">
+<pre style="padding: 15px 15px 2px 25px;border-radius: 50px; width: 400px;
+    font-family: Arial, Helvetica, sans-serif;
+    background: -moz-linear-gradient(#ffe6cc, #ffa64d);
+    background: -webkit-linear-gradient(#ffe6cc, #ffa64d);
+    background: -o-linear-gradient(#ffe6cc, #ffa64d);
+    color: black;">
     Since String is immutable in Java, 
     whenever we do String manipulation like 
     concatenation, substring, etc. 
