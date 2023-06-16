@@ -435,50 +435,50 @@ Set is implemented by HashSet, LinkedHashSet, TreeSet
 
 Map is used for key,value purpose. Key should be unique.
 
-__HashMap__ 
+- ```HashMap``` 
 
-* Hashmap is non syncronized in nature so performance is also high.
-* Not thread safe.
-* If one thread is iterating HashMap and the other try to add/modify then lead to run-time exception. 
+  * Hashmap is non syncronized in nature so performance is also high.
+  * Not thread safe.
+  * If one thread is iterating HashMap and the other try to add/modify then lead to run-time exception. 
 
-__ConcurrentHashMap__ 
-* ConcurrentHashMap is syncronized, so performance is slow.
-* Tread safe.
-* We wont get exception during modification. 
+- ```ConcurrentHashMap``` 
+  * ConcurrentHashMap is syncronized, so performance is slow.
+  * Tread safe.
+  * We wont get exception during modification. 
 
-1. HashMap makes absolutely no guarantees about the iteration order. It can (and will) even change completely when new elements are added. 
+    1. HashMap makes absolutely no guarantees about the iteration order. It can (and will) even change completely when new elements are added. 
 
-2. It has pair values(keys,values) 
+    2. It has pair values(keys,values) 
 
-3. NO duplication key values 
+    3. NO duplication key values 
 
-4. unordered unsorted 
+    4. unordered unsorted 
 
-5. It allows one null key and more than one null values.
+    5. It allows one null key and more than one null values.
  
 
       public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneable, Serializable 
 
-__TreeMap__ will iterate according to the "natural ordering" of the keys according to their compareTo() method (or an externally supplied Comparator). Additionally, it implements the SortedMap interface, which contains methods that depend on this sort order. 
+- ```TreeMap``` will iterate according to the "natural ordering" of the keys according to their compareTo() method (or an externally supplied Comparator). Additionally, it implements the SortedMap interface, which contains methods that depend on this sort order. 
 
-- Ordered and sortered version
-- based on hashing data structures 
+  - Ordered and sortered version
+  - based on hashing data structures 
 
-      public class TreeMap<K,V> extends AbstractMap<K,V> implements NavigableMap<K,V>, Cloneable, Serializable 
+        public class TreeMap<K,V> extends AbstractMap<K,V> implements NavigableMap<K,V>, Cloneable, Serializable 
 
-__LinkedHashMap__ will iterate in the order in which the entries were put into the map 
+- ```LinkedHashMap``` will iterate in the order in which the entries were put into the map 
 
-- It is ordered version of map implementation
-- Based on linked list and hashing data structures
+  - It is ordered version of map implementation
+  - Based on linked list and hashing data structures
 
 
      public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V>
 
-__HashTable__ 
+- ```HashTable```
 
-- same as hash map 
+  - same as hash map 
 
-- It does not allows null keys and null values 
+  - It does not allows null keys and null values 
 
 
       public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneable, Serializable 
@@ -531,9 +531,10 @@ Serialization in Java allows us to convert an Object to stream that we can send 
 
 
 
-__Autoboxing and Unboxing in Java - GeeksforGeeks__ 
+# Autoboxing and Unboxing
+  
 
-__String Manipulation__
+# String Manipulation__
 
 # Cohesion and Coupling in Java 
 
