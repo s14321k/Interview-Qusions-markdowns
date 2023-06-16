@@ -305,6 +305,8 @@ Used for specific data structures
 | iterable <----- Collections <------- list, set, queue |
 |-------------------------------------------------------|
 
+![img_10.png](img_10.png)
+
 
 1.	Java does not provide direct implementations of the Collection interface but provides implementations of its sub interfaces like
 
@@ -346,6 +348,7 @@ Used for specific data structures
 
 * ```ArrayList```	-	internally uses dinamic Array, non syncronized 
 
+
       ArrayList<String> list=new ArrayList<String>();
       list.add("Ajay");
       list.add("Viky");
@@ -356,6 +359,7 @@ Used for specific data structures
  
 
 - ```LinkedList``` - internally uses doubly linked list, non syncronized, manipulation is fast because no shifting is required 
+
 
       LinkedList<String> al=new LinkedList<String>();
       al.add("Ajay");
@@ -382,24 +386,19 @@ ___Next___ represents a pointer that points to next node in the list.
 
 * ```Vector```	 - similar to ArrayList, but syncronized and contains many methods which are not part of collection frame work
 
+
       Vector<String> v=new Vector<String>();
       v.add("Ayush");
       Iterator<String> itr=v.iterator();
       while(itr.hasNext()) 
 
- 
+// pending https://www.javatpoint.com/collections-in-java  //
 
- 
-
-///////////pending https://www.javatpoint.com/collections-in-java  ////			 
-
- 
-
-## 2. Set 
+## 2. Set
 
 Unorderd set which means it doesnt allow to store duplicate values. Can store one null value. 
 
-Set can be instanciated as 
+Set can be instanciated as
 
       Set<data-type> s1 = new HashSet<data-type>();   
       
@@ -411,6 +410,7 @@ Set is implemented by HashSet, LinkedHashSet, TreeSet
 
 - ```HashSet``` - No insertion order. same as set. 
 
+
       HashSet<String> set=new HashSet<String>();
       set.add("Ajay");
       Iterator<String> itr=set.iterator();
@@ -420,7 +420,6 @@ Set is implemented by HashSet, LinkedHashSet, TreeSet
 
 - ```LinkedHashSet``` - Maintains insertion order. Same as set 
 
- 
 
       LinkedHashSet<String> set=new LinkedHashSet<String>();
       set.add("Ajay");
@@ -478,7 +477,7 @@ Map is used for key,value purpose. Key should be unique.
 
   - same as hash map 
 
-  - It does not allows null keys and null values 
+  - It does not allow null keys and null values 
 
 
       public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneable, Serializable 
@@ -542,11 +541,9 @@ Sofware should be Highly Cohesive and Loosely coupled
 
 https://stackoverflow.com/a/227957/11962586 
 
-## Coupling 
+## Coupling
 
-Coupling in Java - GeeksforGeeks 
-
- 
+![img_8.png](img_8.png) 
 
 ### Loose coupling 
 
@@ -559,6 +556,8 @@ Here if the class A method is changed, then all other classes which create the o
  
 
 ## Cohesion
+
+![img_9.png](img_9.png)
 
 Explanation: In the above image, we can see that in low cohesion only one class is responsible to execute lots of jobs that are not in common which reduces the chance of reusability and maintenance. But in high cohesion, there is a separate class for all the jobs to execute a specific job, which results in better usability and maintenance. 
 
@@ -620,22 +619,22 @@ Java Questions from Customer
    - Representationl state transfer.
 ## 6. How to understand the dependency
    - Dependency injection is used to make a class independent of its dependencies or to create a loosely coupled program. Dependency injection is useful for improving the reusability of code. Likewise, by decoupling the usage of an object, more dependencies can be replaced without needing to change class.
-7. What is Spring framework and how its works
-8. How security implemented
+## 7. What is Spring framework and how its works
+## 8. How security implemented
 ## 9. What design patterns are used, explain the reason for the usage
 
-10. How configuration works in Spring
-11. How data connection setup, configuration and steps
-12. Details the spring configuration call
-13. Boot sequence of the application
-14. How to compile simple applications
-15. What are required to run simple Java applications
-16. What is the difference between JDK and JRE
-17. Is it possible run the application with JRE
-18. What is JVM
-19. What are collection, how collections are used
-20. Hashmap, what is the complexity of traversing
-21. Java version work, and what features are used
+## 10. How configuration works in Spring
+## 11. How data connection setup, configuration and steps
+## 12. Details the spring configuration call
+## 13. Boot sequence of the application
+## 14. How to compile simple applications
+## 15. What are required to run simple Java applications
+## 16. What is the difference between JDK and JRE
+## 17. Is it possible run the application with JRE
+## 18. What is JVM
+## 19. What are collection, how collections are used
+## 20. Hashmap, what is the complexity of traversing
+## 21. Java version work, and what features are used
 ## 22. Stream API
 - Using collections framework in Java, a developer has to use loops and make repeated checks. Another concern is efficiency; as multi-core processors are available at ease, a Java developer has to write parallel code processing that can be pretty error-prone.
 - To resolve such issues, Java 8 introduced the concept of stream that lets the developer to process data declaratively and leverage multicore architecture without the need to write any specific code for it.
@@ -662,11 +661,11 @@ Java Questions from Customer
      Random random = new Random();
      random.ints().limit(10).sorted().forEach(System.out::println);
   ```
-23. Hibernate and implementation
-24. Cqrs Pattern, what is the solution scenario used
-25. What build tool used
-26. What is the difference between install and deploy
-27. connection pooling in java
+## 23. Hibernate and implementation
+## 24. Cqrs Pattern, what is the solution scenario used
+## 25. What build tool used
+## 26. What is the difference between install and deploy
+## 27. connection pooling in java
 ## 28. Equals() & HashCode(), Equals() vs compareTo()
    - ![img_6.png](img_6.png)
    - ```
@@ -688,8 +687,8 @@ Java Questions from Customer
 
          c & d are Un-equal variables, and their respective hash values are: 74113750 & 71933245
      ```
-29. Eden space in java
-30. PermGen Space (Permanent Generation)
+## 29. Eden space in java
+## 30. PermGen Space (Permanent Generation)
 ![img.png](img.png)
 ## 31. URL vs URI
 
@@ -697,31 +696,39 @@ Java Questions from Customer
 - URI syntax ```scheme:[//authority]path[?query][#fragment]```
 - ![img_1.png](img_1.png)
 ## 32. Session management
-- Session management can be achieved in one of the following ways-
-  - Cookies
-  - Hidden form field
-  - URL Rewriting
-  - HttpSession
-  - https://www.javainuse.com/spring/springboot_session
+  - Session management can be achieved in one of the following ways-
+    - Cookies
+    - Hidden form field
+    - URL Rewriting
+    - HttpSession
+    - https://www.javainuse.com/spring/springboot_session
+## 33. Loggers
+- ![img_7.png](img_7.png)
+
+## 34. String vs StringBuffer vs StringBuilder
+
+  ### String vs StringBuffer
+
+<pre tabindex="5" style="color:#ece7e7;-moz-tab-size:2;-o-tab-size:2;tab-size:2; padding: 13px 10px 13px 5px;border-radius: 45px;background:rgba(13,111,224,0.18);">
+    Since String is immutable in Java, 
+    whenever we do String manipulation like 
+    concatenation, substring, etc. 
+    it generates a new String 
+    and discards the older String for garbage collection. 
+    These are heavy operations and generate 
+    a lot of garbage in heap. 
+    So Java has provided StringBuffer and StringBuilder classes 
+    that should be used for String manipulation. 
+    StringBuffer and StringBuilder are mutable objects in Java. 
+    They provide 
+                  append(), insert(), delete(), and substring() 
+    methods for String manipulation.
+
+</pre>
+![img_11.png](img_11.png)
+- String is immutable whereas StringBuffer and StringBuilder are mutable classes.
+- StringBuffer is thread-safe and synchronized whereas StringBuilder is not. That’s why StringBuilder is faster than StringBuffer.
+- String concatenation operator (+) internally uses StringBuffer or StringBuilder class.
+- For String manipulations in a non-multi threaded environment, we should use StringBuilder else use StringBuffer class.
 
 ***
-
-# SQL Ques
-## 1. Find max and second max salary for a employee table MySQL
-   - Try this, n would be the nth item you would want to return
-   - https://stackoverflow.com/a/21520159/11962586
-   - ```SELECT DISTINCT(Salary) FROM table ORDER BY Salary DESC LIMIT n,1```
-
-   In your case 
-   - ```SELECT DISTINCT(column_name) FROM table_name ORDER BY column_name DESC limit 2,1;```
-
-## 2. Types of Relationship in DBMS
-   - One to One relationship
-   - ![img_2.png](img_2.png)
-   - One to many or many to one relationship
-   - ![img_3.png](img_3.png)
-   - ![img_4.png](img_4.png)
-   - Many to many relationships
-   - ![img_5.png](img_5.png)
-   - https://www.javatpoint.com/types-of-relationship-in-database-table
-
