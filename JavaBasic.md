@@ -709,12 +709,7 @@ Java Questions from Customer
 
   ### String vs StringBuffer
 
-<pre style="padding: 15px 15px 2px 25px;border-radius: 50px; width: 400px;
-    font-family: Arial, Helvetica, sans-serif;
-    background: -moz-linear-gradient(#ffe6cc, #ffa64d);
-    background: -webkit-linear-gradient(#ffe6cc, #ffa64d);
-    background: -o-linear-gradient(#ffe6cc, #ffa64d);
-    color: black;">
+
     Since String is immutable in Java, 
     whenever we do String manipulation like 
     concatenation, substring, etc. 
@@ -728,8 +723,7 @@ Java Questions from Customer
     They provide 
                   append(), insert(), delete(), and substring() 
     methods for String manipulation.
-
-</pre>
+   
 ![img_11.png](img_11.png)
 - String is immutable whereas StringBuffer and StringBuilder are mutable classes.
 - StringBuffer is thread-safe and synchronized whereas StringBuilder is not. That’s why StringBuilder is faster than StringBuffer.
