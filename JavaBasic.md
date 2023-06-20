@@ -665,7 +665,15 @@ Java Questions from Customer
 ## 24. Cqrs Pattern, what is the solution scenario used
 ## 25. What build tool used
 ## 26. What is the difference between install and deploy
-## 27. connection pooling in java
+## 27. connection pooling and String Pool in java
+
+### String pool
+https://www.javatpoint.com/string-pool-in-java
+Same values in 
+String literal == String Object;    //False
+String literal == String literal;   //True
+
+
 ## 28. Equals() & HashCode(), Equals() vs compareTo()
    - ![img_6.png](img_6.png)
    - ```
@@ -709,7 +717,7 @@ Java Questions from Customer
 
   ### String vs StringBuffer
 
-<pre style="padding: 15px 15px 2px 25px;border-radius: 50px; width: 400px;
+<div style="padding: 15px 15px 2px 25px;border-radius: 50px; width: 400px;
     font-family: Arial, Helvetica, sans-serif;
     background: -moz-linear-gradient(#ffe6cc, #ffa64d);
     background: -webkit-linear-gradient(#ffe6cc, #ffa64d);
@@ -729,11 +737,24 @@ Java Questions from Customer
                   append(), insert(), delete(), and substring() 
     methods for String manipulation.
 
-</pre>
+</div>
+
 ![img_11.png](img_11.png)
 - String is immutable whereas StringBuffer and StringBuilder are mutable classes.
 - StringBuffer is thread-safe and synchronized whereas StringBuilder is not. That’s why StringBuilder is faster than StringBuffer.
 - String concatenation operator (+) internally uses StringBuffer or StringBuilder class.
 - For String manipulations in a non-multi threaded environment, we should use StringBuilder else use StringBuffer class.
+
+
+## 35. Eager/Lazy loading in Hibernate
+```Eager loading``` is a design pattern in which data initialization occurs.
+- This FetchType means that the associated entity will be fetched together with the main entity when the main entity is fetched from the database. This can be useful in cases where the associated entity is always required, but can also result in a performance decrease if the associated entity is large and/or has many associations itself.
+- The FetchType.EAGER option indicates that the associated entity should be fetched eagerly, which means that it will be fetched at the same time as the parent entity.
+
+```Lazy Loading``` is a design pattern that we use to defer initialization of a object as long as it is possible.
+- This is the default FetchType in Hibernate. It means that the associated entity will be fetched only when it is accessed for the first time. This can improve performance in cases where the associated entity is not required most of the time.
+- This can be more efficient than eagerly fetching the entity, especially if the entity has a lot of data and is not needed for every use of the parent entity.
+
+## 
 
 ***
