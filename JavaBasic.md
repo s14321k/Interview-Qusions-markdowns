@@ -340,6 +340,9 @@ Used for specific data structures
 
 
 ## 1. List
+
+1) List is an ordered collection it maintains the insertion order, which means upon displaying the list content it will display the elements in the same order in which they got inserted into the list.
+
       List<String> fruitList = new ArrayList<>();
       fruitList.add("Strawberry");
       String[] array = fruitList.toArray(new String[fruitList.size()]);  
@@ -396,7 +399,7 @@ ___Next___ represents a pointer that points to next node in the list.
 
 ## 2. Set
 
-Unorderd set which means it doesnt allow to store duplicate values. Can store one null value.
+Unorderd set. Doesnt allow to store duplicate values. Can store one null value.
 
 Set can be instanciated as
 
@@ -746,14 +749,10 @@ String literal == String literal;   //True
 - For String manipulations in a non-multi threaded environment, we should use StringBuilder else use StringBuffer class.
 
 
-## 35. Eager/Lazy loading in Hibernate
-```Eager loading``` is a design pattern in which data initialization occurs.
-- This FetchType means that the associated entity will be fetched together with the main entity when the main entity is fetched from the database. This can be useful in cases where the associated entity is always required, but can also result in a performance decrease if the associated entity is large and/or has many associations itself.
-- The FetchType.EAGER option indicates that the associated entity should be fetched eagerly, which means that it will be fetched at the same time as the parent entity.
+## 35. Why string is immutable in java
+### In the String constant pool, a String object is likely to have one or many references. If several references point to the same String without even knowing it, it would be bad if one of the references modified that String value. That's why String objects are immutable.
 
-```Lazy Loading``` is a design pattern that we use to defer initialization of a object as long as it is possible.
-- This is the default FetchType in Hibernate. It means that the associated entity will be fetched only when it is accessed for the first time. This can improve performance in cases where the associated entity is not required most of the time.
-- This can be more efficient than eagerly fetching the entity, especially if the entity has a lot of data and is not needed for every use of the parent entity.
+
 
 ## 
 

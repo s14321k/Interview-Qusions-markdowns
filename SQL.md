@@ -16,3 +16,8 @@ In your case
 - Many to many relationships
 - ![img_5.png](img_5.png)
 - https://www.javatpoint.com/types-of-relationship-in-database-table
+
+
+
+
+
