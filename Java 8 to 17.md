@@ -142,8 +142,13 @@ One of our requirements is that each email has to be in a format <name>@<company
 </code></pre>
 
 
+## 5. Double colon operator in java
+- Double colon (::) operator, also known as method reference operator in Java, is used to call a method by referring to it with the help of its class directly. 
+- They behave exactly as the lambda expressions.
+- The only difference it has from lambda expressions is that this uses direct reference to the method by name instead of providing a delegate to the method.
 
-
+#### Syntax
+```<Class name>::<method name>```
 
 
 

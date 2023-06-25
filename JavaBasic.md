@@ -626,7 +626,9 @@ Java Questions from Customer
 ## 8. How security implemented
 ## 9. What design patterns are used, explain the reason for the usage
 
-## 10. How configuration works in Spring
+## 10. Pass by value and Pass by reference
+- Java is always pass by value. Does not support pass by reference.
+
 ## 11. How data connection setup, configuration and steps
 ## 12. Details the spring configuration call
 ## 13. Boot sequence of the application
@@ -743,14 +745,16 @@ String literal == String literal;   //True
 </div>
 
 ![img_11.png](img_11.png)
-- String is immutable whereas StringBuffer and StringBuilder are mutable classes.
+- String is immutable whereas StringBuffer(Thread safe, syncronized, java1.0, slower) and StringBuilder(Opposite to StrngBuffer, java1.5) are mutable classes.
 - StringBuffer is thread-safe and synchronized whereas StringBuilder is not. That’s why StringBuilder is faster than StringBuffer.
 - String concatenation operator (+) internally uses StringBuffer or StringBuilder class.
 - For String manipulations in a non-multi threaded environment, we should use StringBuilder else use StringBuffer class.
 
 
 ## 35. Why string is immutable in java
-### In the String constant pool, a String object is likely to have one or many references. If several references point to the same String without even knowing it, it would be bad if one of the references modified that String value. That's why String objects are immutable.
+- In the String constant pool, a String object is likely to have one or many references. 
+- If several references point to the same String without even knowing it, it would be bad if one of the references modified that String value. 
+- That's why String objects are immutable.
 
 
 
