@@ -1,3 +1,5 @@
+https://www.interviewbit.com/rest-api-interview-questions/
+https://www.baeldung.com/spring-mvc-session-attributes
 ## 1. Difference between spring and spring boot?
 
 
@@ -31,6 +33,9 @@
 - @Autowired to create instance of interface class
 - @ModelAttribute("location") Location location, ModelMap map)
 - @PathVariable
+
+
+
 
 ## 6. @Component, @Bean, @Configuration
 
@@ -100,11 +105,15 @@ public class Config
 }
 ```
 
+
+
 ## 7. JPARepository vs CRUDRepository
 
 | JPA Repository | CRUD Repository                                     |                
 |----------------|-----------------------------------------------------|
 | JPA also provides some extra methods related to JPA <br/>such as delete records in batch and flushing data directly to a database.   | It provides only CRUD functions like findOne, saves, etc.               |
+
+
 
 ## 8. How configuration works in Spring
 - Spring @Configuration annotation is part of the spring core framework. 
@@ -113,3 +122,20 @@ public class Config
 
   https://www.digitalocean.com/community/tutorials/spring-configuration-annotation
 
+
+## 9. Is REST API stateless or stateful?
+- A. REST APIs are stateless because, rather than relying on the server remembering previous requests, REST applications require each request to contain all of the information necessary for the server to understand it.
+
+
+## 10. Spring Boot Architecture
+- ![img_13.png](img_13.png)
+- ![img_12.png](img_12.png)
+
+## 11. Spring Architecture
+- The Model encapsulates the application data and in general they will consist of POJO.
+- The View is responsible for rendering the model data and in general it generates HTML output that the client's browser can interpret.
+- The Controller is responsible for processing user requests and building an appropriate model and passes it to the view for rendering.
+
+
+
+## 12. 

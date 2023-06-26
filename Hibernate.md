@@ -19,3 +19,6 @@ https://www.tutorialspoint.com/hibernate/hibernate_examples.htm
 - The SessionFactory is a thread safe object and used by all the threads of an application. The SessionFactory is a heavyweight object; it is usually created during application start up and kept for later use. You would need one SessionFactory object per database using a separate configuration file.
 
 ## 3. How data connection setup, configuration and steps
+
+
+## 4. Hibernate and implementation

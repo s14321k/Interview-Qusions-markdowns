@@ -225,6 +225,8 @@ i. Abstract class can have abstract method (incomplete method) and non-abstract 
 
 ii. Declared with Abstract keyword
 
+https://www.javatpoint.com/abstract-factory-pattern
+
 
 
 ## 5 . Interface
@@ -232,9 +234,8 @@ ii. Declared with Abstract keyword
 Interface class can have only abstract method (incomplete method). This class should be implemented.
 
 Marker interface vs Functional Interface
--
-In Java, a Marker interface is an interface without any methods or fields declaration, means it is an empty interface. Similarly, a Functional Interface is an interface with just one abstract method declared in it.
-
+- In Java, a Marker interface is an interface without any methods or fields declaration, means it is an empty interface. Similarly, a Functional Interface is an interface with just one abstract method declared in it.
+- A marker interface is an interface that doesn't have any methods or constants inside it. It provides run-time type information about objects, so the compiler and JVM have additional information about the object. A marker interface is also called a tagging interface.
 - Cloneable/Runnable (Functional interface)
 
 This is an interface class, which implements Clonable/Runnable
@@ -533,10 +534,29 @@ Serialization in Java allows us to convert an Object to stream that we can send 
 
 
 
-# Autoboxing and Unboxing
+# Auto-boxing and Auto-Unboxing
 
+### Boxing & AutoBoxing - Primitive values to Object or wrapper class. 
+
+    Integer valueBoxing = Integer.valueOf(10);  //Boxing
+            or
+    Integer valueBoxing = 10;   //AutoBoxing
+
+### UnBoxing & AutoBoxing - Object to primitive type.
+    
+    int valueUnBoxing = valueBoxing.intValue(); //UnBoxing
+            or
+    int valueUnBoxing = valueBoxing;    //AutoUnBoxing
 
 # String Manipulation__
+Concat
+
+```
+String str1 = "Rock";
+String str2 = "Star";
+//Method 1 : Using concat
+String str3 = str1.concat(str2);
+```
 
 # Cohesion and Coupling in Java
 
@@ -614,8 +634,12 @@ Java Questions from Customer
 
 # Java Questions
 
-1. Brief of the projects undertaken
-2. What is the roles and responsibilities
+## 1.
+
+## 2. Size() vs length()
+- size() is a method specified in java. util. Collection , which is then inherited by every data structure in the standard library. 
+- length() is a field on any array (arrays are objects, you just don't see the class normally), and length() is a method on java.
+
 3. Project – Explain Application architecture
 4. What are the framework used in the project and candidate familiarized with
 ## 5. What is Rest API
@@ -666,20 +690,74 @@ Java Questions from Customer
      Random random = new Random();
      random.ints().limit(10).sorted().forEach(System.out::println);
   ```
-## 23. Hibernate and implementation
+## 23. Data Binding
+![img_16.png](img_16.png)
+### Static Binding
+#### Override static method
+NO, we can't override static methods since method overriding relies on dynamic binding at runtime, but static methods are bonded at compile time with static binding. As a result, we are unable to override static methods.
+
+```
+class Dog{  
+    private void eat()
+    {
+        System.out.println("dog is eating...");
+    }  
+  
+    public static void main(String args[])
+    {  
+        Dog d1=new Dog();  
+        d1.eat();  
+    }  
+}  
+```
+
+### Dynamic Binding
+```
+class Animal
+{  
+    void eat()
+    {
+        System.out.println("animal is eating...");
+    }  
+}  
+  
+class Dog extends Animal
+{  
+    void eat(){System.out.println("dog is eating...");
+}  
+  
+public static void main(String args[])
+{  
+    Animal a=new Dog();  
+    a.eat();  
+}
+```
+
+
 ## 24. Cqrs Pattern, what is the solution scenario used
 ## 25. What build tool used
 ## 26. What is the difference between install and deploy
 ## 27. connection pooling and String Pool in java
 
+### Connection Pooling
+The connection pool is used to direct JDBC calls within the application, as well as for enterprise beans using the database.
+
+#### Benefits of connection pooling
+- Connection pooling can improve the response time of any application that requires connections, especially Web-based applications. When a user makes a request over the Web to a resource, the resource accesses a data source. Because users connect and disconnect frequently with applications on the Internet, the application requests for data access can surge to considerable volume. Consequently, the total datastore overhead quickly becomes high for Web-based applications, and performance deteriorates. When connection pooling capabilities are used, however, Web applications can realize performance improvements of up to 20 times the normal results.
+
 ### String pool
 https://www.javatpoint.com/string-pool-in-java
+- String pool is nothing but a storage area in Java heap where string literals stores. It is also known as String Intern Pool
+- It is just like object allocation. By default, it is empty and privately maintained by the Java String class.
+
 Same values in
 String literal == String Object;    //False
 String literal == String literal;   //True
 
 
-## 28. Equals() & HashCode(), Equals() vs compareTo()
+
+
+## 28. Equals() & HashCode(), Equals()
 - ![img_6.png](img_6.png)
 - ```
         String a = "Andrew";  
@@ -752,12 +830,211 @@ String literal == String literal;   //True
 
 
 ## 35. Why string is immutable in java
+
 - In the String constant pool, a String object is likely to have one or many references. 
 - If several references point to the same String without even knowing it, it would be bad if one of the references modified that String value. 
 - That's why String objects are immutable.
 
+To Create immutable class
+- Set the class name as final ```public final calss ClassName```
+- set variable declared as final ```private final string variablename;```
 
 
-## 
+
+## 36. URL vs URI
+
+| URL                                                                                                       | URI |                
+|-----------------------------------------------------------------------------------------------------------|-|
+| URL: Uniform Resource Locator has the information<br/> regarding fetching of a resource from its location | Uniform Resource Identifier is the full form of URI<br/> which is used for identifying each resource of the REST architecture. URI is of the format: |
+| ```<Protocol><domain><path>```                                                                                |```<protocol>://<service-name>/<ResourceType>/<ResourceID>```|
+|![img_15.png](img_15.png) |![img_14.png](img_14.png)
+
+## 37. Comparable and Comparator
+https://www.javatpoint.com/difference-between-comparable-and-comparator
+
+
+|Comparable	| Comparator                                                                                                                                                         |
+|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|1) Comparable provides a single sorting sequence. In other words, we can sort the collection on the basis of a single element such as id, name, and price.| 	The Comparator provides multiple sorting sequences. In other words, we can sort the collection on the basis of multiple elements such as id, name, and price etc. |
+|2) Comparable affects the original class, i.e., the actual class is modified.| 	Comparator doesn't affect the original class, i.e., the actual class is not modified.                                                                             |
+|3) Comparable provides compareTo() method to sort elements.|	Comparator provides compare() method to sort elements.|
+
+## 38. Try with Resource
+#### The first is a typical try-catch-finally block:
+
+```
+Scanner scanner = null;
+try 
+{
+    scanner = new Scanner(new File("test.txt"));
+    while (scanner.hasNext()) 
+    {
+    System.out.println(scanner.nextLine());
+    }
+} 
+catch (FileNotFoundException e)
+{
+    e.printStackTrace();
+} 
+finally 
+{
+    if (scanner != null) 
+    {
+        scanner.close();
+    }
+}
+```
+
+And here's the new super succinct solution using try-with-resources:
+```
+try (Scanner scanner = new Scanner(new File("test.txt"))) 
+{
+    while (scanner.hasNext()) 
+    {
+        System.out.println(scanner.nextLine());
+    }
+}
+catch (FileNotFoundException fnfe)
+{
+    fnfe.printStackTrace();
+}
+```
+
+Here's where to further explore the Scanner class.
+
+#### 4. try-with-resources With Multiple Resources
+   We can declare multiple resources just fine in a try-with-resources block by separating them with a semicolon:
+```
+try (Scanner scanner = new Scanner(new File("testRead.txt"));
+PrintWriter writer = new PrintWriter(new File("testWrite.txt"))) 
+{
+    while (scanner.hasNext()) 
+    {
+        writer.print(scanner.nextLine());
+    }
+}
+```
+
+5. A Custom Resource With AutoCloseable
+   To construct a custom resource that will be correctly handled by a try-with-resources block, the class should implement the Closeable or AutoCloseable interfaces and override the close method:
+
+```
+public class MyResource implements AutoCloseable 
+{
+    @Override
+    public void close() throws Exception 
+    {
+        System.out.println("Closed MyResource");
+    }
+}
+```
+
+## 39. Initialization vs Instatiation
+- Initialization means assigning initial value to variables while declaring. Following is the simple example of initialization in application. 
+- Instantiation means defining or creating new object for class to access all properties like methods, operators, fields, etc. from class.
+
+
+## 40. Java Singleton Class design pattern
+https://www.programiz.com/java-programming/singleton
+
+```
+class Database 
+{
+    private static Database dbObject;     //static object of the same class
+    
+    private Database()                    //Private constructor
+    {      
+    }
+
+    public static Database getInstance()  //getInstance method
+    {
+
+      // create object if it's not already created
+      if(dbObject == null) 
+      {
+           dbObject = new Database();
+      }
+
+       // returns the singleton object
+       return dbObject;
+    }
+
+     public void getConnection() 
+     {
+           System.out.println("You are now connected to the database.");
+     }
+}
+```
+
+```
+class Main 
+{
+    public static void main(String[] args) 
+    {
+        Database db1;
+
+      // refers to the only object of Database
+      db1= Database.getInstance();
+      
+      db1.getConnection();
+    }
+}
+```
+
+## 43. Anonymous class
+https://youtu.be/mr6n66vMA0k
+- In Java, a class can contain another class known as nested class. It's possible to create a nested class without giving any name.
+- A nested class that doesn't have any name is known as an anonymous class.
+
+```
+class Polygon
+{
+   public void display()
+   {
+      System.out.println("Inside the Polygon class");
+   }
+}
+
+class AnonymousDemo
+{
+   public void createClass() 
+   {
+
+      // creation of anonymous class extending class Polygon
+      Polygon p1 = new Polygon() 
+      {
+         public void display() 
+         {
+            System.out.println("Inside an anonymous class.");
+         }
+      };
+      p1.display();
+   }
+}
+
+class Main 
+{
+   public static void main(String[] args) 
+   {
+       AnonymousDemo an = new AnonymousDemo();
+       an.createClass();
+   }
+}
+```
+OUTPUT ```Inside an anonymous class.```
+
+
+## 43. Factory Design pattern
+
+
+
+
+## 42. Authentication and Authorization
+
+- Authentication is the process of identifying a user to provide access to a system. 
+- Authorization is the process of giving permission to access the resources. In this, the user or client and server are verified. In this, it is verified that if the user is allowed through the defined policies and rules.
+
+Yet to do
+https://www.geeksforgeeks.org/serialversionuid-in-java/
 
 ***
