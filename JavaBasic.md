@@ -590,33 +590,10 @@ High cohesion is when you have a class that does a well-defined job. Low cohesio
 
 High cohesion gives us better-maintaining facility and Low cohesion results in monolithic classes that are difficult to maintain, understand and reduce re-usability
 
-## GenericServlet
-
-GenericServlet is a class which implements Servlet, ServletConfig, Serializable
 
 
 
-
-
-## Session factory in hibernate
-
-## Jsp litterals
-
-Classloader
-
-<tiles:importAttribute name="body" scope="page" ignore="true"/>
-
-<tiles:useAttribute id="jspform" name="body"/>
-
----
-
----
-
-
-
-Java Questions from Customer
-
-
+----
 
 
 
@@ -837,17 +814,19 @@ String literal == String literal;   //True
 
 To Create immutable class
 - Set the class name as final ```public final calss ClassName```
-- set variable declared as final ```private final string variablename;```
+- set variable declared as final and private ```private final string variablename;```
+- No setter(), only getter() should be used. ```getter()```
+- Make deep copy for object.
 
 
 
 ## 36. URL vs URI
 
-| URL                                                                                                       | URI |                
-|-----------------------------------------------------------------------------------------------------------|-|
-| URL: Uniform Resource Locator has the information<br/> regarding fetching of a resource from its location | Uniform Resource Identifier is the full form of URI<br/> which is used for identifying each resource of the REST architecture. URI is of the format: |
-| ```<Protocol><domain><path>```                                                                                |```<protocol>://<service-name>/<ResourceType>/<ResourceID>```|
-|![img_15.png](img_15.png) |![img_14.png](img_14.png)
+| URL                                                                                                        | URI                                                                                                                                                  |                
+|------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| URL: Uniform Resource Locator has the information<br/> regarding fetching of a resource from its location  | Uniform Resource Identifier is the full form of URI<br/> which is used for identifying each resource of the REST architecture. URI is of the format: |
+| ```<Protocol><domain><path>```                                                                             | ```<protocol>://<service-name>/<ResourceType>/<ResourceID>```                                                                                        |
+| ![img_15.png](img_15.png)                                                                                  | ![img_14.png](img_14.png)                                                                                                                            |
 
 ## 37. Comparable and Comparator
 https://www.javatpoint.com/difference-between-comparable-and-comparator
@@ -1034,7 +1013,15 @@ OUTPUT ```Inside an anonymous class.```
 - Authentication is the process of identifying a user to provide access to a system. 
 - Authorization is the process of giving permission to access the resources. In this, the user or client and server are verified. In this, it is verified that if the user is allowed through the defined policies and rules.
 
+## 43. Static Block in java < 1.5
+- Static block in java is used for changing the default value of static variables, initializing static variables of the class, write a set of codes that you want to execute during the class loading in memory.
+- In Java Development Kit (JDK) version 1.5 or previous the static block can be executed successfully without the main() method inside the class, but JDK version after 1.5 will throw an error message if there is a static block but no main() method inside the class.
+
+
+
+
 Yet to do
+
 https://www.geeksforgeeks.org/serialversionuid-in-java/
 
 ***

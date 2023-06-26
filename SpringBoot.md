@@ -105,6 +105,17 @@ public class Config
 }
 ```
 
+### Life cycle of bean
+- The lifecycle of any object means when & how it is born, how it behaves throughout its life, and when & how it dies. Similarly, the bean life cycle refers to when & how the bean is instantiated, what action it performs until it lives, and when & how it is destroyed. In this article, we will discuss the life cycle of the bean.
+
+
+- ![img_17.png](img_17.png)
+#### Configre the life cycle methods by
+1. XML configuration
+2. Spring Interfaces
+3. Annotations
+
+https://bushansirgur.in/spring-boot-bean-annotation-with-example/
 
 
 ## 7. JPARepository vs CRUDRepository
@@ -138,4 +149,5 @@ public class Config
 
 
 
-## 12. 
+
+
