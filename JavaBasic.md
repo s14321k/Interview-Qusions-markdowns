@@ -293,6 +293,10 @@ Multiple interface class can be inherited at a time.
 
 ```Extends``` - By extending the class, it can use the methods of super class.
 
+### Interface and Abstract
+We can run an abstract class if it has main() method but we can't run an interface because they can't have main method implementation. Interfaces are used to define contract for the subclasses whereas abstract class also define contract but it can provide other methods implementations for subclasses to use.
+
+
 # Collections
 
 Why the Collections Framework?
@@ -343,6 +347,7 @@ Used for specific data structures
 ## 1. List
 
 1) List is an ordered collection it maintains the insertion order, which means upon displaying the list content it will display the elements in the same order in which they got inserted into the list.
+
 
       List<String> fruitList = new ArrayList<>();
       fruitList.add("Strawberry");
@@ -412,7 +417,7 @@ Set can be instanciated as
 
 Set is implemented by HashSet, LinkedHashSet, TreeSet
 
-- ```HashSet``` - No insertion order. same as set.
+- ```HashSet``` - No insertion order.
 
 
       HashSet<String> set=new HashSet<String>();
@@ -422,7 +427,7 @@ Set is implemented by HashSet, LinkedHashSet, TreeSet
 
 
 
-- ```LinkedHashSet``` - Maintains insertion order. Same as set
+- ```LinkedHashSet``` - Maintains insertion order.
 
 
       LinkedHashSet<String> set=new LinkedHashSet<String>();
@@ -480,8 +485,10 @@ Map is used for key,value purpose. Key should be unique.
 - ```HashTable```
 
     - same as hash map
-
     - It does not allow null keys and null values
+    - Hash tables are used to store and retrieve data (or records) quickly. 
+    - Hashtables store the records in buckets using hash keys.
+    - Java Hashtable implements the Serializable and Cloneable interfaces but not the random access interface.
 
 
       public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneable, Serializable 
@@ -505,6 +512,9 @@ Throwable
 __throw and throws__
 
 __Checked and Unchecked Exceptions__
+
+
+We can exit finally block by using flag. exit(); in try block.
 
 
 ## Syncronization
@@ -726,11 +736,11 @@ The connection pool is used to direct JDBC calls within the application, as well
 https://www.javatpoint.com/string-pool-in-java
 - String pool is nothing but a storage area in Java heap where string literals stores. It is also known as String Intern Pool
 - It is just like object allocation. By default, it is empty and privately maintained by the Java String class.
-
+```
 Same values in
 String literal == String Object;    //False
 String literal == String literal;   //True
-
+```
 
 
 
@@ -1018,6 +1028,8 @@ OUTPUT ```Inside an anonymous class.```
 - In Java Development Kit (JDK) version 1.5 or previous the static block can be executed successfully without the main() method inside the class, but JDK version after 1.5 will throw an error message if there is a static block but no main() method inside the class.
 
 
+## 44. Fail-Fast and Fail-Safe
+- 
 
 
 Yet to do

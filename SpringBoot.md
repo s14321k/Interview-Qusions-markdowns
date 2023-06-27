@@ -1,5 +1,6 @@
 https://www.interviewbit.com/rest-api-interview-questions/
 https://www.baeldung.com/spring-mvc-session-attributes
+https://www.educative.io/courses/guide-spring-5-spring-boot-2/B1WwWk0pw5N#Why-is-@Qualifier-annotation-used?
 ## 1. Difference between spring and spring boot?
 
 
@@ -147,7 +148,17 @@ https://bushansirgur.in/spring-boot-bean-annotation-with-example/
 - The View is responsible for rendering the model data and in general it generates HTML output that the client's browser can interpret.
 - The Controller is responsible for processing user requests and building an appropriate model and passes it to the view for rendering.
 
+## 12. HandlerInterseptor & Filter
+https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter
 
 
+## 13. Exception Handling in  spring boot
+- https://www.tutorialspoint.com/spring_boot/spring_boot_exception_handling.htm
+
+## 14. Exception Handling in Spring boot
+#### @ControllerAdvice
+ - to handle the exceptions globally.
+#### @ExceptionHandler
+ - to handle the specific exceptions and sending the custom responses to the client.
 
 
