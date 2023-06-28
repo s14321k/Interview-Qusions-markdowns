@@ -1,5 +1,6 @@
 # Hibernate
 https://www.tutorialspoint.com/hibernate/hibernate_examples.htm
+https://www.baeldung.com/stored-procedures-with-hibernate-tutorial
 
 ## 1. Eager/Lazy loading in Hibernate
 

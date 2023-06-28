@@ -972,6 +972,7 @@ class Main
 
 ## 43. Anonymous class
 https://youtu.be/mr6n66vMA0k
+https://www.programiz.com/java-programming/anonymous-class
 - In Java, a class can contain another class known as nested class. It's possible to create a nested class without giving any name.
 - A nested class that doesn't have any name is known as an anonymous class.
 

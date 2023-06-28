@@ -1,6 +1,7 @@
 https://www.interviewbit.com/rest-api-interview-questions/
 https://www.baeldung.com/spring-mvc-session-attributes
-https://www.educative.io/courses/guide-spring-5-spring-boot-2/B1WwWk0pw5N#Why-is-@Qualifier-annotation-used?
+
+
 ## 1. Difference between spring and spring boot?
 
 
@@ -40,6 +41,10 @@ https://www.educative.io/courses/guide-spring-5-spring-boot-2/B1WwWk0pw5N#Why-is
 
 ## 6. @Component, @Bean, @Configuration
 
+### @Configuration
+- Spring @Configuration annotation is part of the spring core framework. 
+- Spring Configuration annotation indicates that the class has @Bean definition methods. 
+- So Spring container can process the class and generate Spring Beans to be used in the application
 ### Class Declaration
 ```
   public class Company 
@@ -152,13 +157,17 @@ https://bushansirgur.in/spring-boot-bean-annotation-with-example/
 https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter
 
 
-## 13. Exception Handling in  spring boot
+## 13. Exception Handling in Spring boot
 - https://www.tutorialspoint.com/spring_boot/spring_boot_exception_handling.htm
 
-## 14. Exception Handling in Spring boot
 #### @ControllerAdvice
  - to handle the exceptions globally.
 #### @ExceptionHandler
- - to handle the specific exceptions and sending the custom responses to the client.
+ - t`o handle the specific exceptions and sending the custom responses to the client.
+
+## 14. @Qualifier, @Primary, @Autowired, @Required
+### @Qualifier
+https://www.youtube.com/watch?v=2YC5pIXR7e4&ab_channel=SimpleProgramming
+https://www.educative.io/courses/guide-spring-5-spring-boot-2/B1WwWk0pw5N#Why-is-@Qualifier-annotation-used?
 
 
