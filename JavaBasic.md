@@ -828,6 +828,8 @@ To Create immutable class
 - No setter(), only getter() should be used. ```getter()```
 - Make deep copy for object.
 
+https://www.guru99.com/java-strings.html
+
 
 
 ## 36. URL vs URI

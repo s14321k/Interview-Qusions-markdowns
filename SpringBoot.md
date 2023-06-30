@@ -170,4 +170,19 @@ https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter
 https://www.youtube.com/watch?v=2YC5pIXR7e4&ab_channel=SimpleProgramming
 https://www.educative.io/courses/guide-spring-5-spring-boot-2/B1WwWk0pw5N#Why-is-@Qualifier-annotation-used?
 
+## 15. @Controller vs @RestController
+### @Controller
+- In @Controller, we need to use @ResponseBody on every handler method.
+- In @Controller, we can return a view in Spring Web MVC.
+- In @Controller, we need to use @ResponseBody on every handler method.
+- Specialization of @Component
+- Serves as the roll of controller
+- Used in Spring MVC
+- The dispatcher scans such annotated classes for mapped methods and detects @RequestMapping annotations.
 
+### @RestController
+- In @RestController, we don’t need to use @ResponseBody on every handler method.
+- In @RestController, we can not return a view.
+- In @RestController, we don’t need to use @ResponseBody on every handler method.
+
+![img_18.png](img_18.png)

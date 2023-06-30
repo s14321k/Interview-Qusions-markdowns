@@ -43,6 +43,7 @@ The stream API and lambda expressions are the new features that move us closer t
 </pre>
 
 ## 2. Method Reference
+https://www.javatpoint.com/java-8-method-reference
 
 A method reference allows us to call functions in classes using a special kind of syntax ::. There are four kinds of method references:
 
@@ -151,6 +152,27 @@ One of our requirements is that each email has to be in a format <name>@<company
 ```<Class name>::<method name>```
 
 
+# Java 9
+
+## 1. Closing a Resource with try-with-resources
+    public class TryWithResources 
+    {
+        public static void main(String[] args) 
+        {
+            final BufferedReader br3 = new BufferedReader(
+                                        new StringReader("Hello world example3!"));
+            try (BufferedReader reader = br3) 
+            {
+                System.out.println(reader.readLine());
+            }
+            catch (IOException e)
+            {
+                System.out.println("Error happened!");
+            }
+        }
+    }
+
+## 2. Private interface methods
 
 
 https://www.tutorialspoint.com/java8/index.htm
