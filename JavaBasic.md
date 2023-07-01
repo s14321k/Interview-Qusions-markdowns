@@ -883,8 +883,15 @@ String literal == String literal;   //True
 ## 29. Eden space in java
 
 
-## 30. PermGen Space (Permanent Generation)
+## 30. PermGen Space (Permanent Generation) and Meta Space
 ![img.png](img.png)
+
+### PerGen vs Meta space
+![img_21.png](img_21.png)
+
+
+
+
 ## 31. URL vs URI
 
 - In short, all URLs are URIs, but not all URIs are URLs.
@@ -939,7 +946,7 @@ String literal == String literal;   //True
 - If several references point to the same String without even knowing it, it would be bad if one of the references modified that String value. 
 - That's why String objects are immutable.
 
-To Create immutable class
+### To Create immutable class
 - Set the class name as final ```public final calss ClassName```
 - set variable declared as final and private ```private final string variablename;```
 - No setter(), only getter() should be used. ```getter()```
@@ -1010,7 +1017,7 @@ catch (FileNotFoundException fnfe)
 
 Here's where to further explore the Scanner class.
 
-#### 4. try-with-resources With Multiple Resources
+#### try-with-resources With Multiple Resources
    We can declare multiple resources just fine in a try-with-resources block by separating them with a semicolon:
 ```
 try (Scanner scanner = new Scanner(new File("testRead.txt"));
@@ -1023,7 +1030,7 @@ PrintWriter writer = new PrintWriter(new File("testWrite.txt")))
 }
 ```
 
-5. A Custom Resource With AutoCloseable
+#### A Custom Resource With AutoCloseable
    To construct a custom resource that will be correctly handled by a try-with-resources block, the class should implement the Closeable or AutoCloseable interfaces and override the close method:
 
 ```
@@ -1044,6 +1051,11 @@ public class MyResource implements AutoCloseable
 
 ## 40. Java Singleton Class design pattern
 https://www.programiz.com/java-programming/singleton
+
+To Create Singleton class
+1. Private static object of the same class
+2. Private constructor
+3. getInstance method
 
 ```
 class Database 
@@ -1130,11 +1142,13 @@ class Main
    }
 }
 ```
-OUTPUT ```Inside an anonymous class.```
+**OUTPUT** ```Inside an anonymous class.```
 
 
 ## 43. Factory Design pattern
+https://www.geeksforgeeks.org/factory-method-design-pattern-in-java/
 
+- Multiple classes using same interface and to use that.
 
 
 
@@ -1158,13 +1172,8 @@ static
 - In Java Development Kit (JDK) version 1.5 or previous the static block can be executed successfully without the main() method inside the class, but JDK version after 1.5 will throw an error message if there is a static block but no main() method inside the class.
 
 
-## 44. Fail-Fast and Fail-Safe
-
-
-## 45. Type interface
-
-
-## Meta space pogen
+## 44. ConcurrentModificationException / Fail-Fast and Fail-Safe
+- https://www.geeksforgeeks.org/fail-fast-fail-safe-iterators-java/
 
 
 
