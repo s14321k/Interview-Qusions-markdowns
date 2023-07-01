@@ -1,3 +1,13 @@
+<!-- TOC -->
+* [SQL Ques](#sql-ques)
+  * [1. Find max and second max salary for a employee table MySQL](#1-find-max-and-second-max-salary-for-a-employee-table-mysql)
+  * [2. Types of Relationship in DBMS](#2-types-of-relationship-in-dbms)
+  * [3. View in sql](#3-view-in-sql)
+  * [5. SQL FOREIGN KEY Constraint](#5-sql-foreign-key-constraint)
+  * [4. Joins in SQL](#4-joins-in-sql)
+<!-- TOC -->
+
+
 # SQL Ques
 ## 1. Find max and second max salary for a employee table MySQL
 - Try this, n would be the nth item you would want to return

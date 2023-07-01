@@ -1,3 +1,113 @@
+<!-- TOC -->
+* [Java-Interview-Qus](#java-interview-qus)
+  * [variables:](#variables)
+  * [Float and double](#float-and-double)
+  * [int vs Integer](#int-vs-integer)
+    * [Compile time Error](#compile-time-error)
+      * [Two types:-](#two-types-)
+    * [Run Time error](#run-time-error)
+    * [*  Constant *](#---constant-)
+    * [* Value *](#--value-)
+    * [* Field *](#--field-)
+    * [* Property *](#--property-)
+      * [CLASS – Class is a collection of objects.](#class--class-is-a-collection-of-objects)
+      * [OBJECTS – Is a memory representation of a class](#objects--is-a-memory-representation-of-a-class)
+      * [Implicit and Explicit - So in simple world implicit is done by jvm or language and explicit is done by programmer.](#implicit-and-explicit---so-in-simple-world-implicit-is-done-by-jvm-or-language-and-explicit-is-done-by-programmer)
+  * [Primary main features of java:](#primary-main-features-of-java)
+  * [Identifiers](#identifiers)
+* [Modifier in Java](#modifier-in-java)
+  * [1. Access modifiers](#1-access-modifiers)
+    * [private access modifier](#private-access-modifier)
+    * [private constructor](#private-constructor)
+    * [Default access modifier](#default-access-modifier)
+  * [2- Non-access Modifiyers](#2--non-access-modifiyers)
+* [OOP(Object Oriented Programming)](#oopobject-oriented-programming)
+  * [1 . Polymorphism](#1--polymorphism)
+  * [2 . Inheritance](#2--inheritance)
+  * [3 . Encapsulation - hiding the information.](#3--encapsulation---hiding-the-information)
+  * [4 . Abstraction](#4--abstraction)
+  * [5 . Interface](#5--interface)
+  * [After java 1.8 default and static method declaration is allowed,](#after-java-18-default-and-static-method-declaration-is-allowed)
+    * [Implements and Extends --> https://www.edureka.co/blog/implements-in-java/](#implements-and-extends----httpswwwedurekacoblogimplements-in-java)
+    * [Interface and Abstract](#interface-and-abstract)
+* [Collections](#collections)
+    * [Methods used:-](#methods-used-)
+  * [1. List](#1-list)
+      * [One of the limitations of the singly linked list is that it can be traversed in only one direction that is forward. The doubly linked list has overcome this limitation by providing an additional pointer that points to the previous node. With the help of the previous pointer, the doubly linked list can be traversed in a backward direction thus making insertion and deletion operation easier to perform. So, a typical node in the doubly linked list consists of three fields:](#one-of-the-limitations-of-the-singly-linked-list-is-that-it-can-be-traversed-in-only-one-direction-that-is-forward-the-doubly-linked-list-has-overcome-this-limitation-by-providing-an-additional-pointer-that-points-to-the-previous-node-with-the-help-of-the-previous-pointer-the-doubly-linked-list-can-be-traversed-in-a-backward-direction-thus-making-insertion-and-deletion-operation-easier-to-perform-so-a-typical-node-in-the-doubly-linked-list-consists-of-three-fields)
+  * [2. Set](#2-set)
+  * [3. Map](#3-map)
+  * [Exception Handling](#exception-handling)
+  * [Syncronization](#syncronization)
+  * [Aplet](#aplet)
+  * [Serialization and Deserialization](#serialization-and-deserialization)
+* [Auto-boxing and Auto-Unboxing](#auto-boxing-and-auto-unboxing)
+    * [Boxing & AutoBoxing - Primitive values to Object or wrapper class.](#boxing--autoboxing---primitive-values-to-object-or-wrapper-class-)
+    * [UnBoxing & AutoBoxing - Object to primitive type.](#unboxing--autoboxing---object-to-primitive-type)
+* [String Manipulation__](#string-manipulation)
+* [Cohesion and Coupling in Java](#cohesion-and-coupling-in-java)
+  * [Coupling](#coupling)
+    * [Loose coupling](#loose-coupling)
+    * [Tight Coupling](#tight-coupling)
+  * [Cohesion](#cohesion)
+* [Java Questions](#java-questions)
+  * [1.](#1)
+  * [2. Size() vs length()](#2-size-vs-length)
+  * [5. What is Rest API](#5-what-is-rest-api)
+  * [6. How to understand the dependency](#6-how-to-understand-the-dependency)
+  * [7. What is Spring framework and how its works](#7-what-is-spring-framework-and-how-its-works)
+  * [8. How security implemented](#8-how-security-implemented)
+  * [9. What design patterns are used, explain the reason for the usage](#9-what-design-patterns-are-used-explain-the-reason-for-the-usage)
+  * [10. Pass by value and Pass by reference](#10-pass-by-value-and-pass-by-reference)
+  * [11. How data connection setup, configuration and steps](#11-how-data-connection-setup-configuration-and-steps)
+  * [12. Details the spring configuration call](#12-details-the-spring-configuration-call)
+  * [13. Boot sequence of the application](#13-boot-sequence-of-the-application)
+  * [14. How to compile simple applications](#14-how-to-compile-simple-applications)
+  * [15. What are required to run simple Java applications](#15-what-are-required-to-run-simple-java-applications)
+  * [16. What is the difference between JDK and JRE](#16-what-is-the-difference-between-jdk-and-jre)
+  * [17. Is it possible run the application with JRE](#17-is-it-possible-run-the-application-with-jre)
+  * [18. What is JVM](#18-what-is-jvm)
+  * [19. What are collection, how collections are used](#19-what-are-collection-how-collections-are-used)
+  * [20. Hashmap, what is the complexity of traversing](#20-hashmap-what-is-the-complexity-of-traversing)
+  * [21. Java version work, and what features are used](#21-java-version-work-and-what-features-are-used)
+  * [22. Stream API](#22-stream-api)
+  * [23. Data Binding](#23-data-binding)
+    * [Static Binding](#static-binding)
+      * [Override static method](#override-static-method)
+    * [Dynamic Binding](#dynamic-binding)
+  * [24. Cqrs Pattern, what is the solution scenario used](#24-cqrs-pattern-what-is-the-solution-scenario-used)
+  * [25. What build tool used](#25-what-build-tool-used)
+  * [26. What is the difference between install and deploy](#26-what-is-the-difference-between-install-and-deploy)
+  * [27. connection pooling and String Pool in java](#27-connection-pooling-and-string-pool-in-java)
+    * [Connection Pooling](#connection-pooling)
+      * [Benefits of connection pooling](#benefits-of-connection-pooling)
+    * [String pool](#string-pool)
+  * [28. Equals() & HashCode(), Equals()](#28-equals--hashcode-equals)
+  * [29. Eden space in java](#29-eden-space-in-java)
+  * [30. PermGen Space (Permanent Generation)](#30-permgen-space-permanent-generation)
+  * [31. URL vs URI](#31-url-vs-uri)
+  * [32. Session management](#32-session-management)
+  * [33. Loggers](#33-loggers)
+  * [34. String vs StringBuffer vs StringBuilder](#34-string-vs-stringbuffer-vs-stringbuilder)
+    * [String vs StringBuffer](#string-vs-stringbuffer)
+  * [35. Why string is immutable in java](#35-why-string-is-immutable-in-java)
+  * [36. URL vs URI](#36-url-vs-uri)
+  * [37. Comparable and Comparator](#37-comparable-and-comparator)
+  * [38. Try with Resource](#38-try-with-resource)
+      * [The first is a typical try-catch-finally block:](#the-first-is-a-typical-try-catch-finally-block)
+      * [4. try-with-resources With Multiple Resources](#4-try-with-resources-with-multiple-resources)
+  * [39. Initialization vs Instatiation](#39-initialization-vs-instatiation)
+  * [40. Java Singleton Class design pattern](#40-java-singleton-class-design-pattern)
+  * [43. Anonymous class](#43-anonymous-class)
+  * [43. Factory Design pattern](#43-factory-design-pattern)
+  * [42. Authentication and Authorization](#42-authentication-and-authorization)
+  * [43. Static Block in java < 1.5](#43-static-block-in-java--15)
+  * [44. Fail-Fast and Fail-Safe](#44-fail-fast-and-fail-safe)
+  * [45. Type interface](#45-type-interface)
+  * [Meta space pogen](#meta-space-pogen)
+<!-- TOC -->
+
+
+
 # Java-Interview-Qus
 
 ## variables:
@@ -18,6 +128,9 @@ https://stackoverflow.com/questions/8660691/what-is-the-difference-between-integ
 ***
 ```
 final - keyword 
+https://www.geeksforgeeks.org/final-keyword-in-java/
+
+    ![img_19.png](img_19.png)
 
 finally - block used after try catch 
 
@@ -345,6 +458,8 @@ Used for specific data structures
 
 
 ## 1. List
+
+![img_20.png](img_20.png)
 
 1) List is an ordered collection it maintains the insertion order, which means upon displaying the list content it will display the elements in the same order in which they got inserted into the list.
 
@@ -766,6 +881,8 @@ String literal == String literal;   //True
          c & d are Un-equal variables, and their respective hash values are: 74113750 & 71933245
      ```
 ## 29. Eden space in java
+
+
 ## 30. PermGen Space (Permanent Generation)
 ![img.png](img.png)
 ## 31. URL vs URI
@@ -931,7 +1048,7 @@ https://www.programiz.com/java-programming/singleton
 ```
 class Database 
 {
-    private static Database dbObject;     //static object of the same class
+    private static Database dbObject;     //Private static object of the same class
     
     private Database()                    //Private constructor
     {      
@@ -1024,15 +1141,32 @@ OUTPUT ```Inside an anonymous class.```
 ## 42. Authentication and Authorization
 
 - Authentication is the process of identifying a user to provide access to a system. 
-- Authorization is the process of giving permission to access the resources. In this, the user or client and server are verified. In this, it is verified that if the user is allowed through the defined policies and rules.
+- Authorization is the process of giving permission to access the resources.
+- In this, the user or client and server are verified. In this, it is verified that if the user is allowed through the defined policies and rules.
 
 ## 43. Static Block in java < 1.5
+
+https://www.scaler.com/topics/static-block-in-java/
+
+```
+static
+{
+}
+```
+- 
 - Static block in java is used for changing the default value of static variables, initializing static variables of the class, write a set of codes that you want to execute during the class loading in memory.
 - In Java Development Kit (JDK) version 1.5 or previous the static block can be executed successfully without the main() method inside the class, but JDK version after 1.5 will throw an error message if there is a static block but no main() method inside the class.
 
 
 ## 44. Fail-Fast and Fail-Safe
-- 
+
+
+## 45. Type interface
+
+
+## Meta space pogen
+
+
 
 
 Yet to do

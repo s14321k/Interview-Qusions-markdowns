@@ -1,6 +1,42 @@
 https://www.interviewbit.com/rest-api-interview-questions/
 https://www.baeldung.com/spring-mvc-session-attributes
 
+https://www.marcobehler.com/guides/spring-and-spring-boot-versions
+
+
+<!-- TOC -->
+  * [1. Difference between spring and spring boot?](#1-difference-between-spring-and-spring-boot)
+  * [2. Mention the need for it.](#2-mention-the-need-for-it)
+  * [3. Features of spring boot](#3-features-of-spring-boot)
+  * [4. Possible sources of external configuration](#4-possible-sources-of-external-configuration)
+  * [5. Attributes in spring](#5-attributes-in-spring)
+  * [6. @Component, @Bean, @Configuration](#6-component-bean-configuration)
+    * [@Configuration](#configuration)
+    * [Class Declaration](#class-declaration)
+    * [Collabrator](#collabrator)
+    * [Traditional Approach](#traditional-approach)
+    * [Bean Configuration](#bean-configuration)
+    * [Life cycle of bean](#life-cycle-of-bean)
+      * [Configre the life cycle methods by](#configre-the-life-cycle-methods-by)
+  * [7. JPARepository vs CRUDRepository](#7-jparepository-vs-crudrepository)
+  * [8. How configuration works in Spring](#8-how-configuration-works-in-spring)
+  * [9. Is REST API stateless or stateful?](#9-is-rest-api-stateless-or-stateful)
+  * [10. Spring Boot Architecture](#10-spring-boot-architecture)
+  * [11. Spring Architecture](#11-spring-architecture)
+  * [12. HandlerInterseptor & Filter](#12-handlerinterseptor--filter)
+  * [13. Exception Handling in Spring boot](#13-exception-handling-in-spring-boot)
+      * [@ControllerAdvice](#controlleradvice)
+      * [@ExceptionHandler](#exceptionhandler)
+  * [14. @Qualifier, @Primary, @Autowired, @Required](#14-qualifier-primary-autowired-required)
+    * [@Qualifier](#qualifier)
+    * [@Autowired](#autowired)
+  * [15. @Controller vs @RestController](#15-controller-vs-restcontroller)
+    * [@Controller](#controller)
+    * [@RestController](#restcontroller)
+  * [16. Dependency Injection](#16-dependency-injection)
+  * [17. @Transaction](#17-transaction)
+<!-- TOC -->
+
 
 ## 1. Difference between spring and spring boot?
 
@@ -42,6 +78,8 @@ https://www.baeldung.com/spring-mvc-session-attributes
 ## 6. @Component, @Bean, @Configuration
 
 ### @Configuration
+
+https://www.digitalocean.com/community/tutorials/spring-configuration-annotation
 - Spring @Configuration annotation is part of the spring core framework. 
 - Spring Configuration annotation indicates that the class has @Bean definition methods. 
 - So Spring container can process the class and generate Spring Beans to be used in the application
@@ -170,6 +208,9 @@ https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter
 https://www.youtube.com/watch?v=2YC5pIXR7e4&ab_channel=SimpleProgramming
 https://www.educative.io/courses/guide-spring-5-spring-boot-2/B1WwWk0pw5N#Why-is-@Qualifier-annotation-used?
 
+### @Autowired
+https://bushansirgur.in/spring-boot-autowire-annotation-with-example/
+
 ## 15. @Controller vs @RestController
 ### @Controller
 - In @Controller, we need to use @ResponseBody on every handler method.
@@ -183,6 +224,20 @@ https://www.educative.io/courses/guide-spring-5-spring-boot-2/B1WwWk0pw5N#Why-is
 ### @RestController
 - In @RestController, we don’t need to use @ResponseBody on every handler method.
 - In @RestController, we can not return a view.
-- In @RestController, we don’t need to use @ResponseBody on every handler method.
 
 ![img_18.png](img_18.png)
+
+
+## 16. Dependency Injection
+
+https://www.javatpoint.com/dependency-injection-in-spring
+
+Dependency Injection (DI) is a design pattern that removes the dependency from the programming code so that it can be easy to manage and test the application.
+Dependency Injection makes our programming code loosely coupled.
+
+Spring framework provides two ways to inject dependency
+
+- By Constructor
+- By Setter method
+
+## 17. @Transaction
