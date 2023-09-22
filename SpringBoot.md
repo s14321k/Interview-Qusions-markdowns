@@ -40,7 +40,6 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 
 ## 1. Difference between spring and spring boot?
 
-
 | Sping                                                            | Spring boot        |                
 |------------------------------------------------------------------|--------------------|
 | Frame work                                                       | module of spring   |
@@ -71,9 +70,6 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 - @Autowired to create instance of interface class
 - @ModelAttribute("location") Location location, ModelMap map)
 - @PathVariable
-
-
-
 
 ## 6. @Component, @Bean, @Configuration
 
@@ -169,7 +165,6 @@ https://bushansirgur.in/spring-boot-bean-annotation-with-example/
 | JPA also provides some extra methods related to JPA <br/>such as delete records in batch and flushing data directly to a database.   | It provides only CRUD functions like findOne, saves, etc.               |
 
 
-
 ## 8. How configuration works in Spring
 - Spring @Configuration annotation is part of the spring core framework. 
 - Spring Configuration annotation indicates that the class has @Bean definition methods. 
@@ -194,12 +189,11 @@ https://bushansirgur.in/spring-boot-bean-annotation-with-example/
 ## 12. HandlerInterseptor & Filter
 https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter
 
-
 ## 13. Exception Handling in Spring boot
 - https://www.tutorialspoint.com/spring_boot/spring_boot_exception_handling.htm
 
 #### @ControllerAdvice
- - to handle the exceptions globally.
+- to handle the exceptions globally.
 #### @ExceptionHandler
  - t`o handle the specific exceptions and sending the custom responses to the client.
 
@@ -241,3 +235,18 @@ Spring framework provides two ways to inject dependency
 - By Setter method
 
 ## 17. @Transaction
+https://stackoverflow.com/a/54326437/11962586
+- Used to roll back the process.
+- If A is sending 100$ to B. If the transactionn is not successful, then  roll back happens.
+
+## 18. SSO
+### ```Single sign on``` with ```Spring security OAuth2```
+
+## LDAP
+The most common LDAP use case is providing a central location for accessing and managing directory services. 
+LDAP enables organizations to store, manage, and secure information about the organization, its users, and assets–like usernames and passwords.
+
+## @PostConstruct , @PreDestroy
+https://stackoverflow.com/q/46668418/11962586
+
+## @Transient

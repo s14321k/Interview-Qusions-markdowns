@@ -1176,6 +1176,13 @@ static
 - https://www.geeksforgeeks.org/fail-fast-fail-safe-iterators-java/
 
 
+## 45. Transient Keyword
+- Is used to avoid serialization. If any object of a data structure is defiend as a transient, then it will not be serialized.
+
+## 46. Association, Composition and Aggregation in Java
+https://www.geeksforgeeks.org/association-composition-aggregation-java/
+![img_22.png](img_22.png)
+Association is a relation between two separate classes which establishes through their objects. Association can be one-to-one, one-to-many, many-to-one, many-to-many. In Object-Oriented programming, an Object communicates to another object to use functionality and services provided by that object. Composition and Aggregation are the two forms of association.
 
 
 Yet to do

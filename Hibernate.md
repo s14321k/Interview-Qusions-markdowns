@@ -12,7 +12,7 @@
 
 # Hibernate
 https://www.tutorialspoint.com/hibernate/hibernate_examples.htm
-https://www.baeldung.com/stored-procedures-with-hibernate-tutorial
+
 
 ## 1. Eager/Lazy loading in Hibernate
 
@@ -49,3 +49,11 @@ https://www.baeldung.com/stored-procedures-with-hibernate-tutorial
 
 
 ## 4. Hibernate and implementation
+
+
+## 5. Stored Procedure
+- https://www.baeldung.com/stored-procedures-with-hibernate-tutorial
+
+
+## get() and load()
+- 
