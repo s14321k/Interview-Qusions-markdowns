@@ -126,16 +126,16 @@ https://stackoverflow.com/questions/8660691/what-is-the-difference-between-integ
 
 
 ***
-```
+
 final - keyword 
 https://www.geeksforgeeks.org/final-keyword-in-java/
 
-    ![img_19.png](img_19.png)
+   ![img_19.png](img_19.png)
 
 finally - block used after try catch 
 
 finalize - method for clean up. Garbage collection 
-```
+
  ***
 ### Compile time Error
 
