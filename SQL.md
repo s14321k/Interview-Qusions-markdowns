@@ -19,12 +19,12 @@ In your case
 
 ## 2. Types of Relationship in DBMS
 - One to One relationship
-- ![img_2.png](img_2.png)
+- ![img_2.png](images/img_2.png)
 - One to many or many to one relationship
-- ![img_3.png](img_3.png)
-- ![img_4.png](img_4.png)
+- ![img_3.png](images/img_3.png)
+- ![img_4.png](images/img_4.png)
 - Many to many relationships
-- ![img_5.png](img_5.png)
+- ![img_5.png](images/img_5.png)
 - https://www.javatpoint.com/types-of-relationship-in-database-table
 
 ## 3. View in sql
