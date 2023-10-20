@@ -56,4 +56,43 @@ https://www.tutorialspoint.com/hibernate/hibernate_examples.htm
 
 
 ## get() and load()
-- 
+
+In Hibernate, `get()` and `load()` are two methods used to retrieve data from a relational database. Both methods are used to load an object from the database, but they have some differences in terms of their behavior and when they should be used.
+
+1. `get()` method:
+
+The `get()` method is used to retrieve an object from the database based on its primary key (unique identifier). If the object with the specified primary key is not found in the database, the `get()` method returns `null`. The `get()` method always hits the database and retrieves the object immediately.
+
+Here is an example of how to use the `get()` method in Hibernate:
+
+```java
+Session session = sessionFactory.openSession();
+Transaction transaction = session.beginTransaction();
+
+MyEntity myEntity = session.get(MyEntity.class, 1L); // Load an entity with primary key 1
+
+transaction.commit();
+session.close();
+```
+
+2. `load()` method:
+
+The `load()` method is also used to retrieve an object from the database based on its primary key. However, it differs from `get()` in its behavior. When you use `load()`, Hibernate doesn't hit the database immediately to retrieve the object. Instead, it returns a proxy object with the specified primary key, and the actual database query is executed only when you access the properties of the loaded object. If the object with the specified primary key is not found in the database, a `ObjectNotFoundException` is thrown when you try to access its properties.
+
+Here is an example of how to use the `load()` method in Hibernate:
+
+```java
+Session session = sessionFactory.openSession();
+Transaction transaction = session.beginTransaction();
+
+MyEntity myEntity = session.load(MyEntity.class, 1L); // Load an entity with primary key 1
+
+// No database query executed at this point
+
+System.out.println(myEntity.getName()); // Database query executed here
+
+transaction.commit();
+session.close();
+```
+
+In summary, you should use the `get()` method when you want to immediately load an object from the database, and you are not sure if the object exists in the database. On the other hand, you can use the `load()` method when you expect the object to exist and you want to potentially benefit from lazy loading, which can be more efficient in some cases. However, you should be cautious when using `load()` to avoid `ObjectNotFoundException` if the object doesn't exist in the database. 

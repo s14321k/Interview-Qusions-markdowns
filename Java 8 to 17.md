@@ -21,7 +21,7 @@
 ***
 [JAVA8 to JAVA17](https://reflectoring.io/java-release-notes/)
 
-# Java 8
+# [Java 8](https://www.tutorialspoint.com/java8/index.htm)
 1. Lambda Expression and Stream API
 2. Method Reference
 3. Default Methods
@@ -53,7 +53,7 @@ The stream API and lambda expressions are the new features that move us closer t
 </code></pre>
 
 
-### Using Steam and Lambda
+### Using Stream and Lambda
 
 <pre tabindex="0" style="color:#f8f8f2;-moz-tab-size:4;-o-tab-size:4;tab-size:4; padding: 10px 5px 10px 52px;border-radius: 20px;background:rgba(121,98,48,0.44);">
 <code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LambdaExpressions</span>
@@ -66,6 +66,42 @@ The stream API and lambda expressions are the new features that move us closer t
 <span style="color:#f92672">}</span>
 </code>
 </pre>
+
+#### map() and  flatMap() in streamAPI
+In Java Stream API, `map` and `flatMap` are two distinct operations that are used for transforming the elements of a stream. They serve different purposes, and understanding when to use each is important.
+
+1. **`map`**:
+  - `map` is used to transform each element in a stream to another element based on a provided function.
+  - It applies the mapping function to each element and produces a one-to-one mapping.
+  - The result is a stream of the same length as the original, with each element transformed according to the mapping function.
+  - Use `map` when you want to apply a function to each element in the stream and get a stream of the transformed elements.
+
+   Example:
+
+ ```java
+ List<String> words = List.of("Hello", "World");
+ List<Integer> lengths = words.stream()
+     .map(String::length)
+     .collect(Collectors.toList());
+ // Result: [5, 5]
+ ```
+
+2. **`flatMap`**:
+  - `flatMap` is used when you want to transform each element into a stream of values, and then flatten those streams into a single stream.
+  - It is typically used when the mapping function returns a `Stream` or a collection of elements, and you want to combine the results into a single stream.
+  - Use `flatMap` when you want to perform a one-to-many mapping operation and flatten the results.
+
+   Example:
+
+ ```java
+ List<List<Integer>> list = List.of(List.of(1, 2), List.of(3, 4, 5));
+ List<Integer> flattenedList = list.stream()
+     .flatMap(Collection::stream)
+     .collect(Collectors.toList());
+ // Result: [1, 2, 3, 4, 5]
+ ```
+
+In summary, if you want to apply a function to each element in a stream and get a stream of transformed elements, use `map`. If you want to transform each element into a stream of values and then flatten those streams into a single stream, use `flatMap`. The choice between them depends on the nature of the transformation and the desired output structure.
 
 ## 2. [Method Reference](https://www.javatpoint.com/java-8-method-reference)
 

@@ -4,6 +4,43 @@ https://www.baeldung.com/spring-mvc-session-attributes
 https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 
 
+<!-- TOC -->
+  * [Difference between spring and spring boot?](#difference-between-spring-and-spring-boot)
+  * [Mention the need for it.](#mention-the-need-for-it)
+  * [Features of spring boot](#features-of-spring-boot)
+  * [Possible sources of external configuration](#possible-sources-of-external-configuration)
+  * [Attributes in spring](#attributes-in-spring)
+  * [@Component, @Bean, @Configuration](#component-bean-configuration)
+    * [@Configuration](#configuration)
+    * [Class Declaration](#class-declaration)
+    * [Collabrator](#collabrator)
+    * [Traditional Approach](#traditional-approach)
+    * [Bean Configuration](#bean-configuration)
+    * [Life cycle of bean](#life-cycle-of-bean)
+      * [Configre the life cycle methods by](#configre-the-life-cycle-methods-by)
+  * [JPARepository vs CRUDRepository](#jparepository-vs-crudrepository)
+  * [How configuration works in Spring](#how-configuration-works-in-spring)
+  * [Is REST API stateless or stateful?](#is-rest-api-stateless-or-stateful)
+  * [Spring Boot Architecture](#spring-boot-architecture)
+  * [Spring Architecture](#spring-architecture)
+  * [HandlerInterseptor & Filter](#handlerinterseptor--filter)
+  * [Exception Handling in Spring boot](#exception-handling-in-spring-boot)
+      * [@ControllerAdvice](#controlleradvice)
+      * [@ExceptionHandler](#exceptionhandler)
+  * [Annotations in Spring boot](#annotations-in-spring-boot)
+  * [@Qualifier, @Primary, @Autowired, @Required](#qualifier-primary-autowired-required)
+    * [@Qualifier](#qualifier)
+    * [@Autowired](#autowired)
+  * [@Controller vs @RestController](#controller-vs-restcontroller)
+    * [@Controller](#controller)
+    * [@RestController](#restcontroller)
+  * [@Transaction](#transaction)
+  * [Dependency Injection](#dependency-injection)
+  * [SSO (Single Sign On)](#sso-single-sign-on)
+    * [```Single sign on``` with ```Spring security OAuth2```](#single-sign-on-with-spring-security-oauth2)
+  * [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
+  * [AOP (Aspect-Oriented Programming)](#aop-aspect-oriented-programming-)
+<!-- TOC -->
 
 
 ## Difference between spring and spring boot?
@@ -169,6 +206,7 @@ https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter
 ## [Annotations in Spring boot](https://www.javatpoint.com/spring-boot-annotations)
  - @SpringBootApplication
  - @EnableAutoConfiguration -
+ - @ComponentScan(basePackages = "com.hhs")
  - @Required - Applied at the bean setter method. This should be populated at configuration time with the required property.
  - @Autowired - provides annotation-based autowiring by providing @Autowired.
  - @Configuration - is a class level annotation.
@@ -281,6 +319,7 @@ Spring Boot and Spring MVC provide extensive support for handling various aspect
  - @Repository - 
  - @EnableAutoConfiguration - 
  - @SpringBootApplication - 
+ - @EnableCaching
  - @Cacheable("envProperty") - ![img.png](images/AnnotationCachingSpringBoot.png)
  - @InitBinder - To trim the values passed in @RequestParam and @ModelAttribute
  - @EntityGraph - ![img.png](images/AnnotationEntityGraph.png)
@@ -324,10 +363,243 @@ Spring framework provides two ways to inject dependency
 - By Constructor
 - By Setter method
 
-## SSO
-### ```Single sign on``` with ```Spring security OAuth2```
+In Spring Boot, dependency injection is a fundamental concept that helps manage and wire together the components of your application. There are several types of dependency injection you can use in Spring Boot:
 
-## LDAP
+1. **Constructor Injection**:
+    - Constructor injection is the most common and recommended form of dependency injection in Spring Boot. You inject dependencies through a constructor of a class.
+    - Example:
+      ```java
+      @Service
+      public class MyService {
+          private final MyRepository repository;
+ 
+          @Autowired
+          public MyService(MyRepository repository) {
+              this.repository = repository;
+          }
+      }
+      ```
+
+2. **Setter Injection**:
+    - Setter injection involves using setter methods to inject dependencies.
+    - Example:
+      ```java
+      @Service
+      public class MyService {
+          private MyRepository repository;
+ 
+          @Autowired
+          public void setRepository(MyRepository repository) {
+              this.repository = repository;
+          }
+      }
+      ```
+
+3. **Field Injection**:
+    - Field injection directly injects dependencies into fields of a class using annotations.
+    - Example:
+      ```java
+      @Service
+      public class MyService {
+          @Autowired
+          private MyRepository repository;
+      }
+      ```
+    - Field injection is generally discouraged because it makes it harder to test and maintain code.
+
+4. **Method Injection**:
+    - Method injection involves injecting dependencies through custom methods.
+    - Example:
+      ```java
+      @Service
+      public class MyService {
+          private MyRepository repository;
+ 
+          @Autowired
+          public void injectRepository(MyRepository repository) {
+              this.repository = repository;
+          }
+      }
+      ```
+
+5. **Interface-Based Injection**:
+    - Spring Boot can perform dependency injection based on interfaces. When you have multiple implementations of an interface, you can use `@Autowired` or `@Qualifier` to specify which implementation to inject.
+    - Example:
+      ```java
+      @Service
+      public class MyService {
+          private final MyRepository repository;
+ 
+          @Autowired
+          public MyService(MyRepository repository) {
+              this.repository = repository;
+          }
+      }
+      ```
+
+6. **Qualifier and Primary**:
+    - When you have multiple beans of the same type, you can use `@Qualifier` or `@Primary` annotations to specify which one to inject.
+    - Example:
+      ```java
+      @Service
+      public class MyService {
+          private final MyRepository primaryRepository;
+ 
+          @Autowired
+          public MyService(@Qualifier("primary") MyRepository primaryRepository) {
+              this.primaryRepository = primaryRepository;
+          }
+      }
+      ```
+
+Remember to use dependency injection in Spring Boot to achieve loose coupling and to make your code more maintainable, testable, and scalable. The choice of which type of dependency injection to use depends on your specific use case and coding style, but constructor injection is generally considered a best practice.
+
+## SSO (Single Sign On)
+### ```Single sign on``` with ```Spring security OAuth2```
+SSO, or Single Sign-On, is an authentication process that allows a user to access multiple applications or services with a single set of credentials (username and password) after the initial login. In other words, it enables users to log in once and gain access to various systems and services without having to enter their credentials repeatedly. SSO is widely used in various IT and web applications to enhance user convenience and security.
+
+Here are some key points about SSO:
+
+1. **Single Authentication:** With SSO, users authenticate themselves once with their username and password, and a trusted system (an identity provider) verifies their identity.
+
+2. **Access to Multiple Services:** After successful authentication, the user can access a variety of services, applications, and resources without the need to provide their credentials again.
+
+3. **Common Use Cases:** SSO is commonly used in organizations to simplify access to multiple internal applications and external services, including email, cloud services, intranet portals, and more.
+
+4. **Identity Providers:** SSO relies on an Identity Provider (IdP) that verifies the user's identity during the initial login. Popular identity providers include Microsoft Azure Active Directory, Okta, and Google Identity Platform.
+
+5. **Federated Identity:** In many SSO implementations, identity providers and service providers (the applications or services the user accesses) establish trust relationships through federated identity protocols like SAML (Security Assertion Markup Language), OAuth, or OpenID Connect.
+
+6. **User Experience:** SSO enhances the user experience by reducing the number of login prompts and passwords to remember, making it more convenient and user-friendly.
+
+7. **Security Benefits:** SSO can improve security by enabling centralized authentication and authorization policies, allowing organizations to enforce strong password policies and multi-factor authentication.
+
+8. **User Provisioning and De-provisioning:** SSO often includes user provisioning and de-provisioning capabilities, allowing administrators to grant or revoke access to services as employees join or leave the organization.
+
+9. **Logging and Auditing:** SSO solutions often provide centralized logging and auditing capabilities, helping organizations monitor and track user access to various systems.
+
+10. **Single Log-Out:** SSO typically includes a "single log-out" feature, allowing users to log out from all services simultaneously with a single action.
+
+11. **Challenges:** While SSO offers many benefits, it can also introduce risks. If a user's SSO credentials are compromised, it potentially grants an attacker access to multiple services. Therefore, strong security measures like multi-factor authentication (MFA) are often used in conjunction with SSO to mitigate such risks.
+
+SSO is a crucial component of modern identity and access management (IAM) systems and is widely adopted in both enterprise and consumer-facing applications to improve user convenience and security.
+
+
+## LDAP (Lightweight Directory Access Protocol)
 The most common LDAP use case is providing a central location for accessing and managing directory services. 
 LDAP enables organizations to store, manage, and secure information about the organization, its users, and assets–like usernames and passwords.
 
+LDAP stands for Lightweight Directory Access Protocol. It is a widely used protocol for accessing and managing directory information services. LDAP is a standardized protocol, typically running over the TCP/IP network, and it's often used for centralized user and resource management in networked environments. Here are some key points about LDAP:
+
+1. **Directory Services:** LDAP is commonly used for maintaining directory services, which are hierarchical and organized collections of data. These directories store information about various resources and entities in a structured and easily searchable format.
+
+2. **Hierarchical Data Structure:** LDAP directories are organized in a hierarchical tree-like structure, where data is represented as entries. Each entry can have attributes that describe the entity it represents. Entries are identified by a globally unique Distinguished Name (DN).
+
+3. **Common Use Cases:** LDAP is used in various applications and services for user authentication, authorization, address book and contact information storage, email systems, and more. It's especially prevalent in enterprise environments.
+
+4. **LDAP Server:** An LDAP server is responsible for storing and managing the directory information. Popular LDAP server software includes Microsoft Active Directory, OpenLDAP, and Novell eDirectory.
+
+5. **LDAP Clients:** LDAP clients are applications or services that interact with the LDAP server to read, modify, and search directory information. Common LDAP clients include email clients, user authentication systems, and directory browsers.
+
+6. **Protocol Operations:** LDAP defines a set of operations for interacting with the directory server, such as searching for entries, adding or modifying entries, and deleting entries. These operations are carried out using the LDAP protocol.
+
+7. **Security:** LDAP can operate over a secure connection (LDAP over SSL or LDAPS) to protect sensitive data and credentials during transmission. Authentication mechanisms like username and password, as well as digital certificates, can be used to secure the connection.
+
+8. **Schema:** LDAP directories define a schema that specifies the types of data that can be stored in the directory, including which attributes are mandatory or optional. The schema ensures consistency and data integrity.
+
+9. **LDIF:** LDAP Data Interchange Format (LDIF) is a common format for representing LDAP directory entries in a human-readable text format. It's often used for importing and exporting data to and from LDAP directories.
+
+LDAP is a fundamental technology in networked environments, facilitating the centralized management of user accounts, access control, and other directory-related information. It plays a crucial role in many organizations, helping them streamline authentication, authorization, and information storage for a wide range of services and applications.
+
+`Eg`- let's consider an example of how LDAP might be used in an organization for managing user accounts and authentication. In this example, we'll explore how LDAP could be used for a company's internal directory.
+
+**Scenario**: A company named "ABC Corp" wants to implement a centralized directory service to manage user accounts and authentication for its employees across various departments and teams. They decide to use LDAP for this purpose.
+
+**Implementation**:
+
+1. **LDAP Server Setup**: ABC Corp sets up an LDAP server (e.g., using OpenLDAP or Microsoft Active Directory) to store directory information. The LDAP server is hosted on a dedicated server or cloud-based service.
+
+2. **Directory Structure**: The LDAP directory is organized in a hierarchical structure. At the top, there is a root Distinguished Name (DN) like "dc=abc,dc=corp," and below that, entries for departments, teams, and individual users are organized. For example:
+
+  - `ou=Sales,ou=Departments,dc=abc,dc=corp`
+  - `ou=Marketing,ou=Departments,dc=abc,dc=corp`
+  - `cn=John Doe,ou=Sales,ou=Departments,dc=abc,dc=corp`
+  - `cn=Jane Smith,ou=Marketing,ou=Departments,dc=abc,dc=corp`
+
+3. **Attributes**: Each user entry has attributes like `cn` (Common Name), `uid` (User ID), `sn` (Surname), `mail` (Email), and `userPassword` (Password). Additionally, there might be attributes for access control, such as `memberOf`, which lists the groups a user belongs to.
+
+4. **Authentication**: When a user logs in to their computer or a company application, the application can query the LDAP server to verify the username and password. If the provided credentials match those in the directory, access is granted.
+
+5. **Group Memberships**: The "memberOf" attribute in user entries is used to define group memberships. For example, users in the Sales department may be members of the "Sales" group. Group memberships can be used for access control, allowing or denying access to specific resources or services based on group affiliation.
+
+6. **Updates and Maintenance**: LDAP allows administrators to easily add, modify, or delete user accounts. When an employee joins or leaves the company or changes departments, their LDAP entry is updated accordingly.
+
+7. **Security**: LDAP communication can be secured using LDAPS (LDAP over SSL) to protect user credentials during transmission. Access control lists (ACLs) can be configured to restrict who can read or modify directory entries.
+
+In summary, LDAP provides ABC Corp with a centralized and structured way to manage user accounts, their attributes, and authentication across the organization. It simplifies user access to company resources and allows for efficient management of user data.
+
+This is just one example of how LDAP can be used. LDAP's flexibility makes it suitable for various directory and authentication needs in different types of organizations.
+
+## AOP (Aspect-Oriented Programming) 
+In Spring Boot it is a powerful technique for managing cross-cutting concerns in your application. Cross-cutting concerns are aspects of your application that affect multiple parts of the codebase, such as logging, security, transaction management, and error handling. AOP allows you to modularize and separate these concerns from your main business logic.
+
+In Spring Boot, you can use AOP to achieve the following:
+
+1. **Logging:** Log method entry/exit, input parameters, and output results.
+
+2. **Security:** Enforce security-related concerns like authentication and authorization.
+
+3. **Caching:** Add caching to methods for better performance.
+
+4. **Exception Handling:** Handle exceptions gracefully and uniformly across the application.
+
+5. **Transaction Management:** Ensure that methods are executed within a transaction context.
+
+To implement AOP in a Spring Boot application, follow these steps:
+
+1. **Add Dependencies:** First, make sure you have the necessary dependencies in your project. In a Spring Boot application, you typically include the `spring-boot-starter-aop` dependency.
+
+2. **Create Aspects:** An aspect is a Java class that defines cross-cutting concerns. You can use annotations or XML configurations to define aspects. For example, you can create a class with the `@Aspect` annotation to specify that it's an aspect.
+
+```java
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+
+@Aspect
+public class LoggingAspect {
+    @Before("execution(* com.example.service.*.*(..))")
+    public void logMethodEntry() {
+        // Add logging logic here
+    }
+}
+```
+
+3. **Define Pointcuts:** Pointcuts are expressions that define where in your application code an aspect should be applied. In the example above, `execution(* com.example.service.*.*(..))` is a pointcut expression that matches all methods in classes in the `com.example.service` package.
+
+4. **Configure AOP:** In Spring Boot, you can use Java-based configuration or XML-based configuration to enable AOP. With Java-based configuration, you can use the `@EnableAspectJAutoProxy` annotation in a configuration class to enable AOP.
+
+```java
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+@Configuration
+@EnableAspectJAutoProxy
+public class AopConfig {
+    // AOP-related configuration can be added here
+}
+```
+
+5. **Use Aspects:** Annotate the methods or classes where you want the aspect to be applied with the appropriate AOP annotations. For example, if you want to apply the `LoggingAspect` to a service class, you can use the `@Component` annotation along with the `@Autowire` annotation.
+
+```java
+import org.springframework.stereotype.Service;
+
+@Service
+public class MyService {
+    // Your business logic here
+}
+```
+
+By doing this, the `LoggingAspect` will log method entry for methods in the `MyService` class.
+
+Spring Boot's AOP capabilities are based on the AspectJ framework, which provides a rich and powerful way to define and use aspects. You can explore various aspects of AOP in Spring Boot to enhance your application's modularity and maintainability.

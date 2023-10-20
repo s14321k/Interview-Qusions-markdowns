@@ -663,57 +663,343 @@ In layman terms a race condition in which two or more threads compete together t
 - length() is a field on any array (arrays are objects, you just don't see the class normally), and length() is a method on java.
 
 ## What design patterns are used, explain the reason for the usage
-### Singleton pattern
-  - **Usage** - ensures that a class has only one instance and provides a global point of access to that instance.
-  - **Reason** - Used when you want to control access to a shared resource or when you need a single point of coordination within your application.
+
+Design patterns are recurring solutions to common problems in software design. They provide proven templates for solving specific design problems, making it easier to create maintainable and scalable software. Here are some commonly used design patterns and the reasons for their usage:
+
+1. **Singleton Pattern**:
+  - **Usage**: The Singleton pattern ensures that a class has only one instance and provides a global point of access to that instance.
+  - **Reason**: It is used when you want to control access to a shared resource or when you need a single point of coordination within your application.
+
+
+***To Create Singleton class***
+1. Private static object of the same class
+2. Private constructor
+3. getInstance method
+
+`Eg - 1`
 ```
-public class Singleton 
+class Database
 {
-  private static Singleton instance;
-  
-  private Singleton()
+  private static Database dbObject; //Private static object of the same class
+  private Database() //Private constructor
   {
+
   }
-  
-  public static Singleton getInstance()
+
+  public static Database getInstance() //getInstance method
   {
-    if(instance == null)
+    // create object if it's not already created
+    if(dbObject == null)
     {
-      instance = new Singleton();
+      dbObject = new Database();
     }
-    return instance;
+
+    // returns the singleton object
+    return dbObject;
   }
-}
-```
 
-#### Factory pattern
-  - **Usage** - Defines an interface for creating an object but allows subclasses to alter the type of objects that will be created.
-  - **Reason** - Used when we abstract the object creation process, providing a flexible way to create objects while hiding the implementation details. 
 
-```
-interface Product
-{
-  void create();
-}
-
-class ConcreteProduct implements Product
-{
-  @override
-  public void create()
+  public void getConnection()
   {
-    System.out.println("Creating a concrete product");
+    System.out.println("You are now connected to the database.");
   }
+}
+
+
+class Main
+{
+  public static void main(String[] args)
+  {
+    Database db1;
+    // refers to the only object of Database
+    db1= Database.getInstance();
+    db1.getConnection();
+  }
+}
+
+```
+
+`Eg - 2`
+
+```
+public class Singleton {
+private static Singleton instance;
+
+    private Singleton() { }
+    
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
 }
 ```
 
-#### Abstract pattern
-#### Builder pattern
-#### Adapter pattern
-#### Decorator pattern
-#### Observer pattern
-#### Strategy pattern
-#### Command pattern
-#### MVC pattern
+2. **Factory Pattern**:
+  - **Usage**: The Factory pattern defines an interface for creating an object but allows subclasses to alter the type of objects that will be created.
+  - **Reason**: It is used when you want to abstract the object creation process, providing a flexible way to create objects while hiding the implementation details.
+
+```java
+interface Product {
+    void create();
+}
+
+class ConcreteProduct implements Product {
+    @Override
+    public void create() {
+        System.out.println("Creating a concrete product.");
+    }
+}
+
+class ProductFactory {
+    public static Product createProduct() {
+        return new ConcreteProduct();
+    }
+}
+```
+
+3. **Abstract Factory Pattern**:
+  - **Usage**: The Abstract Factory pattern provides an interface for creating families of related or dependent objects without specifying their concrete classes.
+  - **Reason**: It is used when you need to ensure that the created objects work together harmoniously or when you want to provide multiple families of related objects.
+```java
+interface AbstractFactory {
+    Product createProduct();
+    AnotherProduct createAnotherProduct();
+}
+
+class ConcreteFactory implements AbstractFactory {
+    @Override
+    public Product createProduct() {
+        return new ConcreteProduct();
+    }
+    
+    @Override
+    public AnotherProduct createAnotherProduct() {
+        return new ConcreteAnotherProduct();
+    }
+}
+```
+
+
+4. **Builder Pattern**:
+  - **Usage**: The Builder pattern separates the construction of a complex object from its representation, allowing the same construction process to create different representations.
+  - **Reason**: It is used when you need to create objects with many optional components, making the construction process more readable and maintainable.
+
+```java
+class Product {
+    private String part1;
+    private String part2;
+    
+    public void setPart1(String part1) {
+        this.part1 = part1;
+    }
+    
+    public void setPart2(String part2) {
+        this.part2 = part2;
+    }
+}
+
+class ProductBuilder {
+    private Product product = new Product();
+    
+    public ProductBuilder withPart1(String part1) {
+        product.setPart1(part1);
+        return this;
+    }
+    
+    public ProductBuilder withPart2(String part2) {
+        product.setPart2(part2);
+        return this;
+    }
+    
+    public Product build() {
+        return product;
+    }
+}
+```
+
+5. **Adapter Pattern**:
+  - **Usage**: The Adapter pattern allows the interface of an existing class to be used as another interface, making it compatible with client code.
+  - **Reason**: It is used to bridge the gap between incompatible interfaces or to wrap third-party libraries with your own interface.
+
+```java
+interface Target {
+    void request();
+}
+
+class Adaptee {
+    void specificRequest() {
+        System.out.println("This is the specific request.");
+    }
+}
+
+class Adapter implements Target {
+    private Adaptee adaptee;
+    
+    public Adapter(Adaptee adaptee) {
+        this.adaptee = adaptee;
+    }
+    
+    @Override
+    public void request() {
+        adaptee.specificRequest();
+    }
+}
+```
+
+6. **Decorator Pattern**:
+  - **Usage**: The Decorator pattern attaches additional responsibilities to an object dynamically. It provides a flexible alternative to subclassing for extending functionality.
+  - **Reason**: It is used when you need to add or alter the behavior of objects without modifying their actual classes, promoting code reusability and maintainability.
+
+```java
+interface Component {
+    void operation();
+}
+
+class ConcreteComponent implements Component {
+    @Override
+    public void operation() {
+        System.out.println("This is the concrete component.");
+    }
+}
+
+class Decorator implements Component {
+    private Component component;
+    
+    public Decorator(Component component) {
+        this.component = component;
+    }
+    
+    @Override
+    public void operation() {
+        component.operation();
+    }
+}
+```
+
+7. **Observer Pattern**:
+  - **Usage**: The Observer pattern defines a one-to-many dependency between objects, ensuring that when one object changes state, all its dependents are notified and updated.
+  - **Reason**: It is used to implement distributed event handling systems, where changes in one object should trigger updates in multiple other objects without tight coupling.
+
+````java
+import java.util.ArrayList;
+import java.util.List;
+
+interface Observer {
+    void update(String message);
+}
+
+class ConcreteObserver implements Observer {
+    private String name;
+    
+    public ConcreteObserver(String name) {
+        this.name = name;
+    }
+    
+    @Override
+    public void update(String message) {
+        System.out.println(name + " received message: " + message);
+    }
+}
+
+class Subject {
+    private List<Observer> observers = new ArrayList<>();
+    
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+    
+    public void notifyObservers(String message) {
+        for (Observer observer : observers) {
+            observer.update(message);
+        }
+    }
+}
+````
+
+8. **Strategy Pattern**:
+  - **Usage**: The Strategy pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable. It allows the client to choose the appropriate algorithm at runtime.
+  - **Reason**: It is used when you need to select an algorithm from a family of algorithms dynamically or when you want to isolate and encapsulate algorithm-specific behavior.
+
+```java
+interface Strategy {
+    void execute();
+}
+
+class ConcreteStrategyA implements Strategy {
+    @Override
+    public void execute() {
+        System.out.println("Executing strategy A.");
+    }
+}
+
+class ConcreteStrategyB implements Strategy {
+    @Override
+    public void execute() {
+        System.out.println("Executing strategy B.");
+    }
+}
+
+class Context {
+    private Strategy strategy;
+    
+    public void setStrategy(Strategy strategy) {
+        this.strategy = strategy;
+    }
+    
+    public void executeStrategy() {
+        strategy.execute();
+    }
+}
+```
+
+9. **Command Pattern**:
+  - **Usage**: The Command pattern encapsulates a request as an object, thereby allowing for parameterization of clients with queues, requests, and operations.
+  - **Reason**: It is used to decouple the sender and receiver of a request, support undo/redo functionality, or implement transactional behavior.
+
+```java
+interface Command {
+    void execute();
+}
+
+class ConcreteCommand implements Command {
+    private Receiver receiver;
+    
+    public ConcreteCommand(Receiver receiver) {
+        this.receiver = receiver;
+    }
+    
+    @Override
+    public void execute() {
+        receiver.action();
+    }
+}
+
+class Receiver {
+    public void action() {
+        System.out.println("Receiver is performing an action.");
+    }
+}
+
+class Invoker {
+    private Command command;
+    
+    public void setCommand(Command command) {
+        this.command = command;
+    }
+    
+    public void executeCommand() {
+        command.execute();
+    }
+}
+```
+
+10. **MVC (Model-View-Controller) Pattern**:
+  - **Usage**: The MVC pattern separates an application into three interconnected components: Model (data and business logic), View (user interface), and Controller (handles user input).
+  - **Reason**: It is used to achieve separation of concerns, making code more maintainable, scalable, and adaptable to different user interfaces.
+
+These design patterns help improve the structure and maintainability of software systems, promote code reusability, and make it easier to manage complex software development. The choice of pattern depends on the specific problem you're trying to solve and the design goals you want to achieve.
 
 ## 10. Pass by value and Pass by reference
 
@@ -817,6 +1103,10 @@ public static void main(String args[])
 
 ## 24. Cqrs Pattern, what is the solution scenario used
 ## 25. What build tool used
+
+Apache Maven
+Gradle
+
 ## 26. What is the difference between install and deploy
 ## 27. connection pooling in java
 
@@ -1037,59 +1327,6 @@ public class MyResource implements AutoCloseable
 
 - Initialization means assigning initial value to variables while declaring. Following is the simple example of initialization in application.
 - Instantiation means defining or creating new object for class to access all properties like methods, operators, fields, etc. from class.
-
-## [Java Singleton Class design pattern](https://www.programiz.com/java-programming/singleton)
-
-To Create Singleton class
-1. Private static object of the same class
-2. Private constructor
-3. getInstance method
-
-```
-class Database
-{
-  private static Database dbObject; //Private static object of the same class
-  private Database() //Private constructor
-  {
-
-  }
-
-  public static Database getInstance() //getInstance method
-  {
-    // create object if it's not already created
-    if(dbObject == null)
-    {
-      dbObject = new Database();
-    }
-
-    // returns the singleton object
-    return dbObject;
-  }
-
-
-  public void getConnection()
-  {
-    System.out.println("You are now connected to the database.");
-  }
-}
-
-```
-
-```
-class Main
-{
-  public static void main(String[] args)
-  {
-    Database db1;
-    // refers to the only object of Database
-    db1= Database.getInstance();
-    db1.getConnection();
-  }
-}
-
-```
-
-
 
 ## [Anonymous class](https://www.programiz.com/java-programming/anonymous-class)
 
