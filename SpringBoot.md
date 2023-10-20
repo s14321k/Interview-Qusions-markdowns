@@ -157,16 +157,17 @@ https://bushansirgur.in/spring-boot-bean-annotation-with-example/
 ## HandlerInterseptor & Filter
 https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter
 
-## Exception Handling in Spring boot
-- https://www.tutorialspoint.com/spring_boot/spring_boot_exception_handling.htm
+## [Exception Handling in Spring boot](https://www.tutorialspoint.com/spring_boot/spring_boot_exception_handling.htm)
 
 #### @ControllerAdvice
 - to handle the exceptions globally.
 #### @ExceptionHandler
  - to handle the specific exceptions and sending the custom responses to the client.
 
+![img.png](images/AnnotationGlobalException.png)
+
 ## [Annotations in Spring boot](https://www.javatpoint.com/spring-boot-annotations)
-    
+ - @SpringBootApplication
  - @EnableAutoConfiguration -
  - @Required - Applied at the bean setter method. This should be populated at configuration time with the required property.
  - @Autowired - provides annotation-based autowiring by providing @Autowired.
@@ -181,15 +182,109 @@ https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter
  - @PutMapping - 
  - @PostMapping - 
  - @DeleteMapping - 
- - PatchMapping - 
- - @PathVariable - Extract the values from the URI.
- - @RequestParam - 
- - @RequestHeader - 
+ - @PatchMapping -
+  
+  **Extract the values from the URI**
+
+Spring Boot provides a wide range of parameter binding annotations for various purposes. Here are some other commonly used annotations beyond the ones you mentioned:
+
+In Spring Boot, annotations are used to define various aspects of a method, such as request mapping, parameter binding, and more. The annotations you mentioned, `@PathVariable`, `@ModelAttribute`, and `@RequestParam`, are commonly used for handling different parts of an HTTP request. Here's an explanation of each of them:
+
+1. `@PathVariable`: This annotation is used to extract values from the URI (Uniform Resource Identifier) template and bind them to method parameters. It's often used when you want to capture values from the URL, for example, in a RESTful API. Here's an example:
+
+```java
+@RequestMapping("/user/{id}")
+public String getUser(@PathVariable("id") Long userId) {
+    // Your code here
+}
+```
+
+In this example, the `@PathVariable` annotation captures the `id` from the URL and maps it to the `userId` method parameter.
+
+2. `@ModelAttribute`: This annotation is used to bind a method parameter to a model attribute, which is typically used in the context of the Model-View-Controller (MVC) pattern. It is commonly used to populate form objects and pass data between the controller and the view. Here's an example:
+
+```java
+@RequestMapping("/addUser")
+public String addUser(@ModelAttribute User user) {
+    // Your code here
+}
+```
+
+In this example, the `@ModelAttribute` annotation binds the `User` object to the form data.
+
+3. `@RequestParam`: This annotation is used to extract values from the request parameters, which are typically part of the query string in a URL. It's commonly used when you want to retrieve values from the query parameters of an HTTP request. Here's an example:
+
+```java
+@RequestMapping("/search")
+public String searchUsers(@RequestParam("query") String searchQuery) {
+    // Your code here
+}
+```
+In this example, the `@RequestParam` annotation retrieves the `query` parameter from the request URL.
+
+4. `@RequestBody`: This annotation is used to bind the request body to a method parameter. It is often used for handling JSON or XML request payloads in RESTful APIs.
+
+```java
+@PostMapping("/createUser")
+public ResponseEntity<User> createUser(@RequestBody User user) {
+    // Your code here
+}
+```
+
+5. `@RequestHeader`: It's used to extract values from HTTP headers.
+
+```java
+@GetMapping("/userAgent")
+public String getUserAgent(@RequestHeader("User-Agent") String userAgent) {
+    // Your code here
+}
+```
+
+6. `@CookieValue`: This annotation allows you to extract values from cookies in the request.
+
+```java
+@GetMapping("/getCookie")
+public String getCookieValue(@CookieValue("sessionId") String sessionId) {
+    // Your code here
+}
+```
+
+7. `@RequestAttribute`: Used to access values stored as request attributes (usually set by an interceptor).
+
+```java
+@GetMapping("/processData")
+public String processData(@RequestAttribute("someData") String data) {
+    // Your code here
+}
+```
+
+8. `@SessionAttribute`: It's used to bind a session attribute to a method parameter.
+
+```java
+@GetMapping("/getSessionData")
+public String getSessionData(@SessionAttribute("userId") Long userId) {
+    // Your code here
+}
+```
+
+9. `@PathVariableMap` and `@RequestParamMap`: These annotations allow you to access all path or request parameters as a map.
+
+10. `@ModelAttribute` on method arguments: In addition to annotating method parameters, you can also use `@ModelAttribute` at the method level to add common attributes to the model for all handler methods in the controller.
+
+11. Custom annotations: You can create your custom annotations to encapsulate and abstract common parameter binding patterns.
+
+Spring Boot and Spring MVC provide extensive support for handling various aspects of web requests and responses, so there are many more annotations available. The choice of which annotation to use depends on the specific requirements of your application and the data you need to handle within your controllers.
+ 
+
+
  - @Service  - 
  - @Repository - 
  - @EnableAutoConfiguration - 
  - @SpringBootApplication - 
- - @
+ - @Cacheable("envProperty") - ![img.png](images/AnnotationCachingSpringBoot.png)
+ - @InitBinder - To trim the values passed in @RequestParam and @ModelAttribute
+ - @EntityGraph - ![img.png](images/AnnotationEntityGraph.png)
+
 
 ## @Qualifier, @Primary, @Autowired, @Required
 ### @Qualifier
@@ -215,14 +310,11 @@ https://bushansirgur.in/spring-boot-autowire-annotation-with-example/
 
 ![img_18.png](images/img_18.png)
 
-## @Transaction
-https://stackoverflow.com/a/54326437/11962586
+## [@Transaction](https://stackoverflow.com/a/54326437/11962586)
 - Used to roll back the process.
-- If A is sending 100$ to B. If the transactionn is not successful, then  roll back happens.
+- If A is sending 100$ to B. If the transaction is not successful, then  roll back happens.
 
-## Dependency Injection
-
-https://www.javatpoint.com/dependency-injection-in-spring
+## [Dependency Injection](https://www.javatpoint.com/dependency-injection-in-spring)
 
 Dependency Injection (DI) is a design pattern that removes the dependency from the programming code so that it can be easy to manage and test the application.
 Dependency Injection makes our programming code loosely coupled.

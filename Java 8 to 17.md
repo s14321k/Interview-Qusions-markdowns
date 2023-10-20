@@ -1,4 +1,3 @@
-
 <!-- TOC -->
 * [Java 8](#java-8)
   * [1. Lambda Expression and Stream API](#1-lambda-expression-and-stream-api)
@@ -19,7 +18,8 @@
   * [2. Private interface methods](#2-private-interface-methods)
 <!-- TOC -->
 
-
+***
+[JAVA8 to JAVA17](https://reflectoring.io/java-release-notes/)
 
 # Java 8
 1. Lambda Expression and Stream API
@@ -67,8 +67,7 @@ The stream API and lambda expressions are the new features that move us closer t
 </code>
 </pre>
 
-## 2. Method Reference
-https://www.javatpoint.com/java-8-method-reference
+## 2. [Method Reference](https://www.javatpoint.com/java-8-method-reference)
 
 A method reference allows us to call functions in classes using a special kind of syntax ::. There are four kinds of method references:
 
@@ -176,30 +175,32 @@ One of our requirements is that each email has to be in a format <name>@<company
 #### Syntax
 ```<Class name>::<method name>```
 
+## 6. Optional<Object>
+![img.png](images/Cache Flow.png)
+
 
 # Java 9
 
 ## 1. Closing a Resource with try-with-resources
-    public class TryWithResources 
+```
+public class TryWithResources 
+{
+    public static void main(String[] args) 
     {
-        public static void main(String[] args) 
+        final BufferedReader br3 = new BufferedReader(
+                                    new StringReader("Hello world example3!"));
+        try (BufferedReader reader = br3) 
         {
-            final BufferedReader br3 = new BufferedReader(
-                                        new StringReader("Hello world example3!"));
-            try (BufferedReader reader = br3) 
-            {
-                System.out.println(reader.readLine());
-            }
-            catch (IOException e)
-            {
-                System.out.println("Error happened!");
-            }
+            System.out.println(reader.readLine());
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error happened!");
         }
     }
+}
+```
 
 ## 2. Private interface methods
 
-
 https://www.tutorialspoint.com/java8/index.htm
-
-https://reflectoring.io/java-release-notes/
