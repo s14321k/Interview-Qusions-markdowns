@@ -5,6 +5,9 @@
   * [2. SessionFactory](#2-sessionfactory)
   * [3. How data connection setup, configuration and steps](#3-how-data-connection-setup-configuration-and-steps)
   * [4. Hibernate and implementation](#4-hibernate-and-implementation)
+  * [5. Stored Procedure](#5-stored-procedure)
+  * [6. Prepared Statement](#6-prepared-statement)
+  * [get() and load()](#get-and-load)
 <!-- TOC -->
 
 
@@ -51,8 +54,95 @@ https://www.tutorialspoint.com/hibernate/hibernate_examples.htm
 ## 4. Hibernate and implementation
 
 
-## 5. Stored Procedure
-- https://www.baeldung.com/stored-procedures-with-hibernate-tutorial
+## 5. [Stored Procedure](https://www.baeldung.com/stored-procedures-with-hibernate-tutorial)
+ - Stored Procedures are sets of compiled SQL statements residing in the database. They are used to encapsulate and share logic with other programs, and benefit from database-specific features like index hints or specific keywords.
+
+## 6. [Prepared Statement](https://www.geeksforgeeks.org/how-to-use-preparedstatement-in-java/)
+- Sometimes it is more convenient to use a PreparedStatement object for sending SQL statements to the database. This special type of statement is derived from the more general class, Statement, that you already know.
+
+A prepared statement in Java is a feature of the JDBC (Java Database Connectivity) API that is used to execute parameterized SQL queries against a database. Prepared statements are precompiled SQL statements that can accept input parameters. They offer several benefits over regular SQL statements, including improved performance, security, and code readability.
+
+Here's how you can create and use a prepared statement in Java:
+
+1. Import the necessary packages:
+
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+```
+
+2. Establish a database connection:
+
+```java
+Connection connection = null;
+try {
+    connection = DriverManager.getConnection("jdbc:your-database-url", "username", "password");
+} catch (SQLException e) {
+    e.printStackTrace();
+}
+```
+
+3. Create a prepared statement:
+
+```java
+String sql = "SELECT * FROM your_table WHERE column_name = ?";
+try {
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+} catch (SQLException e) {
+    e.printStackTrace();
+}
+```
+
+4. Set parameters in the prepared statement:
+
+```java
+String parameterValue = "some_value";
+try {
+    preparedStatement.setString(1, parameterValue);
+} catch (SQLException e) {
+    e.printStackTrace();
+}
+```
+
+You can set parameters for different data types based on the SQL query and the values you want to pass.
+
+5. Execute the prepared statement:
+
+```java
+try {
+    ResultSet resultSet = preparedStatement.executeQuery();
+    while (resultSet.next()) {
+        // Process the results
+    }
+} catch (SQLException e) {
+    e.printStackTrace();
+}
+```
+
+Prepared statements are particularly useful for preventing SQL injection attacks because they automatically handle escaping and quoting of parameters. They also improve performance because the database can reuse the execution plan for the same query with different parameters.
+
+Remember to close the prepared statement and the database connection when you're done with them to release resources properly:
+
+```java
+if (preparedStatement != null) {
+    try {
+        preparedStatement.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+if (connection != null) {
+    try {
+        connection.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+```
 
 
 ## get() and load()
