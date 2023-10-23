@@ -9,6 +9,7 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   * [Mention the need for it.](#mention-the-need-for-it)
   * [Features of spring boot](#features-of-spring-boot)
   * [Possible sources of external configuration](#possible-sources-of-external-configuration)
+  * [Optimizing Spring boot](#optimizing-spring-boot)
   * [Attributes in spring](#attributes-in-spring)
   * [@Component, @Bean, @Configuration](#component-bean-configuration)
     * [@Configuration](#configuration)
@@ -34,12 +35,16 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   * [@Controller vs @RestController](#controller-vs-restcontroller)
     * [@Controller](#controller)
     * [@RestController](#restcontroller)
-  * [@Transaction](#transaction)
+  * [@Transactional](#transactional)
+    * [@Transactional propagation isolation](#transactional-propagation-isolation)
+      * [@Transactional(propagation = Propagation.REQUIRED)](#transactionalpropagation--propagationrequired)
+      * [@Transactional(propagation = Propagation.REQUIRES_NEW)](#transactionalpropagation--propagationrequiresnew)
   * [Dependency Injection](#dependency-injection)
   * [SSO (Single Sign On)](#sso-single-sign-on)
     * [```Single sign on``` with ```Spring security OAuth2```](#single-sign-on-with-spring-security-oauth2)
-  * [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
+  * [SPRING METHOD SECURITY](#spring-method-security)
   * [AOP (Aspect-Oriented Programming)](#aop-aspect-oriented-programming-)
+  * [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
 <!-- TOC -->
 
 
@@ -70,6 +75,8 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 - Application properties
 - Command line properties
 - Profile specific properties
+
+## [Optimizing Spring boot](https://medium.com/@harshgajjar7110/supercharge-your-spring-boot-app-5-proven-tactics-to-optimize-performance-and-boost-speed-3e4309761358)
 
 ## Attributes in spring
 - @Autowired to create instance of interface class
@@ -191,8 +198,41 @@ https://bushansirgur.in/spring-boot-bean-annotation-with-example/
 - The View is responsible for rendering the model data and in general it generates HTML output that the client's browser can interpret.
 - The Controller is responsible for processing user requests and building an appropriate model and passes it to the view for rendering.
 
-## HandlerInterseptor & Filter
-https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter
+## [HandlerInterseptor & Filter](https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter)
+ - HandlerInterseptor
+   - preHandle()
+   - postHandle()
+   - afterCompletion()
+ ```
+public class LogInterceptor implements HandlerInterceptor 
+{
+    private Logger logger = LoggerFactory.getLogger(LogInterceptor.class);
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+throws Exception 
+    {
+        logger.info("preHandle");
+        return true;    
+    }
+
+   @Override
+   public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
+   throws Exception 
+   {
+        logger.info("postHandle");
+   }
+
+   @Override
+   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+   throws Exception 
+   {
+        logger.info("afterCompletion");
+   }
+
+}
+```
+![img.png](img.png)
 
 ## [Exception Handling in Spring boot](https://www.tutorialspoint.com/spring_boot/spring_boot_exception_handling.htm)
 
@@ -221,6 +261,8 @@ https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter
  - @PostMapping - 
  - @DeleteMapping - 
  - @PatchMapping -
+ - @Aspect - 
+ - (@Async)[https://www.baeldung.com/spring-async] - 
   
   **Extract the values from the URI**
 
@@ -349,9 +391,17 @@ https://bushansirgur.in/spring-boot-autowire-annotation-with-example/
 
 ![img_18.png](images/img_18.png)
 
-## [@Transaction](https://stackoverflow.com/a/54326437/11962586)
+## [@Transactional](https://stackoverflow.com/a/54326437/11962586)
 - Used to roll back the process.
 - If A is sending 100$ to B. If the transaction is not successful, then  roll back happens.
+
+### [@Transactional propagation isolation](https://www.baeldung.com/spring-transactional-propagation-isolation)
+
+#### @Transactional(propagation = Propagation.REQUIRED)
+Required is the default propagation. Spring checks if there is an active transaction, and nothing exists, it creates a new one. Otherwise the business logic appends to the currently active transaction.
+
+#### @Transactional(propagation = Propagation.REQUIRES_NEW)
+When the propagation is Requires_New, spring suspends the current transaction if it exists and creates a new one.
 
 ## [Dependency Injection](https://www.javatpoint.com/dependency-injection-in-spring)
 
@@ -484,61 +534,8 @@ Here are some key points about SSO:
 
 SSO is a crucial component of modern identity and access management (IAM) systems and is widely adopted in both enterprise and consumer-facing applications to improve user convenience and security.
 
+## [SPRING METHOD SECURITY](https://www.baeldung.com/spring-security-method-security)
 
-## LDAP (Lightweight Directory Access Protocol)
-The most common LDAP use case is providing a central location for accessing and managing directory services. 
-LDAP enables organizations to store, manage, and secure information about the organization, its users, and assets–like usernames and passwords.
-
-LDAP stands for Lightweight Directory Access Protocol. It is a widely used protocol for accessing and managing directory information services. LDAP is a standardized protocol, typically running over the TCP/IP network, and it's often used for centralized user and resource management in networked environments. Here are some key points about LDAP:
-
-1. **Directory Services:** LDAP is commonly used for maintaining directory services, which are hierarchical and organized collections of data. These directories store information about various resources and entities in a structured and easily searchable format.
-
-2. **Hierarchical Data Structure:** LDAP directories are organized in a hierarchical tree-like structure, where data is represented as entries. Each entry can have attributes that describe the entity it represents. Entries are identified by a globally unique Distinguished Name (DN).
-
-3. **Common Use Cases:** LDAP is used in various applications and services for user authentication, authorization, address book and contact information storage, email systems, and more. It's especially prevalent in enterprise environments.
-
-4. **LDAP Server:** An LDAP server is responsible for storing and managing the directory information. Popular LDAP server software includes Microsoft Active Directory, OpenLDAP, and Novell eDirectory.
-
-5. **LDAP Clients:** LDAP clients are applications or services that interact with the LDAP server to read, modify, and search directory information. Common LDAP clients include email clients, user authentication systems, and directory browsers.
-
-6. **Protocol Operations:** LDAP defines a set of operations for interacting with the directory server, such as searching for entries, adding or modifying entries, and deleting entries. These operations are carried out using the LDAP protocol.
-
-7. **Security:** LDAP can operate over a secure connection (LDAP over SSL or LDAPS) to protect sensitive data and credentials during transmission. Authentication mechanisms like username and password, as well as digital certificates, can be used to secure the connection.
-
-8. **Schema:** LDAP directories define a schema that specifies the types of data that can be stored in the directory, including which attributes are mandatory or optional. The schema ensures consistency and data integrity.
-
-9. **LDIF:** LDAP Data Interchange Format (LDIF) is a common format for representing LDAP directory entries in a human-readable text format. It's often used for importing and exporting data to and from LDAP directories.
-
-LDAP is a fundamental technology in networked environments, facilitating the centralized management of user accounts, access control, and other directory-related information. It plays a crucial role in many organizations, helping them streamline authentication, authorization, and information storage for a wide range of services and applications.
-
-`Eg`- let's consider an example of how LDAP might be used in an organization for managing user accounts and authentication. In this example, we'll explore how LDAP could be used for a company's internal directory.
-
-**Scenario**: A company named "ABC Corp" wants to implement a centralized directory service to manage user accounts and authentication for its employees across various departments and teams. They decide to use LDAP for this purpose.
-
-**Implementation**:
-
-1. **LDAP Server Setup**: ABC Corp sets up an LDAP server (e.g., using OpenLDAP or Microsoft Active Directory) to store directory information. The LDAP server is hosted on a dedicated server or cloud-based service.
-
-2. **Directory Structure**: The LDAP directory is organized in a hierarchical structure. At the top, there is a root Distinguished Name (DN) like "dc=abc,dc=corp," and below that, entries for departments, teams, and individual users are organized. For example:
-
-  - `ou=Sales,ou=Departments,dc=abc,dc=corp`
-  - `ou=Marketing,ou=Departments,dc=abc,dc=corp`
-  - `cn=John Doe,ou=Sales,ou=Departments,dc=abc,dc=corp`
-  - `cn=Jane Smith,ou=Marketing,ou=Departments,dc=abc,dc=corp`
-
-3. **Attributes**: Each user entry has attributes like `cn` (Common Name), `uid` (User ID), `sn` (Surname), `mail` (Email), and `userPassword` (Password). Additionally, there might be attributes for access control, such as `memberOf`, which lists the groups a user belongs to.
-
-4. **Authentication**: When a user logs in to their computer or a company application, the application can query the LDAP server to verify the username and password. If the provided credentials match those in the directory, access is granted.
-
-5. **Group Memberships**: The "memberOf" attribute in user entries is used to define group memberships. For example, users in the Sales department may be members of the "Sales" group. Group memberships can be used for access control, allowing or denying access to specific resources or services based on group affiliation.
-
-6. **Updates and Maintenance**: LDAP allows administrators to easily add, modify, or delete user accounts. When an employee joins or leaves the company or changes departments, their LDAP entry is updated accordingly.
-
-7. **Security**: LDAP communication can be secured using LDAPS (LDAP over SSL) to protect user credentials during transmission. Access control lists (ACLs) can be configured to restrict who can read or modify directory entries.
-
-In summary, LDAP provides ABC Corp with a centralized and structured way to manage user accounts, their attributes, and authentication across the organization. It simplifies user access to company resources and allows for efficient management of user data.
-
-This is just one example of how LDAP can be used. LDAP's flexibility makes it suitable for various directory and authentication needs in different types of organizations.
 
 ## AOP (Aspect-Oriented Programming) 
 In Spring Boot it is a powerful technique for managing cross-cutting concerns in your application. Cross-cutting concerns are aspects of your application that affect multiple parts of the codebase, such as logging, security, transaction management, and error handling. AOP allows you to modularize and separate these concerns from your main business logic.
@@ -603,3 +600,58 @@ public class MyService {
 By doing this, the `LoggingAspect` will log method entry for methods in the `MyService` class.
 
 Spring Boot's AOP capabilities are based on the AspectJ framework, which provides a rich and powerful way to define and use aspects. You can explore various aspects of AOP in Spring Boot to enhance your application's modularity and maintainability.
+
+## LDAP (Lightweight Directory Access Protocol)
+The most common LDAP use case is providing a central location for accessing and managing directory services.
+LDAP enables organizations to store, manage, and secure information about the organization, its users, and assets–like usernames and passwords.
+
+LDAP stands for Lightweight Directory Access Protocol. It is a widely used protocol for accessing and managing directory information services. LDAP is a standardized protocol, typically running over the TCP/IP network, and it's often used for centralized user and resource management in networked environments. Here are some key points about LDAP:
+
+1. **Directory Services:** LDAP is commonly used for maintaining directory services, which are hierarchical and organized collections of data. These directories store information about various resources and entities in a structured and easily searchable format.
+
+2. **Hierarchical Data Structure:** LDAP directories are organized in a hierarchical tree-like structure, where data is represented as entries. Each entry can have attributes that describe the entity it represents. Entries are identified by a globally unique Distinguished Name (DN).
+
+3. **Common Use Cases:** LDAP is used in various applications and services for user authentication, authorization, address book and contact information storage, email systems, and more. It's especially prevalent in enterprise environments.
+
+4. **LDAP Server:** An LDAP server is responsible for storing and managing the directory information. Popular LDAP server software includes Microsoft Active Directory, OpenLDAP, and Novell eDirectory.
+
+5. **LDAP Clients:** LDAP clients are applications or services that interact with the LDAP server to read, modify, and search directory information. Common LDAP clients include email clients, user authentication systems, and directory browsers.
+
+6. **Protocol Operations:** LDAP defines a set of operations for interacting with the directory server, such as searching for entries, adding or modifying entries, and deleting entries. These operations are carried out using the LDAP protocol.
+
+7. **Security:** LDAP can operate over a secure connection (LDAP over SSL or LDAPS) to protect sensitive data and credentials during transmission. Authentication mechanisms like username and password, as well as digital certificates, can be used to secure the connection.
+
+8. **Schema:** LDAP directories define a schema that specifies the types of data that can be stored in the directory, including which attributes are mandatory or optional. The schema ensures consistency and data integrity.
+
+9. **LDIF:** LDAP Data Interchange Format (LDIF) is a common format for representing LDAP directory entries in a human-readable text format. It's often used for importing and exporting data to and from LDAP directories.
+
+LDAP is a fundamental technology in networked environments, facilitating the centralized management of user accounts, access control, and other directory-related information. It plays a crucial role in many organizations, helping them streamline authentication, authorization, and information storage for a wide range of services and applications.
+
+`Eg`- let's consider an example of how LDAP might be used in an organization for managing user accounts and authentication. In this example, we'll explore how LDAP could be used for a company's internal directory.
+
+**Scenario**: A company named "ABC Corp" wants to implement a centralized directory service to manage user accounts and authentication for its employees across various departments and teams. They decide to use LDAP for this purpose.
+
+**Implementation**:
+
+1. **LDAP Server Setup**: ABC Corp sets up an LDAP server (e.g., using OpenLDAP or Microsoft Active Directory) to store directory information. The LDAP server is hosted on a dedicated server or cloud-based service.
+
+2. **Directory Structure**: The LDAP directory is organized in a hierarchical structure. At the top, there is a root Distinguished Name (DN) like "dc=abc,dc=corp," and below that, entries for departments, teams, and individual users are organized. For example:
+
+- `ou=Sales,ou=Departments,dc=abc,dc=corp`
+- `ou=Marketing,ou=Departments,dc=abc,dc=corp`
+- `cn=John Doe,ou=Sales,ou=Departments,dc=abc,dc=corp`
+- `cn=Jane Smith,ou=Marketing,ou=Departments,dc=abc,dc=corp`
+
+3. **Attributes**: Each user entry has attributes like `cn` (Common Name), `uid` (User ID), `sn` (Surname), `mail` (Email), and `userPassword` (Password). Additionally, there might be attributes for access control, such as `memberOf`, which lists the groups a user belongs to.
+
+4. **Authentication**: When a user logs in to their computer or a company application, the application can query the LDAP server to verify the username and password. If the provided credentials match those in the directory, access is granted.
+
+5. **Group Memberships**: The "memberOf" attribute in user entries is used to define group memberships. For example, users in the Sales department may be members of the "Sales" group. Group memberships can be used for access control, allowing or denying access to specific resources or services based on group affiliation.
+
+6. **Updates and Maintenance**: LDAP allows administrators to easily add, modify, or delete user accounts. When an employee joins or leaves the company or changes departments, their LDAP entry is updated accordingly.
+
+7. **Security**: LDAP communication can be secured using LDAPS (LDAP over SSL) to protect user credentials during transmission. Access control lists (ACLs) can be configured to restrict who can read or modify directory entries.
+
+In summary, LDAP provides ABC Corp with a centralized and structured way to manage user accounts, their attributes, and authentication across the organization. It simplifies user access to company resources and allows for efficient management of user data.
+
+This is just one example of how LDAP can be used. LDAP's flexibility makes it suitable for various directory and authentication needs in different types of organizations.

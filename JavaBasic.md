@@ -1,7 +1,7 @@
 <!-- TOC -->
   * [variables:](#variables)
   * [Float and double](#float-and-double)
-  * [int vs Integer](#int vs Integer)
+  * [int vs Integer](#int-vs-integer)
     * [Compile time Error](#compile-time-error)
       * [Two types:-](#two-types-)
     * [Run Time error](#run-time-error)
@@ -18,12 +18,13 @@
     * [Default access modifier](#default-access-modifier)
   * [2- Non-access Modifiyers](#2--non-access-modifiyers)
 * [OOP(Object Oriented Programming)](#oopobject-oriented-programming)
-  * [1 . Polymorphism](#1--polymorphism)
+  * [1. Polymorphism](#1-polymorphism)
   * [2 . Inheritance](#2--inheritance)
   * [3 . Encapsulation - hiding the information.](#3--encapsulation---hiding-the-information)
   * [4 . Abstraction - Absstract factory pattern](#4--abstraction---absstract-factory-pattern)
   * [5 . Interface](#5--interface)
     * [Marker interface vs Functional Interface](#marker-interface-vs-functional-interface)
+    * [Predicate vs Supplier](#predicate-vs-supplier)
     * [Implements and Extends](#implements-and-extends)
     * [Interface and Abstract](#interface-and-abstract)
 * [Collections](#collections)
@@ -31,6 +32,7 @@
   * [List](#list)
   * [Set](#set)
   * [Map](#map)
+
   * [Exception Handling](#exception-handling)
   * [Syncronization](#syncronization)
   * [Aplet](#aplet)
@@ -43,20 +45,13 @@
     * [Loose coupling](#loose-coupling)
     * [Tight Coupling](#tight-coupling)
   * [Cohesion](#cohesion)
+* [Multithreading](#multithreading)
+    * [Deadlock](#deadlock)
+    * [Race condition](#race-condition)
 * [Java Questions](#java-questions)
   * [1. Caching in java](#1-caching-in-java)
   * [Size() vs length()](#size-vs-length)
   * [What design patterns are used, explain the reason for the usage](#what-design-patterns-are-used-explain-the-reason-for-the-usage)
-    * [Singleton pattern](#singleton-pattern)
-      * [Factory pattern](#factory-pattern)
-      * [Abstract pattern](#abstract-pattern)
-      * [Builder pattern](#builder-pattern)
-      * [Adapter pattern](#adapter-pattern)
-      * [Decorator pattern](#decorator-pattern)
-      * [Observer pattern](#observer-pattern)
-      * [Strategy pattern](#strategy-pattern)
-      * [Command pattern](#command-pattern)
-      * [MVC pattern](#mvc-pattern)
   * [10. Pass by value and Pass by reference](#10-pass-by-value-and-pass-by-reference)
   * [14. How to compile simple applications](#14-how-to-compile-simple-applications)
   * [15. What are required to run simple Java applications](#15-what-are-required-to-run-simple-java-applications)
@@ -77,7 +72,7 @@
     * [Connection Pooling](#connection-pooling)
       * [Benefits of connection pooling](#benefits-of-connection-pooling)
   * [Comparable and Comparator](#comparable-and-comparator)
-  * [Equals() & HashCode(), Equals()](#equals--hashcode-equals)
+  * [Equals() & HashCode(), Equals()](#equals--hashcode---equals)
   * [Eden space in java](#eden-space-in-java)
   * [PermGen Space (Permanent Generation) and Meta Space](#permgen-space-permanent-generation-and-meta-space)
     * [PerGen vs Meta space](#pergen-vs-meta-space)
@@ -97,7 +92,6 @@
       * [try-with-resources With Multiple Resources](#try-with-resources-with-multiple-resources)
       * [A Custom Resource With AutoCloseable](#a-custom-resource-with-autocloseable)
   * [Initialization vs Instatiation](#initialization-vs-instatiation)
-  * [Java Singleton Class design pattern](#java-singleton-class-design-pattern)
   * [Anonymous class](#anonymous-class)
   * [Factory Design pattern](#factory-design-pattern)
   * [Authentication and Authorization](#authentication-and-authorization)
@@ -112,15 +106,11 @@
 ## variables:
 
 * ```local``` - Inside the body of method, and it can not be static.
-
 * ```instance``` - Inside the body of class.
-
 * ```static``` - It can not be local, we can share the copy and share among all the instances of class. Memory is allocated only once when the class is loaded.
-
 ***
 
 ## Float and double
-
 Double is more precious than float, where double takes 8 bytes and can provide precision up to 15 to 16 digits and float takes 4 bytes and provides precision upto 6 to 7.
 
 * Both double and float are approximate types and not precise(accurate or exact).
@@ -131,7 +121,7 @@ Double is more precious than float, where double takes 8 bytes and can provide p
 
 - [final - keyword](https://www.geeksforgeeks.org/final-keyword-in-java/)
 
-![img_19.png](images/img_19.png)
+![img_19.png](images/FinalKeyWord.png)
 
 - finally - block used after try catch
 
@@ -195,12 +185,10 @@ private String age;
 
 1. Platform Independent
 2. Object oriented programming language
-
  - Abstraction
  - Encapsulation
  - Inheritance
  - Polymorphism
-
 3. Simple
 4. Robust
 5. Secure
@@ -269,7 +257,7 @@ The deffault access modifier is also known as the package-private, which means a
 Oops refers to languages that uses objects in programming.
 Oop's concepts consists of Polymorphism, Encapsulation, Inheritance, Abstraction, Class, Object, Method.
 
-## 1 . Polymorphism
+## 1. Polymorphism
 
 Differentiate between entities with the same name efficiency.
 
@@ -277,7 +265,7 @@ Mainly for two types
 
 ***Overloading***
 
-```Eg: Same method name for multiple methods but with different parameters.```
+`Eg: Same method name for multiple methods but with different parameters.`
 
 [Constructor overloading](https://www.geeksforgeeks.org/constructor-overloading-java/?ref=rp)
 
@@ -287,10 +275,8 @@ Constructor Overloading is somewhat similar to method overloading.
 
 In other words it is called as Dynamic Method Dispatch or Run time polymorphism in java
 
-```
-Eg: class A
-Class B extends A
-```
+`Eg:` `class A`</br>
+`Class B extends A`
 
 [Overriding](https://www.geeksforgeeks.org/dynamic-method-dispatch-runtime-polymorphism-java/)
 
@@ -339,14 +325,15 @@ This is an interface class, which implements Clonable/Runnable
 - ***Callable – run()***
 - ***Runable – call()***
 - ***Comparable – compareTo()***
+- ***Comparator - compare()***
 
-Note:
+****Note:****
 
 Before java 1.8, interface can have only abstract method, i.e method without body.
 
 After java 1.8 default and static method declaration is allowed,
 
-- @Functional interface – Single abstract method. (Can be predefined and also user defined)
+*@FunctionalInterface* – Single abstract method. (Can be predefined and also user defined)
 
 *Eg:*
 ```
@@ -384,6 +371,27 @@ public class Main
 }
 ```
 
+### [Predicate](https://codegym.cc/groups/posts/java-predicate) vs Supplier
+Predicate and Supplier are two functional interfaces in Java that are part of the Java.util.function package, introduced in Java 8 as part of the Java Functional Programming features. These interfaces are used for passing behavior as an argument to methods, particularly in functional programming and when working with streams.
+
+1. Predicate:
+  - `java.util.function.Predicate<T>` is a functional interface that represents a boolean-valued function that takes a single argument and returns a boolean. It is commonly used for filtering elements in a collection or testing conditions.
+
+   ```java
+   Predicate<Integer> isEven = n -> n % 2 == 0;
+   boolean result = isEven.test(4); // true
+   ```
+
+2. Supplier:
+  - `java.util.function.Supplier<T>` is a functional interface that represents a supplier of values. It has no arguments and returns a value when called. It is often used when you want to lazily generate or provide a value.
+
+   ```java
+   Supplier<String> greetingSupplier = () -> "Hello, World!";
+   String greeting = greetingSupplier.get(); // "Hello, World!"
+   ```
+
+In summary, Predicate is used to define a condition and test if an argument meets that condition, returning a boolean result. Supplier, on the other hand, is used to supply or generate values when needed without any input parameters.
+
 
 ### [Implements and Extends](https://www.edureka.co/blog/implements-in-java/)
 
@@ -405,25 +413,23 @@ ___Why the Collections Framework?___
 
 - Used for specific data structures
 
-
-
-***{Parent-->child}***
+****{Parent-->child}****
 
 | iterable <----- Collections <------- list, set, queue |
 |-------------------------------------------------------|
 
-![img_10.png](images/img_10.png)
+![img_10.png](images/ListQueueSet.png)
 
 1. Java does not provide direct implementations of the Collection interface but provides implementations of its sub interfaces like
 
 - List Interface - List is an orderd collection like java
 - Set Interface - It cant have duplicate elements
 - Queue Interface - First in first out
-
-      List - Can have many values also duplicate values
-      Set - To have unique data
-      Map - To store data in key value
-
+```
+List - Can have many values also duplicate values
+Set - To have unique data
+Map - To store data in key value
+```
 ### Methods used:-
   - add()
   - addall()
@@ -432,10 +438,10 @@ ___Why the Collections Framework?___
   - removeall()
   - clear()
 
-```Collection<intiger> numb = new ArrayList<>(); --> Collection does work with index number.```
+`Collection<intiger> numb = new ArrayList<>();` --> `Collection does work with index number.`
 
 ## List
-![img_20.png](images/img_20.png)
+![img_20.png](images/ArrayListVsLinkedList.png)
 
 1) List is an ordered collection it maintains the insertion order, which means upon displaying the list content it will display the elements in the same order in which they got inserted into the list.
 ```
@@ -443,7 +449,7 @@ List<String> fruitList = new ArrayList<>();
 fruitList.add("Strawberry");
 String[] array = fruitList.toArray(new String[fruitList.size()]);
 ```
-```ArrayList``` - internally uses dinamic Array, non syncronized
+ - `ArrayList` - internally uses dinamic Array, non syncronized
 ```
 ArrayList<String> list=new ArrayList<String>();
 list.add("Ajay");
@@ -452,7 +458,7 @@ List.add(1, “sarath”); //To add a value at particular position
 Iterator itr=list.iterator();
 while(itr.hasNext())
 ```
-- ```LinkedList``` - internally uses doubly linked list, non syncronized, manipulation is fast because no shifting is required
+ - `LinkedList` - internally uses doubly linked list, non syncronized, manipulation is fast because no shifting is required
 ```
 LinkedList<String> al=new LinkedList<String>();
 al.add("Ajay");
@@ -460,11 +466,10 @@ Iterator<String> itr=al.iterator();
 while(itr.hasNext())
 ```
 
-- ```Singly LinkedList``` - Java Program to create and display a singly linked list - javatpoint
-- Linear data structure, in which each pointer points to the next element in list.
-- ```Doubly LinkedList``` - Java program to create and display a doubly linked list - javatpoint
-
-Linear data structure, which can be described as the collection of nodes. Nodes are connected through the pointers.
+ - `Singly LinkedList` - Java Program to create and display a singly linked list - javatpoint
+   - Linear data structure, in which each pointer points to the next element in list.
+ - `Doubly LinkedList` - Java program to create and display a doubly linked list - javatpoint
+   - Linear data structure, which can be described as the collection of nodes. Nodes are connected through the pointers.
 
 ***One of the limitations of the singly linked list is that it can be traversed in only one direction that is forward. The doubly linked list has overcome this limitation by providing an additional pointer that points to the previous node. With the help of the previous pointer, the doubly linked list can be traversed in a backward direction thus making insertion and deletion operation easier to perform. So, a typical node in the doubly linked list consists of three fields:***
 
@@ -474,7 +479,7 @@ ___Previous___ represents a pointer that points to the previous node.
 
 ___Next___ represents a pointer that points to next node in the list.
 
-* ```Vector``` - similar to ArrayList, but syncronized and contains many methods which are not part of collection frame work
+ - `Vector` - similar to ArrayList, but syncronized and contains many methods which are not part of collection frame work
 ```
 Vector<String> v=new Vector<String>();
 v.add("Ayush");
@@ -495,31 +500,41 @@ Set<data-type> s2 = new LinkedHashSet<data-type>();
 Set<data-type> s3 = new TreeSet<data-type>();
 ```
 Set is implemented by HashSet, LinkedHashSet, TreeSet
-- ```HashSet``` - No insertion order.
+- `HashSet` - No insertion order.
 ```
 HashSet<String> set=new HashSet<String>();
 set.add("Ajay");
 Iterator<String> itr=set.iterator();
 while(itr.hasNext())
 ```
-- ```LinkedHashSet``` - Maintains insertion order.
+- `LinkedHashSet` - Maintains insertion order.
 ```
 LinkedHashSet<String> set=new LinkedHashSet<String>();
 set.add("Ajay");
 Iterator<String> itr=set.iterator();
 while(itr.hasNext())
 ```
-- ```TreeSet``` - One of the most important implementations of the SortedSet interface in Java that uses a Tree for storage.
+- `TreeSet` - One of the most important implementations of the SortedSet interface in Java that uses a Tree for storage.
 
 ## Map
 
 Map is used for key,value purpose. Key should be unique.
 
-- ```HashMap```
+- `HashMap`
   * Hashmap is non syncronized in nature so performance is also high.
   * Not thread safe.
   * If one thread is iterating HashMap and the other try to add/modify then lead to run-time exception.
-- ```ConcurrentHashMap```
+
+ - [Traverse through Hashmap](https://www.geeksforgeeks.org/traverse-through-a-hashmap-in-java/)
+   - Using an Iterator
+   - Using enhanced for Loop (for-each loop)
+   - Using forEach() Method
+ - [HashMap Internal Working](https://youtu.be/-oafFAPgLao?si=pwEA44xe4I1i-WTf)
+ - [Key Map]((https://www.baeldung.com/java-custom-class-map-key))
+
+###
+
+- `ConcurrentHashMap`
   * ConcurrentHashMap is syncronized, so performance is slow.
   * Tread safe.
   * We wont get exception during modification.
@@ -532,25 +547,25 @@ Map is used for key,value purpose. Key should be unique.
 
   - public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneable, Serializable
 
-- ```TreeMap``` will iterate according to the "natural ordering" of the keys according to their compareTo() method (or an externally supplied Comparator). Additionally, it implements the SortedMap interface, which contains methods that depend on this sort order.
-  - Ordered and sortered version
-  - based on hashing data structures
+ - `TreeMap` will iterate according to the "natural ordering" of the keys according to their compareTo() method (or an externally supplied Comparator). Additionally, it implements the SortedMap interface, which contains methods that depend on this sort order.
+   - Ordered and sortered version
+   - based on hashing data structures
 
-  - public class TreeMap<K,V> extends AbstractMap<K,V> implements NavigableMap<K,V>, Cloneable, Serializable
-- ```LinkedHashMap``` will iterate in the order in which the entries were put into the map
-  - It is ordered version of map implementation
-  - Based on linked list and hashing data structures
+   - public class TreeMap<K,V> extends AbstractMap<K,V> implements NavigableMap<K,V>, Cloneable, Serializable
+ - `LinkedHashMap` will iterate in the order in which the entries were put into the map
+    - It is ordered version of map implementation
+    - Based on linked list and hashing data structures
 
-public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V>
+    - public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V>
 
-- ```HashTable```
-  - same as hash map
-  - It does not allow null keys and null values
-  - Hash tables are used to store and retrieve data (or records) quickly.
-  - Hashtables store the records in buckets using hash keys.
-  - Java Hashtable implements the Serializable and Cloneable interfaces but not the random access interface.
+ - `HashTable`
+   - same as hash map
+   - It does not allow null keys and null values
+   - Hash tables are used to store and retrieve data (or records) quickly.
+   - Hashtables store the records in buckets using hash keys.
+   - Java Hashtable implements the Serializable and Cloneable interfaces but not the random access interface.
 
-  - public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneable, Serializable
+   - public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneable, Serializable
 
 ## Exception Handling
 
@@ -613,7 +628,7 @@ int valueUnBoxing = valueBoxing; //AutoUnBoxing
 Sofware should be Highly Cohesive and Loosely coupled
 
 ## Coupling
-![img_8.png](images/img_8.png)
+![img_8.png](images/Coupling.png)
 
 ### Loose coupling
 They are mostly independent. If the only knowledge that class A has about class B, is what class B has exposed through its interface, then class A and class B are said to be loosely coupled. In order to over come from the problems of tight coupling between objects, spring framework uses dependency injection mechanism with the help of POJO/POJI model and through dependency injection its possible to achieve loose coupling.
@@ -624,7 +639,7 @@ Here if the class A method is changed, then all other classes which create the o
 
 ## Cohesion
 
-![img_9.png](images/img_9.png)
+![img_9.png](images/Cohesion.png)
 
 **Explanation:** In the above image, we can see that in low cohesion only one class is responsible to execute lots of jobs that are not in common which reduces the chance of reusability and maintenance. But in high cohesion, there is a separate class for all the jobs to execute a specific job, which results in better usability and maintenance.
 
@@ -646,7 +661,10 @@ High cohesion gives us better-maintaining facility and Low cohesion results in m
 | CI/CD | Deployments.. |
 
 
-# Multithreading
+# [Multithreading](https://codegym.cc/groups/multithreading-in-java)
+
+### [Deadlock](https://www.javatpoint.com/deadlock-in-java)
+
 ### Race condition
 In layman terms a race condition in which two or more threads compete together to get certain shared resources. For example, if thread a is reading data from the LinkedList and another thread B is trying to delete the same data.
 
@@ -654,7 +672,8 @@ In layman terms a race condition in which two or more threads compete together t
 
 ## 1. Caching in java
 - Caching is a technique wherein objects in your application are stored in a temporary storage area known as cache.
-- ![img.png](images/Cache Flow.png)
+
+![img.png](images/Cache Flow.png)
 
 ## Size() vs length()
 
@@ -1053,7 +1072,7 @@ random.ints().limit(10).sorted().forEach(System.out::println);
 
 ## Data Binding
 
-![img_16.png](images/img_16.png)
+![img_16.png](images/staticVsDynamicBinding.png)
 
 ### Static Binding
 
@@ -1124,9 +1143,9 @@ The connection pool is used to direct JDBC calls within the application, as well
 | 2) Comparable affects the original class, i.e., the actual class is modified.| Comparator doesn't affect the original class, i.e., the actual class is not modified. |
 | 3) Comparable provides compareTo() method to sort elements.| Comparator provides compare() method to sort elements.|
 
-## Equals() & HashCode(), Equals()
+## Equals() & [HashCode()](https://www.digitalocean.com/community/tutorials/java-equals-hashcode), Equals()
 
-- ![img_6.png](images/img_6.png)
+- ![img_6.png](images/equalsHashCode.png)
 
 ```
 String a = "Andrew";
@@ -1155,17 +1174,17 @@ c & d are Un-equal variables, and their respective hash values are: 74113750 & 7
 
 ## PermGen Space (Permanent Generation) and Meta Space
 
-![img.png](images/img.png)
+![img.png](images/HeapPermgenSpace.png)
 
 ### PerGen vs Meta space
 
-![img_21.png](images/img_21.png)
+![img_21.png](images/permGenVsMetaData.png)
 
 ## URL vs URI
 
 - In short, all URLs are URIs, but not all URIs are URLs.
 - URI syntax ```scheme:[//authority]path[?query][#fragment]```
-- ![img_1.png](images/img_1.png)
+- ![img_1.png](images/UrlUri.png)
 
 ## [Session management](https://www.javainuse.com/spring/springboot_session)
 
@@ -1178,7 +1197,7 @@ c & d are Un-equal variables, and their respective hash values are: 74113750 & 7
 
 ## Loggers
 
-- ![img_7.png](images/img_7.png)
+- ![img_7.png](images/Loggers.png)
 
 # [Strings](https://www.guru99.com/java-strings.html)
 
@@ -1202,7 +1221,7 @@ append(), insert(), delete(), and substring()
 methods for String manipulation.
 </div>
 
-![img_11.png](images/img_11.png)
+![img_11.png](images/StringBufferBuilder.png)
 
 - String is immutable whereas StringBuffer(Thread safe, syncronized, java1.0, slower) and StringBuilder(Opposite to StrngBuffer, java1.5) are mutable classes.
 - StringBuffer is thread-safe and synchronized whereas StringBuilder is not. That’s why StringBuilder is faster than StringBuffer.
@@ -1405,12 +1424,12 @@ static
 
 ## [ConcurrentModificationException / Fail-Fast and Fail-Safe]( https://www.geeksforgeeks.org/fail-fast-fail-safe-iterators-java/)
 
-## Transient Keyword
+## [Transient Keyword](https://www.educative.io/answers/what-is-the-transient-keyword-in-java)
 
 - Is used to avoid serialization. If any object of a data structure is defiend as a transient, then it will not be serialized.
 
 ## [Association, Composition and Aggregation in Java](https://www.geeksforgeeks.org/association-composition-aggregation-java/)
-![img_22.png](images/img_22.png)
+![img_22.png](images/AssosiationAggregation.png)
 
 Association is a relation between two separate classes which establishes through their objects. Association can be one-to-one, one-to-many, many-to-one, many-to-many. In Object-Oriented programming, an Object communicates to another object to use functionality and services provided by that object. Composition and Aggregation are the two forms of association.
 

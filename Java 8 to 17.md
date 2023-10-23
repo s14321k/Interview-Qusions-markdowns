@@ -53,7 +53,7 @@ The stream API and lambda expressions are the new features that move us closer t
 </code></pre>
 
 
-### Using Stream and Lambda
+### Using Stream and Lambda, [IntStream](https://www.tutorialspoint.com/how-to-use-intstream-in-lambdas-and-method-references-in-java#:~:text=An%20IntStream%20interface%20extends%20the,lambda%20expressions%20and%20method%20references.)
 
 <pre tabindex="0" style="color:#f8f8f2;-moz-tab-size:4;-o-tab-size:4;tab-size:4; padding: 10px 5px 10px 52px;border-radius: 20px;background:rgba(121,98,48,0.44);">
 <code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LambdaExpressions</span>

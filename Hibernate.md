@@ -65,7 +65,7 @@ The `get()` method is used to retrieve an object from the database based on its 
 
 Here is an example of how to use the `get()` method in Hibernate:
 
-```java
+```
 Session session = sessionFactory.openSession();
 Transaction transaction = session.beginTransaction();
 
@@ -81,7 +81,7 @@ The `load()` method is also used to retrieve an object from the database based o
 
 Here is an example of how to use the `load()` method in Hibernate:
 
-```java
+```
 Session session = sessionFactory.openSession();
 Transaction transaction = session.beginTransaction();
 
