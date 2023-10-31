@@ -31,6 +31,7 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   * [Annotations in Spring boot](#annotations-in-spring-boot)
   * [@Qualifier, @Primary, @Autowired, @Required](#qualifier-primary-autowired-required)
     * [@Qualifier](#qualifier)
+    * [@Primary](#primary)
     * [@Autowired](#autowired)
   * [@Controller vs @RestController](#controller-vs-restcontroller)
     * [@Controller](#controller)
@@ -41,7 +42,7 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
       * [@Transactional(propagation = Propagation.REQUIRES_NEW)](#transactionalpropagation--propagationrequiresnew)
   * [Dependency Injection](#dependency-injection)
   * [SSO (Single Sign On)](#sso-single-sign-on)
-    * [```Single sign on``` with ```Spring security OAuth2```](#single-sign-on-with-spring-security-oauth2)
+    * [```Single sign on``` with ```Spring security OAuth2``` or ```KeyClock```](#single-sign-on-with-spring-security-oauth2-or-keyclock)
   * [SPRING METHOD SECURITY](#spring-method-security)
   * [AOP (Aspect-Oriented Programming)](#aop-aspect-oriented-programming-)
   * [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
@@ -125,7 +126,7 @@ public class Address
 
 Normally, we create objects with their classes' constructors:
 
-```
+```java
 Address address = new Address("High Street", 1000);
 Company company = new Company(address);
 ```
@@ -134,7 +135,7 @@ Company company = new Company(address);
 
 First off, let's decorate the Company class with the @Component annotation:
 
-```
+```java
 @Component
 public class Company 
 {
@@ -143,7 +144,7 @@ public class Company
 ```
 Here's a configuration class supplying bean metadata to an IoC(Inversion of control) container:
 
-```
+```java
 @Configuration
 @ComponentScan(basePackageClasses = Company.class)
 public class Config 
@@ -368,12 +369,96 @@ Spring Boot and Spring MVC provide extensive support for handling various aspect
 
 
 ## @Qualifier, @Primary, @Autowired, @Required
-### @Qualifier
-https://www.youtube.com/watch?v=2YC5pIXR7e4&ab_channel=SimpleProgramming
-https://www.educative.io/courses/guide-spring-5-spring-boot-2/B1WwWk0pw5N#Why-is-@Qualifier-annotation-used?
+### [@Qualifier](https://medium.com/@AlexanderObregon/deciphering-dependency-management-exploring-qualifier-and-primary-annotations-in-spring-3864b2ec4382)
+- https://www.youtube.com/watch?v=2YC5pIXR7e4&ab_channel=SimpleProgramming
+- https://www.educative.io/courses/guide-spring-5-spring-boot-2/B1WwWk0pw5N#Why-is-@Qualifier-annotation-used?
 
-### @Autowired
-https://bushansirgur.in/spring-boot-autowire-annotation-with-example/
+The ***@Qualifier*** annotation is used to resolve ambiguity by specifying which exact bean should be wired where there are multiple beans of the same type. Let’s illustrate with an example:
+
+```java
+public interface GreetingService 
+{
+    String sayHello();
+}
+
+@Service("frenchGreetingService")
+public class FrenchGreetingService implements GreetingService 
+{
+    @Override
+    public String sayHello() 
+    {
+        return "Bonjour le monde!";
+    }
+}
+
+@Service("englishGreetingService")
+public class EnglishGreetingService implements GreetingService 
+{
+    @Override
+    public String sayHello() 
+    {
+        return "Hello World!";
+    }
+}
+
+@Component
+public class Application 
+{
+    private final GreetingService greetingService;
+
+    @Autowired
+    public Application(@Qualifier("englishGreetingService") GreetingService greetingService) 
+    {
+        this.greetingService = greetingService;
+    }
+
+    public String greet() 
+    {
+        return greetingService.sayHello();
+    }
+}
+```
+
+### @Primary
+
+The ***@Primary*** annotation indicates that a bean should be given preference when multiple beans match a single autowiring candidate. For instance:
+
+```java
+@Service("frenchGreetingService")
+public class FrenchGreetingService implements GreetingService {
+    @Override
+    public String sayHello() {
+        return "Bonjour le monde!";
+    }
+}
+
+@Primary
+@Service("englishGreetingService")
+public class EnglishGreetingService implements GreetingService {
+    @Override
+    public String sayHello() {
+        return "Hello World!";
+    }
+}
+
+@Component
+public class Application {
+    private final GreetingService greetingService;
+
+    @Autowired
+    public Application(GreetingService greetingService) {
+        this.greetingService = greetingService;
+    }
+
+    public String greet() {
+        return greetingService.sayHello();
+    }
+}
+```
+
+
+### [@Autowired](https://bushansirgur.in/spring-boot-autowire-annotation-with-example/)
+
 
 ## @Controller vs @RestController
 ### @Controller
@@ -505,7 +590,7 @@ In Spring Boot, dependency injection is a fundamental concept that helps manage 
 Remember to use dependency injection in Spring Boot to achieve loose coupling and to make your code more maintainable, testable, and scalable. The choice of which type of dependency injection to use depends on your specific use case and coding style, but constructor injection is generally considered a best practice.
 
 ## SSO (Single Sign On)
-### ```Single sign on``` with ```Spring security OAuth2```
+### ```Single sign on``` with ```Spring security OAuth2``` or ```KeyClock```
 SSO, or Single Sign-On, is an authentication process that allows a user to access multiple applications or services with a single set of credentials (username and password) after the initial login. In other words, it enables users to log in once and gain access to various systems and services without having to enter their credentials repeatedly. SSO is widely used in various IT and web applications to enhance user convenience and security.
 
 Here are some key points about SSO:
@@ -601,6 +686,26 @@ By doing this, the `LoggingAspect` will log method entry for methods in the `MyS
 
 Spring Boot's AOP capabilities are based on the AspectJ framework, which provides a rich and powerful way to define and use aspects. You can explore various aspects of AOP in Spring Boot to enhance your application's modularity and maintainability.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
 ## LDAP (Lightweight Directory Access Protocol)
 The most common LDAP use case is providing a central location for accessing and managing directory services.
 LDAP enables organizations to store, manage, and secure information about the organization, its users, and assets–like usernames and passwords.

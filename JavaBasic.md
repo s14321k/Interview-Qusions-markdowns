@@ -28,6 +28,7 @@
     * [Implements and Extends](#implements-and-extends)
     * [Interface and Abstract](#interface-and-abstract)
 * [Collections](#collections)
+    * [Iterator VS Enumarator](#iterator-vs-enumarator)
     * [Methods used:-](#methods-used-)
   * [List](#list)
   * [Set](#set)
@@ -48,6 +49,7 @@
 * [Multithreading](#multithreading)
     * [Deadlock](#deadlock)
     * [Race condition](#race-condition)
+    * [FailSafe and FailFast](#failsafe-and-failfast)
 * [Java Questions](#java-questions)
   * [1. Caching in java](#1-caching-in-java)
   * [Size() vs length()](#size-vs-length)
@@ -73,6 +75,7 @@
       * [Benefits of connection pooling](#benefits-of-connection-pooling)
   * [Comparable and Comparator](#comparable-and-comparator)
   * [Equals() & HashCode(), Equals()](#equals--hashcode---equals)
+  * [equals() vs "=="](#equals---vs---)
   * [Eden space in java](#eden-space-in-java)
   * [PermGen Space (Permanent Generation) and Meta Space](#permgen-space-permanent-generation-and-meta-space)
     * [PerGen vs Meta space](#pergen-vs-meta-space)
@@ -93,7 +96,6 @@
       * [A Custom Resource With AutoCloseable](#a-custom-resource-with-autocloseable)
   * [Initialization vs Instatiation](#initialization-vs-instatiation)
   * [Anonymous class](#anonymous-class)
-  * [Factory Design pattern](#factory-design-pattern)
   * [Authentication and Authorization](#authentication-and-authorization)
   * [Static Block in java < 1.5](#static-block-in-java--15)
   * [ConcurrentModificationException / Fail-Fast and Fail-Safe](#concurrentmodificationexception--fail-fast-and-fail-safe)
@@ -101,6 +103,7 @@
   * [Association, Composition and Aggregation in Java](#association-composition-and-aggregation-in-java)
   * [Arbitrary Number of Arguments and @SafeVarags](#arbitrary-number-of-arguments-and-safevarags)
   * [Load balancing](#load-balancing)
+  * [##](#-)
 <!-- TOC -->
 
 ## variables:
@@ -179,8 +182,8 @@ private String age;
 | System.out | standard output stream used to produce the result of the program. |
 | println() | to display the text in console and takes to next line. |
 
-***
 
+---
 ## Primary main features of java:
 
 1. Platform Independent
@@ -196,11 +199,15 @@ private String age;
 7. Multithreading
 8. Portable
 
+---
+
 ## Identifiers
 
 * starts with alphabets and underscore and dollar symbol.
 * Case sensitive.
 * Keyword cant be used as identifier.
+
+---
 
 # Modifier in Java
 
@@ -219,7 +226,7 @@ private String age;
 
 * You cannot access to private field outside the class that defines that private. Java will notify error at the compile time of the class.
 
-```
+```java
 class Sarath
 {
   private String name = "sarath"; --> this can be accessed within class
@@ -280,6 +287,8 @@ In other words it is called as Dynamic Method Dispatch or Run time polymorphism 
 
 [Overriding](https://www.geeksforgeeks.org/dynamic-method-dispatch-runtime-polymorphism-java/)
 
+---
+
 ## 2 . Inheritance
 
 Inheritance is a important pillar in OOP.
@@ -296,17 +305,23 @@ ii. SubClass
 
 The class that inherits the other class is known as Subclass or DerivedClass or ExtendedClass.
 
+---
+
 ## 3 . Encapsulation - hiding the information.
 
 i. The internal state of every object is protected by hiding its attributes.
 
 ii. It increases usability and maintenance of code.
 
+---
+
 ## 4 . [Abstraction - Absstract factory pattern](https://www.javatpoint.com/abstract-factory-pattern)
 
 i. Abstract class can have abstract method (incomplete method) and non-abstract method. This class can be extended.
 
 ii. Declared with Abstract keyword
+
+---
 
 ## 5 . Interface
 
@@ -333,10 +348,10 @@ Before java 1.8, interface can have only abstract method, i.e method without bod
 
 After java 1.8 default and static method declaration is allowed,
 
-*@FunctionalInterface* – Single abstract method. (Can be predefined and also user defined)
+**@FunctionalInterface** – Single abstract method. (Can be predefined and also user defined)
 
 *Eg:*
-```
+```java
 public interface DefaultStaticExampleInterface
 {
   default void show()
@@ -351,7 +366,8 @@ public interface DefaultStaticExampleInterface
 ```
 
 ***Impliments***
-```
+
+```java
 public class DefaultStaticExampleClass implements DefaultStaticExampleInterface
 {
 
@@ -370,6 +386,8 @@ public class Main
   }
 }
 ```
+
+---
 
 ### [Predicate](https://codegym.cc/groups/posts/java-predicate) vs Supplier
 Predicate and Supplier are two functional interfaces in Java that are part of the Java.util.function package, introduced in Java 8 as part of the Java Functional Programming features. These interfaces are used for passing behavior as an argument to methods, particularly in functional programming and when working with streams.
@@ -392,6 +410,7 @@ Predicate and Supplier are two functional interfaces in Java that are part of th
 
 In summary, Predicate is used to define a condition and test if an argument meets that condition, returning a boolean result. Supplier, on the other hand, is used to supply or generate values when needed without any input parameters.
 
+---
 
 ### [Implements and Extends](https://www.edureka.co/blog/implements-in-java/)
 
@@ -404,6 +423,8 @@ Multiple interface class can be inherited at a time.
 ### Interface and Abstract
 
 We can run an abstract class if it has main() method but we can't run an interface because they can't have main method implementation. Interfaces are used to define contract for the subclasses whereas abstract class also define contract but it can provide other methods implementations for subclasses to use.
+
+---
 
 # Collections
 
@@ -418,6 +439,16 @@ ___Why the Collections Framework?___
 | iterable <----- Collections <------- list, set, queue |
 |-------------------------------------------------------|
 
+### Iterator VS Enumarator
+
+| Iterator                                                                           | Enumeration  |
+|------------------------------------------------------------------------------------|---|
+| Iterator is a universal cursor as it is applicable for all the collection classes. | Enumeration is not a universal cursor as it applies only to legacy classes.|
+| Iterator has the remove() method.                                                  |Enumeration does not have the remove() method.|
+| Iterator can do modifications (e.g using remove() method it removes the element from the Collection during traversal).| Enumeration interface acts as a read only interface, one can not do any modifications to Collection while traversing the elements of the Collection.|
+| Iterator is not a legacy interface. Iterator can be used for the traversal of HashMap, LinkedList, ArrayList, HashSet, TreeMap, TreeSet . | Enumeration is a legacy interface which is used for traversing Vector, Hashtable. |
+
+
 ![img_10.png](images/ListQueueSet.png)
 
 1. Java does not provide direct implementations of the Collection interface but provides implementations of its sub interfaces like
@@ -425,7 +456,7 @@ ___Why the Collections Framework?___
 - List Interface - List is an orderd collection like java
 - Set Interface - It cant have duplicate elements
 - Queue Interface - First in first out
-```
+```markdown
 List - Can have many values also duplicate values
 Set - To have unique data
 Map - To store data in key value
@@ -440,17 +471,21 @@ Map - To store data in key value
 
 `Collection<intiger> numb = new ArrayList<>();` --> `Collection does work with index number.`
 
+---
+
 ## List
 ![img_20.png](images/ArrayListVsLinkedList.png)
 
 1) List is an ordered collection it maintains the insertion order, which means upon displaying the list content it will display the elements in the same order in which they got inserted into the list.
-```
+
+```java
 List<String> fruitList = new ArrayList<>();
 fruitList.add("Strawberry");
 String[] array = fruitList.toArray(new String[fruitList.size()]);
 ```
  - `ArrayList` - internally uses dinamic Array, non syncronized
-```
+
+```java
 ArrayList<String> list=new ArrayList<String>();
 list.add("Ajay");
 list.add("Viky");
@@ -458,8 +493,19 @@ List.add(1, “sarath”); //To add a value at particular position
 Iterator itr=list.iterator();
 while(itr.hasNext())
 ```
- - `LinkedList` - internally uses doubly linked list, non syncronized, manipulation is fast because no shifting is required
+
+- `Vector` - similar to ArrayList, but syncronized and contains many methods which are not part of collection frame work
+
+```java
+Vector<String> v=new Vector<String>();
+v.add("Ayush");
+Iterator<String> itr=v.iterator();
+while(itr.hasNext())
 ```
+
+ - `LinkedList` - internally uses doubly linked list, non syncronized, manipulation is fast because no shifting is required
+
+```java
 LinkedList<String> al=new LinkedList<String>();
 al.add("Ajay");
 Iterator<String> itr=al.iterator();
@@ -479,15 +525,10 @@ ___Previous___ represents a pointer that points to the previous node.
 
 ___Next___ represents a pointer that points to next node in the list.
 
- - `Vector` - similar to ArrayList, but syncronized and contains many methods which are not part of collection frame work
-```
-Vector<String> v=new Vector<String>();
-v.add("Ayush");
-Iterator<String> itr=v.iterator();
-while(itr.hasNext())
-```
 
 // pending https://www.javatpoint.com/collections-in-java //
+
+---
 
 ## Set
 
@@ -664,9 +705,50 @@ High cohesion gives us better-maintaining facility and Low cohesion results in m
 # [Multithreading](https://codegym.cc/groups/multithreading-in-java)
 
 ### [Deadlock](https://www.javatpoint.com/deadlock-in-java)
+Deadlock is a part of multithreading. Deadlock can occur in a situation when a thread is waiting for an object lock, that is aquired by another thread and second thread is waiting for an object lock that is aquired by first thread. Since both threads are waiting for each other to release the lock. 
 
 ### Race condition
 In layman terms a race condition in which two or more threads compete together to get certain shared resources. For example, if thread a is reading data from the LinkedList and another thread B is trying to delete the same data.
+
+### FailSafe and FailFast
+In Java, "failsafe" and "fail-fast" are two different approaches to handling concurrent modifications to data structures, such as collections like ArrayList, HashMap, and HashSet. These approaches determine how the data structure behaves when one thread modifies it while another thread is iterating over it. Here's an explanation of both concepts:
+
+1. Failsafe:
+  - Failsafe iterators do not throw ConcurrentModificationException when the underlying collection is modified while an iterator is traversing it.
+  - Instead of preventing concurrent modifications, failsafe iterators make a copy of the data structure at the time of creation and iterate over that copy. This means that the iterator works on a snapshot of the data, ensuring that it doesn't see the modifications made by other threads.
+  - Failsafe iterators are typically used in concurrent collections like ConcurrentHashMap and CopyOnWriteArrayList.
+
+   Example of a failsafe iterator:
+   ```java
+   Map<String, String> map = new ConcurrentHashMap<>();
+   map.put("key1", "value1");
+   map.put("key2", "value2");
+   
+   Iterator<String> iterator = map.keySet().iterator();
+   map.put("key3", "value3"); // Failsafe iterator won't throw an exception
+   while (iterator.hasNext()) {
+       System.out.println(iterator.next()); // It will safely iterate over the snapshot
+   }
+   ```
+
+2. Fail-Fast:
+  - Fail-fast iterators, on the other hand, are designed to detect concurrent modifications during iteration and immediately throw a ConcurrentModificationException. This is done to avoid potential data corruption and to notify the programmer of a potential problem.
+  - Fail-fast iterators are used in non-concurrent collections like ArrayList, HashMap, and HashSet.
+
+   Example of a fail-fast iterator:
+   ```java
+   List<String> list = new ArrayList<>();
+   list.add("item1");
+   list.add("item2");
+   
+   Iterator<String> iterator = list.iterator();
+   list.add("item3"); // Fail-fast iterator will throw ConcurrentModificationException
+   while (iterator.hasNext()) {
+       System.out.println(iterator.next());
+   }
+   ```
+
+It's important to choose the appropriate type of iterator based on the specific requirements of your application. Failsafe iterators are more suitable for situations where concurrent modifications are expected and need to be tolerated, while fail-fast iterators are preferred when concurrent modifications are considered an error that should be immediately detected and reported.
 
 # Java Questions
 
@@ -696,7 +778,7 @@ Design patterns are recurring solutions to common problems in software design. T
 3. getInstance method
 
 `Eg - 1`
-```
+```java
 class Database
 {
   private static Database dbObject; //Private static object of the same class
@@ -740,7 +822,7 @@ class Main
 
 `Eg - 2`
 
-```
+```java
 public class Singleton {
 private static Singleton instance;
 
@@ -755,9 +837,13 @@ private static Singleton instance;
 }
 ```
 
-2. **Factory Pattern**:
-  - **Usage**: The Factory pattern defines an interface for creating an object but allows subclasses to alter the type of objects that will be created.
-  - **Reason**: It is used when you want to abstract the object creation process, providing a flexible way to create objects while hiding the implementation details.
+2. [**Factory Pattern**:](https://www.linkedin.com/pulse/design-pattern-factory-babar-shahzad?trk=article-ssr-frontend-pulse_more-articles_related-content-card)
+
+  - [Factory Design pattern](https://www.geeksforgeeks.org/factory-method-design-pattern-in-java/)
+
+ - Multiple classes using same interface and to use that.
+   - **Usage**: The Factory pattern defines an interface for creating an object but allows subclasses to alter the type of objects that will be created.
+   - **Reason**: It is used when you want to abstract the object creation process, providing a flexible way to create objects while hiding the implementation details.
 
 ```java
 interface Product {
@@ -1046,26 +1132,26 @@ These design patterns help improve the structure and maintainability of software
 
 - __forEach()__ - to iterate each element of the stream.
 
-```
+```java
 Random random = new Random();
 random.ints().limit(10).forEach(System.out::println);
 ```
 
 - __map()__ - used to map each element to its corresponding result.
 
-```
+```java
 List<Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
 //get list of unique squares
 List<Integer> squaresList = numbers.stream().map( i -> i*i).distinct().collect(Collectors.toList());
 ```
 - __filter()__ - used to eliminate elements based on a criteria.
-```
+```java
 List<String>strings = Arrays.asList("abc", "", "bc", "efg", "abcd","", "jkl");
 //get count of empty string
 int count = strings.stream().filter(string -> string.isEmpty()).count();
 ```
 - __sorted()__ - Used to sort the stream
-```
+```java
 Random random = new Random();
 random.ints().limit(10).sorted().forEach(System.out::println);
 ```
@@ -1079,7 +1165,7 @@ random.ints().limit(10).sorted().forEach(System.out::println);
 #### Override static method
 NO, we can't override static methods since method overriding relies on dynamic binding at runtime, but static methods are bonded at compile time with static binding. As a result, we are unable to override static methods.
 
-```
+```java
 class Dog
 {
   private void eat()
@@ -1097,7 +1183,7 @@ class Dog
 
 ### Dynamic Binding
 
-```
+```java
 class Animal
 {
   void eat()
@@ -1147,7 +1233,7 @@ The connection pool is used to direct JDBC calls within the application, as well
 
 - ![img_6.png](images/equalsHashCode.png)
 
-```
+```java
 String a = "Andrew";
 String b = "Andrew";
 
@@ -1164,10 +1250,57 @@ if(!c.equals(d))
 ```
 
 ___Output___
-
+```java
 a & b are equal variables, and their respective hash values are: 1965574029 & 1965574029
 c & d are Un-equal variables, and their respective hash values are: 74113750 & 71933245
+```
 
+## [equals() vs "=="](https://www.linkedin.com/pulse/difference-between-equals-java-babar-shahzad)
+
+`So, the main difference between "==" and "equals" in Java is that "==" compares the memory location of two objects, while "equals" compares the contents of two objects.`
+
+![img_1.png](images/equalsVsDoubleEqual.png)
+
+**Reference Equality**
+
+ - In Java, "==" is used for reference equality, which means that it checks whether two objects refer to the same memory location.
+
+```java
+String s1 = "hello";
+String s2 = new String("hello");
+
+if (s1 == s2) 
+{
+  System.out.println("s1 and s2 are the same object");
+} 
+else 
+{
+  System.out.println("s1 and s2 are different objects");
+}
+```
+``Output``
+```java
+s1 and s2 are different objects
+```
+
+**Value Equality**
+
+ - Value equality takes place when two separate objects happen to have the same values or state.This compares values and is closely related to the Object's equals() method.
+
+```java
+String s1 = "hello";
+String s2 = new String("hello");
+
+if (s1.equals(s2)){ 
+  System.out.println("s1 and s2 have the same value");
+} else {
+  System.out.println("s1 and s2 have different values");
+}
+```
+``Output``
+```java
+s1 and s2 have the same value
+```
 
 ## Eden space in java
 - Eden space is a java memory pool where objects are created. When the eden space is full, the garbage collector either removes objects 
@@ -1233,7 +1366,7 @@ methods for String manipulation.
 - String pool is nothing but a storage area in Java heap where string literals stores. It is also known as String Intern Pool
 - It is just like object allocation. By default, it is empty and privately maintained by the Java String class.
 
-```
+```java
 Same values in
 String literal == String Object; //False
 String literal == String literal; //True
@@ -1243,7 +1376,7 @@ String literal == String literal; //True
 
 ___Concat___
 
-```
+```java
 String str1 = "Rock";
 String str2 = "Star";
 //Method 1 : Using concat
@@ -1399,10 +1532,6 @@ class Main
 
 **OUTPUT** ```Inside an anonymous class.```
 
-## [Factory Design pattern](https://www.geeksforgeeks.org/factory-method-design-pattern-in-java/)
-
-- Multiple classes using same interface and to use that.
-
 ## Authentication and Authorization
 
 - Authentication is the process of identifying a user to provide access to a system.
@@ -1470,6 +1599,8 @@ public final void add(T... toAdd)
 ```
 ## Load balancing
 
+
+## 
 ---
 Yet to do
 

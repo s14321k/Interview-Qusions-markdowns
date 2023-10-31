@@ -9,13 +9,16 @@
 
 
 # SQL Ques
-## 1. Find max and second max salary for a employee table MySQL
+## 1. [Find max and second max salary for a employee table MySQL](https://stackoverflow.com/a/21520159/11962586)
 - Try this, n would be the nth item you would want to return
-- https://stackoverflow.com/a/21520159/11962586
 - ```SELECT DISTINCT(Salary) FROM table ORDER BY Salary DESC LIMIT n,1```
 
 In your case
 - ```SELECT DISTINCT(column_name) FROM table_name ORDER BY column_name DESC limit 2,1;```
+
+## [Highest Salary in each department](https://stackoverflow.com/a/8477093/11962586)
+- SELECT DeptID, MAX(Salary) FROM EmpDetails GROUP BY DeptID
+- SELECT DeptID, EmpName, Salary FROM EmpDetails WHERE (DeptID,Salary) IN (SELECT DeptID, MAX(Salary) FROM EmpDetails GROUP BY DeptID)
 
 ## 2. Types of Relationship in DBMS
 - One to One relationship
@@ -56,5 +59,11 @@ FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
 ## 4. Joins in SQL
 - Left join
 - Right join
+
+
 - inner join
+
+**Tables** - ***Products*** and ***Catogories***
+
+``Select productId, productName, catogoryName FROM products INNER JOIN Categories on ``
 
