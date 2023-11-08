@@ -287,12 +287,13 @@ throws Exception
 
 ## Entity or Model Annotations
  - @Data - (Equivalent to @Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode
+ - @Entity
+ - @Table(name = "")
  - @NoArgsConstructor
  - @AllArgsConstructor
- - @Entity
- - @Table
  - @MappedSuperclass   //Acts as a parent class for all other classes id fields
- - @GeneratedValue(strategy = GenerationType.SEQUENCE)
+ - @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_one_generator")
+ - @SequenceGenerator(name = "", sequenceName = "", allocationSize = 1)
   
   **Annotations to extract the values from the URI**
 
