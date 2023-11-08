@@ -258,23 +258,29 @@ throws Exception
 ![img.png](images/AnnotationGlobalException.png)
 
 ## [Annotations in Spring boot](https://www.javatpoint.com/spring-boot-annotations)
- - @SpringBootApplication
- - @EnableAutoConfiguration -
- - @ComponentScan(basePackages = "com.hhs")
+ - @SpringBootApplication - Combination of
+   - @EnableAutoConfiguration -
+   - @Configuration - is a class level annotation.
+   - @ComponentScan(basePackages = "com.hhs")
  - @Required - Applied at the bean setter method. This should be populated at configuration time with the required property.
  - @Autowired - provides annotation-based autowiring by providing @Autowired.
- - @Configuration - is a class level annotation.
- - @ComponentScan - @ComponentScan(basePackages = "com.javatpoint")
+   - @Qualifier
+   - @Primary
  - @Bean - is a method level annotation.
  - @Component - 
- - @Controller - 
- - @RestController - 
+   - @Controller - 
+   - @RestController - 
+   - @Service - 
+   - @Repository - 
+    - @Query - To write custom quries
+    - @Modifing
+    - @EntityGraph - ![img.png](images/AnnotationEntityGraph.png)
  - @RequestMapping - 
- - @GetMapping - 
- - @PutMapping - 
- - @PostMapping - 
- - @DeleteMapping - 
- - @PatchMapping -
+   - @GetMapping - 
+   - @PutMapping - 
+   - @PostMapping - 
+   - @DeleteMapping - 
+   - @PatchMapping -
  - @Aspect - 
  - (@Async)[https://www.baeldung.com/spring-async] -
  - @ConditionalOnProperties -
@@ -386,16 +392,12 @@ public String getSessionData(@SessionAttribute("userId") Long userId) {
 
 Spring Boot and Spring MVC provide extensive support for handling various aspects of web requests and responses, so there are many more annotations available. The choice of which annotation to use depends on the specific requirements of your application and the data you need to handle within your controllers.
  
-
-
- - @Service  - 
- - @Repository - 
+ 
  - @EnableAutoConfiguration - 
  - @SpringBootApplication - 
  - @EnableCaching
  - @Cacheable("envProperty") - ![img.png](images/AnnotationCachingSpringBoot.png)
  - @InitBinder - To trim the values passed in @RequestParam and @ModelAttribute
- - @EntityGraph - ![img.png](images/AnnotationEntityGraph.png)
 
 
 ## @Qualifier, @Primary, @Autowired, @Required
