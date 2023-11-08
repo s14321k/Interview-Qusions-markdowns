@@ -518,6 +518,10 @@ Required is the default propagation. Spring checks if there is an active transac
 #### @Transactional(propagation = Propagation.REQUIRES_NEW)
 When the propagation is Requires_New, spring suspends the current transaction if it exists and creates a new one.
 
+## (Pagiantion using JPA)[https://www.baeldung.com/spring-data-jpa-pagination-sorting]
+ - Pagination and Sorting using Spring Data JPA
+ - If we are getting huge ammount of data, then we do pagination by sending particular 
+
 ## [Dependency Injection](https://www.javatpoint.com/dependency-injection-in-spring)
 
 Dependency Injection (DI) is a design pattern that removes the dependency from the programming code so that it can be easy to manage and test the application.
