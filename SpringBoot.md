@@ -276,9 +276,25 @@ throws Exception
  - @DeleteMapping - 
  - @PatchMapping -
  - @Aspect - 
- - (@Async)[https://www.baeldung.com/spring-async] - 
+ - (@Async)[https://www.baeldung.com/spring-async] -
+ - @ConditionalOnProperties -
+ - (@PropertySource)[https://github.com/ysm-dev/kingbbode.github.io/blob/1a457952e9fa34d834ead979c8e5bd02a25c3975/_posts/seminar/2016/2016-04-30-Spring-Camp-2016.md]
+
+## MongoRelated Annotations
+ - @Document(collection ="collection_name")
+ - @EnableMongoAuditing
+ - @LastModifiedDate
+
+## Entity or Model Annotations
+ - @Data - (Equivalent to @Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode
+ - @NoArgsConstructor
+ - @AllArgsConstructor
+ - @Entity
+ - @Table
+ - @MappedSuperclass   //Acts as a parent class for all other classes id fields
+ - @GeneratedValue(strategy = GenerationType.SEQUENCE)
   
-  **Extract the values from the URI**
+  **Annotations to extract the values from the URI**
 
 Spring Boot provides a wide range of parameter binding annotations for various purposes. Here are some other commonly used annotations beyond the ones you mentioned:
 
