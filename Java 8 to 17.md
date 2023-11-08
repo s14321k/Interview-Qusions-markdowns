@@ -33,7 +33,7 @@
 
 ## 1. Lambda Expression and Stream API
 
-The stream API and lambda expressions are the new features that move us closer to functional programming.
+ - The stream API and lambda expressions are the new features that move us closer to functional programming.
 
 ### Before Lambda and Stream API
 
@@ -68,6 +68,9 @@ The stream API and lambda expressions are the new features that move us closer t
 <span style="color:#f92672">}</span>
 </code>
 </pre>
+
+#### [Why lambda expression is used?](https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/lambda-quickstart/index.html#section2)
+- Lambda expression is a block of code which takes in parameter and returns a value. It is similar to methods, but do not need a name.
 
 #### map() and  flatMap() in streamAPI
 In Java Stream API, `map` and `flatMap` are two distinct operations that are used for transforming the elements of a stream. They serve different purposes, and understanding when to use each is important.

@@ -287,7 +287,13 @@ In other words it is called as Dynamic Method Dispatch or Run time polymorphism 
 
 [Overriding](https://www.geeksforgeeks.org/dynamic-method-dispatch-runtime-polymorphism-java/)
 
+### Covariant return type
+We can change the return type of the child class if it is the subclass of the return type.
+
+
 ---
+
+
 
 ## 2 . Inheritance
 
@@ -1302,6 +1308,22 @@ if (s1.equals(s2)){
 s1 and s2 have the same value
 ```
 
+```java
+class HelloWorld {
+    public static void main(String[] args) 
+    {
+        String s1 = "Java";
+        String s2 = "Java";
+        StringBuilder sb1 = new StringBuilder();
+        sb1.append("Ja").append("va");
+        System.out.println(s1 == s2);
+        System.out.println(s1.equals(s2));
+        System.out.println(sb1.toString() == s1);
+        System.out.println(sb1.toString().equals(s1)); 
+    }
+}
+```
+
 ## Eden space in java
 - Eden space is a java memory pool where objects are created. When the eden space is full, the garbage collector either removes objects 
 
@@ -1382,6 +1404,9 @@ String str2 = "Star";
 //Method 1 : Using concat
 String str3 = str1.concat(str2);
 ```
+
+## concat() vs plus(+) operator
+- concat() method is better than the + operator because it creates a new object only when the string length is greater than zero(0) but the + operator always creates a new string irrespective of the length of the string.
 
 ## Why string is immutable in java
 

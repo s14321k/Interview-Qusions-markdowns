@@ -3,9 +3,10 @@ https://www.baeldung.com/spring-mvc-session-attributes
 
 https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 
-
 <!-- TOC -->
+  * [Top 15 Q&A](#top-15-qa)
   * [Difference between spring and spring boot?](#difference-between-spring-and-spring-boot)
+  * [Spring Boot Profiles](#spring-boot-profiles)
   * [Mention the need for it.](#mention-the-need-for-it)
   * [Features of spring boot](#features-of-spring-boot)
   * [Possible sources of external configuration](#possible-sources-of-external-configuration)
@@ -48,6 +49,7 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   * [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
 <!-- TOC -->
 
+## [Top 15 Q&A](https://www.java67.com/2018/06/top-15-spring-boot-interview-questions-answers-java-jee-programmers.html)
 
 ## Difference between spring and spring boot?
 
@@ -57,6 +59,12 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 | provides tools and libraries  <br/> to create customised web app | Spring app project |
 | more complex                                                     | less complex       |
 
+## [Spring Boot Profiles](https://medium.com/javarevisited/getting-started-with-spring-boot-profiles-1e00159f0542#:~:text=Profiles%20in%20Spring%20Boot%20are,configurations%20for%20your%20production%20environment.)
+ - Profiles in Spring Boot are a way to define different sets of configurations for your application depending on the environment it is being run in. For example, you might have one set of configurations for your development environment and another set of configurations for your production environment. These configurations might include things like database settings (i want to use a database for tests and another for dev purposes ), Bean Creation (ex : i want a bean to be created only if I’m in the development process it’s possible with profiles ).
+ - Profiles can be defined using property files, YAML files, or even Java code. By default, Spring Boot will use the “default” profile if no other profile is specified. To activate a profile, you can set the “spring.profiles.active” property to the name of the profile you want to use.
+ - Create different properties files for each environment
+ - `spring.profiles.active=dev`
+ - Use meaningful profile names: Use profile names that clearly indicate the environment they are intended for (e.g. “local” ,“dev”, “prod”, “test”, “qa”).
 
 ## Mention the need for it.
 - Stand alone app
@@ -189,6 +197,9 @@ https://bushansirgur.in/spring-boot-bean-annotation-with-example/
 ## Is REST API stateless or stateful?
 - A. REST APIs are stateless because, rather than relying on the server remembering previous requests, REST applications require each request to contain all of the information necessary for the server to understand it.
 
+## Spring integration using RestTemplate
+- Classes and methods used
+  - 
 
 ## Spring Boot Architecture
 - ![img_13.png](images/img_13.png)
@@ -200,11 +211,12 @@ https://bushansirgur.in/spring-boot-bean-annotation-with-example/
 - The Controller is responsible for processing user requests and building an appropriate model and passes it to the view for rendering.
 
 ## [HandlerInterseptor & Filter](https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter)
+
  - HandlerInterseptor
    - preHandle()
    - postHandle()
    - afterCompletion()
- ```
+ ```java
 public class LogInterceptor implements HandlerInterceptor 
 {
     private Logger logger = LoggerFactory.getLogger(LogInterceptor.class);
@@ -233,7 +245,8 @@ throws Exception
 
 }
 ```
-![img.png](img.png)
+
+![img.png](images/SpringMvcLifeCycle.png)
 
 ## [Exception Handling in Spring boot](https://www.tutorialspoint.com/spring_boot/spring_boot_exception_handling.htm)
 
