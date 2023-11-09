@@ -1582,8 +1582,10 @@ static
 
 - Is used to avoid serialization. If any object of a data structure is defiend as a transient, then it will not be serialized.
 
-## [Association, Composition and Aggregation in Java](https://www.geeksforgeeks.org/association-composition-aggregation-java/)
+## [Association, Composition and Aggregation in Java](https://www.geeksforgeeks.org/association-composition- -java/)
 ![img_22.png](images/AssosiationAggregation.png)
+
+In Springboot MongoDB for join queries - (Link)[https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html]
 
 Association is a relation between two separate classes which establishes through their objects. Association can be one-to-one, one-to-many, many-to-one, many-to-many. In Object-Oriented programming, an Object communicates to another object to use functionality and services provided by that object. Composition and Aggregation are the two forms of association.
 

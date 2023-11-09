@@ -275,6 +275,7 @@ throws Exception
     - @Query - To write custom quries
     - @Modifing
     - @EntityGraph - ![img.png](images/AnnotationEntityGraph.png)
+    - Projection - Creating interface to write particular queries in custom we can use projection.
  - @RequestMapping - 
    - @GetMapping - 
    - @PutMapping - 
@@ -722,6 +723,7 @@ By doing this, the `LoggingAspect` will log method entry for methods in the `MyS
 
 Spring Boot's AOP capabilities are based on the AspectJ framework, which provides a rich and powerful way to define and use aspects. You can explore various aspects of AOP in Spring Boot to enhance your application's modularity and maintainability.
 
+## (Projections and Aggregations)[https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html]
 
 
 

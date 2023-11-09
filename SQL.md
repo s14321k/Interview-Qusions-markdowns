@@ -44,6 +44,17 @@ FROM table_name
 WHERE condition;
 ```
 
+## (4. Predicate in SQL)[https://www3.navicat.com/en/company/aboutus/blog/1895-predicates-in-sql#]
+ - A predicate is simply an expression that evaluates to TRUE, FALSE, or UNKNOWN
+ - Used in the search condition of WHERE and HAVING clauses, the join conditions of FROM clauses, as well as any other part of a query where a boolean value is required.
+  - Comparison
+  - LIKE
+  - BETWEEN
+  - IN
+  - EXISTS
+  - IS NULL
+
+
 ## 5. SQL FOREIGN KEY Constraint
 
 ```
@@ -56,7 +67,7 @@ FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
 );
 ```
 
-## 4. Joins in SQL
+## 6. Joins in SQL
 - Left join
 - Right join
 
