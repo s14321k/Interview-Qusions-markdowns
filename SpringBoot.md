@@ -23,6 +23,7 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   * [JPARepository vs CRUDRepository](#jparepository-vs-crudrepository)
   * [How configuration works in Spring](#how-configuration-works-in-spring)
   * [Is REST API stateless or stateful?](#is-rest-api-stateless-or-stateful)
+  * [Spring integration using RestTemplate](#spring-integration-using-resttemplate)
   * [Spring Boot Architecture](#spring-boot-architecture)
   * [Spring Architecture](#spring-architecture)
   * [HandlerInterseptor & Filter](#handlerinterseptor--filter)
@@ -30,6 +31,8 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
       * [@ControllerAdvice](#controlleradvice)
       * [@ExceptionHandler](#exceptionhandler)
   * [Annotations in Spring boot](#annotations-in-spring-boot)
+  * [MongoRelated Annotations](#mongorelated-annotations)
+  * [Entity or Model Annotations](#entity-or-model-annotations)
   * [@Qualifier, @Primary, @Autowired, @Required](#qualifier-primary-autowired-required)
     * [@Qualifier](#qualifier)
     * [@Primary](#primary)
@@ -41,11 +44,13 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     * [@Transactional propagation isolation](#transactional-propagation-isolation)
       * [@Transactional(propagation = Propagation.REQUIRED)](#transactionalpropagation--propagationrequired)
       * [@Transactional(propagation = Propagation.REQUIRES_NEW)](#transactionalpropagation--propagationrequiresnew)
+  * [(Pagiantion using JPA)[https://www.baeldung.com/spring-data-jpa-pagination-sorting]](#pagiantion-using-jpahttpswwwbaeldungcomspring-data-jpa-pagination-sorting)
   * [Dependency Injection](#dependency-injection)
   * [SSO (Single Sign On)](#sso-single-sign-on)
     * [```Single sign on``` with ```Spring security OAuth2``` or ```KeyClock```](#single-sign-on-with-spring-security-oauth2-or-keyclock)
   * [SPRING METHOD SECURITY](#spring-method-security)
   * [AOP (Aspect-Oriented Programming)](#aop-aspect-oriented-programming-)
+  * [(Projections and Aggregations)[https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html]](#projections-and-aggregationshttpswwwjavaprogramtocom202005spring-boot-data-mongodb-projections-aggregationshtml)
   * [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
 <!-- TOC -->
 
@@ -212,6 +217,7 @@ https://bushansirgur.in/spring-boot-bean-annotation-with-example/
 
 ## [HandlerInterseptor & Filter](https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter)
 
+ - [StackOverflow](https://stackoverflow.com/q/35856454)
  - HandlerInterseptor
    - preHandle()
    - postHandle()
