@@ -202,9 +202,13 @@ https://bushansirgur.in/spring-boot-bean-annotation-with-example/
 ## Is REST API stateless or stateful?
 - A. REST APIs are stateless because, rather than relying on the server remembering previous requests, REST applications require each request to contain all of the information necessary for the server to understand it.
 
-## Spring integration using RestTemplate
+## [Spring integration using RestTemplate](https://howtodoinjava.com/spring-boot2/resttemplate/spring-restful-client-resttemplate-example/) 
 - Classes and methods used
-  - 
+### To Make GET Requests
+- **getForObject(url, classType)** – retrieve a representation by doing a GET on the URL. The response (if any) is unmarshalled to the given class type and returned.
+- **getForEntity(url, responseType)** – retrieve a representation as ResponseEntity by doing a GET on the URL.
+- **exchange(url, httpMethod, requestEntity, responseType)** – execute the specified RequestEntity and return the response as ResponseEntity.
+- **execute(url, httpMethod, requestCallback, responseExtractor)** – execute the httpMethod to the given URI template, prepare the request with the RequestCallback, and read the response with a ResponseExtractor.
 
 ## Spring Boot Architecture
 - ![img_13.png](images/img_13.png)
