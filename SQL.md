@@ -68,13 +68,17 @@ FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
 ```
 
 ## 6. Joins in SQL
-- Left join
-- Right join
-
-
-- inner join
+- (INNER) JOIN: Returns records that have matching values in both tables
+- LEFT (OUTER) JOIN: Returns all records from the left table, and the matched records from the right table
+- RIGHT (OUTER) JOIN: Returns all records from the right table, and the matched records from the left table
+- FULL (OUTER) JOIN: Returns all records when there is a match in either left or right table
 
 **Tables** - ***Products*** and ***Catogories***
 
 ``Select productId, productName, catogoryName FROM products INNER JOIN Categories on ``
 
+## 7. [KeyWords](https://www.w3schools.com/sql/sql_ref_keywords.asp)
+- Create, Create Table, Add, All, Alter, And, Drop, Distinct, Exists etc..
+
+## 8. [Sql functions](https://www.w3schools.com/sql/sql_ref_mysql.asp)
+- Numeric Functions, String Functions, Date, etc..

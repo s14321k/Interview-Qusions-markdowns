@@ -7,6 +7,8 @@
   * [4. Hibernate and implementation](#4-hibernate-and-implementation)
   * [5. Stored Procedure](#5-stored-procedure)
   * [6. Prepared Statement](#6-prepared-statement)
+  * [Cascading](#cascading)
+    * [Types of cascading](#types-of-cascading)
   * [get() and load()](#get-and-load)
     * [Hibernate and JPA (Java Persistence API)](#hibernate-and-jpa-java-persistence-api-)
 <!-- TOC -->
@@ -145,7 +147,10 @@ if (connection != null) {
 }
 ```
 
+## Cascading
+- Cascading is a feature in Hibernate, which is an object-relational mapping (ORM) tool used in Java to map Java classes to database tables. Cascading refers to the ability to automatically propagate the state of an entity
 
+### [Types of cascading](https://www.geeksforgeeks.org/hibernate-different-cascade-types/)
 
 
 ## get() and load()

@@ -19,12 +19,14 @@
   * [2- Non-access Modifiyers](#2--non-access-modifiyers)
 * [OOP(Object Oriented Programming)](#oopobject-oriented-programming)
   * [1. Polymorphism](#1-polymorphism)
+    * [Covariant return type](#covariant-return-type)
   * [2 . Inheritance](#2--inheritance)
   * [3 . Encapsulation - hiding the information.](#3--encapsulation---hiding-the-information)
   * [4 . Abstraction - Absstract factory pattern](#4--abstraction---absstract-factory-pattern)
   * [5 . Interface](#5--interface)
     * [Marker interface vs Functional Interface](#marker-interface-vs-functional-interface)
     * [Predicate vs Supplier](#predicate-vs-supplier)
+    * [Callable vs Runnable](#callable-vs-runnable)
     * [Implements and Extends](#implements-and-extends)
     * [Interface and Abstract](#interface-and-abstract)
 * [Collections](#collections)
@@ -87,6 +89,7 @@
     * [String vs StringBuffer](#string-vs-stringbuffer)
     * [String pool](#string-pool)
   * [String Manipulation__](#string-manipulation)
+  * [concat() vs plus(+) operator](#concat-vs-plus-operator)
   * [Why string is immutable in java](#why-string-is-immutable-in-java)
     * [To Create immutable class](#to-create-immutable-class)
   * [URL vs URI](#url-vs-uri-1)
@@ -100,11 +103,12 @@
   * [Static Block in java < 1.5](#static-block-in-java--15)
   * [ConcurrentModificationException / Fail-Fast and Fail-Safe](#concurrentmodificationexception--fail-fast-and-fail-safe)
   * [Transient Keyword](#transient-keyword)
-  * [Association, Composition and Aggregation in Java](#association-composition-and-aggregation-in-java)
+  * [[Association, Composition and Aggregation in Java](https://www.geeksforgeeks.org/association-composition- -java/)](#association-composition-and-aggregation-in-javahttpswwwgeeksforgeeksorgassociation-composition---java)
   * [Arbitrary Number of Arguments and @SafeVarags](#arbitrary-number-of-arguments-and-safevarags)
   * [Load balancing](#load-balancing)
   * [##](#-)
 <!-- TOC -->
+
 
 ## variables:
 
@@ -132,7 +136,7 @@ Double is more precious than float, where double takes 8 bytes and can provide p
 
 ***
 
-### Compile time Error
+## Compile time Error
 
 #### Two types:-
 
@@ -142,31 +146,28 @@ Double is more precious than float, where double takes 8 bytes and can provide p
 
 
 
-### Run Time error
+## Run Time error
 
 if divisible by 0.
 
 ***
 
-### * Constant *
+**Constant** - public static final String name="Sarath";
 
-public static final String name="Sarath";
+**Value** - final String dontChange="India";
 
-### * Value *
+**Field** - protected String rever="Gana";
 
-final String dontChange="India";
-
-### * Field *
-
-protected String rever="Gana";
-
-### * Property *
-
-private String age;
+**Property** - private String age;
 
 ***
 
-**CLASS** - Class is a collection of objects.
+## Class
+### What is a class
+ - **CLASS** - Class is a collection of objects.
+
+### [Common classes in  java](https://www.indeed.com/career-advice/interviewing/java-interview-questions-for-5-years-experience)
+- There are so many classes in java. A few essentials are final, static, concrete, abstract, inner and POJO.
 
 **OBJECTS** – Is a memory representation of a class
 
@@ -416,6 +417,14 @@ Predicate and Supplier are two functional interfaces in Java that are part of th
 
 In summary, Predicate is used to define a condition and test if an argument meets that condition, returning a boolean result. Supplier, on the other hand, is used to supply or generate values when needed without any input parameters.
 
+### Callable vs Runnable
+
+ - Callable interface and Runnable interface are used to encapsulate tasks supposed to be executed by another thread.
+
+ - However, Runnable instances can be run by Thread class as well as ExecutorService but Callable instances can only be executed via ExecutorService.
+
+![img.png](images/CallableVsRunnable.png)
+
 ---
 
 ### [Implements and Extends](https://www.edureka.co/blog/implements-in-java/)
@@ -429,6 +438,9 @@ Multiple interface class can be inherited at a time.
 ### Interface and Abstract
 
 We can run an abstract class if it has main() method but we can't run an interface because they can't have main method implementation. Interfaces are used to define contract for the subclasses whereas abstract class also define contract but it can provide other methods implementations for subclasses to use.
+
+#### purpose of interface instead of abstract class in java
+ - Interfaces are used to define contract for the subclasses whereas abstract class also define contract but it can provide other methods implementations for subclasses to use.
 
 ---
 
@@ -536,7 +548,7 @@ ___Next___ represents a pointer that points to next node in the list.
 
 ---
 
-## Set
+## [Set](https://javahungry.blogspot.com/2013/08/how-sets-are-implemented-internally-in.html)
 
 Unorderd set. Doesn't allow to store duplicate values. Can store one null value.
 
@@ -547,27 +559,27 @@ Set<data-type> s2 = new LinkedHashSet<data-type>();
 Set<data-type> s3 = new TreeSet<data-type>();
 ```
 Set is implemented by HashSet, LinkedHashSet, TreeSet
-- `HashSet` - No insertion order.
+### `HashSet` - No insertion order.
 ```
 HashSet<String> set=new HashSet<String>();
 set.add("Ajay");
 Iterator<String> itr=set.iterator();
 while(itr.hasNext())
 ```
-- `LinkedHashSet` - Maintains insertion order.
+### `LinkedHashSet` - Maintains insertion order.
 ```
 LinkedHashSet<String> set=new LinkedHashSet<String>();
 set.add("Ajay");
 Iterator<String> itr=set.iterator();
 while(itr.hasNext())
 ```
-- `TreeSet` - One of the most important implementations of the SortedSet interface in Java that uses a Tree for storage.
+### `TreeSet` - One of the most important implementations of the SortedSet interface in Java that uses a Tree for storage.
 
 ## Map
 
 Map is used for key,value purpose. Key should be unique.
 
-- `HashMap`
+### `HashMap`
   * Hashmap is non syncronized in nature so performance is also high.
   * Not thread safe.
   * If one thread is iterating HashMap and the other try to add/modify then lead to run-time exception.
@@ -579,9 +591,9 @@ Map is used for key,value purpose. Key should be unique.
  - [HashMap Internal Working](https://youtu.be/-oafFAPgLao?si=pwEA44xe4I1i-WTf)
  - [Key Map]((https://www.baeldung.com/java-custom-class-map-key))
 
-###
 
-- `ConcurrentHashMap`
+
+### `ConcurrentHashMap` [Link](https://javahungry.blogspot.com/2015/02/how-concurrenthashmap-works-in-java-internal-implementation.html)
   * ConcurrentHashMap is syncronized, so performance is slow.
   * Tread safe.
   * We wont get exception during modification.
@@ -594,18 +606,19 @@ Map is used for key,value purpose. Key should be unique.
 
   - public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneable, Serializable
 
- - `TreeMap` will iterate according to the "natural ordering" of the keys according to their compareTo() method (or an externally supplied Comparator). Additionally, it implements the SortedMap interface, which contains methods that depend on this sort order.
-   - Ordered and sortered version
-   - based on hashing data structures
+### `TreeMap` 
+ - will iterate according to the "natural ordering" of the keys according to their compareTo() method (or an externally supplied Comparator). Additionally, it implements the SortedMap interface, which contains methods that depend on this sort order.
+ - Ordered and sortered version
+ - based on hashing data structures
 
-   - public class TreeMap<K,V> extends AbstractMap<K,V> implements NavigableMap<K,V>, Cloneable, Serializable
- - `LinkedHashMap` will iterate in the order in which the entries were put into the map
-    - It is ordered version of map implementation
-    - Based on linked list and hashing data structures
+ - public class TreeMap<K,V> extends AbstractMap<K,V> implements NavigableMap<K,V>, Cloneable, Serializable
+### `LinkedHashMap` 
+  - will iterate in the order in which the entries were put into the map
+  - It is ordered version of map implementation
+  - Based on linked list and hashing data structures
+  - public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V>
 
-    - public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V>
-
- - `HashTable`
+### `HashTable`
    - same as hash map
    - It does not allow null keys and null values
    - Hash tables are used to store and retrieve data (or records) quickly.
@@ -615,8 +628,7 @@ Map is used for key,value purpose. Key should be unique.
    - public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneable, Serializable
 
 ## Exception Handling
-
-In Java, an exception is an event that disrupts the normal flow of the program. It is an object which is thrown at runtime.
+ - In Java, an exception is an event that disrupts the normal flow of the program. It is an object which is thrown at runtime.
 
 ```
 Throwable
@@ -641,6 +653,9 @@ We can exit finally block by using flag. exit(); in try block.
 Process syncronizatin
 Tread Syncronization
 ```
+
+
+
 ## Aplet
 
   - ```public void init()```: is used to initialized the Applet. It is invoked only once.
@@ -784,6 +799,7 @@ Design patterns are recurring solutions to common problems in software design. T
 3. getInstance method
 
 `Eg - 1`
+
 ```java
 class Database
 {
@@ -827,7 +843,6 @@ class Main
 ```
 
 `Eg - 2`
-
 ```java
 public class Singleton {
 private static Singleton instance;
@@ -845,7 +860,7 @@ private static Singleton instance;
 
 2. [**Factory Pattern**:](https://www.linkedin.com/pulse/design-pattern-factory-babar-shahzad?trk=article-ssr-frontend-pulse_more-articles_related-content-card)
 
-  - [Factory Design pattern](https://www.geeksforgeeks.org/factory-method-design-pattern-in-java/)
+[Factory Design pattern](https://www.geeksforgeeks.org/factory-method-design-pattern-in-java/)
 
  - Multiple classes using same interface and to use that.
    - **Usage**: The Factory pattern defines an interface for creating an object but allows subclasses to alter the type of objects that will be created.
@@ -1224,7 +1239,7 @@ Gradle
 ### Connection Pooling
 The connection pool is used to direct JDBC calls within the application, as well as for enterprise beans using the database.
 
-#### Benefits of connection pooling
+### Benefits of connection pooling
 - Connection pooling can improve the response time of any application that requires connections, especially Web-based applications. When a user makes a request over the Web to a resource, the resource accesses a data source. Because users connect and disconnect frequently with applications on the Internet, the application requests for data access can surge to considerable volume. Consequently, the total datastore overhead quickly becomes high for Web-based applications, and performance deteriorates. When connection pooling capabilities are used, however, Web applications can realize performance improvements of up to 20 times the normal results.
 
 ## [Comparable and Comparator](https://www.javatpoint.com/difference-between-comparable-and-comparator)
@@ -1430,7 +1445,7 @@ String str3 = str1.concat(str2);
 | ![img_15.png](images/img_15.png) | ![img_14.png](images/img_14.png) |
 
 
-## Try with Resource
+## Try with Resource [(java 7 and java 9 improvements)](https://www.tutorialspoint.com/java9/java9_try_with_resources_improvement.htm)
 
 #### The first is a typical try-catch-finally block:
 
@@ -1499,6 +1514,12 @@ public class MyResource implements AutoCloseable
   }
 }
 ```
+
+### [MultiCatch (From java 7)](https://www.geeksforgeeks.org/multicatch-in-java/)
+#### [Can we have a try block without a catch block in Java](https://www.tutorialspoint.com/can-we-have-a-try-block-without-a-catch-block-in-java)?
+ - Yes, It is possible to have a try block without a catch block by using a final block.
+
+ - As we know, a final block will always execute even there is an exception occurred in a try block, except System.exit() it will execute always.
 
 ## Initialization vs Instatiation
 
