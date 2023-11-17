@@ -12,7 +12,12 @@
 
 ## PWA - Download as a native app for mob/desktop
 
-
+## tsconfig.json
+- change the "strict": true mode in tsconfig.json
+- noImplicitAny in tsconfig.json
+- sourceMap to debug code
+- noEmit for not to generate js file
+-  "outDir": "./dist" to see the generated output
 
 # TypeScript v4 (Microsoft) -> (Google)
 - Strongly typed programming language
@@ -72,5 +77,34 @@ Type script has the ability to determine the type of data type assigned. Like ``
 
 ### Literal types
 
+### Decorators are annotations in angular
+- Can modify the behavior of class, method at run time.
+- Used internally by angular.
 
 
+# Angular
+
+## install Angular
+
+### To crreate empty and add projects
+- To install angular cli - `npm i @angular/cli -g`
+- To check the version - `ng --version` or `ng version`
+```
+If face any issue to check the version, then try this.
+
+Run the bellow commands in shell.
+1. Get-ExecutionPolicy - If the policy is set to "Restricted" or "AllSigned," you need to change it to allow script execution. 
+2. Set-ExecutionPolicy Unrestricted -Scope CurrentUser - this will change the mode
+3. * To revert back use this command - Set-ExecutionPolicy Unrestricted -Scope CurrentUser
+
+```
+- To create new work space empty - `ng new angularProj --createApplicationfalse`
+- Install npm  - `npm i`
+- install packages - `ng g app hotelInventory`
+
+### To create work space with default project
+-- `ng new hoteInventory`
+ 
+ 
+ 
+ 
