@@ -59,6 +59,9 @@
 - never
 
 ### Different ways to write functions
+- Name function
+- Function expression
+- Arrow function
 
 ### Generic function
 
