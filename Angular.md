@@ -92,22 +92,56 @@ Type script has the ability to determine the type of data type assigned. Like ``
 ### To crreate empty and add projects
 - To install angular cli - `npm i @angular/cli -g`
 - To check the version - `ng --version` or `ng version`
-```
-If face any issue to check the version, then try this.
+
+``If face any issue to check the version, then try this.``
 
 Run the bellow commands in shell.
-1. Get-ExecutionPolicy - If the policy is set to "Restricted" or "AllSigned," you need to change it to allow script execution. 
-2. Set-ExecutionPolicy Unrestricted -Scope CurrentUser - this will change the mode
-3. * To revert back use this command - Set-ExecutionPolicy Unrestricted -Scope CurrentUser
+1. **Get-ExecutionPolicy** - If the policy is set to "Restricted" or "AllSigned," you need to change it to allow script execution. 
+2. **Set-ExecutionPolicy Unrestricted** -Scope CurrentUser - this will change the mode
+3. * To revert back use this command - **Set-ExecutionPolicy Unrestricted -Scope CurrentUser**
 
-```
 - To create new work space empty - `ng new angularProj --createApplicationfalse`
-- Install npm  - `npm i`
+- Install npm  - `npm i` or `npm install`
 - install packages - `ng g app hotelInventory`
 
 ### To create work space with default project
--- `ng new hoteInventory`
- 
- 
- 
+
+- `ng new hoteInventory`
+- To create under specific version `npx @angular/cli@13 new hotelInventoryAngular`
+- If karma.conf.js doesn't exist, then run this command ``ng generate config karma``
+- ``npx browserslist`` - To check the browser compatibility
+- ``ng serve -o`` - To run the application.
+- To kill the  process ``ctrl + c`` to terminate.
+  - ``ng build`` to build the app. Now new folder `dist` will get created. inside that `index.html` file is present.
+  - [No modules.js file?](https://angular.io/guide/standalone-migration)
+  - https://angular.io/guide/standalone-components
+  - https://stackoverflow.com/a/76753364
+- To create a new component- ``ng generate Home -standalone --inline-template`` or ``ng generate component compName`` or using short cuts ``ng g c compName``
+- To change the `selector` prifix, // To change the app to sar or vice versa, go to angular.json and change the value in prefix
+
+## Binding Syntax - Refer TSAngular code rooms.component.html
+
+- There are three ways,
+  - Interpolation syntax - using the variable name assigned inside the component `{{ varName }}`
+  - Property Binding
+  - Event Binding
+
+## Directives
+- They are reusable elements on DOM
+- Components wont be having templates where Directive have. 
+
+### Types of Directives
+- Structrural directives
+- Attribute directives
+
+### Built in directives
+- *ngIf
+- *ngFor
+- *ngSwitch
+- ngClass
+- sgStyle
+
+
+
+
  
