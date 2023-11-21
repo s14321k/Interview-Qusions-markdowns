@@ -1601,7 +1601,12 @@ static
 
 ## [Transient Keyword](https://www.educative.io/answers/what-is-the-transient-keyword-in-java)
 
-- Is used to avoid serialization. If any object of a data structure is defiend as a transient, then it will not be serialized.
+- Is used to avoid serialization. If any object of a data structure is defined as a transient, then it will not be serialized.
+
+## [Volatile Keyword]()
+- Volatile is yet another way (like synchronized, atomic wrapper) of making class thread-safe. Thread safe means that a method or class instance can be used by multiple threads at the same time without problem.
+
+
 
 ## [Association, Composition and Aggregation in Java](https://www.geeksforgeeks.org/association-composition- -java/)
 ![img_22.png](images/AssosiationAggregation.png)

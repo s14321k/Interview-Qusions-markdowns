@@ -127,19 +127,24 @@ Run the bellow commands in shell.
   - Event Binding
 
 ## Directives
-- They are reusable elements on DOM
-- Components wont be having templates where Directive have. 
+- They are reusable elements and changes the behavior and appearance on DOM
+- Directive wont be having templates where Components have.
+- Directives can implement all life cycle hooks
 
 ### Types of Directives
-- Structrural directives
+#### Built in directives
+- Structural directives
+  - *ngIf
+  - *ngFor
+  - *ngSwitch
 - Attribute directives
+  - ngClass
+  - sgStyle
+- Componet 
 
-### Built in directives
-- *ngIf
-- *ngFor
-- *ngSwitch
-- ngClass
-- sgStyle
+
+
+
 
 
 
