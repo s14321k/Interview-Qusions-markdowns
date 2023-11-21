@@ -217,9 +217,11 @@ One of our requirements is that each email has to be in a format <name>@<company
 ```<Class name>::<method name>```
 
 ## 6. Optional<Object>
-![img.png](images/Cache Flow.png)
 
-
+## [Date Time API](https://www.geeksforgeeks.org/new-date-time-api-java8/)
+1. Not thread safe : Unlike old java.util.Date which is not thread safe the new date-time API is immutable and doesn’t have setter methods.
+2. Less operations : In old API there are only few date operations but the new API provides us with many date operations.
+---
 # Java 9
 
 ## 1. Closing a Resource with try-with-resources

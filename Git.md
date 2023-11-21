@@ -1,3 +1,13 @@
+## Question and answers
+### 1. Git vs Github
+- Git is a version control. Github is a web-based hosting service for git repositories
+- We can run git without github, but not github without git.
+
+---
+
+
+
+
 …or create a new repository on the command line
 echo "# Sarath69Kumar.github.io" >> README.md
 git init
@@ -219,3 +229,4 @@ USAA to create authentication token
 - go to jfrog
 - create api key
 - 
+

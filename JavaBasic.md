@@ -1404,10 +1404,17 @@ methods for String manipulation.
 - It is just like object allocation. By default, it is empty and privately maintained by the Java String class.
 
 ```java
-Same values in
-String literal == String Object; //False
+String literal = "Sarath";  //This is string literal
+String object = new String("Sarath"); //This is string object
+// Same values in
+String literal == String object; //False
 String literal == String literal; //True
 ```
+
+### [String Literal vs String Object](https://www.geeksforgeeks.org/string-initialization-java-string-literal-vs-string-object/)
+#### String Literal
+
+- When declaring String, we are actually calling ***intern()*** method
 
 ## String Manipulation__
 
@@ -1423,18 +1430,21 @@ String str3 = str1.concat(str2);
 ## concat() vs plus(+) operator
 - concat() method is better than the + operator because it creates a new object only when the string length is greater than zero(0) but the + operator always creates a new string irrespective of the length of the string.
 
+## Deep copy vs shallow copy
+- In Shallow copy, a copy of the original object is stored and only the reference address is finally copied. In Deep copy, the copy of the original object and the repetitive copies both are stored.
+
 ## Why string is immutable in java
 
 - In the String constant pool, a String object is likely to have one or many references.
 - If several references point to the same String without even knowing it, it would be bad if one of the references modified that String value.
 - That's why String objects are immutable.
 
-### To Create immutable class
+### [To Create immutable class](https://www.digitalocean.com/community/tutorials/how-to-create-immutable-class-in-java)
 
-- Set the class name as final ```public final calss ClassName```
-- set variable declared as final and private ```private final string variablename;```
-- No setter(), only getter() should be used. ```getter()```
-- Make deep copy for object.
+- Set the class name as final ``public final calss ClassName``
+- set variable declared as final and private ``private final string variablename;``
+- No setter(), only getter() should be used. ``getter()``
+- Make deep copy for object using constructor.
 
 ## URL vs URI
 

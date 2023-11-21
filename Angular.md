@@ -119,7 +119,7 @@ Run the bellow commands in shell.
 - To create a new component- ``ng generate Home -standalone --inline-template`` or ``ng generate component compName`` or using short cuts ``ng g c compName``
 - To change the `selector` prifix, // To change the app to sar or vice versa, go to angular.json and change the value in prefix
 
-## Binding Syntax - Refer TSAngular code rooms.component.html
+## Binding Syntax
 
 - There are three ways,
   - Interpolation syntax - using the variable name assigned inside the component `{{ varName }}`
@@ -134,13 +134,13 @@ Run the bellow commands in shell.
 ### Types of Directives
 #### Built in directives
 - Structural directives
-  - *ngIf
+  - *ngIf - eg in rooms.component.html[hotelInventoryAngular13](../../VisualStudio/TSAngular/hotelInventoryAngular13/src/app/rooms/rooms.component.html)  //(..%2F..%2FVisualStudio%2FTSAngular%2FhotelInventoryAngular13)
   - *ngFor
   - *ngSwitch
 - Attribute directives
   - ngClass
   - sgStyle
-- Componet 
+- Componet directives
 
 
 
