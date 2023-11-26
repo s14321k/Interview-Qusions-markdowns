@@ -109,6 +109,7 @@
   * [##](#-)
 <!-- TOC -->
 
+# [Java Interview Question Bank](https://www.java2novice.com/java-interview-questions/)
 
 ## variables:
 
@@ -250,15 +251,17 @@ The deffault access modifier is also known as the package-private, which means a
 
 ## 2- Non-access Modifiyers
 
-```static``` – static keyword is mainly used for memory management
+1. ```static``` – static keyword is mainly used for memory management. 
 
-```Native``` - is a modifier only applicable for method.
+2. ```Native``` - is a modifier only applicable for method.
 
-```Final``` – final is a keyword for constant
+3. ```Final``` – final is a keyword for constant
 
-```Abstract``` - non-access modifier, used for classes and methods
+4. ```Abstract``` - non-access modifier, used for classes and methods
 
-```Strictfp``` - (Removed in java 17)to ensure that floating points operations give the same result on any platform
+5. ```Strictfp``` - (Removed in java 17)to ensure that floating points operations give the same result on any platform
+
+### [Static in class, method and variable] [Staitc class](https://www.geeksforgeeks.org/static-class-in-java/)
 
 ***
 # OOP(Object Oriented Programming)
@@ -583,6 +586,30 @@ Map is used for key,value purpose. Key should be unique.
   * Hashmap is non syncronized in nature so performance is also high.
   * Not thread safe.
   * If one thread is iterating HashMap and the other try to add/modify then lead to run-time exception.
+  * Default size is 16 and the loadFactor is 0.75.
+  * Bucket refers to a slot or a location within the internal array where key-value pairs are stored.The purpose of these buckets is to manage potential collisions, which occur when two or more keys hash to the same index in the array.
+
+  **Here's a brief overview of how a HashMap works:**
+
+1. **Hashing:** When you add a key-value pair to a HashMap, the key is hashed to determine the index (or bucket) in the internal array where the entry should be stored. The hash code is obtained using the hashCode() method of the key.
+
+2. **Index Calculation:** The hash code is then transformed into a valid index by applying a hash function. This index determines the bucket in which the key-value pair will be stored.
+
+3. **Collision Handling:** If two keys hash to the same index (a collision), the HashMap uses a mechanism to handle these collisions. The most common approach is chaining, where each bucket contains a linked list of entries. If multiple keys hash to the same index, their entries are stored as nodes in the linked list at that index.
+
+4. **Load Factor and Rehashing:** As the number of key-value pairs in the HashMap grows, the load factor determines when the internal array should be resized to accommodate more entries. When the number of entries exceeds a certain threshold (determined by the load factor), the HashMap is resized (usually doubled), and the existing entries are rehashed to new buckets.
+
+**HashCode**
+- **Use in Hash Collections:**
+When you plan to use instances of your class as keys in a HashMap or elements in a HashSet, you should provide a well-implemented hashCode method. This helps distribute objects across buckets more evenly, reducing the likelihood of collisions and improving the performance of hash-based collections.
+- **Consistency with equals:**
+If you override the equals method in your class to define custom equality, you should also override the hashCode method. According to the general contract, if two objects are equal (as per the equals method), their hash codes should be equal. This ensures proper functioning in hash-based collections.
+- **Maintaining Contract with hashCode:**
+   - If you override the hashCode method, you should follow the contract specified in the Object class:
+     - The result of hashCode should be consistent during the execution of a program, i.e., it should return the same value for the same object.
+     - If two objects are equal, their hash codes must be equal.
+     - It's not required, but it's generally beneficial if unequal objects have different hash codes to minimize collisions.
+
 
  - [Traverse through Hashmap](https://www.geeksforgeeks.org/traverse-through-a-hashmap-in-java/)
    - Using an Iterator
@@ -591,6 +618,94 @@ Map is used for key,value purpose. Key should be unique.
  - [HashMap Internal Working](https://youtu.be/-oafFAPgLao?si=pwEA44xe4I1i-WTf)
  - [Key Map]((https://www.baeldung.com/java-custom-class-map-key))
 
+#### Equals() & [HashCode()](https://www.digitalocean.com/community/tutorials/java-equals-hashcode)
+
+- ![img_6.png](images/equalsHashCode.png)
+
+```java
+String a = "Andrew";
+String b = "Andrew";
+
+if(a.equals(b)){ //checking the equality of objects using equals() methods
+System.out.println("a & b are equal variables, and their respective hashvalues are:" + " "+ a.hashCode() + " & " + b.hashCode());
+
+
+String c = "Maria";
+String d = "Julie";
+
+if(!c.equals(d))
+{ //checking the equality of objects using equals() method
+   System.out.println("\nc & d are Un-equal variables, and their respective hashvalues are:" + " "+ c.hashCode() + " & " + d.hashCode());
+```
+
+___Output___
+```java
+a & b are equal variables, and their respective hash values are: 1965574029 & 1965574029
+c & d are Un-equal variables, and their respective hash values are: 74113750 & 71933245
+```
+
+#### [equals() vs "=="](https://www.linkedin.com/pulse/difference-between-equals-java-babar-shahzad)
+
+`So, the main difference between "==" and "equals" in Java is that "==" compares the memory location of two objects, while "equals" compares the contents of two objects.`
+
+![img_1.png](images/equalsVsDoubleEqual.png)
+
+#### **Reference Equality**
+
+ - In Java, "==" is used for reference equality, which means that it checks whether two objects refer to the same memory location.
+
+```java
+String s1 = "hello";
+String s2 = new String("hello");
+
+if (s1 == s2) 
+{
+  System.out.println("s1 and s2 are the same object pointing to the same memory");
+} 
+else 
+{
+  System.out.println("s1 and s2 are different objects because they have their seperate memory holders");
+}
+```
+``Output``
+```java
+s1 and s2 are different objects
+```
+
+#### **Value Equality**
+
+ - Value equality takes place when two separate objects happen to have the same values or state.This compares values and is closely related to the Object's equals() method.
+
+```java
+String s1 = "hello";
+String s2 = new String("hello");
+
+if (s1.equals(s2)){ 
+  System.out.println("s1 and s2 have the same value");
+} else {
+  System.out.println("s1 and s2 have different values");
+}
+```
+``Output``
+```java
+s1 and s2 have the same value
+```
+
+```java
+class HelloWorld {
+    public static void main(String[] args) 
+    {
+        String s1 = "Java";
+        String s2 = "Java";
+        StringBuilder sb1 = new StringBuilder();
+        sb1.append("Ja").append("va");
+        System.out.println(s1 == s2);
+        System.out.println(s1.equals(s2));
+        System.out.println(sb1.toString() == s1);
+        System.out.println(sb1.toString().equals(s1)); 
+    }
+}
+```
 
 
 ### `ConcurrentHashMap` [Link](https://javahungry.blogspot.com/2015/02/how-concurrenthashmap-works-in-java-internal-implementation.html)
@@ -649,6 +764,13 @@ __Checked and Unchecked Exceptions__
 We can exit finally block by using flag. exit(); in try block.
 
 ## Syncronization
+
+In multithread environment, where multiple threads are executing concurrently, synchronization becomes crucial to prevent issues such as **data corruption, race conditions, and inconsistent states**. Java provides several mechanisms for synchronization, including **synchronized methods, synchronized blocks, and explicit locks**.
+
+1. **Synchronized Methods**
+- You can use the syn
+
+
 ```
 Process syncronizatin
 Tread Syncronization
@@ -788,7 +910,7 @@ It's important to choose the appropriate type of iterator based on the specific 
 
 Design patterns are recurring solutions to common problems in software design. They provide proven templates for solving specific design problems, making it easier to create maintainable and scalable software. Here are some commonly used design patterns and the reasons for their usage:
 
-1. **Singleton Pattern**:
+1. [**Singleton Pattern and best practices**](https://www.digitalocean.com/community/tutorials/java-singleton-design-pattern-best-practices-examples):
   - **Usage**: The Singleton pattern ensures that a class has only one instance and provides a global point of access to that instance.
   - **Reason**: It is used when you want to control access to a shared resource or when you need a single point of coordination within your application.
 
@@ -1250,94 +1372,6 @@ The connection pool is used to direct JDBC calls within the application, as well
 | 2) Comparable affects the original class, i.e., the actual class is modified.| Comparator doesn't affect the original class, i.e., the actual class is not modified. |
 | 3) Comparable provides compareTo() method to sort elements.| Comparator provides compare() method to sort elements.|
 
-## Equals() & [HashCode()](https://www.digitalocean.com/community/tutorials/java-equals-hashcode), Equals()
-
-- ![img_6.png](images/equalsHashCode.png)
-
-```java
-String a = "Andrew";
-String b = "Andrew";
-
-if(a.equals(b)){ //checking the equality of objects using equals() methods
-System.out.println("a & b are equal variables, and their respective hashvalues are:" + " "+ a.hashCode() + " & " + b.hashCode());
-
-
-String c = "Maria";
-String d = "Julie";
-
-if(!c.equals(d))
-{ //checking the equality of objects using equals() method
-   System.out.println("\nc & d are Un-equal variables, and their respective hashvalues are:" + " "+ c.hashCode() + " & " + d.hashCode());
-```
-
-___Output___
-```java
-a & b are equal variables, and their respective hash values are: 1965574029 & 1965574029
-c & d are Un-equal variables, and their respective hash values are: 74113750 & 71933245
-```
-
-## [equals() vs "=="](https://www.linkedin.com/pulse/difference-between-equals-java-babar-shahzad)
-
-`So, the main difference between "==" and "equals" in Java is that "==" compares the memory location of two objects, while "equals" compares the contents of two objects.`
-
-![img_1.png](images/equalsVsDoubleEqual.png)
-
-**Reference Equality**
-
- - In Java, "==" is used for reference equality, which means that it checks whether two objects refer to the same memory location.
-
-```java
-String s1 = "hello";
-String s2 = new String("hello");
-
-if (s1 == s2) 
-{
-  System.out.println("s1 and s2 are the same object");
-} 
-else 
-{
-  System.out.println("s1 and s2 are different objects");
-}
-```
-``Output``
-```java
-s1 and s2 are different objects
-```
-
-**Value Equality**
-
- - Value equality takes place when two separate objects happen to have the same values or state.This compares values and is closely related to the Object's equals() method.
-
-```java
-String s1 = "hello";
-String s2 = new String("hello");
-
-if (s1.equals(s2)){ 
-  System.out.println("s1 and s2 have the same value");
-} else {
-  System.out.println("s1 and s2 have different values");
-}
-```
-``Output``
-```java
-s1 and s2 have the same value
-```
-
-```java
-class HelloWorld {
-    public static void main(String[] args) 
-    {
-        String s1 = "Java";
-        String s2 = "Java";
-        StringBuilder sb1 = new StringBuilder();
-        sb1.append("Ja").append("va");
-        System.out.println(s1 == s2);
-        System.out.println(s1.equals(s2));
-        System.out.println(sb1.toString() == s1);
-        System.out.println(sb1.toString().equals(s1)); 
-    }
-}
-```
 
 ## Eden space in java
 - Eden space is a java memory pool where objects are created. When the eden space is full, the garbage collector either removes objects 
@@ -1597,10 +1631,7 @@ class Main
 ## [Static Block in java < 1.5](https://www.scaler.com/topics/static-block-in-java/)
 
 ```
-static
-{
-
-}
+static{}
 ```
 
 - Static block in java is used for changing the default value of static variables, initializing static variables of the class, write a set of codes that you want to execute during the class loading in memory.
@@ -1663,10 +1694,24 @@ public final void add(T... toAdd)
 ## Load balancing
 
 
-## 
----
+
+___
+***
+ 
 Yet to do
 
+Synchronization
+
 https://www.geeksforgeeks.org/serialversionuid-in-java/
+
+***
+
+https://wiki.sei.cmu.edu/confluence/display/java/OBJ58-J.+Limit+the+extensibility+of+classes+and+methods+with+invariants
+
+***
+****
+# Junit
+
+https://www.java2novice.com/junit-examples/junit-annotations/
 
 ***

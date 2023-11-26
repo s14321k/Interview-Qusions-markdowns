@@ -21,7 +21,10 @@
 <!-- TOC -->
 
 ***
-[JAVA8 to JAVA17](https://reflectoring.io/java-release-notes/)
+
+# [Java 8 streams vs collections](https://www.java2novice.com/java_interview_questions/java-8-streams-vs-collection-framework/)
+
+# [JAVA8 to JAVA17](https://reflectoring.io/java-release-notes/)
 
 # [Java 8](https://www.tutorialspoint.com/java8/index.htm)
 1. Lambda Expression and Stream API

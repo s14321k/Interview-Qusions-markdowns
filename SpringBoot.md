@@ -502,6 +502,79 @@ public class Application {
 
 ### [@Autowired](https://bushansirgur.in/spring-boot-autowire-annotation-with-example/)
 
+#### [Autowiring is of 4 types in spring](http://javainsimpleway.com/autowiring-in-spring/)
+[List of java interview questions](https://www.java2novice.com/java_interview_questions/spring-autowire-modes/)
+
+1) byName
+
+2) byType
+
+3) constructor
+
+4) autodetect
+
+In Spring Framework, the @Autowired annotation is used for automatic dependency injection. It allows Spring to automatically resolve and inject collaborating beans into your bean. The @Autowired annotation can be applied to fields, methods, and constructors. Here are the different types of @Autowired annotations:
+
+#### **Field Injection:**
+
+```java
+@Autowired
+private SomeBean someBean;
+```
+This is the most common usage of @Autowired. It injects the bean directly into a class field.
+
+#### **Method Injection:**
+
+```java
+private SomeBean someBean;
+
+@Autowired
+public void setSomeBean(SomeBean someBean) {
+    this.someBean = someBean;
+}
+```
+You can also apply @Autowired to a setter method. This method will be called by the Spring container after the bean is instantiated, and it will inject the specified bean.
+
+#### **Constructor Injection:**
+
+```java
+private final SomeBean someBean;
+
+@Autowired
+public MyService(SomeBean someBean) {
+    this.someBean = someBean;
+}
+```
+Constructor injection is a recommended practice, and it's considered good design. It ensures that the required dependencies are injected at the time of object creation.
+
+#### **Qualifier Annotation:**
+
+When you have multiple beans of the same type, you can use the @Qualifier annotation along with @Autowired to specify which bean should be injected.
+
+```java
+@Autowired
+@Qualifier("someSpecificBean")
+private SomeBean someBean;
+```
+
+#### **Optional Annotation:**
+
+If a bean of the required type is not found, and the dependency is optional, you can use the @Autowired annotation along with the @org.springframework.lang.Nullable annotation or Java 8's Optional.
+
+```java
+@Autowired(required = false)
+private SomeBean someBean;
+```
+or
+
+```java
+@Autowired
+private Optional<SomeBean> someBean;
+```
+The required attribute is set to true by default, meaning that the dependency must be satisfied. If set to false, Spring will not throw an exception if it can't find a matching bean.
+
+These are the main types of @Autowired annotations you might encounter in a Spring application. They provide flexibility and allow you to express how dependencies should be injected into your Spring beans.
+
 
 ## @Controller vs @RestController
 ### @Controller
