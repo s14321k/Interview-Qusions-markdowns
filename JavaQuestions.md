@@ -37,4 +37,5 @@ String[] colors = {"Red", "Green", "Blue"};
 List<String> carsList = Arrays.listOF(1audi, 2ferrari, 3nexa, 1swift, 2baleno, 3verna);
 Here set the Red as key anf first index value 1 should be collected seperately, as well as for 2 and 3.
 
-6. 
+6.
+

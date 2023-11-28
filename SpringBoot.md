@@ -815,7 +815,11 @@ Spring Boot's AOP capabilities are based on the AspectJ framework, which provide
 
 ## (Projections and Aggregations)[https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html]
 
+## [Role Based Authorizations](https://www.codejava.net/frameworks/spring-boot/spring-boot-security-role-based-authorization-tutorial)
 
+## [GateWay](https://spring.io/guides/gs/gateway/)
+
+## [Authorization Tutorial](https://auth0.com/blog/spring-boot-authorization-tutorial-secure-an-api-java/)
 
 
 
