@@ -1,14 +1,22 @@
 <!-- TOC -->
 * [SQL Ques](#sql-ques)
+  * [ALL Queries](#all-queries)
   * [1. Find max and second max salary for a employee table MySQL](#1-find-max-and-second-max-salary-for-a-employee-table-mysql)
+  * [Highest Salary in each department](#highest-salary-in-each-department)
   * [2. Types of Relationship in DBMS](#2-types-of-relationship-in-dbms)
   * [3. View in sql](#3-view-in-sql)
+  * [(4. Predicate in SQL)[https://www3.navicat.com/en/company/aboutus/blog/1895-predicates-in-sql#]](#4-predicate-in-sqlhttpswww3navicatcomencompanyaboutusblog1895-predicates-in-sql)
   * [5. SQL FOREIGN KEY Constraint](#5-sql-foreign-key-constraint)
-  * [4. Joins in SQL](#4-joins-in-sql)
+  * [6. Joins in SQL](#6-joins-in-sql)
+  * [7. KeyWords](#7-keywords)
+  * [8. Sql functions](#8-sql-functions)
 <!-- TOC -->
 
 
 # SQL Ques
+
+## [ALL Queries](https://www.educba.com/mysql-query-commands/)
+
 ## 1. [Find max and second max salary for a employee table MySQL](https://stackoverflow.com/a/21520159/11962586)
 - Try this, n would be the nth item you would want to return
 - ```SELECT DISTINCT(Salary) FROM table ORDER BY Salary DESC LIMIT n,1```
