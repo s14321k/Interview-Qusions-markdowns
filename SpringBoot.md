@@ -58,6 +58,9 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   * [SPRING METHOD SECURITY](#spring-method-security)
   * [AOP (Aspect-Oriented Programming)](#aop-aspect-oriented-programming-)
   * [(Projections and Aggregations)[https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html]](#projections-and-aggregationshttpswwwjavaprogramtocom202005spring-boot-data-mongodb-projections-aggregationshtml)
+  * [Role Based Authorizations](#role-based-authorizations)
+  * [GateWay](#gateway)
+  * [Authorization Tutorial](#authorization-tutorial)
   * [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
 <!-- TOC -->
 
@@ -323,7 +326,8 @@ throws Exception
 
 Spring Boot provides a wide range of parameter binding annotations for various purposes. Here are some other commonly used annotations beyond the ones you mentioned:
 
-In Spring Boot, annotations are used to define various aspects of a method, such as request mapping, parameter binding, and more. The annotations you mentioned, `@PathVariable`, `@ModelAttribute`, and `@RequestParam`, are commonly used for handling different parts of an HTTP request. Here's an explanation of each of them:
+In Spring Boot, annotations are used to define various aspects of a method, such as request mapping, parameter binding, and more. 
+The annotations you mentioned, `@PathVariable`, `@ModelAttribute`, and `@RequestParam`, are commonly used for handling different parts of an HTTP request. Here's an explanation of each of them:
 
 1. `@PathVariable`: This annotation is used to extract values from the URI (Uniform Resource Identifier) template and bind them to method parameters. It's often used when you want to capture values from the URL, for example, in a RESTful API. Here's an example:
 

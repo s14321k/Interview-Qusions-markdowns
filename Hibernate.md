@@ -151,6 +151,21 @@ if (connection != null) {
 - Cascading is a feature in Hibernate, which is an object-relational mapping (ORM) tool used in Java to map Java classes to database tables. Cascading refers to the ability to automatically propagate the state of an entity
 
 ### [Types of cascading](https://www.geeksforgeeks.org/hibernate-different-cascade-types/)
+- Used to manage the relation between the entities.
+
+#### 1. CascadeType.ALL
+- Any operation performed in parent entity will be automatically propagated to all child entities.
+- If we persist, update or delete happens in parent entity then all child entities associated with it will also be persisted, updated or deleted accordingly.
+```java
+@OneToMany(mappedBy="customer", cascade=CascadeType.ALL)
+private Set<Order> orders;
+```
+#### 2. CascadeType.PERSIST
+#### 3. CascadeType.MERGE
+#### 4. CascadeType.REMOVE
+#### 5. CascadeType.DETACH
+#### 6. CascadeType.REPLICATE
+#### 7. CascadeType.SAVE_UPDATE
 
 
 ## get() and load()

@@ -4,13 +4,15 @@
 
 1. Write a Java Program to remove all white spaces from a string without using replace() – Use Java8 syntax.
 
-2. Find the first non-duplicate character in a String (E.g Apple – ‘A’; Madam – ‘D’)
+2. Find the first non-duplicate character in a String (Eg Apple – ‘A’; Madam – ‘D’)
 
-3. Write a java program to find the 3 highest repeated character
+3. Write a java program to find the 3 highest repeated character
 
-4. Find missing  element in the array comparing array a (1,1,2,5,6,9) and b (2,9,5) O/P: 1,6
+4. Find missing element in the array comparing array a(1,1,2,5,6,9) and b (2,9,5) O/P: 1,6
 
 5. Same method name with different parameter. Which method will get execute?
+
+6. Get  even numbers from an array using stream.
 
 ```java
 public class SimpleClass 
