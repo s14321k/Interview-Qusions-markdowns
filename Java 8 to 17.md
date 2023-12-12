@@ -1,5 +1,7 @@
 <!-- TOC -->
 * [Java 8 streams vs collections](#java-8-streams-vs-collections)
+  * [Stream API](#stream-api)
+  * [Methods involved](#methods-involved)
 * [JAVA8 to JAVA17](#java8-to-java17)
 * [Java 8](#java-8)
   * [1. Lambda Expression and Stream API](#1-lambda-expression-and-stream-api)
@@ -27,6 +29,134 @@
 ***
 
 # [Java 8 streams vs collections](https://www.java2novice.com/java_interview_questions/java-8-streams-vs-collection-framework/)
+## Stream API
+Can be categorized into two types: intermediate operations and terminal operations.
+
+1. **Intermediate Operations:**
+  - These operations transform a stream into another stream. 
+  - They are usually lazy, meaning they don't process elements until a terminal operation is invoked. 
+  - Examples include `filter`, `map`, `flatMap`, `distinct`, `sorted`, `peek`, `limit`, and `skip`.
+
+2. **Terminal Operations:**
+  - These operations produce a result or a side-effect. 
+  - When a terminal operation is invoked, the stream is processed, and the result is obtained. 
+  - Terminal operations are eager and consume the stream. Examples include `forEach`, `toArray`, `reduce`, `collect`, `min`, `max`, `count`, `anyMatch`, `allMatch`, `noneMatch`, `findAny`, `findFirst`, `iterator`, `spliterator`, `isParallel`, `sequential`, `parallel`, and `unordered`.
+
+These two categories help in understanding the role and purpose of each method within the Stream API. Intermediate operations allow you to build a pipeline of transformations, and terminal operations produce a final result or perform an action. Combining these operations enables powerful and concise stream processing in Java.
+
+## Methods involved
+The Stream API in Java provides a rich set of methods for working with streams. Here's a comprehensive list of methods along with their return types and a brief description of how to use them:
+
+1. **Intermediate Operations:**
+
+  - **`filter(Predicate<T> predicate): Stream<T>`**
+    - Returns a stream consisting of the elements that match the given predicate.
+    - Example: `stream.filter(x -> x > 5)`
+
+  - **`map(Function<T, R> mapper): Stream<R>`**
+    - Returns a stream consisting of the results of applying the given function to the elements.
+    - Example: `stream.map(x -> x * 2)`
+
+  - **`flatMap(Function<T, Stream<R>> mapper): Stream<R>`**
+    - Returns a stream consisting of the results of replacing each element with the contents of a mapped stream.
+    - Example: `stream.flatMap(x -> Stream.of(x, x * 2))`
+
+  - **`distinct(): Stream<T>`**
+    - Returns a stream consisting of the distinct elements (according to their natural order or provided comparator) of the original stream.
+    - Example: `stream.distinct()`
+
+  - **`sorted(): Stream<T>`**
+    - Returns a stream consisting of the elements sorted according to their natural order.
+    - Example: `stream.sorted()`
+
+  - **`peek(Consumer<T> action): Stream<T>`**
+    - Returns a stream consisting of the elements of this stream, additionally performing the provided action on each element.
+    - Example: `stream.peek(x -> System.out.println(x))`
+
+  - **`limit(long maxSize): Stream<T>`**
+    - Returns a stream consisting of the elements of this stream, truncated to be no longer than `maxSize`.
+    - Example: `stream.limit(5)`
+
+  - **`skip(long n): Stream<T>`**
+    - Returns a stream consisting of the remaining elements of this stream after discarding the first `n` elements.
+    - Example: `stream.skip(3)`
+
+2. **Terminal Operations:**
+
+  - **`forEach(Consumer<T> action): void`**
+    - Performs an action for each element of the stream.
+    - Example: `stream.forEach(x -> System.out.println(x))`
+
+  - **`toArray(): Object[]`**
+    - Returns an array containing the elements of this stream.
+    - Example: `Object[] array = stream.toArray()`
+
+  - **`reduce(BinaryOperator<T> accumulator): Optional<T>`**
+    - Performs a reduction on the elements of the stream using an associative accumulation function and returns an Optional.
+    - Example: `Optional<Integer> result = stream.reduce((a, b) -> a + b)`
+
+  - **`collect(Collector<T, A, R> collector): R`**
+    - Performs a mutable reduction operation on the elements of the stream using a Collector.
+    - Example: `List<Integer> list = stream.collect(Collectors.toList())`
+
+  - **`min(Comparator<T> comparator): Optional<T>`**
+    - Returns the minimum element of the stream according to the provided comparator.
+    - Example: `Optional<Integer> min = stream.min(Comparator.naturalOrder())`
+
+  - **`max(Comparator<T> comparator): Optional<T>`**
+    - Returns the maximum element of the stream according to the provided comparator.
+    - Example: `Optional<Integer> max = stream.max(Comparator.naturalOrder())`
+
+  - **`count(): long`**
+    - Returns the count of elements in the stream.
+    - Example: `long count = stream.count()`
+
+  - **`anyMatch(Predicate<T> predicate): boolean`**
+    - Returns whether any elements of the stream match the given predicate.
+    - Example: `boolean anyMatch = stream.anyMatch(x -> x > 5)`
+
+  - **`allMatch(Predicate<T> predicate): boolean`**
+    - Returns whether all elements of the stream match the given predicate.
+    - Example: `boolean allMatch = stream.allMatch(x -> x > 5)`
+
+  - **`noneMatch(Predicate<T> predicate): boolean`**
+    - Returns whether no elements of the stream match the given predicate.
+    - Example: `boolean noneMatch = stream.noneMatch(x -> x < 0)`
+
+  - **`findAny(): Optional<T>`**
+    - Returns an arbitrary element of the stream (or an empty Optional if the stream is empty).
+    - Example: `Optional<Integer> anyElement = stream.findAny()`
+
+  - **`findFirst(): Optional<T>`**
+    - Returns the first element of the stream (or an empty Optional if the stream is empty).
+    - Example: `Optional<Integer> firstElement = stream.findFirst()`
+
+  - **`iterator(): Iterator<T>`**
+    - Returns an iterator for the elements of the stream.
+    - Example: `Iterator<Integer> iterator = stream.iterator()`
+
+  - **`spliterator(): Spliterator<T>`**
+    - Returns a Spliterator for the elements of the stream.
+    - Example: `Spliterator<Integer> spliterator = stream.spliterator()`
+
+  - **`isParallel(): boolean`**
+    - Returns whether the stream is parallel.
+    - Example: `boolean isParallel = stream.isParallel()`
+
+  - **`sequential(): Stream<T>`**
+    - Returns an equivalent sequential stream.
+    - Example: `Stream<Integer> sequentialStream = stream.sequential()`
+
+  - **`parallel(): Stream<T>`**
+    - Returns an equivalent parallel stream.
+    - Example: `Stream<Integer> parallelStream = stream.parallel()`
+
+  - **`unordered(): Stream<T>`**
+    - Returns an equivalent stream with an unordered characteristic.
+    - Example: `Stream<Integer> unorderedStream = stream.unordered()`
+
+These are the main methods provided by the Java Stream API. The examples provided are illustrative and may not represent actual use cases in your application. Make sure to adapt them based on your specific requirements.
+
 
 # [JAVA8 to JAVA17](https://reflectoring.io/java-release-notes/)
 

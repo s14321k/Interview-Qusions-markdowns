@@ -3,6 +3,11 @@
   * [variables:](#variables)
   * [Float and double](#float-and-double)
   * [int vs Integer](#int-vs-integer)
+  * [final - keyword](#final---keyword)
+  * [finally - block used after try catch](#finally---block-used-after-try-catch)
+  * [finalize - method for clean up. Garbage collection](#finalize---method-for-clean-up-garbage-collection)
+    * [Garbage collection](#garbage-collection)
+  * [Garbage Collection](#garbage-collection-1)
   * [Compile time Error](#compile-time-error)
       * [Two types:-](#two-types-)
   * [Run Time error](#run-time-error)
@@ -33,12 +38,22 @@
       * [purpose of interface instead of abstract class in java](#purpose-of-interface-instead-of-abstract-class-in-java)
 * [Collections](#collections)
     * [Iterator VS Enumarator](#iterator-vs-enumarator)
-    * [Methods used:-](#methods-used-)
+    * [Collection interface:-](#collection-interface-)
+    * [Iterator Interface](#iterator-interface)
+    * [Iterable Interface](#iterable-interface)
   * [List](#list)
+    * [`ArrayList`](#arraylist)
+      * [Alternative for ArrayList](#alternative-for-arraylist)
+    * [`Vector`](#vector)
+    * [`Stack`](#stack)
+    * [`LinkedList`](#linkedlist-)
+    * [`Singly LinkedList`](#singly-linkedlist-)
+    * [`Doubly LinkedList`](#doubly-linkedlist-)
   * [Set](#set)
-    * [`HashSet` - No insertion order.](#hashset---no-insertion-order)
-    * [`LinkedHashSet` - Maintains insertion order.](#linkedhashset---maintains-insertion-order)
-    * [`TreeSet` - One of the most important implementations of the SortedSet interface in Java that uses a Tree for storage.](#treeset---one-of-the-most-important-implementations-of-the-sortedset-interface-in-java-that-uses-a-tree-for-storage)
+    * [1. HashSet:](#1-hashset)
+    * [2. LinkedHashSet:](#2-linkedhashset)
+    * [3. TreeSet:](#3-treeset)
+    * [Choosing the Right Set Implementation:](#choosing-the-right-set-implementation)
   * [Map](#map)
     * [`HashMap`](#hashmap)
       * [Equals() & HashCode()](#equals--hashcode--)
@@ -50,7 +65,11 @@
     * [`LinkedHashMap`](#linkedhashmap-)
     * [`HashTable`](#hashtable)
   * [Exception Handling](#exception-handling)
-  * [Syncronization](#syncronization)
+  * [Synchronization](#synchronization)
+  * [Synchronized in method, block and class level](#synchronized-in-method-block-and-class-level)
+  * [Process syncronizatin &Tread Syncronization](#process-syncronizatin-tread-syncronization)
+    * [**Process Synchronization:**](#process-synchronization)
+    * [**Thread Synchronization:**](#thread-synchronization)
   * [Aplet](#aplet)
   * [Serialization and Deserialization](#serialization-and-deserialization)
 * [Auto-boxing and Auto-Unboxing](#auto-boxing-and-auto-unboxing)
@@ -122,7 +141,6 @@
   * [Volatile Keyword](#volatile-keyword)
   * [[Association, Composition and Aggregation in Java](https://www.geeksforgeeks.org/association-composition- -java/)](#association-composition-and-aggregation-in-javahttpswwwgeeksforgeeksorgassociation-composition---java)
   * [Arbitrary Number of Arguments and @SafeVarags](#arbitrary-number-of-arguments-and-safevarags)
-  * [Load balancing](#load-balancing)
 * [Junit](#junit)
 <!-- TOC -->
 
@@ -144,13 +162,141 @@ Double is more precious than float, where double takes 8 bytes and can provide p
 
 ***
 
-- [final - keyword](https://www.geeksforgeeks.org/final-keyword-in-java/)
+## [final - keyword](https://www.geeksforgeeks.org/final-keyword-in-java/)
 
 ![img_19.png](images/FinalKeyWord.png)
 
-- finally - block used after try catch
+## finally - block used after try catch
 
-- finalize - method for clean up. Garbage collection
+## finalize - method for clean up. Garbage collection
+
+### Garbage collection
+
+In Java, garbage collection is a mechanism that automatically deallocates memory occupied by objects that are no longer in use. The primary purpose of garbage collection is to manage memory efficiently, preventing memory leaks and reducing the likelihood of manual memory management errors. Here are some key aspects of garbage collection in Java:
+
+1. **Automatic Memory Management:**
+   Java uses automatic memory management, which means developers don't need to explicitly allocate or deallocate memory. The garbage collector takes care of reclaiming memory occupied by objects that are no longer reachable.
+
+2. **Object Lifecycle:**
+   Objects are created dynamically during program execution using the `new` keyword. Once an object is no longer referenced by any part of the program, it becomes eligible for garbage collection.
+
+3. **Java Heap:**
+   Memory management in Java is centered around the Java Heap, a region of memory reserved for the storage of objects. The garbage collector operates on the heap, identifying and reclaiming memory occupied by unreachable objects.
+
+4. **Garbage Collection Algorithms:**
+   Java employs different garbage collection algorithms, including:
+
+  - **Serial Garbage Collector:** Suitable for single-threaded environments, it freezes all application threads during garbage collection.
+
+  - **Parallel Garbage Collector:** Also known as the throughput collector, it uses multiple threads to perform garbage collection tasks, improving efficiency.
+
+  - **Concurrent Mark-Sweep (CMS) Collector:** Works to minimize the pause times experienced by the application by performing most of the garbage collection work concurrently with the application threads.
+
+  - **G1 Garbage Collector:** Introduced in Java 7, the G1 collector is designed to provide both low pause times and high throughput by dividing the heap into regions.
+
+5. **`finalize` Method:**
+   The `finalize` method in Java allows an object to perform cleanup operations before it is garbage collected. However, it's essential to note that relying on `finalize` for critical resource management is discouraged due to unpredictable execution times.
+
+6. **Tuning and Monitoring:**
+   Developers can tune garbage collection parameters based on the specific requirements of their applications. Tools like Java VisualVM and other profiling tools can be used to monitor and analyze garbage collection behavior.
+
+7. **Memory Profiling:**
+   Garbage collection helps in preventing memory leaks by reclaiming memory occupied by objects that are no longer needed. This is particularly important in long-running applications or those with dynamic memory usage patterns.
+
+In summary, garbage collection in Java is a critical feature that automates memory management, enhances developer productivity, and helps create more robust and stable applications by preventing memory-related issues.
+
+
+- In Java, garbage collection is a mechanism that automatically deallocates memory occupied by objects that are no longer in use. The primary purpose of garbage collection is to manage memory efficiently, preventing memory leaks and reducing the likelihood of manual memory management errors. Here are some key aspects of garbage collection in Java:
+
+1. **Automatic Memory Management:**
+   Java uses automatic memory management, which means developers don't need to explicitly allocate or deallocate memory. The garbage collector takes care of reclaiming memory occupied by objects that are no longer reachable.
+
+2. **Object Lifecycle:**
+   Objects are created dynamically during program execution using the `new` keyword. Once an object is no longer referenced by any part of the program, it becomes eligible for garbage collection.
+
+3. **Java Heap:**
+   Memory management in Java is centered around the Java Heap, a region of memory reserved for the storage of objects. The garbage collector operates on the heap, identifying and reclaiming memory occupied by unreachable objects.
+
+4. **Garbage Collection Algorithms:**
+   Java employs different garbage collection algorithms, including:
+
+  - **Serial Garbage Collector:** Suitable for single-threaded environments, it freezes all application threads during garbage collection.
+
+  - **Parallel Garbage Collector:** Also known as the throughput collector, it uses multiple threads to perform garbage collection tasks, improving efficiency.
+
+  - **Concurrent Mark-Sweep (CMS) Collector:** Works to minimize the pause times experienced by the application by performing most of the garbage collection work concurrently with the application threads.
+
+  - **G1 Garbage Collector:** Introduced in Java 7, the G1 collector is designed to provide both low pause times and high throughput by dividing the heap into regions.
+
+5. **`finalize` Method:**
+   The `finalize` method in Java allows an object to perform cleanup operations before it is garbage collected. However, it's essential to note that relying on `finalize` for critical resource management is discouraged due to unpredictable execution times.
+
+6. **Tuning and Monitoring:**
+   Developers can tune garbage collection parameters based on the specific requirements of their applications. Tools like Java VisualVM and other profiling tools can be used to monitor and analyze garbage collection behavior.
+
+7. **Memory Profiling:**
+   Garbage collection helps in preventing memory leaks by reclaiming memory occupied by objects that are no longer needed. This is particularly important in long-running applications or those with dynamic memory usage patterns.
+
+In summary, garbage collection in Java is a critical feature that automates memory management, enhances developer productivity, and helps create more robust and stable applications by preventing memory-related issues.
+
+## Garbage Collection
+- In Java, garbage collection is an automatic process, and you don't have direct control over when it occurs. The Java Virtual Machine (JVM) is responsible for managing memory and executing the garbage collector when necessary. However, as a developer, you can take certain steps to influence or facilitate garbage collection. Here are some tips:
+
+1. **Nullify References:**
+   Ensure that you set object references to `null` when they are no longer needed. This makes the objects eligible for garbage collection.
+
+   ```java
+   MyClass obj = new MyClass();
+   // Do something with obj
+   obj = null; // Make obj eligible for garbage collection
+   ```
+
+2. **Use Local Variables:**
+   Whenever possible, use local variables instead of instance variables. Local variables are automatically eligible for garbage collection once they go out of scope.
+
+   ```java
+   void myMethod() 
+   {
+       MyClass localObj = new MyClass();
+       // Do something with localObj
+   } // localObj is eligible for garbage collection when myMethod() finishes
+   ```
+
+3. **Clear Collections:**
+   If you're using collections (e.g., `List`, `Map`, etc.), clear them when you're done with the elements. This makes the individual elements eligible for garbage collection.
+
+   ```java
+   List<MyClass> myList = new ArrayList<>();
+   // Add elements to myList
+   myList.clear(); // Make elements in myList eligible for garbage collection
+   ```
+
+4. **Dispose of Resources:**
+   If your class uses external resources like file handles or network connections, implement appropriate resource management, and close or release those resources when they are no longer needed.
+
+   ```java
+   public class MyResourceClass implements AutoCloseable {
+       // Implement AutoCloseable interface
+       @Override
+       public void close() throws Exception {
+           // Release resources here
+       }
+   }
+   ```
+
+5. **Avoid Using `finalize` Method:**
+   While Java provides the `finalize` method, it's generally discouraged to rely on it for resource cleanup. Instead, use other mechanisms, like the `AutoCloseable` interface, to manage resources more predictably.
+
+   ```java
+   public class MyClass implements AutoCloseable {
+       @Override
+       public void close() throws Exception {
+           // Clean up resources here
+       }
+   }
+   ```
+
+Remember that garbage collection is an automatic process, and the JVM decides when to reclaim memory. You can follow good coding practices and resource management to ensure that objects are eligible for garbage collection when they are no longer needed. Additionally, understanding the garbage collection behavior of different JVMs and tuning garbage collection settings can be beneficial for optimizing memory management in specific scenarios.
 
 ***
 
@@ -499,15 +645,31 @@ List - Can have many values also duplicate values
 Set - To have unique data
 Map - To store data in key value
 ```
-### Methods used:-
+### Collection interface:-
   - add()
   - addall()
   - size()
   - remove()
   - removeall()
+  - removeIf()
   - clear()
+  - isEmpty()
+  - hashCode()
+  - stream()
 
 `Collection<intiger> numb = new ArrayList<>();` --> `Collection does work with index number.`
+
+### Iterator Interface
+ - Iterator interface provides the facility of iterating the elements in a forward direction only.
+ - There are only three methods in the Iterator interface. They are:
+   - hasNext()
+   - next()
+   - remove()
+
+### Iterable Interface
+ - The Iterable interface is the root interface for all the collection classes. The Collection interface extends the Iterable interface and therefore all the subclasses of Collection interface also implement the Iterable interface.
+ - It contains only one abstract method. i.e.,
+   - iterator()
 
 ---
 
@@ -521,7 +683,11 @@ List<String> fruitList = new ArrayList<>();
 fruitList.add("Strawberry");
 String[] array = fruitList.toArray(new String[fruitList.size()]);
 ```
- - `ArrayList` - internally uses dinamic Array, non syncronized
+### `ArrayList`
+- internally uses dinamic Array, non syncronized
+- In Java, when you create an ArrayList without specifying an initial capacity, it has a default initial capacity of 10. 
+- This means that the ArrayList starts with an internal array that can initially hold up to 10 elements. 
+- If you add more than 10 elements, the ArrayList will automatically resize its internal array to accommodate the additional elements.
 
 ```java
 ArrayList<String> list=new ArrayList<String>();
@@ -532,7 +698,48 @@ Iterator itr=list.iterator();
 while(itr.hasNext())
 ```
 
-- `Vector` - similar to ArrayList, but syncronized and contains many methods which are not part of collection frame work
+#### Alternative for ArrayList
+
+The choice of data structure in Java depends on the specific requirements of your application. While `ArrayList` is a commonly used dynamic array-based structure, there are other data structures that may be more suitable for certain scenarios, especially when considering time complexity for specific operations. Here are a few alternatives:
+
+1. **LinkedList:**
+  - **Advantages:**
+    - Efficient for adding or removing elements in the middle of the list (constant time).
+  - **Disadvantages:**
+    - Access time for an element by index is O(n) since you may need to traverse the list from the beginning.
+
+2. **HashSet or LinkedHashSet:**
+  - **Advantages:**
+    - Provides constant-time average complexity for add, remove, and contains operations.
+    - No duplicates allowed.
+  - **Disadvantages:**
+    - Does not maintain order.
+
+3. **TreeSet:**
+  - **Advantages:**
+    - Elements are sorted, allowing efficient range queries.
+  - **Disadvantages:**
+    - Slower insertion and removal compared to `HashSet`.
+
+4. **HashMap or LinkedHashMap:**
+  - **Advantages:**
+    - Provides constant-time average complexity for put, get, and remove operations.
+    - Key-value pairs allow efficient mapping of values to unique keys.
+  - **Disadvantages:**
+    - Does not maintain order in the case of `HashMap`.
+
+5. **ArrayDeque:**
+  - **Advantages:**
+    - Efficient for adding and removing elements at both ends (constant time).
+  - **Disadvantages:**
+    - Not as efficient for accessing elements in the middle.
+
+The choice between these data structures depends on your specific use case and the operations you need to perform frequently. Consider factors such as the type of operations, the frequency of insertion, deletion, and retrieval, and whether order or uniqueness is important.
+
+If you can provide more details about your specific use case, I can offer more tailored recommendations.
+
+### `Vector`
+- similar to ArrayList, but syncronized and contains many methods which are not part of collection frame work
 
 ```java
 Vector<String> v=new Vector<String>();
@@ -541,7 +748,12 @@ Iterator<String> itr=v.iterator();
 while(itr.hasNext())
 ```
 
- - `LinkedList` - internally uses doubly linked list, non syncronized, manipulation is fast because no shifting is required
+### `Stack`
+- Subclass of vector. It implements the last-in-first-out data structure.
+- Contains all the methods of vector and also provides methods like push(), peak()
+
+### `LinkedList` 
+- internally uses doubly linked list, non syncronized, manipulation is fast because no shifting is required
 
 ```java
 LinkedList<String> al=new LinkedList<String>();
@@ -550,10 +762,12 @@ Iterator<String> itr=al.iterator();
 while(itr.hasNext())
 ```
 
- - `Singly LinkedList` - Java Program to create and display a singly linked list - javatpoint
-   - Linear data structure, in which each pointer points to the next element in list.
- - `Doubly LinkedList` - Java program to create and display a doubly linked list - javatpoint
-   - Linear data structure, which can be described as the collection of nodes. Nodes are connected through the pointers.
+### `Singly LinkedList` 
+ - Java Program to create and display a singly linked list - javatpoint
+ - Linear data structure, in which each pointer points to the next element in list.
+### `Doubly LinkedList` 
+ - Java program to create and display a doubly linked list - javatpoint
+ - Linear data structure, which can be described as the collection of nodes. Nodes are connected through the pointers.
 
 ***One of the limitations of the singly linked list is that it can be traversed in only one direction that is forward. The doubly linked list has overcome this limitation by providing an additional pointer that points to the previous node. With the help of the previous pointer, the doubly linked list can be traversed in a backward direction thus making insertion and deletion operation easier to perform. So, a typical node in the doubly linked list consists of three fields:***
 
@@ -579,22 +793,72 @@ Set<data-type> s2 = new LinkedHashSet<data-type>();
 Set<data-type> s3 = new TreeSet<data-type>();
 ```
 Set is implemented by HashSet, LinkedHashSet, TreeSet
-### `HashSet` - No insertion order.
-```
-HashSet<String> set=new HashSet<String>();
-set.add("Ajay");
-Iterator<String> itr=set.iterator();
-while(itr.hasNext())
-```
-### `LinkedHashSet` - Maintains insertion order.
-```
-LinkedHashSet<String> set=new LinkedHashSet<String>();
-set.add("Ajay");
-Iterator<String> itr=set.iterator();
-while(itr.hasNext())
-```
-### `TreeSet` - One of the most important implementations of the SortedSet interface in Java that uses a Tree for storage.
+In Java, `HashSet`, `LinkedHashSet`, and `TreeSet` are three different implementations of the Set interface within the Java Collections Framework. Each of them has its unique characteristics and use cases:
 
+### 1. HashSet:
+- **Internal Structure:**
+    - Implemented using a hash table.
+    - Uses the hash code of the elements to determine the bucket in which they are stored.
+    - Does not guarantee any specific order of elements.
+
+- **Performance:**
+    - Provides constant-time performance for basic operations like add, remove, and contains on average.
+    - The actual performance depends on the quality of the hash function and the load factor.
+
+- **Use Case:**
+    - Suitable for general-purpose use when you need a fast and unordered set of elements.
+    - Ideal when the order of elements does not matter, and you want efficient membership testing.
+
+   ```java
+   Set<String> hashSet = new HashSet<>();
+   ```
+
+### 2. LinkedHashSet:
+- **Internal Structure:**
+    - Extends `HashSet`.
+    - Uses a hash table for constant-time performance.
+    - Maintains a doubly-linked list to preserve the order of insertion.
+
+- **Performance:**
+    - Similar performance characteristics to `HashSet` for basic operations.
+    - Provides predictable iteration order, which is the order in which elements were inserted.
+
+- **Use Case:**
+    - Useful when you want a set with predictable iteration order.
+    - Maintains the order in which elements were inserted or the order in which they were last accessed.
+
+   ```java
+   Set<String> linkedHashSet = new LinkedHashSet<>();
+   ```
+
+### 3. TreeSet:
+
+- **Internal Structure:**
+    - Implemented as a red-black tree.
+    - Maintains elements in a sorted order (natural order or based on a specified comparator).
+    - One of the most important implementations of the SortedSet interface in Java that uses a Tree for storage.
+
+
+- **Performance:**
+    - Logarithmic time complexity for basic operations like add, remove, and contains.
+    - Offers efficient operations for retrieving elements in a sorted order.
+
+- **Use Case:**
+    - Useful when you need a set with elements sorted in a specific order.
+    - Allows custom sorting based on a comparator or the natural ordering of elements.
+
+   ```java
+   Set<String> treeSet = new TreeSet<>();
+   ```
+
+### Choosing the Right Set Implementation:
+- If you need fast and unordered access with constant-time performance, use `HashSet`.
+- If you need a predictable order of insertion, use `LinkedHashSet`.
+- If you need a sorted set, use `TreeSet`.
+
+It's important to choose the appropriate implementation based on the specific requirements of your application.
+ 
+ 
 ## Map
 
 Map is used for key,value purpose. Key should be unique.
@@ -728,7 +992,7 @@ class HelloWorld {
 ### `ConcurrentHashMap` [Link](https://javahungry.blogspot.com/2015/02/how-concurrenthashmap-works-in-java-internal-implementation.html)
   * ConcurrentHashMap is syncronized, so performance is slow.
   * Tread safe.
-  * We wont get exception during modification.
+  * We won't get exception during modification.
 
   1. HashMap makes absolutely no guarantees about the iteration order. It can (and will) even change completely when new elements are added.
   2. It has pair values(keys,values)
@@ -780,20 +1044,171 @@ __Checked and Unchecked Exceptions__
 
 We can exit finally block by using flag. exit(); in try block.
 
-## Syncronization
+## Synchronization
 
-In multithread environment, where multiple threads are executing concurrently, synchronization becomes crucial to prevent issues such as **data corruption, race conditions, and inconsistent states**. Java provides several mechanisms for synchronization, including **synchronized methods, synchronized blocks, and explicit locks**.
-
-1. **Synchronized Methods**
-- You can use the syn
+- In multithread environment, where multiple threads are executing concurrently, synchronization becomes crucial to prevent issues such as **data corruption, race conditions, and inconsistent states**. Java provides several mechanisms for synchronization, including **synchronized methods, synchronized blocks, and explicit locks**.
 
 
+- Here are the key differences between synchronized and non-synchronized collection classes in Java:
+
+**Synchronized Collection Classes:**
+1. **Thread-Safe:** Synchronized collection classes are designed to be thread-safe, meaning they can be safely used in a multi-threaded environment without external synchronization.
+2. **Performance Overhead:** They typically have a performance overhead compared to non-synchronized counterparts because they use locks to ensure thread safety. Locking can lead to contention and reduced performance.
+3. **Examples:** Some common synchronized collection classes in Java include `Vector` (a synchronized version of `ArrayList`), `HashTable`, and `Collections.synchronizedList`, `Collections.synchronizedSet`, and `Collections.synchronizedMap`.
+
+Example of a synchronized collection class (using `Collections.synchronizedList`):
+
+```java
+List<String> synchronizedList = Collections.synchronizedList(new ArrayList<>());
+synchronizedList.add("Item 1");
+synchronizedList.add("Item 2");
+
+// The synchronizedList is thread-safe
 ```
-Process syncronizatin
-Tread Syncronization
+
+**Non-Synchronized Collection Classes:**
+1. **Not Thread-Safe:** Non-synchronized collection classes are not thread-safe by default, and accessing them concurrently from multiple threads can lead to data corruption and unpredictable behavior.
+2. **Better Performance:** They tend to have better performance in single-threaded scenarios since they don't incur the overhead of synchronization.
+3. **Examples:** Common non-synchronized collection classes include `ArrayList`, `HashSet`, and `HashMap`.
+
+Example of a non-synchronized collection class:
+
+```java
+List<String> nonSynchronizedList = new ArrayList<>();
+nonSynchronizedList.add("Item 1");
+nonSynchronizedList.add("Item 2");
+
+// The nonSynchronizedList is not thread-safe
 ```
 
+In multi-threaded environments, if you need to work with non-synchronized collection classes, you should use external synchronization mechanisms like `synchronized` blocks, `java.util.concurrent` classes (e.g., `ConcurrentHashMap`, `CopyOnWriteArrayList`), or other thread-safe data structures to ensure proper synchronization and avoid data races and inconsistencies.
 
+In summary, the main difference between synchronized and non-synchronized collection classes in Java is their thread safety. Synchronized collection classes are designed for multi-threaded environments and ensure thread safety, while non-synchronized collection classes are not inherently thread-safe and require external synchronization to be used safely in concurrent applications.
+
+
+## Synchronized in method, block and class level
+
+In Java, there are several types of synchronization mechanisms to manage the access of multiple threads to shared resources and avoid issues like data corruption, race conditions, and inconsistent states. Here are the main types of synchronization in Java:
+
+1. **Method Synchronization:**
+    - By using the `synchronized` keyword, you can synchronize entire methods. When a thread invokes a synchronized method, it acquires the lock for that method's object, preventing other threads from executing synchronized methods on the same object concurrently.
+
+    ```java
+    public synchronized void synchronizedMethod() {
+        // Code that needs to be synchronized
+    }
+    ```
+
+2. **Block Synchronization:**
+    - Synchronized blocks allow you to specify a specific object as the lock. Multiple blocks of code can be synchronized independently on different objects.
+
+    ```java
+    public void someMethod() {
+        // Code outside the synchronized block
+
+        synchronized (lockObject) {
+            // Code that needs to be synchronized
+        }
+
+        // Code outside the synchronized block
+    }
+    ```
+
+3. **Class-level Locks:**
+    - Java allows the synchronization of static methods or blocks using the `synchronized` keyword. In this case, the lock is associated with the class rather than an instance.
+
+    ```java
+    public static synchronized void staticSynchronizedMethod() {
+        // Code that needs to be synchronized
+    }
+    ```
+
+4. **Intrinsic Locks (Monitor Locks):**
+    - Every object in Java has an associated monitor, or intrinsic lock. When a thread enters a synchronized method or block, it automatically acquires the lock associated with the object.
+
+5. **`wait()`, `notify()`, and `notifyAll()`:**
+    - These methods are used for inter-thread communication and coordination within synchronized blocks. `wait()` causes the current thread to wait until another thread invokes `notify()` or `notifyAll()` on the same object, releasing the lock temporarily.
+
+    ```java
+    synchronized (sharedObject) {
+        while (conditionIsNotMet()) {
+            sharedObject.wait(); // Release the lock and wait
+        }
+        // Perform actions when the condition is met
+    }
+    ```
+
+6. **`volatile` Keyword:**
+    - The `volatile` keyword is used to declare a variable whose value might be changed by multiple threads. It ensures that any thread reading the variable sees the most recent modification. However, it does not provide atomicity for compound actions, so it's often used for simple flags and indicators.
+
+    ```java
+    private volatile boolean flag = false;
+    ```
+
+7. **Explicit Locks (ReentrantLock):**
+    - Java provides the `ReentrantLock` class as part of the `java.util.concurrent.locks` package. This class allows more fine-grained control over locks and supports features like fairness, timeouts, and lock interruption.
+
+    ```java
+    ReentrantLock lock = new ReentrantLock();
+
+    public void someMethod() {
+        lock.lock();
+        try {
+            // Code that needs to be synchronized
+        } finally {
+            lock.unlock();
+        }
+    }
+    ```
+
+Choosing the appropriate synchronization mechanism depends on the specific requirements of your application. In many cases, using higher-level concurrency utilities from the `java.util.concurrent` package might be preferable for complex synchronization scenarios.
+
+
+## Process syncronizatin &Tread Syncronization
+### **Process Synchronization:**
+
+- Process synchronization refers to the coordination and control mechanisms that ensure the proper execution of multiple processes in a concurrent or parallel computing environment.
+- In a multi-process system, where multiple independent processes run concurrently, it's essential to synchronize their activities to avoid conflicts, data corruption, and race conditions. 
+- Inter-process communication (IPC) mechanisms are used to achieve process synchronization. Common mechanisms include:
+
+1. **Semaphore:**
+    - Semaphores are used to control access to a shared resource by multiple processes. They allow a specified number of processes to access a resource simultaneously.
+
+2. **Mutex (Mutual Exclusion):**
+    - A mutex is a synchronization primitive that ensures that only one process at a time can access a shared resource. It provides exclusive access to the resource.
+
+3. **Condition Variables:**
+    - Condition variables are used to signal and wait for specific conditions to be met. Processes can use condition variables to coordinate their activities.
+
+4. **Message Passing:**
+    - Processes communicate by sending and receiving messages. This can be implemented through message queues or other forms of inter-process communication.
+
+5. **Critical Section:**
+    - A critical section is a part of the code that accesses shared resources. Process synchronization mechanisms are used to protect critical sections from simultaneous access by multiple processes.
+
+Process synchronization is crucial in scenarios where multiple independent processes need to coordinate their activities, share resources, or communicate with each other.
+
+### **Thread Synchronization:**
+
+Thread synchronization, on the other hand, deals with coordinating the execution of multiple threads within the same process. Threads share the same memory space and resources, which introduces the need for synchronization to ensure data consistency and avoid conflicts. Java provides built-in mechanisms for thread synchronization, as mentioned in the previous responses. These include:
+
+1. **`synchronized` Methods and Blocks:**
+    - Using the `synchronized` keyword to make methods or blocks of code thread-safe by acquiring and releasing locks.
+
+2. **`wait()`, `notify()`, and `notifyAll()`:**
+    - Methods for inter-thread communication within synchronized blocks.
+
+3. **`volatile` Keyword:**
+    - Used for ensuring visibility of changes made by one thread to other threads.
+
+4. **Explicit Locks (ReentrantLock):**
+    - Provides a more flexible and fine-grained approach to locking than the implicit locks provided by `synchronized` methods and blocks.
+
+5. **Thread Safety in Collections:**
+    - Java provides thread-safe versions of collections in the `java.util.concurrent` package, such as `ConcurrentHashMap` and `CopyOnWriteArrayList`, which are designed to be used in multithreaded environments.
+
+In summary, while process synchronization deals with coordination between independent processes, thread synchronization deals with coordination between threads within the same process.
+Both are essential concepts in concurrent programming, ensuring proper interaction and avoiding issues related to data access and modification in shared environments.
 
 ## Aplet
 
@@ -826,7 +1241,7 @@ or
 int valueUnBoxing = valueBoxing; //AutoUnBoxing
 ```
 # [Cohesion and Coupling in Java](https://stackoverflow.com/a/227957/11962586)
-Sofware should be Highly Cohesive and Loosely coupled
+Software should be Highly Cohesive and Loosely coupled
 
 ## Coupling
 ![img_8.png](images/Coupling.png)
@@ -1482,7 +1897,8 @@ String str3 = str1.concat(str2);
 - concat() method is better than the + operator because it creates a new object only when the string length is greater than zero(0) but the + operator always creates a new string irrespective of the length of the string.
 
 ## Deep copy vs shallow copy
-- In Shallow copy, a copy of the original object is stored and only the reference address is finally copied. In Deep copy, the copy of the original object and the repetitive copies both are stored.
+- In Shallow copy, a copy of the original object is stored and only the reference address is finally copied.
+- In Deep copy, the copy of the original object and the repetitive copies both are stored.
 
 ## Why string is immutable in java
 
@@ -1708,16 +2124,13 @@ public final void add(T... toAdd)
   }
 }
 ```
-## Load balancing
-
-
 
 ___
 ***
  
 Yet to do
 
-Synchronization
+
 
 https://www.geeksforgeeks.org/serialversionuid-in-java/
 

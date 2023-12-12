@@ -7,8 +7,18 @@
   * [4. Hibernate and implementation](#4-hibernate-and-implementation)
   * [5. Stored Procedure](#5-stored-procedure)
   * [6. Prepared Statement](#6-prepared-statement)
+    * [PreparedStatement:](#preparedstatement)
+    * [StoredProcedure:](#storedprocedure)
+    * [Choosing Between PreparedStatement and StoredProcedure:](#choosing-between-preparedstatement-and-storedprocedure)
   * [Cascading](#cascading)
     * [Types of cascading](#types-of-cascading)
+      * [1. CascadeType.ALL](#1-cascadetypeall)
+      * [2. CascadeType.PERSIST](#2-cascadetypepersist)
+      * [3. CascadeType.MERGE](#3-cascadetypemerge)
+      * [4. CascadeType.REMOVE](#4-cascadetyperemove)
+      * [5. CascadeType.DETACH](#5-cascadetypedetach)
+      * [6. CascadeType.REPLICATE](#6-cascadetypereplicate)
+      * [7. CascadeType.SAVE_UPDATE](#7-cascadetypesaveupdate)
   * [get() and load()](#get-and-load)
     * [Hibernate and JPA (Java Persistence API)](#hibernate-and-jpa-java-persistence-api-)
 <!-- TOC -->
@@ -18,6 +28,7 @@
 
 # Hibernate
 https://www.tutorialspoint.com/hibernate/hibernate_examples.htm
+https://www.geeksforgeeks.org/hibernate-lifecycle/?ref=lbp
 
 
 ## 1. Eager/Lazy loading in Hibernate
@@ -147,8 +158,68 @@ if (connection != null) {
 }
 ```
 
+Both prepared statements and stored procedures are techniques used in database programming, but they serve different purposes and are implemented differently.
+
+### PreparedStatement:
+
+1. **Dynamic SQL:** Prepared statements are used for executing dynamic SQL queries. They are particularly useful when you need to execute the same SQL statement multiple times with different parameter values. Prepared statements can be parameterized, allowing you to set values dynamically.
+
+2. **Security:** Prepared statements help prevent SQL injection attacks by automatically handling parameterization and escaping of values. This makes them a safer choice when dealing with user input.
+
+3. **Execution Plan:** Each execution of a prepared statement may have its own execution plan, depending on the specific parameter values. The database can reuse the execution plan for the same prepared statement with different parameters.
+
+4. **Java Example:**
+
+    ```java
+    String sql = "SELECT * FROM your_table WHERE column_name = ?";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setString(1, parameterValue);
+    ResultSet resultSet = preparedStatement.executeQuery();
+    ```
+
+### StoredProcedure:
+
+1. **Precompiled Logic:** A stored procedure is a precompiled collection of one or more SQL statements. It's typically stored in the database itself. Stored procedures can contain procedural logic, conditional statements, and business logic, making them more suitable for complex operations.
+
+2. **Performance:** Stored procedures are often compiled and optimized by the database system, providing potential performance benefits. They can reduce network traffic by executing multiple SQL statements on the server side, which is especially useful for complex operations.
+
+3. **Security:** Stored procedures can enhance security by restricting direct access to tables and allowing controlled access through the procedures. However, they may not be as effective in preventing SQL injection if dynamic SQL is used within the stored procedure.
+
+4. **Database Independence:** While prepared statements are part of the JDBC API and can be used with different databases, stored procedures may have database-specific syntax. They might not be as portable across different database systems.
+
+5. **Database Example (using SQL Server):**
+
+    ```sql
+    CREATE PROCEDURE GetRecords
+        @ParameterName VARCHAR(50)
+    AS
+    BEGIN
+        SELECT * FROM YourTable WHERE YourColumn = @ParameterName;
+    END;
+    ```
+
+   Example Java code to call the stored procedure:
+
+    ```java
+    String sql = "{CALL GetRecords(?)}";
+    CallableStatement callableStatement = connection.prepareCall(sql);
+    callableStatement.setString(1, parameterValue);
+    ResultSet resultSet = callableStatement.executeQuery();
+    ```
+
+### Choosing Between PreparedStatement and StoredProcedure:
+
+- **Dynamic vs. Static Queries:** Use prepared statements for dynamic queries where the SQL structure might change based on conditions or user input. Use stored procedures for static queries with precompiled logic.
+
+- **Security Concerns:** If security, especially against SQL injection, is a top priority, prepared statements are often preferred. However, well-designed stored procedures with parameterized inputs can also be secure.
+
+- **Performance:** For simple queries, prepared statements are usually sufficient. For complex operations or frequent execution of the same logic, a stored procedure might offer better performance.
+
+Ultimately, the choice between prepared statements and stored procedures depends on the specific requirements of your application, the complexity of your queries, and your preference for managing logic on the client side (using dynamic SQL) or the server side (using stored procedures).
+
 ## Cascading
-- Cascading is a feature in Hibernate, which is an object-relational mapping (ORM) tool used in Java to map Java classes to database tables. Cascading refers to the ability to automatically propagate the state of an entity
+- Cascading is a feature in Hibernate, which is an object-relational mapping (ORM) tool used in Java to map Java classes to database tables. 
+- Cascading refers to the ability to automatically propagate the state of an entity
 
 ### [Types of cascading](https://www.geeksforgeeks.org/hibernate-different-cascade-types/)
 - Used to manage the relation between the entities.
@@ -160,6 +231,7 @@ if (connection != null) {
 @OneToMany(mappedBy="customer", cascade=CascadeType.ALL)
 private Set<Order> orders;
 ```
+
 #### 2. CascadeType.PERSIST
 #### 3. CascadeType.MERGE
 #### 4. CascadeType.REMOVE

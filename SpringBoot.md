@@ -25,6 +25,33 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   * [Is REST API stateless or stateful?](#is-rest-api-stateless-or-stateful)
   * [Spring integration using RestTemplate](#spring-integration-using-resttemplate-)
     * [To Make GET Requests](#to-make-get-requests)
+  * [Spring integration using WebClient](#spring-integration-using-webclient)
+    * [The `WebClient`](#the-webclient-)
+    * [1. Creating a `WebClient` Instance:](#1-creating-a-webclient-instance)
+      * [Builder Pattern:](#builder-pattern)
+    * [2. Building and Executing Requests:](#2-building-and-executing-requests)
+      * [HTTP Methods:](#http-methods)
+      * [URI Configuration:](#uri-configuration)
+      * [Request Headers:](#request-headers)
+      * [Request Body:](#request-body)
+    * [3. Retrieving and Handling Responses:](#3-retrieving-and-handling-responses)
+      * [Retrieving the Response Body:](#retrieving-the-response-body)
+      * [Handling the Response Body:](#handling-the-response-body)
+    * [4. Handling Errors:](#4-handling-errors)
+      * [Error Handling:](#error-handling)
+    * [5. Additional Configurations:](#5-additional-configurations)
+      * [Request Configuration:](#request-configuration)
+      * [Timeout Configuration:](#timeout-configuration)
+    * [6. Building and Executing Requests Asynchronously (Reactive Model):](#6-building-and-executing-requests-asynchronously-reactive-model)
+      * [Reactive APIs:](#reactive-apis)
+      * [Reactive Stream Support:](#reactive-stream-support)
+    * [7. Customization and Extensibility:](#7-customization-and-extensibility)
+      * [Customization:](#customization)
+    * [Example:](#example)
+  * [WebClient vs FiegnClient](#webclient-vs-fiegnclient)
+    * [WebClient:](#webclient)
+    * [Feign:](#feign)
+    * [Choosing Between WebClient and Feign:](#choosing-between-webclient-and-feign)
   * [Spring Boot Architecture](#spring-boot-architecture)
   * [Spring Architecture](#spring-architecture)
   * [HandlerInterseptor & Filter](#handlerinterseptor--filter)
@@ -61,7 +88,9 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   * [Role Based Authorizations](#role-based-authorizations)
   * [GateWay](#gateway)
   * [Authorization Tutorial](#authorization-tutorial)
+  * [Load Balancing](#load-balancing)
   * [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
+  * [Spring boot vs Spring Webflux](#spring-boot-vs-spring-webflux)
 <!-- TOC -->
 
 ## [Top 15 Q&A](https://www.java67.com/2018/06/top-15-spring-boot-interview-questions-answers-java-jee-programmers.html)
@@ -220,6 +249,263 @@ https://bushansirgur.in/spring-boot-bean-annotation-with-example/
 - **exchange(url, httpMethod, requestEntity, responseType)** – execute the specified RequestEntity and return the response as ResponseEntity.
 - **execute(url, httpMethod, requestCallback, responseExtractor)** – execute the httpMethod to the given URI template, prepare the request with the RequestCallback, and read the response with a ResponseExtractor.
 
+## Spring integration using WebClient
+In Spring Boot, you can use the `RestTemplate` or the `WebClient` to make HTTP requests as a client. The `WebClient` is a more modern and flexible choice, introduced in Spring WebFlux, and it supports both synchronous and reactive programming models.
+
+Here's a basic example of using `WebClient` in a Spring Boot application:
+
+1. **Add Dependencies:**
+   Make sure you have the necessary dependencies in your `pom.xml` (if you're using Maven) or `build.gradle` (if you're using Gradle).
+
+   For Maven, add the following dependencies:
+
+   ```xml
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-webflux</artifactId>
+   </dependency>
+   ```
+
+2. **Create a WebClient Bean:**
+   In your configuration class or main application class, create a `WebClient` bean.
+
+   ```java
+   import org.springframework.context.annotation.Bean;
+   import org.springframework.context.annotation.Configuration;
+   import org.springframework.web.reactive.function.client.WebClient;
+
+   @Configuration
+   public class WebClientConfig {
+
+       @Bean
+       public WebClient.Builder webClientBuilder() {
+           return WebClient.builder();
+       }
+   }
+   ```
+
+3. **Use WebClient in a Service or Controller:**
+   Inject the `WebClient` bean into your service or controller and use it to make HTTP requests.
+
+   ```java
+   import org.springframework.beans.factory.annotation.Autowired;
+   import org.springframework.stereotype.Service;
+   import org.springframework.web.reactive.function.client.WebClient;
+   import reactor.core.publisher.Mono;
+
+   @Service
+   public class MyService {
+
+       private final WebClient webClient;
+
+       @Autowired
+       public MyService(WebClient.Builder webClientBuilder) {
+           this.webClient = webClientBuilder.baseUrl("https://api.example.com").build();
+       }
+
+       public String fetchData() {
+           // Make a GET request
+           String result = webClient.get()
+                   .uri("/endpoint")
+                   .retrieve()
+                   .bodyToMono(String.class)
+                   .block();
+
+           return result != null ? result : "Error fetching data";
+       }
+   }
+   ```
+
+   Note that in a real-world application, you would likely handle the response using reactive programming constructs, such as `Mono` and `Flux`, instead of blocking with `block()`.
+
+4. **Configure WebClient Properties:**
+   You can customize various properties of the `WebClient` using the `WebClient.Builder`, such as timeouts, connection pool configuration, etc.
+
+   ```java
+   this.webClient = webClientBuilder
+           .baseUrl("https://api.example.com")
+           .defaultHeader("Authorization", "Bearer yourAccessToken")
+           .build();
+   ```
+
+
+Certainly! If you want to use `WebClient` without injecting it as a bean, you can create and use it directly within your service or controller without the need for a separate configuration class. Here's an example:
+
+```java
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+
+@Service
+public class MyService {
+
+    private final WebClient webClient;
+
+    public MyService() {
+        this.webClient = WebClient.builder()
+                .baseUrl("https://api.example.com")
+                .build();
+    }
+
+    public String fetchData() {
+        // Make a GET request
+        String result = webClient.get()
+                .uri("/endpoint")
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+
+        return result != null ? result : "Error fetching data";
+    }
+}
+```
+
+In this example, the `WebClient` instance is created directly in the `MyService` class without the need for a separate configuration class. This approach is suitable for simpler use cases where you don't need to customize the `WebClient` instance extensively or reuse it across multiple classes.
+
+Just like in the previous examples, make sure to replace "https://api.example.com" with the actual base URL of the API you are interacting with and adjust the request configuration based on your requirements.
+
+### The `WebClient` 
+- class in Spring WebFlux provides a fluent API for building and consuming HTTP-based services. 
+- It is part of the reactive programming support in Spring and can be used in both reactive and non-reactive applications. Here are some of the key methods and implementations provided by `WebClient`:
+
+### 1. Creating a `WebClient` Instance:
+
+#### Builder Pattern:
+- **`WebClient.builder()`**: Creates a builder for `WebClient` instances.
+
+### 2. Building and Executing Requests:
+
+#### HTTP Methods:
+- **`get()`**: Initiates a GET request.
+- **`post()`**: Initiates a POST request.
+- **`put()`**: Initiates a PUT request.
+- **`delete()`**: Initiates a DELETE request.
+- **`head()`**: Initiates a HEAD request.
+- **`options()`**: Initiates an OPTIONS request.
+- **`patch()`**: Initiates a PATCH request.
+
+#### URI Configuration:
+- **`uri(String uriTemplate, Object... uriVariables)`**: Sets the URI template for the request.
+- **`uri(URI uri)`**: Sets the URI for the request.
+
+#### Request Headers:
+- **`header(String headerName, String... headerValues)`**: Adds a header to the request.
+
+#### Request Body:
+- **`body(BodyInserter<?, ? super ClientHttpRequest> bodyInserter)`**: Sets the body of the request.
+
+### 3. Retrieving and Handling Responses:
+
+#### Retrieving the Response Body:
+- **`retrieve()`**: Initiates the request and retrieves the response body.
+
+#### Handling the Response Body:
+- **`bodyToMono(Class<T> responseBodyType)`**: Converts the response body to a `Mono` of the specified type.
+- **`bodyToFlux(Class<T> responseBodyType)`**: Converts the response body to a `Flux` of the specified type.
+
+### 4. Handling Errors:
+
+#### Error Handling:
+- **`onStatus(Predicate<HttpStatus> predicate, Function<ClientResponse, Throwable> exceptionFunction)`**: Configures error handling based on the HTTP status.
+- **`onStatus(int statusCode, Function<ClientResponse, Throwable> exceptionFunction)`**: Configures error handling based on the HTTP status code.
+- **`onStatus(HttpStatus.Series series, Function<ClientResponse, Throwable> exceptionFunction)`**: Configures error handling based on the HTTP status series.
+
+### 5. Additional Configurations:
+
+#### Request Configuration:
+- **`exchange()`**: Initiates the request and returns a `ClientResponse` without handling the response body directly.
+
+#### Timeout Configuration:
+- **`timeout(Duration timeout)`**: Sets the timeout for the request.
+
+### 6. Building and Executing Requests Asynchronously (Reactive Model):
+
+#### Reactive APIs:
+- **`retrieve()`**: Returns a `Mono<ClientResponse>` representing the response.
+- **`bodyToMono(Class<T> responseBodyType)`**: Returns a `Mono<T>` representing the response body.
+
+#### Reactive Stream Support:
+- **`bodyToFlux(Class<T> responseBodyType)`**: Returns a `Flux<T>` representing the response body as a stream.
+
+### 7. Customization and Extensibility:
+
+#### Customization:
+- **`filter(ExchangeFilterFunction filter)`**: Adds a filter to the client, allowing custom modifications to the request and response.
+
+### Example:
+
+```java
+WebClient webClient = WebClient.builder()
+        .baseUrl("https://api.example.com")
+        .defaultHeader("Authorization", "Bearer yourAccessToken")
+        .build();
+
+String result = webClient.get()
+        .uri("/endpoint")
+        .retrieve()
+        .bodyToMono(String.class)
+        .block();
+```
+
+This is a basic overview, and there are more methods and options available. The actual methods you use depend on your specific use case and the requirements of the API you are interacting with. The reactive nature of `WebClient` allows for non-blocking and efficient communication with HTTP-based services in a reactive application.
+
+## WebClient vs FiegnClient
+Both WebClient and Feign are client-side HTTP libraries commonly used in Java-based applications, particularly in the context of microservices and web services. They serve similar purposes but have different approaches and use cases. Here's an overview of WebClient and Feign:
+
+### WebClient:
+
+1. **Reactive Programming:**
+    - **Programming Model:** WebClient is part of the Spring WebFlux framework and embraces reactive programming. It is designed to work well with reactive streams, making it suitable for building non-blocking and asynchronous applications.
+
+2. **Fluent API:**
+    - **Builder Pattern:** WebClient provides a fluent API, allowing you to build and customize HTTP requests using method chaining. This makes it flexible and easy to use.
+
+3. **Reactive Streams Support:**
+    - **Mono and Flux:** WebClient returns reactive types such as `Mono` and `Flux` from the Reactor project. This allows for handling responses in a reactive, non-blocking manner.
+
+4. **Spring Ecosystem Integration:**
+    - **Spring Integration:** WebClient integrates seamlessly with the broader Spring ecosystem, making it a natural choice for Spring Boot applications. It plays well with other Spring features, such as security and configuration.
+
+5. **Fine-Grained Control:**
+    - **Filter Mechanism:** WebClient allows you to apply filters for fine-grained control over the request and response processing. Filters can be used for tasks like logging, authentication, or customizing headers.
+
+6. **Asynchronous and Synchronous:**
+    - **Flexibility:** WebClient supports both asynchronous and synchronous communication, making it versatile for different use cases.
+
+### Feign:
+
+1. **Declarative Approach:**
+    - **Interface-Based:** Feign follows a declarative approach where you define an interface with annotated methods that correspond to the API endpoints. Feign then generates the necessary HTTP requests based on these annotations.
+
+2. **Spring Cloud Integration:**
+    - **Cloud-Native Features:** Feign is often used in conjunction with Spring Cloud for building microservices. It provides features like load balancing and service discovery when used in a cloud-native environment.
+
+3. **Ease of Use:**
+    - **Annotation-Driven:** Feign simplifies the client-side HTTP communication by allowing developers to use annotations to describe the HTTP API. This can lead to cleaner and more concise code.
+
+4. **Ribbon Integration:**
+    - **Load Balancing:** Feign integrates with Netflix Ribbon for client-side load balancing. This is particularly useful in a microservices architecture where multiple instances of a service may be available.
+
+5. **Fallback Mechanism:**
+    - **Circuit Breaker Support:** Feign supports circuit breaker patterns, allowing you to define fallback methods that are invoked when a remote service is unavailable.
+
+6. **Synchronous by Default:**
+    - **Blocking Calls:** Feign is synchronous by default, meaning that method calls block until the HTTP response is received. This can simplify the code but may not be suitable for highly concurrent or reactive applications.
+
+### Choosing Between WebClient and Feign:
+
+- **Reactive vs. Declarative:**
+    - Use WebClient if you prefer a reactive programming model, especially in Spring Boot applications with a focus on non-blocking, asynchronous communication.
+    - Use Feign if you prefer a declarative, annotation-driven approach and are working in a Spring Cloud environment.
+
+- **Flexibility vs. Simplification:**
+    - Use WebClient if you need fine-grained control over the HTTP requests, filters, and reactive streams.
+    - Use Feign if you prioritize simplicity and ease of use, especially when working in a microservices architecture with Spring Cloud.
+
+- **Integration:**
+    - Consider the broader Spring ecosystem and whether you need specific features provided by either WebClient or Feign. For example, if you are using Spring Boot and want seamless integration, WebClient might be a natural choice.
+
+In summary, the choice between WebClient and Feign depends on your project requirements, development preferences, and the broader ecosystem in which your application operates. Both libraries have their strengths, and the decision should be based on factors such as programming model, ease of use, and specific features needed for your use case.
+
 ## Spring Boot Architecture
 - ![img_13.png](images/img_13.png)
 - ![img_12.png](images/img_12.png)
@@ -303,7 +589,7 @@ throws Exception
    - @DeleteMapping - 
    - @PatchMapping -
  - @Aspect - 
- - (@Async)[https://www.baeldung.com/spring-async] -
+ - (@Async)[https://www.baeldung.com/spring-async]
  - @ConditionalOnProperties -
  - (@PropertySource)[https://github.com/ysm-dev/kingbbode.github.io/blob/1a457952e9fa34d834ead979c8e5bd02a25c3975/_posts/seminar/2016/2016-04-30-Spring-Camp-2016.md]
 
@@ -825,6 +1111,93 @@ Spring Boot's AOP capabilities are based on the AspectJ framework, which provide
 
 ## [Authorization Tutorial](https://auth0.com/blog/spring-boot-authorization-tutorial-secure-an-api-java/)
 
+## Load Balancing
+Load balancing in a Spring Boot application is a crucial component of building scalable and fault-tolerant systems. Load balancing distributes incoming network traffic across multiple servers to ensure that no single server is overwhelmed and to improve performance, reliability, and availability. There are several ways to achieve load balancing in a Spring Boot application, but one common approach is to use a reverse proxy server or a load balancer in front of your Spring Boot instances. Here are some examples of load balancing with Spring Boot:
+
+1. **Using a Reverse Proxy (e.g., Nginx or Apache):**
+
+   Nginx and Apache are popular reverse proxy servers that can be used for load balancing. In this setup, the reverse proxy distributes incoming requests to multiple Spring Boot instances. Here's a simple Nginx configuration as an example:
+
+   ```nginx
+   http {
+       upstream spring_boot_servers {
+           server localhost:8080;
+           server localhost:8081;
+           # Add more servers as needed
+       }
+
+       server {
+           listen 80;
+
+           location / {
+               proxy_pass http://spring_boot_servers;
+           }
+       }
+   }
+   ```
+
+   In this example, Nginx listens on port 80 and distributes incoming requests to Spring Boot instances running on localhost:8080 and localhost:8081.
+
+2. **Using Spring Cloud with Eureka and Ribbon:**
+
+   Spring Cloud provides tools to build microservices-based applications, including load balancing. Eureka is a service discovery server, and Ribbon is a client-side load balancer. Here's an example of how to set up load balancing using Spring Cloud:
+
+   Add dependencies to your Spring Boot project:
+
+   ```xml
+   <dependency>
+       <groupId>org.springframework.cloud</groupId>
+       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+   </dependency>
+   <dependency>
+       <groupId>org.springframework.cloud</groupId>
+       <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+   </dependency>
+   ```
+
+   Configure your application to register with Eureka and use Ribbon for load balancing in your `application.properties` or `application.yml`:
+
+   ```properties
+   eureka.client.serviceUrl.defaultZone=http://eureka-server-url
+   ```
+
+   Use the `@LoadBalanced` annotation with `RestTemplate` to make requests to other services via service names:
+
+   ```java
+   @Bean
+   @LoadBalanced
+   public RestTemplate restTemplate() {
+       return new RestTemplate();
+   }
+   ```
+
+   With this setup, you can make requests to other services using service names, and Ribbon will handle the load balancing for you.
+
+3. **Using Kubernetes:**
+
+   If you're running your Spring Boot application in a Kubernetes cluster, Kubernetes can handle load balancing for you. Define a Kubernetes Service resource, and it will distribute incoming traffic to the pods running your Spring Boot instances.
+
+   Here's an example of a Kubernetes Service YAML configuration:
+
+   ```yaml
+   apiVersion: v1
+   kind: Service
+   metadata:
+     name: spring-boot-service
+   spec:
+     selector:
+       app: spring-boot-app
+     ports:
+       - protocol: TCP
+         port: 8080
+         targetPort: 8080
+     type: LoadBalancer
+   ```
+
+   In this example, the service named "spring-boot-service" will distribute traffic to pods with the label "app: spring-boot-app" on port 8080.
+
+These are just a few examples of how you can implement load balancing in a Spring Boot application. The choice of load balancing approach depends on your specific infrastructure and requirements.
+
 
 
 
@@ -896,3 +1269,6 @@ LDAP is a fundamental technology in networked environments, facilitating the cen
 In summary, LDAP provides ABC Corp with a centralized and structured way to manage user accounts, their attributes, and authentication across the organization. It simplifies user access to company resources and allows for efficient management of user data.
 
 This is just one example of how LDAP can be used. LDAP's flexibility makes it suitable for various directory and authentication needs in different types of organizations.
+
+
+## [Spring boot vs Spring Webflux](https://medium.com/deno-the-complete-reference/spring-boot-vs-spring-webflux-performance-comparison-for-hello-world-case-386da4e9c418)

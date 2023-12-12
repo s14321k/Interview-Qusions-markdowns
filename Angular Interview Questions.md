@@ -7,7 +7,7 @@
     * [4. **Delete (DELETE)**](#4-delete-delete)
   * [2. Explain Event binding with example.](#2-explain-event-binding-with-example)
   * [3. Parent & child communication](#3-parent--child-communication)
-  * [4. What is the use of ngmodule. What is Feature module and where we mention feature module in angular](#4-what-is-the-use-of-ngmodule-what-is-feature-module-and-where-we-mention-feature-module-in-angular)
+  * [4. @NgModule](#4-ngmodule)
     * [1. **Basic Feature Module:**](#1-basic-feature-module)
     * [2. **Feature Module with Routing:**](#2-feature-module-with-routing)
     * [3. **Lazy-Loaded Feature Module:**](#3-lazy-loaded-feature-module)
@@ -74,7 +74,7 @@
     * [Example of decorator individually.](#example-of-decorator-individually)
       * [1. **@Component:** This decorator is used to define a component in Angular. It is applied to a class and provides metadata about the component, such as its selector, template, styles, and more.](#1-component-this-decorator-is-used-to-define-a-component-in-angular-it-is-applied-to-a-class-and-provides-metadata-about-the-component-such-as-its-selector-template-styles-and-more)
       * [2. **What is directives**](#2-what-is-directives-)
-      * [3. **@Injectable:** This decorator is used to define a service in Angular. Services are used to encapsulate and share functionality across components.](#3-injectable-this-decorator-is-used-to-define-a-service-in-angular-services-are-used-to-encapsulate-and-share-functionality-across-components)
+      * [3. **@Injectable:**](#3-injectable-)
       * [4. **@Input and @Output:** These decorators are used to define input and output properties in components, allowing data to be passed into a component and events to be emitted out of a component.](#4-input-and-output-these-decorators-are-used-to-define-input-and-output-properties-in-components-allowing-data-to-be-passed-into-a-component-and-events-to-be-emitted-out-of-a-component)
   * [14. List of integers using ngfor in angular](#14-list-of-integers-using-ngfor-in-angular)
   * [16. how to build angular application](#16-how-to-build-angular-application)
@@ -1690,7 +1690,7 @@ for(let num of numbers)
 38. 
 39. 
 40. Explain @crossorigin & proxy.server.config?
-41. How to configure different environments in angular
+41. 
 42. Different ways to inject a service in angular.
 43. Css vs Scss
 44. maximum size of constructor injection
