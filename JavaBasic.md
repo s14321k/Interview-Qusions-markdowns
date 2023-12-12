@@ -142,6 +142,7 @@
   * [[Association, Composition and Aggregation in Java](https://www.geeksforgeeks.org/association-composition- -java/)](#association-composition-and-aggregation-in-javahttpswwwgeeksforgeeksorgassociation-composition---java)
   * [Arbitrary Number of Arguments and @SafeVarags](#arbitrary-number-of-arguments-and-safevarags)
 * [Junit](#junit)
+  * [Java Questions](#java-questions-1)
 <!-- TOC -->
 
 # [Java Interview Question Bank](https://www.java2novice.com/java-interview-questions/)
@@ -2145,3 +2146,71 @@ https://wiki.sei.cmu.edu/confluence/display/java/OBJ58-J.+Limit+the+extensibilit
 https://www.java2novice.com/junit-examples/junit-annotations/
 
 ***
+
+
+## Java Questions
+1. Sort employee Array using java 7 and 8
+2. Difference/similarities between Arraylist vs Linkedlist
+3. Explain ConcurrentModification Exception
+4. Explain abstract and interface
+5. What is functional interface
+6. Why we use lambda expression
+7. How will you maintain code standards
+8. Deployment in GCP
+9. How to check application health
+10. Explain Polymorphism and encapsulation
+11. Major Issues in the project.
+12. Singleton design pattern
+13. How to handle multithreading in the project
+14. How to deploy in jenkins
+15. Thumb rule of Junit testing
+16. Why String is immutable?
+17. What is try catch finally
+18. Stream api
+19. Parallel stream
+20. Inbuilt methods in stream.
+21. Find duplicates using the stream.
+22. Sort the numbers using comparator/comparable.
+23. Collections in java
+24. Predicate in java 8
+25. Optional in java 8
+26. Uses of map in stream function
+27. Multithreading
+28. Synchronisation in java
+29. Difference between runtime and checked exceptions.
+30. Explain the try with resources
+31. Serialization
+32. Explain Some of the features in Java 8
+33. Java streams API methods and its uses with example.
+34. In filter streams, what is the return type?
+35. What is method reference.
+36. How many class you can create inside try with resources?
+37. Given an employee array and asked to list it in code by filtering it's name and age using streams.
+38. an employee array and asked to list employees with particular employee name and age and asked to return true using stream.
+39. how will you group the employeeList by age alone.
+40. how do you list sum of ages in an employeeList?
+41. Given an employee array and asked to list it in code by filtering it's name.
+42. types of string declaration and how it stores internally
+43. How to create a immutable class?
+44. Brief run() method.
+45. Difference between Fail fast and fail safe.
+46. Explain Hashmap and hash set.
+47. Integer[20,10,25,9,7] find max 3 numbers using streamAPI.
+48. What is purpose of default method in interface
+49. public class Calculator {
+    public int add(int a, int b) {
+    return a + b;
+    }
+
+        public float add(float a, float b) {
+            return a + b;
+        }
+
+        public double add(double a, double b) {
+            return a + b;
+        }
+}
+How will you simplify the boiler plate code for the above program? return a+b should not be used again and again but it should be compatible for all the three return types?
+50. Static Keyword in method, class and variable with example.
+51. Throw and Throws explain with example.
+52. Default vs Static Methods in functionalInterface in Java8

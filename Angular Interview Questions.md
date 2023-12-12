@@ -102,11 +102,7 @@
   * [29. Explain subject in angular](#29-explain-subject-in-angular)
   * [30. Javascript vs Typescript](#30-javascript-vs-typescript)
   * [31. what is node_module](#31-what-is-nodemodule)
-  * [Java Questions](#java-questions)
-  * [Spring Boot Questions](#spring-boot-questions)
   * [Testing](#testing)
-  * [Microservice Questions](#microservice-questions)
-  * [SQL Questions](#sql-questions)
   * [DevOps Questions](#devops-questions)
 <!-- TOC -->
 
@@ -1702,128 +1698,244 @@ for(let num of numbers)
 
 
 
-## Java Questions
-1. Sort employee Array using java 7 and 8
-2. Difference/similarities between Arraylist vs Linkedlist
-3. Explain ConcurrentModification Exception
-4. Explain abstract and interface
-5. What is functional interface
-6. Why we use lambda expression
-7. How will you maintain code standards
-8. Deployment in GCP
-9. How to check application health
-10. Explain Polymorphism and encapsulation
-11. Major Issues in the project.
-12. Singleton design pattern
-13. How to handle multithreading in the project
-14. How to deploy in jenkins
-15. Thumb rule of Junit testing
-16. Why String is immutable?
-17. What is try catch finally
-18. Stream api
-19. Parallel stream
-20. Inbuilt methods in stream.
-21. Find duplicates using the stream.
-22. Sort the numbers using comparator/comparable.
-23. Collections in java
-24. Predicate in java 8
-25. Optional in java 8
-26. Uses of map in stream function
-27. Multithreading
-28. Synchronisation in java
-29. Difference between runtime and checked exceptions.
-30. Explain the try with resources
-31. Serialization
-32. Explain Some of the features in Java 8
-33. Java streams API methods and its uses with example.
-34. In filter streams, what is the return type?
-35. What is method reference.
-36. How many class you can create inside try with resources?
-37. Given an employee array and asked to list it in code by filtering it's name and age using streams.
-38. an employee array and asked to list employees with particular employee name and age and asked to return true using stream. 
-39. how will you group the employeeList by age alone.
-40. how do you list sum of ages in an employeeList?
-41. Given an employee array and asked to list it in code by filtering it's name.
-42. types of string declaration and how it stores internally
-43. How to create a immutable class?
-44. Brief run() method.
-45. Difference between Fail fast and fail safe.
-46. Explain Hashmap and hash set.
-47. Integer[20,10,25,9,7] find max 3 numbers using streamAPI.
-48. What is purpose of default method in interface
-49. public class Calculator {
-        public int add(int a, int b) {
-            return a + b;
-        }
 
-        public float add(float a, float b) {
-            return a + b;
-        }
 
-        public double add(double a, double b) {
-            return a + b;
-        }
-}
-How will you simplify the boiler plate code for the above program? return a+b should not be used again and again but it should be compatible for all the three return types?
-50. Static Keyword in method, class and variable with example.
-51. Throw and Throws explain with example.
-52. Default vs Static Methods in functionalInterface in Java8
 
-## Spring Boot Questions
-1. rest api status code.
-2. Normal vs stereotype annotation and its uses with example.
-3. How will you generate base64UrlEncode(payload)
-4. Spring profiles
-5. Different ways to autoincrement ID value
-6. @OneToMany , @ManyToMany & @JoinColumn
-7. Rest-template vs webclient
-8. JWT & Auth token generation
-9. Spring boot annotations
-10. Spring boot Autoconfiguration. Describe in detail.
-11. Autowiring in spring boot
-12. Application properties vs YML
-13. Spring Boot Global Exception Handling
-14. How to configure hibernate in your spring boot application?
-15. How hibernate retrieve the database values?
-16. what about JPA Repository
-17. @service vs @Repository
-18. scopes of spring bean
-19. features of springboot
-20. In rest API how to receive in spring boot
-21. How to write Junit test cases for service class in spring boot 
-22. How to connect two database in the properties file?
-23. Application.properties have two or more db connections how will you use it in your POJO?
-24. what is entity graph?
-25. In what way you call the value from the application.properties file in your class file?
-26. Hibernate annotation?
-27. How do you map the primary key to another table.
-28. What annotation is used to store Primary key field from parent table to child table?
-29. Why Spring Boot over Spring?
-30. What are all annotations that by default comes from spring boot when using different packages.
-31. What is Controller advice?
-32. Controller vs RestController
-33. RestController in detail with example.
-34. Spring MVC vs spring boot.
-35. Use of @SpringBootApplication?
-36. What is IOC and Dependency injection? Explain in detail.
-37. Use of @componentScan, how to scan a particular class?
-38. What is @Autowired & @Qualifier. Explain in detail.
-39. Spring profiles - if there are two application.properties how will you access a particular one?
-40. What is Sonar Qube. How will you implement in your application?
-41. What is swager and actuater. Expalin how we can implement in application and what are the use?
-42. What is ORM why we use that?
-43. What is hibernate. How hibernate differes from jpa?
-44. What is the purpose of using @entity and @id?
-45. write any stored procedure.
-46. What are environments you know. How to differentiate that environments?
-47. What is aspect
-48. how to configure server properties to dev ,qa,prod env
-49. how will you generate jwt token and you pass the jwt to backend and which class is processing the token?
-50. How will you maintain login details
-51. How jwt token gets changed? and how it remains for the particular user?
-52. How will you maintain load balance.
-53. How will you maintain load balance in cloud?
-54. Different ways to create primary key using Spring Data JPA?
+
+## 1. **What is Angular? Why do we need Angular?**
+
+Angular is a popular open-source web application framework for building dynamic, single-page applications. It's designed to simplify the development of complex web applications by providing a structured framework. We need Angular because it offers a range of benefits, such as two-way data binding, dependency injection, a powerful template system, and a component-based architecture, making it easier to build, test, and maintain web applications.
+
+## 2. **What is a Component?**
+
+A component is a fundamental building block in Angular. It represents a part of the user interface (UI) and consists of a TypeScript class, an HTML template, and CSS styles. Components encapsulate specific functionality and data, and they are reusable and modular, allowing developers to break down the UI into smaller, manageable parts.
+
+## 3. **What is a Directive? How many types of Directives?**
+
+Directives are markers on HTML elements that instruct Angular to do something with the elements. There are three types of directives in Angular:
+
+1. **Component Directives:** These are custom components created by developers.
+2. **Structural Directives:** These alter the structure of the DOM by adding, removing, or replacing elements. Examples include **\*ngIf**, **\*ngFor**, and **\*ngSwitch**.
+3. **Attribute Directives:** These change the appearance or behavior of an element, often by adding or removing attributes. Examples include **ngClass** and **ngStyle**.
+
+## 4. **What is Data Binding? How many types?**
+
+Data binding is a fundamental concept in Angular that connects the UI with the application data. There are four types of data binding in Angular:
+
+1. **Interpolation (One-Way Binding):** It allows you to embed expressions within double curly braces in the template, and the expressions are evaluated and displayed in the view.
+2. **Property Binding (One-Way Binding):** It allows you to set the value of an HTML element's property or attribute using data from the component.
+3. **Event Binding (One-Way Binding):** It lets you respond to events (e.g., clicks) raised in the UI and trigger functions in the component.
+4. **Two-Way Binding:** It combines property binding and event binding, allowing changes in the UI to automatically update the component and vice versa using the **ngModel** directive or **[()]** syntax.
+
+## 5. **Decorators in Angular**
+
+Decorators are used in Angular to mark a class as an Angular construct and provide configuration. Some commonly used decorators include:
+
+1. **@Component**: Defines a component.
+2. **@Directive**: Defines a custom directive.
+3. **@Pipe**: Defines a custom pipe for transforming data.
+4. **@NgModule**: Configures and organizes application modules.
+5. **@Injectable**: Marks a class as a service for dependency injection.
+6. **@Input**: Specifies that a property can receive input from a parent component.
+7. **@Output**: Emits events to a parent component.
+8. **@EventEmitter**: Creates custom events.
+9. **@HostListener**: Listens for events on the host element.
+10. **@ViewChild** and **@ContentChild**: Access child elements in templates.
+
+
+
+
+## 6. **What are Pipes? How to create a custom pipe?**
+
+Pipes are used to transform data for display in the view. Angular provides built-in pipes for common transformations like date formatting and capitalization. You can create a custom pipe by implementing the **PipeTransform** interface and using the **@Pipe** decorator to define the pipe's name and its transformation function.
+
+## 7. **Angular Lifecycle Hooks**
+
+Angular components go through a series of lifecycle events. Some important hooks include:
+
+1. **ngOnInit**: Called after the component has been initialized.
+2. **ngOnChanges**: Called when the component's input properties change.
+3. **ngOnDestroy**: Called just before the component is destroyed.
+4. **ngAfterViewInit**: Called after the component's view has been initialized.
+
+## 8. **Compiler in Angular (JIT, AOT)**
+
+Angular can be compiled either Just-In-Time (JIT) or Ahead-Of-Time (AOT). JIT compilation occurs in the browser at runtime, while AOT compilation happens during the build process. AOT offers better performance and smaller bundle sizes.
+
+## 9. **Observable**
+
+Observables are a core concept in Angular used for handling asynchronous operations, such as making HTTP requests or listening for events. They provide a way to work with asynchronous data streams and allow you to subscribe to these streams to react to changes.
+
+## 10. **Subject and BehaviorSubject**
+
+Subjects are a type of observable that can multicast data to multiple subscribers. BehaviorSubject is a variant of Subject that stores the latest emitted value and emits it to new subscribers immediately upon subscription.
+
+## 11. **Hot and Cold Observables**
+
+Hot observables produce data regardless of whether there are subscribers, and multiple subscribers share the same data stream. Cold observables only produce data when a subscriber actively listens, and each subscriber gets its own data stream.
+
+## 12. **Interceptor**
+
+Interceptors are used in Angular to intercept HTTP requests and responses. They are often used for tasks like adding authentication headers, logging, or error handling to HTTP requests.
+
+## 13. **Connecting Frontend to Backend**
+
+To connect the frontend to a backend server, Angular uses the **HttpClientModule** to make HTTP requests to APIs. Configuration for the backend connection can be specified in files like **proxy.config.json** or **environment.ts**.
+
+## 14. **Webpack**
+
+Webpack is a powerful module bundler used in Angular applications to bundle, optimize, and manage assets like JavaScript and CSS files. It's commonly used for building and bundling Angular applications.
+
+## 15. **Communication Between Components**
+
+Components can communicate with each other using various techniques, including:
+
+1. Input and Output properties to pass data from parent to child and emit events.
+1. Services to share data and functionality between components.
+1. State management libraries like NgRx or BehaviorSubject to manage and share state across components.
+
+
+
+## 16. **What is Service and Dependency Injection?**
+- A service in Angular is a class that encapsulates a specific functionality or feature. It is designed to be reusable and provide a way to separate concerns in an application. Services are often used for tasks like data retrieval, authentication, and other business logic.
+- Dependency Injection (DI) is a core concept in Angular that allows you to provide instances of services to components when they are needed. This helps in achieving loose coupling and making components more testable. Angular's DI system is used to manage the creation and sharing of service instances.
+
+## 17. **How Will You Build Your Application (ng build)?**
+
+- To build an Angular application, you can use the Angular CLI (**ng** command) as follows:
+    - Open a terminal or command prompt.
+    - Navigate to your project's root directory.
+    - Use the **ng build** command to build the application.
+    - You can specify options like **--prod** for a production build.
+
+This command compiles the application and generates optimized bundles in the **dist** directory by default.
+
+## 18. **How Will You Deploy Your Application?**
+
+- Deploying an Angular application typically involves the following steps:
+
+- Build the application using **ng build**.
+- Copy the contents of the **dist** folder generated by the build process to a web server or a hosting platform.
+- Configure the server or hosting environment to serve the Angular application. This may involve setting up routes, security, and any server-specific configurations.
+- Ensure that the necessary back-end services, APIs, and databases are also set up and accessible.
+## 19. **What is Angular Testing?**
+- Angular testing refers to the process of verifying that Angular applications work as expected. It involves writing and running tests to check the functionality, reliability, and performance of an Angular application. Angular provides built-in testing utilities and integration with testing frameworks like Jasmine and Karma.
+
+## 20. **What is Jasmine and Karma?**
+- **Jasmine:** Jasmine is a popular and widely used testing framework for JavaScript applications, including Angular. It provides functions for defining test suites, expectations, and spies for mocking functions. Jasmine is known for its clean and readable syntax.
+- **Karma:** Karma is a test runner that allows you to run tests in various browsers simultaneously. It works well with Jasmine and other testing frameworks. Karma makes it easy to automate the testing process, run tests in real browsers, and collect test results.
+
+## 21. **What is AuthGuard, and How Will You Secure Your Application?**
+- An AuthGuard in Angular is a class that implements the **CanActivate** interface. It is used to control access to specific routes based on user authentication and authorization. AuthGuards are often used to protect routes that require authentication.
+- To secure an Angular application, you can use AuthGuards to restrict access to certain routes, implement proper authentication mechanisms like JWT (JSON Web Tokens), and apply authorization checks to control what users can and cannot do within the application. Additionally, you should follow best practices for securing the back-end services that the application relies on.
+
+## 22. **What is the Server Used in Angular? (Angular Doesn't Have a Default Server)**
+
+- Angular itself does not include a default server. It is a client-side framework for building web applications. You can use various web servers (e.g., Apache, Nginx) or server-side technologies (e.g., Node.js, Java, .NET) to serve your Angular application's static files and provide back-end services.
+
+## 23. **What is ngClass, ngStyle, ngIf, ngIf, ngSwitch, ngSwitchDefault?*
+- **ngClass:** **ngClass** is an Angular directive that allows you to dynamically set CSS classes on HTML elements based on certain conditions in your component. It takes an object or an array to define the classes to apply.
+- **ngStyle:** **ngStyle** is an Angular directive that lets you dynamically set inline styles for HTML elements based on component data. It takes an object to define the styles to apply.
+- **ngIf:** **ngIf** is a structural directive that conditionally includes or removes an element from the DOM based on a truthy or falsy condition.
+- **\*ngIf:** The asterisk (\*) is a syntactic sugar that simplifies the use of **ngIf** in templates, making it easier to read and understand.
+- **ngSwitch and ngSwitchDefault:** These are directives used for conditionally rendering content based on the value of a switch expression. **ngSwitch** defines the switch expression, and **ngSwitchCase** and **ngSwitchDefault** are used to define the different cases and the default case, respectively.
+
+## 24. **Workflow or Architecture of Angular Application**
+- Angular applications follow a component-based architecture. The typical workflow involves:
+    - Designing the application structure with components, services, and modules.
+    - Creating components with templates, styles, and logic.
+    - Defining routes and configuring navigation.
+    - Handling data and making HTTP requests.
+    - Managing application state (if needed) using libraries like NgRx.
+    - Writing tests for components and services.
+    - Building and deploying the application.
+## 25. **How Will You Do Inline Styling (styles.css)?**
+- To apply inline styling to Angular components, you can use the **styles** property within the component's **@Component** decorator. For example:
+
+typescriptCopy code
+
+@Component({ selector: 'app-example', template: `<div [ngStyle]="customStyles">Inline Styling Example</div>`, styles: [` div { color: blue; background-color: yellow; } `] }) export class ExampleComponent { customStyles = { 'font-size.px': 16, 'text-align': 'center' }; }
+
+In this example, the **styles** property defines the component's inline styles, and the **[ngStyle]** directive applies dynamic styles based on the **customStyles** object.
+
+## 26. **What Are the Commands Used in Angular CLI?**
+- Angular CLI provides a set of commands to facilitate the development of Angular applications. Some common commands include:
+
+- **ng new**: Used to create a new Angular project.
+- **ng generate** (or **ng g**): Generates components, modules, services, and more.
+- **ng serve**: Starts a development server for the project.
+- **ng build**: Compiles and builds the application for production.
+- **ng test**: Runs unit tests using Karma and Jasmine.
+- **ng e2e**: Runs end-to-end tests using Protractor.
+- **ng lint**: Checks code for linting errors.
+- **ng update**: Updates Angular and its dependencies to the latest versions.
+- **ng add**: Adds new features or libraries to the project.
+## 27. **Difference Between TypeScript and JavaScript:**
+- **TypeScript:** TypeScript is a superset of JavaScript that adds static typing to the language. It allows developers to specify variable types, interfaces, and provides features like classes and modules. TypeScript code must be transpiled to JavaScript before it can run in a browser.
+- **JavaScript:** JavaScript is a dynamically typed scripting language widely used for web development. It doesn't require type annotations, and it can run directly in web browsers. JavaScript is versatile and can be used for both client and server-side development.
+## 28. **What Is a Promise, and What Is the Difference Between a Promise and an Observable?**
+- **Promise:** A promise is an object representing the eventual completion or failure of an asynchronous operation. It provides a clean way to handle asynchronous operations and allows you to attach callbacks for success and error.
+- **Difference:** Observables are more powerful than promises. While a promise represents a single value that will be available in the future, observables can represent multiple values over time. Observables also have operators for handling data streams and complex transformations. Observables offer better support for canceling requests and handling events.
+## 29. **How Can You Handle Errors in Angular?**
+- Errors in Angular can be handled in various ways:
+    - Using error handling operators like **catch** and **throw** in Observables.
+    - Implementing a global error handler service to catch unhandled errors.
+    - Using **try...catch** blocks to handle synchronous errors.
+    - Handling HTTP errors by intercepting HTTP requests and responses using **HttpClient** interceptors.
+## 30. **Difference Between Observable and Observer:**
+- **Observable:** An observable is a data source that emits data over time. It can be subscribed to by observers, and it is used for handling asynchronous data streams. Observables can represent streams of events or data.
+- **Observer:** An observer is an object or function that listens to an observable's data emissions. It defines how to react when data is emitted, including what to do on success, error, or completion.
+## 31. **Which Will Be the First to Execute: Constructor or ngOnInit?**
+- The constructor of a component is executed before **ngOnInit**. The constructor is part of the class's instantiation process and is called when an instance of the component is created. **ngOnInit** is a lifecycle hook that Angular calls after initializing the component and its data-bound properties.
+
+## 32. **What Is View Encapsulation?**
+
+- View encapsulation in Angular refers to the way Angular isolates a component's styles from the rest of the application. Angular supports three encapsulation modes:
+    - **Emulated (default):** Styles are scoped to the component's view using shadow DOM emulation. It's the default behavior.
+    - **None:** Styles are global and affect the entire application.
+    - **Native:** Styles are applied using the browser's native shadow DOM.
+
+## 33. **What Are Scopes in Angular?**
+
+- Angular does not use the concept of "scopes" in the same way as AngularJS (version 1.x). Instead, it uses a component-based structure, where each component has its own scope or context. Data binding in Angular is typically done within the component's context, and each component defines its own data and behavior.
+
+## 34. **How Will You Handle HTTP Requests in Angular (Using HttpClientModule)?**
+- To handle HTTP requests in Angular, you can use the **HttpClientModule** to make GET, POST, PUT, and DELETE requests to a server. The typical steps include:
+    - Importing **HttpClientModule** in the app's module.
+    - Injecting the **HttpClient** service into components or services.
+    - Using the **HttpClient** service to make requests to APIs or servers.
+    - Handling responses and errors using Observables and error handling techniques.
+
+You can also create services to encapsulate the HTTP request logic and reuse it across the application.
+
+## 35. what is single page application in angular ?
+
+A Single Page Application (SPA) in Angular is a web application that uses the Angular framework to create a single, dynamically updating web page. Angular is a popular JavaScript framework for building SPAs, and it provides a set of tools and features to simplify the development of such applications. In an Angular SPA:
+
+1. **Component-Based Structure:** Angular organizes an application into components. Each component represents a specific part of the user interface and can have its own logic, templates, and styles. These components can be loaded dynamically and updated as needed, which is a key feature of SPAs.
+2. **Routing:** Angular provides a powerful routing system that allows you to define routes and map them to specific components. This enables the application to respond to changes in the URL (e.g., different pages or views) without actually navigating to new web pages. The router loads the appropriate component for the requested route, making it a crucial part of creating SPAs.
+3. **Data Binding:** Angular supports two-way data binding, which means that changes in the application's data are automatically reflected in the user interface, and vice versa. This real-time data synchronization enhances the interactivity of SPAs.
+4. **Dependency Injection:** Angular's dependency injection system simplifies managing dependencies and services, making it easier to share data and functionality between different parts of your application.
+5. **Ajax Requests:** Angular facilitates making asynchronous requests to a server or an API, allowing the application to fetch and display data without requiring a full page reload.
+6. **Template System:** Angular uses templates to define the structure and layout of the application's UI. Templates are written in a combination of HTML and Angular-specific syntax, which makes it easy to bind data and create dynamic views.
+7. **Directives:** Angular provides directives that extend HTML with additional functionality. For instance, you can use ngFor to iterate over a list and generate multiple elements dynamically, or use ngIf to conditionally show or hide elements.
+8. **Services:** Angular services are used to encapsulate and share business logic, data, and functionality across different parts of the application.
+
+   Angular's design principles and features make it well-suited for creating complex SPAs, and it has a strong ecosystem of libraries and tools to enhance the development process. However, building SPAs with Angular can be more complex than simpler solutions due to the framework's extensive capabilities.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Testing
@@ -1832,24 +1944,11 @@ How will you simplify the boiler plate code for the above program? return a+b sh
 3. What is JUint lifecycle?
 
 
-## Microservice Questions
-1. How will you handle if one microservice is malfunctioning
-2. Filter & aggregation in stream API
-3. Why we use microservices
-4. explain gate way function in micro service.
-5. Explain Circuit Breaker in microservice.
-6. Why MongoDB.
-7. How will you maintain load balance in microservice.
 
 
 
-## SQL Questions
-1. Index inSQL
-2. primary key vs foreign key
-3. stored procedure
-4. Write a query to fetch the employee whose age is greater than 40?
-5. Describe Referential constraint?
-6. Composite and Foreign Key
+
+
 
 
 ## DevOps Questions

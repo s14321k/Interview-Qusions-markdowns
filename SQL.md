@@ -10,6 +10,7 @@
   * [6. Joins in SQL](#6-joins-in-sql)
   * [7. KeyWords](#7-keywords)
   * [8. Sql functions](#8-sql-functions)
+  * [SQL Questions](#sql-questions)
 <!-- TOC -->
 
 
@@ -90,3 +91,11 @@ FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
 
 ## 8. [Sql functions](https://www.w3schools.com/sql/sql_ref_mysql.asp)
 - Numeric Functions, String Functions, Date, etc..
+
+## SQL Questions
+1. Index inSQL
+2. primary key vs foreign key
+3. stored procedure
+4. Write a query to fetch the employee whose age is greater than 40?
+5. Describe Referential constraint?
+6. Composite and Foreign Key

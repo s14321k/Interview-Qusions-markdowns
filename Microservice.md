@@ -49,3 +49,13 @@ Load balancing in a microservices architecture is essential for ensuring that in
    In addition to simple load balancing, you can implement content-based routing using an API gateway or custom middleware to route requests to specific instances or services based on the content of the request (e.g., URL path, headers, or request parameters).
 
 Load balancing is a crucial part of designing and maintaining a resilient microservices architecture. The choice of load balancing strategy and tooling depends on your specific requirements, infrastructure, and the technology stack you're using.
+
+
+## Microservice Questions
+1. How will you handle if one microservice is malfunctioning
+2. Filter & aggregation in stream API
+3. Why we use microservices
+4. explain gate way function in micro service.
+5. Explain Circuit Breaker in microservice.
+6. Why MongoDB.
+7. How will you maintain load balance in microservice.

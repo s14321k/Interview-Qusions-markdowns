@@ -1272,3 +1272,60 @@ This is just one example of how LDAP can be used. LDAP's flexibility makes it su
 
 
 ## [Spring boot vs Spring Webflux](https://medium.com/deno-the-complete-reference/spring-boot-vs-spring-webflux-performance-comparison-for-hello-world-case-386da4e9c418)
+
+
+## Spring Boot Questions
+1. rest api status code.
+2. Normal vs stereotype annotation and its uses with example.
+3. How will you generate base64UrlEncode(payload)
+4. Spring profiles
+5. Different ways to autoincrement ID value
+6. @OneToMany , @ManyToMany & @JoinColumn
+7. Rest-template vs webclient
+8. JWT & Auth token generation
+9. Spring boot annotations
+10. Spring boot Autoconfiguration. Describe in detail.
+11. Autowiring in spring boot
+12. Application properties vs YML
+13. Spring Boot Global Exception Handling
+14. How to configure hibernate in your spring boot application?
+15. How hibernate retrieve the database values?
+16. what about JPA Repository
+17. @service vs @Repository
+18. scopes of spring bean
+19. features of springboot
+20. In rest API how to receive in spring boot
+21. How to write Junit test cases for service class in spring boot
+22. How to connect two database in the properties file?
+23. Application.properties have two or more db connections how will you use it in your POJO?
+24. what is entity graph?
+25. In what way you call the value from the application.properties file in your class file?
+26. Hibernate annotation?
+27. How do you map the primary key to another table.
+28. What annotation is used to store Primary key field from parent table to child table?
+29. Why Spring Boot over Spring?
+30. What are all annotations that by default comes from spring boot when using different packages.
+31. What is Controller advice?
+32. Controller vs RestController
+33. RestController in detail with example.
+34. Spring MVC vs spring boot.
+35. Use of @SpringBootApplication?
+36. What is IOC and Dependency injection? Explain in detail.
+37. Use of @componentScan, how to scan a particular class?
+38. What is @Autowired & @Qualifier. Explain in detail.
+39. Spring profiles - if there are two application.properties how will you access a particular one?
+40. What is Sonar Qube. How will you implement in your application?
+41. What is swager and actuater. Expalin how we can implement in application and what are the use?
+42. What is ORM why we use that?
+43. What is hibernate. How hibernate differes from jpa?
+44. What is the purpose of using @entity and @id?
+45. write any stored procedure.
+46. What are environments you know. How to differentiate that environments?
+47. What is aspect
+48. how to configure server properties to dev ,qa,prod env
+49. how will you generate jwt token and you pass the jwt to backend and which class is processing the token?
+50. How will you maintain login details
+51. How jwt token gets changed? and how it remains for the particular user?
+52. How will you maintain load balance.
+53. How will you maintain load balance in cloud?
+54. Different ways to create primary key using Spring Data JPA?

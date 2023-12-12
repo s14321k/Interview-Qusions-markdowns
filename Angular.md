@@ -175,14 +175,6 @@ Run the bellow commands in shell.
   - *ngSwitch
 - Attribute directives
   - ngClass
-  - sgStyle
+  - ngStyle
 - Componet directives
 
-
-
-
-
-
-
-
- 
