@@ -8,6 +8,10 @@
   * [finally - block used after try catch](#finally---block-used-after-try-catch)
   * [finalize - method for clean up. Garbage collection](#finalize---method-for-clean-up-garbage-collection)
     * [Garbage collection](#garbage-collection)
+    * [Manually invoking garbage collection](#manually-invoking-garbage-collection)
+      * [1. **Using `System.gc()`:**](#1-using-systemgc)
+      * [2. **Using `Runtime.getRuntime().gc()`:**](#2-using-runtimegetruntimegc)
+      * [Important Note:](#important-note)
   * [Compile time Error](#compile-time-error)
       * [Two types:-](#two-types-)
   * [Run Time error](#run-time-error)
@@ -196,19 +200,25 @@ Double is more precious than float, where double takes 8 bytes and can provide p
 
 ![FinalKeyWord.png](images/FinalKeyWord.png)
 
-## finally - block used after try catch
+## finally 
+- block used after try catch
+- System.exit() to scip the finally block.
 
-## finalize - method for clean up. Garbage collection
+## finalize 
+- method for clean up. Garbage collection
 
 ### Garbage collection
 
-In Java, garbage collection is a mechanism that automatically deallocates memory occupied by objects that are no longer in use. The primary purpose of garbage collection is to manage memory efficiently, preventing memory leaks and reducing the likelihood of manual memory management errors. Here are some key aspects of garbage collection in Java:
+- Mechanism that automatically deallocates memory occupied by objects that are no longer in use. 
+- The primary purpose of garbage collection is to manage memory efficiently, preventing memory leaks and reducing the likelihood of manual memory management errors. 
+- Here are some key aspects of garbage collection in Java:
 
 1. **Automatic Memory Management:**
    Java uses automatic memory management, which means developers don't need to explicitly allocate or deallocate memory. The garbage collector takes care of reclaiming memory occupied by objects that are no longer reachable.
 
 2. **Object Lifecycle:**
-   Objects are created dynamically during program execution using the `new` keyword. Once an object is no longer referenced by any part of the program, it becomes eligible for garbage collection.
+   Objects are created dynamically during program execution using the `new` keyword. 
+   Once an object is no longer referenced by any part of the program, it becomes eligible for garbage collection.
 
 3. **Java Heap:**
    Memory management in Java is centered around the Java Heap, a region of memory reserved for the storage of objects. The garbage collector operates on the heap, identifying and reclaiming memory occupied by unreachable objects.
@@ -288,25 +298,47 @@ In Java, garbage collection is a mechanism that automatically deallocates memory
    }
    ```
 
-Remember that garbage collection is an automatic process, and the JVM decides when to reclaim memory. You can follow good coding practices and resource management to ensure that objects are eligible for garbage collection when they are no longer needed. Additionally, understanding the garbage collection behavior of different JVMs and tuning garbage collection settings can be beneficial for optimizing memory management in specific scenarios.
+### Manually invoking garbage collection
+In Java, the garbage collection process is automatic, managed by the Java Virtual Machine (JVM). The JVM's garbage collector runs in the background, identifying and reclaiming memory that is no longer in use by the program. This automatic garbage collection helps developers avoid memory leaks and focus on writing application logic.
+
+While you cannot manually trigger garbage collection in Java directly from your code, you can suggest to the JVM that it might be a good time to perform garbage collection. Keep in mind that the decision to actually run the garbage collector is still at the discretion of the JVM, and it may choose to ignore your suggestion.
+
+Here are a couple of ways you can suggest garbage collection:
+
+#### 1. **Using `System.gc()`:**
+The `System` class provides a `gc()` method that suggests to the JVM that it's an opportune time to run the garbage collector.
+
+```java
+System.gc();
+```
+
+However, it's important to note that calling `System.gc()` doesn't guarantee that garbage collection will occur immediately. The JVM may choose to ignore this request.
+
+#### 2. **Using `Runtime.getRuntime().gc()`:**
+The `Runtime` class also provides a `gc()` method that serves the same purpose as `System.gc()`.
+
+```java
+Runtime.getRuntime().gc();
+```
+
+#### Important Note:
+Manually invoking garbage collection is generally discouraged in regular application code. The JVM is designed to manage memory efficiently, and it often knows better when to initiate garbage collection. Explicitly requesting garbage collection can lead to non-portable code and might interfere with the JVM's internal memory management strategies.
+
+In most cases, relying on the automatic garbage collection mechanism is sufficient. If you're facing memory issues or suspect a memory leak, it's better to analyze and optimize your code, use appropriate data structures, and ensure proper resource management rather than relying on manual garbage collection calls.
 
 ***
 
-## Compile time Error
+## Two types of error:-
 
-#### Two types:-
-
-1. Syntax Error
+### 1. Syntax Error or Compile time Error
  - A syntax error occurs when the structure of your code violates the rules of the programming language. 
  - It's related to the grammar or syntax of the language, and these errors are detected by the compiler or interpreter during the compilation or interpretation process. 
  - Syntax errors prevent the program from being executed successfully.
 
-2. Semantic Error
+### 2. Semantic Error or Run Time Error
  - A semantic error is a logical error in the program that does not violate the syntax of the programming language but leads to incorrect behavior.
 
-## Run Time error
 
-if divisible by 0.
 
 ## Exception Handling
 - In Java, an exception is an event that disrupts the normal flow of the program. It is an object which is thrown at runtime.
@@ -410,7 +442,7 @@ We can exit finally block by using flag. exit(); in try block.
 
 ### The first is a typical try-catch-finally block:
 
-```
+```java
 Scanner scanner = null;
 try
 {
@@ -433,7 +465,7 @@ finally
 }
 ```
 And here's the new super succinct solution using try-with-resources:
-```
+```java
 try (Scanner scanner = new Scanner(new File("test.txt")))
 {
   while (scanner.hasNext())
@@ -451,7 +483,7 @@ Here's where to further explore the Scanner class.
 ### try-with-resources With Multiple Resources
 We can declare multiple resources just fine in a try-with-resources block by separating them with a semicolon:
 
-```
+```java
 try (Scanner scanner = new Scanner(new File("testRead.txt"));
 PrintWriter writer = new PrintWriter(new File("testWrite.txt")))
 {
@@ -465,7 +497,7 @@ PrintWriter writer = new PrintWriter(new File("testWrite.txt")))
 ### A Custom Resource With AutoCloseable
 To construct a custom resource that will be correctly handled by a try-with-resources block, the class should implement the Closeable or AutoCloseable interfaces and override the close method:
 
-```
+```java
 public class MyResource implements AutoCloseable
 {
   @Override
@@ -479,7 +511,6 @@ public class MyResource implements AutoCloseable
 ### [MultiCatch (From java 7)](https://www.geeksforgeeks.org/multicatch-in-java/)
 #### [Can we have a try block without a catch block in Java](https://www.tutorialspoint.com/can-we-have-a-try-block-without-a-catch-block-in-java)?
 - Yes, It is possible to have a try block without a catch block by using a final block.
-
 - As we know, a final block will always execute even there is an exception occurred in a try block, except System.exit() it will execute always.
 
 
@@ -574,7 +605,7 @@ In Java, classes are used to model and define objects. There are several types o
     }
     ```
 
-7. **Anonymous Class:**
+7. **Anonymous Class:** [Anonymous class](https://www.programiz.com/java-programming/anonymous-class)
   - An anonymous class is a local class without a name.
   - It is often used for one-time use, such as instantiating an interface.
   - Example:
@@ -588,7 +619,7 @@ In Java, classes are used to model and define objects. There are several types o
 
 These are some of the common types of classes in Java. Each type serves a specific purpose, and the choice of which type to use depends on the design requirements and the problem being solved.
 
-[Anonymous class](https://www.programiz.com/java-programming/anonymous-class)
+
 
 https://youtu.be/mr6n66vMA0k
 
@@ -597,7 +628,7 @@ https://youtu.be/mr6n66vMA0k
 - A nested class that doesn't have any name is known as an anonymous class.
 
 
-```
+```java
 class Polygon
 {
   public void display()
@@ -626,7 +657,7 @@ class AnonymousDemo
   }
 }
 ```
-```
+```java
 class Main
 {
   public static void main(String[] args)
@@ -747,13 +778,13 @@ class friend
 
 ### private constructor
 
-If you create a class and have a private constructor, we cant create a object of this class in another class.
+If you create a class and have a private constructor, we cant create an object of this class in another class.
 
 ### Default access modifier
 
-The deffault access modifier is also known as the package-private, which means all the members are availabe inside the package but not accassible by other package outside the package.
+The default access modifier is also known as the package-private, which means all the members are availabe inside the package but not accassible by other package outside the package.
 
-## 2- Non-access Modifiyers
+## 2- Non-access Modifiers
 
 1. ```static``` – static keyword is mainly used for memory management. 
 
@@ -765,10 +796,10 @@ The deffault access modifier is also known as the package-private, which means a
 
 5. ```Strictfp``` - (Removed in java 17)to ensure that floating points operations give the same result on any platform
 
-## [Static in class, method and variable] [Staitc class](https://www.geeksforgeeks.org/static-class-in-java/)
+## Static in class, method and variable
 
 In Java, the `static` keyword can be applied to class-level variables, methods, and inner classes, and its usage imparts different characteristics to the elements it modifies.
-
+[Staitc class](https://www.geeksforgeeks.org/static-class-in-java/)
 1. **Static Variables (Class Variables):**
   - When a variable is declared with the `static` keyword at the class level, it becomes a static variable, also known as a class variable.
   - Static variables are shared among all instances of the class. There is only one copy of a static variable, regardless of how many instances (objects) of the class are created.
@@ -1272,7 +1303,7 @@ It's important to choose the appropriate implementation based on the specific re
 
 Map is used for key,value purpose. Key should be unique.
 
-### `HashMap`
+### [`HashMap`](https://prateeknima.medium.com/internal-working-of-hashmap-in-java-e5b67890e152#:~:text=To%20improve%20the%20working%20of,(log%20n)%20retrieval%20performance.)
   * Hashmap is non syncronized in nature so performance is also high.
   * Not thread safe.
   * If one thread is iterating HashMap and the other try to add/modify then lead to run-time exception.
@@ -1306,6 +1337,7 @@ If you override the equals method in your class to define custom equality, you s
    - Using enhanced for Loop (for-each loop)
    - Using forEach() Method
  - [HashMap Internal Working](https://youtu.be/-oafFAPgLao?si=pwEA44xe4I1i-WTf)
+ - [HashMap Internal Working](https://youtu.be/1CJbB6SzjVw?si=WpfGSWu5I_ByVgYA)
  - [Key Map]((https://www.baeldung.com/java-custom-class-map-key))
 
 #### Equals() & [HashCode()](https://www.digitalocean.com/community/tutorials/java-equals-hashcode)
@@ -1398,7 +1430,7 @@ class HelloWorld {
 ```
 
 
-### `ConcurrentHashMap` [Link](https://javahungry.blogspot.com/2015/02/how-concurrenthashmap-works-in-java-internal-implementation.html)
+### [`ConcurrentHashMap`](https://javahungry.blogspot.com/2015/02/how-concurrenthashmap-works-in-java-internal-implementation.html)
   * ConcurrentHashMap is syncronized, so performance is slow.
   * Tread safe.
   * We won't get exception during modification.
@@ -2359,6 +2391,38 @@ String str3 = str1.concat(str2);
 - If several references point to the same String without even knowing it, it would be bad if one of the references modified that String value.
 - That's why String objects are immutable.
 
+- `Integer`, `Long`, `Short`, `Byte`, `Character`, `Float`, `Double`, `Boolean`—specifically highlighted the numeric and boolean wrapper classes. I didn't mean to imply that other wrapper classes, including `String`, are not immutable.
+
+To clarify:
+
+1. **Immutable Wrapper Classes:**
+  - `Integer`, `Long`, `Short`, `Byte`, `Character`, `Float`, `Double`, `Boolean`
+
+2. **Immutable Non-numeric Wrapper Class:**
+  - `Character` (It represents a character, not a numeric value.)
+
+3. **Immutable Non-wrapper Class:**
+  - `String`
+
+The `String` class in Java is indeed immutable, 
+### String:
+- **Immutable:**
+  - Once a `String` object is created, its value cannot be changed. Any operation that appears to modify a `String` actually creates a new `String` instance.
+
+- **Thread Safety:**
+  - Immutability makes strings inherently thread-safe. Multiple threads can safely share and access the same string without the need for synchronization.
+
+- **Consistency:**
+  - Immutability ensures that the content of a string remains constant throughout its lifetime, making it easier to reason about and use in various contexts.
+
+- **Hash Code Stability:**
+  - Strings can be safely used as keys in hash maps, and their hash codes remain constant over time.
+
+- **Security:**
+  - Immutability contributes to the security of the Java platform, especially in scenarios where strings are used in security-sensitive contexts.
+
+In summary, both the numeric and boolean wrapper classes (`Integer`, `Long`, `Short`, `Byte`, `Character`, `Float`, `Double`, `Boolean`) and the `String` class in Java are examples of immutable classes. Immutability provides several benefits, including thread safety, consistency, and security.
+
 ### [***To Create immutable class***](https://www.digitalocean.com/community/tutorials/how-to-create-immutable-class-in-java)
 
 - Set the class name as final ``public final calss ClassName``
@@ -2370,6 +2434,55 @@ String str3 = str1.concat(str2);
 1. `private static Database dbObject;` - Private static object of the same class
 2. `private Database()` - Private constructor
 3. `public static Database getInstance()` - getInstance method
+
+## Wrapper Class with AutoBoxing
+- To create a wrapper class
+```java
+public class MyInteger {
+    private int value;
+
+    // Constructor
+    public MyInteger(int value) {
+        this.value = value;
+    }
+
+    // Getter
+    public int getValue() {
+        return value;
+    }
+
+    // Setter
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    // Additional methods as needed
+
+    // Method demonstrating autoboxing
+    public void setIntegerValue(Integer integerValue) {
+        // Autoboxing occurs when a primitive int is passed as an argument
+        this.value = integerValue;
+    }
+
+    public static void main(String[] args) {
+        // Creating an instance of the custom wrapper class
+        MyInteger myIntWrapper = new MyInteger(42);
+
+        // Accessing the wrapped value
+        int retrievedValue = myIntWrapper.getValue();
+        System.out.println("Wrapped Value: " + retrievedValue);
+
+        // Modifying the wrapped value
+        myIntWrapper.setValue(100);
+        System.out.println("Modified Value: " + myIntWrapper.getValue());
+
+        // Demonstrating autoboxing
+        myIntWrapper.setIntegerValue(123); // Autoboxing occurs here
+        System.out.println("Autoboxed Value: " + myIntWrapper.getValue());
+    }
+}
+
+```
 
 ## URL vs URI
 
