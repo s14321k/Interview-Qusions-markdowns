@@ -204,44 +204,6 @@ In Java, garbage collection is a mechanism that automatically deallocates memory
 7. **Memory Profiling:**
    Garbage collection helps in preventing memory leaks by reclaiming memory occupied by objects that are no longer needed. This is particularly important in long-running applications or those with dynamic memory usage patterns.
 
-In summary, garbage collection in Java is a critical feature that automates memory management, enhances developer productivity, and helps create more robust and stable applications by preventing memory-related issues.
-
-
-- In Java, garbage collection is a mechanism that automatically deallocates memory occupied by objects that are no longer in use. The primary purpose of garbage collection is to manage memory efficiently, preventing memory leaks and reducing the likelihood of manual memory management errors. Here are some key aspects of garbage collection in Java:
-
-1. **Automatic Memory Management:**
-   Java uses automatic memory management, which means developers don't need to explicitly allocate or deallocate memory. The garbage collector takes care of reclaiming memory occupied by objects that are no longer reachable.
-
-2. **Object Lifecycle:**
-   Objects are created dynamically during program execution using the `new` keyword. Once an object is no longer referenced by any part of the program, it becomes eligible for garbage collection.
-
-3. **Java Heap:**
-   Memory management in Java is centered around the Java Heap, a region of memory reserved for the storage of objects. The garbage collector operates on the heap, identifying and reclaiming memory occupied by unreachable objects.
-
-4. **Garbage Collection Algorithms:**
-   Java employs different garbage collection algorithms, including:
-
-  - **Serial Garbage Collector:** Suitable for single-threaded environments, it freezes all application threads during garbage collection.
-
-  - **Parallel Garbage Collector:** Also known as the throughput collector, it uses multiple threads to perform garbage collection tasks, improving efficiency.
-
-  - **Concurrent Mark-Sweep (CMS) Collector:** Works to minimize the pause times experienced by the application by performing most of the garbage collection work concurrently with the application threads.
-
-  - **G1 Garbage Collector:** Introduced in Java 7, the G1 collector is designed to provide both low pause times and high throughput by dividing the heap into regions.
-
-5. **`finalize` Method:**
-   The `finalize` method in Java allows an object to perform cleanup operations before it is garbage collected. However, it's essential to note that relying on `finalize` for critical resource management is discouraged due to unpredictable execution times.
-
-6. **Tuning and Monitoring:**
-   Developers can tune garbage collection parameters based on the specific requirements of their applications. Tools like Java VisualVM and other profiling tools can be used to monitor and analyze garbage collection behavior.
-
-7. **Memory Profiling:**
-   Garbage collection helps in preventing memory leaks by reclaiming memory occupied by objects that are no longer needed. This is particularly important in long-running applications or those with dynamic memory usage patterns.
-
-In summary, garbage collection in Java is a critical feature that automates memory management, enhances developer productivity, and helps create more robust and stable applications by preventing memory-related issues.
-
-## Garbage Collection
-- In Java, garbage collection is an automatic process, and you don't have direct control over when it occurs. The Java Virtual Machine (JVM) is responsible for managing memory and executing the garbage collector when necessary. However, as a developer, you can take certain steps to influence or facilitate garbage collection. Here are some tips:
 
 1. **Nullify References:**
    Ensure that you set object references to `null` when they are no longer needed. This makes the objects eligible for garbage collection.
@@ -306,14 +268,114 @@ Remember that garbage collection is an automatic process, and the JVM decides wh
 #### Two types:-
 
 1. Syntax Error
+ - A syntax error occurs when the structure of your code violates the rules of the programming language. 
+ - It's related to the grammar or syntax of the language, and these errors are detected by the compiler or interpreter during the compilation or interpretation process. 
+ - Syntax errors prevent the program from being executed successfully.
 
 2. Semantic Error
-
-
+ - A semantic error is a logical error in the program that does not violate the syntax of the programming language but leads to incorrect behavior.
 
 ## Run Time error
 
 if divisible by 0.
+
+## Exception Handling
+- In Java, an exception is an event that disrupts the normal flow of the program. It is an object which is thrown at runtime.
+
+```
+Throwable
+|
+|__ Exception
+    |
+    |__ (IOException, SQLException, ClassNotFoundException, RuntimeException) Checked Exceptions
+        |
+        |__ (ArithmeticException, NullPointerException, NumberFormatException, IndexOutOfBoundException
+            |
+            |__ ArrayOutOfBoundException, StringIndexOutOfBoundException)Unchecked Exceptions
+```
+
+### throw new and throws
+In Java, `throw` and `throws` are related to exception handling, but they serve different purposes:
+
+1. **`throw`:**
+  - The `throw` keyword is used to explicitly throw an exception in a program. It is followed by an instance of an exception or a subclass of `Throwable`.
+  - When you use `throw`, you are manually triggering the occurrence of an exception in your code. This can be useful when you want to handle exceptional conditions based on certain criteria.
+
+   Example:
+   ```java
+   if (someCondition) {
+       throw new CustomException("This is a custom exception message");
+   }
+   ```
+
+   In this example, if `someCondition` is true, a `CustomException` is explicitly thrown.
+
+2. **`throws`:**
+  - The `throws` keyword is used in the method signature to declare that a method might throw one or more types of exceptions. It is used to indicate the potential exceptions that a method could propagate to its caller.
+  - Methods that can throw checked exceptions must declare them using the `throws` clause. This alerts the calling code that it needs to handle or declare these exceptions as well.
+
+   Example:
+   ```java
+   public void myMethod() throws IOException {
+       // method code that may throw IOException
+   }
+   ```
+
+   In this example, the `myMethod` is declaring that it may throw an `IOException`.
+
+In summary, `throw` is used to explicitly throw an exception within your code, while `throws` is used in a method signature to declare the types of exceptions that the method might throw, notifying the calling code about potential exceptions.
+
+### Checked and Unchecked Exceptions
+
+In Java, errors are categorized into two main types: Checked Exceptions and Unchecked Exceptions. Errors, which are distinct from exceptions, are typically severe issues that indicate a serious problem that usually cannot be handled programmatically. Here's an overview of each type and how to handle them:
+
+#### 1. **Checked Exceptions:**
+  - These are exceptions that the Java compiler forces you to handle explicitly by either catching them or declaring that your method throws them.
+  - Examples include `IOException`, `SQLException`, and `ClassNotFoundException`.
+
+   **Handling Checked Exceptions:**
+  - **Try-Catch Blocks:**
+    ```java
+    try {
+        // code that may throw a checked exception
+    } catch (IOException e) {
+        // handle the exception (e.g., log it or take corrective action)
+    }
+    ```
+
+    You can catch multiple exceptions by separating them with pipes (`|`):
+    ```java
+    catch (IOException | SQLException e) {
+        // handle IOException or SQLException
+    }
+
+  - **Throws Clause:**
+    If you don't want to handle the exception at the current level, you can declare that your method throws the exception:
+    ```java
+    public void myMethod() throws IOException {
+        // code that may throw IOException
+    }
+    ```
+
+#### 2. **Unchecked Exceptions (Runtime Exceptions):**
+  - These exceptions do not need to be explicitly handled or declared. They usually result from programming errors and indicate problems that could have been avoided with proper coding.
+  - Examples include `NullPointerException`, `ArrayIndexOutOfBoundsException`, and `ArithmeticException`.
+
+   **Handling Unchecked Exceptions:**
+  - It's generally not required to handle unchecked exceptions, but you can still catch them if you want to provide a specific response or log the error.
+    ```java
+    try {
+        // code that may throw an unchecked exception
+    } catch (NullPointerException e) {
+        // handle the exception
+    }
+    ```
+
+  - The best practice is to prevent unchecked exceptions through proper coding practices (e.g., null checks, array bounds checking) rather than relying on exception handling.
+
+Remember that it's crucial to handle exceptions appropriately based on your application's requirements. For example, you might log the error, notify the user, roll back a transaction, or take other corrective actions depending on the context. Additionally, avoiding overly broad catch clauses and handling exceptions at the appropriate level in your application contributes to robust error management.
+
+We can exit finally block by using flag. exit(); in try block.
 
 ***
 
@@ -354,10 +416,10 @@ if divisible by 0.
 
 1. Platform Independent
 2. Object oriented programming language
- - Abstraction
- - Encapsulation
- - Inheritance
- - Polymorphism
+   - Abstraction
+   - Encapsulation
+   - Inheritance
+   - Polymorphism
 3. Simple
 4. Robust
 5. Secure
@@ -371,7 +433,46 @@ if divisible by 0.
 
 * starts with alphabets and underscore and dollar symbol.
 * Case sensitive.
-* Keyword cant be used as identifier.
+* **Keyword** cant be used as identifier.
+
+In Java, a keyword is a reserved word that has a specific meaning and functionality in the programming language. These words cannot be used as identifiers (such as variable names, method names, or class names) because they are part of the language's syntax and have predefined roles.
+
+Here are some examples of keywords in Java:
+
+1. **`class`:**
+  - Used to declare a class.
+
+2. **`public`:**
+  - Indicates that a class, method, or variable is accessible from any other class.
+
+3. **`static`:**
+  - Indicates that a method or variable belongs to the class rather than an instance of the class.
+
+4. **`void`:**
+  - Specifies that a method does not return any value.
+
+5. **`main`:**
+  - The entry point of a Java program. Execution starts from the `main` method.
+
+6. **`new`:**
+  - Used to create an instance of a class or to allocate memory for an object.
+
+7. **`if`, `else`:**
+  - Used for conditional statements.
+
+8. **`for`, `while`, `do`:**
+  - Used for loop constructs.
+
+9. **`return`:**
+  - Used to exit a method and optionally return a value.
+
+10. **`try`, `catch`, `finally`:**
+  - Used for exception handling.
+
+11. **`throw`, `throws`:**
+  - Used to handle and declare exceptions.
+
+These are just a few examples, and there are more keywords in Java. It's important to note that keywords are case-sensitive in Java, so `public` is different from `Public` or `PuBlIc`.
 
 ---
 
@@ -425,7 +526,66 @@ The deffault access modifier is also known as the package-private, which means a
 
 5. ```Strictfp``` - (Removed in java 17)to ensure that floating points operations give the same result on any platform
 
-### [Static in class, method and variable] [Staitc class](https://www.geeksforgeeks.org/static-class-in-java/)
+## [Static in class, method and variable] [Staitc class](https://www.geeksforgeeks.org/static-class-in-java/)
+
+In Java, the `static` keyword can be applied to class-level variables, methods, and inner classes, and its usage imparts different characteristics to the elements it modifies.
+
+1. **Static Variables (Class Variables):**
+  - When a variable is declared with the `static` keyword at the class level, it becomes a static variable, also known as a class variable.
+  - Static variables are shared among all instances of the class. There is only one copy of a static variable, regardless of how many instances (objects) of the class are created.
+  - Static variables are typically used for constants or values that are common to all instances of the class.
+
+   ```java
+   public class MyClass {
+       static int staticVariable = 10;
+
+       // rest of the class code
+   }
+   ```
+
+2. **Static Methods:**
+  - When a method is declared with the `static` keyword, it becomes a static method.
+  - Static methods belong to the class rather than to instances of the class. They can be called using the class name without creating an instance of the class.
+  - Static methods cannot directly access instance variables or methods; they operate on the class level.
+
+   ```java
+   public class MyClass {
+       static void myStaticMethod() {
+           // static method code
+       }
+
+       // rest of the class code
+   }
+   ```
+
+3. **Static Blocks:**
+  - A static block is a block of code enclosed in curly braces `{}` and preceded by the `static` keyword. It is executed only once when the class is loaded into memory.
+  - Static blocks are useful for performing one-time initialization tasks for the class.
+
+   ```java
+   public class MyClass {
+       static {
+           // static block code
+       }
+
+       // rest of the class code
+   }
+   ```
+
+   Static blocks are executed before the execution of the `main` method or the instantiation of any objects of the class.
+
+It's important to note that the `static` keyword cannot be used with local variables inside methods. Additionally, excessive use of static elements can impact the maintainability and testability of your code, so it's recommended to use them judiciously based on the specific requirements of your application.
+
+[Static Block in java < 1.5](https://www.scaler.com/topics/static-block-in-java/)
+
+```
+static{}
+```
+
+- Static block in java is used for changing the default value of static variables, initializing static variables of the class, write a set of codes that you want to execute during the class loading in memory.
+
+- In Java Development Kit (JDK) version 1.5 or previous the static block can be executed successfully without the main() method inside the class, but JDK version after 1.5 will throw an error message if there is a static block but no main() method inside the class.
+
 
 ***
 # OOP(Object Oriented Programming)
@@ -1023,27 +1183,6 @@ class HelloWorld {
    - Java Hashtable implements the Serializable and Cloneable interfaces but not the random access interface.
 
    - public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneable, Serializable
-
-## Exception Handling
- - In Java, an exception is an event that disrupts the normal flow of the program. It is an object which is thrown at runtime.
-
-```
-Throwable
-|
-|__ Exception
-    |
-    |__ (IOException, SQLException, ClassNotFoundException, RuntimeException) Checked Exceptions
-        |
-        |__ (ArithmeticException, NullPointerException, NumberFormatException, IndexOutOfBoundException
-            |
-            |__ ArrayOutOfBoundException, StringIndexOutOfBoundException)Unchecked Exceptions
-```
-
-__throw and throws__
-
-__Checked and Unchecked Exceptions__
-
-We can exit finally block by using flag. exit(); in try block.
 
 ## Synchronization
 
@@ -2061,16 +2200,6 @@ class Main
 - Authentication is the process of identifying a user to provide access to a system.
 - Authorization is the process of giving permission to access the resources.
 - In this, the user or client and server are verified. In this, it is verified that if the user is allowed through the defined policies and rules.
-
-## [Static Block in java < 1.5](https://www.scaler.com/topics/static-block-in-java/)
-
-```
-static{}
-```
-
-- Static block in java is used for changing the default value of static variables, initializing static variables of the class, write a set of codes that you want to execute during the class loading in memory.
-
-- In Java Development Kit (JDK) version 1.5 or previous the static block can be executed successfully without the main() method inside the class, but JDK version after 1.5 will throw an error message if there is a static block but no main() method inside the class.
 
 ## [ConcurrentModificationException / Fail-Fast and Fail-Safe]( https://www.geeksforgeeks.org/fail-fast-fail-safe-iterators-java/)
 
