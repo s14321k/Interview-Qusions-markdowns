@@ -161,10 +161,10 @@ These are the main methods provided by the Java Stream API. The examples provide
 # [JAVA8 to JAVA17](https://reflectoring.io/java-release-notes/)
 
 # [Java 8](https://www.tutorialspoint.com/java8/index.htm)
-1. Lambda Expression and Stream API
-2. Method Reference
-3. Default Methods
-4. Type Annotations
+- [1. Lambda Expression and Stream API](#1-lambda-expression-and-stream-api)
+- [2. Method Reference](#2-method-reference)
+- [3. Default Methods](#3-default-methods)
+- [4. Type Annotations](#4-type-annotations)
 5. Repeating Annotations
 6. Method Parameter Reflection
 
