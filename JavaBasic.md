@@ -1,16 +1,27 @@
 <!-- TOC -->
 * [Java Interview Question Bank](#java-interview-question-bank)
   * [variables:](#variables)
+  * [Initialization vs Instantiation](#initialization-vs-instantiation)
   * [Float and double](#float-and-double)
   * [int vs Integer](#int-vs-integer)
   * [final - keyword](#final---keyword)
   * [finally - block used after try catch](#finally---block-used-after-try-catch)
   * [finalize - method for clean up. Garbage collection](#finalize---method-for-clean-up-garbage-collection)
     * [Garbage collection](#garbage-collection)
-  * [Garbage Collection](#garbage-collection-1)
   * [Compile time Error](#compile-time-error)
       * [Two types:-](#two-types-)
   * [Run Time error](#run-time-error)
+  * [Exception Handling](#exception-handling)
+    * [throw new and throws](#throw-new-and-throws)
+    * [Checked and Unchecked Exceptions](#checked-and-unchecked-exceptions)
+      * [1. **Checked Exceptions:**](#1-checked-exceptions)
+      * [2. **Unchecked Exceptions (Runtime Exceptions):**](#2-unchecked-exceptions-runtime-exceptions)
+  * [Try with Resource (java 7 and java 9 improvements)](#try-with-resource--java-7-and-java-9-improvements-)
+    * [The first is a typical try-catch-finally block:](#the-first-is-a-typical-try-catch-finally-block)
+    * [try-with-resources With Multiple Resources](#try-with-resources-with-multiple-resources)
+    * [A Custom Resource With AutoCloseable](#a-custom-resource-with-autocloseable)
+    * [MultiCatch (From java 7)](#multicatch--from-java-7-)
+      * [Can we have a try block without a catch block in Java?](#can-we-have-a-try-block-without-a-catch-block-in-java)
   * [Class](#class)
     * [What is a class](#what-is-a-class)
     * [Common classes in  java](#common-classes-in--java)
@@ -22,7 +33,7 @@
     * [private constructor](#private-constructor)
     * [Default access modifier](#default-access-modifier)
   * [2- Non-access Modifiyers](#2--non-access-modifiyers)
-    * [[Static in class, method and variable] Staitc class](#static-in-class-method-and-variable-staitc-class)
+  * [[Static in class, method and variable] Staitc class](#static-in-class-method-and-variable-staitc-class)
 * [OOP(Object Oriented Programming)](#oopobject-oriented-programming)
   * [1. Polymorphism](#1-polymorphism)
     * [Covariant return type](#covariant-return-type)
@@ -33,6 +44,7 @@
     * [Marker interface vs Functional Interface](#marker-interface-vs-functional-interface)
     * [Predicate vs Supplier](#predicate-vs-supplier)
     * [Callable vs Runnable](#callable-vs-runnable)
+    * [Comparable and Comparator](#comparable-and-comparator)
     * [Implements and Extends](#implements-and-extends)
     * [Interface and Abstract](#interface-and-abstract)
       * [purpose of interface instead of abstract class in java](#purpose-of-interface-instead-of-abstract-class-in-java)
@@ -64,7 +76,6 @@
     * [`TreeMap`](#treemap-)
     * [`LinkedHashMap`](#linkedhashmap-)
     * [`HashTable`](#hashtable)
-  * [Exception Handling](#exception-handling)
   * [Synchronization](#synchronization)
   * [Synchronized in method, block and class level](#synchronized-in-method-block-and-class-level)
   * [Process syncronizatin &Tread Syncronization](#process-syncronizatin-tread-syncronization)
@@ -72,6 +83,7 @@
     * [**Thread Synchronization:**](#thread-synchronization)
   * [Aplet](#aplet)
   * [Serialization and Deserialization](#serialization-and-deserialization)
+    * [Transient Keyword](#transient-keyword)
 * [Auto-boxing and Auto-Unboxing](#auto-boxing-and-auto-unboxing)
     * [Boxing & AutoBoxing - Primitive values to Object or wrapper class.](#boxing--autoboxing---primitive-values-to-object-or-wrapper-class)
     * [UnBoxing & AutoBoxing - Object to primitive type.](#unboxing--autoboxing---object-to-primitive-type)
@@ -83,7 +95,10 @@
 * [Multithreading](#multithreading)
     * [Deadlock](#deadlock)
     * [Race condition](#race-condition)
-    * [FailSafe and FailFast](#failsafe-and-failfast)
+    * [ConcurrentModificationException / Fail-Fast and Fail-Safe](#concurrentmodificationexception--fail-fast-and-fail-safe)
+      * [1. Failsafe:](#1-failsafe)
+      * [2. Fail-Fast:](#2-fail-fast)
+    * [Volatile Keyword](#volatile-keyword)
 * [Java Questions](#java-questions)
   * [1. Caching in java](#1-caching-in-java)
   * [Size() vs length()](#size-vs-length)
@@ -98,16 +113,16 @@
   * [20. Hashmap, what is the complexity of traversing](#20-hashmap-what-is-the-complexity-of-traversing)
   * [Stream API](#stream-api)
   * [Data Binding](#data-binding)
-    * [Static Binding](#static-binding)
-      * [Override static method](#override-static-method)
-    * [Dynamic Binding](#dynamic-binding)
+    * [1. **Static Binding (Early Binding):**](#1-static-binding-early-binding)
+    * [2. **Dynamic Binding (Late Binding or Runtime Polymorphism):**](#2-dynamic-binding-late-binding-or-runtime-polymorphism)
   * [24. Cqrs Pattern, what is the solution scenario used](#24-cqrs-pattern-what-is-the-solution-scenario-used)
+    * [1. **Separation of Concerns:**](#1-separation-of-concerns)
+    * [2. **Scalability:**](#2-scalability)
+    * [3. **Flexibility and Optimization:**](#3-flexibility-and-optimization)
+    * [4. **Event Sourcing:**](#4-event-sourcing)
+    * [5. **Complex Domain Logic:**](#5-complex-domain-logic)
   * [25. What build tool used](#25-what-build-tool-used)
   * [26. What is the difference between install and deploy](#26-what-is-the-difference-between-install-and-deploy)
-  * [27. connection pooling in java](#27-connection-pooling-in-java)
-    * [Connection Pooling](#connection-pooling)
-    * [Benefits of connection pooling](#benefits-of-connection-pooling)
-  * [Comparable and Comparator](#comparable-and-comparator)
   * [Eden space in java](#eden-space-in-java)
   * [PermGen Space (Permanent Generation) and Meta Space](#permgen-space-permanent-generation-and-meta-space)
     * [PerGen vs Meta space](#pergen-vs-meta-space)
@@ -124,25 +139,33 @@
   * [concat() vs plus(+) operator](#concat-vs-plus-operator)
   * [Deep copy vs shallow copy](#deep-copy-vs-shallow-copy)
   * [Why string is immutable in java](#why-string-is-immutable-in-java)
-    * [To Create immutable class](#to-create-immutable-class)
+    * [***To Create immutable class***](#to-create-immutable-class)
+    * [***To Create Singleton class***](#to-create-singleton-class)
   * [URL vs URI](#url-vs-uri-1)
-  * [Try with Resource (java 7 and java 9 improvements)](#try-with-resource--java-7-and-java-9-improvements-)
-      * [The first is a typical try-catch-finally block:](#the-first-is-a-typical-try-catch-finally-block)
-      * [try-with-resources With Multiple Resources](#try-with-resources-with-multiple-resources)
-      * [A Custom Resource With AutoCloseable](#a-custom-resource-with-autocloseable)
-    * [MultiCatch (From java 7)](#multicatch--from-java-7-)
-      * [Can we have a try block without a catch block in Java?](#can-we-have-a-try-block-without-a-catch-block-in-java)
-  * [Initialization vs Instatiation](#initialization-vs-instatiation)
-  * [Anonymous class](#anonymous-class)
   * [Authentication and Authorization](#authentication-and-authorization)
-  * [Static Block in java < 1.5](#static-block-in-java--15)
-  * [ConcurrentModificationException / Fail-Fast and Fail-Safe](#concurrentmodificationexception--fail-fast-and-fail-safe)
-  * [Transient Keyword](#transient-keyword)
-  * [Volatile Keyword](#volatile-keyword)
   * [[Association, Composition and Aggregation in Java](https://www.geeksforgeeks.org/association-composition- -java/)](#association-composition-and-aggregation-in-javahttpswwwgeeksforgeeksorgassociation-composition---java)
   * [Arbitrary Number of Arguments and @SafeVarags](#arbitrary-number-of-arguments-and-safevarags)
 * [Junit](#junit)
   * [Java Questions](#java-questions-1)
+  * [13. How to handle multithreading in the project](#13-how-to-handle-multithreading-in-the-project)
+    * [1. **Understand the Basics:**](#1-understand-the-basics)
+    * [2. **Use Thread-safe Data Structures:**](#2-use-thread-safe-data-structures)
+    * [3. **Synchronization:**](#3-synchronization)
+    * [4. **Atomic Operations:**](#4-atomic-operations)
+    * [5. **Thread Pools:**](#5-thread-pools)
+    * [6. **Callable and Future:**](#6-callable-and-future)
+    * [7. **Concurrency Utilities:**](#7-concurrency-utilities)
+    * [8. **Avoid Deadlocks:**](#8-avoid-deadlocks)
+    * [9. **Thread Safety in Singleton Classes:**](#9-thread-safety-in-singleton-classes)
+    * [10. **Volatile Keyword:**](#10-volatile-keyword)
+    * [11. **Thread Interruption:**](#11-thread-interruption)
+    * [12. **ThreadLocal:**](#12-threadlocal)
+    * [13. **Avoid Excessive Synchronization:**](#13-avoid-excessive-synchronization)
+    * [14. **Testing and Debugging:**](#14-testing-and-debugging)
+    * [15. **Asynchronous Programming:**](#15-asynchronous-programming)
+    * [16. **Java Concurrency Frameworks:**](#16-java-concurrency-frameworks)
+    * [17. **Documentation:**](#17-documentation)
+    * [18. **Use Modern Java Features:**](#18-use-modern-java-features)
 <!-- TOC -->
 
 # [Java Interview Question Bank](https://www.java2novice.com/java-interview-questions/)
@@ -152,6 +175,12 @@
 * ```local``` - Inside the body of method, and it can not be static.
 * ```instance``` - Inside the body of class.
 * ```static``` - It can not be local, we can share the copy and share among all the instances of class. Memory is allocated only once when the class is loaded.
+
+## Initialization vs Instantiation
+
+- Initialization means assigning initial value to variables while declaring. Following is the simple example of initialization in application.
+- Instantiation means defining or creating new object for class to access all properties like methods, operators, fields, etc. from class.
+
 ***
 
 ## Float and double
@@ -377,6 +406,84 @@ Remember that it's crucial to handle exceptions appropriately based on your appl
 
 We can exit finally block by using flag. exit(); in try block.
 
+## Try with Resource [(java 7 and java 9 improvements)](https://www.tutorialspoint.com/java9/java9_try_with_resources_improvement.htm)
+
+### The first is a typical try-catch-finally block:
+
+```
+Scanner scanner = null;
+try
+{
+  scanner = new Scanner(new File("test.txt"));
+  while (scanner.hasNext())
+  {
+    System.out.println(scanner.nextLine());
+  }
+}
+catch (FileNotFoundException e)
+{
+  e.printStackTrace();
+}
+finally
+{
+  if (scanner != null)
+  {
+    scanner.close();
+  }
+}
+```
+And here's the new super succinct solution using try-with-resources:
+```
+try (Scanner scanner = new Scanner(new File("test.txt")))
+{
+  while (scanner.hasNext())
+  {
+    System.out.println(scanner.nextLine());
+  }
+}
+catch (FileNotFoundException fnfe)
+{
+  fnfe.printStackTrace();
+}
+```
+Here's where to further explore the Scanner class.
+
+### try-with-resources With Multiple Resources
+We can declare multiple resources just fine in a try-with-resources block by separating them with a semicolon:
+
+```
+try (Scanner scanner = new Scanner(new File("testRead.txt"));
+PrintWriter writer = new PrintWriter(new File("testWrite.txt")))
+{
+  while (scanner.hasNext())
+  {
+    writer.print(scanner.nextLine());
+  }
+}
+```
+
+### A Custom Resource With AutoCloseable
+To construct a custom resource that will be correctly handled by a try-with-resources block, the class should implement the Closeable or AutoCloseable interfaces and override the close method:
+
+```
+public class MyResource implements AutoCloseable
+{
+  @Override
+  public void close() throws Exception
+  {
+    System.out.println("Closed MyResource");
+  }
+}
+```
+
+### [MultiCatch (From java 7)](https://www.geeksforgeeks.org/multicatch-in-java/)
+#### [Can we have a try block without a catch block in Java](https://www.tutorialspoint.com/can-we-have-a-try-block-without-a-catch-block-in-java)?
+- Yes, It is possible to have a try block without a catch block by using a final block.
+
+- As we know, a final block will always execute even there is an exception occurred in a try block, except System.exit() it will execute always.
+
+
+
 ***
 
 **Constant** - public static final String name="Sarath";
@@ -399,6 +506,138 @@ We can exit finally block by using flag. exit(); in try block.
 **OBJECTS** – Is a memory representation of a class
 
 **Implicit and Explicit** - So in simple world implicit is done by jvm or language and explicit is done by programmer.
+
+In Java, classes are used to model and define objects. There are several types of classes based on their functionality and how they are intended to be used. Here are some common types of classes in Java:
+
+1. **Regular (Concrete) Class:**
+  - A regular class is the most common type of class in Java.
+  - It can have fields, methods, constructors, and can be instantiated to create objects.
+  - Example:
+    ```java
+    public class Car {
+        // Fields, methods, and constructors
+    }
+    ```
+
+2. **Abstract Class:**
+  - An abstract class cannot be instantiated on its own.
+  - It may have abstract methods (methods without a body) that must be implemented by its subclasses.
+  - It can also have regular methods with implementations.
+  - Example:
+    ```java
+    public abstract class Shape {
+        // Abstract methods and regular methods
+    }
+    ```
+
+3. **Interface:**
+  - An interface is a collection of abstract methods.
+  - All methods in an interface are implicitly public and abstract (before Java 8) or can have default implementations (from Java 8 onward).
+  - Example:
+    ```java
+    public interface Drawable {
+        void draw(); // Implicitly public and abstract (before Java 8)
+    }
+    ```
+
+4. **Final Class:**
+  - A final class cannot be extended (subclassed).
+  - It is often used when you want to prevent further modification or extension of a class.
+  - Example:
+    ```java
+    public final class UtilityClass {
+        // Methods and fields
+    }
+    ```
+
+5. **Inner Class:**
+  - An inner class is a class defined within another class.
+  - It can be static or non-static.
+  - Example:
+    ```java
+    public class Outer {
+        class Inner {
+            // Inner class definition
+        }
+    }
+    ```
+
+6. **Static Nested Class:**
+  - Similar to an inner class but declared with the `static` keyword.
+  - It does not have access to the instance variables of the outer class.
+  - Example:
+    ```java
+    public class Outer {
+        static class Nested {
+            // Static nested class definition
+        }
+    }
+    ```
+
+7. **Anonymous Class:**
+  - An anonymous class is a local class without a name.
+  - It is often used for one-time use, such as instantiating an interface.
+  - Example:
+    ```java
+    Runnable myRunnable = new Runnable() {
+        public void run() {
+            // Implementation
+        }
+    };
+    ```
+
+These are some of the common types of classes in Java. Each type serves a specific purpose, and the choice of which type to use depends on the design requirements and the problem being solved.
+
+[Anonymous class](https://www.programiz.com/java-programming/anonymous-class)
+
+https://youtu.be/mr6n66vMA0k
+
+- In Java, a class can contain another class known as nested class. It's possible to create a nested class without giving any name.
+
+- A nested class that doesn't have any name is known as an anonymous class.
+
+
+```
+class Polygon
+{
+  public void display()
+  {
+    System.out.println("Inside the Polygon class");
+  }
+}
+
+
+
+class AnonymousDemo
+{
+  public void createClass()
+  {
+
+    // creation of anonymous class extending class Polygon
+    Polygon p1 = new Polygon()
+    {
+      public void display()
+      {
+        System.out.println("Inside an anonymous class.");
+      }
+    };
+
+    p1.display();
+  }
+}
+```
+```
+class Main
+{
+  public static void main(String[] args)
+  {
+    AnonymousDemo an = new AnonymousDemo();
+    an.createClass();
+  }
+}
+```
+
+**OUTPUT** ```Inside an anonymous class.```
 
 | Types | Explanation |
 |--------------------|--------------------------------------------------------------------------------------------------------------|
@@ -672,7 +911,7 @@ Interface class can have only abstract method (incomplete method). This class sh
 This is an interface class, which implements Clonable/Runnable
 
 - ***Callable – run()***
-- ***Runable – call()***
+- ***Runnable – call()***
 - ***Comparable – compareTo()***
 - ***Comparator - compare()***
 
@@ -751,6 +990,15 @@ In summary, Predicate is used to define a condition and test if an argument meet
  - However, Runnable instances can be run by Thread class as well as ExecutorService but Callable instances can only be executed via ExecutorService.
 
 ![img.png](images/CallableVsRunnable.png)
+
+### [Comparable and Comparator](https://www.javatpoint.com/difference-between-comparable-and-comparator)
+
+|Comparable | Comparator |
+|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1) Comparable provides a single sorting sequence. In other words, we can sort the collection on the basis of a single element such as id, name, and price.| The Comparator provides multiple sorting sequences. In other words, we can sort the collection on the basis of multiple elements such as id, name, and price etc. |
+| 2) Comparable affects the original class, i.e., the actual class is modified.| Comparator doesn't affect the original class, i.e., the actual class is not modified. |
+| 3) Comparable provides compareTo() method to sort elements.| Comparator provides compare() method to sort elements.|
+
 
 ---
 
@@ -945,9 +1193,9 @@ ___Next___ represents a pointer that points to next node in the list.
 
 ## [Set](https://javahungry.blogspot.com/2013/08/how-sets-are-implemented-internally-in.html)
 
-Unorderd set. Doesn't allow to store duplicate values. Can store one null value.
+Unordered set. Doesn't allow to store duplicate values. Can store one null value.
 
-Set can be instanciated as
+Set can be instantiated as
 ```
 Set<data-type> s1 = new HashSet<data-type>();
 Set<data-type> s2 = new LinkedHashSet<data-type>();
@@ -1090,7 +1338,7 @@ c & d are Un-equal variables, and their respective hash values are: 74113750 & 7
 
 `So, the main difference between "==" and "equals" in Java is that "==" compares the memory location of two objects, while "equals" compares the contents of two objects.`
 
-![img_1.png](images/equalsVsDoubleEqual.png)
+![equalsVsDoubleEqual.png](images/equalsVsDoubleEqual.png)
 
 #### **Reference Equality**
 
@@ -1365,6 +1613,10 @@ Serialization in Java allows us to convert an Object to stream that we can send 
 - For deserializing the object we call readObject() method and ObjectInputStream class.
 - Only objects that supports the java.io.serializable interface can be written to streams.
 
+### [Transient Keyword](https://www.educative.io/answers/what-is-the-transient-keyword-in-java)
+
+- Is used to avoid serialization. If any object of a data structure is defined as a transient, then it will not be serialized.
+
 # Auto-boxing and Auto-Unboxing
 
 ### Boxing & AutoBoxing - Primitive values to Object or wrapper class.
@@ -1384,7 +1636,7 @@ int valueUnBoxing = valueBoxing; //AutoUnBoxing
 Software should be Highly Cohesive and Loosely coupled
 
 ## Coupling
-![img_8.png](images/Coupling.png)
+![Coupling.png](images/Coupling.png)
 
 ### Loose coupling
 They are mostly independent. If the only knowledge that class A has about class B, is what class B has exposed through its interface, then class A and class B are said to be loosely coupled. In order to over come from the problems of tight coupling between objects, spring framework uses dependency injection mechanism with the help of POJO/POJI model and through dependency injection its possible to achieve loose coupling.
@@ -1395,7 +1647,7 @@ Here if the class A method is changed, then all other classes which create the o
 
 ## Cohesion
 
-![img_9.png](images/Cohesion.png)
+![Cohesion.png](images/Cohesion.png)
 
 **Explanation:** In the above image, we can see that in low cohesion only one class is responsible to execute lots of jobs that are not in common which reduces the chance of reusability and maintenance. But in high cohesion, there is a separate class for all the jobs to execute a specific job, which results in better usability and maintenance.
 
@@ -1425,10 +1677,11 @@ Deadlock is a part of multithreading. Deadlock can occur in a situation when a t
 ### Race condition
 In layman terms a race condition in which two or more threads compete together to get certain shared resources. For example, if thread a is reading data from the LinkedList and another thread B is trying to delete the same data.
 
-### FailSafe and FailFast
+### [ConcurrentModificationException / Fail-Fast and Fail-Safe]( https://www.geeksforgeeks.org/fail-fast-fail-safe-iterators-java/)
+
 In Java, "failsafe" and "fail-fast" are two different approaches to handling concurrent modifications to data structures, such as collections like ArrayList, HashMap, and HashSet. These approaches determine how the data structure behaves when one thread modifies it while another thread is iterating over it. Here's an explanation of both concepts:
 
-1. Failsafe:
+#### 1. Failsafe:
   - Failsafe iterators do not throw ConcurrentModificationException when the underlying collection is modified while an iterator is traversing it.
   - Instead of preventing concurrent modifications, failsafe iterators make a copy of the data structure at the time of creation and iterate over that copy. This means that the iterator works on a snapshot of the data, ensuring that it doesn't see the modifications made by other threads.
   - Failsafe iterators are typically used in concurrent collections like ConcurrentHashMap and CopyOnWriteArrayList.
@@ -1446,7 +1699,7 @@ In Java, "failsafe" and "fail-fast" are two different approaches to handling con
    }
    ```
 
-2. Fail-Fast:
+#### 2. Fail-Fast:
   - Fail-fast iterators, on the other hand, are designed to detect concurrent modifications during iteration and immediately throw a ConcurrentModificationException. This is done to avoid potential data corruption and to notify the programmer of a potential problem.
   - Fail-fast iterators are used in non-concurrent collections like ArrayList, HashMap, and HashSet.
 
@@ -1465,12 +1718,16 @@ In Java, "failsafe" and "fail-fast" are two different approaches to handling con
 
 It's important to choose the appropriate type of iterator based on the specific requirements of your application. Failsafe iterators are more suitable for situations where concurrent modifications are expected and need to be tolerated, while fail-fast iterators are preferred when concurrent modifications are considered an error that should be immediately detected and reported.
 
+### [Volatile Keyword]()
+- Volatile is yet another way (like synchronized, atomic wrapper) of making class thread-safe. Thread safe means that a method or class instance can be used by multiple threads at the same time without problem.
+
+
 # Java Questions
 
 ## 1. Caching in java
 - Caching is a technique wherein objects in your application are stored in a temporary storage area known as cache.
 
-![img.png](images/Cache Flow.png)
+![Cache Flow.png](images/Cache Flow.png)
 
 ## Size() vs length()
 
@@ -1873,77 +2130,131 @@ random.ints().limit(10).sorted().forEach(System.out::println);
 
 ## Data Binding
 
-![img_16.png](images/staticVsDynamicBinding.png)
-
-### Static Binding
-
-#### Override static method
-NO, we can't override static methods since method overriding relies on dynamic binding at runtime, but static methods are bonded at compile time with static binding. As a result, we are unable to override static methods.
-
-```java
-class Dog
-{
-  private void eat()
-  {
-    System.out.println("dog is eating...");
-  }
-
-  public static void main(String args[])
-  {
-    Dog d1=new Dog();
-    d1.eat();
-  }
-}
-```
-
-### Dynamic Binding
-
-```java
-class Animal
-{
-  void eat()
-  {
-    System.out.println("animal is eating...");
-  }
-}
+![staticVsDynamicBinding.png](images/staticVsDynamicBinding.png)
 
 
-class Dog extends Animal
-{
-  void eat(){System.out.println("dog is eating...");
-}
+**Override static method**
+ - NO, we can't override static methods since method overriding relies on dynamic binding at runtime, but static methods are bonded at compile time with static binding. As a result, we are unable to override static methods.
 
+In Java, binding refers to the association between a method call and the method implementation. There are two types of binding in Java: static binding (also known as early binding) and dynamic binding (also known as late binding or runtime polymorphism).
 
-public static void main(String args[])
-{
-  Animal a=new Dog();
-  a.eat();
-}
-```
+### 1. **Static Binding (Early Binding):**
+  - Static binding occurs during compile-time, and the association between a method call and the method implementation is resolved at compile-time.
+  - The compiler determines at compile-time which method implementation should be invoked based on the reference type.
+  - Static binding is used for method calls on objects, static methods, and final methods.
+
+   Example:
+   ```java
+   class Animal {
+       void sound() {
+           System.out.println("Animal makes a sound");
+       }
+   }
+
+   class Dog extends Animal {
+       void sound() {
+           System.out.println("Dog barks");
+       }
+   }
+
+   public class Test {
+       public static void main(String[] args) {
+           Animal animal = new Dog();
+           animal.sound(); // Static binding based on the reference type (Animal)
+       }
+   }
+   ```
+   In this example, even though the actual object is of type `Dog`, the method `sound()` from the `Animal` class is called because the reference type is `Animal`.
+
+### 2. **Dynamic Binding (Late Binding or Runtime Polymorphism):**
+  - Dynamic binding occurs during runtime, and the association between a method call and the method implementation is resolved at runtime.
+  - Dynamic binding is achieved through method overriding (when a subclass provides a specific implementation for a method defined in its superclass).
+  - It is applicable only for non-static, non-final, and non-private methods.
+
+   Example:
+   ```java
+   class Animal {
+       void sound() {
+           System.out.println("Animal makes a sound");
+       }
+   }
+
+   class Dog extends Animal {
+       void sound() {
+           System.out.println("Dog barks");
+       }
+   }
+
+   public class Test {
+       public static void main(String[] args) {
+           Animal animal = new Dog();
+           animal.sound(); // Dynamic binding, calls the overridden method in Dog class
+       }
+   }
+   ```
+   In this example, because the reference type is `Animal`, but the actual object is of type `Dog`, the `sound()` method in the `Dog` class is called at runtime. This is dynamic binding in action.
+
+Dynamic binding is a fundamental concept in achieving polymorphism in object-oriented programming, allowing for flexibility and extensibility in designing class hierarchies.
 
 ## 24. Cqrs Pattern, what is the solution scenario used
+The Command Query Responsibility Segregation (CQRS) pattern is a design pattern that separates the responsibilities for reading and writing data in a system. In a traditional architecture, the same model is often used for both reading and writing operations. CQRS suggests splitting the model into two parts: one for handling commands (changing state) and another for handling queries (reading state).
+
+**Solution Scenario for CQRS:**
+
+### 1. **Separation of Concerns:**
+  - **Scenario:**
+    - In a complex application, the requirements for reading data (queries) and writing data (commands) can be different.
+    - Performance and scalability considerations may vary between reading and writing operations.
+
+  - **Solution:**
+    - CQRS allows you to create separate models for handling reads and writes.
+    - The read model can be optimized for query performance and can be denormalized to suit the specific needs of different views.
+    - The write model focuses on processing commands and updating the system's state.
+
+### 2. **Scalability:**
+  - **Scenario:**
+    - Some systems may experience different scalability requirements for read and write operations.
+    - Reads are often more frequent than writes in many applications.
+
+  - **Solution:**
+    - CQRS enables independent scaling of the read and write components.
+    - Read models can be replicated or distributed to multiple servers for improved read performance, while the write model can be optimized for handling command processing.
+
+### 3. **Flexibility and Optimization:**
+  - **Scenario:**
+    - Business requirements for reporting and analytics may differ from the requirements for transactional processing.
+    - Read models might need to be denormalized or transformed to suit specific reporting needs.
+
+  - **Solution:**
+    - CQRS allows flexibility in designing read models tailored to specific query requirements.
+    - You can optimize read models for specific use cases, aggregating data from multiple sources or transforming it as needed for presentation.
+
+### 4. **Event Sourcing:**
+  - **Scenario:**
+    - Storing the state changes as a series of events can be valuable for auditing, debugging, or rebuilding the state at any point in time.
+
+  - **Solution:**
+    - CQRS is often used in conjunction with event sourcing. Instead of storing the current state of the system, events are stored, and the system's state can be reconstructed by replaying these events.
+    - Event sourcing can be particularly useful in scenarios where the history of state changes is important.
+
+### 5. **Complex Domain Logic:**
+  - **Scenario:**
+    - In domains with complex business logic, separating read and write responsibilities can lead to a more maintainable and comprehensible system.
+
+  - **Solution:**
+    - CQRS allows for the creation of a domain model that focuses on handling commands and enforcing business rules without the complexities introduced by read-specific concerns.
+    - Read models can be simpler and optimized for efficient querying.
+
+It's important to note that while CQRS provides benefits, it also adds complexity to a system. Therefore, it's generally recommended to apply CQRS in scenarios where the separation of concerns and independent scalability of read and write components provide significant advantages for the specific requirements of the application.
+
 ## 25. What build tool used
 
 Apache Maven
 Gradle
 
 ## 26. What is the difference between install and deploy
-## 27. connection pooling in java
-
-### Connection Pooling
-The connection pool is used to direct JDBC calls within the application, as well as for enterprise beans using the database.
-
-### Benefits of connection pooling
-- Connection pooling can improve the response time of any application that requires connections, especially Web-based applications. When a user makes a request over the Web to a resource, the resource accesses a data source. Because users connect and disconnect frequently with applications on the Internet, the application requests for data access can surge to considerable volume. Consequently, the total datastore overhead quickly becomes high for Web-based applications, and performance deteriorates. When connection pooling capabilities are used, however, Web applications can realize performance improvements of up to 20 times the normal results.
-
-## [Comparable and Comparator](https://www.javatpoint.com/difference-between-comparable-and-comparator)
-
-|Comparable | Comparator |
-|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1) Comparable provides a single sorting sequence. In other words, we can sort the collection on the basis of a single element such as id, name, and price.| The Comparator provides multiple sorting sequences. In other words, we can sort the collection on the basis of multiple elements such as id, name, and price etc. |
-| 2) Comparable affects the original class, i.e., the actual class is modified.| Comparator doesn't affect the original class, i.e., the actual class is not modified. |
-| 3) Comparable provides compareTo() method to sort elements.| Comparator provides compare() method to sort elements.|
-
+- Running an installer executable to install a software application on a computer.
+- Deploying a web application to a web server or a cloud service.
 
 ## Eden space in java
 - Eden space is a java memory pool where objects are created. When the eden space is full, the garbage collector either removes objects 
@@ -1954,13 +2265,13 @@ The connection pool is used to direct JDBC calls within the application, as well
 
 ### PerGen vs Meta space
 
-![img_21.png](images/permGenVsMetaData.png)
+![permGenVsMetaData.png](images/permGenVsMetaData.png)
 
 ## URL vs URI
 
 - In short, all URLs are URIs, but not all URIs are URLs.
 - URI syntax ```scheme:[//authority]path[?query][#fragment]```
-- ![img_1.png](images/UrlUri.png)
+- ![UrlUri.png](images/UrlUri.png)
 
 ## [Session management](https://www.javainuse.com/spring/springboot_session)
 
@@ -1973,7 +2284,7 @@ The connection pool is used to direct JDBC calls within the application, as well
 
 ## Loggers
 
-- ![img_7.png](images/Loggers.png)
+- ![Loggers.png](images/Loggers.png)
 
 # [Strings](https://www.guru99.com/java-strings.html)
 
@@ -1997,7 +2308,7 @@ append(), insert(), delete(), and substring()
 methods for String manipulation.
 </div>
 
-![img_11.png](images/StringBufferBuilder.png)
+![StringBufferBuilder.png](images/StringBufferBuilder.png)
 
 - String is immutable whereas StringBuffer(Thread safe, syncronized, java1.0, slower) and StringBuilder(Opposite to StrngBuffer, java1.5) are mutable classes.
 - StringBuffer is thread-safe and synchronized whereas StringBuilder is not. That’s why StringBuilder is faster than StringBuffer.
@@ -2046,12 +2357,17 @@ String str3 = str1.concat(str2);
 - If several references point to the same String without even knowing it, it would be bad if one of the references modified that String value.
 - That's why String objects are immutable.
 
-### [To Create immutable class](https://www.digitalocean.com/community/tutorials/how-to-create-immutable-class-in-java)
+### [***To Create immutable class***](https://www.digitalocean.com/community/tutorials/how-to-create-immutable-class-in-java)
 
 - Set the class name as final ``public final calss ClassName``
 - set variable declared as final and private ``private final string variablename;``
 - No setter(), only getter() should be used. ``getter()``
 - Make deep copy for object using constructor.
+
+### ***To Create Singleton class***
+1. `private static Database dbObject;` - Private static object of the same class
+2. `private Database()` - Private constructor
+3. `public static Database getInstance()` - getInstance method
 
 ## URL vs URI
 
@@ -2062,158 +2378,14 @@ String str3 = str1.concat(str2);
 | ![img_15.png](images/img_15.png) | ![img_14.png](images/img_14.png) |
 
 
-## Try with Resource [(java 7 and java 9 improvements)](https://www.tutorialspoint.com/java9/java9_try_with_resources_improvement.htm)
-
-#### The first is a typical try-catch-finally block:
-
-```
-Scanner scanner = null;
-try
-{
-  scanner = new Scanner(new File("test.txt"));
-  while (scanner.hasNext())
-  {
-    System.out.println(scanner.nextLine());
-  }
-}
-catch (FileNotFoundException e)
-{
-  e.printStackTrace();
-}
-finally
-{
-  if (scanner != null)
-  {
-    scanner.close();
-  }
-}
-```
-And here's the new super succinct solution using try-with-resources:
-```
-try (Scanner scanner = new Scanner(new File("test.txt")))
-{
-  while (scanner.hasNext())
-  {
-    System.out.println(scanner.nextLine());
-  }
-}
-catch (FileNotFoundException fnfe)
-{
-  fnfe.printStackTrace();
-}
-```
-Here's where to further explore the Scanner class.
-
-#### try-with-resources With Multiple Resources
-We can declare multiple resources just fine in a try-with-resources block by separating them with a semicolon:
-
-```
-try (Scanner scanner = new Scanner(new File("testRead.txt"));
-PrintWriter writer = new PrintWriter(new File("testWrite.txt")))
-{
-  while (scanner.hasNext())
-  {
-    writer.print(scanner.nextLine());
-  }
-}
-```
-
-#### A Custom Resource With AutoCloseable
-To construct a custom resource that will be correctly handled by a try-with-resources block, the class should implement the Closeable or AutoCloseable interfaces and override the close method:
-
-```
-public class MyResource implements AutoCloseable
-{
-  @Override
-  public void close() throws Exception
-  {
-    System.out.println("Closed MyResource");
-  }
-}
-```
-
-### [MultiCatch (From java 7)](https://www.geeksforgeeks.org/multicatch-in-java/)
-#### [Can we have a try block without a catch block in Java](https://www.tutorialspoint.com/can-we-have-a-try-block-without-a-catch-block-in-java)?
- - Yes, It is possible to have a try block without a catch block by using a final block.
-
- - As we know, a final block will always execute even there is an exception occurred in a try block, except System.exit() it will execute always.
-
-## Initialization vs Instatiation
-
-- Initialization means assigning initial value to variables while declaring. Following is the simple example of initialization in application.
-- Instantiation means defining or creating new object for class to access all properties like methods, operators, fields, etc. from class.
-
-## [Anonymous class](https://www.programiz.com/java-programming/anonymous-class)
-
-https://youtu.be/mr6n66vMA0k
-
-- In Java, a class can contain another class known as nested class. It's possible to create a nested class without giving any name.
-
-- A nested class that doesn't have any name is known as an anonymous class.
-
-
-
-```
-class Polygon
-{
-  public void display()
-  {
-    System.out.println("Inside the Polygon class");
-  }
-}
-
-
-
-class AnonymousDemo
-{
-  public void createClass()
-  {
-
-    // creation of anonymous class extending class Polygon
-    Polygon p1 = new Polygon()
-    {
-      public void display()
-      {
-        System.out.println("Inside an anonymous class.");
-      }
-    };
-
-    p1.display();
-  }
-}
-```
-```
-class Main
-{
-  public static void main(String[] args)
-  {
-    AnonymousDemo an = new AnonymousDemo();
-    an.createClass();
-  }
-}
-```
-
-**OUTPUT** ```Inside an anonymous class.```
-
 ## Authentication and Authorization
 
 - Authentication is the process of identifying a user to provide access to a system.
 - Authorization is the process of giving permission to access the resources.
 - In this, the user or client and server are verified. In this, it is verified that if the user is allowed through the defined policies and rules.
 
-## [ConcurrentModificationException / Fail-Fast and Fail-Safe]( https://www.geeksforgeeks.org/fail-fast-fail-safe-iterators-java/)
-
-## [Transient Keyword](https://www.educative.io/answers/what-is-the-transient-keyword-in-java)
-
-- Is used to avoid serialization. If any object of a data structure is defined as a transient, then it will not be serialized.
-
-## [Volatile Keyword]()
-- Volatile is yet another way (like synchronized, atomic wrapper) of making class thread-safe. Thread safe means that a method or class instance can be used by multiple threads at the same time without problem.
-
-
-
 ## [Association, Composition and Aggregation in Java](https://www.geeksforgeeks.org/association-composition- -java/)
-![img_22.png](images/AssosiationAggregation.png)
+![AssosiationAggregation.png](images/AssosiationAggregation.png)
 
 In Springboot MongoDB for join queries - (Link)[https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html]
 
@@ -2284,13 +2456,156 @@ https://www.java2novice.com/junit-examples/junit-annotations/
 4. Explain abstract and interface
 5. What is functional interface
 6. Why we use lambda expression
+   Lambda expressions in Java provide a concise and expressive way to represent anonymous functions. They were introduced in Java 8 as part of the Java SE 8 release, along with the functional programming features. Here are some reasons why lambda expressions are used in Java:
+
+1. **Conciseness:**
+  - Lambda expressions allow you to express instances of single-method interfaces (functional interfaces) more concisely compared to using anonymous classes. This leads to cleaner and more readable code.
+
+   **Example:**
+   ```java
+   // Without lambda expression
+   Runnable runnable = new Runnable() {
+       public void run() {
+           System.out.println("Hello, World!");
+       }
+   };
+
+   // With lambda expression
+   Runnable runnableLambda = () -> System.out.println("Hello, World!");
+   ```
+
+2. **Functional Interfaces:**
+  - Lambda expressions are primarily used with functional interfaces, which are interfaces with a single abstract method. They allow you to treat functionality as a method argument, enabling a more functional programming style.
+
+   **Example:**
+   ```java
+   // Functional interface
+   interface MyFunctionalInterface {
+       void myMethod();
+   }
+
+   // Using lambda expression with functional interface
+   MyFunctionalInterface myFunction = () -> System.out.println("My Method");
+   ```
+
+3. **Readability:**
+  - Lambda expressions improve the readability of code, especially when dealing with functional programming constructs like streams and predicates. They allow you to express the logic more directly.
+
+   **Example:**
+   ```java
+   // Without lambda expression
+   List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+   numbers.forEach(new Consumer<Integer>() {
+       public void accept(Integer n) {
+           System.out.println(n);
+       }
+   });
+
+   // With lambda expression
+   numbers.forEach(n -> System.out.println(n));
+   ```
+
+4. **Functional Programming:**
+  - Lambda expressions facilitate functional programming concepts, such as passing behavior as an argument, which makes it easier to write more modular and reusable code.
+
+   **Example:**
+   ```java
+   List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+   // Without lambda expression
+   Collections.sort(names, new Comparator<String>() {
+       public int compare(String s1, String s2) {
+           return s1.compareTo(s2);
+       }
+   });
+
+   // With lambda expression
+   Collections.sort(names, (s1, s2) -> s1.compareTo(s2));
+   ```
+
+5. **Parallelism:**
+  - Lambda expressions play a crucial role in enabling parallelism and concurrency through the use of the Streams API. They make it easier to write parallelizable code by expressing operations that can be executed concurrently.
+
+   **Example:**
+   ```java
+   List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+   // Without lambda expression
+   int sum = 0;
+   for (int number : numbers) {
+       sum += number;
+   }
+
+   // With lambda expression and parallel stream
+   int sumParallel = numbers.parallelStream().reduce(0, (x, y) -> x + y);
+   ```
+
+Lambda expressions, along with functional interfaces, contribute to making Java code more expressive, readable, and suitable for functional programming paradigms. They are particularly valuable in scenarios where concise, single-purpose behavior is required, such as in the case of functional interfaces or functional programming constructs like streams and parallel processing.
 7. How will you maintain code standards
 8. Deployment in GCP
 9. How to check application health
 10. Explain Polymorphism and encapsulation
 11. Major Issues in the project.
 12. Singleton design pattern
-13. How to handle multithreading in the project
+## 13. How to handle multithreading in the project
+
+Handling multithreading in a project involves managing and coordinating the execution of multiple threads to achieve parallelism or concurrency. Multithreading is essential for improving the performance and responsiveness of applications. Here are some guidelines on how to handle multithreading in a Java project:
+
+### 1. **Understand the Basics:**
+- Have a solid understanding of basic multithreading concepts, such as threads, synchronization, locks, and thread safety.
+
+### 2. **Use Thread-safe Data Structures:**
+- Utilize thread-safe collections and data structures from the `java.util.concurrent` package to avoid data corruption and ensure consistency in a multithreaded environment.
+
+### 3. **Synchronization:**
+- Use synchronization mechanisms, such as `synchronized` blocks or methods, to control access to shared resources and prevent race conditions.
+
+### 4. **Atomic Operations:**
+- When dealing with simple operations that should be executed atomically, consider using atomic classes from the `java.util.concurrent.atomic` package.
+
+### 5. **Thread Pools:**
+- Prefer using thread pools for managing and reusing threads. The `ExecutorService` and `ThreadPoolExecutor` classes provide a convenient way to implement thread pools.
+
+### 6. **Callable and Future:**
+- Use `Callable` and `Future` interfaces to perform tasks in parallel and retrieve results asynchronously.
+
+### 7. **Concurrency Utilities:**
+- Leverage the high-level concurrency utilities provided by the `java.util.concurrent` package, such as `CountDownLatch`, `CyclicBarrier`, and `Semaphore`, for more complex coordination among threads.
+
+### 8. **Avoid Deadlocks:**
+- Be cautious about potential deadlocks by carefully ordering the acquisition of locks and avoiding circular dependencies.
+
+### 9. **Thread Safety in Singleton Classes:**
+- If using singleton classes, ensure that they are thread-safe. Consider using the double-checked locking pattern or use a thread-safe initialization approach.
+
+### 10. **Volatile Keyword:**
+- Use the `volatile` keyword for variables that are accessed by multiple threads to ensure proper visibility of changes.
+
+### 11. **Thread Interruption:**
+- Be aware of thread interruption. Consider using `Thread.interrupt()` and handling `InterruptedException` appropriately.
+
+### 12. **ThreadLocal:**
+- Utilize `ThreadLocal` to store thread-specific data, avoiding interference between threads.
+
+### 13. **Avoid Excessive Synchronization:**
+- Minimize the scope of synchronized blocks to avoid unnecessary contention and improve performance.
+
+### 14. **Testing and Debugging:**
+- Test your multithreaded code thoroughly, especially for race conditions and deadlocks. Debugging multithreaded applications can be challenging, so use tools like thread dumps and profilers.
+
+### 15. **Asynchronous Programming:**
+- Consider using asynchronous programming patterns and libraries (e.g., CompletableFuture) for managing concurrency and responsiveness in applications.
+
+### 16. **Java Concurrency Frameworks:**
+- Explore higher-level concurrency frameworks and libraries, such as Akka, for building scalable and resilient concurrent systems.
+
+### 17. **Documentation:**
+- Clearly document your multithreading strategy, especially if using complex synchronization mechanisms, to aid maintainability.
+
+### 18. **Use Modern Java Features:**
+- Consider using features introduced in modern Java versions, such as the `java.util.concurrent` enhancements in Java 8 and later.
+
+By following these guidelines, you can effectively handle multithreading in your project and create robust, scalable, and efficient concurrent applications. Keep in mind that multithreading requires careful consideration and testing to ensure correct and reliable behavior.
 14. How to deploy in jenkins
 15. Thumb rule of Junit testing
 16. Why String is immutable?

@@ -21,6 +21,9 @@
       * [7. CascadeType.SAVE_UPDATE](#7-cascadetypesaveupdate)
   * [get() and load()](#get-and-load)
     * [Hibernate and JPA (Java Persistence API)](#hibernate-and-jpa-java-persistence-api-)
+  * [Connection pooling in java](#connection-pooling-in-java)
+    * [Connection Pooling](#connection-pooling)
+    * [Benefits of connection pooling](#benefits-of-connection-pooling)
 <!-- TOC -->
 
 
@@ -307,3 +310,11 @@ Reasons to Choose JPA Over Hibernate:
 4. Integration with Other Java EE Technologies: If you plan to use other Java EE technologies, such as EJBs, CDI, or JTA, JPA integrates seamlessly with them, providing a cohesive and consistent development experience.
 
 Ultimately, the choice between Hibernate and JPA depends on your project's specific requirements and constraints. If you value standardization and portability, JPA is a good choice. If you need advanced features, vendor-specific extensions, or are working with an existing Hibernate codebase, Hibernate might be the better option. In many cases, it's possible to use Hibernate as the JPA provider, combining the best of both worlds by leveraging Hibernate's features while adhering to the JPA standard.
+
+## Connection pooling in java
+
+### Connection Pooling
+The connection pool is used to direct JDBC calls within the application, as well as for enterprise beans using the database.
+
+### Benefits of connection pooling
+- Connection pooling can improve the response time of any application that requires connections, especially Web-based applications. When a user makes a request over the Web to a resource, the resource accesses a data source. Because users connect and disconnect frequently with applications on the Internet, the application requests for data access can surge to considerable volume. Consequently, the total datastore overhead quickly becomes high for Web-based applications, and performance deteriorates. When connection pooling capabilities are used, however, Web applications can realize performance improvements of up to 20 times the normal results.
