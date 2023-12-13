@@ -194,7 +194,7 @@ Double is more precious than float, where double takes 8 bytes and can provide p
 
 ## [final - keyword](https://www.geeksforgeeks.org/final-keyword-in-java/)
 
-![img_19.png](images/FinalKeyWord.png)
+![FinalKeyWord.png](images/FinalKeyWord.png)
 
 ## finally - block used after try catch
 
@@ -1042,7 +1042,7 @@ ___Why the Collections Framework?___
 | Iterator is not a legacy interface. Iterator can be used for the traversal of HashMap, LinkedList, ArrayList, HashSet, TreeMap, TreeSet . | Enumeration is a legacy interface which is used for traversing Vector, Hashtable. |
 
 
-![img_10.png](images/ListQueueSet.png)
+![ListQueueSet.png](images/ListQueueSet.png)
 
 1. Java does not provide direct implementations of the Collection interface but provides implementations of its sub interfaces like
 
@@ -1083,7 +1083,7 @@ Map - To store data in key value
 ---
 
 ## List
-![img_20.png](images/ArrayListVsLinkedList.png)
+![ArrayListVsLinkedList.png](images/ArrayListVsLinkedList.png)
 
 1) List is an ordered collection it maintains the insertion order, which means upon displaying the list content it will display the elements in the same order in which they got inserted into the list.
 
@@ -1310,7 +1310,7 @@ If you override the equals method in your class to define custom equality, you s
 
 #### Equals() & [HashCode()](https://www.digitalocean.com/community/tutorials/java-equals-hashcode)
 
-- ![img_6.png](images/equalsHashCode.png)
+- ![equalsHashCode.png](images/equalsHashCode.png)
 
 ```java
 String a = "Andrew";
@@ -1725,9 +1725,11 @@ It's important to choose the appropriate type of iterator based on the specific 
 # Java Questions
 
 ## 1. Caching in java
+
 - Caching is a technique wherein objects in your application are stored in a temporary storage area known as cache.
 
 ![Cache Flow.png](images/Cache Flow.png)
+
 
 ## Size() vs length()
 
@@ -2261,7 +2263,7 @@ Gradle
 
 ## PermGen Space (Permanent Generation) and Meta Space
 
-![img.png](images/HeapPermgenSpace.png)
+![HeapPermgenSpace.png](images/HeapPermgenSpace.png)
 
 ### PerGen vs Meta space
 
