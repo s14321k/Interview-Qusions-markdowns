@@ -1728,7 +1728,7 @@ It's important to choose the appropriate type of iterator based on the specific 
 
 - Caching is a technique wherein objects in your application are stored in a temporary storage area known as cache.
 
-![Cache Flow.png](images/Cache Flow.png)
+![CacheFlow.png](images/CacheFlow.png)
 
 
 ## Size() vs length()
