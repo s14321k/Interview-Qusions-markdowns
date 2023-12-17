@@ -91,6 +91,7 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   * [Load Balancing](#load-balancing)
   * [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
   * [Spring boot vs Spring Webflux](#spring-boot-vs-spring-webflux)
+  * [Spring Boot Questions](#spring-boot-questions)
 <!-- TOC -->
 
 ## [Top 15 Q&A](https://www.java67.com/2018/06/top-15-spring-boot-interview-questions-answers-java-jee-programmers.html)
