@@ -5,16 +5,16 @@
   * [Float and double](#float-and-double)
   * [int vs Integer](#int-vs-integer)
   * [final - keyword](#final---keyword)
-  * [finally - block used after try catch](#finally---block-used-after-try-catch)
-  * [finalize - method for clean up. Garbage collection](#finalize---method-for-clean-up-garbage-collection)
+  * [finally](#finally-)
+  * [finalize](#finalize-)
     * [Garbage collection](#garbage-collection)
     * [Manually invoking garbage collection](#manually-invoking-garbage-collection)
       * [1. **Using `System.gc()`:**](#1-using-systemgc)
       * [2. **Using `Runtime.getRuntime().gc()`:**](#2-using-runtimegetruntimegc)
       * [Important Note:](#important-note)
-  * [Compile time Error](#compile-time-error)
-      * [Two types:-](#two-types-)
-  * [Run Time error](#run-time-error)
+  * [Two types of error:-](#two-types-of-error-)
+    * [1. Syntax Error or Compile time Error](#1-syntax-error-or-compile-time-error)
+    * [2. Semantic Error or Run Time Error](#2-semantic-error-or-run-time-error)
   * [Exception Handling](#exception-handling)
     * [throw new and throws](#throw-new-and-throws)
     * [Checked and Unchecked Exceptions](#checked-and-unchecked-exceptions)
@@ -36,8 +36,8 @@
     * [private access modifier](#private-access-modifier)
     * [private constructor](#private-constructor)
     * [Default access modifier](#default-access-modifier)
-  * [2- Non-access Modifiyers](#2--non-access-modifiyers)
-  * [[Static in class, method and variable] Staitc class](#static-in-class-method-and-variable-staitc-class)
+  * [2- Non-access Modifiers](#2--non-access-modifiers)
+  * [Static in class, method and variable](#static-in-class-method-and-variable)
 * [OOP(Object Oriented Programming)](#oopobject-oriented-programming)
   * [1. Polymorphism](#1-polymorphism)
     * [Covariant return type](#covariant-return-type)
@@ -76,7 +76,7 @@
       * [equals() vs "=="](#equals---vs---)
       * [**Reference Equality**](#reference-equality)
       * [**Value Equality**](#value-equality)
-    * [`ConcurrentHashMap` Link](#concurrenthashmap-link)
+    * [`ConcurrentHashMap`](#concurrenthashmap)
     * [`TreeMap`](#treemap-)
     * [`LinkedHashMap`](#linkedhashmap-)
     * [`HashTable`](#hashtable)
@@ -143,8 +143,10 @@
   * [concat() vs plus(+) operator](#concat-vs-plus-operator)
   * [Deep copy vs shallow copy](#deep-copy-vs-shallow-copy)
   * [Why string is immutable in java](#why-string-is-immutable-in-java)
+    * [String:](#string)
     * [***To Create immutable class***](#to-create-immutable-class)
     * [***To Create Singleton class***](#to-create-singleton-class)
+  * [Wrapper Class with AutoBoxing](#wrapper-class-with-autoboxing)
   * [URL vs URI](#url-vs-uri-1)
   * [Authentication and Authorization](#authentication-and-authorization)
   * [[Association, Composition and Aggregation in Java](https://www.geeksforgeeks.org/association-composition- -java/)](#association-composition-and-aggregation-in-javahttpswwwgeeksforgeeksorgassociation-composition---java)
@@ -1193,7 +1195,9 @@ while(itr.hasNext())
 - Contains all the methods of vector and also provides methods like push(), peak()
 
 ### `LinkedList` 
-- internally uses doubly linked list, non syncronized, manipulation is fast because no shifting is required
+- internally uses doubly linked list, non synchronized, manipulation is fast because no shifting is required.
+- Can contain duplicate elements.
+- Maintains insertion order.
 
 ```java
 LinkedList<String> al=new LinkedList<String>();
@@ -1202,14 +1206,23 @@ Iterator<String> itr=al.iterator();
 while(itr.hasNext())
 ```
 
-### `Singly LinkedList` 
- - Java Program to create and display a singly linked list - javatpoint
+### [`Singly LinkedList`](https://www.javatpoint.com/java-program-to-create-and-display-a-singly-linked-list)
  - Linear data structure, in which each pointer points to the next element in list.
-### `Doubly LinkedList` 
- - Java program to create and display a doubly linked list - javatpoint
- - Linear data structure, which can be described as the collection of nodes. Nodes are connected through the pointers.
+ - Each element is called as node. Each node has two components: **Data** and **Pointer** which points to next node in list.
+ - Traverse through the list till current points to null.
 
-***One of the limitations of the singly linked list is that it can be traversed in only one direction that is forward. The doubly linked list has overcome this limitation by providing an additional pointer that points to the previous node. With the help of the previous pointer, the doubly linked list can be traversed in a backward direction thus making insertion and deletion operation easier to perform. So, a typical node in the doubly linked list consists of three fields:***
+![img.png](images/singlyLinkedList.png)
+
+### `Doubly LinkedList` 
+ - Linear data structure, which can be described as the collection of nodes. Nodes are connected through the pointers.
+ - A node comprises three sections. node data, pointer to next node, pointer to the previous node.
+
+![img_1.png](images/doublyLinkedList.png)
+
+***One of the limitations of the singly linked list is that it can be traversed in only one direction that is forward. 
+The doubly linked list has overcome this limitation by providing an additional pointer that points to the previous node. 
+With the help of the previous pointer, the doubly linked list can be traversed in a backward direction thus making insertion and deletion operation easier to perform. 
+So, a typical node in the doubly linked list consists of three fields:***
 
 ___Data___ represents the data value stored in the node.
 
@@ -1219,6 +1232,12 @@ ___Next___ represents a pointer that points to next node in the list.
 
 
 // pending https://www.javatpoint.com/collections-in-java //
+
+![img.png](images/singlyVsDouble1.png)
+![img_1.png](images/singlyVsDouble2.png)
+
+### `Circular LinkedList`
+- First node points to the last node and last node points to the first node, where the doubly linked list has the null at the first previous pointer and the last node next pointer
 
 ---
 
@@ -1320,6 +1339,7 @@ Map is used for key,value purpose. Key should be unique.
 
 4. **Load Factor and Rehashing:** As the number of key-value pairs in the HashMap grows, the load factor determines when the internal array should be resized to accommodate more entries. When the number of entries exceeds a certain threshold (determined by the load factor), the HashMap is resized (usually doubled), and the existing entries are rehashed to new buckets.
 
+5. **TREEIFY_THRESHOLD=8; and UNTREEIFY_THRESHOLD=6** - When we insert more than 8 elements then the insertion will get inserted in the form of balanced tree instead of linked list.
 **HashCode**
 - **Use in Hash Collections:**
 When you plan to use instances of your class as keys in a HashMap or elements in a HashSet, you should provide a well-implemented hashCode method. This helps distribute objects across buckets more evenly, reducing the likelihood of collisions and improving the performance of hash-based collections.
@@ -1339,6 +1359,7 @@ If you override the equals method in your class to define custom equality, you s
  - [HashMap Internal Working](https://youtu.be/-oafFAPgLao?si=pwEA44xe4I1i-WTf)
  - [HashMap Internal Working](https://youtu.be/1CJbB6SzjVw?si=WpfGSWu5I_ByVgYA)
  - [Key Map]((https://www.baeldung.com/java-custom-class-map-key))
+ - https://prateeknima.medium.com/internal-working-of-hashmap-in-java-e5b67890e152#:~:text=To%20improve%20the%20working%20of,(log%20n)%20retrieval%20performance.
 
 #### Equals() & [HashCode()](https://www.digitalocean.com/community/tutorials/java-equals-hashcode)
 
