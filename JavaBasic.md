@@ -187,8 +187,6 @@
 * Initialization means assigning initial value to variables while declaring. Following is the simple example of initialization in application.
 * Instantiation means defining or creating new object for class to access all properties like methods, operators, fields, etc. from class.
 
-***
-
 ## Float and double
 
 Double is more precious than float, where double takes 8 bytes and can provide precision up to 15 to 16 digits and float takes 4 bytes and provides precision upto 6 to 7.
@@ -196,8 +194,6 @@ Double is more precious than float, where double takes 8 bytes and can provide p
 * Both double and float are approximate types and not precise(accurate or exact).
 
 ## [int vs Integer](https://stackoverflow.com/questions/8660691/what-is-the-difference-between-integer-and-int-in-java)
-
-***
 
 ## [final - keyword](https://www.geeksforgeeks.org/final-keyword-in-java/)
 
@@ -1230,27 +1226,14 @@ while(itr.hasNext())
 * Each element is called as node. Each node has two components: **Data** and **Pointer** which points to next node in list.
 * Traverse through the list till current points to null.
 
-
-
-
 ![img.png](images/singlyLinkedList.png)
-
-
-
-
 
 ### `Doubly LinkedList`
 
 * Linear data structure, which can be described as the collection of nodes. Nodes are connected through the pointers.
 * A node comprises three sections. node data, pointer to next node, pointer to the previous node.
 
-
-
-
 ![img_1.png](images/doublyLinkedList.png)
-
-
-
 
 ***One of the limitations of the singly linked list is that it can be traversed in only one direction that is forward.
 The doubly linked list has overcome this limitation by providing an additional pointer that points to the previous node.
@@ -1265,71 +1248,9 @@ So, a typical node in the doubly linked list consists of three fields:***
 
 // pending <https://www.javatpoint.com/collections-in-java> //
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ![img.png](images/singlyVsDouble1.png)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ![img_1.png](images/singlyVsDouble2.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ### `Circular LinkedList`
 
@@ -1802,7 +1723,7 @@ Serialization in Java allows us to convert an Object to stream that we can send 
 
 # Auto-boxing and Auto-Unboxing
 
-### Boxing & AutoBoxing - Primitive values to Object or wrapper class
+## Boxing & AutoBoxing - Primitive values to Object or wrapper class
 
 ```java
 Integer valueBoxing = Integer.valueOf(10); //Boxing
@@ -1810,7 +1731,7 @@ or
 Integer valueBoxing = 10; //AutoBoxing
 ```
 
-### UnBoxing & AutoUnBoxing - Object to primitive type
+## UnBoxing & AutoUnBoxing - Object to primitive type
 
 ```java
 int valueUnBoxing = valueBoxing.intValue(); //UnBoxing
@@ -1847,6 +1768,10 @@ High cohesion is when you have a class that does a well-defined job. Low cohesio
 High cohesion gives us better-maintaining facility and Low cohesion results in monolithic classes that are difficult to maintain, understand and reduce re-usability
 
 # [Multithreading](https://codegym.cc/groups/multithreading-in-java)
+
+## Volatile Keyword
+
+* Volatile is yet another way (like synchronized, atomic wrapper) of making class thread-safe. Thread safe means that a method or class instance can be used by multiple threads at the same time without problem.
 
 ### [Deadlock](https://www.javatpoint.com/deadlock-in-java)
 
@@ -1900,10 +1825,6 @@ In Java, "failsafe" and "fail-fast" are two different approaches to handling con
    ```
 
 It's important to choose the appropriate type of iterator based on the specific requirements of your application. Failsafe iterators are more suitable for situations where concurrent modifications are expected and need to be tolerated, while fail-fast iterators are preferred when concurrent modifications are considered an error that should be immediately detected and reported.
-
-### [Volatile Keyword]()
-
-* Volatile is yet another way (like synchronized, atomic wrapper) of making class thread-safe. Thread safe means that a method or class instance can be used by multiple threads at the same time without problem.
 
 # Java Questions
 
@@ -2990,12 +2911,12 @@ By following these guidelines, you can effectively handle multithreading in your
         public double add(double a, double b) {
             return a + b;
         }
+
 }
 How will you simplify the boiler plate code for the above program? return a+b should not be used again and again but it should be compatible for all the three return types?
 50. Static Keyword in method, class and variable with example.
 51. Throw and Throws explain with example.
 52. Default vs Static Methods in functionalInterface in Java8
-
 
 | Communication | Check |
 |--------------------|-------------------------------------------------------------------------------------------------|
