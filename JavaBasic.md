@@ -1133,6 +1133,38 @@ Set - To have unique data, UnOrdered.
 Map - To store data in key value.
 ```
 
+
+
+**Maintains Insertion Order:**
+1. **List Implementations:**
+   - `ArrayList`: Maintains the order of elements based on the index.
+   - `LinkedList`: Preserves the order of elements based on the sequence in which they were added.
+
+2. **Set Implementation:**
+   - `LinkedHashSet`: Extends `HashSet` to allow iteration over elements in the order in which they were inserted.
+
+3. **Map Implementation:**
+   - `LinkedHashMap`: Extends `HashMap` to allow iteration over keys or entries in the order in which they were inserted.
+
+**Doesn't Guarantee Insertion Order:**
+1. **Set Implementations:**
+   - `HashSet`: Does not guarantee any specific order of elements.
+
+2. **Map Implementation:**
+   - `HashMap`: Does not guarantee any specific order of keys or entries.
+
+Regarding performance, the choice between maintaining insertion order and not maintaining it may impact the performance based on the specific use case:
+
+- **Maintaining Insertion Order (e.g., using `ArrayList`, `LinkedList`, `LinkedHashSet`, `LinkedHashMap`):**
+  - Iterating over elements in the order they were inserted is generally faster in these cases.
+  - Searching for an element by value might be slower compared to hash-based collections.
+
+- **Not Guaranteeing Insertion Order (e.g., using `HashSet`, `HashMap`):**
+  - Operations like adding, removing, and searching for elements are generally faster, especially for large datasets, due to the use of hashing.
+  - If you don't need to maintain the order of insertion, hash-based collections might provide better performance.
+
+Ultimately, the choice between maintaining insertion order and optimizing for performance depends on your specific requirements and the operations you perform most frequently in your application.
+
 ### Collection interface:-
 
 * add()
@@ -1290,7 +1322,7 @@ In Java, `HashSet`, `LinkedHashSet`, and `TreeSet` are three different implement
 * **Internal Structure:**
   * Implemented using a hash table.
   * Uses the hash code of the elements to determine the bucket in which they are stored.
-  * Does not guarantee any specific order of elements.
+  * Doesn't maintains insertion order
 
 * **Performance:**
   * Provides constant-time performance for basic operations like add, remove, and contains on average.
@@ -1395,7 +1427,7 @@ If you override the equals method in your class to define custom equality, you s
 * [HashMap Internal Working](https://youtu.be/-oafFAPgLao?si=pwEA44xe4I1i-WTf)
 * [HashMap Internal Working](https://youtu.be/1CJbB6SzjVw?si=WpfGSWu5I_ByVgYA)
 * [Key Map]((https://www.baeldung.com/java-custom-class-map-key))
-* <https://prateeknima.medium.com/internal-working-of-hashmap-in-java-e5b67890e152#:~:text=To%20improve%20the%20working%20of,(log%20n)%20retrieval%20performance>.
+> https://prateeknima.medium.com/internal-working-of-hashmap-in-java-e5b67890e152#:~:text=To%20improve%20the%20working%20of,(log%20n)%20retrieval%20performance>.
 
 #### Equals() & [HashCode()](https://www.digitalocean.com/community/tutorials/java-equals-hashcode)
 
