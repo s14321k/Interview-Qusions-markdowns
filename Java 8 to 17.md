@@ -502,6 +502,9 @@ In this example, we create `Optional` instances, handle their values, and chain 
 ## [Date Time API](https://www.geeksforgeeks.org/new-date-time-api-java8/)
 1. Not thread safe : Unlike old java.util.Date which is not thread safe the new date-time API is immutable and doesn’t have setter methods.
 2. Less operations : In old API there are only few date operations but the new API provides us with many date operations.
+
+## [StringJoiner](https://www.javatpoint.com/java-stringjoiner)
+* It is used to construct a sequence of charecters seperated by a delimeter like comma(,), hyphen(-) etc.
 ---
 
 # Java 9
@@ -529,3 +532,7 @@ public class TryWithResources
 ## 2. Private interface methods
 
 https://www.tutorialspoint.com/java8/index.htm
+
+
+## [Records in java](https://howtodoinjava.com/java/java-record-type/)
+* Like `Enum` Records is also a special class.

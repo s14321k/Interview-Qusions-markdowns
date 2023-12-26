@@ -507,6 +507,9 @@ Both WebClient and Feign are client-side HTTP libraries commonly used in Java-ba
 
 In summary, the choice between WebClient and Feign depends on your project requirements, development preferences, and the broader ecosystem in which your application operates. Both libraries have their strengths, and the decision should be based on factors such as programming model, ease of use, and specific features needed for your use case.
 
+### [RestClient(Spring 6)](https://howtodoinjava.com/spring/spring-restclient/)
+- The ***WebClient*** also supports synchronous HTTP access. But it needs an additional dependency to add `spring-boot-starter-webflux` in `pom.xml`. We can avoid adding for **RestClinet**.
+
 ## Spring Boot Architecture
 - ![img_13.png](images/img_13.png)
 - ![img_12.png](images/img_12.png)
@@ -1008,6 +1011,7 @@ In Spring Boot, dependency injection is a fundamental concept that helps manage 
 Remember to use dependency injection in Spring Boot to achieve loose coupling and to make your code more maintainable, testable, and scalable. The choice of which type of dependency injection to use depends on your specific use case and coding style, but constructor injection is generally considered a best practice.
 
 ## SSO (Single Sign On)
+
 ### ```Single sign on``` with ```Spring security OAuth2``` or ```KeyClock```
 SSO, or Single Sign-On, is an authentication process that allows a user to access multiple applications or services with a single set of credentials (username and password) after the initial login. In other words, it enables users to log in once and gain access to various systems and services without having to enter their credentials repeatedly. SSO is widely used in various IT and web applications to enhance user convenience and security.
 

@@ -1950,7 +1950,7 @@ private static Singleton instance;
 
 2. [**Factory Pattern**:](https://www.linkedin.com/pulse/design-pattern-factory-babar-shahzad?trk=article-ssr-frontend-pulse_more-articles_related-content-card)
 
-[Factory Design pattern](https://www.geeksforgeeks.org/factory-method-design-pattern-in-java/)
+* [Factory Design pattern](https://www.geeksforgeeks.org/factory-method-design-pattern-in-java/)
 
 * Multiple classes using same interface and to use that.
   * **Usage**: The Factory pattern defines an interface for creating an object but allows subclasses to alter the type of objects that will be created.
@@ -2107,32 +2107,40 @@ class Decorator implements Component {
 import java.util.ArrayList;
 import java.util.List;
 
-interface Observer {
+interface Observer 
+{
     void update(String message);
 }
 
-class ConcreteObserver implements Observer {
+class ConcreteObserver implements Observer 
+{
     private String name;
     
-    public ConcreteObserver(String name) {
+    public ConcreteObserver(String name) 
+    {
         this.name = name;
     }
     
     @Override
-    public void update(String message) {
+    public void update(String message) 
+    {
         System.out.println(name + " received message: " + message);
     }
 }
 
-class Subject {
+class Subject 
+{
     private List<Observer> observers = new ArrayList<>();
     
-    public void addObserver(Observer observer) {
+    public void addObserver(Observer observer) 
+    {
         observers.add(observer);
     }
     
-    public void notifyObservers(String message) {
-        for (Observer observer : observers) {
+    public void notifyObservers(String message) 
+    {
+        for (Observer observer : observers) 
+        {
             observer.update(message);
         }
     }
@@ -2145,32 +2153,40 @@ class Subject {
 * **Reason**: It is used when you need to select an algorithm from a family of algorithms dynamically or when you want to isolate and encapsulate algorithm-specific behavior.
 
 ```java
-interface Strategy {
+interface Strategy 
+{
     void execute();
 }
 
-class ConcreteStrategyA implements Strategy {
+class ConcreteStrategyA implements Strategy 
+{
     @Override
-    public void execute() {
+    public void execute() 
+    {
         System.out.println("Executing strategy A.");
     }
 }
 
-class ConcreteStrategyB implements Strategy {
+class ConcreteStrategyB implements Strategy 
+{
     @Override
-    public void execute() {
+    public void execute() 
+    {
         System.out.println("Executing strategy B.");
     }
 }
 
-class Context {
+class Context 
+{
     private Strategy strategy;
     
-    public void setStrategy(Strategy strategy) {
+    public void setStrategy(Strategy strategy) 
+    {
         this.strategy = strategy;
     }
     
-    public void executeStrategy() {
+    public void executeStrategy() 
+    {
         strategy.execute();
     }
 }
