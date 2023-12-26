@@ -510,6 +510,11 @@ In summary, the choice between WebClient and Feign depends on your project requi
 ### [RestClient(Spring 6)](https://howtodoinjava.com/spring/spring-restclient/)
 - The ***WebClient*** also supports synchronous HTTP access. But it needs an additional dependency to add `spring-boot-starter-webflux` in `pom.xml`. We can avoid adding for **RestClinet**.
 
+[GitHub - vinsguru-blog-code-samples](https://github.com/vinsguru/vinsguru-blog-code-samples)
+[Udemy](https://www.udemy.com/course/spring-rsocket/)
+[Blog](https://www.vinsguru.com/)
+[Git Doc](https://github.com/spring-projects/spring-framework/blob/699f93fed71f7bfd73d94188dce6b849c92927cc/framework-docs/modules/ROOT/pages/integration/rest-clients.adoc)
+
 ## Spring Boot Architecture
 - ![img_13.png](images/img_13.png)
 - ![img_12.png](images/img_12.png)
