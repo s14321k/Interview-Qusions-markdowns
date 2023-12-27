@@ -1041,29 +1041,41 @@ public class Main
 }
 ```
 
-### [Predicate](https://codegym.cc/groups/posts/java-predicate) vs Supplier
+### [Predicate](https://codegym.cc/groups/posts/java-predicate) vs Consumer vs Supplier
 
-Predicate and Supplier are two functional interfaces in Java that are part of the Java.util.function package, introduced in Java 8 as part of the Java Functional Programming features. These interfaces are used for passing behavior as an argument to methods, particularly in functional programming and when working with streams.
+In Java, "supplier," "consumer," and "predicate" are actually interfaces defined in the `java.util.function` package, introduced in Java 8 as part of the Java Functional Programming features.
 
-1. Predicate:
-
-* `java.util.function.Predicate<T>` is a functional interface that represents a boolean-valued function that takes a single argument and returns a boolean. It is commonly used for filtering elements in a collection or testing conditions.
-
-   ```java
-   Predicate<Integer> isEven = n -> n % 2 == 0;
-   boolean result = isEven.test(4); // true
-   ```
-
-2. Supplier:
-
-* `java.util.function.Supplier<T>` is a functional interface that represents a supplier of values. It has no arguments and returns a value when called. It is often used when you want to lazily generate or provide a value.
+1. **Supplier:**
+   - Interface: `java.util.function.Supplier<T>`
+   - Represents a supplier of results. It has a single method called `get()` that takes no arguments and returns a result.
 
    ```java
-   Supplier<String> greetingSupplier = () -> "Hello, World!";
-   String greeting = greetingSupplier.get(); // "Hello, World!"
+   Supplier<String> supplier = () -> "Hello, Supplier!";
+   String result = supplier.get();
    ```
 
-In summary, Predicate is used to define a condition and test if an argument meets that condition, returning a boolean result. Supplier, on the other hand, is used to supply or generate values when needed without any input parameters.
+2. **Consumer:**
+   - Interface: `java.util.function.Consumer<T>`
+   - Represents an operation that accepts a single input argument and returns no result. It has a single method called `accept(T t)`.
+
+   ```java
+   Consumer<String> consumer = (s) -> System.out.println("Consumed: " + s);
+   consumer.accept("Hello, Consumer!");
+   ```
+
+3. **Predicate:**
+   - Interface: `java.util.function.Predicate<T>`
+   - Represents a predicate (boolean-valued function) of one argument. It has a single method called `test(T t)`.
+
+   ```java
+   Predicate<Integer> predicate = (num) -> num > 0;
+   boolean result = predicate.test(42);
+   ```
+
+In summary:
+- `Supplier` supplies a result.
+- `Consumer` consumes an argument and performs some operation.
+- `Predicate` tests a condition and returns a boolean result.
 
 ### Callable vs Runnable
 
@@ -1083,11 +1095,9 @@ In summary, Predicate is used to define a condition and test if an argument meet
 
 ### [Implements and Extends](https://www.edureka.co/blog/implements-in-java/)
 
-```Implement``` - implement keyword is used when we want to inherit interface class.
+```Implement``` - implement keyword is used when we want to inherit interface class. Multiple interface class can be inherited at a time.
 
-Multiple interface class can be inherited at a time.
-
-```Extends``` - By extending the class, it can use the methods of super class.
+```Extends``` - By extending the class, it can use the methods of super class. Only one class can be extended.
 
 ### Interface and Abstract
 
