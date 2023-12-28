@@ -166,6 +166,8 @@ These are the main methods provided by the Java Stream API. The examples provide
 
 # [JAVA8 to JAVA17](https://reflectoring.io/java-release-notes/)
 
+# [Java8 and java17](https://pretius.com/blog/java-17-features/)
+
 ## [Java 8](https://www.tutorialspoint.com/java8/index.htm)
 - [1. Lambda Expression and Stream API](#1-lambda-expression-and-stream-api)
 - [2. Method Reference](#2-method-reference)
