@@ -125,7 +125,7 @@ Type script has the ability to determine the type of data type assigned. Like ``
 
 ## install Angular
 
-### To crreate empty and add projects
+### To create empty and add projects
 - To install angular cli - `npm i @angular/cli -g`
 - To check the version - `ng --version` or `ng version`
 
@@ -134,7 +134,7 @@ Type script has the ability to determine the type of data type assigned. Like ``
 Run the bellow commands in shell.
 1. **Get-ExecutionPolicy** - If the policy is set to "Restricted" or "AllSigned," you need to change it to allow script execution. 
 2. **Set-ExecutionPolicy Unrestricted** -Scope CurrentUser - this will change the mode
-3. * To revert back use this command - **Set-ExecutionPolicy Unrestricted -Scope CurrentUser**
+3. To revert back use this command - **Set-ExecutionPolicy Unrestricted -Scope CurrentUser**
 
 - To create new work space empty - `ng new angularProj --createApplicationfalse`
 - Install npm  - `npm i` or `npm install`
@@ -154,6 +154,8 @@ Run the bellow commands in shell.
   - https://stackoverflow.com/a/76753364
 - To create a new component- ``ng generate Home -standalone --inline-template`` or ``ng generate component compName`` or using short cuts ``ng g c compName``
 - To change the `selector` prifix, // To change the app to sar or vice versa, go to angular.json and change the value in prefix
+- To increase ideal time out `npm config set registry https://registry.npmjs.org/ --timeout=60000`
+- clear npm cache `npm cache clean --force`
 
 ## Binding Syntax
 
