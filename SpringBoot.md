@@ -647,6 +647,11 @@ public String getUser(@PathVariable("id") Long userId) {
 
 In this example, the `@PathVariable` annotation captures the `id` from the URL and maps it to the `userId` method parameter.
 
+[**PathVariable** vs **PathParam**](https://stackoverflow.com/a/49472078)
+- `PathVariable` - Spring MVC
+- `PathParam` - JAX-RS
+
+
 2. `@ModelAttribute`: This annotation is used to bind a method parameter to a model attribute, which is typically used in the context of the Model-View-Controller (MVC) pattern. It is commonly used to populate form objects and pass data between the controller and the view. Here's an example:
 
 ```java
@@ -667,6 +672,10 @@ public String searchUsers(@RequestParam("query") String searchQuery) {
 }
 ```
 In this example, the `@RequestParam` annotation retrieves the `query` parameter from the request URL.
+
+[**RequestParam** vs **QueryParam**](https://stackoverflow.com/a/55721061)
+- `RequestParam` - Spring MVC
+- `QueryParam` - JAX-RS
 
 4. `@RequestBody`: This annotation is used to bind the request body to a method parameter. It is often used for handling JSON or XML request payloads in RESTful APIs.
 
