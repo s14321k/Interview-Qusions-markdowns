@@ -1,5 +1,7 @@
 https://www.interviewbit.com/rest-api-interview-questions/
+https://www.interviewbit.com/spring-boot-interview-questions/
 https://www.baeldung.com/spring-mvc-session-attributes
+https://www.digitalocean.com/community/tutorials/spring-bean-scopes
 
 https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 
