@@ -507,6 +507,10 @@ In this example, we create `Optional` instances, handle their values, and chain 
 
 ## [StringJoiner](https://www.javatpoint.com/java-stringjoiner)
 * It is used to construct a sequence of charecters seperated by a delimeter like comma(,), hyphen(-) etc.
+
+## [Record class](
+https://www.linkedin.com/advice/0/how-do-you-use-records-sealed-classes-features-introduced#:~:text=In%20Java%2017%2C%20records%20simplify,hashCode()%2C%20and%20toString().)
+* record class and sealed classes.
 ---
 
 # Java 9
