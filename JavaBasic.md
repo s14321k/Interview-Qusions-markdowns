@@ -636,7 +636,7 @@ public final class UtilityClass
 }
 ```
 
-#### **5. **Inner Class:**
+#### 5. **Inner Class:**
 
 * An inner class is a class defined within another class.
 * It can be static or non-static.
