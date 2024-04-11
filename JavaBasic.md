@@ -1,17 +1,17 @@
 <!-- TOC -->
 * [Java Interview Question Bank](#java-interview-question-bank)
-  * [variables:](#variables)
+  * [variables](#variables)
   * [Initialization vs Instantiation](#initialization-vs-instantiation)
   * [Float and double](#float-and-double)
   * [int vs Integer](#int-vs-integer)
   * [final - keyword](#final---keyword)
-  * [finally](#finally-)
-  * [finalize](#finalize-)
+  * [finally](#finally)
+  * [finalize](#finalize)
     * [Garbage collection](#garbage-collection)
     * [Manually invoking garbage collection](#manually-invoking-garbage-collection)
       * [1. **Using `System.gc()`:**](#1-using-systemgc)
       * [2. **Using `Runtime.getRuntime().gc()`:**](#2-using-runtimegetruntimegc)
-      * [Important Note:](#important-note)
+      * [Important Note](#important-note)
   * [Two types of error:-](#two-types-of-error-)
     * [1. Syntax Error or Compile time Error](#1-syntax-error-or-compile-time-error)
     * [2. Semantic Error or Run Time Error](#2-semantic-error-or-run-time-error)
@@ -21,15 +21,26 @@
       * [1. **Checked Exceptions:**](#1-checked-exceptions)
       * [2. **Unchecked Exceptions (Runtime Exceptions):**](#2-unchecked-exceptions-runtime-exceptions)
   * [Try with Resource (java 7 and java 9 improvements)](#try-with-resource--java-7-and-java-9-improvements-)
-    * [The first is a typical try-catch-finally block:](#the-first-is-a-typical-try-catch-finally-block)
+    * [The first is a typical try-catch-finally block](#the-first-is-a-typical-try-catch-finally-block)
     * [try-with-resources With Multiple Resources](#try-with-resources-with-multiple-resources)
     * [A Custom Resource With AutoCloseable](#a-custom-resource-with-autocloseable)
     * [MultiCatch (From java 7)](#multicatch--from-java-7-)
-      * [Can we have a try block without a catch block in Java?](#can-we-have-a-try-block-without-a-catch-block-in-java)
   * [Class](#class)
-    * [What is a class](#what-is-a-class)
-    * [Common classes in  java](#common-classes-in--java)
-  * [Primary main features of java:](#primary-main-features-of-java)
+    * [Common classes in java](#common-classes-in-java)
+      * [1. **Regular (Concrete) Class:**](#1-regular-concrete-class)
+      * [2. **Abstract Class:**](#2-abstract-class)
+      * [3. **Interface:**](#3-interface)
+      * [4. **Final Class:**](#4-final-class)
+      * [**5. **Inner Class:**](#5-inner-class)
+      * [**Static Nested Class:**](#static-nested-class)
+      * [**Anonymous Class:** Anonymous class](#anonymous-class-anonymous-class)
+  * [Constructors](#constructors)
+    * [1. Default Constructor](#1-default-constructor)
+    * [2. Parameterized Constructor](#2-parameterized-constructor)
+    * [3. Copy Constructor](#3-copy-constructor)
+    * [4. Constructor Chaining](#4-constructor-chaining)
+    * [5. Private Constructor](#5-private-constructor)
+  * [Primary main features of java](#primary-main-features-of-java)
   * [Identifiers](#identifiers)
 * [Modifier in Java](#modifier-in-java)
   * [1. Access modifiers](#1-access-modifiers)
@@ -40,36 +51,43 @@
   * [Static in class, method and variable](#static-in-class-method-and-variable)
 * [OOP(Object Oriented Programming)](#oopobject-oriented-programming)
   * [1. Polymorphism](#1-polymorphism)
+    * [Difference between Inheritance and Polymorphism](#difference-between-inheritance-and-polymorphism)
+      * [Types](#types)
+      * [Overloading](#overloading)
+      * [Overriding](#overriding)
     * [Covariant return type](#covariant-return-type)
   * [2 . Inheritance](#2--inheritance)
-  * [3 . Encapsulation - hiding the information.](#3--encapsulation---hiding-the-information)
-  * [4 . Abstraction - Absstract factory pattern](#4--abstraction---absstract-factory-pattern)
+  * [3 . Encapsulation - hiding the information](#3--encapsulation---hiding-the-information)
+  * [4 . Abstraction - Abstract factory pattern](#4--abstraction---abstract-factory-pattern)
   * [5 . Interface](#5--interface)
     * [Marker interface vs Functional Interface](#marker-interface-vs-functional-interface)
-    * [Predicate vs Supplier](#predicate-vs-supplier)
-    * [Callable vs Runnable](#callable-vs-runnable)
+    * [Predicate vs Consumer vs Supplier](#predicate-vs-consumer-vs-supplier)
     * [Comparable and Comparator](#comparable-and-comparator)
     * [Implements and Extends](#implements-and-extends)
     * [Interface and Abstract](#interface-and-abstract)
       * [purpose of interface instead of abstract class in java](#purpose-of-interface-instead-of-abstract-class-in-java)
 * [Collections](#collections)
-  * [Iterator VS Enumarator](#iterator-vs-enumarator)
-  * [Collection interface:-](#collection-interface-)
-  * [Iterator Interface](#iterator-interface)
-  * [Iterable Interface](#iterable-interface)
+  * [Why the Collections Framework?***](#why-the-collections-framework)
+    * [Iterator VS Enumarator](#iterator-vs-enumarator)
+    * [Collection interface:-](#collection-interface-)
+    * [Iterator Interface](#iterator-interface)
+    * [Iterable Interface](#iterable-interface)
   * [List](#list)
     * [`ArrayList`](#arraylist)
-      * [Alternative for ArrayList](#alternative-for-arraylist)
     * [`Vector`](#vector)
     * [`Stack`](#stack)
-    * [`LinkedList`](#linkedlist-)
-    * [`Singly LinkedList`](#singly-linkedlist-)
-    * [`Doubly LinkedList`](#doubly-linkedlist-)
+    * [`LinkedList`](#linkedlist)
+    * [`Singly LinkedList`](#singly-linkedlist)
+    * [`Doubly LinkedList`](#doubly-linkedlist)
+    * [`Circular LinkedList`](#circular-linkedlist)
+  * [Queue](#queue)
+    * [`Deque Interface`](#deque-interface)
+    * [`ArrayDeque`](#arraydeque)
   * [Set](#set)
-    * [1. HashSet:](#1-hashset)
-    * [2. LinkedHashSet:](#2-linkedhashset)
-    * [3. TreeSet:](#3-treeset)
-    * [Choosing the Right Set Implementation:](#choosing-the-right-set-implementation)
+    * [`HashSet`](#hashset)
+    * [`LinkedHashSet`](#linkedhashset)
+    * [`TreeSet`](#treeset)
+    * [Choosing the Right Set Implementation](#choosing-the-right-set-implementation)
   * [Map](#map)
     * [`HashMap`](#hashmap)
       * [Equals() & HashCode()](#equals--hashcode--)
@@ -77,32 +95,59 @@
       * [**Reference Equality**](#reference-equality)
       * [**Value Equality**](#value-equality)
     * [`ConcurrentHashMap`](#concurrenthashmap)
-    * [`TreeMap`](#treemap-)
-    * [`LinkedHashMap`](#linkedhashmap-)
+    * [`TreeMap`](#treemap)
+    * [`LinkedHashMap`](#linkedhashmap)
     * [`HashTable`](#hashtable)
-  * [Synchronization](#synchronization)
-  * [Synchronized in method, block and class level](#synchronized-in-method-block-and-class-level)
-  * [Process syncronizatin &Tread Syncronization](#process-syncronizatin-tread-syncronization)
-    * [**Process Synchronization:**](#process-synchronization)
-    * [**Thread Synchronization:**](#thread-synchronization)
   * [Aplet](#aplet)
   * [Serialization and Deserialization](#serialization-and-deserialization)
     * [Transient Keyword](#transient-keyword)
 * [Auto-boxing and Auto-Unboxing](#auto-boxing-and-auto-unboxing)
-  * [Boxing & AutoBoxing - Primitive values to Object or wrapper class.](#boxing--autoboxing---primitive-values-to-object-or-wrapper-class)
-  * [UnBoxing & AutoBoxing - Object to primitive type.](#unboxing--autoboxing---object-to-primitive-type)
+  * [Boxing & AutoBoxing - Primitive values to Object or wrapper class](#boxing--autoboxing---primitive-values-to-object-or-wrapper-class)
+  * [UnBoxing & AutoUnBoxing - Object to primitive type](#unboxing--autounboxing---object-to-primitive-type)
 * [Cohesion and Coupling in Java](#cohesion-and-coupling-in-java)
   * [Coupling](#coupling)
     * [Loose coupling](#loose-coupling)
     * [Tight Coupling](#tight-coupling)
   * [Cohesion](#cohesion)
 * [Multithreading](#multithreading)
-  * [Deadlock](#deadlock)
-  * [Race condition](#race-condition)
-  * [ConcurrentModificationException / Fail-Fast and Fail-Safe](#concurrentmodificationexception--fail-fast-and-fail-safe)
-    * [1. Failsafe:](#1-failsafe)
-    * [2. Fail-Fast:](#2-fail-fast)
   * [Volatile Keyword](#volatile-keyword)
+    * [Deadlock](#deadlock)
+    * [Race condition](#race-condition)
+    * [ConcurrentModificationException / Fail-Fast and Fail-Safe](#concurrentmodificationexception--fail-fast-and-fail-safe)
+      * [1. Failsafe](#1-failsafe)
+      * [2. Fail-Fast](#2-fail-fast)
+      * [Callable vs Runnable](#callable-vs-runnable)
+      * [Future - Asynchronous computation](#future---asynchronous-computation)
+    * [13. How to handle multithreading in the project](#13-how-to-handle-multithreading-in-the-project)
+      * [1. **Understand the Basics:**](#1-understand-the-basics)
+      * [2. **Use Thread-safe Data Structures:**](#2-use-thread-safe-data-structures)
+      * [3. **Synchronization:**](#3-synchronization)
+      * [4. **Atomic Operations:**](#4-atomic-operations)
+      * [5. **Thread Pools:**](#5-thread-pools)
+      * [6. **Callable and Future:**](#6-callable-and-future)
+      * [7. **Concurrency Utilities:**](#7-concurrency-utilities)
+      * [8. **Avoid Deadlocks:**](#8-avoid-deadlocks)
+      * [9. **Thread Safety in Singleton Classes:**](#9-thread-safety-in-singleton-classes)
+      * [10. **Volatile Keyword:**](#10-volatile-keyword)
+      * [11. **Thread Interruption:**](#11-thread-interruption)
+      * [12. **ThreadLocal:**](#12-threadlocal)
+      * [13. **Avoid Excessive Synchronization:**](#13-avoid-excessive-synchronization)
+      * [14. **Testing and Debugging:**](#14-testing-and-debugging)
+      * [15. **Asynchronous Programming:**](#15-asynchronous-programming)
+      * [16. **Java Concurrency Frameworks:**](#16-java-concurrency-frameworks)
+      * [17. **Documentation:**](#17-documentation)
+      * [18. **Use Modern Java Features:**](#18-use-modern-java-features)
+  * [Synchronization](#synchronization)
+    * [asynchronize ways](#asynchronize-ways)
+      * [Using Threads](#using-threads)
+      * [Using ExecutorService](#using-executorservice)
+      * [Using CompletableFuture (Java 8+)](#using-completablefuture-java-8)
+      * [Using CompletableFuture with Callbacks (Java 8+)](#using-completablefuture-with-callbacks-java-8)
+      * [Using Asynchronous Methods (Java 8+)](#using-asynchronous-methods-java-8)
+  * [Synchronized in method, block and class level](#synchronized-in-method-block-and-class-level)
+  * [Process syncronizatin & Thread Syncronization](#process-syncronizatin--thread-syncronization)
+    * [**Process Synchronization:**](#process-synchronization)
+    * [**Thread Synchronization:**](#thread-synchronization)
 * [Java Questions](#java-questions)
   * [1. Caching in java](#1-caching-in-java)
   * [Size() vs length()](#size-vs-length)
@@ -139,39 +184,20 @@
     * [String pool](#string-pool)
     * [String Literal vs String Object](#string-literal-vs-string-object)
       * [String Literal](#string-literal)
-  * [String Manipulation__](#string-manipulation)
+  * [String Manipulation__](#string-manipulation__)
   * [concat() vs plus(+) operator](#concat-vs-plus-operator)
   * [Deep copy vs shallow copy](#deep-copy-vs-shallow-copy)
   * [Why string is immutable in java](#why-string-is-immutable-in-java)
-    * [String:](#string)
+    * [String](#string)
     * [***To Create immutable class***](#to-create-immutable-class)
     * [***To Create Singleton class***](#to-create-singleton-class)
   * [Wrapper Class with AutoBoxing](#wrapper-class-with-autoboxing)
   * [URL vs URI](#url-vs-uri-1)
   * [Authentication and Authorization](#authentication-and-authorization)
-  * [[Association, Composition and Aggregation in Java](https://www.geeksforgeeks.org/association-composition- -java/)](#association-composition-and-aggregation-in-javahttpswwwgeeksforgeeksorgassociation-composition---java)
+  * [Association, Composition and Aggregation in Java](#association-composition-and-aggregation-in-java)
   * [Arbitrary Number of Arguments and @SafeVarags](#arbitrary-number-of-arguments-and-safevarags)
 * [Junit](#junit)
   * [Java Questions](#java-questions-1)
-  * [13. How to handle multithreading in the project](#13-how-to-handle-multithreading-in-the-project)
-    * [1. **Understand the Basics:**](#1-understand-the-basics)
-    * [2. **Use Thread-safe Data Structures:**](#2-use-thread-safe-data-structures)
-    * [3. **Synchronization:**](#3-synchronization)
-    * [4. **Atomic Operations:**](#4-atomic-operations)
-    * [5. **Thread Pools:**](#5-thread-pools)
-    * [6. **Callable and Future:**](#6-callable-and-future)
-    * [7. **Concurrency Utilities:**](#7-concurrency-utilities)
-    * [8. **Avoid Deadlocks:**](#8-avoid-deadlocks)
-    * [9. **Thread Safety in Singleton Classes:**](#9-thread-safety-in-singleton-classes)
-    * [10. **Volatile Keyword:**](#10-volatile-keyword)
-    * [11. **Thread Interruption:**](#11-thread-interruption)
-    * [12. **ThreadLocal:**](#12-threadlocal)
-    * [13. **Avoid Excessive Synchronization:**](#13-avoid-excessive-synchronization)
-    * [14. **Testing and Debugging:**](#14-testing-and-debugging)
-    * [15. **Asynchronous Programming:**](#15-asynchronous-programming)
-    * [16. **Java Concurrency Frameworks:**](#16-java-concurrency-frameworks)
-    * [17. **Documentation:**](#17-documentation)
-    * [18. **Use Modern Java Features:**](#18-use-modern-java-features)
 <!-- TOC -->
 
 # [Java Interview Question Bank](https://www.java2novice.com/java-interview-questions/)
@@ -547,7 +573,7 @@ public class MyResource implements AutoCloseable
 
 * **CLASS** - Class is a collection of objects.
 
-### [Common classes in  java](https://www.indeed.com/career-advice/interviewing/java-interview-questions-for-5-years-experience)
+### [Common classes in java](https://www.indeed.com/career-advice/interviewing/java-interview-questions-for-5-years-experience)
 
 * There are so many classes in java. A few essentials are final, static, concrete, abstract, inner and POJO.
 
@@ -557,106 +583,106 @@ public class MyResource implements AutoCloseable
 
 In Java, classes are used to model and define objects. There are several types of classes based on their functionality and how they are intended to be used. Here are some common types of classes in Java:
 
-1. **Regular (Concrete) Class:**
+#### 1. **Regular (Concrete) Class:**
 
 * A regular class is the most common type of class in Java.
 * It can have fields, methods, constructors, and can be instantiated to create objects.
 * Example:
 
-    ```java
-    public class Car 
-    {
-        // Fields, methods, and constructors
-    }
-    ```
+```java
+public class Car 
+{
+    // Fields, methods, and constructors
+}
+```
 
-2. **Abstract Class:**
+#### 2. **Abstract Class:**
 
 * An abstract class cannot be instantiated on its own.
 * It may have abstract methods (methods without a body) that must be implemented by its subclasses.
 * It can also have regular methods with implementations.
 * Example:
 
-    ```java
-    public abstract class Shape 
-    {
-        // Abstract methods and regular methods
-    }
-    ```
+```java
+public abstract class Shape 
+{
+    // Abstract methods and regular methods
+}
+```
 
-3. **Interface:**
+#### 3. **Interface:**
 
 * An interface is a collection of abstract methods.
 * All methods in an interface are implicitly public and abstract (before Java 8) or can have default implementations (from Java 8 onward).
 * Example:
 
-    ```java
-    public interface Drawable 
-    {
-        void draw(); // Implicitly public and abstract (before Java 8)
-    }
-    ```
+```java
+public interface Drawable 
+{
+    void draw(); // Implicitly public and abstract (before Java 8)
+}
+```
 
-4. **Final Class:**
+#### 4. **Final Class:**
 
 * A final class cannot be extended (subclassed).
 * It is often used when you want to prevent further modification or extension of a class.
 * Example:
 
-    ```java
-    public final class UtilityClass 
-    {
-        // Methods and fields
-    }
-    ```
+```java
+public final class UtilityClass 
+{
+    // Methods and fields
+}
+```
 
-5. **Inner Class:**
+#### **5. **Inner Class:**
 
 * An inner class is a class defined within another class.
 * It can be static or non-static.
 * Example:
 
-    ```java
-    public class Outer 
+```java
+public class Outer 
+{
+    class Inner 
     {
-        class Inner 
-        {
-            // Inner class definition
-        }
+        // Inner class definition
     }
-    ```
+}
+```
 
-6. **Static Nested Class:**
+#### **Static Nested Class:**
 
 * Similar to an inner class but declared with the `static` keyword.
 * It does not have access to the instance variables of the outer class.
 * Example:
 
-    ```java
-    public class Outer 
+```java
+public class Outer 
+{
+    static class Nested 
     {
-        static class Nested 
-        {
-            // Static nested class definition
-        }
+        // Static nested class definition
     }
-    ```
+}
+```
 
-7. **Anonymous Class:** [Anonymous class](https://www.programiz.com/java-programming/anonymous-class)
+#### **Anonymous Class:** [Anonymous class](https://www.programiz.com/java-programming/anonymous-class)
 
 * An anonymous class is a local class without a name.
 * It is often used for one-time use, such as instantiating an interface.
 * Example:
 
-    ```java
-    Runnable myRunnable = new Runnable() 
+```java
+Runnable myRunnable = new Runnable() 
+{
+    public void run() 
     {
-        public void run() 
-        {
-            // Implementation
-        }
-    };
-    ```
+        // Implementation
+    }
+};
+```
 
 These are some of the common types of classes in Java. Each type serves a specific purpose, and the choice of which type to use depends on the design requirements and the problem being solved.
 
@@ -716,6 +742,87 @@ class Main
 | System.in | standard input stream that is used to read characters from the keyboard or other input devices. |
 | System.out | standard output stream used to produce the result of the program. |
 | println() | to display the text in console and takes to next line. |
+
+## Constructors
+
+In Java, 
+* We can create multiple constructor for a single class and there is no limit.
+* Constructors are special methods used for initializing objects. They are called when an object of a class is created using the `new` keyword. There are several types of constructors in Java based on their characteristics:
+
+### 1. Default Constructor
+A default constructor is a constructor with no parameters. If you don't explicitly define any constructors in your class, Java automatically provides a default constructor.
+
+```java
+public class MyClass {
+    // Default constructor
+    public MyClass() {
+        // Initialization logic
+    }
+}
+```
+
+### 2. Parameterized Constructor
+A parameterized constructor is a constructor with one or more parameters. It allows you to initialize object properties with values passed during object creation.
+
+```java
+public class MyClass {
+    // Parameterized constructor
+    public MyClass(int x, String str) {
+        // Initialization logic using parameters
+    }
+}
+```
+
+### 3. Copy Constructor
+A copy constructor is a constructor that creates a new object by copying the state of an existing object of the same class. It helps in creating a new object with the same state as an existing one.
+
+```java
+public class MyClass {
+    private int x;
+    private String str;
+
+    // Copy constructor
+    public MyClass(MyClass original) {
+        this.x = original.x;
+        this.str = original.str;
+    }
+}
+```
+
+### 4. Constructor Chaining
+Constructor chaining occurs when one constructor calls another constructor within the same class using `this()` keyword. This allows code reuse and helps in reducing redundancy.
+
+```java
+public class MyClass {
+    private int x;
+    private String str;
+
+    // Parameterized constructor
+    public MyClass(int x, String str) {
+        this.x = x;
+        this.str = str;
+    }
+
+    // Constructor chaining
+    public MyClass() {
+        this(0, "default");
+    }
+}
+```
+
+### 5. Private Constructor
+A private constructor is a constructor with private access modifier. It is typically used in utility classes where you don't want the class to be instantiated.
+
+```java
+public class UtilityClass {
+    // Private constructor
+    private UtilityClass() {
+        // Prevent instantiation
+    }
+}
+```
+
+These are the main types of constructors in Java, each serving different purposes in object initialization and instantiation.
 
 ## Primary main features of java
 
@@ -1077,13 +1184,6 @@ In summary:
 - `Consumer` consumes an argument and performs some operation.
 - `Predicate` tests a condition and returns a boolean result.
 
-### Callable vs Runnable
-
-* Callable interface and Runnable interface are used to encapsulate tasks supposed to be executed by another thread.
-
-* However, Runnable instances can be run by Thread class as well as ExecutorService but Callable instances can only be executed via ExecutorService.
-
-![img.png](images/CallableVsRunnable.png)
 
 ### [Comparable and Comparator](https://www.javatpoint.com/difference-between-comparable-and-comparator)
 
@@ -1245,12 +1345,13 @@ while(itr.hasNext())
 
 ### `Stack`
 
-* Subclass of vector. It implements the last-in-first-out data structure.
+* Subclass of vector. 
+* It implements the last-in-first-out data structure.
 * Contains all the methods of vector and also provides methods like push(), peak()
 
 ### `LinkedList`
 
-* internally uses doubly linked list, non synchronized, manipulation is fast because no shifting is required.
+* Internally uses doubly linked list, non synchronized, manipulation is fast because no shifting is required.
 * Can contain duplicate elements.
 * Maintains insertion order.
 * Access time for an element by index is O(n) since you may need to traverse the list from the beginning.
@@ -1302,13 +1403,17 @@ So, a typical node in the doubly linked list consists of three fields:***
 
 Two types,
 
-* Deque
-* ArrayDeque
+* **Deque**
+* **ArrayDeque**
 
-### ArrayDeque
+### `Deque Interface`
+* Deque interface extends queue interface. In deque, we can add and remove the elements from both the sides. Deque stands for double ended queue which enables us to perform the operations from both sides.
+
+### `ArrayDeque`
 
 * **Advantages:**
   * Efficient for adding and removing elements at both ends (constant time).
+  * ArrayDeque is faster than ArrayList and Stack and has no capacity restrictions.
 * **Disadvantages:**
   * Not as efficient for accessing elements in the middle.
 
@@ -1327,12 +1432,12 @@ Set can be instantiated as
 Set is implemented by HashSet, LinkedHashSet, TreeSet
 In Java, `HashSet`, `LinkedHashSet`, and `TreeSet` are three different implementations of the Set interface within the Java Collections Framework. Each of them has its unique characteristics and use cases:
 
-### 1. HashSet
+### `HashSet`
 
 * **Internal Structure:**
   * Implemented using a hash table.
   * Uses the hash code of the elements to determine the bucket in which they are stored.
-  * Doesn't maintains insertion order
+  * Doesn't maintain insertion order.
 
 * **Performance:**
   * Provides constant-time performance for basic operations like add, remove, and contains on average.
@@ -1346,7 +1451,7 @@ In Java, `HashSet`, `LinkedHashSet`, and `TreeSet` are three different implement
    Set<String> hashSet = new HashSet<>();
    ```
 
-### 2. LinkedHashSet
+### `LinkedHashSet`
 
 * **Internal Structure:**
   * Extends `HashSet`.
@@ -1365,7 +1470,7 @@ In Java, `HashSet`, `LinkedHashSet`, and `TreeSet` are three different implement
    Set<String> linkedHashSet = new LinkedHashSet<>();
    ```
 
-### 3. TreeSet
+### `TreeSet`
 
 * **Internal Structure:**
   * Implemented as a red-black tree.
@@ -1575,174 +1680,6 @@ class HelloWorld {
 
 * public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneable, Serializable
 
-## Synchronization
-
-* In multithread environment, where multiple threads are executing concurrently, synchronization becomes crucial to prevent issues such as **data corruption, race conditions, and inconsistent states**. Java provides several mechanisms for synchronization, including **synchronized methods, synchronized blocks, and explicit locks**.
-
-* Here are the key differences between synchronized and non-synchronized collection classes in Java:
-
-**Synchronized Collection Classes:**
-
-1. **Thread-Safe:** Synchronized collection classes are designed to be thread-safe, Can be safely used in a multi-threaded environment without external synchronization.
-2. **Performance Overhead:** They typically have a performance overhead compared to non-synchronized counterparts because they use locks to ensure thread safety. Locking can lead to contention and reduced performance.
-3. **Examples:** Some common synchronized collection classes in Java include `Vector` (a synchronized version of `ArrayList`), `HashTable`, and `Collections.synchronizedList`, `Collections.synchronizedSet`, and `Collections.synchronizedMap`.
-
-Example of a synchronized collection class (using `Collections.synchronizedList`):
-
-```java
-List<String> synchronizedList = Collections.synchronizedList(new ArrayList<>());
-synchronizedList.add("Item 1");
-synchronizedList.add("Item 2");
-
-// The synchronizedList is thread-safe
-```
-
-**Non-Synchronized Collection Classes:**
-
-1. **Not Thread-Safe:** Non-synchronized collection classes are not thread-safe by default, and accessing them concurrently from multiple threads can lead to data corruption and unpredictable behavior.
-2. **Better Performance:** They tend to have better performance in single-threaded scenarios since they don't incur the overhead of synchronization.
-3. **Examples:** Common non-synchronized collection classes include `ArrayList`, `HashSet`, and `HashMap`.
-
-Example of a non-synchronized collection class:
-
-```java
-List<String> nonSynchronizedList = new ArrayList<>();
-nonSynchronizedList.add("Item 1");
-nonSynchronizedList.add("Item 2");
-
-// The nonSynchronizedList is not thread-safe
-```
-
-In multi-threaded environments, if you need to work with non-synchronized collection classes, you should use external synchronization mechanisms like `synchronized` blocks, `java.util.concurrent` classes (e.g., `ConcurrentHashMap`, `CopyOnWriteArrayList`), or other thread-safe data structures to ensure proper synchronization and avoid data races and inconsistencies.
-
-## Synchronized in method, block and class level
-
-Here are the main types of synchronization in Java:
-
-1. **Method Synchronization:**
-    * By using the `synchronized` keyword, you can synchronize entire methods. When a thread invokes a synchronized method, it acquires the lock for that method's object, preventing other threads from executing synchronized methods on the same object concurrently.
-
-    ```java
-    public synchronized void synchronizedMethod() 
-    {
-        // Code that needs to be synchronized
-    }
-    ```
-
-2. **Block Synchronization:**
-    * Synchronized blocks allow you to specify a specific object as the lock. Multiple blocks of code can be synchronized independently on different objects.
-
-    ```java
-    public void someMethod() 
-    {
-        // Code outside the synchronized block
-
-        synchronized (lockObject) 
-        {
-            // Code that needs to be synchronized
-        }
-
-        // Code outside the synchronized block
-    }
-    ```
-
-3. **Class-level Locks:**
-    * Java allows the synchronization of static methods or blocks using the `synchronized` keyword. In this case, the lock is associated with the class rather than an instance.
-
-    ```java
-    public static synchronized void staticSynchronizedMethod() 
-    {
-        // Code that needs to be synchronized
-    }
-    ```
-
-4. **Intrinsic Locks (Monitor Locks):**
-    * Every object in Java has an associated monitor, or intrinsic lock. When a thread enters a synchronized method or block, it automatically acquires the lock associated with the object.
-
-5. **`wait()`, `notify()`, and `notifyAll()`:**
-    * These methods are used for inter-thread communication and coordination within synchronized blocks. `wait()` causes the current thread to wait until another thread invokes `notify()` or `notifyAll()` on the same object, releasing the lock temporarily.
-
-    ```java
-    synchronized (sharedObject) {
-        while (conditionIsNotMet()) {
-            sharedObject.wait(); // Release the lock and wait
-        }
-        // Perform actions when the condition is met
-    }
-    ```
-
-6. **`volatile` Keyword:**
-    * The `volatile` keyword is used to declare a variable whose value might be changed by multiple threads. It ensures that any thread reading the variable sees the most recent modification. However, it does not provide atomicity for compound actions, so it's often used for simple flags and indicators.
-
-    ```java
-    private volatile boolean flag = false;
-    ```
-
-7. **Explicit Locks (ReentrantLock):**
-    * Java provides the `ReentrantLock` class as part of the `java.util.concurrent.locks` package. This class allows more fine-grained control over locks and supports features like fairness, timeouts, and lock interruption.
-
-    ```java
-    ReentrantLock lock = new ReentrantLock();
-
-    public void someMethod() {
-        lock.lock();
-        try {
-            // Code that needs to be synchronized
-        } finally {
-            lock.unlock();
-        }
-    }
-    ```
-
-Choosing the appropriate synchronization mechanism depends on the specific requirements of your application. In many cases, using higher-level concurrency utilities from the `java.util.concurrent` package might be preferable for complex synchronization scenarios.
-
-## Process syncronizatin & Tread Syncronization
-
-### **Process Synchronization:**
-
-* Process synchronization refers to the coordination and control mechanisms that ensure the proper execution of multiple processes in a concurrent or parallel computing environment.
-* In a multi-process system, where multiple independent processes run concurrently, it's essential to synchronize their activities to avoid conflicts, data corruption, and race conditions.
-* Inter-process communication (IPC) mechanisms are used to achieve process synchronization. Common mechanisms include:
-
-1. **Semaphore:**
-    * Semaphores are used to control access to a shared resource by multiple processes. They allow a specified number of processes to access a resource simultaneously.
-
-2. **Mutex (Mutual Exclusion):**
-    * A mutex is a synchronization primitive that ensures that only one process at a time can access a shared resource. It provides exclusive access to the resource.
-
-3. **Condition Variables:**
-    * Condition variables are used to signal and wait for specific conditions to be met. Processes can use condition variables to coordinate their activities.
-
-4. **Message Passing:**
-    * Processes communicate by sending and receiving messages. This can be implemented through message queues or other forms of inter-process communication.
-
-5. **Critical Section:**
-    * A critical section is a part of the code that accesses shared resources. Process synchronization mechanisms are used to protect critical sections from simultaneous access by multiple processes.
-
-Process synchronization is crucial in scenarios where multiple independent processes need to coordinate their activities, share resources, or communicate with each other.
-
-### **Thread Synchronization:**
-
-Thread synchronization, on the other hand, deals with coordinating the execution of multiple threads within the same process. Threads share the same memory space and resources, which introduces the need for synchronization to ensure data consistency and avoid conflicts. Java provides built-in mechanisms for thread synchronization, as mentioned in the previous responses. These include:
-
-1. **`synchronized` Methods and Blocks:**
-    * Using the `synchronized` keyword to make methods or blocks of code thread-safe by acquiring and releasing locks.
-
-2. **`wait()`, `notify()`, and `notifyAll()`:**
-    * Methods for inter-thread communication within synchronized blocks.
-
-3. **`volatile` Keyword:**
-    * Used for ensuring visibility of changes made by one thread to other threads.
-
-4. **Explicit Locks (ReentrantLock):**
-    * Provides a more flexible and fine-grained approach to locking than the implicit locks provided by `synchronized` methods and blocks.
-
-5. **Thread Safety in Collections:**
-    * Java provides thread-safe versions of collections in the `java.util.concurrent` package, such as `ConcurrentHashMap` and `CopyOnWriteArrayList`, which are designed to be used in multithreaded environments.
-
-In summary, while process synchronization deals with coordination between independent processes, thread synchronization deals with coordination between threads within the same process.
-Both are essential concepts in concurrent programming, ensuring proper interaction and avoiding issues related to data access and modification in shared environments.
-
 ## Aplet
 
 * ```public void init()```: is used to initialized the Applet. It is invoked only once.
@@ -1825,7 +1762,7 @@ In layman terms a race condition in which two or more threads compete together t
 
 ### [ConcurrentModificationException / Fail-Fast and Fail-Safe]( https://www.geeksforgeeks.org/fail-fast-fail-safe-iterators-java/)
 
-In Java, "failsafe" and "fail-fast" are two different approaches to handling concurrent modifications to data structures, such as collections like ArrayList, HashMap, and HashSet. These approaches determine how the data structure behaves when one thread modifies it while another thread is iterating over it. Here's an explanation of both concepts:
+In Java, "fail-safe" and "fail-fast" are two different approaches to handling concurrent modifications to data structures, such as collections like ArrayList, HashMap, and HashSet. These approaches determine how the data structure behaves when one thread modifies it while another thread is iterating over it. Here's an explanation of both concepts:
 
 #### 1. Failsafe
 
@@ -1867,6 +1804,321 @@ In Java, "failsafe" and "fail-fast" are two different approaches to handling con
    ```
 
 It's important to choose the appropriate type of iterator based on the specific requirements of your application. Failsafe iterators are more suitable for situations where concurrent modifications are expected and need to be tolerated, while fail-fast iterators are preferred when concurrent modifications are considered an error that should be immediately detected and reported.
+
+#### Callable vs Runnable
+
+* Callable interface and Runnable interface are used to encapsulate tasks supposed to be executed by another thread.
+* Callable allows us to specify the types of result that will be returned by the call() method.
+* Runnable interface has run() method that does not return anything.
+* Runnable instances can be run by Thread class as well as ExecutorService.
+* But Callable instances can only be executed via ExecutorService.
+
+![img.png](images/CallableVsRunnable.png)
+
+
+#### Future - Asynchronous computation
+
+* The best example of Future is ExecutorService interface. It produces a Future object for tracking progress of one or more asynchronous task and waits for its computation and retrieve the results of the computation. The result is retrieved using the get() method when the computation is completed. And it blocks until it is completed.
+
+### 13. How to handle multithreading in the project
+
+Handling multithreading in a project involves managing and coordinating the execution of multiple threads to achieve parallelism or concurrency. Multithreading is essential for improving the performance and responsiveness of applications. Here are some guidelines on how to handle multithreading in a Java project:
+
+#### 1. **Understand the Basics:**
+
+* Have a solid understanding of basic multithreading concepts, such as threads, synchronization, locks, and thread safety.
+
+#### 2. **Use Thread-safe Data Structures:**
+
+* Utilize thread-safe collections and data structures from the `java.util.concurrent` package to avoid data corruption and ensure consistency in a multithreaded environment.
+
+#### 3. **Synchronization:**
+
+* Use synchronization mechanisms, such as `synchronized` blocks or methods, to control access to shared resources and prevent race conditions.
+
+#### 4. **Atomic Operations:**
+
+* When dealing with simple operations that should be executed atomically, consider using atomic classes from the `java.util.concurrent.atomic` package.
+
+#### 5. **Thread Pools:**
+
+* Prefer using thread pools for managing and reusing threads. The `ExecutorService` and `ThreadPoolExecutor` classes provide a convenient way to implement thread pools.
+
+#### 6. **Callable and Future:**
+
+* Use `Callable` and `Future` interfaces to perform tasks in parallel and retrieve results asynchronously.
+
+#### 7. **Concurrency Utilities:**
+
+* Leverage the high-level concurrency utilities provided by the `java.util.concurrent` package, such as `CountDownLatch`, `CyclicBarrier`, and `Semaphore`, for more complex coordination among threads.
+
+#### 8. **Avoid Deadlocks:**
+
+* Be cautious about potential deadlocks by carefully ordering the acquisition of locks and avoiding circular dependencies.
+
+#### 9. **Thread Safety in Singleton Classes:**
+
+* If using singleton classes, ensure that they are thread-safe. Consider using the double-checked locking pattern or use a thread-safe initialization approach.
+
+#### 10. **Volatile Keyword:**
+
+* Use the `volatile` keyword for variables that are accessed by multiple threads to ensure proper visibility of changes.
+
+#### 11. **Thread Interruption:**
+
+* Be aware of thread interruption. Consider using `Thread.interrupt()` and handling `InterruptedException` appropriately.
+
+#### 12. **ThreadLocal:**
+
+* Utilize `ThreadLocal` to store thread-specific data, avoiding interference between threads.
+
+#### 13. **Avoid Excessive Synchronization:**
+
+* Minimize the scope of synchronized blocks to avoid unnecessary contention and improve performance.
+
+#### 14. **Testing and Debugging:**
+
+* Test your multithreaded code thoroughly, especially for race conditions and deadlocks. Debugging multithreaded applications can be challenging, so use tools like thread dumps and profilers.
+
+#### 15. **Asynchronous Programming:**
+
+* Consider using asynchronous programming patterns and libraries (e.g., CompletableFuture) for managing concurrency and responsiveness in applications.
+
+#### 16. **Java Concurrency Frameworks:**
+
+* Explore higher-level concurrency frameworks and libraries, such as Akka, for building scalable and resilient concurrent systems.
+
+#### 17. **Documentation:**
+
+* Clearly document your multithreading strategy, especially if using complex synchronization mechanisms, to aid maintainability.
+
+#### 18. **Use Modern Java Features:**
+
+* Consider using features introduced in modern Java versions, such as the `java.util.concurrent` enhancements in Java 8 and later.
+
+By following these guidelines, you can effectively handle multithreading in your project and create robust, scalable, and efficient concurrent applications. Keep in mind that multithreading requires careful consideration and testing to ensure correct and reliable behavior.
+
+## Synchronization
+
+* In multithread environment, where multiple threads are executing concurrently, synchronization becomes crucial to prevent issues such as **data corruption, race conditions, and inconsistent states**. Java provides several mechanisms for synchronization, including **synchronized methods, synchronized blocks, and explicit locks**.
+
+* Here are the key differences between synchronized and non-synchronized collection classes in Java:
+
+**Synchronized Collection Classes:**
+
+1. **Thread-Safe:** Synchronized collection classes are designed to be thread-safe, Can be safely used in a multi-threaded environment without external synchronization.
+2. **Performance Overhead:** They typically have a performance overhead compared to non-synchronized counterparts because they use locks to ensure thread safety. Locking can lead to contention and reduced performance.
+3. **Examples:** Some common synchronized collection classes in Java include `Vector` (a synchronized version of `ArrayList`), `HashTable`, and `Collections.synchronizedList`, `Collections.synchronizedSet`, and `Collections.synchronizedMap`.
+
+Example of a synchronized collection class (using `Collections.synchronizedList`):
+
+```java
+List<String> synchronizedList = Collections.synchronizedList(new ArrayList<>());
+synchronizedList.add("Item 1");
+synchronizedList.add("Item 2");
+
+// The synchronizedList is thread-safe
+```
+
+**Non-Synchronized Collection Classes:**
+
+1. **Not Thread-Safe:** Non-synchronized collection classes are not thread-safe by default, and accessing them concurrently from multiple threads can lead to data corruption and unpredictable behavior.
+2. **Better Performance:** They tend to have better performance in single-threaded scenarios since they don't incur the overhead of synchronization.
+3. **Examples:** Common non-synchronized collection classes include `ArrayList`, `HashSet`, and `HashMap`.
+
+Example of a non-synchronized collection class:
+
+```java
+List<String> nonSynchronizedList = new ArrayList<>();
+nonSynchronizedList.add("Item 1");
+nonSynchronizedList.add("Item 2");
+
+// The nonSynchronizedList is not thread-safe
+```
+
+In multithreaded environments, if you need to work with non-synchronized collection classes, you should use external synchronization mechanisms like `synchronized` blocks, `java.util.concurrent` classes (e.g., `ConcurrentHashMap`, `CopyOnWriteArrayList`), or other thread-safe data structures to ensure proper synchronization and avoid data races and inconsistencies.
+
+### asynchronize ways
+
+#### Using Threads
+
+```java
+public class MyTask implements Runnable {
+  public void run() {
+  // Your asynchronous task implementation
+  }
+}
+
+// Creating and starting a thread
+Thread thread = new Thread(new MyTask());
+thread.start();
+```
+
+#### Using ExecutorService
+```java
+ExecutorService executor = Executors.newCachedThreadPool();
+executor.submit(() -> {
+// Your asynchronous task implementation
+});
+executor.shutdown(); // Remember to shutdown the executor when done.
+```
+
+#### Using CompletableFuture (Java 8+)
+```java
+CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+    // Your asynchronous task implementation
+});
+```
+
+#### Using CompletableFuture with Callbacks (Java 8+)
+```java
+CompletableFuture.supplyAsync(() -> {
+    // Your asynchronous task implementation
+}).thenAccept(result -> {
+    // Handle the result asynchronously
+});
+```
+
+#### Using Asynchronous Methods (Java 8+)
+```java
+import org.springframework.scheduling.annotation.Async;
+
+public class MyClass {
+  @Async
+  public void asyncMethod() {
+  // Your asynchronous method implementation
+  }
+}
+```
+
+
+## Synchronized in method, block and class level
+
+Here are the main types of synchronization in Java:
+
+1. **Method Synchronization:**
+  * By using the `synchronized` keyword, you can synchronize entire methods. When a thread invokes a synchronized method, it acquires the lock for that method's object, preventing other threads from executing synchronized methods on the same object concurrently.
+
+    ```java
+    public synchronized void synchronizedMethod() 
+    {
+        // Code that needs to be synchronized
+    }
+    ```
+
+2. **Block Synchronization:**
+  * Synchronized blocks allow you to specify a specific object as the lock. Multiple blocks of code can be synchronized independently on different objects.
+
+    ```java
+    public void someMethod() 
+    {
+        // Code outside the synchronized block
+
+        synchronized (lockObject) 
+        {
+            // Code that needs to be synchronized
+        }
+
+        // Code outside the synchronized block
+    }
+    ```
+
+3. **Class-level Locks:**
+  * Java allows the synchronization of static methods or blocks using the `synchronized` keyword. In this case, the lock is associated with the class rather than an instance.
+
+    ```java
+    public static synchronized void staticSynchronizedMethod() 
+    {
+        // Code that needs to be synchronized
+    }
+    ```
+
+4. **Intrinsic Locks (Monitor Locks):**
+  * Every object in Java has an associated monitor, or intrinsic lock. When a thread enters a synchronized method or block, it automatically acquires the lock associated with the object.
+
+5. **`wait()`, `notify()`, and `notifyAll()`:**
+  * These methods are used for inter-thread communication and coordination within synchronized blocks. `wait()` causes the current thread to wait until another thread invokes `notify()` or `notifyAll()` on the same object, releasing the lock temporarily.
+
+    ```java
+    synchronized (sharedObject) {
+        while (conditionIsNotMet()) {
+            sharedObject.wait(); // Release the lock and wait
+        }
+        // Perform actions when the condition is met
+    }
+    ```
+
+6. **`volatile` Keyword:**
+  * The `volatile` keyword is used to declare a variable whose value might be changed by multiple threads. It ensures that any thread reading the variable sees the most recent modification. However, it does not provide atomicity for compound actions, so it's often used for simple flags and indicators.
+
+    ```java
+    private volatile boolean flag = false;
+    ```
+
+7. **Explicit Locks (ReentrantLock):**
+  * Java provides the `ReentrantLock` class as part of the `java.util.concurrent.locks` package. This class allows more fine-grained control over locks and supports features like fairness, timeouts, and lock interruption.
+
+    ```java
+    ReentrantLock lock = new ReentrantLock();
+
+    public void someMethod() {
+        lock.lock();
+        try {
+            // Code that needs to be synchronized
+        } finally {
+            lock.unlock();
+        }
+    }
+    ```
+
+Choosing the appropriate synchronization mechanism depends on the specific requirements of your application. In many cases, using higher-level concurrency utilities from the `java.util.concurrent` package might be preferable for complex synchronization scenarios.
+
+## Process syncronizatin & Thread Syncronization
+
+### **Process Synchronization:**
+
+* Process synchronization refers to the coordination and control mechanisms that ensure the proper execution of multiple processes in a concurrent or parallel computing environment.
+* In a multi-process system, where multiple independent processes run concurrently, it's essential to synchronize their activities to avoid conflicts, data corruption, and race conditions.
+* Inter-process communication (IPC) mechanisms are used to achieve process synchronization. Common mechanisms include:
+
+1. **Semaphore:**
+  * Semaphores are used to control access to a shared resource by multiple processes. They allow a specified number of processes to access a resource simultaneously.
+
+2. **Mutex (Mutual Exclusion):**
+  * A mutex is a synchronization primitive that ensures that only one process at a time can access a shared resource. It provides exclusive access to the resource.
+
+3. **Condition Variables:**
+  * Condition variables are used to signal and wait for specific conditions to be met. Processes can use condition variables to coordinate their activities.
+
+4. **Message Passing:**
+  * Processes communicate by sending and receiving messages. This can be implemented through message queues or other forms of inter-process communication.
+
+5. **Critical Section:**
+  * A critical section is a part of the code that accesses shared resources. Process synchronization mechanisms are used to protect critical sections from simultaneous access by multiple processes.
+
+Process synchronization is crucial in scenarios where multiple independent processes need to coordinate their activities, share resources, or communicate with each other.
+
+### **Thread Synchronization:**
+
+Thread synchronization, on the other hand, deals with coordinating the execution of multiple threads within the same process. Threads share the same memory space and resources, which introduces the need for synchronization to ensure data consistency and avoid conflicts. Java provides built-in mechanisms for thread synchronization, as mentioned in the previous responses. These include:
+
+1. **`synchronized` Methods and Blocks:**
+  * Using the `synchronized` keyword to make methods or blocks of code thread-safe by acquiring and releasing locks.
+
+2. **`wait()`, `notify()`, and `notifyAll()`:**
+  * Methods for inter-thread communication within synchronized blocks.
+
+3. **`volatile` Keyword:**
+  * Used for ensuring visibility of changes made by one thread to other threads.
+
+4. **Explicit Locks (ReentrantLock):**
+  * Provides a more flexible and fine-grained approach to locking than the implicit locks provided by `synchronized` methods and blocks.
+
+5. **Thread Safety in Collections:**
+  * Java provides thread-safe versions of collections in the `java.util.concurrent` package, such as `ConcurrentHashMap` and `CopyOnWriteArrayList`, which are designed to be used in multithreaded environments.
+
+In summary, while process synchronization deals with coordination between independent processes, thread synchronization deals with coordination between threads within the same process.
+Both are essential concepts in concurrent programming, ensuring proper interaction and avoiding issues related to data access and modification in shared environments.
 
 # Java Questions
 
@@ -2843,85 +3095,6 @@ Lambda expressions, along with functional interfaces, contribute to making Java 
 10. Explain Polymorphism and encapsulation
 11. Major Issues in the project.
 12. Singleton design pattern
-
-## 13. How to handle multithreading in the project
-
-Handling multithreading in a project involves managing and coordinating the execution of multiple threads to achieve parallelism or concurrency. Multithreading is essential for improving the performance and responsiveness of applications. Here are some guidelines on how to handle multithreading in a Java project:
-
-### 1. **Understand the Basics:**
-
-* Have a solid understanding of basic multithreading concepts, such as threads, synchronization, locks, and thread safety.
-
-### 2. **Use Thread-safe Data Structures:**
-
-* Utilize thread-safe collections and data structures from the `java.util.concurrent` package to avoid data corruption and ensure consistency in a multithreaded environment.
-
-### 3. **Synchronization:**
-
-* Use synchronization mechanisms, such as `synchronized` blocks or methods, to control access to shared resources and prevent race conditions.
-
-### 4. **Atomic Operations:**
-
-* When dealing with simple operations that should be executed atomically, consider using atomic classes from the `java.util.concurrent.atomic` package.
-
-### 5. **Thread Pools:**
-
-* Prefer using thread pools for managing and reusing threads. The `ExecutorService` and `ThreadPoolExecutor` classes provide a convenient way to implement thread pools.
-
-### 6. **Callable and Future:**
-
-* Use `Callable` and `Future` interfaces to perform tasks in parallel and retrieve results asynchronously.
-
-### 7. **Concurrency Utilities:**
-
-* Leverage the high-level concurrency utilities provided by the `java.util.concurrent` package, such as `CountDownLatch`, `CyclicBarrier`, and `Semaphore`, for more complex coordination among threads.
-
-### 8. **Avoid Deadlocks:**
-
-* Be cautious about potential deadlocks by carefully ordering the acquisition of locks and avoiding circular dependencies.
-
-### 9. **Thread Safety in Singleton Classes:**
-
-* If using singleton classes, ensure that they are thread-safe. Consider using the double-checked locking pattern or use a thread-safe initialization approach.
-
-### 10. **Volatile Keyword:**
-
-* Use the `volatile` keyword for variables that are accessed by multiple threads to ensure proper visibility of changes.
-
-### 11. **Thread Interruption:**
-
-* Be aware of thread interruption. Consider using `Thread.interrupt()` and handling `InterruptedException` appropriately.
-
-### 12. **ThreadLocal:**
-
-* Utilize `ThreadLocal` to store thread-specific data, avoiding interference between threads.
-
-### 13. **Avoid Excessive Synchronization:**
-
-* Minimize the scope of synchronized blocks to avoid unnecessary contention and improve performance.
-
-### 14. **Testing and Debugging:**
-
-* Test your multithreaded code thoroughly, especially for race conditions and deadlocks. Debugging multithreaded applications can be challenging, so use tools like thread dumps and profilers.
-
-### 15. **Asynchronous Programming:**
-
-* Consider using asynchronous programming patterns and libraries (e.g., CompletableFuture) for managing concurrency and responsiveness in applications.
-
-### 16. **Java Concurrency Frameworks:**
-
-* Explore higher-level concurrency frameworks and libraries, such as Akka, for building scalable and resilient concurrent systems.
-
-### 17. **Documentation:**
-
-* Clearly document your multithreading strategy, especially if using complex synchronization mechanisms, to aid maintainability.
-
-### 18. **Use Modern Java Features:**
-
-* Consider using features introduced in modern Java versions, such as the `java.util.concurrent` enhancements in Java 8 and later.
-
-By following these guidelines, you can effectively handle multithreading in your project and create robust, scalable, and efficient concurrent applications. Keep in mind that multithreading requires careful consideration and testing to ensure correct and reliable behavior.
-
 14. How to deploy in jenkins
 15. Thumb rule of Junit testing
 16. Why String is immutable?
