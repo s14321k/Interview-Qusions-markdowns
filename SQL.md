@@ -5,7 +5,7 @@
   * [Highest Salary in each department](#highest-salary-in-each-department)
   * [2. Types of Relationship in DBMS](#2-types-of-relationship-in-dbms)
   * [3. View in sql](#3-view-in-sql)
-  * [(4. Predicate in SQL)[https://www3.navicat.com/en/company/aboutus/blog/1895-predicates-in-sql#]](#4-predicate-in-sqlhttpswww3navicatcomencompanyaboutusblog1895-predicates-in-sql)
+  * [4. Predicate in SQL](#4-predicate-in-sql)
   * [5. SQL FOREIGN KEY Constraint](#5-sql-foreign-key-constraint)
   * [6. Joins in SQL](#6-joins-in-sql)
   * [7. KeyWords](#7-keywords)
@@ -53,7 +53,7 @@ FROM table_name
 WHERE condition;
 ```
 
-## (4. Predicate in SQL)[https://www3.navicat.com/en/company/aboutus/blog/1895-predicates-in-sql#]
+## [4. Predicate in SQL](https://www3.navicat.com/en/company/aboutus/blog/1895-predicates-in-sql#)
  - A predicate is simply an expression that evaluates to TRUE, FALSE, or UNKNOWN
  - Used in the search condition of WHERE and HAVING clauses, the join conditions of FROM clauses, as well as any other part of a query where a boolean value is required.
   - Comparison
@@ -99,3 +99,4 @@ FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
 4. Write a query to fetch the employee whose age is greater than 40?
 5. Describe Referential constraint?
 6. Composite and Foreign Key
+7. Normalization

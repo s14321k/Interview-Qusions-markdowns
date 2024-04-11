@@ -1098,7 +1098,7 @@ Interface class can have only abstract method (incomplete method). This class sh
 
 * ***Runnable – run()*** &rarr; Doesn't return. `public void run()`, Doesn't throw exception. Thread can be created using Runnable.
 * ***Callable – call()*** &rarr; Returns Object. `public Object call()`, throws an exception. Thread cannot be created using callable.
-* ***Cloneale - clone()*** &rarr; Returns Object. `public Object clone()`, throws CloneNotSupportedException.
+* ***Cloneable - clone()*** &rarr; Returns Object. `public Object clone()`, throws CloneNotSupportedException.
 * ***Comparable – compareTo()***
 * ***Comparator - compare()***
 

@@ -26,7 +26,7 @@
     * [Decorators are annotations in angular](#decorators-are-annotations-in-angular)
 * [Angular](#angular)
   * [install Angular](#install-angular)
-    * [To crreate empty and add projects](#to-crreate-empty-and-add-projects)
+    * [To create empty and add projects](#to-create-empty-and-add-projects)
     * [To create work space with default project](#to-create-work-space-with-default-project)
   * [Binding Syntax](#binding-syntax)
   * [Directives](#directives)
