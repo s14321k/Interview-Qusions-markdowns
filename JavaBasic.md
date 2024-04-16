@@ -2988,7 +2988,11 @@ Yet to do
 
 # Junit
 
-<https://www.java2novice.com/junit-examples/junit-annotations/>
+> <https://www.java2novice.com/junit-examples/junit-annotations/>
+
+## Junit mockito
+
+> <https://programmingtechie.com/2020/10/16/spring-boot-testing-tutorial-unit-testing-with-junit-5-and-mockito/>
 
 ***
 

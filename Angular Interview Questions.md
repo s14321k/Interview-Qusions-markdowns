@@ -72,10 +72,10 @@
       * [7. **ngAfterViewChecked:**](#7-ngafterviewchecked)
       * [8. **ngOnDestroy:**](#8-ngondestroy)
     * [Example of decorator individually.](#example-of-decorator-individually)
-      * [1. **@Component:** This decorator is used to define a component in Angular. It is applied to a class and provides metadata about the component, such as its selector, template, styles, and more.](#1-component-this-decorator-is-used-to-define-a-component-in-angular-it-is-applied-to-a-class-and-provides-metadata-about-the-component-such-as-its-selector-template-styles-and-more)
+      * [1. **@Component:**](#1-component-)
       * [2. **What is directives**](#2-what-is-directives-)
       * [3. **@Injectable:**](#3-injectable-)
-      * [4. **@Input and @Output:** These decorators are used to define input and output properties in components, allowing data to be passed into a component and events to be emitted out of a component.](#4-input-and-output-these-decorators-are-used-to-define-input-and-output-properties-in-components-allowing-data-to-be-passed-into-a-component-and-events-to-be-emitted-out-of-a-component)
+      * [4. **@Input and @Output:**](#4-input-and-output-)
   * [14. List of integers using ngfor in angular](#14-list-of-integers-using-ngfor-in-angular)
   * [16. how to build angular application](#16-how-to-build-angular-application)
   * [17. What is component. How to generate a new component in angular. Write a syntax for a component.](#17-what-is-component-how-to-generate-a-new-component-in-angular-write-a-syntax-for-a-component)
@@ -280,7 +280,7 @@ onclick(){
 - The parent passes data to the child using: @Input  
 - Child to Parrent, Listens to the events using: @Output decorator with EventEmitter
 
-## 4. @NgModule
+## 4. What is app.module.ts / @NgModule
  - What is the use of ngmodule.
    - NgModule  is a decorator that defines a module in Angular.
  - What is Feature module and where we mention feature module in angular
@@ -288,7 +288,7 @@ onclick(){
    - In Angular, feature modules are used to organize related components, directives, and services into cohesive units. Feature modules are different from the root module (`AppModule`) and can be created to encapsulate specific features or functionalities of an application. Below are different types of feature modules along with examples:
 
 ### 1. **Basic Feature Module:**
-A basic feature module includes components, directives, and services related to a specific feature.
+A basic feature module includes components, directives, pipes and services related to a specific feature.
 
    ```typescript
    // basic-feature.module.ts
@@ -297,8 +297,14 @@ A basic feature module includes components, directives, and services related to 
    import { BasicFeatureComponent } from './basic-feature.component';
 
    @NgModule({
-     declarations: [BasicFeatureComponent],
-     imports: [CommonModule],
+     declarations: [
+         BasicFeatureComponent
+     ],
+     imports: [
+         CommonModule
+     ], 
+     providers: [], //Dependency injection
+     bootstrap: [BasicFeatureComponent]
    })
    export class BasicFeatureModule {}
    ```
@@ -883,7 +889,7 @@ Here's a brief overview of the typical project structure and application flow in
         - **assets:** This folder can include static files like images, fonts, etc.
         - **styles:** Global styles for the application.
 
-2. **angular.json:** This file contains configuration settings for the Angular project, including build and development server options.
+2. **angular.json:** Primary configuration file. This file contains configuration settings for the Angular project, including build and development server options.
 
 3. **tsconfig.json:** TypeScript configuration file. It specifies compiler options and other settings for TypeScript.
 
@@ -1147,7 +1153,8 @@ Understanding the Angular component lifecycle helps you manage component state, 
 ### Example of decorator individually.
  - Here are some commonly used decorators in Angular:
 
-#### 1. **@Component:** This decorator is used to define a component in Angular. It is applied to a class and provides metadata about the component, such as its selector, template, styles, and more.
+#### 1. **@Component:** 
+- This decorator is used to define a component in Angular. It is applied to a class and provides metadata about the component, such as its selector, template, styles, and more.
 
     ```typescript
     import { Component } from '@angular/core';
@@ -1161,7 +1168,7 @@ Understanding the Angular component lifecycle helps you manage component state, 
     ```
 
 #### 2. **What is directives** 
-  **@Directive:** This decorator is used to define a directive, which is a behavior or appearance modification for a DOM element. Directives are typically used to create reusable components.
+- **@Directive:** This decorator is used to define a directive, which is a behavior or appearance modification for a DOM element. Directives are typically used to create reusable components.
 
 ```typescript
 import { Directive, ElementRef, Input } from '@angular/core';
@@ -1197,7 +1204,8 @@ export class HighlightDirective {
 ```
 
 
-#### 4. **@Input and @Output:** These decorators are used to define input and output properties in components, allowing data to be passed into a component and events to be emitted out of a component.
+#### 4. **@Input and @Output:** 
+- These decorators are used to define input and output properties in components, allowing data to be passed into a component and events to be emitted out of a component.
 
 ```typescript
 import { Component, Input, Output, EventEmitter } from '@angular/core';
@@ -1221,15 +1229,34 @@ These are just a few examples of decorators in Angular. Decorators play a crucia
   <li *ngFor="let number of numbers">{{ number }}</li>
 </ul>
 ```
-15. 
+## 15. 
 
 ## 16. how to build angular application
  - ```ng build --prod```
 
 ## 17. What is component. How to generate a new component in angular. Write a syntax for a component.
- - Components are building blocks of Angular applications. Generate a new component using the Angular CLI:
- - ```ng generate component componentName```
-18. 
+ - Components are building blocks of Angular applications. 
+ - Generate a new component using the Angular CLI:
+ - `ng generate component componentName`
+ - eg. by default below components gets created by angular.
+ - `app.component.css`
+ - `app.component.html`
+ - `app.component.spec.ts` used to write unit test for component.
+ - `app.component.ts` links all other component files.
+
+## 18. what is selector and template
+- A **_selector_** is used to identify each component uniquely into the component tree.
+- A **_template_** is a HTML view of an Angular component
+
+eg. given below.
+
+```angular17html
+@Component({
+  selector: 'app-your-form',
+  templateUrl: './your-form.component.html',
+  styleUrls: ['./your-form.component.css']
+})
+```
 
 ## 19. Features of Angular.
 - Features include two-way data binding, dependency injection, modular development with components and a powerful CLI
@@ -1351,7 +1378,8 @@ Lazy loading is particularly beneficial in scenarios where there are many featur
 - Yes, we can use external CSS files in Angular by including them in the "styles" array of the angular.json file.
 
 ## 24. Explain the types of forms and explain the usage with example
- - Template-driven forms and Reactive-forms 
+ 1. Template-driven forms 
+ 2. Reactive-forms 
 
 ### Exmaple for template-driven form
 
@@ -1690,16 +1718,19 @@ If you want to connect to the backend without using `@CrossOrigin`, there are a 
 Remember that CORS is a security feature, and bypassing it without understanding the implications could expose your application to potential security risks. If you're having CORS issues, it's often a good idea to understand why the browser is blocking the request and address the root cause rather than circumventing it.
 
 ## 28. Explain static typing in angular
- - Angular is built with  TypeScript, which provides static typing. It helps catch errors during development by checking types at compile-time.
+ - Angular is built with  TypeScript, which provides static typing. 
+ - It helps catch errors during development by checking types at compile-time.
+ - Store static files inside the `assets` folder.
 
 ## 29. Explain subject in angular
     - Subject is a type of observable that allows values to be multicasted to many observers. It is both an observable and an observer.
     
 ## 30. Javascript vs Typescript
- - JavaScript is a scripting language and typescript is a superset of javaScript that adds static typing and other features.
+ - JavaScript is a scripting language and typescript is a superset of javaScript that adds static typing, detect error at compile time and other features.
 
 ## 31. what is node_module
  - `node_module` is a directory where npm installs packages (dependencies) for a project.
+ - `NPM` keeps library for both `node js` and `angular`
 
 32. How to add dependencies in angular
  - To add dependency, use npm or yarn to install.
@@ -1739,7 +1770,27 @@ for(let num of numbers)
 
 ## 1. **What is Angular? Why do we need Angular?**
 
-Angular is a popular open-source web application framework for building dynamic, single-page applications. It's designed to simplify the development of complex web applications by providing a structured framework. We need Angular because it offers a range of benefits, such as two-way data binding, dependency injection, a powerful template system, and a component-based architecture, making it easier to build, test, and maintain web applications.
+* Angular component based framework for building structured, scalable(upgradable and flexible for upgrade) and dynamic single-page applications(eg. utube. Page won't reload) for client side. 
+* We need Angular because it offers a range of benefits, 
+such as  
+  - two-way data binding, 
+  - dependency injection, 
+  - a powerful template system, and 
+  - a component-based architecture, making it easier to build, test, and maintain web applications.
+
+* Advantages of angular.
+- Single page applications(Components)
+- Flexible and structured(OOPS Friendly)
+- Cross-platform(O.S, Browsers) and open source.
+- Reusable code(Services)
+- Testability(Specs.ts)
+
+- Angular supports both JS(java script) and TS(type script)
+- Framework has component based architecture, which is faster than MVC architecture.
+- Has CLI tool.
+- Dependency injection
+- Mobile browser support
+- Very fast because of data binding technique and component based.
 
 ## 2. **What is a Component?**
 
@@ -1757,14 +1808,14 @@ Directives are markers on HTML elements that instruct Angular to do something wi
 
 Data binding is a fundamental concept in Angular that connects the UI with the application data. There are four types of data binding in Angular:
 
-1. **Interpolation (One-Way Binding):** It allows you to embed expressions within double curly braces in the template, and the expressions are evaluated and displayed in the view.
+1. **Interpolation (One-Way Binding):** It allows you to embed expressions within double curly braces `{{ }}` in the template, and the expressions are evaluated and displayed in the view.
 2. **Property Binding (One-Way Binding):** It allows you to set the value of an HTML element's property or attribute using data from the component.
 3. **Event Binding (One-Way Binding):** It lets you respond to events (e.g., clicks) raised in the UI and trigger functions in the component.
 4. **Two-Way Binding:** It combines property binding and event binding, allowing changes in the UI to automatically update the component and vice versa using the **ngModel** directive or **[()]** syntax.
 
 ## 5. **Decorators in Angular**
 
-Decorators are used in Angular to mark a class as an Angular construct and provide configuration. Some commonly used decorators include:
+Decorators(annotations) are used in Angular to mark a class as an Angular construct and provide configuration. Some commonly used decorators include:
 
 1. **@Component**: Defines a component.
 2. **@Directive**: Defines a custom directive.
@@ -1795,7 +1846,12 @@ Angular components go through a series of lifecycle events. Some important hooks
 
 ## 8. **Compiler in Angular (JIT, AOT)**
 
-Angular can be compiled either Just-In-Time (JIT) or Ahead-Of-Time (AOT). JIT compilation occurs in the browser at runtime, while AOT compilation happens during the build process. AOT offers better performance and smaller bundle sizes.
+- Angular can be compiled either Just-In-Time (JIT) or Ahead-Of-Time (AOT). 
+- JIT compilation occurs in the browser at runtime, while AOT compilation happens during the build time. 
+- AOT offers better performance and smaller bundle sizes. AOT is default compilation.
+- We can change the compilation of build from AOT to JIT. 
+  - For that we need to set `"aot": false` in `angular.json` file under `development`. 
+  - But JIT won't detect errors at build time, where AOT does.
 
 ## 9. **Observable**
 
