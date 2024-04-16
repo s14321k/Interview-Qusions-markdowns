@@ -200,7 +200,9 @@
   * [Java Questions](#java-questions-1)
 <!-- TOC -->
 
-# [Java Interview Question Bank](https://www.java2novice.com/java-interview-questions/)
+# Java Interview Question Bank
+* [Java Interview Questions 1](https://www.java2novice.com/java-interview-questions/)
+* [Java interview Questions 2](https://www.java67.com/2015/03/top-40-core-java-interview-questions-answers-telephonic-round.html)
 
 ## variables
 
@@ -1317,8 +1319,9 @@ String[] array = fruitList.toArray(new String[fruitList.size()]);
 ```
 
 ### `ArrayList`
-
-* internally uses dinamic Array, non syncronized
+* maintains insertion order
+* non syncronized
+* internally uses dinamic Array
 * In Java, when you create an ArrayList without specifying an initial capacity, it has a default initial capacity of 10.
 * This means that the ArrayList starts with an internal array that can initially hold up to 10 elements.
 * If you add more than 10 elements, the ArrayList will automatically resize its internal array to accommodate the additional elements.
@@ -1332,28 +1335,12 @@ Iterator itr=list.iterator();
 while(itr.hasNext())
 ```
 
-### `Vector`
-
-* similar to ArrayList, but syncronized and contains many methods which are not part of collection frame work
-
-```java
-Vector<String> v=new Vector<String>();
-v.add("Ayush");
-Iterator<String> itr=v.iterator();
-while(itr.hasNext())
-```
-
-### `Stack`
-
-* Subclass of vector. 
-* It implements the last-in-first-out data structure.
-* Contains all the methods of vector and also provides methods like push(), peak()
-
 ### `LinkedList`
 
-* Internally uses doubly linked list, non synchronized, manipulation is fast because no shifting is required.
-* Can contain duplicate elements.
 * Maintains insertion order.
+* non synchronized, manipulation is fast because no shifting is required.
+* Internally uses doubly linked list,
+* Can contain duplicate elements.
 * Access time for an element by index is O(n) since you may need to traverse the list from the beginning.
 
 ```java
@@ -1397,7 +1384,26 @@ So, a typical node in the doubly linked list consists of three fields:***
 
 ### `Circular LinkedList`
 
-* First node points to the last node and last node points to the first node, where the doubly linked list has the null at the first previous pointer and the last node next pointer
+* First node points to the last node and last node points to the first node, 
+* Where the doubly linked list has the null at the first previous pointer and the last node next pointer
+
+### `Vector`
+
+* similar to ArrayList, but syncronized and contains many methods which are not part of collection frame work
+
+```java
+Vector<String> v=new Vector<String>();
+v.add("Ayush");
+Iterator<String> itr=v.iterator();
+while(itr.hasNext())
+```
+
+### `Stack`
+
+* Subclass of vector.
+* It implements the last-in-first-out data structure.
+* Contains all the methods of vector and also provides methods like push(), peak()
+
 
 ## Queue
 
@@ -1644,7 +1650,7 @@ class HelloWorld {
 ### [`ConcurrentHashMap`](https://javahungry.blogspot.com/2015/02/how-concurrenthashmap-works-in-java-internal-implementation.html)
 
 * ConcurrentHashMap is syncronized, so performance is slow.
-* Tread safe.
+* Thread safe.
 * We won't get exception during modification.
 
   1. HashMap makes absolutely no guarantees about the iteration order. It can (and will) even change completely when new elements are added.
@@ -2978,7 +2984,7 @@ Yet to do
 <https://wiki.sei.cmu.edu/confluence/display/java/OBJ58-J.+Limit+the+extensibility+of+classes+and+methods+with+invariants>
 
 ***
-****
+***
 
 # Junit
 
