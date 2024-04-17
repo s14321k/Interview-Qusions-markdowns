@@ -1219,7 +1219,7 @@ We can run an abstract class if it has main() method but we can't run an interfa
 
 # Collections
 
-## Why the Collections Framework?***
+## Why the Collections Framework?
 
 * We do not need to write the code to implement these data structures and algorithms.
 
@@ -2935,6 +2935,15 @@ public class MyInteger {
 * In this, the user or client and server are verified. In this, it is verified that if the user is allowed through the defined policies and rules.
 
 ## [Association, Composition and Aggregation in Java](<https://www.geeksforgeeks.org/association-composition-> -java/)
+
+- Association is a type Aggregation and Composition.
+```mermaid
+graph TB
+    A[Association] -- Weak (Loose Coupling) --> B[Aggregation]
+    A -- Strong (Tight Coupling) --> C[Composition]
+```
+- Aggregation which is has a relationship. Weak (Loosely coupled)
+- Compositon which is part of relationship. Strong (Strongly coupled)
 
 ![AssosiationAggregation.png](images/AssosiationAggregation.png)
 

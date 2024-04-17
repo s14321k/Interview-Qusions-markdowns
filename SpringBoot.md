@@ -907,17 +907,16 @@ These are the main types of @Autowired annotations you might encounter in a Spri
 
 ## @Controller vs @RestController
 ### @Controller
-- In @Controller, we need to use @ResponseBody on every handler method.
+- In `@Controller`, we need to use `@ResponseBody` on every handler method.
 - In @Controller, we can return a view in Spring Web MVC.
-- In @Controller, we need to use @ResponseBody on every handler method.
 - Specialization of @Component
 - Serves as the roll of controller
 - Used in Spring MVC
-- The dispatcher scans such annotated classes for mapped methods and detects @RequestMapping annotations.
+- The dispatcher scans such annotated classes for mapped methods and detects `@RequestMapping` annotations.
 
 ### @RestController
-- In @RestController, we don’t need to use @ResponseBody on every handler method.
-- In @RestController, we can not return a view.
+- In `@RestController`, we don’t need to use `@ResponseBody` on every handler method.
+- In `@RestController`, we can not return a view.
 
 ![img_18.png](images/img_18.png)
 
@@ -933,7 +932,7 @@ Required is the default propagation. Spring checks if there is an active transac
 #### @Transactional(propagation = Propagation.REQUIRES_NEW)
 When the propagation is Requires_New, spring suspends the current transaction if it exists and creates a new one.
 
-## (Pagiantion using JPA)[https://www.baeldung.com/spring-data-jpa-pagination-sorting]
+## [Pagiantion using JPA](https://www.baeldung.com/spring-data-jpa-pagination-sorting)
  - Pagination and Sorting using Spring Data JPA
  - If we are getting huge ammount of data, then we do pagination by sending particular 
 
