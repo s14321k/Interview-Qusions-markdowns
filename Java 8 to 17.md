@@ -3,8 +3,7 @@
   * [Stream API](#stream-api)
     * [1. **Intermediate Operations:**](#1-intermediate-operations)
     * [2. **Terminal Operations:**](#2-terminal-operations)
-    * [Methods of Stream API](#methods-of-stream-api)
-* [JAVA8 to JAVA17](#java8-to-java17)
+* [JAVA8 to JAVA17 And Java8 and java17](#java8-to-java17-and-java8-and-java17)
   * [Java 8](#java-8)
   * [1. Lambda Expression and Stream API](#1-lambda-expression-and-stream-api)
     * [Why do we need lambda?](#why-do-we-need-lambda)
@@ -27,146 +26,150 @@
     * [Basics of `Optional`:](#basics-of-optional)
     * [Example:](#example)
   * [Date Time API](#date-time-api)
+  * [StringJoiner](#stringjoiner)
+  * [[Record class](](#record-class)
 * [Java 9](#java-9)
   * [1. Closing a Resource with try-with-resources](#1-closing-a-resource-with-try-with-resources)
   * [2. Private interface methods](#2-private-interface-methods)
+  * [Records in java](#records-in-java)
 <!-- TOC -->
 
 ***
 
 # [Java 8 streams vs collections](https://www.java2novice.com/java_interview_questions/java-8-streams-vs-collection-framework/)
 ## Stream API
-Can be categorized into two types: intermediate operations and terminal operations.
+Can be categorized into two types: 
+- `Intermediate operations` 
+  - Returns a stream. 
+  - And lazy loading. 
+  - Means these functions will be invoked only if we declare the terminal operators.
+- `Terminal operations` 
+  - Doesn't return a stream. Instead, returns other objects. 
+  - And eagerly loaded.
+  - Only one terminal is allowed that too at the end. 
+
+[Video Link](https://youtu.be/lyl2Y5rwfx4?si=WiTKZxZDzVDnEVFV)
 
 ### 1. **Intermediate Operations:**
   - These operations transform a stream into another stream. 
   - They are usually lazy, meaning they don't process elements until a terminal operation is invoked. 
   - Examples include `filter`, `map`, `flatMap`, `distinct`, `sorted`, `peek`, `limit`, and `skip`.
 
+
+- **`filter(Predicate<T> predicate): Stream<T>`**
+  - Returns a stream consisting of the elements that match the given predicate.
+  - Example: `stream.filter(x -> x > 5)`
+
+- **`map(Function<T, R> mapper): Stream<R>`**
+  - Returns a stream consisting of the results of applying the given function to the elements.
+  - Example: `stream.map(x -> x * 2)`
+
+- **`flatMap(Function<T, Stream<R>> mapper): Stream<R>`**
+  - Returns a stream consisting of the results of replacing each element with the contents of a mapped stream.
+  - Example: `stream.flatMap(x -> Stream.of(x, x * 2))`
+
+- **`distinct(): Stream<T>`**
+  - Returns a stream consisting of the distinct elements (according to their natural order or provided comparator) of the original stream.
+  - Example: `stream.distinct()`
+
+- **`sorted(): Stream<T>`**
+  - Returns a stream consisting of the elements sorted according to their natural order.
+  - Example: `stream.sorted()`
+
+- **`peek(Consumer<T> action): Stream<T>`**
+  - Returns a stream consisting of the elements of this stream, additionally performing the provided action on each element.
+  - Example: `stream.peek(x -> System.out.println(x))`
+
+- **`limit(long maxSize): Stream<T>`**
+  - Returns a stream consisting of the elements of this stream, truncated to be no longer than `maxSize`.
+  - Example: `stream.limit(5)`
+
+- **`skip(long n): Stream<T>`**
+  - Returns a stream consisting of the remaining elements of this stream after discarding the first `n` elements.
+  - Example: `stream.skip(3)`
+
+
 ### 2. **Terminal Operations:**
-  - These operations produce a result or a side-effect. 
+  - These operations produce a result or a side effect. 
   - When a terminal operation is invoked, the stream is processed, and the result is obtained. 
   - Terminal operations are eager and consume the stream. Examples include `forEach`, `toArray`, `reduce`, `collect`, `min`, `max`, `count`, `anyMatch`, `allMatch`, `noneMatch`, `findAny`, `findFirst`, `iterator`, `spliterator`, `isParallel`, `sequential`, `parallel`, and `unordered`.
 
-These two categories help in understanding the role and purpose of each method within the Stream API. Intermediate operations allow you to build a pipeline of transformations, and terminal operations produce a final result or perform an action. Combining these operations enables powerful and concise stream processing in Java.
 
-### Methods of Stream API
-The Stream API in Java provides a rich set of methods for working with streams. Here's a comprehensive list of methods along with their return types and a brief description of how to use them:
+- **`forEach(Consumer<T> action): void`**
+     - Performs an action for each element of the stream.
+     - Example: `stream.forEach(x -> System.out.println(x))`
 
-1. **Intermediate Operations:**
-
-  - **`filter(Predicate<T> predicate): Stream<T>`**
-    - Returns a stream consisting of the elements that match the given predicate.
-    - Example: `stream.filter(x -> x > 5)`
-
-  - **`map(Function<T, R> mapper): Stream<R>`**
-    - Returns a stream consisting of the results of applying the given function to the elements.
-    - Example: `stream.map(x -> x * 2)`
-
-  - **`flatMap(Function<T, Stream<R>> mapper): Stream<R>`**
-    - Returns a stream consisting of the results of replacing each element with the contents of a mapped stream.
-    - Example: `stream.flatMap(x -> Stream.of(x, x * 2))`
-
-  - **`distinct(): Stream<T>`**
-    - Returns a stream consisting of the distinct elements (according to their natural order or provided comparator) of the original stream.
-    - Example: `stream.distinct()`
-
-  - **`sorted(): Stream<T>`**
-    - Returns a stream consisting of the elements sorted according to their natural order.
-    - Example: `stream.sorted()`
-
-  - **`peek(Consumer<T> action): Stream<T>`**
-    - Returns a stream consisting of the elements of this stream, additionally performing the provided action on each element.
-    - Example: `stream.peek(x -> System.out.println(x))`
-
-  - **`limit(long maxSize): Stream<T>`**
-    - Returns a stream consisting of the elements of this stream, truncated to be no longer than `maxSize`.
-    - Example: `stream.limit(5)`
-
-  - **`skip(long n): Stream<T>`**
-    - Returns a stream consisting of the remaining elements of this stream after discarding the first `n` elements.
-    - Example: `stream.skip(3)`
-
-2. **Terminal Operations:**
-
-  - **`forEach(Consumer<T> action): void`**
-    - Performs an action for each element of the stream.
-    - Example: `stream.forEach(x -> System.out.println(x))`
-
-  - **`toArray(): Object[]`**
+- **`toArray(): Object[]`**
     - Returns an array containing the elements of this stream.
     - Example: `Object[] array = stream.toArray()`
 
-  - **`reduce(BinaryOperator<T> accumulator): Optional<T>`**
+- **`reduce(BinaryOperator<T> accumulator): Optional<T>`**
     - Performs a reduction on the elements of the stream using an associative accumulation function and returns an Optional.
     - Example: `Optional<Integer> result = stream.reduce((a, b) -> a + b)`
 
-  - **`collect(Collector<T, A, R> collector): R`**
+- **`collect(Collector<T, A, R> collector): R`**
     - Performs a mutable reduction operation on the elements of the stream using a Collector.
     - Example: `List<Integer> list = stream.collect(Collectors.toList())`
 
-  - **`min(Comparator<T> comparator): Optional<T>`**
+- **`min(Comparator<T> comparator): Optional<T>`**
     - Returns the minimum element of the stream according to the provided comparator.
     - Example: `Optional<Integer> min = stream.min(Comparator.naturalOrder())`
 
-  - **`max(Comparator<T> comparator): Optional<T>`**
+- **`max(Comparator<T> comparator): Optional<T>`**
     - Returns the maximum element of the stream according to the provided comparator.
     - Example: `Optional<Integer> max = stream.max(Comparator.naturalOrder())`
 
-  - **`count(): long`**
+- **`count(): long`**
     - Returns the count of elements in the stream.
     - Example: `long count = stream.count()`
 
-  - **`anyMatch(Predicate<T> predicate): boolean`**
+- **`anyMatch(Predicate<T> predicate): boolean`**
     - Returns whether any elements of the stream match the given predicate.
     - Example: `boolean anyMatch = stream.anyMatch(x -> x > 5)`
 
-  - **`allMatch(Predicate<T> predicate): boolean`**
+- **`allMatch(Predicate<T> predicate): boolean`**
     - Returns whether all elements of the stream match the given predicate.
     - Example: `boolean allMatch = stream.allMatch(x -> x > 5)`
 
-  - **`noneMatch(Predicate<T> predicate): boolean`**
+- **`noneMatch(Predicate<T> predicate): boolean`**
     - Returns whether no elements of the stream match the given predicate.
     - Example: `boolean noneMatch = stream.noneMatch(x -> x < 0)`
 
-  - **`findAny(): Optional<T>`**
+- **`findAny(): Optional<T>`**
     - Returns an arbitrary element of the stream (or an empty Optional if the stream is empty).
     - Example: `Optional<Integer> anyElement = stream.findAny()`
 
-  - **`findFirst(): Optional<T>`**
+- **`findFirst(): Optional<T>`**
     - Returns the first element of the stream (or an empty Optional if the stream is empty).
     - Example: `Optional<Integer> firstElement = stream.findFirst()`
 
-  - **`iterator(): Iterator<T>`**
+- **`iterator(): Iterator<T>`**
     - Returns an iterator for the elements of the stream.
     - Example: `Iterator<Integer> iterator = stream.iterator()`
 
-  - **`spliterator(): Spliterator<T>`**
+- **`spliterator(): Spliterator<T>`**
     - Returns a Spliterator for the elements of the stream.
     - Example: `Spliterator<Integer> spliterator = stream.spliterator()`
 
-  - **`isParallel(): boolean`**
+- **`isParallel(): boolean`**
     - Returns whether the stream is parallel.
     - Example: `boolean isParallel = stream.isParallel()`
 
-  - **`sequential(): Stream<T>`**
+- **`sequential(): Stream<T>`**
     - Returns an equivalent sequential stream.
     - Example: `Stream<Integer> sequentialStream = stream.sequential()`
 
-  - **`parallel(): Stream<T>`**
+- **`parallel(): Stream<T>`**
     - Returns an equivalent parallel stream.
     - Example: `Stream<Integer> parallelStream = stream.parallel()`
 
-  - **`unordered(): Stream<T>`**
+- **`unordered(): Stream<T>`**
     - Returns an equivalent stream with an unordered characteristic.
     - Example: `Stream<Integer> unorderedStream = stream.unordered()`
 
-These are the main methods provided by the Java Stream API. The examples provided are illustrative and may not represent actual use cases in your application. Make sure to adapt them based on your specific requirements.
+These two categories help in understanding the role and purpose of each method within the Stream API. Intermediate operations allow you to build a pipeline of transformations, and terminal operations produce a final result or perform an action. Combining these operations enables powerful and concise stream processing in Java.
 
-
-# [JAVA8 to JAVA17](https://reflectoring.io/java-release-notes/)
-
-# [Java8 and java17](https://pretius.com/blog/java-17-features/)
+# [JAVA8 to JAVA17](https://reflectoring.io/java-release-notes/) And [Java8 and java17](https://pretius.com/blog/java-17-features/)
 
 ## [Java 8](https://www.tutorialspoint.com/java8/index.htm)
 - [1. Lambda Expression and Stream API](#1-lambda-expression-and-stream-api)
@@ -201,40 +204,35 @@ Runnable runnableLambda = () -> System.out.println("Hello, World!");
 
 
 ### Before Lambda and Stream API
-
-<pre tabindex="0" style="color:#f8f8f2;-moz-tab-size:4;-o-tab-size:4;tab-size:4; padding: 10px 5px 10px 52px;border-radius: 20px;background:rgba(71,0,255,0.18);">
-<code class="language-java" data-lang="java">
-<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LambdaExpressions</span>
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> List<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">findCarsOldWay</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> cars<span style="color:#f92672">)</span>
-    <span style="color:#f92672">{</span>
-    List<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> selectedCars <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
-        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Car car <span style="color:#f92672">:</span> cars<span style="color:#f92672">)</span> 
-        <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>car<span style="color:#f92672">.</span><span style="color:#a6e22e">kilometers</span> <span style="color:#f92672">&lt;</span> 50000<span style="color:#f92672">)</span> 
-            <span style="color:#f92672">{</span>
-                selectedCars<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>car<span style="color:#f92672">);</span>
-            <span style="color:#f92672">}</span>
-        <span style="color:#f92672">}</span>
-        <span style="color:#66d9ef">return</span> selectedCars<span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre>
-
+```java
+public class LambdaExpressions
+{
+    public static List<Car> findCarsOldWay(List<Car> cars)
+    {
+        List<Car> selectedCars = new ArrayList<>();
+        for (Car car : cars)
+        {
+            if (car.kilometers < 50000)
+            {
+            selectedCars.add(car);
+            }
+        }
+        return selectedCars;
+    }
+}
+```
 
 ### Using Stream and Lambda, [IntStream](https://www.tutorialspoint.com/how-to-use-intstream-in-lambdas-and-method-references-in-java#:~:text=An%20IntStream%20interface%20extends%20the,lambda%20expressions%20and%20method%20references.)
 
-<pre tabindex="0" style="color:#f8f8f2;-moz-tab-size:4;-o-tab-size:4;tab-size:4; padding: 10px 5px 10px 52px;border-radius: 20px;background:rgba(121,98,48,0.44);">
-<code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LambdaExpressions</span>
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> List<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">findCarsUsingLambda</span><span style="color:#f92672">(</span>List<span style="color:#f92672">&lt;</span>Car<span style="color:#f92672">&gt;</span> cars<span style="color:#f92672">)</span>
-        <span style="color:#f92672">{</span>
-            <span style="color:#66d9ef">return</span> cars<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>car <span style="color:#f92672">-&gt;</span> car<span style="color:#f92672">.</span><span style="color:#a6e22e">kilometers</span> <span style="color:#f92672">&lt;</span> 50000<span style="color:#f92672">)</span>
-        <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code>
-</pre>
+```java
+public class LambdaExpressions
+{
+    public static List<Car> findCarsUsingLambda(List<Car> cars)
+    {
+        return cars.stream().filter(car -> car.kilometers < 50000).collect(Collectors.toList());
+    }
+}
+```
 
 #### [Why lambda expression is used?](https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/lambda-quickstart/index.html#section2)
 - Lambda expression is a block of code which takes in parameter and returns a value. It is similar to methods, but do not need a name.
@@ -286,42 +284,44 @@ A method reference allows us to call functions in classes using a special kind o
 
 ### Without Method Reference
 
-<pre tabindex="0" style="color:#f8f8f2;-moz-tab-size:4;-o-tab-size:4;tab-size:4; padding: 10px 5px 10px 52px;border-radius: 20px;background:rgba(133,51,8,0.37);"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MethodReference</span>
-<span style="color:#f92672">{</span>
-    List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> withoutMethodReference <span style="color:#f92672">=</span>
-            cars<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>car <span style="color:#f92672">-&gt;</span> car<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">())</span>
-                    <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
-<span style="color:#f92672">}</span>
-</code>
-</pre>
+```java
+public class MethodReference
+{
+    List<String> withoutMethodReference =
+            cars.stream().map(car -> car.toString())
+                    .collect(Collectors.toList());
+}
+```
 
 ### Using Method Referance
 
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MethodReference</span> 
-<span style="color:#f92672">{</span>
-    List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> methodReference <span style="color:#f92672">=</span> cars<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>Car<span style="color:#f92672">::</span>toString<span style="color:#f92672">)</span>
-            <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
-<span style="color:#f92672">}</span>
-</code></pre>
+```java
+public class MethodReference 
+{
+    List<String> methodReference = cars.stream().map(Car::toString)
+            .collect(Collectors.toList());
+}
+```
 
 ## 3. Default Methods
 
 We are adding a new method but not implementing it inside all client classes.
 
-<pre tabindex="0" style="color:#f8f8f2;-moz-tab-size:4;-o-tab-size:4;tab-size:4; padding: 10px 5px 10px 52px;border-radius: 20px;background:rgba(13,224,206,0.18);"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DefaultMethods</span> 
-<span style="color:#f92672">{</span>
+```java
+public class DefaultMethods 
+{
 
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Logging</span> 
-    <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">log</span><span style="color:#f92672">(</span>String message<span style="color:#f92672">);</span>
+    public interface Logging 
+    {
+        void log(String message);
 
-        <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">log</span><span style="color:#f92672">(</span>String message<span style="color:#f92672">,</span> Date date<span style="color:#f92672">)</span> 
-        <span style="color:#f92672">{</span>
-            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>date<span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">": "</span> <span style="color:#f92672">+</span> message<span style="color:#f92672">);</span>
-        <span style="color:#f92672">}</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre>
+        default void log(String message, Date date) 
+        {
+            System.out.println(date.toString() + ": " + message);
+        }
+    }
+}
+```
 
 ## 4. Type Annotations
 
@@ -333,47 +333,43 @@ We are adding a new method but not implementing it inside all client classes.
 
 ### 1. Local variable definition @NotNull
 
-<span style="color:#a6e22e">@NotNull</span> - To ensure that our local variable does not end up as a null value
-
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4; padding: 10px 5px 10px 52px;border-radius: 20px;background:rgba(147,13,224,0.18);"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TypeAnnotations</span> 
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> 
-    <span style="color:#f92672">{</span>
-        <span style="color:#a6e22e">@NotNull</span> String userName <span style="color:#f92672">=</span> args<span style="color:#f92672">[</span>0<span style="color:#f92672">];</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre>
+```java
+public class TypeAnnotations 
+{
+    public static void main(String[] args) 
+    {
+        @NotNull String userName = args[0];
+    }
+}
+```
 
 ### 2. Constructor Call @NotEmpty
-<span style="color:#a6e22e">@NotEmpty</span> - We make sure that we  cannot create an empty ArrayList
+```java
+public class TypeAnnotations
+{
 
-<pre tabindex="0" style="color:#f8f8f2;-moz-tab-size:4;-o-tab-size:4;tab-size:4; padding: 10px 5px 10px 52px;border-radius: 20px;background:rgba(40,166,42,0.2);"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TypeAnnotations</span>
-<span style="color:#f92672">{</span>
-
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
-    <span style="color:#f92672">{</span>
-        List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> request <span style="color:#f92672">=</span>
-                <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">@NotEmpty</span> ArrayList<span style="color:#f92672">&lt;&gt;(</span>Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">(</span>args<span style="color:#f92672">).</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
-                        Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">()));</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre>
+    public static void main(String[] args)
+    {
+        List<String> request =
+                new @NotEmpty ArrayList<>(Arrays.stream(args).collect(
+                        Collectors.toList()));
+    }
+}
+```
 
 Again, an annotation processor can evaluate the annotation and check if the array list is not empty.
 
 ### 3. Generic Type @Email
 
-<span style="color:#a6e22e">@Email</span> One of our requirements is that each email has to be in a format <name>@<company>.com. If we use type annotations, we can do it easily
-
-<pre tabindex="0" style="color:#f8f8f2;-moz-tab-size:4;-o-tab-size:4;tab-size:4; padding: 10px 5px 10px 52px;border-radius: 20px;background:rgba(13,111,224,0.18);"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TypeAnnotations</span> 
-<span style="color:#f92672">{</span>
-
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> 
-    <span style="color:#f92672">{</span>
-        List<span style="color:#f92672">&lt;</span><span style="color:#a6e22e">@Email</span> String<span style="color:#f92672">&gt;</span> emails<span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre>
+```java
+public class TypeAnnotations 
+{
+    public static void main(String[] args) 
+    {
+        List<@Email String> emails;
+    }
+}
+```
 
 
 ## 5. Double colon operator in java
@@ -406,35 +402,35 @@ Again, an annotation processor can evaluate the annotation and check if the arra
     - Use `Optional.of(value)` to create an `Optional` with a non-null value.
     - Use `Optional.empty()` to create an empty `Optional`.
 
-   ```java
-   Optional<String> nonEmptyOptional = Optional.of("Hello");
-   Optional<String> emptyOptional = Optional.empty();
-   ```
+```java
+Optional<String> nonEmptyOptional = Optional.of("Hello");
+Optional<String> emptyOptional = Optional.empty();
+```
 
 2. **Handling the Value:**
     - Use `get()` to retrieve the value if it is present. However, this method should be used cautiously to avoid NoSuchElementException.
 
-   ```java
-   Optional<String> nonEmptyOptional = Optional.of("Hello");
-   String value = nonEmptyOptional.get(); // Retrieves the value if present
-   ```
+```java
+Optional<String> nonEmptyOptional = Optional.of("Hello");
+String value = nonEmptyOptional.get(); // Retrieves the value if present
+```
 
 3. **Avoiding `get()`:**
     - Instead of using `get()`, use methods like `isPresent()`, `ifPresent(Consumer)`, or `orElse(T)` to safely access the value or provide a default if it's absent.
 
-   ```java
-   Optional<String> optional = Optional.ofNullable(getValue());
-   
-   if (optional.isPresent()) {
-       System.out.println("Value is present: " + optional.get());
-   } else {
-       System.out.println("Value is absent");
-   }
-   
-   optional.ifPresent(val -> System.out.println("Value: " + val));
-   
-   String result = optional.orElse("Default Value");
-   ```
+```java
+Optional<String> optional = Optional.ofNullable(getValue());
+
+if (optional.isPresent()) {
+   System.out.println("Value is present: " + optional.get());
+} else {
+   System.out.println("Value is absent");
+}
+
+optional.ifPresent(val -> System.out.println("Value: " + val));
+
+String result = optional.orElse("Default Value");
+```
 
 4. **Chaining Operations:**
     - You can chain operations using methods like `map`, `filter`, or `flatMap` to perform transformations or additional checks on the value.

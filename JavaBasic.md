@@ -31,7 +31,7 @@
       * [2. **Abstract Class:**](#2-abstract-class)
       * [3. **Interface:**](#3-interface)
       * [4. **Final Class:**](#4-final-class)
-      * [**5. **Inner Class:**](#5-inner-class)
+      * [5. **Inner Class:**](#5-inner-class)
       * [**Static Nested Class:**](#static-nested-class)
       * [**Anonymous Class:** Anonymous class](#anonymous-class-anonymous-class)
   * [Constructors](#constructors)
@@ -74,12 +74,12 @@
     * [Iterable Interface](#iterable-interface)
   * [List](#list)
     * [`ArrayList`](#arraylist)
-    * [`Vector`](#vector)
-    * [`Stack`](#stack)
     * [`LinkedList`](#linkedlist)
     * [`Singly LinkedList`](#singly-linkedlist)
     * [`Doubly LinkedList`](#doubly-linkedlist)
     * [`Circular LinkedList`](#circular-linkedlist)
+    * [`Vector`](#vector)
+    * [`Stack`](#stack)
   * [Queue](#queue)
     * [`Deque Interface`](#deque-interface)
     * [`ArrayDeque`](#arraydeque)
@@ -197,6 +197,7 @@
   * [Association, Composition and Aggregation in Java](#association-composition-and-aggregation-in-java)
   * [Arbitrary Number of Arguments and @SafeVarags](#arbitrary-number-of-arguments-and-safevarags)
 * [Junit](#junit)
+  * [Junit mockito](#junit-mockito)
   * [Java Questions](#java-questions-1)
 <!-- TOC -->
 
@@ -564,10 +565,17 @@ public class MyResource implements AutoCloseable
 
 ### [MultiCatch (From java 7)](https://www.geeksforgeeks.org/multicatch-in-java/)
 
+If all the exceptions belong to the same class hierarchy, you can simply catch that base exception type.
+
+Also note that you cannot catch both ExceptionA and ExceptionB in the same block if ExceptionB is inherited, either directly or indirectly, from ExceptionA. The compiler will complain:
+
+> Alternatives in a multi-catch statement cannot be related by subclassing
+Alternative ExceptionB is a subclass of alternative ExceptionA
+
 [**Can we have a try block without a catch block in Java?**](https://www.tutorialspoint.com/can-we-have-a-try-block-without-a-catch-block-in-java)
 
 * Yes, It is possible to have a try block without a catch block by using a final block.
-* As we know, a final block will always execute even there is an exception occurred in a try block, except System.exit() it will execute always.
+* As we know, a finally block will always execute even there is an exception occurred in a try block, except System.exit() it will execute always.
 
 ## Class
 
@@ -1291,6 +1299,8 @@ Ultimately, the choice between maintaining insertion order and optimizing for pe
 * stream()
 
 `Collection<Integer> numb = new ArrayList<>();` --> `Collection does work with index number.`
+
+- Collection is an interface where is Collections is a class.
 
 ### Iterator Interface
 
