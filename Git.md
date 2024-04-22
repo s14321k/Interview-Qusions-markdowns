@@ -53,12 +53,12 @@ $ cd OneDrive/ECLIPSE/'JEE Struts'/
 
 
 Directory Commamnds
-To navigate to your home directory, use "cd" or "cd ~"
-To navigate up one directory level, use "cd .."
-To navigate to the previous directory (or back), use "cd -"
-To navigate into the root directory, use "cd /"
-To navigate through multiple levels of directory at once, specify the full directory path that you want to go to.
-For example, use "cd ~/OFGT-data/images/" to go directly to the images subdirectory in the OFGT-data folder.
+> To navigate to your home directory, use "cd" or "cd ~"
+> To navigate up one directory level, use "cd .."
+> To navigate to the previous directory (or back), use "cd -"
+> To navigate into the root directory, use "cd /"
+> To navigate through multiple levels of directory at once, specify the full directory path that you want to go to.
+- For example, use "cd ~/OFGT-data/images/" to go directly to the images subdirectory in the OFGT-data folder.
 As another example, "cd ~/Desktop" will move you to the Desktop subdirectory inside your home directory.
 
 

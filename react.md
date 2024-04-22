@@ -12,15 +12,14 @@
   - for `npm` approach `npm install creact-react-app -g` to install globally.
 - navigate to the folder `cd ./react-app-name`
 - after completion, to run the app `npm start`
-- 
-
-
 
 # React Basics
 
 ## Component
-Component describe a part of user interface.
-They are usable and nested inside other components.
+- Client side rendering
+- Component describe a part of user interface.
+- They are usable and nested inside other components.
+- Easy to build mobile applications using react native. No need to learn, java, Kotlin or swift.
 
 *Two types*
 - Stateless functional component
@@ -59,3 +58,4 @@ A[Properties(props)] -- ES6 class --> B[HTML (JSX)]
 
 ### Hooks (2018)
 - Hooks lets us to use state and other react features without writing a class
+
