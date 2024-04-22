@@ -28,6 +28,7 @@
 ### Stateless / Dumb / Presentational / functional component
 - JavaScript functions that return HTML that describes UI
 - Previously App.js was using class. Now changed to funtion.
+- Name of the component should always start with capital case. eg - `function App() {}`
 
 ```mermaid
 graph LR
@@ -56,6 +57,13 @@ A[Properties(props)] -- ES6 class --> B[HTML (JSX)]
   - Complex UI logic
   - Provide lifecycle hooks
 
+### JSX - JavaScript XML allows us to write HTML.
+- Jsx stands for the javascript xml which allows to write the HTML inside the js.
+
 ### Hooks (2018)
 - Hooks lets us to use state and other react features without writing a class
+
+### Props
+- Props are immutable.
+- We can pass strings, arrays, functions from one component to other component, emojis etc.
 
