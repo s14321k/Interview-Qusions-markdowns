@@ -24,6 +24,9 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   - [Life cycle of bean](#life-cycle-of-bean)
     - [Configre the life cycle methods by](#configre-the-life-cycle-methods-by)
 - [JPARepository vs CRUDRepository](#jparepository-vs-crudrepository)
+  - [Java Persistence API Queries](#java-persistence-api-queries)
+  - [Types of Query in @Repository annotated class](#types-of-query-in-repository-annotated-class)
+- [Different ways to perform database transactions](#different-ways-to-perform-database-transactions)
 - [How configuration works in Spring](#how-configuration-works-in-spring)
 - [Is REST API stateless or stateful?](#is-rest-api-stateless-or-stateful)
 - [Spring integration using RestTemplate](#spring-integration-using-resttemplate)
@@ -246,6 +249,362 @@ https://bushansirgur.in/spring-boot-bean-annotation-with-example/
 | JPA Repository | CRUD Repository                                     |                
 |----------------|-----------------------------------------------------|
 | JPA also provides some extra methods related to JPA <br/>such as delete records in batch and flushing data directly to a database.   | It provides only CRUD functions like findOne, saves, etc.               |
+
+### Java Persistence API Queries
+
+- In JPA (Java Persistence API), custom query handling offers flexibility in retrieving data from the database by allowing developers to define queries tailored to specific needs. Here are some common types of custom query handling in JPA:
+
+1. **Named Queries**: Named queries are pre-defined JPQL (Java Persistence Query Language) queries that are declared in entity classes or in XML mapping files. They are referenced by name when executing queries.
+
+   Example:
+
+   ```java
+   @Entity
+   @NamedQuery(name = "User.findByAgeGreaterThan", query = "SELECT u FROM User u WHERE u.age > :age")
+   public class User {
+       // Entity definition
+   }
+   ```
+
+   Usage:
+
+   ```java
+   List<User> users = entityManager.createNamedQuery("User.findByAgeGreaterThan")
+                                  .setParameter("age", 25)
+                                  .getResultList();
+   ```
+
+2. **Dynamic Queries**: Dynamic queries are constructed programmatically based on runtime conditions. Criteria API and QueryDSL are commonly used to build dynamic queries.
+
+   Criteria API Example:
+
+   ```java
+   CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+   CriteriaQuery<User> query = cb.createQuery(User.class);
+   Root<User> root = query.from(User.class);
+   query.select(root).where(cb.gt(root.get("age"), 25));
+   List<User> users = entityManager.createQuery(query).getResultList();
+   ```
+
+3. **Native Queries**: Native queries are SQL queries that are written in the native SQL dialect of the underlying database. They provide flexibility but are less portable across different database systems.
+
+   Example:
+
+   ```java
+   List<Object[]> results = entityManager.createNativeQuery("SELECT * FROM users WHERE age > :age")
+                                          .setParameter("age", 25)
+                                          .getResultList();
+   ```
+
+4. **JPQL (Java Persistence Query Language)**: JPQL is a platform-independent query language that is similar to SQL but operates on entities and their persistent fields.
+
+   Example:
+
+   ```java
+   TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User u WHERE u.age > :age", User.class);
+   List<User> users = query.setParameter("age", 25).getResultList();
+   ```
+
+5. **Criteria API**: The Criteria API provides a type-safe way to build queries dynamically using Java code. It's particularly useful for complex queries and offers compile-time checking.
+
+   Example:
+
+   ```java
+   CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+   CriteriaQuery<User> query = cb.createQuery(User.class);
+   Root<User> root = query.from(User.class);
+   query.select(root).where(cb.gt(root.get("age"), 25));
+   List<User> users = entityManager.createQuery(query).getResultList();
+   ```
+
+These are some of the common approaches for custom query handling in JPA. The choice of approach depends on factors such as complexity, performance, and maintainability of the application.
+
+### Types of Query in @Repository annotated class
+
+1. **Basic Query**:
+   
+   ```java
+   import org.springframework.data.jpa.repository.JpaRepository;
+   import org.springframework.stereotype.Repository;
+   import java.util.List;
+   
+   @Repository
+   public interface UserRepository extends JpaRepository<User, Long> {
+       List<User> findByLastName(String lastName);
+   }
+   ```
+
+   This will generate a query to find users by their last name.
+
+2. **Query with Parameters**:
+
+   ```java
+   import org.springframework.data.jpa.repository.JpaRepository;
+   import org.springframework.stereotype.Repository;
+   import java.util.List;
+   
+   @Repository
+   public interface UserRepository extends JpaRepository<User, Long> {
+       List<User> findByAgeGreaterThan(int age);
+   }
+   ```
+
+   This will generate a query to find users whose age is greater than the provided age.
+
+3. **Custom JPQL Query**:
+
+   ```java
+   import org.springframework.data.jpa.repository.JpaRepository;
+   import org.springframework.stereotype.Repository;
+   import java.util.List;
+   
+   @Repository
+   public interface UserRepository extends JpaRepository<User, Long> {
+       @Query("SELECT u FROM User u WHERE u.age > :age")
+       List<User> findByAgeGreaterThan(@Param("age") int age);
+   }
+   ```
+
+   This defines a custom JPQL query to find users whose age is greater than the provided age.
+
+4. **Native SQL Query**:
+
+   ```java
+   import org.springframework.data.jpa.repository.JpaRepository;
+   import org.springframework.stereotype.Repository;
+   import java.util.List;
+   
+   @Repository
+   public interface UserRepository extends JpaRepository<User, Long> {
+       @Query(value = "SELECT * FROM users WHERE age > ?1", nativeQuery = true)
+       List<User> findByAgeGreaterThan(int age);
+   }
+   ```
+
+   This defines a native SQL query to find users whose age is greater than the provided age.
+
+5. **Query with Sorting**:
+
+   ```java
+   import org.springframework.data.jpa.repository.JpaRepository;
+   import org.springframework.stereotype.Repository;
+   import java.util.List;
+   
+   @Repository
+   public interface UserRepository extends JpaRepository<User, Long> {
+       List<User> findByAgeGreaterThanOrderByLastNameAsc(int age);
+   }
+   ```
+
+   This will generate a query to find users whose age is greater than the provided age, sorted by last name in ascending order.
+
+These examples demonstrate various ways to define queries in a Spring Data JPA repository interface using method naming conventions, JPQL, and native SQL queries.
+
+## Different ways to perform database transactions
+
+- There are several ways to perform database transactions in Java applications, each with its own advantages and use cases. Here are some common methods:
+
+1. **Spring Data JPA with JpaRepository**:
+   
+   Spring Data JPA provides a high-level abstraction over JPA to interact with databases. JpaRepository provides CRUD operations out-of-the-box, and transactions are managed by Spring.
+
+   Example:
+
+   ```java
+   import org.springframework.data.jpa.repository.JpaRepository;
+   import org.springframework.stereotype.Repository;
+   
+   @Repository
+   public interface UserRepository extends JpaRepository<User, Long> {
+   }
+   ```
+
+   Usage:
+
+   ```java
+   @Service
+   public class UserService {
+       @Autowired
+       private UserRepository userRepository;
+       
+       @Transactional
+       public User saveUser(User user) {
+           return userRepository.save(user);
+       }
+   }
+   ```
+
+2. **JdbcTemplate**:
+
+   JdbcTemplate is a part of the Spring JDBC framework which simplifies the use of JDBC and helps to avoid common errors.
+
+   Example:
+
+   ```java
+   import org.springframework.beans.factory.annotation.Autowired;
+   import org.springframework.jdbc.core.JdbcTemplate;
+   import org.springframework.stereotype.Repository;
+   
+   @Repository
+   public class UserRepository {
+       @Autowired
+       private JdbcTemplate jdbcTemplate;
+       
+       public void saveUser(User user) {
+           jdbcTemplate.update("INSERT INTO users (name, age) VALUES (?, ?)", user.getName(), user.getAge());
+       }
+   }
+   ```
+
+3. **Entity Manager with JPA**:
+
+   Using Entity Manager directly allows more fine-grained control over JPA entities and transactions.
+
+   Example:
+
+   ```java
+   import javax.persistence.EntityManager;
+   import javax.persistence.PersistenceContext;
+   import org.springframework.stereotype.Repository;
+   import org.springframework.transaction.annotation.Transactional;
+   
+   @Repository
+   public class UserRepository {
+       @PersistenceContext
+       private EntityManager entityManager;
+       
+       @Transactional
+       public void saveUser(User user) {
+           entityManager.persist(user);
+       }
+   }
+   ```
+
+4. **Criteria API**:
+
+   Criteria API provides a programmatic way to create queries using Java objects rather than writing JPQL or SQL queries.
+
+   Example:
+
+   ```java
+   import javax.persistence.criteria.CriteriaBuilder;
+   import javax.persistence.criteria.CriteriaQuery;
+   import javax.persistence.criteria.Root;
+   import org.springframework.stereotype.Repository;
+   import javax.persistence.EntityManager;
+   import org.springframework.beans.factory.annotation.Autowired;
+   
+   @Repository
+   public class UserRepository {
+       @Autowired
+       private EntityManager entityManager;
+       
+       public List<User> findUsersWithAgeGreaterThan(int age) {
+           CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+           CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+           Root<User> root = criteriaQuery.from(User.class);
+           criteriaQuery.select(root).where(criteriaBuilder.gt(root.get("age"), age));
+           return entityManager.createQuery(criteriaQuery).getResultList();
+       }
+   }
+   ```
+
+- These are some of the common methods for performing database transactions.
+
+- There are several other methods and frameworks available for performing database transactions 
+
+5. **Spring Data JDBC**:
+   
+   Spring Data JDBC provides an alternative to JPA for working with databases. It offers a simpler, more direct approach to database access, particularly suited for simpler data models or when fine-grained control is needed.
+
+   Example:
+
+   ```java
+   import org.springframework.data.jdbc.repository.query.Query;
+   import org.springframework.data.repository.CrudRepository;
+   import org.springframework.stereotype.Repository;
+   
+   @Repository
+   public interface UserRepository extends CrudRepository<User, Long> {
+       @Query("SELECT * FROM users WHERE age > :age")
+       List<User> findByAgeGreaterThan(int age);
+   }
+   ```
+
+6. **MyBatis**:
+
+   MyBatis is a SQL mapping framework that simplifies database interactions by mapping SQL queries to Java methods.
+
+   Example:
+
+   ```java
+   import org.apache.ibatis.annotations.Mapper;
+   import org.apache.ibatis.annotations.Select;
+   import java.util.List;
+   
+   @Mapper
+   public interface UserMapper {
+       @Select("SELECT * FROM users WHERE age > #{age}")
+       List<User> findByAgeGreaterThan(int age);
+   }
+   ```
+
+7. **Hibernate Session API**:
+
+   While JpaRepository provides a high-level abstraction over JPA, you can also work directly with the Hibernate Session API for more control over transactions and queries.
+
+   Example:
+
+   ```java
+   import org.hibernate.Session;
+   import org.springframework.stereotype.Repository;
+   import javax.persistence.EntityManager;
+   import org.springframework.beans.factory.annotation.Autowired;
+   import java.util.List;
+   
+   @Repository
+   public class UserRepository {
+       @Autowired
+       private EntityManager entityManager;
+       
+       public List<User> findUsersWithAgeGreaterThan(int age) {
+           Session session = entityManager.unwrap(Session.class);
+           return session.createQuery("FROM User WHERE age > :age", User.class)
+                         .setParameter("age", age)
+                         .getResultList();
+       }
+   }
+   ```
+
+8. **Spring TransactionTemplate**:
+
+   Spring's TransactionTemplate provides a programmatic way to manage transactions, particularly useful for cases where declarative transaction management is not feasible or sufficient.
+
+   Example:
+
+   ```java
+   import org.springframework.jdbc.core.JdbcTemplate;
+   import org.springframework.transaction.support.TransactionTemplate;
+   import org.springframework.beans.factory.annotation.Autowired;
+   import org.springframework.stereotype.Repository;
+   
+   @Repository
+   public class UserRepository {
+       @Autowired
+       private JdbcTemplate jdbcTemplate;
+       @Autowired
+       private TransactionTemplate transactionTemplate;
+       
+       public void saveUser(User user) {
+           transactionTemplate.execute(status -> {
+               jdbcTemplate.update("INSERT INTO users (name, age) VALUES (?, ?)", user.getName(), user.getAge());
+               return null;
+           });
+       }
+   }
+   ```
+
+These are some additional methods and frameworks for handling database transactions in Java applications.
 
 
 ## How configuration works in Spring
@@ -604,7 +963,7 @@ throws Exception
    - @RestController - 
    - @Service - 
    - @Repository - 
-    - @Query - To write custom quries
+    - @Query - To write custom quries.
     - @Modifing
     - @EntityGraph - ![img.png](images/AnnotationEntityGraph.png)
     - Projection - Creating interface to write particular queries in custom we can use projection.

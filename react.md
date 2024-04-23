@@ -60,10 +60,37 @@ A[Properties(props)] -- ES6 class --> B[HTML (JSX)]
 ### JSX - JavaScript XML allows us to write HTML.
 - Jsx stands for the javascript xml which allows to write the HTML inside the js.
 
+### Fragments <><other tags /></> (empty tag in react)
+- In react when we want to wrap a tags, but we dont want to use div or other tags. In that case we can use fragments.
+
 ### Hooks (2018)
 - Hooks lets us to use state and other react features without writing a class
 
 ### Props
 - Props are immutable.
+- Props are passed to the component from outside component, so it is immutable.
 - We can pass strings, arrays, functions from one component to other component, emojis etc.
+- Props are like parameters passed to a function.
+
+### State
+> **What is a state?**
+- States is an object which holds the information which controls the behaviour of the component.
+- State is like a local variable declared inside function body, so state is mutable.
+- State are mutable, i.e, values can be changed.
+
+> **Why use State?**
+- Props are immutable.
+- Values which can change dynamically.
+- State varable can be string, boolean, object or an array.
+
+> **Rules of State / Hooks**
+- State should be declared on top of the component. Check Message.jsx for refferance.
+- Do not call hook / state inside the loops, conditions or nested functions.
+- Only call hooks from react functions not just any regular js function.
+- State/Hooks does not automaticaly merge the objects.
+
+
+
+
+
 
