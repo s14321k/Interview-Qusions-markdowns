@@ -903,6 +903,8 @@ In summary, the choice between WebClient and Feign depends on your project requi
 
 ## [HandlerInterseptor & Filter](https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter)
 
+[Link From Medium](https://senoritadeveloper.medium.com/filter-vs-interceptor-in-spring-boot-2e49089f682e)
+
 ![img.png](images/SpringMvcLifeCycle.png)
 
 Filters intercept requests before they reach the DispatcherServlet, making them ideal for coarse-grained tasks such as:
@@ -967,15 +969,17 @@ throws Exception
 ![img.png](images/AnnotationGlobalException.png)
 
 ## [Annotations in Spring boot](https://www.javatpoint.com/spring-boot-annotations)
- - @SpringBootApplication - Combination of
-   - @EnableAutoConfiguration -
-   - @Configuration - is a class level annotation.
-   - @ComponentScan(basePackages = "com.hhs")
+ - `@SpringBootApplication` - Combination of
+   - `@EnableAutoConfiguration` -
+   - `@ComponentScan`(basePackages = "com.hhs")
+   - `@Configuration` - is a class level annotation.
+     - `@Bean` - is a method level annotation.
+     - `@Primary` - is annotated on top of bean when the particular bean has to be primary.
  - @Required - Applied at the bean setter method. This should be populated at configuration time with the required property.
  - @Autowired - provides annotation-based autowiring by providing @Autowired.
    - @Qualifier
    - @Primary
- - @Bean - is a method level annotation.
+
  - @Component - 
    - @Controller - 
    - @RestController - 
@@ -1008,6 +1012,8 @@ throws Exception
  - @NoArgsConstructor
  - @AllArgsConstructor
  - @MappedSuperclass   //Acts as a parent class for all other classes id fields
+ - [@Embeddable](https://www.baeldung.com/spring-jpa-embedded-method-parameters#1-embeddable) - Class level annotation
+ - [@EmbeddedId](https://www.baeldung.com/spring-jpa-embedded-method-parameters#2-entity-and-embeddedid) - Method Level Annotation
  - @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_one_generator")
  - @SequenceGenerator(name = "", sequenceName = "", allocationSize = 1)
   
