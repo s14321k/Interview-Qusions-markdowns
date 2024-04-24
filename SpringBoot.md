@@ -903,6 +903,23 @@ In summary, the choice between WebClient and Feign depends on your project requi
 
 ## [HandlerInterseptor & Filter](https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter)
 
+Filters intercept requests before they reach the DispatcherServlet, making them ideal for coarse-grained tasks such as:
+
+```
+Authentication
+Logging and auditing
+Image and data compression
+Any functionality we want to be decoupled from Spring MVC
+```
+
+HandlerIntercepors, on the other hand, intercepts requests between the DispatcherServlet and our Controllers. This is done within the Spring MVC framework, providing access to the Handler and ModelAndView objects. This reduces duplication and allows for more fine-grained functionality such as:
+
+```
+Handling cross-cutting concerns such as application logging
+Detailed authorization checks
+Manipulating the Spring context or model
+```
+
  - [StackOverflow](https://stackoverflow.com/q/35856454)
  - HandlerInterseptor
    - preHandle()
