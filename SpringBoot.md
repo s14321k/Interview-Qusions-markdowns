@@ -903,6 +903,8 @@ In summary, the choice between WebClient and Feign depends on your project requi
 
 ## [HandlerInterseptor & Filter](https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter)
 
+![img.png](images/SpringMvcLifeCycle.png)
+
 Filters intercept requests before they reach the DispatcherServlet, making them ideal for coarse-grained tasks such as:
 
 ```
@@ -954,8 +956,6 @@ throws Exception
 
 }
 ```
-
-![img.png](images/SpringMvcLifeCycle.png)
 
 ## [Exception Handling in Spring boot](https://www.tutorialspoint.com/spring_boot/spring_boot_exception_handling.htm)
 
