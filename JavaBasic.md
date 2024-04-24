@@ -196,6 +196,11 @@
   - [Authentication and Authorization](#authentication-and-authorization)
   - [\[Association, Composition and Aggregation in Java\](https://www.geeksforgeeks.org/association-composition- -java/)](#association-composition-and-aggregation-in-javahttpswwwgeeksforgeeksorgassociation-composition---java)
   - [Arbitrary Number of Arguments and @SafeVarags](#arbitrary-number-of-arguments-and-safevarags)
+  - [Math functions in java](#math-functions-in-java)
+    - [Math.floor](#mathfloor)
+    - [Math.max and Math.min](#mathmax-and-mathmin)
+    - [`Math.max`](#mathmax)
+    - [`Math.min`](#mathmin)
 - [Junit](#junit)
   - [Junit mockito](#junit-mockito)
   - [Java Questions](#java-questions-1)
@@ -2992,6 +2997,110 @@ public final void add(T... toAdd)
 ```
 
 ___
+
+## Math functions in java
+
+The `Math` class in Java provides a wide range of mathematical functions for performing common mathematical operations. Here are some of the most commonly used functions in the `Math` class:
+
+1. **Trigonometric Functions**:
+   - `Math.sin(double a)`: Returns the sine of the specified angle `a` (in radians).
+   - `Math.cos(double a)`: Returns the cosine of the specified angle `a` (in radians).
+   - `Math.tan(double a)`: Returns the tangent of the specified angle `a` (in radians).
+   - `Math.atan(double a)`: Returns the arctangent of the specified value `a` (in radians).
+   - `Math.atan2(double y, double x)`: Returns the angle `theta` (in radians) from the polar coordinate `(r, theta)` to the Cartesian coordinate `(x, y)`.
+   
+2. **Exponential and Logarithmic Functions**:
+   - `Math.exp(double a)`: Returns the exponential value `e^a`.
+   - `Math.log(double a)`: Returns the natural logarithm (base `e`) of the specified value `a`.
+   - `Math.log10(double a)`: Returns the base 10 logarithm of the specified value `a`.
+   
+3. **Power and Root Functions**:
+   - `Math.pow(double base, double exponent)`: Returns the value of `base` raised to the power of `exponent`.
+   - `Math.sqrt(double a)`: Returns the positive square root of the specified value `a`.
+   - `Math.cbrt(double a)`: Returns the cube root of the specified value `a`.
+   
+4. **Rounding Functions**:
+   - `Math.ceil(double a)`: Returns the smallest (closest to negative infinity) double value that is greater than or equal to the argument and is equal to a mathematical integer.
+   - `Math.floor(double a)`: Returns the largest (closest to positive infinity) double value that is less than or equal to the argument and is equal to a mathematical integer.
+   - `Math.round(double a)`: Returns the closest long or int (depending on the argument type) to the specified floating-point value `a`.
+   
+5. **Miscellaneous Functions**:
+   - `Math.abs(int a)`: Returns the absolute value of the specified integer `a`.
+   - `Math.abs(double a)`: Returns the absolute value of the specified double `a`.
+   - `Math.max(int a, int b)`: Returns the greater of two integer values.
+   - `Math.max(double a, double b)`: Returns the greater of two double values.
+   - `Math.min(int a, int b)`: Returns the smaller of two integer values.
+   - `Math.min(double a, double b)`: Returns the smaller of two double values.
+
+These are just some of the functions available in the `Math` class. There are many more functions provided for various mathematical operations. Refer to the Java documentation for a comprehensive list of functions and their descriptions.
+
+### Math.floor
+In Java, the `Math.floor()` method returns the largest (closest to positive infinity) double value that is less than or equal to the argument and is equal to a mathematical integer. In other words, it rounds down the given value to the nearest integer that is less than or equal to it.
+
+Here's the signature of the `Math.floor()` method:
+
+```java
+public static double floor(double a)
+```
+
+- `a`: The value whose floor value needs to be calculated.
+
+And it returns a double value representing the largest (closest to positive infinity) double value that is less than or equal to the argument and is equal to a mathematical integer.
+
+Example usage:
+
+```java
+double result1 = Math.floor(10.5); // result1 is 10.0
+double result2 = Math.floor(10.9); // result2 is 10.0
+double result3 = Math.floor(-10.5); // result3 is -11.0
+double result4 = Math.floor(-10.9); // result4 is -11.0
+```
+
+In the above examples:
+- `Math.floor(10.5)` returns `10.0` because the largest integer less than or equal to `10.5` is `10`.
+- `Math.floor(10.9)` returns `10.0` because the largest integer less than or equal to `10.9` is `10`.
+- `Math.floor(-10.5)` returns `-11.0` because the largest integer less than or equal to `-10.5` is `-11`.
+- `Math.floor(-10.9)` returns `-11.0` because the largest integer less than or equal to `-10.9` is `-11`.
+
+### Math.max and Math.min
+
+`Math.max` and `Math.min` are functions in the `Math` class in Java that allow you to find the maximum and minimum values respectively among two or more numbers.
+
+### `Math.max`
+
+The `Math.max` function takes two arguments (either `int`, `long`, `float`, or `double`) and returns the larger of the two values.
+
+Syntax:
+```java
+public static int max(int a, int b)
+public static long max(long a, long b)
+public static float max(float a, float b)
+public static double max(double a, double b)
+```
+
+Example:
+```java
+int maxValue = Math.max(5, 10); // maxValue will be 10
+```
+
+### `Math.min`
+
+The `Math.min` function takes two arguments (either `int`, `long`, `float`, or `double`) and returns the smaller of the two values.
+
+Syntax:
+```java
+public static int min(int a, int b)
+public static long min(long a, long b)
+public static float min(float a, float b)
+public static double min(double a, double b)
+```
+
+Example:
+```java
+int minValue = Math.min(5, 10); // minValue will be 5
+```
+
+Both `Math.max` and `Math.min` can be used with different data types, and they return the largest or smallest value accordingly. These functions are commonly used when you need to determine the maximum or minimum value between two numbers in Java.
 ***
 
 Yet to do

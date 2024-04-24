@@ -88,6 +88,7 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     - [SaveAndFlush](#saveandflush)
 - [Pagiantion using JPA](#pagiantion-using-jpa)
 - [Dependency Injection](#dependency-injection)
+  - [Pros and Cons in injections](#pros-and-cons-in-injections)
 - [SSO (Single Sign On)](#sso-single-sign-on)
   - [```Single sign on``` with ```Spring security OAuth2``` or ```KeyClock```](#single-sign-on-with-spring-security-oauth2-or-keyclock)
 - [SPRING METHOD SECURITY](#spring-method-security)
@@ -1302,6 +1303,37 @@ When the propagation is Requires_New, spring suspends the current transaction if
 
 ## [Dependency Injection](https://www.javatpoint.com/dependency-injection-in-spring)
 
+> Why dependency injection instead of new key word?
+- Using dependency injection (DI) instead of directly using the `new` keyword to create instances of dependent objects offers several advantages in software development, especially in the context of Spring Boot and other frameworks:
+
+1. **Decoupling and Modularity**:
+   
+   Dependency injection promotes loose coupling between components by separating the creation and management of dependencies from the dependent classes. This makes your code more modular and easier to maintain, as changes to one component do not necessarily affect others.
+
+2. **Inversion of Control (IoC)**:
+   
+   Dependency injection follows the principle of Inversion of Control, where control over the instantiation and management of objects is delegated to an external framework (e.g., Spring framework). This allows for more flexibility and extensibility in your application, as the framework handles the wiring of dependencies based on configuration.
+
+3. **Testability**:
+   
+   Dependency injection facilitates easier testing by enabling the use of mock objects or stubs in place of real dependencies during unit testing. This helps isolate the unit under test and promotes better test coverage and reliability.
+
+4. **Scalability and Reusability**:
+   
+   Dependency injection promotes reusable and scalable code by encouraging the use of interfaces and abstractions. Components can be easily swapped or extended with minimal impact on the rest of the application, making it easier to adapt to changing requirements or scale up the system.
+
+5. **Configuration Management**:
+   
+   Dependency injection allows for centralized configuration of dependencies, typically through configuration files or annotations. This makes it easier to manage and maintain dependencies, especially in large-scale applications with complex object graphs.
+
+6. **Reduced Boilerplate Code**:
+   
+   Dependency injection reduces the amount of boilerplate code needed to manage dependencies manually, such as creating and wiring objects using the `new` keyword. This leads to cleaner, more concise code that focuses on business logic rather than infrastructure concerns.
+
+  Overall, dependency injection promotes better design practices, improves code quality, and enhances the maintainability, testability, and scalability of your applications. While using the `new` keyword directly is sometimes appropriate for simple cases, dependency injection is preferred for larger, more complex applications where modularity, testability, and flexibility are crucial.
+
+> Explaining dependency injection
+
 Dependency Injection (DI) is a design pattern that removes the dependency from the programming code so that it can be easy to manage and test the application.
 Dependency Injection makes our programming code loosely coupled.
 
@@ -1400,6 +1432,81 @@ In Spring Boot, dependency injection is a fundamental concept that helps manage 
       ```
 
 Remember to use dependency injection in Spring Boot to achieve loose coupling and to make your code more maintainable, testable, and scalable. The choice of which type of dependency injection to use depends on your specific use case and coding style, but constructor injection is generally considered a best practice.
+
+### Pros and Cons in injections
+
+- In Spring Boot (and Spring framework in general), there are several ways to inject dependencies into your beans, each with its own advantages and use cases:
+
+1. **Setter Injection**:
+
+   Setter injection involves injecting dependencies using setter methods. Spring uses reflection to call the setter method with the specified dependency.
+
+   Example:
+
+   ```java
+   public class UserService {
+       private UserRepository userRepository;
+   
+       public void setUserRepository(UserRepository userRepository) {
+           this.userRepository = userRepository;
+       }
+   }
+   ```
+
+   Advantages:
+   - Provides flexibility as dependencies can be changed at runtime.
+   - Suitable for optional dependencies.
+
+   Disadvantages:
+   - Can lead to inconsistent state if not all dependencies are set.
+   - Dependencies are mutable after initialization.
+
+2. **Constructor Injection**:
+
+   Constructor injection involves passing dependencies via a constructor. Dependencies are provided as arguments to the constructor when creating an instance of the bean.
+
+   Example:
+
+   ```java
+   public class UserService {
+       private final UserRepository userRepository;
+   
+       public UserService(UserRepository userRepository) {
+           this.userRepository = userRepository;
+       }
+   }
+   ```
+
+   Advantages:
+   - Ensures that all dependencies are set at object creation, leading to better object consistency.
+   - Dependencies are immutable after initialization, promoting thread safety.
+
+   Disadvantages:
+   - Can lead to verbose constructors, especially for classes with many dependencies.
+   - May require changes to existing code if new dependencies are introduced.
+
+3. **@Autowired Annotation**:
+
+   The `@Autowired` annotation is used to automatically inject dependencies into Spring-managed beans. Spring scans for beans of the required type and injects them into the annotated fields, methods, or constructors.
+
+   Example:
+
+   ```java
+   public class UserService {
+       @Autowired
+       private UserRepository userRepository;
+   }
+   ```
+
+   Advantages:
+   - Concise and convenient, reducing boilerplate code.
+   - Supports field, setter, and constructor injection.
+
+   Disadvantages:
+   - May lead to hidden dependencies and decrease code readability if overused.
+   - Less control over dependency initialization compared to constructor injection.
+
+In general, constructor injection is considered a best practice as it promotes immutability and ensures that dependencies are set at object creation time, leading to better object consistency. However, both setter injection and `@Autowired` annotation have their use cases, especially for optional or dynamic dependencies. Ultimately, the choice between these injection methods depends on factors such as readability, maintainability, and specific requirements of your application.
 
 ## SSO (Single Sign On)
 

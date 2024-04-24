@@ -89,8 +89,3 @@ A[Properties(props)] -- ES6 class --> B[HTML (JSX)]
 - Only call hooks from react functions not just any regular js function.
 - State/Hooks does not automaticaly merge the objects.
 
-
-
-
-
-
