@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="modifications">
-      <change afterPath="$PROJECT_DIR$/react.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular Interview Questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/Angular Interview Questions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaBasic.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaBasic.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.md" beforeDir="false" afterPath="$PROJECT_DIR$/react.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +77,7 @@
       <workItem from="1713180656564" duration="9386000" />
       <workItem from="1713257747113" duration="27350000" />
       <workItem from="1713441953709" duration="114000" />
+      <workItem from="1714031281220" duration="186000" />
     </task>
     <task id="LOCAL-00001" summary="added points and restructured the points">
       <option name="closed" value="true" />
