@@ -1,16 +1,16 @@
 <!-- TOC -->
-* [React](#react)
-  * [Install](#install-)
-  * [Create React App](#create-react-app)
-* [React Basics](#react-basics)
-  * [Component](#component)
-    * [Stateless / Dumb / Presentational / functional component](#stateless--dumb--presentational--functional-component)
-    * [Stateful / Smart / Container / class component](#stateful--smart--container--class-component)
-    * [JSX - JavaScript XML allows us to write HTML.](#jsx---javascript-xml-allows-us-to-write-html)
-    * [Fragments <><other tags /></> (empty tag in react)](#fragments-other-tags--empty-tag-in-react)
-    * [Hooks (2018)](#hooks-2018)
-    * [Props](#props)
-    * [State](#state)
+- [React](#react)
+  - [Install](#install)
+  - [Create React App](#create-react-app)
+- [React Basics](#react-basics)
+  - [Component](#component)
+    - [Stateless / Dumb / Presentational / functional component](#stateless--dumb--presentational--functional-component)
+    - [Stateful / Smart / Container / class component](#stateful--smart--container--class-component)
+    - [JSX - JavaScript XML allows us to write HTML.](#jsx---javascript-xml-allows-us-to-write-html)
+    - [Fragments \<\>\</\> (empty tag in react)](#fragments--empty-tag-in-react)
+    - [Hooks (2018)](#hooks-2018)
+    - [Props](#props)
+    - [State](#state)
 <!-- TOC -->
 
 # React
@@ -94,8 +94,8 @@ A[Properties(props)] -- ES6 class --> B[HTML (JSX)]
 
 > **Why use State?**
 - Props are immutable.
-- Values which can change dynamically.
-- State varable can be string, boolean, object or an array.
+- Values can change dynamically inside state where it is called inside.
+- State variable can be string, boolean, object or an array.
 
 > **Rules of State / Hooks**
 - State should be declared on top of the component. Check Message.jsx for refferance.

@@ -5,11 +5,9 @@
 
 ---
 
-
-
-
 …or create a new repository on the command line
 echo "# Sarath69Kumar.github.io" >> README.md
+```
 git init
 git add README.md
 git commit -m "first commit"
@@ -20,12 +18,12 @@ git push -u origin main
 git remote add origin https://github.com/Sarath69Kumar/Sarath69Kumar.github.io.git
 git branch -M main
 git push -u origin main
-
+```
 
 
 
 If commit can't be done
-Delete index.lock in-->repositoryFolder/.git/index.lock
+`Delete index.lock in-->repositoryFolder/.git/index.lock`
 
 https://www.earthdatascience.org/courses/intro-to-earth-data-science/open-reproducible-science/bash/bash-commands-to-manage-directories-files/
 
@@ -34,7 +32,7 @@ https://www.geeksforgeeks.org/working-on-git-bash/#:~:text=Step%201%3A%20Go%20to
 https://www.atlassian.com/git/tutorials/merging-vs-rebasing#workflow-walkthrough
 
 First time opening Bash:
-
+```
 SARATH-555@SARATH-555 MINGW64 ~
 $ ls
 '3D Objects'/         IntelGraphicsProfiles/                                                                         NetHood@        Templates@
@@ -49,8 +47,7 @@ Favorites/           NTUSER.DAT{53b39e88-18c4-11ea-a811-000d3aa4692b}.TMContaine
 
 SARATH-555@SARATH-555 MINGW64 ~
 $ cd OneDrive/ECLIPSE/'JEE Struts'/
-
-
+```
 
 Directory Commamnds
 > To navigate to your home directory, use "cd" or "cd ~"
@@ -71,13 +68,13 @@ Directory Commamnds
 To remove files
 In the command-line, navigate to your local repository.
 Ensure you are in the default branch:
-$ git checkout master
+`$ git checkout master`
 The rm -r command will recursively remove your folder:
-$ git rm -r folder-name
+`$ git rm -r folder-name`
 Commit the change:
-$ git commit -m "Remove duplicated directory"
+`$ git commit -m "Remove duplicated directory"`
 Push the change to your remote repository:
-git push origin master
+`git push origin master`
 
 
 rename a file
@@ -88,9 +85,10 @@ rename a file
 	$ git commit -m "Name changed"
 
 To Add a file
-$ git add 'file name'
-$ git commit -m 'file name'
-$ git push
+
+	$ git add 'file name'
+	$ git commit -m 'file name'
+	$ git push
 
 To Roll Back commit
 git reset --hard HEAD~1 	it will get you back 1 commit
@@ -102,7 +100,7 @@ SSH creation
 
 stack overflow --> https://stackoverflow.com/questions/32910928/ssh-keygen-no-such-file-or-directory
 
-//https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key
 
 --open gitbash
 ```
