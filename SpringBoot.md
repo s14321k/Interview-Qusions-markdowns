@@ -6,142 +6,154 @@ https://www.digitalocean.com/community/tutorials/spring-bean-scopes
 https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 
 <!-- TOC -->
-  * [Top 15 Q&A](#top-15-qa)
-  * [Difference between spring and spring boot?](#difference-between-spring-and-spring-boot)
-  * [Spring Boot Profiles](#spring-boot-profiles)
-  * [Mention the need for it.](#mention-the-need-for-it)
-  * [Features of spring boot](#features-of-spring-boot)
-  * [Possible sources of external configuration](#possible-sources-of-external-configuration)
-  * [Optimizing Spring boot](#optimizing-spring-boot)
-  * [Attributes in spring](#attributes-in-spring)
-  * [@Component, @Bean, @Configuration](#component-bean-configuration)
-    * [@Configuration](#configuration)
-    * [Class Declaration](#class-declaration)
-    * [@Bean Scope](#bean-scope)
-    * [Collabrator](#collabrator)
-    * [Traditional Approach](#traditional-approach)
-    * [Bean Configuration](#bean-configuration)
-    * [Life cycle of bean](#life-cycle-of-bean)
-      * [Configre the life cycle methods by](#configre-the-life-cycle-methods-by)
-  * [JPARepository vs CRUDRepository](#jparepository-vs-crudrepository)
-    * [Java Persistence API Queries](#java-persistence-api-queries)
-    * [Types of Query in @Repository annotated class](#types-of-query-in-repository-annotated-class)
-  * [Different ways to perform database transactions](#different-ways-to-perform-database-transactions)
-  * [How configuration works in Spring](#how-configuration-works-in-spring)
-  * [Is REST API stateless or stateful?](#is-rest-api-stateless-or-stateful)
-  * [Spring integration using RestTemplate](#spring-integration-using-resttemplate-)
-    * [To Make GET Requests](#to-make-get-requests)
-  * [Spring integration using WebClient](#spring-integration-using-webclient)
-    * [The `WebClient`](#the-webclient-)
-    * [1. Creating a `WebClient` Instance:](#1-creating-a-webclient-instance)
-      * [Builder Pattern:](#builder-pattern)
-    * [2. Building and Executing Requests:](#2-building-and-executing-requests)
-      * [HTTP Methods:](#http-methods)
-      * [URI Configuration:](#uri-configuration)
-      * [Request Headers:](#request-headers)
-      * [Request Body:](#request-body)
-    * [3. Retrieving and Handling Responses:](#3-retrieving-and-handling-responses)
-      * [Retrieving the Response Body:](#retrieving-the-response-body)
-      * [Handling the Response Body:](#handling-the-response-body)
-    * [4. Handling Errors:](#4-handling-errors)
-      * [Error Handling:](#error-handling)
-    * [5. Additional Configurations:](#5-additional-configurations)
-      * [Request Configuration:](#request-configuration)
-      * [Timeout Configuration:](#timeout-configuration)
-    * [6. Building and Executing Requests Asynchronously (Reactive Model):](#6-building-and-executing-requests-asynchronously-reactive-model)
-      * [Reactive APIs:](#reactive-apis)
-      * [Reactive Stream Support:](#reactive-stream-support)
-    * [7. Customization and Extensibility:](#7-customization-and-extensibility)
-      * [Customization:](#customization)
-    * [Example:](#example)
-  * [WebClient vs FiegnClient](#webclient-vs-fiegnclient)
-    * [WebClient:](#webclient)
-    * [Feign:](#feign)
-    * [Choosing Between WebClient and Feign:](#choosing-between-webclient-and-feign)
-    * [RestClient(Spring 6)](#restclient--spring-6-)
-  * [Spring Boot Architecture](#spring-boot-architecture)
-  * [Spring Architecture](#spring-architecture)
-  * [HandlerInterseptor & Filter](#handlerinterseptor--filter)
-  * [Exception Handling in Spring boot](#exception-handling-in-spring-boot)
-      * [@ControllerAdvice](#controlleradvice)
-      * [@ExceptionHandler](#exceptionhandler)
-  * [Annotations in Spring boot](#annotations-in-spring-boot)
-  * [MongoRelated Annotations](#mongorelated-annotations)
-  * [Entity or Model Annotations](#entity-or-model-annotations)
-  * [@Qualifier, @Primary, @Autowired, @Required](#qualifier-primary-autowired-required)
-    * [@Qualifier](#qualifier)
-    * [@Primary](#primary)
-    * [@Autowired](#autowired)
-      * [Autowiring is of 4 types in spring](#autowiring-is-of-4-types-in-spring)
-      * [**Field Injection:**](#field-injection)
-      * [**Method Injection:**](#method-injection)
-      * [**Constructor Injection:**](#constructor-injection)
-      * [**Qualifier Annotation:**](#qualifier-annotation)
-      * [**Optional Annotation:**](#optional-annotation)
-  * [@Controller vs @RestController](#controller-vs-restcontroller)
-    * [@Controller](#controller)
-    * [@RestController](#restcontroller)
-  * [@Transactional](#transactional)
-    * [@Transactional propagation isolation](#transactional-propagation-isolation)
-      * [@Transactional(propagation = Propagation.REQUIRED)](#transactionalpropagation--propagationrequired)
-      * [@Transactional(propagation = Propagation.REQUIRES_NEW)](#transactionalpropagation--propagationrequires_new)
-      * [SaveAndFlush](#saveandflush)
-  * [Pagiantion using JPA](#pagiantion-using-jpa)
-  * [Dependency Injection](#dependency-injection)
-    * [Pros and Cons in injections](#pros-and-cons-in-injections)
-  * [SSO (Single Sign On)](#sso-single-sign-on)
-    * [```Single sign on``` with ```Spring security OAuth2``` or ```KeyClock```](#single-sign-on-with-spring-security-oauth2-or-keyclock)
-  * [SPRING METHOD SECURITY](#spring-method-security)
-  * [AOP (Aspect-Oriented Programming)](#aop-aspect-oriented-programming-)
-  * [(Projections and Aggregations)[https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html]](#projections-and-aggregationshttpswwwjavaprogramtocom202005spring-boot-data-mongodb-projections-aggregationshtml)
-  * [Role Based Authorizations](#role-based-authorizations)
-  * [GateWay](#gateway)
-  * [Authorization Tutorial](#authorization-tutorial)
-  * [Load Balancing](#load-balancing)
-  * [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
-  * [Spring boot vs Spring Webflux](#spring-boot-vs-spring-webflux)
-  * [Spring Boot Questions](#spring-boot-questions)
+
+- [Top 15 Q\&A](#top-15-qa)
+- [Difference between spring and spring boot?](#difference-between-spring-and-spring-boot)
+- [Spring Boot Profiles](#spring-boot-profiles)
+- [Mention the need for it.](#mention-the-need-for-it)
+- [Features of spring boot](#features-of-spring-boot)
+- [Possible sources of external configuration](#possible-sources-of-external-configuration)
+- [Optimizing Spring boot](#optimizing-spring-boot)
+- [Spring Boot design patterns](#spring-boot-design-patterns)
+- [Attributes in spring](#attributes-in-spring)
+- [@Component, @Bean, @Configuration](#component-bean-configuration)
+  - [@Configuration](#configuration)
+  - [Class Declaration](#class-declaration)
+  - [@Bean Scope](#bean-scope)
+  - [Collabrator](#collabrator)
+  - [Traditional Approach](#traditional-approach)
+  - [Bean Configuration](#bean-configuration)
+  - [Life cycle of bean](#life-cycle-of-bean)
+    - [Configre the life cycle methods by](#configre-the-life-cycle-methods-by)
+- [JPARepository vs CRUDRepository](#jparepository-vs-crudrepository)
+  - [Java Persistence API Queries](#java-persistence-api-queries)
+  - [Types of Query in @Repository annotated class](#types-of-query-in-repository-annotated-class)
+- [Different ways to perform database transactions](#different-ways-to-perform-database-transactions)
+- [How configuration works in Spring](#how-configuration-works-in-spring)
+- [Is REST API stateless or stateful?](#is-rest-api-stateless-or-stateful)
+- [Spring integration using RestTemplate](#spring-integration-using-resttemplate)
+  - [To Make GET Requests](#to-make-get-requests)
+- [Spring integration using WebClient](#spring-integration-using-webclient)
+  - [The `WebClient`](#the-webclient)
+  - [1. Creating a `WebClient` Instance:](#1-creating-a-webclient-instance)
+    - [Builder Pattern:](#builder-pattern)
+  - [2. Building and Executing Requests:](#2-building-and-executing-requests)
+    - [HTTP Methods:](#http-methods)
+    - [URI Configuration:](#uri-configuration)
+    - [Request Headers:](#request-headers)
+    - [Request Body:](#request-body)
+  - [3. Retrieving and Handling Responses:](#3-retrieving-and-handling-responses)
+    - [Retrieving the Response Body:](#retrieving-the-response-body)
+    - [Handling the Response Body:](#handling-the-response-body)
+  - [4. Handling Errors:](#4-handling-errors)
+    - [Error Handling:](#error-handling)
+  - [5. Additional Configurations:](#5-additional-configurations)
+    - [Request Configuration:](#request-configuration)
+    - [Timeout Configuration:](#timeout-configuration)
+  - [6. Building and Executing Requests Asynchronously (Reactive Model):](#6-building-and-executing-requests-asynchronously-reactive-model)
+    - [Reactive APIs:](#reactive-apis)
+    - [Reactive Stream Support:](#reactive-stream-support)
+  - [7. Customization and Extensibility:](#7-customization-and-extensibility)
+    - [Customization:](#customization)
+  - [Example:](#example)
+- [WebClient vs FiegnClient](#webclient-vs-fiegnclient)
+  - [WebClient:](#webclient)
+  - [Feign:](#feign)
+  - [Choosing Between WebClient and Feign:](#choosing-between-webclient-and-feign)
+  - [RestClient(Spring 6)](#restclientspring-6)
+- [Spring Boot Architecture](#spring-boot-architecture)
+- [Spring Architecture](#spring-architecture)
+- [HandlerInterseptor \& Filter](#handlerinterseptor--filter)
+- [Exception Handling in Spring boot](#exception-handling-in-spring-boot)
+    - [@ControllerAdvice](#controlleradvice)
+    - [@ExceptionHandler](#exceptionhandler)
+- [Annotations in Spring boot](#annotations-in-spring-boot)
+- [MongoRelated Annotations](#mongorelated-annotations)
+- [Entity or Model Annotations](#entity-or-model-annotations)
+- [@Qualifier, @Primary, @Autowired, @Required](#qualifier-primary-autowired-required)
+  - [@Qualifier](#qualifier)
+  - [@Primary](#primary)
+  - [@Autowired](#autowired)
+    - [Autowiring is of 4 types in spring](#autowiring-is-of-4-types-in-spring)
+    - [**Field Injection:**](#field-injection)
+    - [**Method Injection:**](#method-injection)
+    - [**Constructor Injection:**](#constructor-injection)
+    - [**Qualifier Annotation:**](#qualifier-annotation)
+    - [**Optional Annotation:**](#optional-annotation)
+- [@Controller vs @RestController](#controller-vs-restcontroller)
+  - [@Controller](#controller)
+  - [@RestController](#restcontroller)
+- [@Transactional](#transactional)
+  - [@Transactional propagation isolation](#transactional-propagation-isolation)
+    - [@Transactional(propagation = Propagation.REQUIRED)](#transactionalpropagation--propagationrequired)
+    - [@Transactional(propagation = Propagation.REQUIRES\_NEW)](#transactionalpropagation--propagationrequires_new)
+    - [SaveAndFlush](#saveandflush)
+- [Pagiantion using JPA](#pagiantion-using-jpa)
+- [Dependency Injection](#dependency-injection)
+  - [Pros and Cons in injections](#pros-and-cons-in-injections)
+- [SSO (Single Sign On)](#sso-single-sign-on)
+  - [`Single sign on` with `Spring security OAuth2` or `KeyClock`](#single-sign-on-with-spring-security-oauth2-or-keyclock)
+- [SPRING METHOD SECURITY](#spring-method-security)
+- [AOP (Aspect-Oriented Programming)](#aop-aspect-oriented-programming)
+- [(Projections and Aggregations)\[https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html\]](#projections-and-aggregationshttpswwwjavaprogramtocom202005spring-boot-data-mongodb-projections-aggregationshtml)
+- [Role Based Authorizations](#role-based-authorizations)
+- [GateWay](#gateway)
+- [Authorization Tutorial](#authorization-tutorial)
+- [Load Balancing](#load-balancing)
+- [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
+- [Spring boot vs Spring Webflux](#spring-boot-vs-spring-webflux)
+- [Spring Boot Questions](#spring-boot-questions)
 <!-- TOC -->
 
 ## [Top 15 Q&A](https://www.java67.com/2018/06/top-15-spring-boot-interview-questions-answers-java-jee-programmers.html)
 
 ## Difference between spring and spring boot?
 
-| Sping                                                            | Spring boot        |                
-|------------------------------------------------------------------|--------------------|
-| Frame work                                                       | module of spring   |
-| provides tools and libraries  <br/> to create customised web app | Spring app project |
-| more complex                                                     | less complex       |
+| Sping                                                           | Spring boot        |
+| --------------------------------------------------------------- | ------------------ |
+| Frame work                                                      | module of spring   |
+| provides tools and libraries <br/> to create customised web app | Spring app project |
+| more complex                                                    | less complex       |
 
 ## [Spring Boot Profiles](https://medium.com/javarevisited/getting-started-with-spring-boot-profiles-1e00159f0542#:~:text=Profiles%20in%20Spring%20Boot%20are,configurations%20for%20your%20production%20environment.)
- - Profiles in Spring Boot are a way to define different sets of configurations for your application depending on the environment it is being run in. For example, you might have one set of configurations for your development environment and another set of configurations for your production environment. These configurations might include things like database settings (i want to use a database for tests and another for dev purposes ), Bean Creation (ex : i want a bean to be created only if I’m in the development process it’s possible with profiles ).
- - Profiles can be defined using property files, YAML files, or even Java code. By default, Spring Boot will use the “default” profile if no other profile is specified. To activate a profile, you can set the “spring.profiles.active” property to the name of the profile you want to use.
- - Create different properties files for each environment
- - `spring.profiles.active=dev`
- - Use meaningful profile names: Use profile names that clearly indicate the environment they are intended for (e.g. “local” ,“dev”, “prod”, “test”, “qa”).
+
+- Profiles in Spring Boot are a way to define different sets of configurations for your application depending on the environment it is being run in. For example, you might have one set of configurations for your development environment and another set of configurations for your production environment. These configurations might include things like database settings (i want to use a database for tests and another for dev purposes ), Bean Creation (ex : i want a bean to be created only if I’m in the development process it’s possible with profiles ).
+- Profiles can be defined using property files, YAML files, or even Java code. By default, Spring Boot will use the “default” profile if no other profile is specified. To activate a profile, you can set the “spring.profiles.active” property to the name of the profile you want to use.
+- Create different properties files for each environment
+- `spring.profiles.active=dev`
+- Use meaningful profile names: Use profile names that clearly indicate the environment they are intended for (e.g. “local” ,“dev”, “prod”, “test”, “qa”).
 
 ## Mention the need for it.
+
 - Stand alone app
 - Auto dependency
-- Embedded  http servers
+- Embedded http servers
 - Auto configuration
-- Reduce developers  effort
+- Reduce developers effort
 - Reducing boiler plate code
 
 ## Features of spring boot
+
 - Starter dependency
 - Spring initializer
 - Spring actuator
 - Logging and security
 
 ## Possible sources of external configuration
+
 - Application properties
 - Command line properties
 - Profile specific properties
 
 ## [Optimizing Spring boot](https://medium.com/@harshgajjar7110/supercharge-your-spring-boot-app-5-proven-tactics-to-optimize-performance-and-boost-speed-3e4309761358)
 
+## Spring Boot design patterns
+
+- Singleton design pattern
+- DI (Dependency injection design pattern)
+
 ## Attributes in spring
+
 - @Autowired to create instance of interface class
 - @ModelAttribute("location") Location location, ModelMap map)
 - @PathVariable
@@ -151,15 +163,18 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 ### @Configuration
 
 https://www.digitalocean.com/community/tutorials/spring-configuration-annotation
-- Spring @Configuration annotation is part of the spring core framework. 
-- Spring Configuration annotation indicates that the class has @Bean definition methods. 
+
+- Spring @Configuration annotation is part of the spring core framework.
+- Spring Configuration annotation indicates that the class has @Bean definition methods.
 - So Spring container can process the class and generate Spring Beans to be used in the application
+
 ### Class Declaration
+
 ```
-  public class Company 
+  public class Company
   {
       private Address address;
-    
+
       public Company(Address address) {
       this.address = address;
       }
@@ -170,19 +185,20 @@ https://www.digitalocean.com/community/tutorials/spring-configuration-annotation
 
 ### @Bean Scope
 
-***singleton*** - only one instance of the spring bean will be created for the spring container. This is the default spring bean scope. While using this scope, make sure bean doesn’t have shared instance variables otherwise it might lead to data inconsistency issues.
+**_singleton_** - only one instance of the spring bean will be created for the spring container. This is the default spring bean scope. While using this scope, make sure bean doesn’t have shared instance variables otherwise it might lead to data inconsistency issues.
 
-***prototype*** – A new instance will be created every time the bean is requested from the spring container.
+**_prototype_** – A new instance will be created every time the bean is requested from the spring container.
 
-***request*** – This is same as prototype scope, however it’s meant to be used for web applications. A new instance of the bean will be created for each HTTP request.
+**_request_** – This is same as prototype scope, however it’s meant to be used for web applications. A new instance of the bean will be created for each HTTP request.
 
-***session*** – A new bean will be created for each HTTP session by the container.
+**_session_** – A new bean will be created for each HTTP session by the container.
 
-***global-session*** – This is used to create global session beans for Portlet applications.
+**_global-session_** – This is used to create global session beans for Portlet applications.
 
 ### Collabrator
+
 ```
-public class Address 
+public class Address
 {
     private String street;
     private int number;
@@ -211,21 +227,22 @@ First off, let's decorate the Company class with the @Component annotation:
 
 ```java
 @Component
-public class Company 
+public class Company
 {
 // this body is the same as before
 }
 ```
+
 Here's a configuration class supplying bean metadata to an IoC(Inversion of control) container:
 
 ```java
 @Configuration
 @ComponentScan(basePackageClasses = Company.class)
-public class Config 
+public class Config
 {
 
     @Bean
-    public Address getAddress() 
+    public Address getAddress()
     {
         return new Address("High Street", 1000);
     }
@@ -233,23 +250,24 @@ public class Config
 ```
 
 ### Life cycle of bean
+
 - The lifecycle of any object means when & how it is born, how it behaves throughout its life, and when & how it dies. Similarly, the bean life cycle refers to when & how the bean is instantiated, what action it performs until it lives, and when & how it is destroyed. In this article, we will discuss the life cycle of the bean.
 
-
 - ![img_17.png](images/img_17.png)
+
 #### Configre the life cycle methods by
+
 1. XML configuration
 2. Spring Interfaces
 3. Annotations
 
 https://bushansirgur.in/spring-boot-bean-annotation-with-example/
 
-
 ## JPARepository vs CRUDRepository
 
-| JPA Repository | CRUD Repository                                     |                
-|----------------|-----------------------------------------------------|
-| JPA also provides some extra methods related to JPA <br/>such as delete records in batch and flushing data directly to a database.   | It provides only CRUD functions like findOne, saves, etc.               |
+| JPA Repository                                                                                                                     | CRUD Repository                                           |
+| ---------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| JPA also provides some extra methods related to JPA <br/>such as delete records in batch and flushing data directly to a database. | It provides only CRUD functions like findOne, saves, etc. |
 
 ### Java Persistence API Queries
 
@@ -323,12 +341,12 @@ These are some of the common approaches for custom query handling in JPA. The ch
 ### Types of Query in @Repository annotated class
 
 1. **Basic Query**:
-   
+
    ```java
    import org.springframework.data.jpa.repository.JpaRepository;
    import org.springframework.stereotype.Repository;
    import java.util.List;
-   
+
    @Repository
    public interface UserRepository extends JpaRepository<User, Long> {
        List<User> findByLastName(String lastName);
@@ -343,7 +361,7 @@ These are some of the common approaches for custom query handling in JPA. The ch
    import org.springframework.data.jpa.repository.JpaRepository;
    import org.springframework.stereotype.Repository;
    import java.util.List;
-   
+
    @Repository
    public interface UserRepository extends JpaRepository<User, Long> {
        List<User> findByAgeGreaterThan(int age);
@@ -358,7 +376,7 @@ These are some of the common approaches for custom query handling in JPA. The ch
    import org.springframework.data.jpa.repository.JpaRepository;
    import org.springframework.stereotype.Repository;
    import java.util.List;
-   
+
    @Repository
    public interface UserRepository extends JpaRepository<User, Long> {
        @Query("SELECT u FROM User u WHERE u.age > :age")
@@ -374,7 +392,7 @@ These are some of the common approaches for custom query handling in JPA. The ch
    import org.springframework.data.jpa.repository.JpaRepository;
    import org.springframework.stereotype.Repository;
    import java.util.List;
-   
+
    @Repository
    public interface UserRepository extends JpaRepository<User, Long> {
        @Query(value = "SELECT * FROM users WHERE age > ?1", nativeQuery = true)
@@ -390,7 +408,7 @@ These are some of the common approaches for custom query handling in JPA. The ch
    import org.springframework.data.jpa.repository.JpaRepository;
    import org.springframework.stereotype.Repository;
    import java.util.List;
-   
+
    @Repository
    public interface UserRepository extends JpaRepository<User, Long> {
        List<User> findByAgeGreaterThanOrderByLastNameAsc(int age);
@@ -406,7 +424,7 @@ These examples demonstrate various ways to define queries in a Spring Data JPA r
 - There are several ways to perform database transactions in Java applications, each with its own advantages and use cases. Here are some common methods:
 
 1. **Spring Data JPA with JpaRepository**:
-   
+
    Spring Data JPA provides a high-level abstraction over JPA to interact with databases. JpaRepository provides CRUD operations out-of-the-box, and transactions are managed by Spring.
 
    Example:
@@ -414,7 +432,7 @@ These examples demonstrate various ways to define queries in a Spring Data JPA r
    ```java
    import org.springframework.data.jpa.repository.JpaRepository;
    import org.springframework.stereotype.Repository;
-   
+
    @Repository
    public interface UserRepository extends JpaRepository<User, Long> {
    }
@@ -427,7 +445,7 @@ These examples demonstrate various ways to define queries in a Spring Data JPA r
    public class UserService {
        @Autowired
        private UserRepository userRepository;
-       
+
        @Transactional
        public User saveUser(User user) {
            return userRepository.save(user);
@@ -445,12 +463,12 @@ These examples demonstrate various ways to define queries in a Spring Data JPA r
    import org.springframework.beans.factory.annotation.Autowired;
    import org.springframework.jdbc.core.JdbcTemplate;
    import org.springframework.stereotype.Repository;
-   
+
    @Repository
    public class UserRepository {
        @Autowired
        private JdbcTemplate jdbcTemplate;
-       
+
        public void saveUser(User user) {
            jdbcTemplate.update("INSERT INTO users (name, age) VALUES (?, ?)", user.getName(), user.getAge());
        }
@@ -468,12 +486,12 @@ These examples demonstrate various ways to define queries in a Spring Data JPA r
    import javax.persistence.PersistenceContext;
    import org.springframework.stereotype.Repository;
    import org.springframework.transaction.annotation.Transactional;
-   
+
    @Repository
    public class UserRepository {
        @PersistenceContext
        private EntityManager entityManager;
-       
+
        @Transactional
        public void saveUser(User user) {
            entityManager.persist(user);
@@ -494,12 +512,12 @@ These examples demonstrate various ways to define queries in a Spring Data JPA r
    import org.springframework.stereotype.Repository;
    import javax.persistence.EntityManager;
    import org.springframework.beans.factory.annotation.Autowired;
-   
+
    @Repository
    public class UserRepository {
        @Autowired
        private EntityManager entityManager;
-       
+
        public List<User> findUsersWithAgeGreaterThan(int age) {
            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
            CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
@@ -512,10 +530,10 @@ These examples demonstrate various ways to define queries in a Spring Data JPA r
 
 - These are some of the common methods for performing database transactions.
 
-- There are several other methods and frameworks available for performing database transactions 
+- There are several other methods and frameworks available for performing database transactions
 
 5. **Spring Data JDBC**:
-   
+
    Spring Data JDBC provides an alternative to JPA for working with databases. It offers a simpler, more direct approach to database access, particularly suited for simpler data models or when fine-grained control is needed.
 
    Example:
@@ -524,7 +542,7 @@ These examples demonstrate various ways to define queries in a Spring Data JPA r
    import org.springframework.data.jdbc.repository.query.Query;
    import org.springframework.data.repository.CrudRepository;
    import org.springframework.stereotype.Repository;
-   
+
    @Repository
    public interface UserRepository extends CrudRepository<User, Long> {
        @Query("SELECT * FROM users WHERE age > :age")
@@ -542,7 +560,7 @@ These examples demonstrate various ways to define queries in a Spring Data JPA r
    import org.apache.ibatis.annotations.Mapper;
    import org.apache.ibatis.annotations.Select;
    import java.util.List;
-   
+
    @Mapper
    public interface UserMapper {
        @Select("SELECT * FROM users WHERE age > #{age}")
@@ -562,12 +580,12 @@ These examples demonstrate various ways to define queries in a Spring Data JPA r
    import javax.persistence.EntityManager;
    import org.springframework.beans.factory.annotation.Autowired;
    import java.util.List;
-   
+
    @Repository
    public class UserRepository {
        @Autowired
        private EntityManager entityManager;
-       
+
        public List<User> findUsersWithAgeGreaterThan(int age) {
            Session session = entityManager.unwrap(Session.class);
            return session.createQuery("FROM User WHERE age > :age", User.class)
@@ -588,14 +606,14 @@ These examples demonstrate various ways to define queries in a Spring Data JPA r
    import org.springframework.transaction.support.TransactionTemplate;
    import org.springframework.beans.factory.annotation.Autowired;
    import org.springframework.stereotype.Repository;
-   
+
    @Repository
    public class UserRepository {
        @Autowired
        private JdbcTemplate jdbcTemplate;
        @Autowired
        private TransactionTemplate transactionTemplate;
-       
+
        public void saveUser(User user) {
            transactionTemplate.execute(status -> {
                jdbcTemplate.update("INSERT INTO users (name, age) VALUES (?, ?)", user.getName(), user.getAge());
@@ -607,27 +625,31 @@ These examples demonstrate various ways to define queries in a Spring Data JPA r
 
 These are some additional methods and frameworks for handling database transactions in Java applications.
 
-
 ## How configuration works in Spring
-- Spring @Configuration annotation is part of the spring core framework. 
-- Spring Configuration annotation indicates that the class has @Bean definition methods. 
+
+- Spring @Configuration annotation is part of the spring core framework.
+- Spring Configuration annotation indicates that the class has @Bean definition methods.
 - So Spring container can process the class and generate Spring Beans to be used in the application.
 
   https://www.digitalocean.com/community/tutorials/spring-configuration-annotation
 
-
 ## Is REST API stateless or stateful?
+
 - A. REST APIs are stateless because, rather than relying on the server remembering previous requests, REST applications require each request to contain all of the information necessary for the server to understand it.
 
-## [Spring integration using RestTemplate](https://howtodoinjava.com/spring-boot2/resttemplate/spring-restful-client-resttemplate-example/) 
+## [Spring integration using RestTemplate](https://howtodoinjava.com/spring-boot2/resttemplate/spring-restful-client-resttemplate-example/)
+
 - Classes and methods used
+
 ### To Make GET Requests
+
 - **getForObject(url, classType)** – retrieve a representation by doing a GET on the URL. The response (if any) is unmarshalled to the given class type and returned.
 - **getForEntity(url, responseType)** – retrieve a representation as ResponseEntity by doing a GET on the URL.
 - **exchange(url, httpMethod, requestEntity, responseType)** – execute the specified RequestEntity and return the response as ResponseEntity.
 - **execute(url, httpMethod, requestCallback, responseExtractor)** – execute the httpMethod to the given URI template, prepare the request with the RequestCallback, and read the response with a ResponseExtractor.
 
 ## Spring integration using WebClient
+
 In Spring Boot, you can use the `RestTemplate` or the `WebClient` to make HTTP requests as a client. The `WebClient` is a more modern and flexible choice, introduced in Spring WebFlux, and it supports both synchronous and reactive programming models.
 
 Here's a basic example of using `WebClient` in a Spring Boot application:
@@ -706,7 +728,6 @@ Here's a basic example of using `WebClient` in a Spring Boot application:
            .build();
    ```
 
-
 Certainly! If you want to use `WebClient` without injecting it as a bean, you can create and use it directly within your service or controller without the need for a separate configuration class. Here's an example:
 
 ```java
@@ -741,18 +762,21 @@ In this example, the `WebClient` instance is created directly in the `MyService`
 
 Just like in the previous examples, make sure to replace "https://api.example.com" with the actual base URL of the API you are interacting with and adjust the request configuration based on your requirements.
 
-### The `WebClient` 
-- class in Spring WebFlux provides a fluent API for building and consuming HTTP-based services. 
+### The `WebClient`
+
+- class in Spring WebFlux provides a fluent API for building and consuming HTTP-based services.
 - It is part of the reactive programming support in Spring and can be used in both reactive and non-reactive applications. Here are some of the key methods and implementations provided by `WebClient`:
 
 ### 1. Creating a `WebClient` Instance:
 
 #### Builder Pattern:
+
 - **`WebClient.builder()`**: Creates a builder for `WebClient` instances.
 
 ### 2. Building and Executing Requests:
 
 #### HTTP Methods:
+
 - **`get()`**: Initiates a GET request.
 - **`post()`**: Initiates a POST request.
 - **`put()`**: Initiates a PUT request.
@@ -762,27 +786,33 @@ Just like in the previous examples, make sure to replace "https://api.example.co
 - **`patch()`**: Initiates a PATCH request.
 
 #### URI Configuration:
+
 - **`uri(String uriTemplate, Object... uriVariables)`**: Sets the URI template for the request.
 - **`uri(URI uri)`**: Sets the URI for the request.
 
 #### Request Headers:
+
 - **`header(String headerName, String... headerValues)`**: Adds a header to the request.
 
 #### Request Body:
+
 - **`body(BodyInserter<?, ? super ClientHttpRequest> bodyInserter)`**: Sets the body of the request.
 
 ### 3. Retrieving and Handling Responses:
 
 #### Retrieving the Response Body:
+
 - **`retrieve()`**: Initiates the request and retrieves the response body.
 
 #### Handling the Response Body:
+
 - **`bodyToMono(Class<T> responseBodyType)`**: Converts the response body to a `Mono` of the specified type.
 - **`bodyToFlux(Class<T> responseBodyType)`**: Converts the response body to a `Flux` of the specified type.
 
 ### 4. Handling Errors:
 
 #### Error Handling:
+
 - **`onStatus(Predicate<HttpStatus> predicate, Function<ClientResponse, Throwable> exceptionFunction)`**: Configures error handling based on the HTTP status.
 - **`onStatus(int statusCode, Function<ClientResponse, Throwable> exceptionFunction)`**: Configures error handling based on the HTTP status code.
 - **`onStatus(HttpStatus.Series series, Function<ClientResponse, Throwable> exceptionFunction)`**: Configures error handling based on the HTTP status series.
@@ -790,23 +820,28 @@ Just like in the previous examples, make sure to replace "https://api.example.co
 ### 5. Additional Configurations:
 
 #### Request Configuration:
+
 - **`exchange()`**: Initiates the request and returns a `ClientResponse` without handling the response body directly.
 
 #### Timeout Configuration:
+
 - **`timeout(Duration timeout)`**: Sets the timeout for the request.
 
 ### 6. Building and Executing Requests Asynchronously (Reactive Model):
 
 #### Reactive APIs:
+
 - **`retrieve()`**: Returns a `Mono<ClientResponse>` representing the response.
 - **`bodyToMono(Class<T> responseBodyType)`**: Returns a `Mono<T>` representing the response body.
 
 #### Reactive Stream Support:
+
 - **`bodyToFlux(Class<T> responseBodyType)`**: Returns a `Flux<T>` representing the response body as a stream.
 
 ### 7. Customization and Extensibility:
 
 #### Customization:
+
 - **`filter(ExchangeFilterFunction filter)`**: Adds a filter to the client, allowing custom modifications to the request and response.
 
 ### Example:
@@ -827,65 +862,79 @@ String result = webClient.get()
 This is a basic overview, and there are more methods and options available. The actual methods you use depend on your specific use case and the requirements of the API you are interacting with. The reactive nature of `WebClient` allows for non-blocking and efficient communication with HTTP-based services in a reactive application.
 
 ## WebClient vs FiegnClient
+
 Both WebClient and Feign are client-side HTTP libraries commonly used in Java-based applications, particularly in the context of microservices and web services. They serve similar purposes but have different approaches and use cases. Here's an overview of WebClient and Feign:
 
 ### WebClient:
 
 1. **Reactive Programming:**
-    - **Programming Model:** WebClient is part of the Spring WebFlux framework and embraces reactive programming. It is designed to work well with reactive streams, making it suitable for building non-blocking and asynchronous applications.
+
+   - **Programming Model:** WebClient is part of the Spring WebFlux framework and embraces reactive programming. It is designed to work well with reactive streams, making it suitable for building non-blocking and asynchronous applications.
 
 2. **Fluent API:**
-    - **Builder Pattern:** WebClient provides a fluent API, allowing you to build and customize HTTP requests using method chaining. This makes it flexible and easy to use.
+
+   - **Builder Pattern:** WebClient provides a fluent API, allowing you to build and customize HTTP requests using method chaining. This makes it flexible and easy to use.
 
 3. **Reactive Streams Support:**
-    - **Mono and Flux:** WebClient returns reactive types such as `Mono` and `Flux` from the Reactor project. This allows for handling responses in a reactive, non-blocking manner.
+
+   - **Mono and Flux:** WebClient returns reactive types such as `Mono` and `Flux` from the Reactor project. This allows for handling responses in a reactive, non-blocking manner.
 
 4. **Spring Ecosystem Integration:**
-    - **Spring Integration:** WebClient integrates seamlessly with the broader Spring ecosystem, making it a natural choice for Spring Boot applications. It plays well with other Spring features, such as security and configuration.
+
+   - **Spring Integration:** WebClient integrates seamlessly with the broader Spring ecosystem, making it a natural choice for Spring Boot applications. It plays well with other Spring features, such as security and configuration.
 
 5. **Fine-Grained Control:**
-    - **Filter Mechanism:** WebClient allows you to apply filters for fine-grained control over the request and response processing. Filters can be used for tasks like logging, authentication, or customizing headers.
+
+   - **Filter Mechanism:** WebClient allows you to apply filters for fine-grained control over the request and response processing. Filters can be used for tasks like logging, authentication, or customizing headers.
 
 6. **Asynchronous and Synchronous:**
-    - **Flexibility:** WebClient supports both asynchronous and synchronous communication, making it versatile for different use cases.
+   - **Flexibility:** WebClient supports both asynchronous and synchronous communication, making it versatile for different use cases.
 
 ### Feign:
 
 1. **Declarative Approach:**
-    - **Interface-Based:** Feign follows a declarative approach where you define an interface with annotated methods that correspond to the API endpoints. Feign then generates the necessary HTTP requests based on these annotations.
+
+   - **Interface-Based:** Feign follows a declarative approach where you define an interface with annotated methods that correspond to the API endpoints. Feign then generates the necessary HTTP requests based on these annotations.
 
 2. **Spring Cloud Integration:**
-    - **Cloud-Native Features:** Feign is often used in conjunction with Spring Cloud for building microservices. It provides features like load balancing and service discovery when used in a cloud-native environment.
+
+   - **Cloud-Native Features:** Feign is often used in conjunction with Spring Cloud for building microservices. It provides features like load balancing and service discovery when used in a cloud-native environment.
 
 3. **Ease of Use:**
-    - **Annotation-Driven:** Feign simplifies the client-side HTTP communication by allowing developers to use annotations to describe the HTTP API. This can lead to cleaner and more concise code.
+
+   - **Annotation-Driven:** Feign simplifies the client-side HTTP communication by allowing developers to use annotations to describe the HTTP API. This can lead to cleaner and more concise code.
 
 4. **Ribbon Integration:**
-    - **Load Balancing:** Feign integrates with Netflix Ribbon for client-side load balancing. This is particularly useful in a microservices architecture where multiple instances of a service may be available.
+
+   - **Load Balancing:** Feign integrates with Netflix Ribbon for client-side load balancing. This is particularly useful in a microservices architecture where multiple instances of a service may be available.
 
 5. **Fallback Mechanism:**
-    - **Circuit Breaker Support:** Feign supports circuit breaker patterns, allowing you to define fallback methods that are invoked when a remote service is unavailable.
+
+   - **Circuit Breaker Support:** Feign supports circuit breaker patterns, allowing you to define fallback methods that are invoked when a remote service is unavailable.
 
 6. **Synchronous by Default:**
-    - **Blocking Calls:** Feign is synchronous by default, meaning that method calls block until the HTTP response is received. This can simplify the code but may not be suitable for highly concurrent or reactive applications.
+   - **Blocking Calls:** Feign is synchronous by default, meaning that method calls block until the HTTP response is received. This can simplify the code but may not be suitable for highly concurrent or reactive applications.
 
 ### Choosing Between WebClient and Feign:
 
 - **Reactive vs. Declarative:**
-    - Use WebClient if you prefer a reactive programming model, especially in Spring Boot applications with a focus on non-blocking, asynchronous communication.
-    - Use Feign if you prefer a declarative, annotation-driven approach and are working in a Spring Cloud environment.
+
+  - Use WebClient if you prefer a reactive programming model, especially in Spring Boot applications with a focus on non-blocking, asynchronous communication.
+  - Use Feign if you prefer a declarative, annotation-driven approach and are working in a Spring Cloud environment.
 
 - **Flexibility vs. Simplification:**
-    - Use WebClient if you need fine-grained control over the HTTP requests, filters, and reactive streams.
-    - Use Feign if you prioritize simplicity and ease of use, especially when working in a microservices architecture with Spring Cloud.
+
+  - Use WebClient if you need fine-grained control over the HTTP requests, filters, and reactive streams.
+  - Use Feign if you prioritize simplicity and ease of use, especially when working in a microservices architecture with Spring Cloud.
 
 - **Integration:**
-    - Consider the broader Spring ecosystem and whether you need specific features provided by either WebClient or Feign. For example, if you are using Spring Boot and want seamless integration, WebClient might be a natural choice.
+  - Consider the broader Spring ecosystem and whether you need specific features provided by either WebClient or Feign. For example, if you are using Spring Boot and want seamless integration, WebClient might be a natural choice.
 
 In summary, the choice between WebClient and Feign depends on your project requirements, development preferences, and the broader ecosystem in which your application operates. Both libraries have their strengths, and the decision should be based on factors such as programming model, ease of use, and specific features needed for your use case.
 
 ### [RestClient(Spring 6)](https://howtodoinjava.com/spring/spring-restclient/)
-- The ***WebClient*** also supports synchronous HTTP access. But it needs an additional dependency to add `spring-boot-starter-webflux` in `pom.xml`. We can avoid adding for **RestClinet**.
+
+- The **_WebClient_** also supports synchronous HTTP access. But it needs an additional dependency to add `spring-boot-starter-webflux` in `pom.xml`. We can avoid adding for **RestClinet**.
 
 [GitHub - vinsguru-blog-code-samples](https://github.com/vinsguru/vinsguru-blog-code-samples)
 [Udemy](https://www.udemy.com/course/spring-rsocket/)
@@ -893,10 +942,12 @@ In summary, the choice between WebClient and Feign depends on your project requi
 [Git Doc](https://github.com/spring-projects/spring-framework/blob/699f93fed71f7bfd73d94188dce6b849c92927cc/framework-docs/modules/ROOT/pages/integration/rest-clients.adoc)
 
 ## Spring Boot Architecture
+
 - ![img_13.png](images/img_13.png)
 - ![img_12.png](images/img_12.png)
 
 ## Spring Architecture
+
 - The Model encapsulates the application data and in general they will consist of POJO.
 - The View is responsible for rendering the model data and in general it generates HTML output that the client's browser can interpret.
 - The Controller is responsible for processing user requests and building an appropriate model and passes it to the view for rendering.
@@ -924,37 +975,38 @@ Detailed authorization checks
 Manipulating the Spring context or model
 ```
 
- - [StackOverflow](https://stackoverflow.com/q/35856454)
- - HandlerInterseptor
-   - preHandle()
-   - postHandle()
-   - afterCompletion()
- ```java
-public class LogInterceptor implements HandlerInterceptor 
+- [StackOverflow](https://stackoverflow.com/q/35856454)
+- HandlerInterseptor
+  - preHandle()
+  - postHandle()
+  - afterCompletion()
+
+```java
+public class LogInterceptor implements HandlerInterceptor
 {
-    private Logger logger = LoggerFactory.getLogger(LogInterceptor.class);
-
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-throws Exception 
-    {
-        logger.info("preHandle");
-        return true;    
-    }
+   private Logger logger = LoggerFactory.getLogger(LogInterceptor.class);
 
    @Override
-   public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
-   throws Exception 
+   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+throws Exception
    {
-        logger.info("postHandle");
+       logger.info("preHandle");
+       return true;
    }
 
-   @Override
-   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-   throws Exception 
-   {
-        logger.info("afterCompletion");
-   }
+  @Override
+  public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)
+  throws Exception
+  {
+       logger.info("postHandle");
+  }
+
+  @Override
+  public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+  throws Exception
+  {
+       logger.info("afterCompletion");
+  }
 
 }
 ```
@@ -962,66 +1014,73 @@ throws Exception
 ## [Exception Handling in Spring boot](https://www.tutorialspoint.com/spring_boot/spring_boot_exception_handling.htm)
 
 #### @ControllerAdvice
+
 - to handle the exceptions globally.
+
 #### @ExceptionHandler
- - to handle the specific exceptions and sending the custom responses to the client.
+
+- to handle the specific exceptions and sending the custom responses to the client.
 
 ![img.png](images/AnnotationGlobalException.png)
 
 ## [Annotations in Spring boot](https://www.javatpoint.com/spring-boot-annotations)
- - `@SpringBootApplication` - Combination of
-   - `@EnableAutoConfiguration` -
-   - `@ComponentScan`(basePackages = "com.hhs")
-   - `@Configuration` - is a class level annotation.
-     - `@Bean` - is a method level annotation.
-     - `@Primary` - is annotated on top of bean when the particular bean has to be primary.
- - @Required - Applied at the bean setter method. This should be populated at configuration time with the required property.
- - @Autowired - provides annotation-based autowiring by providing @Autowired.
-   - @Qualifier
-   - @Primary
 
- - @Component - 
-   - @Controller - 
-   - @RestController - 
-   - @Service - 
-   - @Repository - 
-    - @Query - To write custom quries.
-    - @Modifing
-    - @EntityGraph - ![img.png](images/AnnotationEntityGraph.png)
-    - Projection - Creating interface to write particular queries in custom we can use projection.
- - @RequestMapping - 
-   - @GetMapping - 
-   - @PutMapping - 
-   - @PostMapping - 
-   - @DeleteMapping - 
-   - @PatchMapping -
- - @Aspect - 
- - (@Async)[https://www.baeldung.com/spring-async]
- - @ConditionalOnProperties -
- - (@PropertySource)[https://github.com/ysm-dev/kingbbode.github.io/blob/1a457952e9fa34d834ead979c8e5bd02a25c3975/_posts/seminar/2016/2016-04-30-Spring-Camp-2016.md]
+- `@SpringBootApplication` - Combination of
+  - `@EnableAutoConfiguration` -
+  - `@ComponentScan`(basePackages = "com.hhs")
+  - `@Configuration` - is a class level annotation.
+    - `@Bean` - is a method level annotation.
+    - `@Primary` - is annotated on top of bean when the particular bean has to be primary.
+- @Required - Applied at the bean setter method. This should be populated at configuration time with the required property.
+- @Autowired - provides annotation-based autowiring by providing @Autowired.
+
+  - @Qualifier
+  - @Primary
+
+- @Component -
+  - @Controller -
+  - @RestController -
+  - @Service -
+  - @Repository -
+  - @Query - To write custom quries.
+  - @Modifing
+  - @EntityGraph - ![img.png](images/AnnotationEntityGraph.png)
+  - Projection - Creating interface to write particular queries in custom we can use projection.
+- @RequestMapping -
+  - @GetMapping -
+  - @PutMapping -
+  - @PostMapping -
+  - @DeleteMapping -
+  - @PatchMapping -
+- @Aspect -
+- (@Async)[https://www.baeldung.com/spring-async]
+- @ConditionalOnProperties -
+- (@PropertySource)[https://github.com/ysm-dev/kingbbode.github.io/blob/1a457952e9fa34d834ead979c8e5bd02a25c3975/_posts/seminar/2016/2016-04-30-Spring-Camp-2016.md]
 
 ## MongoRelated Annotations
- - @Document(collection ="collection_name")
- - @EnableMongoAuditing
- - @LastModifiedDate
+
+- @Document(collection ="collection_name")
+- @EnableMongoAuditing
+- @LastModifiedDate
 
 ## Entity or Model Annotations
- - @Data - (Equivalent to @Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode
- - @Entity
- - @Table(name = "")
- - @NoArgsConstructor
- - @AllArgsConstructor
- - @MappedSuperclass   //Acts as a parent class for all other classes id fields
- - [@Embeddable](https://www.baeldung.com/spring-jpa-embedded-method-parameters#1-embeddable) - Class level annotation
- - [@EmbeddedId](https://www.baeldung.com/spring-jpa-embedded-method-parameters#2-entity-and-embeddedid) - Method Level Annotation
- - @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_one_generator")
- - @SequenceGenerator(name = "", sequenceName = "", allocationSize = 1)
-  
+
+- @Data - (Equivalent to @Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode
+- @Entity
+- @Table(name = "")
+- @NoArgsConstructor
+- @AllArgsConstructor
+- @MappedSuperclass //Acts as a parent class for all other classes id fields
+- [@Embeddable](https://www.baeldung.com/spring-jpa-embedded-method-parameters#1-embeddable) - Class level annotation
+- [@EmbeddedId](https://www.baeldung.com/spring-jpa-embedded-method-parameters#2-entity-and-embeddedid) - Method Level Annotation
+- @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_one_generator")
+- @SequenceGenerator(name = "", sequenceName = "", allocationSize = 1)
+
   **Annotations to extract the values from the URI**
 
 Spring Boot provides a wide range of parameter binding annotations for various purposes. Here are some other commonly used annotations beyond the ones you mentioned:
 
-In Spring Boot, annotations are used to define various aspects of a method, such as request mapping, parameter binding, and more. 
+In Spring Boot, annotations are used to define various aspects of a method, such as request mapping, parameter binding, and more.
 The annotations you mentioned, `@PathVariable`, `@ModelAttribute`, and `@RequestParam`, are commonly used for handling different parts of an HTTP request. Here's an explanation of each of them:
 
 1. `@PathVariable`: This annotation is used to extract values from the URI (Uniform Resource Identifier) template and bind them to method parameters. It's often used when you want to capture values from the URL, for example, in a RESTful API. Here's an example:
@@ -1036,9 +1095,9 @@ public String getUser(@PathVariable("id") Long userId) {
 In this example, the `@PathVariable` annotation captures the `id` from the URL and maps it to the `userId` method parameter.
 
 [**PathVariable** vs **PathParam**](https://stackoverflow.com/a/49472078)
+
 - `PathVariable` - Spring MVC
 - `PathParam` - JAX-RS
-
 
 2. `@ModelAttribute`: This annotation is used to bind a method parameter to a model attribute, which is typically used in the context of the Model-View-Controller (MVC) pattern. It is commonly used to populate form objects and pass data between the controller and the view. Here's an example:
 
@@ -1059,9 +1118,11 @@ public String searchUsers(@RequestParam("query") String searchQuery) {
     // Your code here
 }
 ```
+
 In this example, the `@RequestParam` annotation retrieves the `query` parameter from the request URL.
 
 [**RequestParam** vs **QueryParam**](https://stackoverflow.com/a/55721061)
+
 - `RequestParam` - Spring MVC
 - `QueryParam` - JAX-RS
 
@@ -1117,60 +1178,60 @@ public String getSessionData(@SessionAttribute("userId") Long userId) {
 11. Custom annotations: You can create your custom annotations to encapsulate and abstract common parameter binding patterns.
 
 Spring Boot and Spring MVC provide extensive support for handling various aspects of web requests and responses, so there are many more annotations available. The choice of which annotation to use depends on the specific requirements of your application and the data you need to handle within your controllers.
- 
- 
- - @EnableAutoConfiguration - 
- - @SpringBootApplication - 
- - @EnableCaching
- - @Cacheable("envProperty") - ![img.png](images/AnnotationCachingSpringBoot.png)
- - @InitBinder - To trim the values passed in @RequestParam and @ModelAttribute
 
+- @EnableAutoConfiguration -
+- @SpringBootApplication -
+- @EnableCaching
+- @Cacheable("envProperty") - ![img.png](images/AnnotationCachingSpringBoot.png)
+- @InitBinder - To trim the values passed in @RequestParam and @ModelAttribute
 
 ## @Qualifier, @Primary, @Autowired, @Required
+
 ### [@Qualifier](https://medium.com/@AlexanderObregon/deciphering-dependency-management-exploring-qualifier-and-primary-annotations-in-spring-3864b2ec4382)
+
 - https://www.youtube.com/watch?v=2YC5pIXR7e4&ab_channel=SimpleProgramming
 - https://www.educative.io/courses/guide-spring-5-spring-boot-2/B1WwWk0pw5N#Why-is-@Qualifier-annotation-used?
 
-The ***@Qualifier*** annotation is used to resolve ambiguity by specifying which exact bean should be wired where there are multiple beans of the same type. Let’s illustrate with an example:
+The **_@Qualifier_** annotation is used to resolve ambiguity by specifying which exact bean should be wired where there are multiple beans of the same type. Let’s illustrate with an example:
 
 ```java
-public interface GreetingService 
+public interface GreetingService
 {
     String sayHello();
 }
 
 @Service("frenchGreetingService")
-public class FrenchGreetingService implements GreetingService 
+public class FrenchGreetingService implements GreetingService
 {
     @Override
-    public String sayHello() 
+    public String sayHello()
     {
         return "Bonjour le monde!";
     }
 }
 
 @Service("englishGreetingService")
-public class EnglishGreetingService implements GreetingService 
+public class EnglishGreetingService implements GreetingService
 {
     @Override
-    public String sayHello() 
+    public String sayHello()
     {
         return "Hello World!";
     }
 }
 
 @Component
-public class Application 
+public class Application
 {
     private final GreetingService greetingService;
 
     @Autowired
-    public Application(@Qualifier("englishGreetingService") GreetingService greetingService) 
+    public Application(@Qualifier("englishGreetingService") GreetingService greetingService)
     {
         this.greetingService = greetingService;
     }
 
-    public String greet() 
+    public String greet()
     {
         return greetingService.sayHello();
     }
@@ -1179,7 +1240,7 @@ public class Application
 
 ### @Primary
 
-The ***@Primary*** annotation indicates that a bean should be given preference when multiple beans match a single autowiring candidate. For instance:
+The **_@Primary_** annotation indicates that a bean should be given preference when multiple beans match a single autowiring candidate. For instance:
 
 ```java
 @Service("frenchGreetingService")
@@ -1214,19 +1275,19 @@ public class Application {
 }
 ```
 
-
 ### [@Autowired](https://bushansirgur.in/spring-boot-autowire-annotation-with-example/)
 
 #### [Autowiring is of 4 types in spring](http://javainsimpleway.com/autowiring-in-spring/)
+
 [List of java interview questions](https://www.java2novice.com/java_interview_questions/spring-autowire-modes/)
 
-1) byName
+1. byName
 
-2) byType
+2. byType
 
-3) constructor
+3. constructor
 
-4) autodetect
+4. autodetect
 
 In Spring Framework, the @Autowired annotation is used for automatic dependency injection. It allows Spring to automatically resolve and inject collaborating beans into your bean. The @Autowired annotation can be applied to fields, methods, and constructors. Here are the different types of @Autowired annotations:
 
@@ -1236,6 +1297,7 @@ In Spring Framework, the @Autowired annotation is used for automatic dependency 
 @Autowired
 private SomeBean someBean;
 ```
+
 This is the most common usage of @Autowired. It injects the bean directly into a class field.
 
 #### **Method Injection:**
@@ -1248,6 +1310,7 @@ public void setSomeBean(SomeBean someBean) {
     this.someBean = someBean;
 }
 ```
+
 You can also apply @Autowired to a setter method. This method will be called by the Spring container after the bean is instantiated, and it will inject the specified bean.
 
 #### **Constructor Injection:**
@@ -1260,6 +1323,7 @@ public MyService(SomeBean someBean) {
     this.someBean = someBean;
 }
 ```
+
 Constructor injection is a recommended practice, and it's considered good design. It ensures that the required dependencies are injected at the time of object creation.
 
 #### **Qualifier Annotation:**
@@ -1280,19 +1344,22 @@ If a bean of the required type is not found, and the dependency is optional, you
 @Autowired(required = false)
 private SomeBean someBean;
 ```
+
 or
 
 ```java
 @Autowired
 private Optional<SomeBean> someBean;
 ```
+
 The required attribute is set to true by default, meaning that the dependency must be satisfied. If set to false, Spring will not throw an exception if it can't find a matching bean.
 
 These are the main types of @Autowired annotations you might encounter in a Spring application. They provide flexibility and allow you to express how dependencies should be injected into your Spring beans.
 
-
 ## @Controller vs @RestController
+
 ### @Controller
+
 - In `@Controller`, we need to use `@ResponseBody` on every handler method.
 - In @Controller, we can return a view in Spring Web MVC.
 - Specialization of @Component
@@ -1301,59 +1368,65 @@ These are the main types of @Autowired annotations you might encounter in a Spri
 - The dispatcher scans such annotated classes for mapped methods and detects `@RequestMapping` annotations.
 
 ### @RestController
+
 - In `@RestController`, we don’t need to use `@ResponseBody` on every handler method.
 - In `@RestController`, we can not return a view.
 
 ![img_18.png](images/img_18.png)
 
 ## [@Transactional](https://stackoverflow.com/a/54326437/11962586)
+
 - Used to roll back the process.
-- If A is sending 100$ to B. If the transaction is not successful, then  roll back happens.
+- If A is sending 100$ to B. If the transaction is not successful, then roll back happens.
 
 ### [@Transactional propagation isolation](https://www.baeldung.com/spring-transactional-propagation-isolation)
 
 #### @Transactional(propagation = Propagation.REQUIRED)
+
 Required is the default propagation. Spring checks if there is an active transaction, and nothing exists, it creates a new one. Otherwise the business logic appends to the currently active transaction.
 
 #### @Transactional(propagation = Propagation.REQUIRES_NEW)
+
 When the propagation is Requires_New, spring suspends the current transaction if it exists and creates a new one.
 
 #### SaveAndFlush
 
 ## [Pagiantion using JPA](https://www.baeldung.com/spring-data-jpa-pagination-sorting)
- - Pagination and Sorting using Spring Data JPA
- - If we are getting huge ammount of data, then we do pagination by sending particular 
+
+- Pagination and Sorting using Spring Data JPA
+- If we are getting huge ammount of data, then we do pagination by sending particular
 
 ## [Dependency Injection](https://www.javatpoint.com/dependency-injection-in-spring)
 
 > Why dependency injection instead of new key word?
+
 - Using dependency injection (DI) instead of directly using the `new` keyword to create instances of dependent objects offers several advantages in software development, especially in the context of Spring Boot and other frameworks:
 
 1. **Decoupling and Modularity**:
-   
+
    Dependency injection promotes loose coupling between components by separating the creation and management of dependencies from the dependent classes. This makes your code more modular and easier to maintain, as changes to one component do not necessarily affect others.
 
 2. **Inversion of Control (IoC)**:
-   
+
    Dependency injection follows the principle of Inversion of Control, where control over the instantiation and management of objects is delegated to an external framework (e.g., Spring framework). This allows for more flexibility and extensibility in your application, as the framework handles the wiring of dependencies based on configuration.
 
 3. **Testability**:
-   
+
    Dependency injection facilitates easier testing by enabling the use of mock objects or stubs in place of real dependencies during unit testing. This helps isolate the unit under test and promotes better test coverage and reliability.
 
 4. **Scalability and Reusability**:
-   
+
    Dependency injection promotes reusable and scalable code by encouraging the use of interfaces and abstractions. Components can be easily swapped or extended with minimal impact on the rest of the application, making it easier to adapt to changing requirements or scale up the system.
 
 5. **Configuration Management**:
-   
+
    Dependency injection allows for centralized configuration of dependencies, typically through configuration files or annotations. This makes it easier to manage and maintain dependencies, especially in large-scale applications with complex object graphs.
 
 6. **Reduced Boilerplate Code**:
-   
+
    Dependency injection reduces the amount of boilerplate code needed to manage dependencies manually, such as creating and wiring objects using the `new` keyword. This leads to cleaner, more concise code that focuses on business logic rather than infrastructure concerns.
 
-  Overall, dependency injection promotes better design practices, improves code quality, and enhances the maintainability, testability, and scalability of your applications. While using the `new` keyword directly is sometimes appropriate for simple cases, dependency injection is preferred for larger, more complex applications where modularity, testability, and flexibility are crucial.
+Overall, dependency injection promotes better design practices, improves code quality, and enhances the maintainability, testability, and scalability of your applications. While using the `new` keyword directly is sometimes appropriate for simple cases, dependency injection is preferred for larger, more complex applications where modularity, testability, and flexibility are crucial.
 
 > Explaining dependency injection
 
@@ -1368,91 +1441,102 @@ Spring framework provides two ways to inject dependency
 In Spring Boot, dependency injection is a fundamental concept that helps manage and wire together the components of your application. There are several types of dependency injection you can use in Spring Boot:
 
 1. **Constructor Injection**:
-    - Constructor injection is the most common and recommended form of dependency injection in Spring Boot. You inject dependencies through a constructor of a class.
-    - Example:
-      ```java
-      @Service
-      public class MyService {
-          private final MyRepository repository;
- 
-          @Autowired
-          public MyService(MyRepository repository) {
-              this.repository = repository;
-          }
-      }
-      ```
+
+   - Constructor injection is the most common and recommended form of dependency injection in Spring Boot. You inject dependencies through a constructor of a class.
+   - Example:
+
+     ```java
+     @Service
+     public class MyService {
+         private final MyRepository repository;
+
+         @Autowired
+         public MyService(MyRepository repository) {
+             this.repository = repository;
+         }
+     }
+     ```
 
 2. **Setter Injection**:
-    - Setter injection involves using setter methods to inject dependencies.
-    - Example:
-      ```java
-      @Service
-      public class MyService {
-          private MyRepository repository;
- 
-          @Autowired
-          public void setRepository(MyRepository repository) {
-              this.repository = repository;
-          }
-      }
-      ```
+
+   - Setter injection involves using setter methods to inject dependencies.
+   - Example:
+
+     ```java
+     @Service
+     public class MyService {
+         private MyRepository repository;
+
+         @Autowired
+         public void setRepository(MyRepository repository) {
+             this.repository = repository;
+         }
+     }
+     ```
 
 3. **Field Injection**:
-    - Field injection directly injects dependencies into fields of a class using annotations.
-    - Example:
-      ```java
-      @Service
-      public class MyService {
-          @Autowired
-          private MyRepository repository;
-      }
-      ```
-    - Field injection is generally discouraged because it makes it harder to test and maintain code.
+
+   - Field injection directly injects dependencies into fields of a class using annotations.
+   - Example:
+     ```java
+     @Service
+     public class MyService {
+         @Autowired
+         private MyRepository repository;
+     }
+     ```
+   - Field injection is generally discouraged because it makes it harder to test and maintain code.
 
 4. **Method Injection**:
-    - Method injection involves injecting dependencies through custom methods.
-    - Example:
-      ```java
-      @Service
-      public class MyService {
-          private MyRepository repository;
- 
-          @Autowired
-          public void injectRepository(MyRepository repository) {
-              this.repository = repository;
-          }
-      }
-      ```
+
+   - Method injection involves injecting dependencies through custom methods.
+   - Example:
+
+     ```java
+     @Service
+     public class MyService {
+         private MyRepository repository;
+
+         @Autowired
+         public void injectRepository(MyRepository repository) {
+             this.repository = repository;
+         }
+     }
+     ```
 
 5. **Interface-Based Injection**:
-    - Spring Boot can perform dependency injection based on interfaces. When you have multiple implementations of an interface, you can use `@Autowired` or `@Qualifier` to specify which implementation to inject.
-    - Example:
-      ```java
-      @Service
-      public class MyService {
-          private final MyRepository repository;
- 
-          @Autowired
-          public MyService(MyRepository repository) {
-              this.repository = repository;
-          }
-      }
-      ```
+
+   - Spring Boot can perform dependency injection based on interfaces. When you have multiple implementations of an interface, you can use `@Autowired` or `@Qualifier` to specify which implementation to inject.
+   - Example:
+
+     ```java
+     @Service
+     public class MyService {
+         private final MyRepository repository;
+
+         @Autowired
+         public MyService(MyRepository repository) {
+             this.repository = repository;
+         }
+     }
+     ```
 
 6. **Qualifier and Primary**:
-    - When you have multiple beans of the same type, you can use `@Qualifier` or `@Primary` annotations to specify which one to inject.
-    - Example:
-      ```java
-      @Service
-      public class MyService {
-          private final MyRepository primaryRepository;
- 
-          @Autowired
-          public MyService(@Qualifier("primary") MyRepository primaryRepository) {
-              this.primaryRepository = primaryRepository;
-          }
-      }
-      ```
+
+   - When you have multiple beans of the same type, you can use `@Qualifier` or `@Primary` annotations to specify which one to inject.
+   - Example:
+
+     ```java
+     @Service
+     public class MyService {
+         private final MyRepository primaryRepository;
+
+         @Autowired
+         public MyService(@Qualifier("primary") MyRepository primaryRepository) {
+             this.primaryRepository = primaryRepository;
+         }
+     }
+     ```
 
 Remember to use dependency injection in Spring Boot to achieve loose coupling and to make your code more maintainable, testable, and scalable. The choice of which type of dependency injection to use depends on your specific use case and coding style, but constructor injection is generally considered a best practice.
 
@@ -1469,7 +1553,7 @@ Remember to use dependency injection in Spring Boot to achieve loose coupling an
    ```java
    public class UserService {
        private UserRepository userRepository;
-   
+
        public void setUserRepository(UserRepository userRepository) {
            this.userRepository = userRepository;
        }
@@ -1477,10 +1561,12 @@ Remember to use dependency injection in Spring Boot to achieve loose coupling an
    ```
 
    Advantages:
+
    - Provides flexibility as dependencies can be changed at runtime.
    - Suitable for optional dependencies.
 
    Disadvantages:
+
    - Can lead to inconsistent state if not all dependencies are set.
    - Dependencies are mutable after initialization.
 
@@ -1493,7 +1579,7 @@ Remember to use dependency injection in Spring Boot to achieve loose coupling an
    ```java
    public class UserService {
        private final UserRepository userRepository;
-   
+
        public UserService(UserRepository userRepository) {
            this.userRepository = userRepository;
        }
@@ -1501,10 +1587,12 @@ Remember to use dependency injection in Spring Boot to achieve loose coupling an
    ```
 
    Advantages:
+
    - Ensures that all dependencies are set at object creation, leading to better object consistency.
    - Dependencies are immutable after initialization, promoting thread safety.
 
    Disadvantages:
+
    - Can lead to verbose constructors, especially for classes with many dependencies.
    - May require changes to existing code if new dependencies are introduced.
 
@@ -1522,10 +1610,12 @@ Remember to use dependency injection in Spring Boot to achieve loose coupling an
    ```
 
    Advantages:
+
    - Concise and convenient, reducing boilerplate code.
    - Supports field, setter, and constructor injection.
 
    Disadvantages:
+
    - May lead to hidden dependencies and decrease code readability if overused.
    - Less control over dependency initialization compared to constructor injection.
 
@@ -1533,7 +1623,8 @@ In general, constructor injection is considered a best practice as it promotes i
 
 ## SSO (Single Sign On)
 
-### ```Single sign on``` with ```Spring security OAuth2``` or ```KeyClock```
+### `Single sign on` with `Spring security OAuth2` or `KeyClock`
+
 SSO, or Single Sign-On, is an authentication process that allows a user to access multiple applications or services with a single set of credentials (username and password) after the initial login. In other words, it enables users to log in once and gain access to various systems and services without having to enter their credentials repeatedly. SSO is widely used in various IT and web applications to enhance user convenience and security.
 
 Here are some key points about SSO:
@@ -1564,8 +1655,8 @@ SSO is a crucial component of modern identity and access management (IAM) system
 
 ## [SPRING METHOD SECURITY](https://www.baeldung.com/spring-security-method-security)
 
+## AOP (Aspect-Oriented Programming)
 
-## AOP (Aspect-Oriented Programming) 
 In Spring Boot it is a powerful technique for managing cross-cutting concerns in your application. Cross-cutting concerns are aspects of your application that affect multiple parts of the codebase, such as logging, security, transaction management, and error handling. AOP allows you to modularize and separate these concerns from your main business logic.
 
 In Spring Boot, you can use AOP to achieve the following:
@@ -1638,6 +1729,7 @@ Spring Boot's AOP capabilities are based on the AspectJ framework, which provide
 ## [Authorization Tutorial](https://auth0.com/blog/spring-boot-authorization-tutorial-secure-an-api-java/)
 
 ## Load Balancing
+
 Load balancing in a Spring Boot application is a crucial component of building scalable and fault-tolerant systems. Load balancing distributes incoming network traffic across multiple servers to ensure that no single server is overwhelmed and to improve performance, reliability, and availability. There are several ways to achieve load balancing in a Spring Boot application, but one common approach is to use a reverse proxy server or a load balancer in front of your Spring Boot instances. Here are some examples of load balancing with Spring Boot:
 
 1. **Using a Reverse Proxy (e.g., Nginx or Apache):**
@@ -1724,24 +1816,10 @@ Load balancing in a Spring Boot application is a crucial component of building s
 
 These are just a few examples of how you can implement load balancing in a Spring Boot application. The choice of load balancing approach depends on your specific infrastructure and requirements.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ---
+
 ## LDAP (Lightweight Directory Access Protocol)
+
 The most common LDAP use case is providing a central location for accessing and managing directory services.
 LDAP enables organizations to store, manage, and secure information about the organization, its users, and assets–like usernames and passwords.
 
@@ -1796,11 +1874,10 @@ In summary, LDAP provides ABC Corp with a centralized and structured way to mana
 
 This is just one example of how LDAP can be used. LDAP's flexibility makes it suitable for various directory and authentication needs in different types of organizations.
 
-
 ## [Spring boot vs Spring Webflux](https://medium.com/deno-the-complete-reference/spring-boot-vs-spring-webflux-performance-comparison-for-hello-world-case-386da4e9c418)
 
-
 ## Spring Boot Questions
+
 1. rest api status code.
 2. Normal vs stereotype annotation and its uses with example.
 3. How will you generate base64UrlEncode(payload)
