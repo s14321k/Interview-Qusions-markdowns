@@ -17,6 +17,10 @@
 
 Interview questions link - [Git Hub](./ReactQuestionAnswers.md)
 
+React
+[Link 1](https://react.dev/blog/2023/03/16/introducing-react-dev)
+[Link 2](https://www.educative.io/answers/how-to-implement-pagination-in-reactjs)
+
 ## Install
 
 - node js
