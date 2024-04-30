@@ -15,7 +15,7 @@
 
 # React
 
-Interview questions link - [Git Hub](https://github.com/sudheerj/reactjs-interview-questions)
+Interview questions link - [Git Hub](./ReactQuestionAnswers.md)
 
 ## Install
 
