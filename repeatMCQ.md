@@ -11,6 +11,7 @@
   - [CSS Resize Correct](#css-resize-correct)
   - [CSS3 Attribute Selector Partially correct](#css3-attribute-selector-partially-correct)
   - [Weather](#weather)
+    - [ANSWER:-](#answer-)
   - [Dog API](#dog-api)
   - [Sell API](#sell-api)
 
@@ -214,6 +215,7 @@ temperature: a Double value, up to one decimal place, denoting the daily tempera
 in Celsius
 
 Here is an example of a weather data JSON object:
+
 ```
 {
 
@@ -378,7 +380,7 @@ Assuming that the object with id 1 exists, then the response code is 204 and the
 
 When an object with id 1 doesn't exist, then the response code is 404 and there are no particular requirements for the response body.
 
-ANSWER:-
+### ANSWER:-
 
 ```java
 import org.springframework.beans.factory.annotation.Autowired;
@@ -457,9 +459,10 @@ public ResponseEntity <String> createDog(@RequestBody Dog dogs){
 ```
 
 ## Sell API
+
 ```java
 import lombok.*;
- 
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -467,38 +470,38 @@ import lombok.*;
 @Builder
 public class Sell {
     private long id;
- 
+
     @NotEmpty(message = "Product name is mandatory")
     private String productName;
- 
+
     @Email(message = "Invalid customer email")
     private String customerEmail;
- 
+
     @Positive(message = "Value should be none negative")
     private int sellingPrice;
- 
+
     @Positive(message = "Value should be none negative")
     private int buyingPrice;
 }
 ```
- 
+
 ```java
 @RestController
 @RequestMapping("/sell")
 public class SellController {
- 
+
     @PostMapping
     public ResponseEntity<?> createSell(@Valid @RequestBody Sell sell) {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
- 
+
     @GetMapping("/{id}")
     public ResponseEntity<Sell> getSellById(@PathVariable long id) {
         // Retrieve the sell entry with given id
         Sell sell = new Sell(); // Replace this with actual logic to retrieve data
         return ResponseEntity.ok(sell);
     }
- 
+
     @GetMapping
     public ResponseEntity<String> getAllSells() {
         // Retrieve all the sell entries
