@@ -14,6 +14,7 @@
     - [ANSWER:-](#answer-)
   - [Dog API](#dog-api)
   - [Sell API](#sell-api)
+    - [other set](#other-set)
 
 # MCQ Questions
 
@@ -506,6 +507,168 @@ public class SellController {
     public ResponseEntity<String> getAllSells() {
         // Retrieve all the sell entries
         return ResponseEntity.ok("All sells retrieved successfully");
+    }
+}
+```
+
+#### other set
+
+```java
+
+@Test
+@DisplayName("testCreatedWithValidData")
+public void testCreatedWithValidData()throws Exceptions{
+	Sell expectedRecord = Sell.builder()
+			          .productName("Test Country")
+				  .customerEmail("test@email.com")
+				  .buyingPrice(23)
+				  .sellingPrice(25).build();
+	mockMvc.perform(post("/sell")
+		.contentType("application/json")
+		.content(om.writeValueAsString(expectedRecord)))
+		.andDo(print())
+		.andExpect(status().isCreated());
+}
+
+@Test
+@DisplayName("statusCode400WhenInvalidSellingPriceProvided")
+public void statusCode400WhenInvalidSellingPriceProvided()throws Exceptions{
+	Sell expectedRecord = Sell.builder()
+			          .productName("Test Country")
+				  .customerEmail("test@email.com")
+				  .buyingPrice(40)
+				  .sellingPrice(-40).build();
+	mockMvc.perform(post("/sell")
+		.contentType("application/json")
+		.content(om.writeValueAsString(expectedRecord)))
+		.andDo(print())
+		.andExpect(status().isBadRequest())
+		.andExpect(MockMvcResultMatchers.jsonPath("$.sellingPrice",Is.is("Value should be none negative")));
+}
+
+@Test
+@DisplayName("statusCode400WhenInvalidEmailProvided")
+public void statusCode400WhenInvalidEmailProvided()throws Exceptions{
+	Sell expectedRecord = Sell.builder()
+			          .productName("Test Country")
+				  .customerEmail("test@email.com")
+				  .buyingPrice(40)
+				  .sellingPrice(35).build();
+	mockMvc.perform(post("/sell")
+		.contentType("application/json")
+		.content(om.writeValueAsString(expectedRecord)))
+		.andDo(print())
+		.andExpect(status().isBadRequest())
+		.andExpect(MockMvcResultMatchers.jsonPath("$.customerEmail",Is.is("Invalid customer email")));
+}
+
+
+
+@Test
+@DisplayName("statusCode400WhenInvalidDataProvided")
+public void statusCode400WhenInvalidDataProvided()throws Exceptions{
+	Sell expectedRecord = Sell.builder()
+			          .productName("Test Country")
+				  .customerEmail("test@email.com")
+				  .buyingPrice(-40)
+				  .sellingPrice(35).build();
+	mockMvc.perform(post("/sell")
+		.contentType("application/json")
+		.content(om.writeValueAsString(expectedRecord)))
+		.andDo(print())
+		.andExpect(status().isBadRequest())
+		.andExpect(MockMvcResultMatchers.jsonPath("$.buyingPrice",Is.is("Value should be none negative")))
+		andExpect(MockMvcResultMatchers.jsonPath("$.productName",Is.is("Product name is mandatory")));
+}
+```
+
+---
+
+---
+
+Question
+
+---
+
+Data
+Example of a Sell data JSON object:
+{
+"id": 1,
+"productName": "product1",
+"customerEmail": "cust@gmail.com",
+"sellingPrice": 200,
+"buyingPrice": 100
+}
+
+Requirements
+In this project, sell data are provided for many countries with API endpoints for fetching specific information. Note that all the
+data are virtual.
+The following REST endpoints have been implemented.
+POST request to /sell :
+accepts a sell object, returns status code 201 if the object is valid
+all the properties are validated using the following rules:
+productName cannot be empty, if empty, then returns status code 400 and message "Product name is mandatory"
+customerEmail should be a valid email, if invalid, returns status code 400 and message "Invalid customer email"
+sellingPrice should be positive integer, if invalid, returns status code 400 and message "Value should be none negative"
+buyingPrice should be positive integer, if invalid, returns status code 400 and message "Value should be none negative"
+GET request to /sell/{id} :
+returns the sell entry with given id and status code 200
+GET request to /sell :
+returns all the sell entries with status code 200
+There are 4 tests already written but some are failing due to bugs in the implementation of those endpoints. Find the bugs and
+fix them so that all the tests pass.
+
+---
+
+Answer:
+
+---
+
+```java
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+public class SellController {
+
+    @PostMapping("/sell")
+    public ResponseEntity<?> createSellEntry(@RequestBody Sell sell) {
+        // Validate the sell object
+        if (sell.getProductName() == null || sell.getProductName().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product name is mandatory");
+        }
+        if (!isValidEmail(sell.getCustomerEmail())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid customer email");
+        }
+        if (sell.getSellingPrice() < 0 || sell.getBuyingPrice() < 0) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Value should be none negative");
+        }
+
+        // If all validations pass, return status code 201 (Created)
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/sell/{id}")
+    public ResponseEntity<Sell> getSellEntryById(@PathVariable("id") int id) {
+        // Logic to fetch sell entry by id
+        Sell sell = new Sell(); // Example: fetch sell entry from database
+        return ResponseEntity.ok(sell);
+    }
+
+    @GetMapping("/sell")
+    public ResponseEntity<?> getAllSellEntries() {
+        // Logic to fetch all sell entries
+        // Example: List<Sell> sellEntries = sellService.getAllSellEntries();
+        // return ResponseEntity.ok(sellEntries);
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body("Not implemented");
+    }
+
+    // Utility method to validate email
+    private boolean isValidEmail(String email) {
+        // Logic to validate email format
+        // Example: Use regular expressions or libraries for email validation
+        return email != null && email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
     }
 }
 ```
