@@ -123,3 +123,7 @@ A[Properties(props)] -- ES6 class --> B[HTML (JSX)]
 - Do not call hook / state inside the loops, conditions or nested functions.
 - Only call hooks from react functions not just any regular js function.
 - State/Hooks does not automaticaly merge the objects.
+
+> DOM Document Object Model
+
+React doesn't touch DOM. JSX combines css, js and html as well as referencing other react component.
