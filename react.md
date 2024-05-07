@@ -8,6 +8,7 @@
     - [Stateless / Dumb / Presentational / functional component](#stateless--dumb--presentational--functional-component)
     - [Stateful / Smart / Container / class component](#stateful--smart--container--class-component)
     - [JSX - JavaScript XML allows us to write HTML.](#jsx---javascript-xml-allows-us-to-write-html)
+      - [Imperative vs Declarative](#imperative-vs-declarative)
     - [Fragments \<\>\</\> (empty tag in react)](#fragments--empty-tag-in-react)
     - [Hooks (2018)](#hooks-2018)
     - [Props](#props)
@@ -87,6 +88,11 @@ A[Properties(props)] -- ES6 class --> B[HTML (JSX)]
 ### JSX - JavaScript XML allows us to write HTML.
 
 - Jsx stands for the javascript xml which allows to write the HTML inside the js.
+- JSX is declarative.
+
+#### Imperative vs Declarative
+- In imperative we use DOM like `document.getElementByName`
+- In declarative, we wont be touching the DOM. Instead we update using the **state** and **props**
 
 ### Fragments <><other tags /></> (empty tag in react)
 
