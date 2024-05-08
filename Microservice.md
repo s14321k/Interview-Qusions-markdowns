@@ -58,8 +58,14 @@ Load balancing is a crucial part of designing and maintaining a resilient micros
 2. Filter & aggregation in stream API
 3. Why we use microservices
 4. explain gate way (API Gateway) function in micro service.
-- API gateway handles the load for all the services.
+- API gateway handles the load. By default it has load balancer. In spite of configuring load balancer in the client service, api gate way will handle the load balancing for all the services.
 5. Explain Circuit Breaker in microservice.
+- Has three states,
+   - open - all calls allowed
+   - closed - all calls closed
+   - half- open - only few calls allowed
+
+- These three can be configured in recilience4j properties
 6. Why MongoDB.
 7. How will you maintain load balance in microservice.
 8. Pre-filter and post-filter
