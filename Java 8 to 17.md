@@ -1,37 +1,38 @@
 <!-- TOC -->
-* [Java 8 streams vs collections](#java-8-streams-vs-collections)
-  * [Stream API](#stream-api)
-    * [1. **Intermediate Operations:**](#1-intermediate-operations)
-    * [2. **Terminal Operations:**](#2-terminal-operations)
-* [JAVA8 to JAVA17 And Java8 and java17](#java8-to-java17-and-java8-and-java17)
-  * [Java 8](#java-8)
-  * [1. Lambda Expression and Stream API](#1-lambda-expression-and-stream-api)
-    * [Why do we need lambda?](#why-do-we-need-lambda)
-    * [Before Lambda and Stream API](#before-lambda-and-stream-api)
-    * [Using Stream and Lambda, IntStream](#using-stream-and-lambda-intstream)
-      * [Why lambda expression is used?](#why-lambda-expression-is-used)
-      * [map() and  flatMap() in streamAPI](#map-and--flatmap-in-streamapi)
-  * [2. Method Reference](#2-method-reference)
-    * [Without Method Reference](#without-method-reference)
-    * [Using Method Referance](#using-method-referance)
-  * [3. Default Methods](#3-default-methods)
-  * [4. Type Annotations](#4-type-annotations)
-    * [1. Local variable definition @NotNull](#1-local-variable-definition-notnull)
-    * [2. Constructor Call @NotEmpty](#2-constructor-call-notempty)
-    * [3. Generic Type @Email](#3-generic-type-email)
-  * [5. Double colon operator in java](#5-double-colon-operator-in-java)
-      * [Syntax](#syntax)
-  * [6. Optional](#6-optional)
-    * [Why use `Optional`?](#why-use-optional)
-    * [Basics of `Optional`:](#basics-of-optional)
-    * [Example:](#example)
-  * [Date Time API](#date-time-api)
-  * [StringJoiner](#stringjoiner)
-  * [Record class](#record-class)
-* [Java 9](#java-9)
-  * [1. Closing a Resource with try-with-resources](#1-closing-a-resource-with-try-with-resources)
-  * [2. Private interface methods](#2-private-interface-methods)
-  * [Records in java](#records-in-java)
+- [Java 8 streams vs collections](#java-8-streams-vs-collections)
+  - [Stream API](#stream-api)
+    - [1. **Intermediate Operations:**](#1-intermediate-operations)
+    - [2. **Terminal Operations:**](#2-terminal-operations)
+- [JAVA8 to JAVA17 And Java8 and java17](#java8-to-java17-and-java8-and-java17)
+  - [Java 8](#java-8)
+  - [1. Lambda Expression and Stream API](#1-lambda-expression-and-stream-api)
+    - [Why do we need lambda?](#why-do-we-need-lambda)
+    - [Before Lambda and Stream API](#before-lambda-and-stream-api)
+    - [Using Stream and Lambda, IntStream](#using-stream-and-lambda-intstream)
+      - [Why lambda expression is used?](#why-lambda-expression-is-used)
+      - [map() and  flatMap() in streamAPI](#map-and--flatmap-in-streamapi)
+  - [2. Method Reference](#2-method-reference)
+    - [Without Method Reference](#without-method-reference)
+    - [Using Method Referance](#using-method-referance)
+  - [3. Default Methods](#3-default-methods)
+  - [4. Type Annotations](#4-type-annotations)
+    - [1. Local variable definition @NotNull](#1-local-variable-definition-notnull)
+    - [2. Constructor Call @NotEmpty](#2-constructor-call-notempty)
+    - [3. Generic Type @Email](#3-generic-type-email)
+  - [5. Double colon operator in java](#5-double-colon-operator-in-java)
+      - [Syntax](#syntax)
+  - [6. Optional](#6-optional)
+    - [Why use `Optional`?](#why-use-optional)
+    - [Basics of `Optional`:](#basics-of-optional)
+    - [Example:](#example)
+  - [Date Time API](#date-time-api)
+  - [StringJoiner](#stringjoiner)
+  - [Record class](#record-class)
+  - [Functional Interface](#functional-interface)
+- [Java 9](#java-9)
+  - [1. Closing a Resource with try-with-resources](#1-closing-a-resource-with-try-with-resources)
+  - [2. Private interface methods](#2-private-interface-methods)
+  - [Records in java](#records-in-java)
 <!-- TOC -->
 
 ***
@@ -507,6 +508,22 @@ In this example, we create `Optional` instances, handle their values, and chain 
 ## [Record class](https://www.linkedin.com/advice/0/how-do-you-use-records-sealed-classes-features-introduced#:~:text=In%20Java%2017%2C%20records%20simplify,hashCode()%2C%20and%20toString().)
 * record class and sealed classes.
 ---
+
+## Functional Interface
+- **Can we extend functional interface class A with another functional interface class B? Does the class A remains functional interface class?**
+
+```java
+@FunctionalInterface
+interface A {
+    void methodA();
+}
+
+@FunctionalInterface
+interface B extends A {
+    // No additional abstract methods
+}
+```
+- In this example, interface B extends interface A. Since A has one abstract method (methodA), and B does not introduce any new abstract methods, B is also a functional interface.
 
 # Java 9
 
