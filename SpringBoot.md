@@ -1070,6 +1070,8 @@ throws Exception
 - @Table(name = "")
 - @NoArgsConstructor
 - @AllArgsConstructor
+- @DynamicInsert
+- @DynamicUpdate
 - @MappedSuperclass //Acts as a parent class for all other classes id fields
 - [@Embeddable](https://www.baeldung.com/spring-jpa-embedded-method-parameters#1-embeddable) - Class level annotation
 - [@EmbeddedId](https://www.baeldung.com/spring-jpa-embedded-method-parameters#2-entity-and-embeddedid) - Method Level Annotation
@@ -1189,8 +1191,8 @@ Spring Boot and Spring MVC provide extensive support for handling various aspect
 
 ### [@Qualifier](https://medium.com/@AlexanderObregon/deciphering-dependency-management-exploring-qualifier-and-primary-annotations-in-spring-3864b2ec4382)
 
-- https://www.youtube.com/watch?v=2YC5pIXR7e4&ab_channel=SimpleProgramming
-- https://www.educative.io/courses/guide-spring-5-spring-boot-2/B1WwWk0pw5N#Why-is-@Qualifier-annotation-used?
+- [YouTube 1](https://www.youtube.com/watch?v=2YC5pIXR7e4&ab_channel=SimpleProgramming)
+- [YouTube 2](https://www.educative.io/courses/guide-spring-5-spring-boot-2/B1WwWk0pw5N#Why-is-@Qualifier-annotation-used?)
 
 The **_@Qualifier_** annotation is used to resolve ambiguity by specifying which exact bean should be wired where there are multiple beans of the same type. Let’s illustrate with an example:
 
