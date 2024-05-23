@@ -17,6 +17,7 @@
 # React
 
 Interview questions link - [Git Hub](./ReactQuestionAnswers.md)
+[Interview questions link](https://www.simplilearn.com/tutorials/reactjs-tutorial/reactjs-interview-questions)
 
 React
 [Link 1](https://react.dev/blog/2023/03/16/introducing-react-dev)
@@ -91,6 +92,7 @@ A[Properties(props)] -- ES6 class --> B[HTML (JSX)]
 - JSX is declarative.
 
 #### Imperative vs Declarative
+
 - In imperative we use DOM like `document.getElementByName`
 - In declarative, we wont be touching the DOM. Instead we update using the **state** and **props**
 

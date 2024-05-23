@@ -33,8 +33,8 @@
       - [3. **Interface:**](#3-interface)
       - [4. **Final Class:**](#4-final-class)
       - [5. **Inner Class:**](#5-inner-class)
-      - [**Static Nested Class:**](#static-nested-class)
-      - [**Anonymous Class:** Anonymous class](#anonymous-class-anonymous-class)
+      - [6. **Static Nested Class:**](#6-static-nested-class)
+      - [7. **Anonymous Class:** Anonymous class](#7-anonymous-class-anonymous-class)
   - [Constructors](#constructors)
     - [1. Default Constructor](#1-default-constructor)
     - [2. Parameterized Constructor](#2-parameterized-constructor)
@@ -64,6 +64,7 @@
   - [3 . Encapsulation - hiding the information](#3--encapsulation---hiding-the-information)
   - [4 . Abstraction - Abstract factory pattern](#4--abstraction---abstract-factory-pattern)
   - [5 . Interface](#5--interface)
+    - [Example](#example)
     - [Create variable inside interface](#create-variable-inside-interface)
     - [Marker interface vs Functional Interface](#marker-interface-vs-functional-interface)
     - [Predicate vs Consumer vs Supplier](#predicate-vs-consumer-vs-supplier)
@@ -674,7 +675,7 @@ public class Outer
 }
 ```
 
-#### **Static Nested Class:**
+#### 6. **Static Nested Class:**
 
 - Similar to an inner class but declared with the `static` keyword.
 - It does not have access to the instance variables of the outer class.
@@ -690,7 +691,7 @@ public class Outer
 }
 ```
 
-#### **Anonymous Class:** [Anonymous class](https://www.programiz.com/java-programming/anonymous-class)
+#### 7. **Anonymous Class:** [Anonymous class](https://www.programiz.com/java-programming/anonymous-class)
 
 - An anonymous class is a local class without a name.
 - It is often used for one-time use, such as instantiating an interface.
@@ -1207,6 +1208,69 @@ ii. Declared with Abstract keyword
 ## 5 . Interface
 
 - Interface class can have only abstract method (incomplete method). This class should be implemented.
+  > Can we declare private abstract method inside the interface class in java?
+  >
+  > - No, because since it has no body. But we can write private method inside the interface.
+
+> what is the use of declaring private method inside the interface class?
+>
+> - Declaring private methods inside an interface in Java serves specific purposes, primarily related to code organization and reuse within the interface itself. These methods were introduced in Java 9 to enhance the functionality of interfaces, particularly when working with default and static methods. Here are the main reasons for using private methods in an interface:
+
+1. **Code Reuse:**
+   - **Avoid Duplication:**
+   - **Maintainability:**
+2. **Encapsulation:**
+   - **Encapsulate Helper Methods:**
+   - **Implementation Details:**
+3. **Modularity:**
+   - **Modular Design:**
+
+### Example
+
+Here is an example demonstrating the use of private methods in an interface:
+
+```java
+public interface MyInterface {
+
+    // Public abstract method (must be implemented by implementing class)
+    void publicAbstractMethod();
+
+    // Default method that uses a private helper method
+    default void defaultMethod() {
+        System.out.println("Executing default method...");
+        privateHelperMethod();
+    }
+
+    // Static method that uses a private helper method
+    static void staticMethod() {
+        System.out.println("Executing static method...");
+        privateHelperMethod();
+    }
+
+    // Private method used by both default and static methods
+    private void privateHelperMethod() {
+        System.out.println("Executing private helper method.");
+    }
+}
+
+// Implementing class
+public class MyClass implements MyInterface {
+
+    @Override
+    public void publicAbstractMethod() {
+        System.out.println("Implementing public abstract method.");
+    }
+
+    public static void main(String[] args) {
+        MyClass obj = new MyClass();
+        obj.publicAbstractMethod();
+        obj.defaultMethod();
+        MyInterface.staticMethod();
+    }
+}
+```
+
+In summary, private methods in interfaces are a powerful feature introduced to improve code reuse, encapsulation, and maintainability within interfaces.
 
 ### Create variable inside interface
 

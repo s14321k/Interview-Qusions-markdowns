@@ -56,10 +56,9 @@ Load balancing is a crucial part of designing and maintaining a resilient micros
 1. How will you handle if one microservice is malfunctioning
 - By creating multiple instances by running the same application on different ports. So that if one gets malfunction, then other will handle.
 2. Filter & aggregation in stream API
-3. Why we use microservices
-4. explain gate way (API Gateway) function in micro service.
+3. Why we use microservices.
 - API gateway handles the load. By default it has load balancer. In spite of configuring load balancer in the client service, api gate way will handle the load balancing for all the services.
-5. Explain Circuit Breaker in microservice.
+1. Explain Circuit Breaker in microservice.
 - Has three states,
    - open - all calls allowed
    - closed - all calls closed
@@ -68,6 +67,13 @@ Load balancing is a crucial part of designing and maintaining a resilient micros
 - These three can be configured in recilience4j properties
 6. Why MongoDB.
 7. How will you maintain load balance in microservice.
-8. Pre-filter and post-filter
+
+## API Gateway
+> Explain gate way (API Gateway) function in micro service.
+> Pre-filter and post-filter
+> Load Balancing
+
+
+
 - `Pre-Filter` When the consumer sends the request to API gateway, API gate way(spring cloud API Gateway) will authenticate and sends the request to the respective micro-service app.
 - `Post-Filter` Responce from the micro-service application will be logged inside the API Gate way or adding the headers to the responce by API Gateway. This is handled in Post-Filter.
