@@ -65,8 +65,8 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 - [Spring Architecture](#spring-architecture)
 - [HandlerInterseptor \& Filter](#handlerinterseptor--filter)
 - [Exception Handling in Spring boot](#exception-handling-in-spring-boot)
-    - [@ControllerAdvice](#controlleradvice)
-    - [@ExceptionHandler](#exceptionhandler)
+  - [@ControllerAdvice](#controlleradvice)
+  - [@ExceptionHandler](#exceptionhandler)
 - [Annotations in Spring boot](#annotations-in-spring-boot)
 - [MongoRelated Annotations](#mongorelated-annotations)
 - [Entity or Model Annotations](#entity-or-model-annotations)
@@ -86,7 +86,7 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 - [@Transactional](#transactional)
   - [@Transactional propagation isolation](#transactional-propagation-isolation)
     - [@Transactional(propagation = Propagation.REQUIRED)](#transactionalpropagation--propagationrequired)
-    - [@Transactional(propagation = Propagation.REQUIRES\_NEW)](#transactionalpropagation--propagationrequires_new)
+    - [@Transactional(propagation = Propagation.REQUIRES_NEW)](#transactionalpropagation--propagationrequires_new)
     - [SaveAndFlush](#saveandflush)
 - [Pagiantion using JPA](#pagiantion-using-jpa)
 - [Dependency Injection](#dependency-injection)
@@ -95,7 +95,7 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   - [`Single sign on` with `Spring security OAuth2` or `KeyClock`](#single-sign-on-with-spring-security-oauth2-or-keyclock)
 - [SPRING METHOD SECURITY](#spring-method-security)
 - [AOP (Aspect-Oriented Programming)](#aop-aspect-oriented-programming)
-- [(Projections and Aggregations)\[https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html\]](#projections-and-aggregationshttpswwwjavaprogramtocom202005spring-boot-data-mongodb-projections-aggregationshtml)
+- [Projections and Aggregations](#projections-and-aggregations)
 - [Role Based Authorizations](#role-based-authorizations)
 - [GateWay](#gateway)
 - [Authorization Tutorial](#authorization-tutorial)
@@ -1053,9 +1053,9 @@ throws Exception
   - @DeleteMapping -
   - @PatchMapping -
 - @Aspect -
-- (@Async)[https://www.baeldung.com/spring-async]
+- [@Async](https://www.baeldung.com/spring-async)
 - @ConditionalOnProperties -
-- (@PropertySource)[https://github.com/ysm-dev/kingbbode.github.io/blob/1a457952e9fa34d834ead979c8e5bd02a25c3975/_posts/seminar/2016/2016-04-30-Spring-Camp-2016.md]
+- [@PropertySource](https://github.com/ysm-dev/kingbbode.github.io/blob/1a457952e9fa34d834ead979c8e5bd02a25c3975/_posts/seminar/2016/2016-04-30-Spring-Camp-2016.md)
 
 ## MongoRelated Annotations
 
@@ -1075,6 +1075,7 @@ throws Exception
 - @MappedSuperclass //Acts as a parent class for all other classes id fields
 - [@Embeddable](https://www.baeldung.com/spring-jpa-embedded-method-parameters#1-embeddable) - Class level annotation
 - [@EmbeddedId](https://www.baeldung.com/spring-jpa-embedded-method-parameters#2-entity-and-embeddedid) - Method Level Annotation
+- [@Embedded](https://www.baeldung.com/jpa-embedded-embeddable#embedded)
 - @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_one_generator")
 - @SequenceGenerator(name = "", sequenceName = "", allocationSize = 1)
 
@@ -1722,7 +1723,7 @@ By doing this, the `LoggingAspect` will log method entry for methods in the `MyS
 
 Spring Boot's AOP capabilities are based on the AspectJ framework, which provides a rich and powerful way to define and use aspects. You can explore various aspects of AOP in Spring Boot to enhance your application's modularity and maintainability.
 
-## (Projections and Aggregations)[https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html]
+## [Projections and Aggregations](https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html)
 
 ## [Role Based Authorizations](https://www.codejava.net/frameworks/spring-boot/spring-boot-security-role-based-authorization-tutorial)
 

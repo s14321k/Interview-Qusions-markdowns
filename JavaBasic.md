@@ -67,7 +67,7 @@
     - [Example](#example)
     - [Create variable inside interface](#create-variable-inside-interface)
     - [Marker interface vs Functional Interface](#marker-interface-vs-functional-interface)
-    - [Predicate vs Consumer vs Supplier](#predicate-vs-consumer-vs-supplier)
+    - [Supplier vs Consumer vs Predicate vs UnaryOperator vs BinaryOperator](#supplier-vs-consumer-vs-predicate-vs-unaryoperator-vs-binaryoperator)
     - [Comparable and Comparator](#comparable-and-comparator)
     - [Implements and Extends](#implements-and-extends)
     - [Interface and Abstract](#interface-and-abstract)
@@ -1338,7 +1338,7 @@ public class Main
 }
 ```
 
-### [Predicate](https://codegym.cc/groups/posts/java-predicate) vs Consumer vs Supplier
+### Supplier vs Consumer vs [Predicate](https://codegym.cc/groups/posts/java-predicate) vs UnaryOperator vs BinaryOperator
 
 In Java, "supplier," "consumer," and "predicate" are actually interfaces defined in the `java.util.function` package, introduced in Java 8 as part of the Java Functional Programming features.
 
@@ -1377,6 +1377,8 @@ In summary:
 - `Supplier` supplies a result.
 - `Consumer` consumes an argument and performs some operation.
 - `Predicate` tests a condition and returns a boolean result.
+- `UnaryOperator<Integer> square = x -> x * x;`
+- `BinaryOperator<Integer> add = (a, b) -> a + b;`
 
 ### [Comparable and Comparator](https://www.javatpoint.com/difference-between-comparable-and-comparator)
 
