@@ -118,36 +118,159 @@ Load balancing is a crucial part of designing and maintaining a resilient micros
 
 ## Microservice Questions
 
-1. How will you handle if one microservice is malfunctioning
+### 1. How will you handle if one microservice is malfunctioning
 
 - By creating multiple instances by running the same application on different ports. So that if one gets malfunction, then other will handle.
 
-2. Filter & aggregation in stream API
-3. Why we use microservices.
+### 2. Why we use microservices.
 
 - API gateway handles the load. By default it has load balancer. In spite of configuring load balancer in the client service, api gate way will handle the load balancing for all the services.
 -
 
-1. Explain Circuit Breaker in microservice.
+### 3. Explain Circuit Breaker in microservice.
 
 - Has three states,
 
-  - open - all calls allowed
-  - closed - all calls closed
-  - half- open - only few calls allowed
+  - open - all calls blocked due to failure.
+  - closed - all calls are good to proceed.
+  - half- open - only few calls allowed according to the properties set by percentage.
 
 - These three can be configured in recilience4j properties
 
-6. Why MongoDB.
-7. How will you maintain load balance in microservice.
+_In microservice architectures, a circuit breaker is a design pattern used to detect failures and encapsulate the logic of preventing a failure from constantly recurring, allowing microservices to maintain stability and resilience._
+
+Here's how the circuit breaker pattern works:
+
+1. **Closed State (Normal Operation):**
+
+   - In the closed state, the circuit breaker allows requests to flow normally from one service to another.
+   - It monitors the success and failure rates of these requests.
+
+2. **Open State (Failure Detected):**
+
+   - If the failure rate crosses a predefined threshold, the circuit breaker trips and moves to the open state.
+   - In this state, requests are immediately failed without trying to send them to the downstream service, preventing further overload or strain on the already failing service.
+
+3. **Half-Open State (Trial Recovery):**
+   - After a certain period, the circuit breaker transitions to the half-open state to test if the downstream service has recovered.
+   - It allows a limited number of test requests to pass through.
+   - If these requests succeed, the circuit breaker will reset back to the closed state.
+   - If they fail, it goes back to the open state and the cycle continues.
+
+### Benefits of Using a Circuit Breaker in Microservices
+
+1. **Fault Isolation:** It helps in isolating faults and preventing cascading failures across multiple microservices.
+2. **Improved Stability:** By failing fast and gracefully, it prevents services from waiting on unresponsive services, thus improving the overall stability of the system.
+3. **Faster Recovery:** It allows the system to recover faster by reducing the load on failing services and giving them time to heal.
+
+### Implementation Considerations
+
+- **Thresholds:** Careful selection of failure thresholds and timeout periods is crucial. These thresholds determine when the circuit breaker trips to the open state.
+- **Fallback Mechanisms:** Often used in conjunction with fallback mechanisms to provide default responses or degraded functionality when the circuit breaker is open.
+- **Monitoring and Logging:** Effective monitoring and logging are essential to understand the state transitions and behavior of the circuit breaker, aiding in tuning and troubleshooting.
+
+### Common Libraries and Tools
+
+- **Hystrix:** A widely used library by Netflix for implementing circuit breakers.
+- **Resilience4j:** A lightweight, easy-to-use library inspired by Hystrix but designed for functional programming.
+- **Spring Cloud Circuit Breaker:** An abstraction over different circuit breaker implementations like Hystrix, Resilience4j, and others, integrated with the Spring ecosystem.
+
+In conclusion, the circuit breaker pattern is a crucial component in building resilient microservice architectures, helping to manage failures gracefully and ensuring the overall health of the system.
+
+1. Why MongoDB.
+2. How will you maintain load balance in microservice.
+
+- Client side load balance. Refer flightCheckin project -> ReservationLoadBalancerConfig.java
+- Throug API gate way. It has service discovery and according to the number of instances it will raise the request to multiple instance to manage load.
+
+Maintaining load balance in a microservice architecture is crucial for ensuring scalability, reliability, and high availability of services. Here are key strategies and tools for effective load balancing in microservices:
+
+### 1. **Client-Side Load Balancing**
+
+In client-side load balancing, the client determines which instance of a microservice to send a request to.
+
+- **Service Discovery Integration:** Clients use a service discovery mechanism (e.g., Consul, Eureka, etc.) to get a list of available service instances.
+- **Load Balancer Library:** The client uses a library (like Netflix Ribbon) to choose an instance based on a load-balancing algorithm such as round-robin, random, or least connections.
+
+#### Advantages:
+
+- Reduces the need for an intermediary load balancer.
+- Can make intelligent decisions based on client-specific logic.
+
+#### Disadvantages:
+
+- Clients need to be updated if service instances change frequently.
+- Potentially more complex client logic.
+
+### 2. **Server-Side Load Balancing**
+
+In server-side load balancing, a load balancer sits between the client and the microservice instances, distributing incoming requests.
+
+- **Reverse Proxies and Load Balancers:** Tools like NGINX, HAProxy, or AWS Elastic Load Balancing can distribute traffic among service instances.
+- **Service Meshes:** Service meshes (e.g., Istio, Linkerd) can handle load balancing along with other functionalities like service discovery, security, and observability.
+
+#### Advantages:
+
+- Simplifies client logic by abstracting the load-balancing mechanism.
+- Easier to manage and scale load balancing centrally.
+
+#### Disadvantages:
+
+- Introduces an additional component that can become a bottleneck or single point of failure if not properly managed.
+
+### 3. **DNS-Based Load Balancing**
+
+DNS-based load balancing involves configuring the DNS to return different IP addresses (of service instances) for each request, distributing the load at the DNS level.
+
+- **Round Robin DNS:** Distributes traffic by rotating through a list of IP addresses.
+- **Weighted Round Robin:** Assigns weights to IP addresses to distribute traffic based on capacity.
+
+#### Advantages:
+
+- Simple to implement.
+- No need for additional infrastructure components.
+
+#### Disadvantages:
+
+- DNS caching can lead to uneven load distribution.
+- Limited control over the distribution algorithm.
+
+### 4. **Service Discovery**
+
+Service discovery mechanisms help in dynamically discovering service instances. They can be integrated with load balancers for efficient traffic distribution.
+
+- **Consul, Eureka, Zookeeper:** Common service discovery tools that keep track of available service instances.
+- **Kubernetes:** Uses built-in service discovery with its DNS service (kube-dns) and native load balancing.
+
+### 5. **Distributed Load Balancers**
+
+In some advanced setups, load balancing is distributed across different regions or data centers.
+
+- **Global Load Balancers:** Tools like AWS Global Accelerator, Cloudflare, or Google Cloud Load Balancer can distribute traffic across multiple regions.
+- **Anycast Routing:** Uses the same IP address in multiple locations, routing traffic to the nearest or best-performing instance.
+
+### Load Balancing Algorithms
+
+Choosing the right algorithm is crucial for effective load balancing:
+
+- **Round Robin:** Simple and fair, distributing requests sequentially.
+- **Least Connections:** Sends traffic to the instance with the fewest active connections.
+- **IP Hash:** Distributes requests based on the client’s IP address, useful for session persistence.
+- **Weighted Round Robin/Least Connections:** Assigns weights to instances based on their capacity, distributing traffic accordingly.
+
+### Monitoring and Auto-Scaling
+
+- **Monitoring Tools:** Use monitoring tools like Prometheus, Grafana, and ELK stack to keep track of service performance and load.
+- **Auto-Scaling:** Implement auto-scaling policies based on metrics such as CPU usage, memory usage, or request rate to dynamically adjust the number of service instances.
+
+### Conclusion
+
+Maintaining load balance in microservices requires a combination of client-side and server-side strategies, effective service discovery, and the use of appropriate load balancing algorithms. Leveraging modern tools and technologies like service meshes, reverse proxies, and cloud-based load balancers, along with robust monitoring and auto-scaling mechanisms, ensures that your microservices architecture can handle varying loads efficiently and reliably.
 
 ## API Gateway
 
 > Explain gate way (API Gateway) function in micro service.
 > Pre-filter and post-filter
-
-- `Pre-Filter` When the consumer sends the request to API gateway, API gate way(spring cloud API Gateway) will authenticate and sends the request to the respective micro-service app.
-- `Post-Filter` Responce from the micro-service application will be logged inside the API Gate way or adding the headers to the responce by API Gateway. This is handled in Post-Filter.
 
 An API Gateway is a server that acts as an intermediary for requests from clients seeking services from backend servers. It is a fundamental component in a microservices architecture, providing a centralized entry point for managing and routing requests to the appropriate services.
 
@@ -158,6 +281,10 @@ Here's a simple explanation of its uses:
 2. **Load Balancing**: It distributes incoming requests evenly across multiple instances of a service, ensuring no single instance is overwhelmed and improving the application's availability and responsiveness.
 
 3. **Security**: The gateway can handle authentication and authorization, ensuring that only authorized clients can access the services. It can also enforce security policies and manage API keys or tokens.
+
+- `Pre-Filter` When the consumer sends the request to API gateway, API gate way(spring cloud API Gateway) will authenticate and sends the request to the respective micro-service app.
+
+- `Post-Filter` Responce from the micro-service application will be logged inside the API Gate way or adding the headers to the responce by API Gateway. This is handled in Post-Filter.
 
 4. **Centralized Logging and Monitoring**: It collects logs and metrics for all requests passing through, providing a centralized point for monitoring and troubleshooting.
 
