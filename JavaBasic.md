@@ -1,220 +1,1238 @@
+<!-- TOC  Alt + insrt in intellij-->
+* [Java Interview Question Bank](#java-interview-question-bank)
+  * [Primary main features of java](#primary-main-features-of-java)
+  * [Identifiers](#identifiers)
+* [Modifier in Java](#modifier-in-java)
+  * [1. Access modifiers](#1-access-modifiers)
+    * [private access modifier](#private-access-modifier)
+    * [private constructor](#private-constructor)
+    * [Default access modifier](#default-access-modifier)
+  * [2- Non-access Modifiers](#2--non-access-modifiers)
+* [OOP(Object Oriented Programming)](#oopobject-oriented-programming)
+  * [1. Polymorphism](#1-polymorphism)
+    * [Difference between Inheritance and Polymorphism](#difference-between-inheritance-and-polymorphism)
+      * [Types](#types)
+      * [Overloading](#overloading)
+      * [Overriding](#overriding)
+    * [Covariant return type](#covariant-return-type)
+    * [Overloading and overriding in static, private and final methods](#overloading-and-overriding-in-static-private-and-final-methods)
+      * [Override private, static and final methods](#override-private-static-and-final-methods)
+      * [Overload private, static and final methods](#overload-private-static-and-final-methods)
+  * [2 . Inheritance](#2--inheritance)
+  * [3 . Encapsulation - hiding the information](#3--encapsulation---hiding-the-information)
+  * [4 . Abstraction - Abstract factory pattern](#4--abstraction---abstract-factory-pattern)
+  * [5 . Interface](#5--interface)
+    * [Example](#example)
+    * [Create variable inside interface](#create-variable-inside-interface)
+    * [Marker interface vs Functional Interface](#marker-interface-vs-functional-interface)
+    * [Supplier vs Consumer vs Predicate vs UnaryOperator vs BinaryOperator](#supplier-vs-consumer-vs-predicate-vs-unaryoperator-vs-binaryoperator)
+    * [Comparable and Comparator](#comparable-and-comparator)
+    * [Implements and Extends](#implements-and-extends)
+    * [Interface and Abstract](#interface-and-abstract)
+      * [purpose of interface instead of abstract class in java](#purpose-of-interface-instead-of-abstract-class-in-java)
+* [Collections](#collections)
+  * [Why the Collections Framework?](#why-the-collections-framework)
+    * [Iterator VS Enumarator](#iterator-vs-enumarator)
+    * [Collection interface:-](#collection-interface-)
+    * [Iterator Interface](#iterator-interface)
+    * [Iterable Interface](#iterable-interface)
+  * [List](#list)
+    * [`ArrayList`](#arraylist)
+    * [`LinkedList`](#linkedlist)
+    * [`Singly LinkedList`](#singly-linkedlist)
+    * [`Doubly LinkedList`](#doubly-linkedlist)
+    * [`Circular LinkedList`](#circular-linkedlist)
+    * [`Vector`](#vector)
+    * [`Stack`](#stack)
+  * [Queue](#queue)
+    * [`Deque Interface`](#deque-interface)
+    * [`ArrayDeque`](#arraydeque)
+  * [Set](#set)
+    * [`HashSet`](#hashset)
+    * [`LinkedHashSet`](#linkedhashset)
+    * [`TreeSet`](#treeset)
+    * [Choosing the Right Set Implementation](#choosing-the-right-set-implementation)
+  * [Map](#map)
+    * [`HashMap`](#hashmap)
+      * [Equals() & HashCode()](#equals--hashcode--)
+      * [equals() vs "=="](#equals---vs---)
+      * [**Reference Equality**](#reference-equality)
+      * [**Value Equality**](#value-equality)
+    * [`ConcurrentHashMap`](#concurrenthashmap)
+    * [`TreeMap`](#treemap)
+    * [`LinkedHashMap`](#linkedhashmap)
+    * [`HashTable`](#hashtable)
+  * [Aplet](#aplet)
+  * [Serialization and Deserialization](#serialization-and-deserialization)
+    * [Transient Keyword](#transient-keyword)
+* [Auto-boxing and Auto-Unboxing](#auto-boxing-and-auto-unboxing)
+  * [Boxing & AutoBoxing - Primitive values to Object or wrapper class](#boxing--autoboxing---primitive-values-to-object-or-wrapper-class)
+  * [UnBoxing & AutoUnBoxing - Object to primitive type](#unboxing--autounboxing---object-to-primitive-type)
+  * [variables](#variables)
+  * [Initialization vs Instantiation](#initialization-vs-instantiation)
+  * [Float and double](#float-and-double)
+  * [int vs Integer](#int-vs-integer)
+  * [final - keyword](#final---keyword)
+  * [finally](#finally)
+  * [finalize](#finalize)
+    * [Garbage collection](#garbage-collection)
+    * [Manually invoking garbage collection](#manually-invoking-garbage-collection)
+      * [1. **Using `System.gc()`:**](#1-using-systemgc)
+      * [2. **Using `Runtime.getRuntime().gc()`:**](#2-using-runtimegetruntimegc)
+      * [Important Note](#important-note)
+  * [Two types of error:-](#two-types-of-error-)
+    * [1. Syntax Error or Compile time Error](#1-syntax-error-or-compile-time-error)
+    * [2. Semantic Error or Run Time Error](#2-semantic-error-or-run-time-error)
+  * [Exception Handling](#exception-handling)
+    * [throw new and throws](#throw-new-and-throws)
+    * [Checked and Unchecked Exceptions](#checked-and-unchecked-exceptions)
+      * [1. **Checked Exceptions:**](#1-checked-exceptions)
+      * [2. **Unchecked Exceptions (Runtime Exceptions):**](#2-unchecked-exceptions-runtime-exceptions)
+  * [Try with Resource (java 7 and java 9 improvements)](#try-with-resource--java-7-and-java-9-improvements-)
+    * [The first is a typical try-catch-finally block](#the-first-is-a-typical-try-catch-finally-block)
+    * [try-with-resources With Multiple Resources](#try-with-resources-with-multiple-resources)
+    * [A Custom Resource With AutoCloseable](#a-custom-resource-with-autocloseable)
+    * [MultiCatch (From java 7)](#multicatch--from-java-7-)
+  * [Class](#class)
+    * [Common classes in java](#common-classes-in-java)
+      * [1. **Regular (Concrete) Class:**](#1-regular-concrete-class)
+      * [2. **Abstract Class:**](#2-abstract-class)
+      * [3. **Interface:**](#3-interface)
+      * [4. **Final Class:**](#4-final-class)
+      * [5. **Inner Class:**](#5-inner-class)
+      * [6. **Static Nested Class:**](#6-static-nested-class)
+      * [7. **Anonymous Class:** Anonymous class](#7-anonymous-class-anonymous-class)
+  * [Constructors](#constructors)
+    * [1. Default Constructor](#1-default-constructor)
+    * [2. Parameterized Constructor](#2-parameterized-constructor)
+    * [3. Copy Constructor](#3-copy-constructor)
+    * [4. Constructor Chaining](#4-constructor-chaining)
+    * [5. Private Constructor](#5-private-constructor)
+  * [Static in class, method and variable](#static-in-class-method-and-variable)
+* [Cohesion and Coupling in Java](#cohesion-and-coupling-in-java)
+  * [Coupling](#coupling)
+    * [Loose coupling](#loose-coupling)
+    * [Tight Coupling](#tight-coupling)
+  * [Cohesion](#cohesion)
+* [Multithreading](#multithreading)
+  * [Volatile Keyword](#volatile-keyword)
+    * [Deadlock](#deadlock)
+    * [Race condition](#race-condition)
+    * [ConcurrentModificationException / Fail-Fast and Fail-Safe](#concurrentmodificationexception--fail-fast-and-fail-safe)
+      * [1. Failsafe](#1-failsafe)
+      * [2. Fail-Fast](#2-fail-fast)
+      * [Callable vs Runnable](#callable-vs-runnable)
+      * [Future - Asynchronous computation](#future---asynchronous-computation)
+    * [13. How to handle multithreading in the project](#13-how-to-handle-multithreading-in-the-project)
+      * [1. **Understand the Basics:**](#1-understand-the-basics)
+      * [2. **Use Thread-safe Data Structures:**](#2-use-thread-safe-data-structures)
+      * [3. **Synchronization:**](#3-synchronization)
+      * [4. **Atomic Operations:**](#4-atomic-operations)
+      * [5. **Thread Pools:**](#5-thread-pools)
+      * [6. **Callable and Future:**](#6-callable-and-future)
+      * [7. **Concurrency Utilities:**](#7-concurrency-utilities)
+      * [8. **Avoid Deadlocks:**](#8-avoid-deadlocks)
+      * [9. **Thread Safety in Singleton Classes:**](#9-thread-safety-in-singleton-classes)
+      * [10. **Volatile Keyword:**](#10-volatile-keyword)
+      * [11. **Thread Interruption:**](#11-thread-interruption)
+      * [12. **ThreadLocal:**](#12-threadlocal)
+      * [13. **Avoid Excessive Synchronization:**](#13-avoid-excessive-synchronization)
+      * [14. **Testing and Debugging:**](#14-testing-and-debugging)
+      * [15. **Asynchronous Programming:**](#15-asynchronous-programming)
+      * [16. **Java Concurrency Frameworks:**](#16-java-concurrency-frameworks)
+      * [17. **Documentation:**](#17-documentation)
+      * [18. **Use Modern Java Features:**](#18-use-modern-java-features)
+  * [Synchronization](#synchronization)
+    * [asynchronize ways](#asynchronize-ways)
+      * [Using Threads](#using-threads)
+      * [Using ExecutorService](#using-executorservice)
+      * [Using CompletableFuture (Java 8+)](#using-completablefuture-java-8)
+      * [Using CompletableFuture with Callbacks (Java 8+)](#using-completablefuture-with-callbacks-java-8)
+      * [Using Asynchronous Methods (Java 8+)](#using-asynchronous-methods-java-8)
+  * [Synchronized in method, block and class level](#synchronized-in-method-block-and-class-level)
+  * [Process syncronizatin & Thread Syncronization](#process-syncronizatin--thread-syncronization)
+    * [**Process Synchronization:**](#process-synchronization)
+    * [**Thread Synchronization:**](#thread-synchronization)
+* [Java Questions](#java-questions)
+  * [1. Caching in java](#1-caching-in-java)
+  * [Size() vs length()](#size-vs-length)
+  * [What design patterns are used, explain the reason for the usage](#what-design-patterns-are-used-explain-the-reason-for-the-usage)
+  * [10. Pass by value and Pass by reference](#10-pass-by-value-and-pass-by-reference)
+  * [14. How to compile simple applications](#14-how-to-compile-simple-applications)
+  * [15. What are required to run simple Java applications](#15-what-are-required-to-run-simple-java-applications)
+  * [16. What is the difference between JDK and JRE](#16-what-is-the-difference-between-jdk-and-jre)
+  * [17. Is it possible run the application with JRE](#17-is-it-possible-run-the-application-with-jre)
+  * [18. What is JVM](#18-what-is-jvm)
+  * [19. What are collection, how collections are used](#19-what-are-collection-how-collections-are-used)
+  * [20. Hashmap, what is the complexity of traversing](#20-hashmap-what-is-the-complexity-of-traversing)
+  * [Stream API](#stream-api)
+  * [Data Binding](#data-binding)
+    * [1. **Static Binding (Early Binding):**](#1-static-binding-early-binding)
+    * [2. **Dynamic Binding (Late Binding or Runtime Polymorphism):**](#2-dynamic-binding-late-binding-or-runtime-polymorphism)
+  * [24. Cqrs Pattern, what is the solution scenario used](#24-cqrs-pattern-what-is-the-solution-scenario-used)
+    * [1. **Separation of Concerns:**](#1-separation-of-concerns)
+    * [2. **Scalability:**](#2-scalability)
+    * [3. **Flexibility and Optimization:**](#3-flexibility-and-optimization)
+    * [4. **Event Sourcing:**](#4-event-sourcing)
+    * [5. **Complex Domain Logic:**](#5-complex-domain-logic)
+  * [25. What build tool used](#25-what-build-tool-used)
+  * [26. What is the difference between install and deploy](#26-what-is-the-difference-between-install-and-deploy)
+  * [Eden space in java](#eden-space-in-java)
+  * [PermGen Space (Permanent Generation) and Meta Space](#permgen-space-permanent-generation-and-meta-space)
+    * [PerGen vs Meta space](#pergen-vs-meta-space)
+  * [URL vs URI](#url-vs-uri)
+  * [Session management](#session-management)
+  * [Loggers](#loggers)
+* [Strings](#strings)
+  * [String vs StringBuffer vs StringBuilder, String Pool](#string-vs-stringbuffer-vs-stringbuilder-string-pool)
+    * [String vs StringBuffer](#string-vs-stringbuffer)
+    * [String pool](#string-pool)
+    * [String Literal vs String Object](#string-literal-vs-string-object)
+      * [String Literal](#string-literal)
+  * [String Manipulation\_\_](#string-manipulation)
+  * [concat() vs plus(+) operator](#concat-vs-plus-operator)
+  * [Deep copy vs shallow copy](#deep-copy-vs-shallow-copy)
+  * [Why string is immutable in java](#why-string-is-immutable-in-java)
+    * [String](#string)
+    * [**_To Create immutable class_**](#to-create-immutable-class)
+    * [**_To Create Singleton class_**](#to-create-singleton-class)
+  * [Wrapper Class with AutoBoxing](#wrapper-class-with-autoboxing)
+  * [URL vs URI](#url-vs-uri-1)
+  * [Authentication and Authorization](#authentication-and-authorization)
+  * [Association, Composition and Aggregation in Java](#association-composition-and-aggregation-in-java)
+  * [Arbitrary Number of Arguments and @SafeVarags](#arbitrary-number-of-arguments-and-safevarags)
+  * [Math functions in java](#math-functions-in-java)
+    * [Math.floor](#mathfloor)
+    * [Math.max and Math.min](#mathmax-and-mathmin)
+    * [`Math.max`](#mathmax)
+    * [`Math.min`](#mathmin)
+* [Junit](#junit)
+  * [Junit mockito](#junit-mockito)
+  * [Java Questions](#java-questions-1)
 <!-- TOC -->
-
-- [Java Interview Question Bank](#java-interview-question-bank)
-  - [variables](#variables)
-  - [Initialization vs Instantiation](#initialization-vs-instantiation)
-  - [Float and double](#float-and-double)
-  - [int vs Integer](#int-vs-integer)
-  - [final - keyword](#final---keyword)
-  - [finally](#finally)
-  - [finalize](#finalize)
-    - [Garbage collection](#garbage-collection)
-    - [Manually invoking garbage collection](#manually-invoking-garbage-collection)
-      - [1. **Using `System.gc()`:**](#1-using-systemgc)
-      - [2. **Using `Runtime.getRuntime().gc()`:**](#2-using-runtimegetruntimegc)
-      - [Important Note](#important-note)
-  - [Two types of error:-](#two-types-of-error-)
-    - [1. Syntax Error or Compile time Error](#1-syntax-error-or-compile-time-error)
-    - [2. Semantic Error or Run Time Error](#2-semantic-error-or-run-time-error)
-  - [Exception Handling](#exception-handling)
-    - [throw new and throws](#throw-new-and-throws)
-    - [Checked and Unchecked Exceptions](#checked-and-unchecked-exceptions)
-      - [1. **Checked Exceptions:**](#1-checked-exceptions)
-      - [2. **Unchecked Exceptions (Runtime Exceptions):**](#2-unchecked-exceptions-runtime-exceptions)
-  - [Try with Resource (java 7 and java 9 improvements)](#try-with-resource-java-7-and-java-9-improvements)
-    - [The first is a typical try-catch-finally block](#the-first-is-a-typical-try-catch-finally-block)
-    - [try-with-resources With Multiple Resources](#try-with-resources-with-multiple-resources)
-    - [A Custom Resource With AutoCloseable](#a-custom-resource-with-autocloseable)
-    - [MultiCatch (From java 7)](#multicatch-from-java-7)
-  - [Class](#class)
-    - [Common classes in java](#common-classes-in-java)
-      - [1. **Regular (Concrete) Class:**](#1-regular-concrete-class)
-      - [2. **Abstract Class:**](#2-abstract-class)
-      - [3. **Interface:**](#3-interface)
-      - [4. **Final Class:**](#4-final-class)
-      - [5. **Inner Class:**](#5-inner-class)
-      - [6. **Static Nested Class:**](#6-static-nested-class)
-      - [7. **Anonymous Class:** Anonymous class](#7-anonymous-class-anonymous-class)
-  - [Constructors](#constructors)
-    - [1. Default Constructor](#1-default-constructor)
-    - [2. Parameterized Constructor](#2-parameterized-constructor)
-    - [3. Copy Constructor](#3-copy-constructor)
-    - [4. Constructor Chaining](#4-constructor-chaining)
-    - [5. Private Constructor](#5-private-constructor)
-  - [Primary main features of java](#primary-main-features-of-java)
-  - [Identifiers](#identifiers)
-- [Modifier in Java](#modifier-in-java)
-  - [1. Access modifiers](#1-access-modifiers)
-    - [private access modifier](#private-access-modifier)
-    - [private constructor](#private-constructor)
-    - [Default access modifier](#default-access-modifier)
-  - [2- Non-access Modifiers](#2--non-access-modifiers)
-  - [Static in class, method and variable](#static-in-class-method-and-variable)
-- [OOP(Object Oriented Programming)](#oopobject-oriented-programming)
-  - [1. Polymorphism](#1-polymorphism)
-    - [Difference between Inheritance and Polymorphism](#difference-between-inheritance-and-polymorphism)
-      - [Types](#types)
-      - [Overloading](#overloading)
-      - [Overriding](#overriding)
-    - [Covariant return type](#covariant-return-type)
-    - [Overloading and overriding in static, private and final methods](#overloading-and-overriding-in-static-private-and-final-methods)
-      - [Override private, static and final methods](#override-private-static-and-final-methods)
-      - [Overload private, static and final methods](#overload-private-static-and-final-methods)
-  - [2 . Inheritance](#2--inheritance)
-  - [3 . Encapsulation - hiding the information](#3--encapsulation---hiding-the-information)
-  - [4 . Abstraction - Abstract factory pattern](#4--abstraction---abstract-factory-pattern)
-  - [5 . Interface](#5--interface)
-    - [Example](#example)
-    - [Create variable inside interface](#create-variable-inside-interface)
-    - [Marker interface vs Functional Interface](#marker-interface-vs-functional-interface)
-    - [Supplier vs Consumer vs Predicate vs UnaryOperator vs BinaryOperator](#supplier-vs-consumer-vs-predicate-vs-unaryoperator-vs-binaryoperator)
-    - [Comparable and Comparator](#comparable-and-comparator)
-    - [Implements and Extends](#implements-and-extends)
-    - [Interface and Abstract](#interface-and-abstract)
-      - [purpose of interface instead of abstract class in java](#purpose-of-interface-instead-of-abstract-class-in-java)
-- [Collections](#collections)
-  - [Why the Collections Framework?](#why-the-collections-framework)
-    - [Iterator VS Enumarator](#iterator-vs-enumarator)
-    - [Collection interface:-](#collection-interface-)
-    - [Iterator Interface](#iterator-interface)
-    - [Iterable Interface](#iterable-interface)
-  - [List](#list)
-    - [`ArrayList`](#arraylist)
-    - [`LinkedList`](#linkedlist)
-    - [`Singly LinkedList`](#singly-linkedlist)
-    - [`Doubly LinkedList`](#doubly-linkedlist)
-    - [`Circular LinkedList`](#circular-linkedlist)
-    - [`Vector`](#vector)
-    - [`Stack`](#stack)
-  - [Queue](#queue)
-    - [`Deque Interface`](#deque-interface)
-    - [`ArrayDeque`](#arraydeque)
-  - [Set](#set)
-    - [`HashSet`](#hashset)
-    - [`LinkedHashSet`](#linkedhashset)
-    - [`TreeSet`](#treeset)
-    - [Choosing the Right Set Implementation](#choosing-the-right-set-implementation)
-  - [Map](#map)
-    - [`HashMap`](#hashmap)
-      - [Equals() \& HashCode()](#equals--hashcode)
-      - [equals() vs "=="](#equals-vs-)
-      - [**Reference Equality**](#reference-equality)
-      - [**Value Equality**](#value-equality)
-    - [`ConcurrentHashMap`](#concurrenthashmap)
-    - [`TreeMap`](#treemap)
-    - [`LinkedHashMap`](#linkedhashmap)
-    - [`HashTable`](#hashtable)
-  - [Aplet](#aplet)
-  - [Serialization and Deserialization](#serialization-and-deserialization)
-    - [Transient Keyword](#transient-keyword)
-- [Auto-boxing and Auto-Unboxing](#auto-boxing-and-auto-unboxing)
-  - [Boxing \& AutoBoxing - Primitive values to Object or wrapper class](#boxing--autoboxing---primitive-values-to-object-or-wrapper-class)
-  - [UnBoxing \& AutoUnBoxing - Object to primitive type](#unboxing--autounboxing---object-to-primitive-type)
-- [Cohesion and Coupling in Java](#cohesion-and-coupling-in-java)
-  - [Coupling](#coupling)
-    - [Loose coupling](#loose-coupling)
-    - [Tight Coupling](#tight-coupling)
-  - [Cohesion](#cohesion)
-- [Multithreading](#multithreading)
-  - [Volatile Keyword](#volatile-keyword)
-    - [Deadlock](#deadlock)
-    - [Race condition](#race-condition)
-    - [ConcurrentModificationException / Fail-Fast and Fail-Safe](#concurrentmodificationexception--fail-fast-and-fail-safe)
-      - [1. Failsafe](#1-failsafe)
-      - [2. Fail-Fast](#2-fail-fast)
-      - [Callable vs Runnable](#callable-vs-runnable)
-      - [Future - Asynchronous computation](#future---asynchronous-computation)
-    - [13. How to handle multithreading in the project](#13-how-to-handle-multithreading-in-the-project)
-      - [1. **Understand the Basics:**](#1-understand-the-basics)
-      - [2. **Use Thread-safe Data Structures:**](#2-use-thread-safe-data-structures)
-      - [3. **Synchronization:**](#3-synchronization)
-      - [4. **Atomic Operations:**](#4-atomic-operations)
-      - [5. **Thread Pools:**](#5-thread-pools)
-      - [6. **Callable and Future:**](#6-callable-and-future)
-      - [7. **Concurrency Utilities:**](#7-concurrency-utilities)
-      - [8. **Avoid Deadlocks:**](#8-avoid-deadlocks)
-      - [9. **Thread Safety in Singleton Classes:**](#9-thread-safety-in-singleton-classes)
-      - [10. **Volatile Keyword:**](#10-volatile-keyword)
-      - [11. **Thread Interruption:**](#11-thread-interruption)
-      - [12. **ThreadLocal:**](#12-threadlocal)
-      - [13. **Avoid Excessive Synchronization:**](#13-avoid-excessive-synchronization)
-      - [14. **Testing and Debugging:**](#14-testing-and-debugging)
-      - [15. **Asynchronous Programming:**](#15-asynchronous-programming)
-      - [16. **Java Concurrency Frameworks:**](#16-java-concurrency-frameworks)
-      - [17. **Documentation:**](#17-documentation)
-      - [18. **Use Modern Java Features:**](#18-use-modern-java-features)
-  - [Synchronization](#synchronization)
-    - [asynchronize ways](#asynchronize-ways)
-      - [Using Threads](#using-threads)
-      - [Using ExecutorService](#using-executorservice)
-      - [Using CompletableFuture (Java 8+)](#using-completablefuture-java-8)
-      - [Using CompletableFuture with Callbacks (Java 8+)](#using-completablefuture-with-callbacks-java-8)
-      - [Using Asynchronous Methods (Java 8+)](#using-asynchronous-methods-java-8)
-  - [Synchronized in method, block and class level](#synchronized-in-method-block-and-class-level)
-  - [Process syncronizatin \& Thread Syncronization](#process-syncronizatin--thread-syncronization)
-    - [**Process Synchronization:**](#process-synchronization)
-    - [**Thread Synchronization:**](#thread-synchronization)
-- [Java Questions](#java-questions)
-  - [1. Caching in java](#1-caching-in-java)
-  - [Size() vs length()](#size-vs-length)
-  - [What design patterns are used, explain the reason for the usage](#what-design-patterns-are-used-explain-the-reason-for-the-usage)
-  - [10. Pass by value and Pass by reference](#10-pass-by-value-and-pass-by-reference)
-  - [14. How to compile simple applications](#14-how-to-compile-simple-applications)
-  - [15. What are required to run simple Java applications](#15-what-are-required-to-run-simple-java-applications)
-  - [16. What is the difference between JDK and JRE](#16-what-is-the-difference-between-jdk-and-jre)
-  - [17. Is it possible run the application with JRE](#17-is-it-possible-run-the-application-with-jre)
-  - [18. What is JVM](#18-what-is-jvm)
-  - [19. What are collection, how collections are used](#19-what-are-collection-how-collections-are-used)
-  - [20. Hashmap, what is the complexity of traversing](#20-hashmap-what-is-the-complexity-of-traversing)
-  - [Stream API](#stream-api)
-  - [Data Binding](#data-binding)
-    - [1. **Static Binding (Early Binding):**](#1-static-binding-early-binding)
-    - [2. **Dynamic Binding (Late Binding or Runtime Polymorphism):**](#2-dynamic-binding-late-binding-or-runtime-polymorphism)
-  - [24. Cqrs Pattern, what is the solution scenario used](#24-cqrs-pattern-what-is-the-solution-scenario-used)
-    - [1. **Separation of Concerns:**](#1-separation-of-concerns)
-    - [2. **Scalability:**](#2-scalability)
-    - [3. **Flexibility and Optimization:**](#3-flexibility-and-optimization)
-    - [4. **Event Sourcing:**](#4-event-sourcing)
-    - [5. **Complex Domain Logic:**](#5-complex-domain-logic)
-  - [25. What build tool used](#25-what-build-tool-used)
-  - [26. What is the difference between install and deploy](#26-what-is-the-difference-between-install-and-deploy)
-  - [Eden space in java](#eden-space-in-java)
-  - [PermGen Space (Permanent Generation) and Meta Space](#permgen-space-permanent-generation-and-meta-space)
-    - [PerGen vs Meta space](#pergen-vs-meta-space)
-  - [URL vs URI](#url-vs-uri)
-  - [Session management](#session-management)
-  - [Loggers](#loggers)
-- [Strings](#strings)
-  - [String vs StringBuffer vs StringBuilder, String Pool](#string-vs-stringbuffer-vs-stringbuilder-string-pool)
-    - [String vs StringBuffer](#string-vs-stringbuffer)
-    - [String pool](#string-pool)
-    - [String Literal vs String Object](#string-literal-vs-string-object)
-      - [String Literal](#string-literal)
-  - [String Manipulation\_\_](#string-manipulation__)
-  - [concat() vs plus(+) operator](#concat-vs-plus-operator)
-  - [Deep copy vs shallow copy](#deep-copy-vs-shallow-copy)
-  - [Why string is immutable in java](#why-string-is-immutable-in-java)
-    - [String](#string)
-    - [**_To Create immutable class_**](#to-create-immutable-class)
-    - [**_To Create Singleton class_**](#to-create-singleton-class)
-  - [Wrapper Class with AutoBoxing](#wrapper-class-with-autoboxing)
-  - [URL vs URI](#url-vs-uri-1)
-  - [Authentication and Authorization](#authentication-and-authorization)
-  - [\[Association, Composition and Aggregation in Java\](https://www.geeksforgeeks.org/association-composition- -java/)](#association-composition-and-aggregation-in-javahttpswwwgeeksforgeeksorgassociation-composition---java)
-  - [Arbitrary Number of Arguments and @SafeVarags](#arbitrary-number-of-arguments-and-safevarags)
-  - [Math functions in java](#math-functions-in-java)
-    - [Math.floor](#mathfloor)
-    - [Math.max and Math.min](#mathmax-and-mathmin)
-    - [`Math.max`](#mathmax)
-    - [`Math.min`](#mathmin)
-- [Junit](#junit)
-  - [Junit mockito](#junit-mockito)
-  - [Java Questions](#java-questions-1)
 
 # Java Interview Question Bank
 
 - [Java Interview Questions 1](https://www.java2novice.com/java-interview-questions/)
 - [Java interview Questions 2](https://www.java67.com/2015/03/top-40-core-java-interview-questions-answers-telephonic-round.html)
+
+## Primary main features of java
+
+1. Platform Independent
+2. Object oriented programming language
+  - Abstraction
+  - Encapsulation
+  - Inheritance
+  - Polymorphism
+3. Simple
+4. Robust
+5. Secure
+6. Distributed
+7. Multithreading
+8. Portable
+
+## Identifiers
+
+- starts with alphabets and underscore and dollar symbol.
+- Case sensitive.
+- **Keyword** cant be used as identifier.
+
+In Java, a keyword is a reserved word that has a specific meaning and functionality in the programming language. These words cannot be used as identifiers (such as variable names, method names, or class names) because they are part of the language's syntax and have predefined roles.
+
+Here are some examples of keywords in Java:
+
+1. **`class`:**
+
+- Used to declare a class.
+
+2. **`public`:**
+
+- Indicates that a class, method, or variable is accessible from any other class.
+
+3. **`static`:**
+
+- Indicates that a method or variable belongs to the class rather than an instance of the class.
+
+4. **`void`:**
+
+- Specifies that a method does not return any value.
+
+5. **`main`:**
+
+- The entry point of a Java program. Execution starts from the `main` method.
+
+6. **`new`:**
+
+- Used to create an instance of a class or to allocate memory for an object.
+
+7. **`if`, `else`:**
+
+- Used for conditional statements.
+
+8. **`for`, `while`, `do`:**
+
+- Used for loop constructs.
+
+9. **`return`:**
+
+- Used to exit a method and optionally return a value.
+
+10. **`try`, `catch`, `finally`:**
+
+- Used for exception handling.
+
+11. **`throw`, `throws`:**
+
+- Used to handle and declare exceptions.
+
+These are just a few examples, and there are more keywords in Java. It's important to note that keywords are case-sensitive in Java, so `public` is different from `Public` or `PuBlIc`.
+
+# Modifier in Java
+
+## 1. Access modifiers
+
+| Access Modifiyers | Access within class | Access within package | Access outside package by subclass only | Access outside package and not in subclass |
+| ----------------- | ------------------- | --------------------- | --------------------------------------- | ------------------------------------------ |
+| Public            | y                   | y                     | y                                       | y                                          |
+| Protected         | y                   | y                     | y                                       |
+| Default           | y                   | y                     |
+| Private           | y                   |
+
+### private access modifier
+
+- The private access modifier is accessible only within class.
+
+- You cannot access to private field outside the class that defines that private. Java will notify error at the compile time of the class.
+
+```java
+class Sarath
+{
+  private String name = "sarath"; --> this can be accessed within class
+}
+
+class friend
+{
+  Sarath sar = new Sarath("tom");
+  String var = sar.name; //throws compilation error
+}
+```
+
+### private constructor
+
+If you create a class and have a private constructor, we cant create an object of this class in another class.
+
+### Default access modifier
+
+The default access modifier is also known as the package-private, which means all the members are availabe inside the package but not accassible by other package outside the package.
+
+## 2- Non-access Modifiers
+
+1. `static` – static keyword is mainly used for memory management.
+
+2. `Final` – final is a keyword for constant
+
+3. `Native` - is a modifier only applicable for method.
+
+4. `Abstract` - non-access modifier, used for classes and methods
+
+5. `Strictfp` - (Removed in java 17)to ensure that floating points operations give the same result on any platform
+
+# OOP(Object Oriented Programming)
+
+Oops refers to languages that uses objects in programming.
+Oop's concepts consists of Polymorphism, Encapsulation, Inheritance, Abstraction, Class, Object, Method.
+
+## 1. Polymorphism
+
+### [Difference between Inheritance and Polymorphism](https://www.geeksforgeeks.org/difference-between-inheritance-and-polymorphism/?ref=lbp)
+
+- **_Inheritance_** is one which new class is created inherits the properties of already existing class.
+- Concept of code reusability.
+
+#### Types
+
+1. Single Inheritance
+2. Multi-Level Inheritance
+3. Multiple Inheritance
+4. Hybrid Inheritance
+5. Hirerarchial Inheritance
+
+Differentiate between entities with the same name efficiency.
+
+Mainly for two types
+
+**_Compile-time polymorphism(Method overloading)_**
+
+**_Run-time polymorphism(Method overriding)_**
+
+#### Overloading
+
+`Eg: Same method name for multiple methods but with different parameters.`
+
+[Method overloading](https://www.geeksforgeeks.org/method-overloading-in-java/)
+
+[Constructor overloading](https://www.geeksforgeeks.org/constructor-overloading-java/?ref=rp)
+
+Constructor Overloading is somewhat similar to method overloading.
+
+#### [Overriding](https://www.geeksforgeeks.org/dynamic-method-dispatch-runtime-polymorphism-java/)
+
+In other words it is called as Dynamic Method Dispatch or Run time polymorphism in java
+
+`Eg:` `class A`</br>
+`Class B extends A`
+
+### Covariant return type
+
+We can change the return type of the child class if it is the subclass of the return type.
+
+### Overloading and overriding in static, private and final methods
+
+> we can't override static, private methods but we can declare the same method in subclass and we can't declare final methods in subclasses.
+
+> We can overload private static final methods in same class with differnet parameters.
+
+#### Override private, static and final methods
+
+In Java, we cannot override private or static methods, and you cannot override final methods that are declared in the same class. Here's why:
+
+1. **Private Methods**: Private methods are not visible to subclasses, so it doesn't make sense to override them. Subclasses cannot access private methods of the superclass.
+
+2. **Static Methods**: Static methods are associated with the class rather than instances of the class. They are resolved at compile time based on the reference type, not at runtime based on the object type. Therefore, they cannot be overridden in the traditional sense. If a subclass defines a static method with the same signature as a static method in the superclass, it simply hides the superclass method.
+
+3. **Final Methods**: Final methods cannot be overridden in subclasses. The `final` keyword prevents subclasses from providing a different implementation of the method. It effectively makes the method implementation in the superclass "final" and cannot be changed by any subclass.
+
+Here's an example to illustrate these concepts:
+
+```java
+class Parent {
+    private void privateMethod() {
+        System.out.println("Private method in Parent");
+    }
+
+    static void staticMethod() {
+        System.out.println("Static method in Parent");
+    }
+
+    final void finalMethod() {
+        System.out.println("Final method in Parent");
+    }
+}
+
+class Child extends Parent {
+    // This method does not override privateMethod or staticMethod
+    // It simply hides the methods of the same name in the Parent class
+    private void privateMethod() {
+        System.out.println("Private method in Child");
+    }
+
+    static void staticMethod() {
+        System.out.println("Static method in Child");
+    }
+
+    // This would cause a compilation error
+    // Cannot override the final method from Parent
+    // void finalMethod() { }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Parent parent = new Parent();
+        parent.privateMethod(); // This would cause a compilation error
+        parent.staticMethod(); // Calls static method in Parent
+        parent.finalMethod();  // Calls final method in Parent
+
+        Child child = new Child();
+        child.privateMethod(); // This would cause a compilation error
+        child.staticMethod(); // Calls static method in Child
+        child.finalMethod();  // Calls final method in Parent
+    }
+}
+```
+
+---
+
+#### Overload private, static and final methods
+
+- Yes, we can overload private, static, and final methods in Java.
+
+1. **Private Methods**: Private methods can be overloaded within the same class. Overloading means defining multiple methods with the same name but different parameter lists. Since private methods are not accessible outside the class, overloading them does not affect other classes.
+
+2. **Static Methods**: Static methods can be overloaded within the same class. Overloading static methods involves defining multiple methods with the same name but different parameter lists. Static methods are associated with the class rather than instances of the class, so overloading is based solely on the method signature.
+
+3. **Final Methods**: Final methods can be overloaded within the same class. Overloading final methods involves defining multiple methods with the same name but different parameter lists. Final methods cannot be overridden in subclasses, but they can still be overloaded within the same class.
+
+```java
+public class Example {
+    private static final void method() {
+        System.out.println("Private static final method without parameters");
+    }
+
+    private static final void method(int x) {
+        System.out.println("Private static final method with int parameter: " + x);
+    }
+
+    public static void main(String[] args) {
+        Example.method();  // Calls the private static final method without parameters
+        Example.method(5); // Calls the private static final method with an int parameter
+    }
+}
+
+```
+
+## 2 . Inheritance
+
+Inheritance is a important pillar in OOP.
+
+Java doesnt support multiple inheritance. Due to ambiguity problem.
+
+It is the mechanism in Java whose (fields and methods) are inherited by another subclass.
+
+1. SuperClass - The class whose fields and methods are inherited is called SuperClass or BaseClass or ParentClass.
+
+2. SubClass - The class that inherits the other class is known as Subclass or DerivedClass or ExtendedClass.
+
+## 3 . Encapsulation - hiding the information
+
+i. The internal state of every object is protected by hiding its attributes.
+
+ii. It increases usability and maintenance of code.
+
+## 4 . [Abstraction - Abstract factory pattern](https://www.javatpoint.com/abstract-factory-pattern)
+
+i. Abstract class can have abstract method (incomplete method) and non-abstract method. This class can be extended.
+
+ii. Declared with Abstract keyword
+
+## 5 . Interface
+
+- Interface class can have only abstract method (incomplete method). This class should be implemented.
+  > Can we declare private abstract method inside the interface class in java?
+  >
+  > - No, because since it has no body. But we can write private method inside the interface.
+
+> what is the use of declaring private method inside the interface class?
+>
+> - Declaring private methods inside an interface in Java serves specific purposes, primarily related to code organization and reuse within the interface itself. These methods were introduced in Java 9 to enhance the functionality of interfaces, particularly when working with default and static methods. Here are the main reasons for using private methods in an interface:
+
+1. **Code Reuse:**
+  - **Avoid Duplication:**
+  - **Maintainability:**
+2. **Encapsulation:**
+  - **Encapsulate Helper Methods:**
+  - **Implementation Details:**
+3. **Modularity:**
+  - **Modular Design:**
+
+### Example
+
+Here is an example demonstrating the use of private methods in an interface:
+
+```java
+public interface MyInterface {
+
+    // Public abstract method (must be implemented by implementing class)
+    void publicAbstractMethod();
+
+    // Default method that uses a private helper method
+    default void defaultMethod() {
+        System.out.println("Executing default method...");
+        privateHelperMethod();
+    }
+
+    // Static method that uses a private helper method
+    static void staticMethod() {
+        System.out.println("Executing static method...");
+        privateHelperMethod();
+    }
+
+    // Private method used by both default and static methods
+    private void privateHelperMethod() {
+        System.out.println("Executing private helper method.");
+    }
+}
+
+// Implementing class
+public class MyClass implements MyInterface {
+
+    @Override
+    public void publicAbstractMethod() {
+        System.out.println("Implementing public abstract method.");
+    }
+
+    public static void main(String[] args) {
+        MyClass obj = new MyClass();
+        obj.publicAbstractMethod();
+        obj.defaultMethod();
+        MyInterface.staticMethod();
+    }
+}
+```
+
+In summary, private methods in interfaces are a powerful feature introduced to improve code reuse, encapsulation, and maintainability within interfaces.
+
+### Create variable inside interface
+
+- We can create a variable inside interface. That variable will become the public static final variable.
+
+### Marker interface vs Functional Interface
+
+- In Java, a Marker interface is an interface without any methods or fields declaration, means it is an empty interface. Similarly, a Functional Interface is an interface with just one abstract method declared in it.
+
+- A marker interface is an interface that doesn't have any methods or constants inside it. It provides run-time type information about objects, so the compiler and JVM have additional information about the object. A marker interface is also called a tagging interface.
+
+- Callable/Runnable (Functional interface)
+
+**Implementing the bellow classes.**
+
+- **_Runnable – run()_** &rarr; Doesn't return. `public void run()`, Doesn't throw exception. Thread can be created using Runnable.
+- **_Callable – call()_** &rarr; Returns Object. `public Object call()`, throws an exception. Thread cannot be created using callable.
+- **_Cloneable - clone()_** &rarr; Returns Object. `public Object clone()`, throws CloneNotSupportedException.
+- **_Comparable – compareTo()_**
+- **_Comparator - compare()_**
+
+\***\*Note:\*\***
+
+Before java 1.8, interface can have only abstract method, i.e method without body.
+
+After java 1.8 default and static method declaration is allowed,
+
+**@FunctionalInterface** – Single abstract method. (Can be predefined and also user defined)
+
+_Eg:_
+
+```java
+public interface DefaultStaticExampleInterface
+{
+  default void show()
+  {
+    System.out.println("In Java 8- default method - DefaultStaticExampleInterface");
+  }
+  static void display()
+  {
+    System.out.println("In DefaultStaticExampleInterface I");
+  }
+}
+```
+
+**_Implements_**
+
+```java
+public class DefaultStaticExampleClass implements DefaultStaticExampleInterface
+{
+
+}
+
+public class Main
+{
+  static void main(String args[])
+  {
+    // Call interface static method on Interface
+    DefaultStaticExampleInterface.display();
+    DefaultStaticExampleClass defaultStaticExampleClass = new DefaultStaticExampleClass();
+
+    // Call default method on Class
+    defaultStaticExampleClass.show();
+  }
+}
+```
+
+### Supplier vs Consumer vs [Predicate](https://codegym.cc/groups/posts/java-predicate) vs UnaryOperator vs BinaryOperator
+
+In Java, "supplier," "consumer," and "predicate" are actually interfaces defined in the `java.util.function` package, introduced in Java 8 as part of the Java Functional Programming features.
+
+1. **Supplier:**
+
+  - Interface: `java.util.function.Supplier<T>`
+  - Represents a supplier of results. It has a single method called `get()` that takes no arguments and returns a result.
+
+   ```java
+   Supplier<String> supplier = () -> "Hello, Supplier!";
+   String result = supplier.get();
+   ```
+
+2. **Consumer:**
+
+  - Interface: `java.util.function.Consumer<T>`
+  - Represents an operation that accepts a single input argument and returns no result. It has a single method called `accept(T t)`.
+
+   ```java
+   Consumer<String> consumer = (s) -> System.out.println("Consumed: " + s);
+   consumer.accept("Hello, Consumer!");
+   ```
+
+3. **Predicate:**
+
+  - Interface: `java.util.function.Predicate<T>`
+  - Represents a predicate (boolean-valued function) of one argument. It has a single method called `test(T t)`.
+
+   ```java
+   Predicate<Integer> predicate = (num) -> num > 0;
+   boolean result = predicate.test(42);
+   ```
+
+In summary:
+
+- `Supplier` supplies a result.
+- `Consumer` consumes an argument and performs some operation.
+- `Predicate` tests a condition and returns a boolean result.
+- `UnaryOperator<Integer> square = x -> x * x;`
+- `BinaryOperator<Integer> add = (a, b) -> a + b;`
+
+### [Comparable and Comparator](https://www.javatpoint.com/difference-between-comparable-and-comparator)
+
+| Comparable                                                                                                                                                 | Comparator                                                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1) Comparable provides a single sorting sequence. In other words, we can sort the collection on the basis of a single element such as id, name, and price. | The Comparator provides multiple sorting sequences. In other words, we can sort the collection on the basis of multiple elements such as id, name, and price etc. |
+| 2) Comparable affects the original class, i.e., the actual class is modified.                                                                              | Comparator doesn't affect the original class, i.e., the actual class is not modified.                                                                             |
+| 3) Comparable provides compareTo() method to sort elements.                                                                                                | Comparator provides compare() method to sort elements.                                                                                                            |
+
+### [Implements and Extends](https://www.edureka.co/blog/implements-in-java/)
+
+`Implement` - implement keyword is used when we want to inherit interface class. Multiple interface class can be inherited at a time.
+
+`Extends` - By extending the class, it can use the methods of super class. Only one class can be extended.
+
+### Interface and Abstract
+
+We can run an abstract class if it has main() method but we can't run an interface because they can't have main method implementation. Interfaces are used to define contract for the subclasses whereas abstract class also define contract but it can provide other methods implementations for subclasses to use.
+
+#### purpose of interface instead of abstract class in java
+
+- Interfaces are used to define contract for the subclasses whereas abstract class also define contract but it can provide other methods implementations for subclasses to use.
+
+# Collections
+
+## Why the Collections Framework?
+
+- We do not need to write the code to implement these data structures and algorithms.
+
+- Used for specific data structures
+
+\***\*{Parent-->child}\*\***
+
+| iterable <----- Collections <------- list, set, queue |
+| ----------------------------------------------------- |
+
+### Iterator VS Enumarator
+
+| Iterator                                                                                                                                  | Enumeration                                                                       |
+| ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| Iterator can do modification like remove while traversal.                                                                                 | Enumeration can't do modification during traversing, acts as read only.           |
+| Iterator is a universal cursor as it is applicable for all the collection classes.                                                        | Enumeration is not a universal cursor as it applies only to legacy classes.       |
+| Iterator has the remove() method.                                                                                                         | Enumeration does not have the remove() method.                                    |
+| Iterator is not a legacy interface. Iterator can be used for the traversal of HashMap, LinkedList, ArrayList, HashSet, TreeMap, TreeSet . | Enumeration is a legacy interface which is used for traversing Vector, Hashtable. |
+
+![ListQueueSet.png](images/ListQueueSet.png)
+
+1. Java does not provide direct implementations of the Collection interface but provides implementations of its sub interfaces like
+
+- List Interface - List is an orderd collection like java
+- Set Interface - It cant have duplicate elements
+- Queue Interface - First in first out
+
+```markdown
+List - Can have many values also duplicate values, Ordered.
+Set - To have unique data, UnOrdered.
+Map - To store data in key value.
+```
+
+**Maintains Insertion Order:**
+
+1. **List Implementations:**
+
+  - `ArrayList`: Maintains the order of elements based on the index.
+  - `LinkedList`: Preserves the order of elements based on the sequence in which they were added.
+
+2. **Set Implementation:**
+
+  - `LinkedHashSet`: Extends `HashSet` to allow iteration over elements in the order in which they were inserted.
+
+3. **Map Implementation:**
+  - `LinkedHashMap`: Extends `HashMap` to allow iteration over keys or entries in the order in which they were inserted.
+
+**Doesn't Guarantee Insertion Order:**
+
+1. **Set Implementations:**
+
+  - `HashSet`: Does not guarantee any specific order of elements.
+
+2. **Map Implementation:**
+  - `HashMap`: Does not guarantee any specific order of keys or entries.
+
+Regarding performance, the choice between maintaining insertion order and not maintaining it may impact the performance based on the specific use case:
+
+- **Maintaining Insertion Order (e.g., using `ArrayList`, `LinkedList`, `LinkedHashSet`, `LinkedHashMap`):**
+
+  - Iterating over elements in the order they were inserted is generally faster in these cases.
+  - Searching for an element by value might be slower compared to hash-based collections.
+
+- **Not Guaranteeing Insertion Order (e.g., using `HashSet`, `HashMap`):**
+  - Operations like adding, removing, and searching for elements are generally faster, especially for large datasets, due to the use of hashing.
+  - If you don't need to maintain the order of insertion, hash-based collections might provide better performance.
+
+Ultimately, the choice between maintaining insertion order and optimizing for performance depends on your specific requirements and the operations you perform most frequently in your application.
+
+### Collection interface:-
+
+- add()
+- addall()
+- size()
+- remove()
+- removeall()
+- removeIf()
+- clear()
+- isEmpty()
+- hashCode()
+- stream()
+
+`Collection<Integer> numb = new ArrayList<>();` --> `Collection does work with index number.`
+
+- Collection is an interface where is Collections is a class.
+
+### Iterator Interface
+
+- Iterator interface provides the facility of iterating the elements in a forward direction only.
+- There are only three methods in the Iterator interface. They are:
+  - hasNext()
+  - next()
+  - remove()
+
+### Iterable Interface
+
+- The Iterable interface is the root interface for all the collection classes. The Collection interface extends the Iterable interface and therefore all the subclasses of Collection interface also implement the Iterable interface.
+- It contains only one abstract method. i.e.,
+  - iterator()
+
+## List
+
+![ArrayListVsLinkedList.png](images/ArrayListVsLinkedList.png)
+
+1. List is an ordered collection it maintains the insertion order, which means upon displaying the list content it will display the elements in the same order in which they got inserted into the list.
+
+```java
+List<String> fruitList = new ArrayList<>();
+fruitList.add("Strawberry");
+String[] array = fruitList.toArray(new String[fruitList.size()]);
+```
+
+### `ArrayList`
+
+- maintains insertion order
+- non syncronized
+- internally uses dinamic Array
+- In Java, when you create an ArrayList without specifying an initial capacity, it has a default initial capacity of 10.
+- This means that the ArrayList starts with an internal array that can initially hold up to 10 elements.
+- If you add more than 10 elements, the ArrayList will automatically resize its internal array to accommodate the additional elements.
+
+```java
+ArrayList<String> list=new ArrayList<String>();
+list.add("Ajay");
+list.add("Viky");
+List.add(1, “sarath”); //To add a value at particular position
+Iterator itr=list.iterator();
+while(itr.hasNext())
+```
+
+### `LinkedList`
+
+- Maintains insertion order.
+- non synchronized, manipulation is fast because no shifting is required.
+- Internally uses doubly linked list,
+- Can contain duplicate elements.
+- Access time for an element by index is O(n) since you may need to traverse the list from the beginning.
+
+```java
+LinkedList<String> al=new LinkedList<String>();
+al.add("Ajay");
+Iterator<String> itr=al.iterator();
+while(itr.hasNext())
+```
+
+### [`Singly LinkedList`](https://www.javatpoint.com/java-program-to-create-and-display-a-singly-linked-list)
+
+- Linear data structure, in which each pointer points to the next element in list.
+- Each element is called as node. Each node has two components: **Data** and **Pointer** which points to next node in list.
+- Traverse through the list till current points to null.
+
+![img.png](images/singlyLinkedList.png)
+
+### `Doubly LinkedList`
+
+- Linear data structure, which can be described as the collection of nodes. Nodes are connected through the pointers.
+- A node comprises three sections. node data, pointer to next node, pointer to the previous node.
+
+![img_1.png](images/doublyLinkedList.png)
+
+**_One of the limitations of the singly linked list is that it can be traversed in only one direction that is forward.
+The doubly linked list has overcome this limitation by providing an additional pointer that points to the previous node.
+With the help of the previous pointer, the doubly linked list can be traversed in a backward direction thus making insertion and deletion operation easier to perform.
+So, a typical node in the doubly linked list consists of three fields:_**
+
+**_Data_** represents the data value stored in the node.
+
+**_Previous_** represents a pointer that points to the previous node.
+
+**_Next_** represents a pointer that points to next node in the list.
+
+// pending <https://www.javatpoint.com/collections-in-java> //
+
+![img.png](images/singlyVsDouble1.png)
+
+![img_1.png](images/singlyVsDouble2.png)
+
+### `Circular LinkedList`
+
+- First node points to the last node and last node points to the first node,
+- Where the doubly linked list has the null at the first previous pointer and the last node next pointer
+
+### `Vector`
+
+- similar to ArrayList, but syncronized and contains many methods which are not part of collection frame work
+
+```java
+Vector<String> v=new Vector<String>();
+v.add("Ayush");
+Iterator<String> itr=v.iterator();
+while(itr.hasNext())
+```
+
+### `Stack`
+
+- Subclass of vector.
+- It implements the last-in-first-out data structure.
+- Contains all the methods of vector and also provides methods like push(), peak()
+
+## Queue
+
+Two types,
+
+- **Deque**
+- **ArrayDeque**
+
+### `Deque Interface`
+
+- Deque interface extends queue interface. In deque, we can add and remove the elements from both the sides. Deque stands for double ended queue which enables us to perform the operations from both sides.
+
+### `ArrayDeque`
+
+- **Advantages:**
+  - Efficient for adding and removing elements at both ends (constant time).
+  - ArrayDeque is faster than ArrayList and Stack and has no capacity restrictions.
+- **Disadvantages:**
+  - Not as efficient for accessing elements in the middle.
+
+## [Set](https://javahungry.blogspot.com/2013/08/how-sets-are-implemented-internally-in.html)
+
+Unordered set. Doesn't allow to store duplicate values. Can store one null value.
+
+Set can be instantiated as
+
+```java
+  Set<data-type> s1 = new HashSet<data-type>();
+  Set<data-type> s2 = new LinkedHashSet<data-type>();
+  Set<data-type> s3 = new TreeSet<data-type>();
+```
+
+Set is implemented by HashSet, LinkedHashSet, TreeSet
+In Java, `HashSet`, `LinkedHashSet`, and `TreeSet` are three different implementations of the Set interface within the Java Collections Framework. Each of them has its unique characteristics and use cases:
+
+### `HashSet`
+
+- **Internal Structure:**
+
+  - Implemented using a hash table.
+  - Uses the hash code of the elements to determine the bucket in which they are stored.
+  - Doesn't maintain insertion order.
+
+- **Performance:**
+
+  - Provides constant-time performance for basic operations like add, remove, and contains on average.
+  - The actual performance depends on the quality of the hash function and the load factor.
+
+- **Use Case:**
+
+  - Suitable for general-purpose use when you need a fast and unordered set of elements.
+  - Ideal when the order of elements does not matter, and you want efficient membership testing.
+
+  ```java
+  Set<String> hashSet = new HashSet<>();
+  ```
+
+### `LinkedHashSet`
+
+- **Internal Structure:**
+
+  - Extends `HashSet`.
+  - Uses a hash table for constant-time performance.
+  - Maintains a doubly-linked list to preserve the order of insertion.
+
+- **Performance:**
+
+  - Similar performance characteristics to `HashSet` for basic operations.
+  - Provides predictable iteration order, which is the order in which elements were inserted.
+
+- **Use Case:**
+
+  - Useful when you want a set with predictable iteration order.
+  - Maintains the order in which elements were inserted or the order in which they were last accessed.
+
+  ```java
+  Set<String> linkedHashSet = new LinkedHashSet<>();
+  ```
+
+### `TreeSet`
+
+- **Internal Structure:**
+
+  - Implemented as a red-black tree.
+  - Maintains elements in a sorted order (natural order or based on a specified comparator).
+  - One of the most important implementations of the SortedSet interface in Java that uses a Tree for storage.
+
+- **Performance:**
+
+  - Logarithmic time complexity for basic operations like add, remove, and contains.
+  - Offers efficient operations for retrieving elements in a sorted order.
+
+- **Use Case:**
+
+  - Useful when you need a set with elements sorted in a specific order.
+  - Allows custom sorting based on a comparator or the natural ordering of elements.
+
+  ```java
+   Set<String> treeSet = new TreeSet<>();
+  ```
+
+- **Disadvantages:**
+  - Slower insertion and removal compared to `HashSet`.
+
+### Choosing the Right Set Implementation
+
+- If you need fast and unordered access with constant-time performance, use `HashSet`.
+- If you need a predictable order of insertion, use `LinkedHashSet`.
+- If you need a sorted set, use `TreeSet`.
+
+It's important to choose the appropriate implementation based on the specific requirements of your application.
+
+## Map
+
+Map is used for key,value purpose. Key should be unique.
+
+### [`HashMap`](<https://prateeknima.medium.com/internal-working-of-hashmap-in-java-e5b67890e152#:~:text=To%20improve%20the%20working%20of,(log%20n)%20retrieval%20performance.>)
+
+- Hashmap is non syncronized in nature so performance is also high.
+- Not thread safe.
+- If one thread is iterating HashMap and the other try to add/modify then lead to run-time exception.
+- Default size is 16 and the loadFactor is 0.75.
+- Bucket refers to a slot or a location within the internal array where key-value pairs are stored.The purpose of these buckets is to manage potential collisions, which occur when two or more keys hash to the same index in the array.
+
+  **Here's a brief overview of how a HashMap works:**
+
+1. **Hashing:** When you add a key-value pair to a HashMap, the key is hashed to determine the index (or bucket) in the internal array where the entry should be stored. The hash code is obtained using the hashCode() method of the key.
+
+2. **Index Calculation:** The hash code is then transformed into a valid index by applying a hash function. This index determines the bucket in which the key-value pair will be stored.
+
+3. **Collision Handling:** If two keys hash to the same index (a collision), the HashMap uses a mechanism to handle these collisions. The most common approach is chaining, where each bucket contains a linked list of entries. If multiple keys hash to the same index, their entries are stored as nodes in the linked list at that index.
+
+4. **Load Factor and Rehashing:** As the number of key-value pairs in the HashMap grows, the load factor determines when the internal array should be resized to accommodate more entries. When the number of entries exceeds a certain threshold (determined by the load factor), the HashMap is resized (usually doubled), and the existing entries are rehashed to new buckets.
+
+5. **TREEIFY_THRESHOLD=8; and UNTREEIFY_THRESHOLD=6** - When we insert more than 8 elements then the insertion will get inserted in the form of balanced tree instead of linked list.
+   **HashCode**
+
+- **Use in Hash Collections:**
+  When you plan to use instances of your class as keys in a HashMap or elements in a HashSet, you should provide a well-implemented hashCode method. This helps distribute objects across buckets more evenly, reducing the likelihood of collisions and improving the performance of hash-based collections.
+- **Consistency with equals:**
+  If you override the equals method in your class to define custom equality, you should also override the hashCode method. According to the general contract, if two objects are equal (as per the equals method), their hash codes should be equal. This ensures proper functioning in hash-based collections.
+- **Maintaining Contract with hashCode:**
+
+  - If you override the hashCode method, you should follow the contract specified in the Object class:
+    - The result of hashCode should be consistent during the execution of a program, i.e., it should return the same value for the same object.
+    - If two objects are equal, their hash codes must be equal.
+    - It's not required, but it's generally beneficial if unequal objects have different hash codes to minimize collisions.
+
+- [Traverse through Hashmap](https://www.geeksforgeeks.org/traverse-through-a-hashmap-in-java/)
+  - Using an Iterator
+  - Using enhanced for Loop (for-each loop)
+  - Using forEach() Method
+- [HashMap Internal Working](https://youtu.be/-oafFAPgLao?si=pwEA44xe4I1i-WTf)
+- [HashMap Internal Working](https://youtu.be/1CJbB6SzjVw?si=WpfGSWu5I_ByVgYA)
+- [Key Map](<(https://www.baeldung.com/java-custom-class-map-key)>)
+  > https://prateeknima.medium.com/internal-working-of-hashmap-in-java-e5b67890e152#:~:text=To%20improve%20the%20working%20of,(log%20n)%20retrieval%20performance>.
+
+#### Equals() & [HashCode()](https://www.digitalocean.com/community/tutorials/java-equals-hashcode)
+
+- ![equalsHashCode.png](images/equalsHashCode.png)
+
+```java
+String a = "Andrew";
+String b = "Andrew";
+
+if(a.equals(b))
+{ //checking the equality of objects using equals() methods
+  System.out.println("a & b are equal variables, and their respective hashvalues are:" + " "+ a.hashCode() + " & " + b.hashCode());
+}
+
+
+String c = "Maria";
+String d = "Julie";
+
+if(!c.equals(d))
+{ //checking the equality of objects using equals() method
+   System.out.println("\nc & d are Un-equal variables, and their respective hashvalues are:" + " "+ c.hashCode() + " & " + d.hashCode());
+}
+```
+
+**_Output_**
+
+```java
+a & b are equal variables, and their respective hash values are: 1965574029 & 1965574029
+c & d are Un-equal variables, and their respective hash values are: 74113750 & 71933245
+```
+
+#### [equals() vs "=="](https://www.linkedin.com/pulse/difference-between-equals-java-babar-shahzad)
+
+`So, the main difference between "==" and "equals" in Java is that "==" compares the memory location of two objects, while "equals" compares the contents of two objects.`
+
+![equalsVsDoubleEqual.png](images/equalsVsDoubleEqual.png)
+
+#### **Reference Equality**
+
+- In Java, "==" is used for reference equality, which means that it checks whether two objects refer to the same memory location.
+
+```java
+String s1 = "hello";
+String s2 = new String("hello");
+
+if (s1 == s2)
+{
+  System.out.println("s1 and s2 are the same object pointing to the same memory");
+}
+else
+{
+  System.out.println("s1 and s2 are different objects because they have their seperate memory holders");
+}
+```
+
+`Output`
+
+```java
+s1 and s2 are different objects
+```
+
+#### **Value Equality**
+
+- Value equality takes place when two separate objects happen to have the same values or state.This compares values and is closely related to the Object's equals() method.
+
+```java
+String s1 = "hello";
+String s2 = new String("hello");
+
+if (s1.equals(s2)){
+  System.out.println("s1 and s2 have the same value");
+} else {
+  System.out.println("s1 and s2 have different values");
+}
+```
+
+`Output`
+
+```java
+s1 and s2 have the same value
+```
+
+```java
+class HelloWorld {
+    public static void main(String[] args)
+    {
+        String s1 = "Java";
+        String s2 = "Java";
+        StringBuilder sb1 = new StringBuilder();
+        sb1.append("Ja").append("va");
+        System.out.println(s1 == s2);
+        System.out.println(s1.equals(s2));
+        System.out.println(sb1.toString() == s1);
+        System.out.println(sb1.toString().equals(s1));
+    }
+}
+```
+
+### [`ConcurrentHashMap`](https://javahungry.blogspot.com/2015/02/how-concurrenthashmap-works-in-java-internal-implementation.html)
+
+- ConcurrentHashMap is syncronized, so performance is slow.
+- Thread safe.
+- We won't get exception during modification.
+
+  1. HashMap makes absolutely no guarantees about the iteration order. It can (and will) even change completely when new elements are added.
+  2. It has pair values(keys,values)
+  3. NO duplication key values
+  4. unordered unsorted
+  5. It allows one null key and more than one null values.
+
+- public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneable, Serializable
+
+### `TreeMap`
+
+- will iterate according to the "natural ordering" of the keys according to their compareTo() method (or an externally supplied Comparator). Additionally, it implements the SortedMap interface, which contains methods that depend on this sort order.
+- Ordered and sortered version
+- based on hashing data structures
+
+- public class TreeMap<K,V> extends AbstractMap<K,V> implements NavigableMap<K,V>, Cloneable, Serializable
+
+### `LinkedHashMap`
+
+- will iterate in the order in which the entries were put into the map
+- It is ordered version of map implementation
+- Based on linked list and hashing data structures
+- public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V>
+
+### `HashTable`
+
+- same as hash map
+- It does not allow null keys and null values
+- Hash tables are used to store and retrieve data (or records) quickly.
+- Hashtables store the records in buckets using hash keys.
+- Java Hashtable implements the Serializable and Cloneable interfaces but not the random access interface.
+
+- public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneable, Serializable
+
+## Aplet
+
+- `public void init()`: is used to initialized the Applet. It is invoked only once.
+- `public void start()`: is invoked after the init() method or browser is maximized. It is used to start the Applet.
+- `public void stop()`: is used to stop the Applet. It is invoked when Applet is stop or browser is minimized.
+- `public void destroy()`: is used to destroy the Applet. It is invoked only once.
+
+## Serialization and Deserialization
+
+Serialization in Java allows us to convert an Object to stream that we can send over the network or save it as file or store in DB for later usage. Deserialization is the process of converting Object stream to actual Java Object to be used in our program.
+
+- State of an object to **bytestream**.
+- For serializing the object we call writeObject() method and ObjectOutputStream class.
+- For deserializing the object we call readObject() method and ObjectInputStream class.
+- Only objects that supports the java.io.serializable interface can be written to streams.
+
+### [Transient Keyword](https://www.educative.io/answers/what-is-the-transient-keyword-in-java)
+
+- Is used to avoid serialization. If any object of a data structure is defined as a transient, then it will not be serialized.
+
+# Auto-boxing and Auto-Unboxing
+
+## Boxing & AutoBoxing - Primitive values to Object or wrapper class
+
+```java
+Integer valueBoxing = Integer.valueOf(10); //Boxing
+or
+Integer valueBoxing = 10; //AutoBoxing
+```
+
+## UnBoxing & AutoUnBoxing - Object to primitive type
+
+```java
+int valueUnBoxing = valueBoxing.intValue(); //UnBoxing
+or
+int valueUnBoxing = valueBoxing; //AutoUnBoxing
+```
+
 
 ## variables
 
@@ -853,126 +1871,6 @@ public class UtilityClass {
 
 These are the main types of constructors in Java, each serving different purposes in object initialization and instantiation.
 
-## Primary main features of java
-
-1. Platform Independent
-2. Object oriented programming language
-   - Abstraction
-   - Encapsulation
-   - Inheritance
-   - Polymorphism
-3. Simple
-4. Robust
-5. Secure
-6. Distributed
-7. Multithreading
-8. Portable
-
-## Identifiers
-
-- starts with alphabets and underscore and dollar symbol.
-- Case sensitive.
-- **Keyword** cant be used as identifier.
-
-In Java, a keyword is a reserved word that has a specific meaning and functionality in the programming language. These words cannot be used as identifiers (such as variable names, method names, or class names) because they are part of the language's syntax and have predefined roles.
-
-Here are some examples of keywords in Java:
-
-1. **`class`:**
-
-- Used to declare a class.
-
-2. **`public`:**
-
-- Indicates that a class, method, or variable is accessible from any other class.
-
-3. **`static`:**
-
-- Indicates that a method or variable belongs to the class rather than an instance of the class.
-
-4. **`void`:**
-
-- Specifies that a method does not return any value.
-
-5. **`main`:**
-
-- The entry point of a Java program. Execution starts from the `main` method.
-
-6. **`new`:**
-
-- Used to create an instance of a class or to allocate memory for an object.
-
-7. **`if`, `else`:**
-
-- Used for conditional statements.
-
-8. **`for`, `while`, `do`:**
-
-- Used for loop constructs.
-
-9. **`return`:**
-
-- Used to exit a method and optionally return a value.
-
-10. **`try`, `catch`, `finally`:**
-
-- Used for exception handling.
-
-11. **`throw`, `throws`:**
-
-- Used to handle and declare exceptions.
-
-These are just a few examples, and there are more keywords in Java. It's important to note that keywords are case-sensitive in Java, so `public` is different from `Public` or `PuBlIc`.
-
-# Modifier in Java
-
-## 1. Access modifiers
-
-| Access Modifiyers | Access within class | Access within package | Access outside package by subclass only | Access outside package and not in subclass |
-| ----------------- | ------------------- | --------------------- | --------------------------------------- | ------------------------------------------ |
-| Public            | y                   | y                     | y                                       | y                                          |
-| Protected         | y                   | y                     | y                                       |
-| Default           | y                   | y                     |
-| Private           | y                   |
-
-### private access modifier
-
-- The private access modifier is accessible only within class.
-
-- You cannot access to private field outside the class that defines that private. Java will notify error at the compile time of the class.
-
-```java
-class Sarath
-{
-  private String name = "sarath"; --> this can be accessed within class
-}
-
-class friend
-{
-  Sarath sar = new Sarath("tom");
-  String var = sar.name; //throws compilation error
-}
-```
-
-### private constructor
-
-If you create a class and have a private constructor, we cant create an object of this class in another class.
-
-### Default access modifier
-
-The default access modifier is also known as the package-private, which means all the members are availabe inside the package but not accassible by other package outside the package.
-
-## 2- Non-access Modifiers
-
-1. `static` – static keyword is mainly used for memory management.
-
-2. `Final` – final is a keyword for constant
-
-3. `Native` - is a modifier only applicable for method.
-
-4. `Abstract` - non-access modifier, used for classes and methods
-
-5. `Strictfp` - (Removed in java 17)to ensure that floating points operations give the same result on any platform
 
 ## Static in class, method and variable
 
@@ -1037,902 +1935,6 @@ static{}
 - Static block in java is used for changing the default value of static variables, initializing static variables of the class, write a set of codes that you want to execute during the class loading in memory.
 
 - In Java Development Kit (JDK) version 1.5 or previous the static block can be executed successfully without the main() method inside the class, but JDK version after 1.5 will throw an error message if there is a static block but no main() method inside the class.
-
-# OOP(Object Oriented Programming)
-
-Oops refers to languages that uses objects in programming.
-Oop's concepts consists of Polymorphism, Encapsulation, Inheritance, Abstraction, Class, Object, Method.
-
-## 1. Polymorphism
-
-### [Difference between Inheritance and Polymorphism](https://www.geeksforgeeks.org/difference-between-inheritance-and-polymorphism/?ref=lbp)
-
-- **_Inheritance_** is one which new class is created inherits the properties of already existing class.
-- Concept of code reusability.
-
-#### Types
-
-1. Single Inheritance
-2. Multi-Level Inheritance
-3. Multiple Inheritance
-4. Hybrid Inheritance
-5. Hirerarchial Inheritance
-
-Differentiate between entities with the same name efficiency.
-
-Mainly for two types
-
-**_Compile-time polymorphism(Method overloading)_**
-
-**_Run-time polymorphism(Method overriding)_**
-
-#### Overloading
-
-`Eg: Same method name for multiple methods but with different parameters.`
-
-[Method overloading](https://www.geeksforgeeks.org/method-overloading-in-java/)
-
-[Constructor overloading](https://www.geeksforgeeks.org/constructor-overloading-java/?ref=rp)
-
-Constructor Overloading is somewhat similar to method overloading.
-
-#### [Overriding](https://www.geeksforgeeks.org/dynamic-method-dispatch-runtime-polymorphism-java/)
-
-In other words it is called as Dynamic Method Dispatch or Run time polymorphism in java
-
-`Eg:` `class A`</br>
-`Class B extends A`
-
-### Covariant return type
-
-We can change the return type of the child class if it is the subclass of the return type.
-
-### Overloading and overriding in static, private and final methods
-
-> we can't override static, private methods but we can declare the same method in subclass and we can't declare final methods in subclasses.
-
-> We can overload private static final methods in same class with differnet parameters.
-
-#### Override private, static and final methods
-
-In Java, we cannot override private or static methods, and you cannot override final methods that are declared in the same class. Here's why:
-
-1. **Private Methods**: Private methods are not visible to subclasses, so it doesn't make sense to override them. Subclasses cannot access private methods of the superclass.
-
-2. **Static Methods**: Static methods are associated with the class rather than instances of the class. They are resolved at compile time based on the reference type, not at runtime based on the object type. Therefore, they cannot be overridden in the traditional sense. If a subclass defines a static method with the same signature as a static method in the superclass, it simply hides the superclass method.
-
-3. **Final Methods**: Final methods cannot be overridden in subclasses. The `final` keyword prevents subclasses from providing a different implementation of the method. It effectively makes the method implementation in the superclass "final" and cannot be changed by any subclass.
-
-Here's an example to illustrate these concepts:
-
-```java
-class Parent {
-    private void privateMethod() {
-        System.out.println("Private method in Parent");
-    }
-
-    static void staticMethod() {
-        System.out.println("Static method in Parent");
-    }
-
-    final void finalMethod() {
-        System.out.println("Final method in Parent");
-    }
-}
-
-class Child extends Parent {
-    // This method does not override privateMethod or staticMethod
-    // It simply hides the methods of the same name in the Parent class
-    private void privateMethod() {
-        System.out.println("Private method in Child");
-    }
-
-    static void staticMethod() {
-        System.out.println("Static method in Child");
-    }
-
-    // This would cause a compilation error
-    // Cannot override the final method from Parent
-    // void finalMethod() { }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Parent parent = new Parent();
-        parent.privateMethod(); // This would cause a compilation error
-        parent.staticMethod(); // Calls static method in Parent
-        parent.finalMethod();  // Calls final method in Parent
-
-        Child child = new Child();
-        child.privateMethod(); // This would cause a compilation error
-        child.staticMethod(); // Calls static method in Child
-        child.finalMethod();  // Calls final method in Parent
-    }
-}
-```
-
----
-
-#### Overload private, static and final methods
-
-- Yes, we can overload private, static, and final methods in Java.
-
-1. **Private Methods**: Private methods can be overloaded within the same class. Overloading means defining multiple methods with the same name but different parameter lists. Since private methods are not accessible outside the class, overloading them does not affect other classes.
-
-2. **Static Methods**: Static methods can be overloaded within the same class. Overloading static methods involves defining multiple methods with the same name but different parameter lists. Static methods are associated with the class rather than instances of the class, so overloading is based solely on the method signature.
-
-3. **Final Methods**: Final methods can be overloaded within the same class. Overloading final methods involves defining multiple methods with the same name but different parameter lists. Final methods cannot be overridden in subclasses, but they can still be overloaded within the same class.
-
-```java
-public class Example {
-    private static final void method() {
-        System.out.println("Private static final method without parameters");
-    }
-
-    private static final void method(int x) {
-        System.out.println("Private static final method with int parameter: " + x);
-    }
-
-    public static void main(String[] args) {
-        Example.method();  // Calls the private static final method without parameters
-        Example.method(5); // Calls the private static final method with an int parameter
-    }
-}
-
-```
-
-## 2 . Inheritance
-
-Inheritance is a important pillar in OOP.
-
-Java doesnt support multiple inheritance. Due to ambiguity problem.
-
-It is the mechanism in Java whose (fields and methods) are inherited by another subclass.
-
-1. SuperClass - The class whose fields and methods are inherited is called SuperClass or BaseClass or ParentClass.
-
-2. SubClass - The class that inherits the other class is known as Subclass or DerivedClass or ExtendedClass.
-
-## 3 . Encapsulation - hiding the information
-
-i. The internal state of every object is protected by hiding its attributes.
-
-ii. It increases usability and maintenance of code.
-
-## 4 . [Abstraction - Abstract factory pattern](https://www.javatpoint.com/abstract-factory-pattern)
-
-i. Abstract class can have abstract method (incomplete method) and non-abstract method. This class can be extended.
-
-ii. Declared with Abstract keyword
-
-## 5 . Interface
-
-- Interface class can have only abstract method (incomplete method). This class should be implemented.
-  > Can we declare private abstract method inside the interface class in java?
-  >
-  > - No, because since it has no body. But we can write private method inside the interface.
-
-> what is the use of declaring private method inside the interface class?
->
-> - Declaring private methods inside an interface in Java serves specific purposes, primarily related to code organization and reuse within the interface itself. These methods were introduced in Java 9 to enhance the functionality of interfaces, particularly when working with default and static methods. Here are the main reasons for using private methods in an interface:
-
-1. **Code Reuse:**
-   - **Avoid Duplication:**
-   - **Maintainability:**
-2. **Encapsulation:**
-   - **Encapsulate Helper Methods:**
-   - **Implementation Details:**
-3. **Modularity:**
-   - **Modular Design:**
-
-### Example
-
-Here is an example demonstrating the use of private methods in an interface:
-
-```java
-public interface MyInterface {
-
-    // Public abstract method (must be implemented by implementing class)
-    void publicAbstractMethod();
-
-    // Default method that uses a private helper method
-    default void defaultMethod() {
-        System.out.println("Executing default method...");
-        privateHelperMethod();
-    }
-
-    // Static method that uses a private helper method
-    static void staticMethod() {
-        System.out.println("Executing static method...");
-        privateHelperMethod();
-    }
-
-    // Private method used by both default and static methods
-    private void privateHelperMethod() {
-        System.out.println("Executing private helper method.");
-    }
-}
-
-// Implementing class
-public class MyClass implements MyInterface {
-
-    @Override
-    public void publicAbstractMethod() {
-        System.out.println("Implementing public abstract method.");
-    }
-
-    public static void main(String[] args) {
-        MyClass obj = new MyClass();
-        obj.publicAbstractMethod();
-        obj.defaultMethod();
-        MyInterface.staticMethod();
-    }
-}
-```
-
-In summary, private methods in interfaces are a powerful feature introduced to improve code reuse, encapsulation, and maintainability within interfaces.
-
-### Create variable inside interface
-
-- We can create a variable inside interface. That variable will become the public static final variable.
-
-### Marker interface vs Functional Interface
-
-- In Java, a Marker interface is an interface without any methods or fields declaration, means it is an empty interface. Similarly, a Functional Interface is an interface with just one abstract method declared in it.
-
-- A marker interface is an interface that doesn't have any methods or constants inside it. It provides run-time type information about objects, so the compiler and JVM have additional information about the object. A marker interface is also called a tagging interface.
-
-- Callable/Runnable (Functional interface)
-
-**Implementing the bellow classes.**
-
-- **_Runnable – run()_** &rarr; Doesn't return. `public void run()`, Doesn't throw exception. Thread can be created using Runnable.
-- **_Callable – call()_** &rarr; Returns Object. `public Object call()`, throws an exception. Thread cannot be created using callable.
-- **_Cloneable - clone()_** &rarr; Returns Object. `public Object clone()`, throws CloneNotSupportedException.
-- **_Comparable – compareTo()_**
-- **_Comparator - compare()_**
-
-\***\*Note:\*\***
-
-Before java 1.8, interface can have only abstract method, i.e method without body.
-
-After java 1.8 default and static method declaration is allowed,
-
-**@FunctionalInterface** – Single abstract method. (Can be predefined and also user defined)
-
-_Eg:_
-
-```java
-public interface DefaultStaticExampleInterface
-{
-  default void show()
-  {
-    System.out.println("In Java 8- default method - DefaultStaticExampleInterface");
-  }
-  static void display()
-  {
-    System.out.println("In DefaultStaticExampleInterface I");
-  }
-}
-```
-
-**_Implements_**
-
-```java
-public class DefaultStaticExampleClass implements DefaultStaticExampleInterface
-{
-
-}
-
-public class Main
-{
-  static void main(String args[])
-  {
-    // Call interface static method on Interface
-    DefaultStaticExampleInterface.display();
-    DefaultStaticExampleClass defaultStaticExampleClass = new DefaultStaticExampleClass();
-
-    // Call default method on Class
-    defaultStaticExampleClass.show();
-  }
-}
-```
-
-### Supplier vs Consumer vs [Predicate](https://codegym.cc/groups/posts/java-predicate) vs UnaryOperator vs BinaryOperator
-
-In Java, "supplier," "consumer," and "predicate" are actually interfaces defined in the `java.util.function` package, introduced in Java 8 as part of the Java Functional Programming features.
-
-1. **Supplier:**
-
-   - Interface: `java.util.function.Supplier<T>`
-   - Represents a supplier of results. It has a single method called `get()` that takes no arguments and returns a result.
-
-   ```java
-   Supplier<String> supplier = () -> "Hello, Supplier!";
-   String result = supplier.get();
-   ```
-
-2. **Consumer:**
-
-   - Interface: `java.util.function.Consumer<T>`
-   - Represents an operation that accepts a single input argument and returns no result. It has a single method called `accept(T t)`.
-
-   ```java
-   Consumer<String> consumer = (s) -> System.out.println("Consumed: " + s);
-   consumer.accept("Hello, Consumer!");
-   ```
-
-3. **Predicate:**
-
-   - Interface: `java.util.function.Predicate<T>`
-   - Represents a predicate (boolean-valued function) of one argument. It has a single method called `test(T t)`.
-
-   ```java
-   Predicate<Integer> predicate = (num) -> num > 0;
-   boolean result = predicate.test(42);
-   ```
-
-In summary:
-
-- `Supplier` supplies a result.
-- `Consumer` consumes an argument and performs some operation.
-- `Predicate` tests a condition and returns a boolean result.
-- `UnaryOperator<Integer> square = x -> x * x;`
-- `BinaryOperator<Integer> add = (a, b) -> a + b;`
-
-### [Comparable and Comparator](https://www.javatpoint.com/difference-between-comparable-and-comparator)
-
-| Comparable                                                                                                                                                 | Comparator                                                                                                                                                        |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1) Comparable provides a single sorting sequence. In other words, we can sort the collection on the basis of a single element such as id, name, and price. | The Comparator provides multiple sorting sequences. In other words, we can sort the collection on the basis of multiple elements such as id, name, and price etc. |
-| 2) Comparable affects the original class, i.e., the actual class is modified.                                                                              | Comparator doesn't affect the original class, i.e., the actual class is not modified.                                                                             |
-| 3) Comparable provides compareTo() method to sort elements.                                                                                                | Comparator provides compare() method to sort elements.                                                                                                            |
-
-### [Implements and Extends](https://www.edureka.co/blog/implements-in-java/)
-
-`Implement` - implement keyword is used when we want to inherit interface class. Multiple interface class can be inherited at a time.
-
-`Extends` - By extending the class, it can use the methods of super class. Only one class can be extended.
-
-### Interface and Abstract
-
-We can run an abstract class if it has main() method but we can't run an interface because they can't have main method implementation. Interfaces are used to define contract for the subclasses whereas abstract class also define contract but it can provide other methods implementations for subclasses to use.
-
-#### purpose of interface instead of abstract class in java
-
-- Interfaces are used to define contract for the subclasses whereas abstract class also define contract but it can provide other methods implementations for subclasses to use.
-
-# Collections
-
-## Why the Collections Framework?
-
-- We do not need to write the code to implement these data structures and algorithms.
-
-- Used for specific data structures
-
-\***\*{Parent-->child}\*\***
-
-| iterable <----- Collections <------- list, set, queue |
-| ----------------------------------------------------- |
-
-### Iterator VS Enumarator
-
-| Iterator                                                                                                                                  | Enumeration                                                                       |
-| ----------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| Iterator can do modification like remove while traversal.                                                                                 | Enumeration can't do modification during traversing, acts as read only.           |
-| Iterator is a universal cursor as it is applicable for all the collection classes.                                                        | Enumeration is not a universal cursor as it applies only to legacy classes.       |
-| Iterator has the remove() method.                                                                                                         | Enumeration does not have the remove() method.                                    |
-| Iterator is not a legacy interface. Iterator can be used for the traversal of HashMap, LinkedList, ArrayList, HashSet, TreeMap, TreeSet . | Enumeration is a legacy interface which is used for traversing Vector, Hashtable. |
-
-![ListQueueSet.png](images/ListQueueSet.png)
-
-1. Java does not provide direct implementations of the Collection interface but provides implementations of its sub interfaces like
-
-- List Interface - List is an orderd collection like java
-- Set Interface - It cant have duplicate elements
-- Queue Interface - First in first out
-
-```markdown
-List - Can have many values also duplicate values, Ordered.
-Set - To have unique data, UnOrdered.
-Map - To store data in key value.
-```
-
-**Maintains Insertion Order:**
-
-1. **List Implementations:**
-
-   - `ArrayList`: Maintains the order of elements based on the index.
-   - `LinkedList`: Preserves the order of elements based on the sequence in which they were added.
-
-2. **Set Implementation:**
-
-   - `LinkedHashSet`: Extends `HashSet` to allow iteration over elements in the order in which they were inserted.
-
-3. **Map Implementation:**
-   - `LinkedHashMap`: Extends `HashMap` to allow iteration over keys or entries in the order in which they were inserted.
-
-**Doesn't Guarantee Insertion Order:**
-
-1. **Set Implementations:**
-
-   - `HashSet`: Does not guarantee any specific order of elements.
-
-2. **Map Implementation:**
-   - `HashMap`: Does not guarantee any specific order of keys or entries.
-
-Regarding performance, the choice between maintaining insertion order and not maintaining it may impact the performance based on the specific use case:
-
-- **Maintaining Insertion Order (e.g., using `ArrayList`, `LinkedList`, `LinkedHashSet`, `LinkedHashMap`):**
-
-  - Iterating over elements in the order they were inserted is generally faster in these cases.
-  - Searching for an element by value might be slower compared to hash-based collections.
-
-- **Not Guaranteeing Insertion Order (e.g., using `HashSet`, `HashMap`):**
-  - Operations like adding, removing, and searching for elements are generally faster, especially for large datasets, due to the use of hashing.
-  - If you don't need to maintain the order of insertion, hash-based collections might provide better performance.
-
-Ultimately, the choice between maintaining insertion order and optimizing for performance depends on your specific requirements and the operations you perform most frequently in your application.
-
-### Collection interface:-
-
-- add()
-- addall()
-- size()
-- remove()
-- removeall()
-- removeIf()
-- clear()
-- isEmpty()
-- hashCode()
-- stream()
-
-`Collection<Integer> numb = new ArrayList<>();` --> `Collection does work with index number.`
-
-- Collection is an interface where is Collections is a class.
-
-### Iterator Interface
-
-- Iterator interface provides the facility of iterating the elements in a forward direction only.
-- There are only three methods in the Iterator interface. They are:
-  - hasNext()
-  - next()
-  - remove()
-
-### Iterable Interface
-
-- The Iterable interface is the root interface for all the collection classes. The Collection interface extends the Iterable interface and therefore all the subclasses of Collection interface also implement the Iterable interface.
-- It contains only one abstract method. i.e.,
-  - iterator()
-
-## List
-
-![ArrayListVsLinkedList.png](images/ArrayListVsLinkedList.png)
-
-1. List is an ordered collection it maintains the insertion order, which means upon displaying the list content it will display the elements in the same order in which they got inserted into the list.
-
-```java
-List<String> fruitList = new ArrayList<>();
-fruitList.add("Strawberry");
-String[] array = fruitList.toArray(new String[fruitList.size()]);
-```
-
-### `ArrayList`
-
-- maintains insertion order
-- non syncronized
-- internally uses dinamic Array
-- In Java, when you create an ArrayList without specifying an initial capacity, it has a default initial capacity of 10.
-- This means that the ArrayList starts with an internal array that can initially hold up to 10 elements.
-- If you add more than 10 elements, the ArrayList will automatically resize its internal array to accommodate the additional elements.
-
-```java
-ArrayList<String> list=new ArrayList<String>();
-list.add("Ajay");
-list.add("Viky");
-List.add(1, “sarath”); //To add a value at particular position
-Iterator itr=list.iterator();
-while(itr.hasNext())
-```
-
-### `LinkedList`
-
-- Maintains insertion order.
-- non synchronized, manipulation is fast because no shifting is required.
-- Internally uses doubly linked list,
-- Can contain duplicate elements.
-- Access time for an element by index is O(n) since you may need to traverse the list from the beginning.
-
-```java
-LinkedList<String> al=new LinkedList<String>();
-al.add("Ajay");
-Iterator<String> itr=al.iterator();
-while(itr.hasNext())
-```
-
-### [`Singly LinkedList`](https://www.javatpoint.com/java-program-to-create-and-display-a-singly-linked-list)
-
-- Linear data structure, in which each pointer points to the next element in list.
-- Each element is called as node. Each node has two components: **Data** and **Pointer** which points to next node in list.
-- Traverse through the list till current points to null.
-
-![img.png](images/singlyLinkedList.png)
-
-### `Doubly LinkedList`
-
-- Linear data structure, which can be described as the collection of nodes. Nodes are connected through the pointers.
-- A node comprises three sections. node data, pointer to next node, pointer to the previous node.
-
-![img_1.png](images/doublyLinkedList.png)
-
-**_One of the limitations of the singly linked list is that it can be traversed in only one direction that is forward.
-The doubly linked list has overcome this limitation by providing an additional pointer that points to the previous node.
-With the help of the previous pointer, the doubly linked list can be traversed in a backward direction thus making insertion and deletion operation easier to perform.
-So, a typical node in the doubly linked list consists of three fields:_**
-
-**_Data_** represents the data value stored in the node.
-
-**_Previous_** represents a pointer that points to the previous node.
-
-**_Next_** represents a pointer that points to next node in the list.
-
-// pending <https://www.javatpoint.com/collections-in-java> //
-
-![img.png](images/singlyVsDouble1.png)
-
-![img_1.png](images/singlyVsDouble2.png)
-
-### `Circular LinkedList`
-
-- First node points to the last node and last node points to the first node,
-- Where the doubly linked list has the null at the first previous pointer and the last node next pointer
-
-### `Vector`
-
-- similar to ArrayList, but syncronized and contains many methods which are not part of collection frame work
-
-```java
-Vector<String> v=new Vector<String>();
-v.add("Ayush");
-Iterator<String> itr=v.iterator();
-while(itr.hasNext())
-```
-
-### `Stack`
-
-- Subclass of vector.
-- It implements the last-in-first-out data structure.
-- Contains all the methods of vector and also provides methods like push(), peak()
-
-## Queue
-
-Two types,
-
-- **Deque**
-- **ArrayDeque**
-
-### `Deque Interface`
-
-- Deque interface extends queue interface. In deque, we can add and remove the elements from both the sides. Deque stands for double ended queue which enables us to perform the operations from both sides.
-
-### `ArrayDeque`
-
-- **Advantages:**
-  - Efficient for adding and removing elements at both ends (constant time).
-  - ArrayDeque is faster than ArrayList and Stack and has no capacity restrictions.
-- **Disadvantages:**
-  - Not as efficient for accessing elements in the middle.
-
-## [Set](https://javahungry.blogspot.com/2013/08/how-sets-are-implemented-internally-in.html)
-
-Unordered set. Doesn't allow to store duplicate values. Can store one null value.
-
-Set can be instantiated as
-
-```java
-  Set<data-type> s1 = new HashSet<data-type>();
-  Set<data-type> s2 = new LinkedHashSet<data-type>();
-  Set<data-type> s3 = new TreeSet<data-type>();
-```
-
-Set is implemented by HashSet, LinkedHashSet, TreeSet
-In Java, `HashSet`, `LinkedHashSet`, and `TreeSet` are three different implementations of the Set interface within the Java Collections Framework. Each of them has its unique characteristics and use cases:
-
-### `HashSet`
-
-- **Internal Structure:**
-
-  - Implemented using a hash table.
-  - Uses the hash code of the elements to determine the bucket in which they are stored.
-  - Doesn't maintain insertion order.
-
-- **Performance:**
-
-  - Provides constant-time performance for basic operations like add, remove, and contains on average.
-  - The actual performance depends on the quality of the hash function and the load factor.
-
-- **Use Case:**
-
-  - Suitable for general-purpose use when you need a fast and unordered set of elements.
-  - Ideal when the order of elements does not matter, and you want efficient membership testing.
-
-  ```java
-  Set<String> hashSet = new HashSet<>();
-  ```
-
-### `LinkedHashSet`
-
-- **Internal Structure:**
-
-  - Extends `HashSet`.
-  - Uses a hash table for constant-time performance.
-  - Maintains a doubly-linked list to preserve the order of insertion.
-
-- **Performance:**
-
-  - Similar performance characteristics to `HashSet` for basic operations.
-  - Provides predictable iteration order, which is the order in which elements were inserted.
-
-- **Use Case:**
-
-  - Useful when you want a set with predictable iteration order.
-  - Maintains the order in which elements were inserted or the order in which they were last accessed.
-
-  ```java
-  Set<String> linkedHashSet = new LinkedHashSet<>();
-  ```
-
-### `TreeSet`
-
-- **Internal Structure:**
-
-  - Implemented as a red-black tree.
-  - Maintains elements in a sorted order (natural order or based on a specified comparator).
-  - One of the most important implementations of the SortedSet interface in Java that uses a Tree for storage.
-
-- **Performance:**
-
-  - Logarithmic time complexity for basic operations like add, remove, and contains.
-  - Offers efficient operations for retrieving elements in a sorted order.
-
-- **Use Case:**
-
-  - Useful when you need a set with elements sorted in a specific order.
-  - Allows custom sorting based on a comparator or the natural ordering of elements.
-
-  ```java
-   Set<String> treeSet = new TreeSet<>();
-  ```
-
-- **Disadvantages:**
-  - Slower insertion and removal compared to `HashSet`.
-
-### Choosing the Right Set Implementation
-
-- If you need fast and unordered access with constant-time performance, use `HashSet`.
-- If you need a predictable order of insertion, use `LinkedHashSet`.
-- If you need a sorted set, use `TreeSet`.
-
-It's important to choose the appropriate implementation based on the specific requirements of your application.
-
-## Map
-
-Map is used for key,value purpose. Key should be unique.
-
-### [`HashMap`](<https://prateeknima.medium.com/internal-working-of-hashmap-in-java-e5b67890e152#:~:text=To%20improve%20the%20working%20of,(log%20n)%20retrieval%20performance.>)
-
-- Hashmap is non syncronized in nature so performance is also high.
-- Not thread safe.
-- If one thread is iterating HashMap and the other try to add/modify then lead to run-time exception.
-- Default size is 16 and the loadFactor is 0.75.
-- Bucket refers to a slot or a location within the internal array where key-value pairs are stored.The purpose of these buckets is to manage potential collisions, which occur when two or more keys hash to the same index in the array.
-
-  **Here's a brief overview of how a HashMap works:**
-
-1. **Hashing:** When you add a key-value pair to a HashMap, the key is hashed to determine the index (or bucket) in the internal array where the entry should be stored. The hash code is obtained using the hashCode() method of the key.
-
-2. **Index Calculation:** The hash code is then transformed into a valid index by applying a hash function. This index determines the bucket in which the key-value pair will be stored.
-
-3. **Collision Handling:** If two keys hash to the same index (a collision), the HashMap uses a mechanism to handle these collisions. The most common approach is chaining, where each bucket contains a linked list of entries. If multiple keys hash to the same index, their entries are stored as nodes in the linked list at that index.
-
-4. **Load Factor and Rehashing:** As the number of key-value pairs in the HashMap grows, the load factor determines when the internal array should be resized to accommodate more entries. When the number of entries exceeds a certain threshold (determined by the load factor), the HashMap is resized (usually doubled), and the existing entries are rehashed to new buckets.
-
-5. **TREEIFY_THRESHOLD=8; and UNTREEIFY_THRESHOLD=6** - When we insert more than 8 elements then the insertion will get inserted in the form of balanced tree instead of linked list.
-   **HashCode**
-
-- **Use in Hash Collections:**
-  When you plan to use instances of your class as keys in a HashMap or elements in a HashSet, you should provide a well-implemented hashCode method. This helps distribute objects across buckets more evenly, reducing the likelihood of collisions and improving the performance of hash-based collections.
-- **Consistency with equals:**
-  If you override the equals method in your class to define custom equality, you should also override the hashCode method. According to the general contract, if two objects are equal (as per the equals method), their hash codes should be equal. This ensures proper functioning in hash-based collections.
-- **Maintaining Contract with hashCode:**
-
-  - If you override the hashCode method, you should follow the contract specified in the Object class:
-    - The result of hashCode should be consistent during the execution of a program, i.e., it should return the same value for the same object.
-    - If two objects are equal, their hash codes must be equal.
-    - It's not required, but it's generally beneficial if unequal objects have different hash codes to minimize collisions.
-
-- [Traverse through Hashmap](https://www.geeksforgeeks.org/traverse-through-a-hashmap-in-java/)
-  - Using an Iterator
-  - Using enhanced for Loop (for-each loop)
-  - Using forEach() Method
-- [HashMap Internal Working](https://youtu.be/-oafFAPgLao?si=pwEA44xe4I1i-WTf)
-- [HashMap Internal Working](https://youtu.be/1CJbB6SzjVw?si=WpfGSWu5I_ByVgYA)
-- [Key Map](<(https://www.baeldung.com/java-custom-class-map-key)>)
-  > https://prateeknima.medium.com/internal-working-of-hashmap-in-java-e5b67890e152#:~:text=To%20improve%20the%20working%20of,(log%20n)%20retrieval%20performance>.
-
-#### Equals() & [HashCode()](https://www.digitalocean.com/community/tutorials/java-equals-hashcode)
-
-- ![equalsHashCode.png](images/equalsHashCode.png)
-
-```java
-String a = "Andrew";
-String b = "Andrew";
-
-if(a.equals(b))
-{ //checking the equality of objects using equals() methods
-  System.out.println("a & b are equal variables, and their respective hashvalues are:" + " "+ a.hashCode() + " & " + b.hashCode());
-}
-
-
-String c = "Maria";
-String d = "Julie";
-
-if(!c.equals(d))
-{ //checking the equality of objects using equals() method
-   System.out.println("\nc & d are Un-equal variables, and their respective hashvalues are:" + " "+ c.hashCode() + " & " + d.hashCode());
-}
-```
-
-**_Output_**
-
-```java
-a & b are equal variables, and their respective hash values are: 1965574029 & 1965574029
-c & d are Un-equal variables, and their respective hash values are: 74113750 & 71933245
-```
-
-#### [equals() vs "=="](https://www.linkedin.com/pulse/difference-between-equals-java-babar-shahzad)
-
-`So, the main difference between "==" and "equals" in Java is that "==" compares the memory location of two objects, while "equals" compares the contents of two objects.`
-
-![equalsVsDoubleEqual.png](images/equalsVsDoubleEqual.png)
-
-#### **Reference Equality**
-
-- In Java, "==" is used for reference equality, which means that it checks whether two objects refer to the same memory location.
-
-```java
-String s1 = "hello";
-String s2 = new String("hello");
-
-if (s1 == s2)
-{
-  System.out.println("s1 and s2 are the same object pointing to the same memory");
-}
-else
-{
-  System.out.println("s1 and s2 are different objects because they have their seperate memory holders");
-}
-```
-
-`Output`
-
-```java
-s1 and s2 are different objects
-```
-
-#### **Value Equality**
-
-- Value equality takes place when two separate objects happen to have the same values or state.This compares values and is closely related to the Object's equals() method.
-
-```java
-String s1 = "hello";
-String s2 = new String("hello");
-
-if (s1.equals(s2)){
-  System.out.println("s1 and s2 have the same value");
-} else {
-  System.out.println("s1 and s2 have different values");
-}
-```
-
-`Output`
-
-```java
-s1 and s2 have the same value
-```
-
-```java
-class HelloWorld {
-    public static void main(String[] args)
-    {
-        String s1 = "Java";
-        String s2 = "Java";
-        StringBuilder sb1 = new StringBuilder();
-        sb1.append("Ja").append("va");
-        System.out.println(s1 == s2);
-        System.out.println(s1.equals(s2));
-        System.out.println(sb1.toString() == s1);
-        System.out.println(sb1.toString().equals(s1));
-    }
-}
-```
-
-### [`ConcurrentHashMap`](https://javahungry.blogspot.com/2015/02/how-concurrenthashmap-works-in-java-internal-implementation.html)
-
-- ConcurrentHashMap is syncronized, so performance is slow.
-- Thread safe.
-- We won't get exception during modification.
-
-  1. HashMap makes absolutely no guarantees about the iteration order. It can (and will) even change completely when new elements are added.
-  2. It has pair values(keys,values)
-  3. NO duplication key values
-  4. unordered unsorted
-  5. It allows one null key and more than one null values.
-
-- public class HashMap<K,V> extends AbstractMap<K,V> implements Map<K,V>, Cloneable, Serializable
-
-### `TreeMap`
-
-- will iterate according to the "natural ordering" of the keys according to their compareTo() method (or an externally supplied Comparator). Additionally, it implements the SortedMap interface, which contains methods that depend on this sort order.
-- Ordered and sortered version
-- based on hashing data structures
-
-- public class TreeMap<K,V> extends AbstractMap<K,V> implements NavigableMap<K,V>, Cloneable, Serializable
-
-### `LinkedHashMap`
-
-- will iterate in the order in which the entries were put into the map
-- It is ordered version of map implementation
-- Based on linked list and hashing data structures
-- public class LinkedHashMap<K,V> extends HashMap<K,V> implements Map<K,V>
-
-### `HashTable`
-
-- same as hash map
-- It does not allow null keys and null values
-- Hash tables are used to store and retrieve data (or records) quickly.
-- Hashtables store the records in buckets using hash keys.
-- Java Hashtable implements the Serializable and Cloneable interfaces but not the random access interface.
-
-- public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneable, Serializable
-
-## Aplet
-
-- `public void init()`: is used to initialized the Applet. It is invoked only once.
-- `public void start()`: is invoked after the init() method or browser is maximized. It is used to start the Applet.
-- `public void stop()`: is used to stop the Applet. It is invoked when Applet is stop or browser is minimized.
-- `public void destroy()`: is used to destroy the Applet. It is invoked only once.
-
-## Serialization and Deserialization
-
-Serialization in Java allows us to convert an Object to stream that we can send over the network or save it as file or store in DB for later usage. Deserialization is the process of converting Object stream to actual Java Object to be used in our program.
-
-- State of an object to **bytestream**.
-- For serializing the object we call writeObject() method and ObjectOutputStream class.
-- For deserializing the object we call readObject() method and ObjectInputStream class.
-- Only objects that supports the java.io.serializable interface can be written to streams.
-
-### [Transient Keyword](https://www.educative.io/answers/what-is-the-transient-keyword-in-java)
-
-- Is used to avoid serialization. If any object of a data structure is defined as a transient, then it will not be serialized.
-
-# Auto-boxing and Auto-Unboxing
-
-## Boxing & AutoBoxing - Primitive values to Object or wrapper class
-
-```java
-Integer valueBoxing = Integer.valueOf(10); //Boxing
-or
-Integer valueBoxing = 10; //AutoBoxing
-```
-
-## UnBoxing & AutoUnBoxing - Object to primitive type
-
-```java
-int valueUnBoxing = valueBoxing.intValue(); //UnBoxing
-or
-int valueUnBoxing = valueBoxing; //AutoUnBoxing
-```
 
 # [Cohesion and Coupling in Java](https://stackoverflow.com/a/227957/11962586)
 
