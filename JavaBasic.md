@@ -2,6 +2,7 @@
 <!-- TOC -->
 * [Java Interview Question Bank](#java-interview-question-bank)
   * [Primary main features of java](#primary-main-features-of-java)
+  * [Class Loaders in Java](#class-loaders-in-java)
   * [Identifiers](#identifiers)
 * [Class](#class)
   * [Common classes in java](#common-classes-in-java)
@@ -61,6 +62,8 @@
   * [5 . Interface](#5--interface)
     * [Example](#example)
     * [Create variable inside interface](#create-variable-inside-interface)
+    * [Create class inside Interface](#create-class-inside-interface)
+    * [Can we write interface inside the class](#can-we-write-interface-inside-the-class)
     * [Marker interface vs Functional Interface](#marker-interface-vs-functional-interface)
     * [Supplier vs Consumer vs Predicate vs UnaryOperator vs BinaryOperator](#supplier-vs-consumer-vs-predicate-vs-unaryoperator-vs-binaryoperator)
     * [Comparable and Comparator](#comparable-and-comparator)
@@ -209,6 +212,7 @@
 
 - [Java Interview Questions 1](https://www.java2novice.com/java-interview-questions/)
 - [Java interview Questions 2](https://www.java67.com/2015/03/top-40-core-java-interview-questions-answers-telephonic-round.html)
+- [Java Go through Points](https://www.javamadesoeasy.com/)
 
 ## Primary main features of java
 
@@ -224,6 +228,21 @@
 6. Distributed
 7. Multithreading
 8. Portable
+
+## Class Loaders in Java
+
+**1. Bootstrap Class Loader:**
+   This is the parent of all class loaders.
+   It is responsible for loading the core Java classes from the rt.jar file and other essential libraries located in the JAVA_HOME/jre/lib directory.
+   It is implemented in native code and cannot be directly accessed by Java code.
+
+**2. Extension Class Loader:**
+   It loads classes from the extension directories (JAVA_HOME/jre/lib/ext or any other directory specified by the java.ext.dirs system property).
+   It is a child of the Bootstrap Class Loader.
+
+**3. System/Application Class Loader:**
+   It loads classes from the application's classpath, which is specified by the CLASSPATH environment variable or the -cp command-line option.
+   It is a child of the Extension Class Loader.
 
 ## Identifiers
 
@@ -416,7 +435,6 @@ class Polygon
 }
 
 
-
 class AnonymousDemo
 {
   public void createClass()
@@ -446,6 +464,7 @@ class Main
 ```
 
 **OUTPUT** `Inside an anonymous class.`
+
 
 | Types              | Explanation                                                                                                  |
 | ------------------ | ------------------------------------------------------------------------------------------------------------ |
@@ -543,6 +562,7 @@ public class UtilityClass {
 ```
 
 These are the main types of constructors in Java, each serving different purposes in object initialization and instantiation.
+
 
 # Modifier in Java
 
@@ -1164,6 +1184,88 @@ In summary, private methods in interfaces are a powerful feature introduced to i
 ### Create variable inside interface
 
 - We can create a variable inside interface. That variable will become the public static final variable.
+
+### Create class inside Interface
+- Yes, in Java, you can define a **class inside an interface**. This is often referred to as a **nested class**. The nested class inside an interface is implicitly `public` and `static`, meaning it can be accessed without an instance of the interface.
+
+**Example: Class Inside Interface**
+
+```java
+interface OuterInterface {
+    // Nested class inside an interface
+    class InnerClass {
+        void display() {
+            System.out.println("This is a class inside an interface.");
+        }
+    }
+}
+```
+
+**How to Use It**
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        // Accessing the class inside the interface
+        OuterInterface.InnerClass obj = new OuterInterface.InnerClass();
+        obj.display();
+    }
+}
+```
+
+**Explanation**
+1. The `InnerClass` is automatically **static** and **public**, so it can be accessed without an instance of the interface.
+2. You can create objects of the nested class as shown in the `main` method.
+
+---
+
+**Use Cases**
+1. **Utility Classes**: You can define helper or utility classes inside an interface.
+2. **Constants and Enums**: Some frameworks use nested classes or enums inside interfaces to group related constants or configurations.
+
+### Can we write interface inside the class
+- Yes, in Java, you can define an **interface inside a class**. This is called a **nested interface**. Such interfaces are implicitly `static` and can be accessed without creating an instance of the enclosing class.
+
+**Example: Interface Inside a Class**
+
+```java
+class OuterClass {
+    // Nested interface inside a class
+    interface InnerInterface {
+        void display();
+    }
+}
+```
+
+**How to Implement It**
+
+```java
+class ImplementingClass implements OuterClass.InnerInterface {
+    public void display() {
+        System.out.println("This is an interface inside a class.");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        OuterClass.InnerInterface obj = new ImplementingClass();
+        obj.display();
+    }
+}
+```
+
+**Key Points**
+1. The nested interface is **static** by default, meaning it is not tied to an instance of the enclosing class.
+2. To use the nested interface, you refer to it using the syntax: `OuterClass.InnerInterface`.
+3. The nested interface can be implemented by any class or interface, even outside the enclosing class.
+
+---
+
+**Use Cases**
+- **Grouping Related Behavior**: You might define a nested interface in a class to represent callbacks, listeners, or specific functionality related to that class.
+- **Encapsulation**: To restrict the scope of an interface, you can nest it within a class to indicate it is specifically tied to that class's functionality.
+
+If you want more examples or specific scenarios, let me know!
 
 ### Marker interface vs Functional Interface
 
@@ -2044,7 +2146,6 @@ In short:
         }
     }
     ```
-
 ### Manually invoking garbage collection
 
 In Java, the garbage collection process is automatic, managed by the Java Virtual Machine (JVM). The JVM's garbage collector runs in the background, identifying and reclaiming memory that is no longer in use by the program. This automatic garbage collection helps developers avoid memory leaks and focus on writing application logic.
@@ -2111,6 +2212,39 @@ Throwable
         |__ (ArithmeticException, NullPointerException, NumberFormatException, IndexOutOfBoundException
             |
             |__ ArrayOutOfBoundException, StringIndexOutOfBoundException)Unchecked Exceptions
+
+> Detailed tree structure
+
+java.lang.Throwable (class)
+│
+├── java.lang.Error (class)
+│   ├── AssertionError (class)
+│   ├── OutOfMemoryError (class)
+│   ├── StackOverflowError (class)
+│   ├── VirtualMachineError (class)
+│   │   ├── InternalError (class)
+│   │   └── OutOfMemoryError (class)
+│   └── LinkageError (class)
+│       ├── ClassNotFoundError (class)
+│       └── NoClassDefFoundError (class)
+│
+└── java.lang.Exception (class)
+├── IOException (class)
+│   ├── FileNotFoundException (class)
+│   ├── EOFException (class)
+│   └── SocketException (class)
+├── RuntimeException (class)
+│   ├── NullPointerException (class)
+│   ├── ArithmeticException (class)
+│   ├── ArrayIndexOutOfBoundsException (class)
+│   ├── ClassCastException (class)
+│   ├── IllegalArgumentException (class)
+│   ├── IllegalStateException (class)
+│   └── UnsupportedOperationException (class)
+├── SQLException (class)
+├── ParseException (class)
+└── InterruptedException (class)
+
 ```
 
 ## throw new and throws
@@ -2149,7 +2283,9 @@ In Java, `throw` and `throws` are related to exception handling, but they serve 
 
 In summary, `throw` is used to explicitly throw an exception within your code, while `throws` is used in a method signature to declare the types of exceptions that the method might throw, notifying the calling code about potential exceptions.
 
-## Checked and Unchecked Exceptions
+## [Checked and Unchecked Exceptions](https://www.javamadesoeasy.com/2015/05/exception-handling-exception-hierarchy.html)
+
+![img.png](images/Checked_UnChecked.png)
 
 In Java, errors are categorized into two main types: Checked Exceptions and Unchecked Exceptions. Errors, which are distinct from exceptions, are typically severe issues that indicate a serious problem that usually cannot be handled programmatically. Here's an overview of each type and how to handle them:
 

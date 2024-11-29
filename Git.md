@@ -232,5 +232,25 @@ USAA to create authentication token
 
 - go to jfrog
 - create api key
-- 
+
+### Difference Between Pull and Fetch
+
+- In Git, both pull and fetch are used to retrieve updates from a remote repository, but they differ in their functionality:
+
+- The key difference between git fetch and pull is that git pull copies changes from a remote repository directly into your working directory, while git fetch does not. The git fetch command only copies changes into your local Git repo. The git pull command does both.
+
+**Fetch:**
+Downloads the changes from the remote repository to your local repository, but does not merge them into your working directory.
+Allows you to review the changes before integrating them.
+Safer option as it doesn't directly modify your local working copy.
+
+**Pull:**
+Combines two operations: fetch and merge.
+Downloads changes from the remote repository and immediately merges them into your current branch.
+Faster and more convenient if you want to quickly update your local branch with changes from the remote repository.
+
+***In essence:***
+Fetch: gets the changes, pull gets and merges the changes.
+Fetch: is safer, pull is more convenient.
+Use fetch if you want to review changes before merging, use pull if you want to quickly update your local branch.
 

@@ -124,8 +124,51 @@ Load balancing is a crucial part of designing and maintaining a resilient micros
 
 ### 2. Why we use microservices.
 
-- API gateway handles the load. By default it has load balancer. In spite of configuring load balancer in the client service, api gate way will handle the load balancing for all the services.
--
+Microservices are a software architectural style that structures an application as a collection of small, independent, and loosely coupled services. This approach is commonly used for various reasons:
+
+---
+
+### **1. Scalability**
+- **Fine-grained Scaling:** Each service can scale independently based on its specific resource requirements, optimizing cost and performance.
+- **Resilience:** If one service becomes overwhelmed, others remain unaffected, improving the system's overall reliability.
+
+### **2. Modularity and Maintainability**
+- **Isolated Development:** Teams can work on individual services without interfering with others, enhancing productivity.
+- **Ease of Updates:** Updates, bug fixes, or new features can be implemented in a single service without risking the entire application.
+
+### **3. Technology Diversity**
+- **Best Fit for Purpose:** Different microservices can use different programming languages, databases, or frameworks, selecting the best tool for each task.
+
+### **4. Faster Time to Market**
+- **Parallel Development:** Different teams can develop and deploy services independently, reducing the time required to launch features.
+
+### **5. Resilience and Fault Isolation**
+- **Fail Safely:** A failure in one microservice doesn't cause the entire application to fail, as opposed to monolithic applications where a single error might bring down the entire system.
+
+### **6. Continuous Deployment and Delivery**
+- Microservices enable automated deployment pipelines, allowing frequent and incremental updates without impacting the overall system.
+
+### **7. Improved Business Agility**
+- **Quick Adaptation:** Changes in business requirements can be implemented faster by updating or adding relevant services.
+
+### **8. Enhanced Testing**
+- **Focused Testing:** Each service can be tested independently, simplifying debugging and improving test coverage.
+
+### **9. Cloud-readiness**
+- Microservices align well with cloud-native architectures, benefiting from features like containerization (e.g., Docker) and orchestration (e.g., Kubernetes).
+
+### **10. Reusability**
+- Services can be reused across different parts of the application or even in other projects, reducing duplication and effort.
+
+---
+
+### **Challenges to Consider**
+While microservices provide significant benefits, they also introduce complexities:
+- **Communication Overhead:** Requires managing inter-service communication (e.g., using APIs, message queues).
+- **Increased DevOps Effort:** Requires a robust infrastructure for deployment, monitoring, and scaling.
+- **Data Consistency:** Maintaining consistency across distributed services can be challenging.
+
+By addressing these challenges with tools and best practices, microservices can significantly improve application flexibility, reliability, and efficiency.
 
 ### 3. Explain Circuit Breaker in microservice.
 
@@ -270,7 +313,12 @@ Maintaining load balance in microservices requires a combination of client-side 
 ## API Gateway
 
 > Explain gate way (API Gateway) function in micro service.
+> > API gateway is the entry point and handles the request loads. By default it has load balancer. In spite of configuring load balancer in the client service, api gate way will handle the load balancing for all the services.
+
 > Pre-filter and post-filter
+
+> Popular open-source API gateways:
+> > 1. Kong Gateway, 2. Apache APISIX, 3. Traefik
 
 An API Gateway is a server that acts as an intermediary for requests from clients seeking services from backend servers. It is a fundamental component in a microservices architecture, providing a centralized entry point for managing and routing requests to the appropriate services.
 
