@@ -570,7 +570,9 @@ In Java, both private classes and private constructors are used to control acces
 Private Class:
 
 • Scope: A private class can only be accessed from within the class it is declared in. It is typically used as a nested class to provide helper functionality or encapsulate data that should not be exposed to the outside world.
+
 • Instantiation: You can create instances of a private class from within the enclosing class.
+
 • Purpose: To restrict access to the class and its members, promoting encapsulation and modularity.
 
 Example:
