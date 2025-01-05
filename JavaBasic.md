@@ -19,6 +19,7 @@
   * [3. Copy Constructor](#3-copy-constructor)
   * [4. Constructor Chaining](#4-constructor-chaining)
   * [5. Private Constructor](#5-private-constructor)
+  * [Private class vs Private Constructor](#private-class-vs-private-constructor)
 * [Modifier in Java](#modifier-in-java)
   * [1. Access modifiers](#1-access-modifiers)
     * [private access modifier](#private-access-modifier)
@@ -563,6 +564,68 @@ public class UtilityClass {
 
 These are the main types of constructors in Java, each serving different purposes in object initialization and instantiation.
 
+## Private class vs Private Constructor
+
+In Java, both private classes and private constructors are used to control access and instantiation, but they serve different purposes:
+Private Class:
+
+• Scope: A private class can only be accessed from within the class it is declared in. It is typically used as a nested class to provide helper functionality or encapsulate data that should not be exposed to the outside world.
+• Instantiation: You can create instances of a private class from within the enclosing class.
+• Purpose: To restrict access to the class and its members, promoting encapsulation and modularity.
+
+Example:
+
+```java
+public class OuterClass {
+
+    private static class InnerClass {
+        // ...
+    }
+
+    public void doSomething() {
+        InnerClass inner = new InnerClass();
+        // ...
+    }
+}
+```
+
+Private Constructor:
+
+• Scope: A private constructor is only accessible from within the class itself.
+• Instantiation: Prevents creating instances of the class from outside the class.
+• Purpose:
+• Singleton Pattern: To ensure that only one instance of a class exists.
+• Utility Classes: To prevent instantiation of a class that only contains static methods and fields.
+• Controlled Instantiation: To enforce specific ways of creating objects, often through factory methods. [1, 2]
+
+
+
+**Example (Singleton):**
+
+```java
+public class Singleton {
+
+    private static Singleton instance;
+
+    private Singleton() {
+        // ...
+    }
+
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+}
+```
+
+**In summary:**
+
+• Private class: Restricts access to the class itself.
+• Private constructor: Restricts instantiation of the class.
+
+---
 
 # Modifier in Java
 
@@ -810,8 +873,9 @@ In summary, both the numeric and boolean wrapper classes (`Integer`, `Long`, `Sh
 
 ### [**_To Create immutable class_**](https://www.digitalocean.com/community/tutorials/how-to-create-immutable-class-in-java)
 
-- Set the class name as final `public final calss ClassName`
-- set variable declared as final and private `private final string variablename;`
+- Set the class name as final `public final calss ClassName`. Declare the class as `final` so it can’t be extended.
+- set variable declared as final and private `private final string variablename;`. Make all the fields `private` so that direct access is not allowed.
+- Make all mutable fields final so that a field’s value can be assigned only once.
 - No setter(), only getter() should be used. `getter()`
 - Make deep copy for object using constructor.
 
