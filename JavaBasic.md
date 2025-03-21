@@ -109,6 +109,9 @@
     * [`TreeMap`](#treemap)
     * [`LinkedHashMap`](#linkedhashmap)
     * [`HashTable`](#hashtable)
+* [**Java Collections Framework Overview (Java 1.0 - Java 21)**](#java-collections-framework-overview-java-10---java-21)
+    * [**Legend:**](#legend)
+    * [**Key Takeaways:**](#key-takeaways)
   * [Aplet](#aplet)
   * [Serialization and Deserialization](#serialization-and-deserialization)
     * [Transient Keyword](#transient-keyword)
@@ -1981,6 +1984,50 @@ class HelloWorld {
 
 - public class Hashtable<K,V> extends Dictionary<K,V> implements Map<K,V>, Cloneable, Serializable
 
+
+
+
+---
+
+# **Java Collections Framework Overview (Java 1.0 - Java 21)**
+
+| **Java Version** | **New Collections & Features (null, Sync)**                                                                                                                                                         | **Description & Key Features** |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
+| **JDK 1.0**      | - `Vector (many, Y)`<br>- `Stack (many, Y)`<br>- `Hashtable ((0, 0), Y)`<br>- `Properties ((0, many), Y)`<br>- `Enumeration`                                                                        | Initial synchronized collections. `Hashtable` and `Properties` store key-value pairs. |
+| **JDK 1.2**      | - `ArrayList (many, N)`<br>- `LinkedList (many, N)`<br>- `HashSet (N/A, N)`<br>- `TreeSet (N/A, N)`<br>- `HashMap ((1, many), N)`<br>- `TreeMap ((0, many), N)`<br>- `Iterator`<br>- `ListIterator` | Introduction of core interfaces (`Collection`, `Set`, `List`, `Map`). `TreeMap` does not allow `null` keys. |
+| **JDK 1.4**      | - `LinkedHashSet (N/A, N)`<br>- `LinkedHashMap ((1, many), N)`                                                                                                                                      | Maintains insertion order. `LinkedHashMap` allows one `null` key. |
+| **JDK 1.5**      | - `Queue (varies, N)`<br>- `CopyOnWriteArrayList (many, Y)`<br>- `CopyOnWriteArraySet (N/A, Y)`<br>- Enhanced for-each loop                                                                         | `Queue` implementations vary in `null` handling (`PriorityQueue` disallows `null`). `CopyOnWriteArrayList` is thread-safe. |
+| **JDK 1.6**      | - `NavigableSet (N/A, N)`<br>- `NavigableMap ((0, many), N)`<br>- `Deque (varies, N)`<br>- `ArrayDeque (N/A, N)`<br>- `ConcurrentSkipListSet (N/A, Y)`<br>- `ConcurrentSkipListMap ((0, many), Y)`  | Introduction of sorted and double-ended queue structures. `ConcurrentSkipListMap` does not allow `null` keys. |
+| **JDK 1.8**      | - `stream()`<br>- `parallelStream()`<br>- `spliterator()`<br>- `removeIf()`<br>- Performance improvements in `HashMap`                                                                              | Functional programming support (Streams API, lambda expressions). `HashMap` performance improved with red-black tree optimization. |
+| **JDK 9**        | - `List.of() (0, N)`<br>- `Set.of() (0, N)`<br>- `Map.of() ((0, 0), N)`<br>- `Map.ofEntries() ((0, 0), N)`                                                                                          | Factory methods for **immutable** collections. These do **not allow nulls**. |
+| **JDK 10**       | - `List.copyOf() (varies, N)`<br>- `Set.copyOf() (varies, N)`<br>- `Map.copyOf() ((varies, varies), N)`                                                                                             | Methods to create unmodifiable copies of collections. `null` behavior depends on the original collection. |
+| **JDK 11**       | - `Collection.toArray(IntFunction)`                                                                                                                                                                 | Default method to convert collections to arrays of desired runtime types. |
+| **JDK 21**       | - `SequencedCollection (varies, N)`<br>- `SequencedSet (varies, N)`<br>- `SequencedMap ((varies, varies), N)`                                                                                       | Interfaces for collections with **defined order** (first/last element access, reversed views). |
+
+---
+
+### **Legend:**
+- **(null keys, null values)** → For key-value collections (`Map` types)
+- **(null values only)** → For non-key-value collections (`List`, `Set`, `Queue`, etc.)
+- **Thread Safety:**
+  - **Y** → Synchronized
+  - **N** → Not synchronized
+
+---
+
+### **Key Takeaways:**
+- **Thread-Safe Collections:** Old collections like `Vector` and `Hashtable` are synchronized, but modern alternatives (`ConcurrentHashMap`, `CopyOnWriteArrayList`) offer better concurrency performance.
+- **Null Handling:**
+  - **Maps:** `HashMap` allows **one `null` key**, but `TreeMap` and `ConcurrentSkipListMap` **do not allow `null` keys**.
+  - **Lists/Sets:** Most allow `null` values, except immutable collections (`List.of()`, `Set.of()`) and `ConcurrentSkipListSet`.
+- **Performance & Optimizations:** Java 8+ improved **`HashMap` lookup efficiency** and introduced **functional programming** with **streams**.
+- **Immutable Collections (Java 9+):** Methods like `List.of()` provide unmodifiable collections that do **not allow nulls**.
+- **Ordered Collections (Java 21):** `SequencedCollection`, `SequencedSet`, and `SequencedMap` provide **consistent ordering**.
+
+---
+
+
+
 ## Aplet
 
 - `public void init()`: is used to initialized the Applet. It is invoked only once.
@@ -2294,12 +2341,14 @@ java.lang.Throwable (class)
 │       ├── ClassNotFoundError (class)
 │       └── NoClassDefFoundError (class)
 │
-└── java.lang.Exception (class)
+└── java.lang.Exception(Checked exceptions) (class)
 ├── IOException (class)
 │   ├── FileNotFoundException (class)
 │   ├── EOFException (class)
-│   └── SocketException (class)
-├── RuntimeException (class)
+│   ├── SocketException (class)
+│   ├── IOException
+│   └── SQLException (class)
+├── RuntimeException(Unchecked exception) (class)
 │   ├── NullPointerException (class)
 │   ├── ArithmeticException (class)
 │   ├── ArrayIndexOutOfBoundsException (class)
@@ -2415,6 +2464,8 @@ In Java, errors are categorized into two main types: Checked Exceptions and Unch
 Remember that it's crucial to handle exceptions appropriately based on your application's requirements. For example, you might log the error, notify the user, roll back a transaction, or take other corrective actions depending on the context. Additionally, avoiding overly broad catch clauses and handling exceptions at the appropriate level in your application contributes to robust error management.
 
 We can exit finally block by using flag. exit(); in try block.
+
+### StackOverflow - Due to out of memory
 
 ## Try with Resource [(java 7 and java 9 improvements)](https://www.tutorialspoint.com/java9/java9_try_with_resources_improvement.htm)
 
@@ -2898,6 +2949,151 @@ Thread synchronization, on the other hand, deals with coordinating the execution
 In summary, while process synchronization deals with coordination between independent processes, thread synchronization deals with coordination between threads within the same process.
 Both are essential concepts in concurrent programming, ensuring proper interaction and avoiding issues related to data access and modification in shared environments.
 
+
+---
+## Parallel processing of methods
+
+### **1. Using `Thread` Class (Basic Approach)**
+You can create two separate threads and execute methods in parallel.
+
+```java
+class Task1 extends Thread {
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Task1 - Count: " + i);
+        }
+    }
+}
+
+class Task2 extends Thread {
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Task2 - Count: " + i);
+        }
+    }
+}
+
+public class ParallelExecution {
+    public static void main(String[] args) {
+        Task1 t1 = new Task1();
+        Task2 t2 = new Task2();
+
+        t1.start(); // Start first thread
+        t2.start(); // Start second thread
+    }
+}
+```
+
+🔹 **`start()` launches the threads in parallel.**  
+🔹 The execution order of `Task1` and `Task2` is **not guaranteed** because threads run independently.
+
+---
+
+### **2. Using `Runnable` (Recommended Approach)**
+Instead of extending `Thread`, use `Runnable`:
+
+```java
+class Task implements Runnable {
+    private String name;
+
+    public Task(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println(name + " - Count: " + i);
+        }
+    }
+}
+
+public class ParallelExecution {
+    public static void main(String[] args) {
+        Thread t1 = new Thread(new Task("Task1"));
+        Thread t2 = new Thread(new Task("Task2"));
+
+        t1.start();
+        t2.start();
+    }
+}
+```
+This is **better** than extending `Thread` because it allows **better separation of logic**.
+
+---
+
+### **3. Using `ExecutorService` (Best Practice for Thread Pools)**
+Instead of manually managing threads, use `ExecutorService`:
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class ParallelExecution {
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+
+        executor.execute(() -> {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("Task1 - Count: " + i);
+            }
+        });
+
+        executor.execute(() -> {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("Task2 - Count: " + i);
+            }
+        });
+
+        executor.shutdown(); // Shutdown after task completion
+    }
+}
+```
+🔹 **`newFixedThreadPool(2)`** creates a pool with two threads.  
+🔹 This approach is more **efficient and scalable** for multiple tasks.
+
+---
+
+### **4. Using `CompletableFuture` (For Asynchronous Execution)**
+For modern Java (Java 8+), `CompletableFuture` is great for parallel execution.
+
+```java
+import java.util.concurrent.CompletableFuture;
+
+public class ParallelExecution {
+    public static void main(String[] args) {
+        CompletableFuture<Void> task1 = CompletableFuture.runAsync(() -> {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("Task1 - Count: " + i);
+            }
+        });
+
+        CompletableFuture<Void> task2 = CompletableFuture.runAsync(() -> {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println("Task2 - Count: " + i);
+            }
+        });
+
+        // Wait for both tasks to complete
+        CompletableFuture.allOf(task1, task2).join();
+    }
+}
+```
+🔹 `runAsync()` runs tasks **in parallel** without blocking the main thread.  
+🔹 `join()` ensures both tasks complete before the program ends.
+
+---
+
+### **Which One Should You Use?**
+| Approach | Use When |
+|----------|---------|
+| `Thread` | Simple, quick execution, but not recommended for production. |
+| `Runnable` | Better than `Thread`, allows code reuse. |
+| `ExecutorService` | Best for managing multiple tasks efficiently. |
+| `CompletableFuture` | Best for modern, non-blocking parallel execution. |
+
+
+
 ## What design patterns are used, explain the reason for the usage
 
 Design patterns are recurring solutions to common problems in software design. They provide proven templates for solving specific design problems, making it easier to create maintainable and scalable software. Here are some commonly used design patterns and the reasons for their usage:
@@ -2935,8 +3131,7 @@ class Database
     // returns the singleton object
     return dbObject;
   }
-
-
+  
   public void getConnection()
   {
     System.out.println("You are now connected to the database.");
