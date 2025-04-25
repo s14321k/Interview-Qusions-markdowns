@@ -55,18 +55,7 @@
 - Try this, n would be the nth item you would want to return
 - `SELECT DISTINCT(Salary) FROM table ORDER BY Salary DESC LIMIT n,1`
 
-```
-limit 0,1  - Top max salary
-
-limit 1,1  - Second max salary
-
-limit 2,1  - Third max salary
-
-limit 3,1  - Fourth max salary
-
-```
-
-Max and 2nd Max Salary
+In your case
 
 - `SELECT DISTINCT(column_name) FROM table_name ORDER BY column_name DESC limit 2,1;`
 
