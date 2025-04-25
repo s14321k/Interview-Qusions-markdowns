@@ -150,6 +150,7 @@
   * [Checked and Unchecked Exceptions](#checked-and-unchecked-exceptions)
     * [1. **Checked Exceptions:**](#1-checked-exceptions)
     * [2. **Unchecked Exceptions (Runtime Exceptions):**](#2-unchecked-exceptions-runtime-exceptions)
+    * [StackOverflow - Due to out of memory](#stackoverflow---due-to-out-of-memory)
   * [Try with Resource (java 7 and java 9 improvements)](#try-with-resource--java-7-and-java-9-improvements-)
     * [The first is a typical try-catch-finally block](#the-first-is-a-typical-try-catch-finally-block)
     * [try-with-resources With Multiple Resources](#try-with-resources-with-multiple-resources)
@@ -176,6 +177,22 @@
   * [Process syncronizatin & Thread Syncronization](#process-syncronizatin--thread-syncronization)
     * [**Process Synchronization:**](#process-synchronization)
     * [**Thread Synchronization:**](#thread-synchronization)
+  * [Parallel processing of methods](#parallel-processing-of-methods)
+    * [**1. Using `Thread` Class (Basic Approach)**](#1-using-thread-class-basic-approach)
+    * [**2. Using `Runnable` (Recommended Approach)**](#2-using-runnable-recommended-approach)
+    * [**3. Using `ExecutorService` (Best Practice for Thread Pools)**](#3-using-executorservice-best-practice-for-thread-pools)
+    * [**4. Using `CompletableFuture` (For Asynchronous Execution)**](#4-using-completablefuture-for-asynchronous-execution)
+    * [**Which One Should You Use?**](#which-one-should-you-use)
+  * [`Collections.synchronizedMap()` and `ConcurrentHashMap`](#collectionssynchronizedmap-and-concurrenthashmap)
+    * [1. **Collections.synchronizedMap(Map<K, V> map)**](#1-collectionssynchronizedmapmapk-v-map)
+    * [2. **ConcurrentHashMap<K, V>**](#2-concurrenthashmapk-v)
+    * [**Key Differences**](#key-differences)
+    * [**When to Use What?**](#when-to-use-what)
+  * [For most concurrent applications, `ConcurrentHashMap` is the preferred choice due to better scalability and performance.](#for-most-concurrent-applications-concurrenthashmap-is-the-preferred-choice-due-to-better-scalability-and-performance)
+    * [**Null Key and Null Value Support**](#null-key-and-null-value-support)
+    * [**Behavior in Detail**](#behavior-in-detail)
+    * [**Why Doesn't `ConcurrentHashMap` Allow Nulls?**](#why-doesnt-concurrenthashmap-allow-nulls)
+    * [**Summary**](#summary-1)
   * [What design patterns are used, explain the reason for the usage](#what-design-patterns-are-used-explain-the-reason-for-the-usage)
   * [Pass by value and Pass by reference](#pass-by-value-and-pass-by-reference)
   * [URL vs URI](#url-vs-uri)
@@ -222,10 +239,10 @@
 
 1. Platform Independent
 2. Object oriented programming language
-  - Abstraction
-  - Encapsulation
-  - Inheritance
-  - Polymorphism
+- Abstraction
+- Encapsulation
+- Inheritance
+- Polymorphism
 3. Simple
 4. Robust
 5. Secure
@@ -236,17 +253,17 @@
 ## Class Loaders in Java
 
 **1. Bootstrap Class Loader:**
-   This is the parent of all class loaders.
-   It is responsible for loading the core Java classes from the rt.jar file and other essential libraries located in the JAVA_HOME/jre/lib directory.
-   It is implemented in native code and cannot be directly accessed by Java code.
+This is the parent of all class loaders.
+It is responsible for loading the core Java classes from the rt.jar file and other essential libraries located in the JAVA_HOME/jre/lib directory.
+It is implemented in native code and cannot be directly accessed by Java code.
 
 **2. Extension Class Loader:**
-   It loads classes from the extension directories (JAVA_HOME/jre/lib/ext or any other directory specified by the java.ext.dirs system property).
-   It is a child of the Bootstrap Class Loader.
+It loads classes from the extension directories (JAVA_HOME/jre/lib/ext or any other directory specified by the java.ext.dirs system property).
+It is a child of the Bootstrap Class Loader.
 
 **3. System/Application Class Loader:**
-   It loads classes from the application's classpath, which is specified by the CLASSPATH environment variable or the -cp command-line option.
-   It is a child of the Extension Class Loader.
+It loads classes from the application's classpath, which is specified by the CLASSPATH environment variable or the -cp command-line option.
+It is a child of the Extension Class Loader.
 
 ## Identifiers
 
@@ -1195,13 +1212,13 @@ ii. Declared with Abstract keyword
   > - Declaring private methods inside an interface in Java serves specific purposes, primarily related to code organization and reuse within the interface itself. These methods were introduced in Java 9 to enhance the functionality of interfaces, particularly when working with default and static methods. Here are the main reasons for using private methods in an interface:
 
 1. **Code Reuse:**
-  - **Avoid Duplication:**
-  - **Maintainability:**
+- **Avoid Duplication:**
+- **Maintainability:**
 2. **Encapsulation:**
-  - **Encapsulate Helper Methods:**
-  - **Implementation Details:**
+- **Encapsulate Helper Methods:**
+- **Implementation Details:**
 3. **Modularity:**
-  - **Modular Design:**
+- **Modular Design:**
 
 ### Example
 
@@ -1404,8 +1421,8 @@ In Java, "supplier," "consumer," and "predicate" are actually interfaces defined
 
 1. **Supplier:**
 
-  - Interface: `java.util.function.Supplier<T>`
-  - Represents a supplier of results. It has a single method called `get()` that takes no arguments and returns a result.
+- Interface: `java.util.function.Supplier<T>`
+- Represents a supplier of results. It has a single method called `get()` that takes no arguments and returns a result.
 
    ```java
    Supplier<String> supplier = () -> "Hello, Supplier!";
@@ -1414,8 +1431,8 @@ In Java, "supplier," "consumer," and "predicate" are actually interfaces defined
 
 2. **Consumer:**
 
-  - Interface: `java.util.function.Consumer<T>`
-  - Represents an operation that accepts a single input argument and returns no result. It has a single method called `accept(T t)`.
+- Interface: `java.util.function.Consumer<T>`
+- Represents an operation that accepts a single input argument and returns no result. It has a single method called `accept(T t)`.
 
    ```java
    Consumer<String> consumer = (s) -> System.out.println("Consumed: " + s);
@@ -1424,8 +1441,8 @@ In Java, "supplier," "consumer," and "predicate" are actually interfaces defined
 
 3. **Predicate:**
 
-  - Interface: `java.util.function.Predicate<T>`
-  - Represents a predicate (boolean-valued function) of one argument. It has a single method called `test(T t)`.
+- Interface: `java.util.function.Predicate<T>`
+- Represents a predicate (boolean-valued function) of one argument. It has a single method called `test(T t)`.
 
    ```java
    Predicate<Integer> predicate = (num) -> num > 0;
@@ -1530,24 +1547,24 @@ Map - To store data in key value.
 
 1. **List Implementations:**
 
-  - `ArrayList`: Maintains the order of elements based on the index.
-  - `LinkedList`: Preserves the order of elements based on the sequence in which they were added.
+- `ArrayList`: Maintains the order of elements based on the index.
+- `LinkedList`: Preserves the order of elements based on the sequence in which they were added.
 
 2. **Set Implementation:**
 
-  - `LinkedHashSet`: Extends `HashSet` to allow iteration over elements in the order in which they were inserted.
+- `LinkedHashSet`: Extends `HashSet` to allow iteration over elements in the order in which they were inserted.
 
 3. **Map Implementation:**
-  - `LinkedHashMap`: Extends `HashMap` to allow iteration over keys or entries in the order in which they were inserted.
+- `LinkedHashMap`: Extends `HashMap` to allow iteration over keys or entries in the order in which they were inserted.
 
 **Doesn't Guarantee Insertion Order:**
 
 1. **Set Implementations:**
 
-  - `HashSet`: Does not guarantee any specific order of elements.
+- `HashSet`: Does not guarantee any specific order of elements.
 
 2. **Map Implementation:**
-  - `HashMap`: Does not guarantee any specific order of keys or entries.
+- `HashMap`: Does not guarantee any specific order of keys or entries.
 
 Regarding performance, the choice between maintaining insertion order and not maintaining it may impact the performance based on the specific use case:
 
@@ -3093,7 +3110,7 @@ public class ParallelExecution {
 | `CompletableFuture` | Best for modern, non-blocking parallel execution. |
 
 
-## `Collections.synchronizedMap()` and `ConcurrentHashMap` 
+## `Collections.synchronizedMap()` and `ConcurrentHashMap`
 
 provide thread-safe implementations of a `Map`, but they differ in how they achieve synchronization and performance characteristics. Here’s a detailed comparison:
 
@@ -3185,25 +3202,25 @@ Sure! The handling of `null` keys and values is another key difference between `
 
 ### **Behavior in Detail**
 1. **`Collections.synchronizedMap()`**
-  - Since it wraps a regular `Map`, it follows the rules of the underlying map.
-  - If the wrapped map (e.g., `HashMap`) allows `null` keys and values, then `synchronizedMap()` does too.
-  - Example:
-    ```java
-    Map<String, String> syncMap = Collections.synchronizedMap(new HashMap<>());
-    syncMap.put(null, "NullKey");  // ✅ Allowed
-    syncMap.put("Key", null);      // ✅ Allowed
-    System.out.println(syncMap.get(null));  // Output: NullKey
-    ```
+- Since it wraps a regular `Map`, it follows the rules of the underlying map.
+- If the wrapped map (e.g., `HashMap`) allows `null` keys and values, then `synchronizedMap()` does too.
+- Example:
+  ```java
+  Map<String, String> syncMap = Collections.synchronizedMap(new HashMap<>());
+  syncMap.put(null, "NullKey");  // ✅ Allowed
+  syncMap.put("Key", null);      // ✅ Allowed
+  System.out.println(syncMap.get(null));  // Output: NullKey
+  ```
 
 2. **`ConcurrentHashMap`**
-  - **Does not allow `null` keys or values**.
-  - If you try to insert `null`, it throws a `NullPointerException`.
-  - Example:
-    ```java
-    Map<String, String> concurrentMap = new ConcurrentHashMap<>();
-    concurrentMap.put(null, "NullKey");  // ❌ Throws NullPointerException
-    concurrentMap.put("Key", null);      // ❌ Throws NullPointerException
-    ```
+- **Does not allow `null` keys or values**.
+- If you try to insert `null`, it throws a `NullPointerException`.
+- Example:
+  ```java
+  Map<String, String> concurrentMap = new ConcurrentHashMap<>();
+  concurrentMap.put(null, "NullKey");  // ❌ Throws NullPointerException
+  concurrentMap.put("Key", null);      // ❌ Throws NullPointerException
+  ```
 
 ### **Why Doesn't `ConcurrentHashMap` Allow Nulls?**
 - Prevents ambiguity in `get()`:
@@ -3690,30 +3707,30 @@ public final void add(T... toAdd)
 The `Math` class in Java provides a wide range of mathematical functions for performing common mathematical operations. Here are some of the most commonly used functions in the `Math` class:
 
 1. **Trigonometric Functions**:
-  - `Math.sin(double a)`: Returns the sine of the specified angle `a` (in radians).
-  - `Math.cos(double a)`: Returns the cosine of the specified angle `a` (in radians).
-  - `Math.tan(double a)`: Returns the tangent of the specified angle `a` (in radians).
-  - `Math.atan(double a)`: Returns the arctangent of the specified value `a` (in radians).
-  - `Math.atan2(double y, double x)`: Returns the angle `theta` (in radians) from the polar coordinate `(r, theta)` to the Cartesian coordinate `(x, y)`.
+- `Math.sin(double a)`: Returns the sine of the specified angle `a` (in radians).
+- `Math.cos(double a)`: Returns the cosine of the specified angle `a` (in radians).
+- `Math.tan(double a)`: Returns the tangent of the specified angle `a` (in radians).
+- `Math.atan(double a)`: Returns the arctangent of the specified value `a` (in radians).
+- `Math.atan2(double y, double x)`: Returns the angle `theta` (in radians) from the polar coordinate `(r, theta)` to the Cartesian coordinate `(x, y)`.
 2. **Exponential and Logarithmic Functions**:
-  - `Math.exp(double a)`: Returns the exponential value `e^a`.
-  - `Math.log(double a)`: Returns the natural logarithm (base `e`) of the specified value `a`.
-  - `Math.log10(double a)`: Returns the base 10 logarithm of the specified value `a`.
+- `Math.exp(double a)`: Returns the exponential value `e^a`.
+- `Math.log(double a)`: Returns the natural logarithm (base `e`) of the specified value `a`.
+- `Math.log10(double a)`: Returns the base 10 logarithm of the specified value `a`.
 3. **Power and Root Functions**:
-  - `Math.pow(double base, double exponent)`: Returns the value of `base` raised to the power of `exponent`.
-  - `Math.sqrt(double a)`: Returns the positive square root of the specified value `a`.
-  - `Math.cbrt(double a)`: Returns the cube root of the specified value `a`.
+- `Math.pow(double base, double exponent)`: Returns the value of `base` raised to the power of `exponent`.
+- `Math.sqrt(double a)`: Returns the positive square root of the specified value `a`.
+- `Math.cbrt(double a)`: Returns the cube root of the specified value `a`.
 4. **Rounding Functions**:
-  - `Math.ceil(double a)`: Returns the smallest (closest to negative infinity) double value that is greater than or equal to the argument and is equal to a mathematical integer.
-  - `Math.floor(double a)`: Returns the largest (closest to positive infinity) double value that is less than or equal to the argument and is equal to a mathematical integer.
-  - `Math.round(double a)`: Returns the closest long or int (depending on the argument type) to the specified floating-point value `a`.
+- `Math.ceil(double a)`: Returns the smallest (closest to negative infinity) double value that is greater than or equal to the argument and is equal to a mathematical integer.
+- `Math.floor(double a)`: Returns the largest (closest to positive infinity) double value that is less than or equal to the argument and is equal to a mathematical integer.
+- `Math.round(double a)`: Returns the closest long or int (depending on the argument type) to the specified floating-point value `a`.
 5. **Miscellaneous Functions**:
-  - `Math.abs(int a)`: Returns the absolute value of the specified integer `a`.
-  - `Math.abs(double a)`: Returns the absolute value of the specified double `a`.
-  - `Math.max(int a, int b)`: Returns the greater of two integer values.
-  - `Math.max(double a, double b)`: Returns the greater of two double values.
-  - `Math.min(int a, int b)`: Returns the smaller of two integer values.
-  - `Math.min(double a, double b)`: Returns the smaller of two double values.
+- `Math.abs(int a)`: Returns the absolute value of the specified integer `a`.
+- `Math.abs(double a)`: Returns the absolute value of the specified double `a`.
+- `Math.max(int a, int b)`: Returns the greater of two integer values.
+- `Math.max(double a, double b)`: Returns the greater of two double values.
+- `Math.min(int a, int b)`: Returns the smaller of two integer values.
+- `Math.min(double a, double b)`: Returns the smaller of two double values.
 
 These are just some of the functions available in the `Math` class. There are many more functions provided for various mathematical operations. Refer to the Java documentation for a comprehensive list of functions and their descriptions.
 
