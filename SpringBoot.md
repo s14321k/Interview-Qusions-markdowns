@@ -6,106 +6,314 @@ https://www.digitalocean.com/community/tutorials/spring-bean-scopes
 https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 
 <!-- TOC -->
-
-- [Top 15 Q\&A](#top-15-qa)
-- [Difference between spring and spring boot?](#difference-between-spring-and-spring-boot)
-- [Spring Boot Profiles](#spring-boot-profiles)
-- [Mention the need for it.](#mention-the-need-for-it)
-- [Features of spring boot](#features-of-spring-boot)
-- [Possible sources of external configuration](#possible-sources-of-external-configuration)
-- [Optimizing Spring boot](#optimizing-spring-boot)
-- [Spring Boot design patterns](#spring-boot-design-patterns)
-- [Attributes in spring](#attributes-in-spring)
-- [@Component, @Bean, @Configuration](#component-bean-configuration)
-  - [@Configuration](#configuration)
-  - [Class Declaration](#class-declaration)
-  - [@Bean Scope](#bean-scope)
-  - [Collabrator](#collabrator)
-  - [Traditional Approach](#traditional-approach)
-  - [Bean Configuration](#bean-configuration)
-  - [Life cycle of bean](#life-cycle-of-bean)
-    - [Configre the life cycle methods by](#configre-the-life-cycle-methods-by)
-- [JPARepository vs CRUDRepository](#jparepository-vs-crudrepository)
-  - [Java Persistence API Queries](#java-persistence-api-queries)
-  - [Types of Query in @Repository annotated class](#types-of-query-in-repository-annotated-class)
-- [Different ways to perform database transactions](#different-ways-to-perform-database-transactions)
-- [How configuration works in Spring](#how-configuration-works-in-spring)
-- [Is REST API stateless or stateful?](#is-rest-api-stateless-or-stateful)
-- [Spring integration using RestTemplate](#spring-integration-using-resttemplate)
-  - [To Make GET Requests](#to-make-get-requests)
-- [Spring integration using WebClient](#spring-integration-using-webclient)
-  - [The `WebClient`](#the-webclient)
-  - [1. Creating a `WebClient` Instance:](#1-creating-a-webclient-instance)
-    - [Builder Pattern:](#builder-pattern)
-  - [2. Building and Executing Requests:](#2-building-and-executing-requests)
-    - [HTTP Methods:](#http-methods)
-    - [URI Configuration:](#uri-configuration)
-    - [Request Headers:](#request-headers)
-    - [Request Body:](#request-body)
-  - [3. Retrieving and Handling Responses:](#3-retrieving-and-handling-responses)
-    - [Retrieving the Response Body:](#retrieving-the-response-body)
-    - [Handling the Response Body:](#handling-the-response-body)
-  - [4. Handling Errors:](#4-handling-errors)
-    - [Error Handling:](#error-handling)
-  - [5. Additional Configurations:](#5-additional-configurations)
-    - [Request Configuration:](#request-configuration)
-    - [Timeout Configuration:](#timeout-configuration)
-  - [6. Building and Executing Requests Asynchronously (Reactive Model):](#6-building-and-executing-requests-asynchronously-reactive-model)
-    - [Reactive APIs:](#reactive-apis)
-    - [Reactive Stream Support:](#reactive-stream-support)
-  - [7. Customization and Extensibility:](#7-customization-and-extensibility)
-    - [Customization:](#customization)
-  - [Example:](#example)
-- [WebClient vs FiegnClient](#webclient-vs-fiegnclient)
-  - [WebClient:](#webclient)
-  - [Feign:](#feign)
-  - [Choosing Between WebClient and Feign:](#choosing-between-webclient-and-feign)
-  - [RestClient(Spring 6)](#restclientspring-6)
-- [Spring Boot Architecture](#spring-boot-architecture)
-- [Spring Architecture](#spring-architecture)
-- [HandlerInterseptor \& Filter](#handlerinterseptor--filter)
-- [Exception Handling in Spring boot](#exception-handling-in-spring-boot)
-  - [@ControllerAdvice](#controlleradvice)
-  - [@ExceptionHandler](#exceptionhandler)
-- [Annotations in Spring boot](#annotations-in-spring-boot)
-- [MongoRelated Annotations](#mongorelated-annotations)
-- [Entity or Model Annotations](#entity-or-model-annotations)
-- [@Qualifier, @Primary, @Autowired, @Required](#qualifier-primary-autowired-required)
-  - [@Qualifier](#qualifier)
-  - [@Primary](#primary)
-  - [@Autowired](#autowired)
-    - [Autowiring is of 4 types in spring](#autowiring-is-of-4-types-in-spring)
-    - [**Field Injection:**](#field-injection)
-    - [**Method Injection:**](#method-injection)
-    - [**Constructor Injection:**](#constructor-injection)
-    - [**Qualifier Annotation:**](#qualifier-annotation)
-    - [**Optional Annotation:**](#optional-annotation)
-- [@Controller vs @RestController](#controller-vs-restcontroller)
-  - [@Controller](#controller)
-  - [@RestController](#restcontroller)
-- [@Transactional](#transactional)
-  - [@Transactional propagation isolation](#transactional-propagation-isolation)
-    - [@Transactional(propagation = Propagation.REQUIRED)](#transactionalpropagation--propagationrequired)
-    - [@Transactional(propagation = Propagation.REQUIRES_NEW)](#transactionalpropagation--propagationrequires_new)
-    - [SaveAndFlush](#saveandflush)
-- [Pagiantion using JPA](#pagiantion-using-jpa)
-- [Dependency Injection](#dependency-injection)
-  - [Pros and Cons in injections](#pros-and-cons-in-injections)
-- [SSO (Single Sign On)](#sso-single-sign-on)
-  - [`Single sign on` with `Spring security OAuth2` or `KeyClock`](#single-sign-on-with-spring-security-oauth2-or-keyclock)
-- [SPRING METHOD SECURITY](#spring-method-security)
-- [AOP (Aspect-Oriented Programming)](#aop-aspect-oriented-programming)
-- [Projections and Aggregations](#projections-and-aggregations)
-- [Role Based Authorizations](#role-based-authorizations)
-- [GateWay](#gateway)
-- [Authorization Tutorial](#authorization-tutorial)
-- [Load Balancing](#load-balancing)
-- [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
-- [Spring boot vs Spring Webflux](#spring-boot-vs-spring-webflux)
-- [Spring Boot Questions](#spring-boot-questions)
+  * [Top 15 Q&A](#top-15-qa)
+  * [HTTP Status codes🚀](#http-status-codes)
+    * [**1xx (Informational)**](#1xx-informational)
+    * [**2xx (Success)**](#2xx-success)
+    * [**3xx (Redirection)**](#3xx-redirection)
+    * [**4xx (Client Errors)**](#4xx-client-errors)
+    * [**5xx (Server Errors)**](#5xx-server-errors)
+  * [Difference between spring and spring boot?](#difference-between-spring-and-spring-boot)
+  * [Spring Boot Profiles](#spring-boot-profiles)
+  * [Mention the need for it.](#mention-the-need-for-it)
+  * [Features of spring boot](#features-of-spring-boot)
+  * [Possible sources of external configuration](#possible-sources-of-external-configuration)
+  * [Optimizing Spring boot](#optimizing-spring-boot)
+  * [Spring Boot design patterns](#spring-boot-design-patterns)
+  * [Attributes in spring](#attributes-in-spring)
+  * [@Component, @Bean, @Configuration](#component-bean-configuration)
+    * [@Configuration](#configuration)
+    * [Class Declaration](#class-declaration)
+    * [@Bean Scope](#bean-scope)
+    * [Collabrator](#collabrator)
+    * [Traditional Approach](#traditional-approach)
+    * [Bean Configuration](#bean-configuration)
+    * [Life cycle of bean](#life-cycle-of-bean)
+      * [Configre the life cycle methods by](#configre-the-life-cycle-methods-by)
+  * [JPARepository vs CRUDRepository](#jparepository-vs-crudrepository)
+    * [Java Persistence API Queries](#java-persistence-api-queries)
+    * [Types of Query in @Repository annotated class](#types-of-query-in-repository-annotated-class)
+  * [Different ways to perform database transactions](#different-ways-to-perform-database-transactions)
+  * [How configuration works in Spring](#how-configuration-works-in-spring)
+  * [Is REST API stateless or stateful?](#is-rest-api-stateless-or-stateful)
+  * [Spring integration using RestTemplate](#spring-integration-using-resttemplate)
+    * [To Make GET Requests](#to-make-get-requests)
+  * [Spring integration using WebClient](#spring-integration-using-webclient)
+    * [The `WebClient`](#the-webclient)
+    * [1. Creating a `WebClient` Instance:](#1-creating-a-webclient-instance)
+      * [Builder Pattern:](#builder-pattern)
+    * [2. Building and Executing Requests:](#2-building-and-executing-requests)
+      * [HTTP Methods:](#http-methods)
+      * [URI Configuration:](#uri-configuration)
+      * [Request Headers:](#request-headers)
+      * [Request Body:](#request-body)
+    * [3. Retrieving and Handling Responses:](#3-retrieving-and-handling-responses)
+      * [Retrieving the Response Body:](#retrieving-the-response-body)
+      * [Handling the Response Body:](#handling-the-response-body)
+    * [4. Handling Errors:](#4-handling-errors)
+      * [Error Handling:](#error-handling)
+    * [5. Additional Configurations:](#5-additional-configurations)
+      * [Request Configuration:](#request-configuration)
+      * [Timeout Configuration:](#timeout-configuration)
+    * [6. Building and Executing Requests Asynchronously (Reactive Model):](#6-building-and-executing-requests-asynchronously-reactive-model)
+      * [Reactive APIs:](#reactive-apis)
+      * [Reactive Stream Support:](#reactive-stream-support)
+    * [7. Customization and Extensibility:](#7-customization-and-extensibility)
+      * [Customization:](#customization)
+    * [Example:](#example)
+  * [WebClient vs FiegnClient](#webclient-vs-fiegnclient)
+    * [WebClient:](#webclient)
+    * [Feign:](#feign)
+    * [Choosing Between WebClient and Feign:](#choosing-between-webclient-and-feign)
+    * [RestClient(Spring 6)](#restclient--spring-6-)
+  * [Spring Boot Architecture](#spring-boot-architecture)
+  * [Spring Architecture](#spring-architecture)
+  * [HandlerInterseptor & Filter](#handlerinterseptor--filter)
+  * [Exception Handling in Spring boot](#exception-handling-in-spring-boot)
+      * [@ControllerAdvice](#controlleradvice)
+      * [@ExceptionHandler](#exceptionhandler)
+  * [Annotations in Spring boot](#annotations-in-spring-boot)
+  * [MongoRelated Annotations](#mongorelated-annotations)
+  * [Entity or Model Annotations](#entity-or-model-annotations)
+  * [@Qualifier, @Primary, @Autowired, @Required](#qualifier-primary-autowired-required)
+    * [@Qualifier](#qualifier)
+      * [Qualifier in method level](#qualifier-in-method-level)
+    * [@Primary](#primary)
+    * [@Autowired](#autowired)
+      * [Autowiring is of 4 types in spring](#autowiring-is-of-4-types-in-spring)
+      * [**Field Injection:**](#field-injection)
+      * [**Method Injection:**](#method-injection)
+      * [**Constructor Injection:**](#constructor-injection)
+      * [**Qualifier Annotation:**](#qualifier-annotation)
+      * [**Optional Annotation:**](#optional-annotation)
+  * [@Controller vs @RestController](#controller-vs-restcontroller)
+    * [@Controller](#controller)
+    * [@RestController](#restcontroller)
+  * [@Transactional](#transactional)
+    * [@Transactional propagation isolation](#transactional-propagation-isolation)
+      * [@Transactional(propagation = Propagation.REQUIRED)](#transactionalpropagation--propagationrequired)
+      * [@Transactional(propagation = Propagation.REQUIRES_NEW)](#transactionalpropagation--propagationrequiresnew)
+      * [SaveAndFlush](#saveandflush)
+  * [### @EnableTransactionManagement)](#-enabletransactionmanagement)
+  * [Pagiantion using JPA](#pagiantion-using-jpa)
+  * [Dependency Injection](#dependency-injection)
+    * [Pros and Cons in injections](#pros-and-cons-in-injections)
+  * [SSO (Single Sign On)](#sso-single-sign-on)
+    * [`Single sign on` with `Spring security OAuth2` or `KeyClock`](#single-sign-on-with-spring-security-oauth2-or-keyclock)
+  * [SPRING METHOD SECURITY](#spring-method-security)
+  * [AOP (Aspect-Oriented Programming)](#aop-aspect-oriented-programming)
+* [🚀Cookies](#cookies)
+* [**Managing Cookies in a Spring Boot Application**](#managing-cookies-in-a-spring-boot-application)
+  * [**1. What Cookies Should Be Sent from a Spring Boot Application to the Frontend?**](#1-what-cookies-should-be-sent-from-a-spring-boot-application-to-the-frontend)
+    * [**1.1 Authentication Cookies**](#11-authentication-cookies)
+      * [**Example of Sending a Secure JWT Cookie in Spring Boot**](#example-of-sending-a-secure-jwt-cookie-in-spring-boot)
+    * [**1.2 Cross-Site Request Forgery (CSRF) Protection Cookies**](#12-cross-site-request-forgery-csrf-protection-cookies)
+      * [**Example of Sending an XSRF Token Cookie**](#example-of-sending-an-xsrf-token-cookie)
+    * [**1.3 User Preferences / Custom Cookies**](#13-user-preferences--custom-cookies)
+      * [**Example of Sending a Preference Cookie**](#example-of-sending-a-preference-cookie)
+  * [**2. How to Delete a Frontend Cookie from a Spring Boot Application?**](#2-how-to-delete-a-frontend-cookie-from-a-spring-boot-application)
+    * [**2.1 Deleting a Cookie Using `ResponseCookie`**](#21-deleting-a-cookie-using-responsecookie)
+    * [**2.2 Deleting a Cookie Using `HttpServletResponse`**](#22-deleting-a-cookie-using-httpservletresponse)
+    * [**2.3 Deleting a Frontend Cookie via JavaScript (if not HttpOnly)**](#23-deleting-a-frontend-cookie-via-javascript-if-not-httponly)
+  * [**3. Summary Table of Important Cookies**](#3-summary-table-of-important-cookies)
+  * [**4. Abbreviations and Their Meanings**](#4-abbreviations-and-their-meanings)
+    * [**Conclusion**](#conclusion)
+* [CORS and COR](#cors-and-cor)
+  * [**1. What is CORS (Cross-Origin Resource Sharing)?**](#1-what-is-cors-cross-origin-resource-sharing)
+    * [**1.1 Does CORS Affect Cookies?**](#11-does-cors-affect-cookies)
+      * [**Example CORS Configuration in Spring Boot**](#example-cors-configuration-in-spring-boot)
+  * [**2. What is COR (Cross-Origin Requests)?**](#2-what-is-cor-cross-origin-requests)
+  * [**3. How to Send Cookies in Cross-Origin Requests?**](#3-how-to-send-cookies-in-cross-origin-requests)
+    * [**3.1 Frontend (JavaScript / Fetch API)**](#31-frontend-javascript--fetch-api)
+      * [**Example in JavaScript:**](#example-in-javascript)
+    * [**3.2 Spring Boot CORS + Cookies Configuration**](#32-spring-boot-cors--cookies-configuration)
+  * [**4. Is It Necessary to Add CORS to Cookies?**](#4-is-it-necessary-to-add-cors-to-cookies)
+    * [**When Do You Need CORS for Cookies?**](#when-do-you-need-cors-for-cookies)
+  * [**5. Summary Table**](#5-summary-table)
+    * [**Conclusion**](#conclusion-1)
+  * [Projections and Aggregations](#projections-and-aggregations)
+  * [Role Based Authorizations](#role-based-authorizations)
+  * [GateWay](#gateway)
+  * [Authorization Tutorial](#authorization-tutorial)
+  * [Load Balancing](#load-balancing)
+  * [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
+  * [Spring boot vs Spring Webflux](#spring-boot-vs-spring-webflux)
+  * [Spring Boot Questions](#spring-boot-questions)
 <!-- TOC -->
 
 ## [Top 15 Q&A](https://www.java67.com/2018/06/top-15-spring-boot-interview-questions-answers-java-jee-programmers.html)
+
+## HTTP Status codes🚀
+
+### **1xx (Informational)**
+- **100** Continue – The server received the request headers, and the client should proceed to send the request body.
+- **101** Switching Protocols – The server is switching protocols as requested by the client.
+- **103** Early Hints – Used to return some response headers before the final response.
+
+### **2xx (Success)**
+- **200** OK – The request was successful.
+- **201** Created – The request resulted in a new resource being created.
+- **202** Accepted – The request has been accepted for processing but is not completed yet.
+- **204** No Content – The request was successful, but there is no response body.
+
+### **3xx (Redirection)**
+- **301** Moved Permanently – The resource has been permanently moved to a new URL.
+- **302** Found – The resource is temporarily located at a different URL.
+- **304** Not Modified – The resource has not changed since the last request.
+- **307** Temporary Redirect – The request should be repeated with another URL, but the method must remain the same.
+
+### **4xx (Client Errors)**
+- **400** Bad Request – The request was invalid or cannot be processed.
+- **401** Unauthorized – Authentication is required.
+- **403** Forbidden – The server understands the request but refuses to authorize it.
+- **404** Not Found – The requested resource was not found.
+- **405** Method Not Allowed – The HTTP method used is not allowed for the requested resource.
+- **408** Request Timeout – The client took too long to send the request.
+- **429** Too Many Requests – The client has sent too many requests in a given time.
+
+### **5xx (Server Errors)**
+- **500** Internal Server Error – A generic server error message.
+- **502** Bad Gateway – The server received an invalid response from an upstream server.
+- **503** Service Unavailable – The server is temporarily overloaded or down for maintenance.
+- **504** Gateway Timeout – The server did not receive a timely response from an upstream server.
+
+---
+
+Yes! We can handle all HTTP status codes dynamically using a **single method** in Spring Boot by passing the status code as a path variable. This approach allows us to return different HTTP responses based on the requested status code.
+
+---
+
+### **Spring Boot Controller (`HttpStatusController.java`)**
+```java
+package com.example.demo.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/status")
+public class HttpStatusController {
+
+    private static final Map<Integer, String> STATUS_MESSAGES = Map.of(
+        100, "Continue – The server received the request headers, and the client should proceed to send the request body.",
+        101, "Switching Protocols – The server is switching protocols as requested by the client.",
+        103, "Early Hints – Used to return some response headers before the final response.",
+        200, "OK – The request was successful.",
+        201, "Created – The request resulted in a new resource being created.",
+        202, "Accepted – The request has been accepted for processing but is not completed yet.",
+        204, "No Content – The request was successful, but there is no response body.",
+        301, "Moved Permanently – The resource has been permanently moved to a new URL.",
+        302, "Found – The resource is temporarily located at a different URL.",
+        304, "Not Modified – The resource has not changed since the last request.",
+        307, "Temporary Redirect – The request should be repeated with another URL, but the method must remain the same.",
+        400, "Bad Request – The request was invalid or cannot be processed.",
+        401, "Unauthorized – Authentication is required.",
+        403, "Forbidden – The server understands the request but refuses to authorize it.",
+        404, "Not Found – The requested resource was not found.",
+        405, "Method Not Allowed – The HTTP method used is not allowed for the requested resource.",
+        408, "Request Timeout – The client took too long to send the request.",
+        429, "Too Many Requests – The client has sent too many requests in a given time.",
+        500, "Internal Server Error – A generic server error message.",
+        502, "Bad Gateway – The server received an invalid response from an upstream server.",
+        503, "Service Unavailable – The server is temporarily overloaded or down for maintenance.",
+        504, "Gateway Timeout – The server did not receive a timely response from an upstream server."
+    );
+
+    @GetMapping("/{statusCode}")
+    public ResponseEntity<String> getHttpStatus(@PathVariable int statusCode) {
+        HttpStatus status = HttpStatus.resolve(statusCode);
+        if (status != null && STATUS_MESSAGES.containsKey(statusCode)) {
+            return ResponseEntity.status(status).body(STATUS_MESSAGES.get(statusCode));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid or unsupported status code.");
+        }
+    }
+}
+```
+---
+### **Frontend (React)**
+The React frontend now allows users to **input any HTTP status code** and fetch the corresponding response.
+
+#### **Updated React Component (`HttpStatusChecker.js`)**
+```jsx
+import React, { useState } from "react";
+
+const HttpStatusChecker = () => {
+  const [statusCode, setStatusCode] = useState("");
+  const [response, setResponse] = useState(null);
+  const [status, setStatus] = useState(null);
+
+  const callApi = async () => {
+    if (!statusCode) return;
+    try {
+      const res = await fetch(`http://localhost:8080/api/status/${statusCode}`);
+      setStatus(res.status);
+      const data = await res.text();
+      setResponse(data);
+    } catch (error) {
+      setResponse("Failed to connect to server");
+      setStatus("Error");
+    }
+  };
+
+  return (
+    <div className="container mx-auto p-4">
+      <h2 className="text-xl font-bold mb-4">HTTP Status Code Tester</h2>
+      <div className="flex space-x-2 mb-4">
+        <input
+          type="number"
+          className="border p-2 rounded-md"
+          placeholder="Enter status code (e.g., 200, 404)"
+          value={statusCode}
+          onChange={(e) => setStatusCode(e.target.value)}
+        />
+        <button
+          className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700"
+          onClick={callApi}
+        >
+          Check Status
+        </button>
+      </div>
+      {response && (
+        <div className="mt-4 p-4 border rounded-md">
+          <p><strong>Status Code:</strong> {status}</p>
+          <p><strong>Response:</strong> {response}</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default HttpStatusChecker;
+```
+
+---
+
+## **How This Works**
+- The **Spring Boot backend** dynamically handles any HTTP status code.
+- The **React frontend** allows users to enter a status code and see the response.
+
+### **Example Requests**
+| URL | Response |
+|------|----------|
+| `GET http://localhost:8080/api/status/200` | `200 OK - The request was successful.` |
+| `GET http://localhost:8080/api/status/404` | `404 Not Found - The requested resource was not found.` |
+| `GET http://localhost:8080/api/status/503` | `503 Service Unavailable - The server is temporarily overloaded or down for maintenance.` |
+| `GET http://localhost:8080/api/status/999` | `400 Bad Request - Invalid or unsupported status code.` |
+
+---
+
+### **Advantages of This Approach**🎯
+✅ **Single method** to handle all HTTP status codes  
+✅ **More dynamic and scalable**  
+✅ **Cleaner code** with **better maintainability**
+
+---
+
+
 
 ## Difference between spring and spring boot?
 
@@ -1241,6 +1449,26 @@ public class Application
 }
 ```
 
+#### Qualifier in method level
+```java
+// DataSourceConfiguration - SuperG Batch
+
+@Bean
+@Primary
+@ConfigurationProperties(prefix = "spring.datasource")
+public DataSourceProperties ds1DataSourceProperties() {
+    return new DataSourceProperties();
+
+
+@Bean
+@Primary
+@ConfigurationProperties(prefix = "spring.datasource.hikari")
+public HikariDataSource ds1DataSource(@Qualifier("ds1DataSourceProperties") DataSourceProperties ds1DataSourceProperties) {
+    return ds1DataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class).build();
+}
+```
+
+
 ### @Primary
 
 The **_@Primary_** annotation indicates that a bean should be given preference when multiple beans match a single autowiring candidate. For instance:
@@ -1393,6 +1621,9 @@ Required is the default propagation. Spring checks if there is an active transac
 When the propagation is Requires_New, spring suspends the current transaction if it exists and creates a new one.
 
 #### SaveAndFlush
+
+### [@EnableTransactionManagement]())
+- 
 
 ## [Pagiantion using JPA](https://www.baeldung.com/spring-data-jpa-pagination-sorting)
 
@@ -1722,6 +1953,242 @@ public class MyService {
 By doing this, the `LoggingAspect` will log method entry for methods in the `MyService` class.
 
 Spring Boot's AOP capabilities are based on the AspectJ framework, which provides a rich and powerful way to define and use aspects. You can explore various aspects of AOP in Spring Boot to enhance your application's modularity and maintainability.
+
+---
+
+# 🚀Cookies
+
+# **Managing Cookies in a Spring Boot Application**
+
+## **1. What Cookies Should Be Sent from a Spring Boot Application to the Frontend?**
+In a Spring Boot application, cookies are commonly used for **authentication**, **security**, **session management**, and **user preferences**. Below are the key cookies typically sent:
+
+### **1.1 Authentication Cookies**
+- **JSESSIONID**: Used for session-based authentication when relying on Spring Security’s default session management.
+- **SESSION**: If using Spring Session backed by a database (e.g., Redis, JDBC).
+- **JWT (JSON Web Token) Cookies**:
+    - **Access Token Cookie (`access_token`)**: Stores the **JWT access token** for user authentication.
+    - **Refresh Token Cookie (`refresh_token`)**: Stores a **refresh token** to obtain new access tokens when they expire.
+
+#### **Example of Sending a Secure JWT Cookie in Spring Boot**
+```java
+ResponseCookie jwtCookie = ResponseCookie.from("access_token", jwtToken)
+        .httpOnly(true)  // Prevents JavaScript access (mitigates XSS)
+        .secure(true)  // Only send over HTTPS
+        .path("/")
+        .maxAge(Duration.ofMinutes(30))  // Cookie expiry time
+        .sameSite("Strict")  // Prevents cross-site request forgery (CSRF) attacks
+        .build();
+response.addHeader(HttpHeaders.SET_COOKIE, jwtCookie.toString());
+```
+
+---
+
+### **1.2 Cross-Site Request Forgery (CSRF) Protection Cookies**
+Cross-Site Request Forgery (**CSRF**) is an attack where unauthorized commands are transmitted from a trusted user. To prevent this, Spring Security provides:
+- **XSRF-TOKEN**: A token stored in a cookie that must be included in state-changing requests (e.g., POST, PUT, DELETE).
+
+#### **Example of Sending an XSRF Token Cookie**
+```java
+ResponseCookie csrfCookie = ResponseCookie.from("XSRF-TOKEN", csrfToken)
+        .httpOnly(false)  // Frontend needs to read it
+        .secure(true)
+        .path("/")
+        .sameSite("Strict")
+        .build();
+response.addHeader(HttpHeaders.SET_COOKIE, csrfCookie.toString());
+```
+
+---
+
+### **1.3 User Preferences / Custom Cookies**
+For non-sensitive frontend features like UI customization:
+- **`theme`**: Stores user-selected theme (e.g., "dark", "light").
+- **`language`**: Stores user’s preferred language (e.g., "en", "fr").
+
+#### **Example of Sending a Preference Cookie**
+```java
+ResponseCookie themeCookie = ResponseCookie.from("theme", "dark")
+        .httpOnly(false)  // Frontend can read this
+        .secure(false)  // Can be sent over HTTP
+        .path("/")
+        .maxAge(Duration.ofDays(30))  // Cookie expires in 30 days
+        .sameSite("Lax")
+        .build();
+response.addHeader(HttpHeaders.SET_COOKIE, themeCookie.toString());
+```
+
+---
+
+## **2. How to Delete a Frontend Cookie from a Spring Boot Application?**
+To delete a cookie from a frontend application using the backend, set the **same cookie name** with:
+- An **empty value** (`""`).
+- **Max-Age = 0** (or set an expiration date in the past).
+
+### **2.1 Deleting a Cookie Using `ResponseCookie`**
+```java
+ResponseCookie deleteCookie = ResponseCookie.from("cookieName", "")
+        .path("/")  // Must match original path
+        .httpOnly(true)  // Match original settings
+        .secure(true)  // Match original settings
+        .sameSite("Strict")  // Match original settings
+        .maxAge(0)  // Expire the cookie immediately
+        .build();
+
+response.addHeader(HttpHeaders.SET_COOKIE, deleteCookie.toString());
+```
+
+---
+
+### **2.2 Deleting a Cookie Using `HttpServletResponse`**
+```java
+Cookie cookie = new Cookie("cookieName", "");
+cookie.setPath("/");  // Must match original path
+cookie.setHttpOnly(true);  // Match original settings
+cookie.setSecure(true);  // Match original settings
+cookie.setMaxAge(0);  // Delete immediately
+
+response.addCookie(cookie);
+```
+
+### **2.3 Deleting a Frontend Cookie via JavaScript (if not HttpOnly)**
+If the cookie is **not HttpOnly**, it can be deleted from the frontend:
+```javascript
+document.cookie = "cookieName=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+```
+
+---
+
+## **3. Summary Table of Important Cookies**
+| **Cookie Name**   | **Purpose**              | **HttpOnly** | **Secure** | **SameSite** | **Frontend Readable?** |
+|------------------|------------------------|------------|--------|----------|--------------------|
+| `JSESSIONID`    | Session tracking       | ✅         | ✅     | Lax      | ❌                 |
+| `access_token`  | JWT authentication     | ✅         | ✅     | Strict   | ❌                 |
+| `refresh_token` | JWT refresh token      | ✅         | ✅     | Strict   | ❌                 |
+| `XSRF-TOKEN`    | CSRF protection        | ❌         | ✅     | Lax      | ✅                 |
+| `theme`         | UI preferences         | ❌         | ❌     | Lax      | ✅                 |
+| `language`      | User language settings | ❌         | ❌     | Lax      | ✅                 |
+
+---
+
+## **4. Abbreviations and Their Meanings**
+| **Abbreviation** | **Meaning** |
+|----------------|------------|
+| **CSRF** | Cross-Site Request Forgery |
+| **JWT** | JSON Web Token |
+| **XSRF** | Cross-Site Request Forgery Token (used by Spring Security) |
+| **HTTP** | HyperText Transfer Protocol |
+| **HTTPS** | HyperText Transfer Protocol Secure |
+| **XSS** | Cross-Site Scripting (a security vulnerability) |
+
+---
+
+### **Conclusion**
+- **Authentication cookies** (JWTs, session IDs) should be **HttpOnly, Secure, and SameSite Strict**.
+- **CSRF protection cookies** (e.g., `XSRF-TOKEN`) should be readable by the frontend.
+- **User preferences cookies** (theme, language) do not need to be **HttpOnly**.
+- **Deleting cookies** requires sending an updated cookie with `maxAge=0` and matching the original path/domain.
+
+# CORS and COR
+
+Great question! **Cross-Origin Resource Sharing (CORS)** and **Cross-Origin Requests (COR)** have implications on how cookies are handled, but cookies themselves do not contain **CORS** or **COR** configurations. However, proper handling of **CORS** is necessary to allow cookies to be sent across different origins.
+
+---
+
+## **1. What is CORS (Cross-Origin Resource Sharing)?**
+**CORS** is a security feature in browsers that controls which domains can make **cross-origin requests** to your backend. If your frontend and backend are hosted on different domains (e.g., `frontend.com` and `api.backend.com`), the browser enforces **CORS policies**.
+
+### **1.1 Does CORS Affect Cookies?**
+Yes! **CORS settings must be configured properly to allow cookies in cross-origin requests**. The key settings are:
+- **Allow Credentials (`Access-Control-Allow-Credentials: true`)** → Allows cookies to be included.
+- **Allow Specific Origins (`Access-Control-Allow-Origin`)** → You must **not** use `*` if you need to send cookies.
+
+#### **Example CORS Configuration in Spring Boot**
+```java
+@Configuration
+public class CorsConfig {
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        
+        config.setAllowedOrigins(List.of("https://frontend.com")); // Replace with your frontend domain
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        config.setAllowCredentials(true); // **Necessary for sending cookies**
+        
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
+}
+```
+
+---
+
+## **2. What is COR (Cross-Origin Requests)?**
+Cross-Origin Requests (**COR**) simply means that the frontend (e.g., `https://frontend.com`) is making a request to a backend hosted on a different domain (e.g., `https://api.backend.com`).
+
+- **By default, browsers block COR requests that include cookies unless CORS is properly configured**.
+- To send cookies in a COR request, **CORS must allow credentials** (`Access-Control-Allow-Credentials: true`).
+
+---
+
+## **3. How to Send Cookies in Cross-Origin Requests?**
+### **3.1 Frontend (JavaScript / Fetch API)**
+If your frontend application needs to send cookies to a different-origin backend, set `credentials: 'include'` in your request.
+
+#### **Example in JavaScript:**
+```javascript
+fetch("https://api.backend.com/data", {
+    method: "GET",
+    credentials: "include", // **Required to send cookies**
+    headers: {
+        "Content-Type": "application/json"
+    }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error(error));
+```
+
+### **3.2 Spring Boot CORS + Cookies Configuration**
+Ensure that:
+1. **CORS allows credentials (`setAllowCredentials(true)`)**.
+2. **CORS does not use a wildcard (`*`) in `Access-Control-Allow-Origin`**.
+3. **Cookies are properly set (`Secure`, `SameSite`, etc.)**.
+
+---
+
+## **4. Is It Necessary to Add CORS to Cookies?**
+No, **CORS is not part of the cookie itself**, but it is necessary to configure CORS **correctly** for the browser to send cookies in cross-origin requests.
+
+### **When Do You Need CORS for Cookies?**
+✅ **YES, CORS is needed if:**
+- Your **frontend and backend are on different domains**.
+- You want to **send cookies with authentication requests** (e.g., JWTs, sessions).
+
+❌ **NO, CORS is not needed if:**
+- The frontend and backend are on the **same domain** (e.g., `app.example.com` and `api.example.com` under the same `example.com`).
+
+---
+
+## **5. Summary Table**
+| **Feature**  | **Does it Affect Cookies?** | **Is It Necessary?** |
+|-------------|------------------------|----------------|
+| **CORS** (Cross-Origin Resource Sharing) | ✅ Yes | ✅ Yes, if frontend & backend are different origins |
+| **COR** (Cross-Origin Requests) | ✅ Yes | ✅ Yes, to allow cookies in requests |
+| **Access-Control-Allow-Credentials** | ✅ Yes | ✅ Yes, if cookies are required |
+| **SameSite Cookie Attribute** | ✅ Yes | ✅ Yes, for security & cross-site access |
+
+---
+
+### **Conclusion**
+- **CORS does not go inside cookies**, but **CORS must be configured correctly** to allow cookies in cross-origin requests.
+- Set `credentials: 'include'` on the frontend.
+- In **Spring Boot**, configure `setAllowCredentials(true)` and avoid `*` in `setAllowedOrigins()`.
+- If frontend and backend **share the same domain**, **CORS is not required** for cookies.
+---
 
 ## [Projections and Aggregations](https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html)
 
