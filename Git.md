@@ -77,22 +77,29 @@ Push the change to your remote repository:
 `git push origin master`
 
 
-rename a file
+**rename a file**
 
 	$ git checkout master
 	$ git mv casesensitive tmp
 	$ git mv tmp CaseSensitive
 	$ git commit -m "Name changed"
 
-To Add a file
+**To Add a file**
 
 	$ git add 'file name'
 	$ git commit -m 'file name'
 	$ git push
 
-To Roll Back commit
-git reset --hard HEAD~1 	it will get you back 1 commit
-git reset --hard ORIG_HEAD	will point to a commit directly before merge has occurred.
+**To push all the files like new and existing at once**
+
+	$ git add .
+	$ git commit -m 'file name'
+	$ git push
+
+**To Roll Back commit**
+
+	$ git reset --hard HEAD~1 	it will get you back 1 commit
+	$ git reset --hard ORIG_HEAD	will point to a commit directly before merge has occurred.
 
 ~~~~~~~~~~~~
 SSH creation
@@ -159,8 +166,8 @@ git push -u origin main
 ~~~
 Pushing an existing repository from the command line
 
-git remote add origin https://codeberg.org/SilverShineSarath/Rest-Ful-Web-Service.git
-git push -u origin main
+	$ git remote add origin https://codeberg.org/SilverShineSarath/Rest-Ful-Web-Service.git
+	$ git push -u origin main
 
 ```GitLab``` - https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html
 
@@ -209,22 +216,27 @@ Open repository: d:\React Codings
 > git config -
 ~~~
 
-NPM install
+# NPM install
 
 #install packages
-$ npm install --prefer-offline --no-audit
+
+	$ npm install --prefer-offline --no-audit
 
 #show current npm configuration
-$ npm config list
+
+	$ npm config list
 
 #Upgrade NPM to latest version
-$ npm install npm -g
+
+	$ npm install npm -g
 
 #see what packages are installed globally
-$ npm list -g --depth=0
+
+	$ npm list -g --depth=0
 
 #see what packages can be upgraded
-$npm outdated
+
+	$npm outdated
 
 
 USAA to create authentication token

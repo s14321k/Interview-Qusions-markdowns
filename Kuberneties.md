@@ -1,10 +1,3 @@
-# Container
-
-- Container is a small microVM which runs on top of Linux. It has all the dependencies of application code, client libraries. 
-
-
-
-
 # [Kuberneties](https://youtu.be/Wf2eSG3owoA?si=5VqnQFD4Jqe9DZmK)
 - Pod - In a POD only one main application and multiple applications can run. Each pod gets its IP address. Each POD can communicate with each other using internal IP address
 - Node - If one node crashes the other node can take care of it due to the blue print. ie, copy of main app.
@@ -20,20 +13,6 @@
 - StateLess - Deployment for Stateless apps
 - Deployment - 
 - Volume - Log data and other data are stored in storage drive which can be in the same machine, ie same server node where the pod node is running or can be the remote storage, ie outside the server.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Architecture design of **Google Kubernetes Engine (GKE)**:
 

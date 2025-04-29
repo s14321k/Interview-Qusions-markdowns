@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="" />
+    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Docker.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git.md" beforeDir="false" afterPath="$PROJECT_DIR$/Git.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Kuberneties.md" beforeDir="false" afterPath="$PROJECT_DIR$/Kuberneties.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,16 +55,17 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "com.codeium.enabled": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Git",
+    "last_opened_file_path": "D:/Intell",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -103,7 +109,14 @@
       <workItem from="1742207404500" duration="24314000" />
       <workItem from="1742576400306" duration="3545000" />
       <workItem from="1742833070247" duration="3311000" />
-      <workItem from="1745554608305" duration="1641000" />
+      <workItem from="1745554608305" duration="3294000" />
+      <workItem from="1745654342355" duration="1110000" />
+      <workItem from="1745661989751" duration="1299000" />
+      <workItem from="1745663351693" duration="2431000" />
+      <workItem from="1745666479281" duration="274000" />
+      <workItem from="1745776927725" duration="1295000" />
+      <workItem from="1745779325425" duration="595000" />
+      <workItem from="1745906479961" duration="4665000" />
     </task>
     <task id="LOCAL-00001" summary="added points and restructured the points">
       <option name="closed" value="true" />
@@ -208,7 +221,14 @@
       <option name="project" value="LOCAL" />
       <updated>1745555173064</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Jenkins Kubernetis">
+      <created>1745556483047</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1745556483047</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,6 +254,7 @@
     <MESSAGE value="java basic changes" />
     <MESSAGE value="Changed order" />
     <MESSAGE value="Added points" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added points" />
+    <MESSAGE value="Jenkins Kubernetis" />
+    <option name="LAST_COMMIT_MESSAGE" value="Jenkins Kubernetis" />
   </component>
 </project>
