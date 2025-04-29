@@ -9,15 +9,13 @@
 echo "# Sarath69Kumar.github.io" >> README.md
 ```
 git init
-git add README.md
+git add README.md	//	For single file
+git add .			//	To push all the files like new and existing at once
 git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/Sarath69Kumar/Sarath69Kumar.github.io.git
-git push -u origin main
+git branch -M main	// This is used to rename the current branch. -M will force do the rename if the branch name is already main
+git push -u origin main	//Push changes to repository
 …or push an existing repository from the command line
 git remote add origin https://github.com/Sarath69Kumar/Sarath69Kumar.github.io.git
-git branch -M main
-git push -u origin main
 ```
 
 
@@ -68,14 +66,22 @@ Directory Commamnds
 To remove files
 In the command-line, navigate to your local repository.
 Ensure you are in the default branch:
-`$ git checkout master`
+`$ git checkout branch_name`	checkout which branch you will be working on
 The rm -r command will recursively remove your folder:
 `$ git rm -r folder-name`
 Commit the change:
 `$ git commit -m "Remove duplicated directory"`
 Push the change to your remote repository:
-`git push origin master`
+`git push origin branch_name`
 
+
+**To check the local changes**
+
+	$ git status
+
+**To Check The remote Commits**
+
+	$ git fetch
 
 **rename a file**
 
@@ -100,6 +106,29 @@ Push the change to your remote repository:
 
 	$ git reset --hard HEAD~1 	it will get you back 1 commit
 	$ git reset --hard ORIG_HEAD	will point to a commit directly before merge has occurred.
+
+
+**To pull all changes from remote**
+	$ git pull
+
+**To Create new branch**
+
+	$ git branch new-branch-name
+
+**To create new branch and checkout on single command**
+	
+	$ git checkout -b new_branch_name
+
+	or
+
+	$ git switch -c new_branch_name
+
+**To check from which branch this new branch is created**
+	
+	$ git reflog
+
+**Compare with another branch**
+	$ git merge-base current_branch_name comparing_branch_name
 
 ~~~~~~~~~~~~
 SSH creation

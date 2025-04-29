@@ -1,5 +1,11 @@
 # Docker
 
+## Container
+
+- Container is a small microVM which runs on top of Linux. It has all the dependencies of application code, client libraries. 
+
+## simple image creation
+
 **Create a container image**
 ```
 $ docker run -d -p 8800:80 httpd
@@ -12,11 +18,12 @@ $ docker run -d -p 8800:80 httpd
 $ curl localhost:8800
 ```
 
+**Kill the Container**
+```
+$ curl localhost:8800
+```
 
-
-
-
-
+-----------------------------------------------------------------------
 ---
 
 # All Docker Commands
@@ -123,6 +130,12 @@ docker restart <container-name or id>
 
 ---
 
+### ✅ Kill a container
+```bash
+docker kill <image>
+```
+
+---
 ### ✅ Remove a container
 **🧹 To remove all stopped containers:**
 ```bash
@@ -269,9 +282,9 @@ docker-compose build
 ---
 
 
-## Container
 
-- Container is a small microVM which runs on top of Linux. It has all the dependencies of application code, client libraries. 
+
+# Docker in Spring boot
 
 ---
 
@@ -457,10 +470,156 @@ Once set up, pushing code to the `main` branch will:
 2. Build a Docker image
 3. Push it to your Docker Hub repo
 
+
+------------------------------------------------------------------------------------
+---
+
+# Spring boot image creation
+
+To create a Docker image for your Spring Boot application, you need to follow these steps:
+
+---
+
+### ✅ Prerequisites
+
+- You have a Spring Boot project (JAR or WAR built with Maven/Gradle).
+- Docker is installed on your machine.
+
+---
+
+### 📦 Step 1: Package Your Spring Boot Application
+
+If using Maven:
+
+```bash
+./mvnw clean package
+```
+
+If using Gradle:
+
+```bash
+./gradlew clean build
+```
+
+After this, you should have a `*.jar` file in the `target/` (Maven) or `build/libs/` (Gradle) directory.
+
+---
+
+### 🐳 Step 2: Create a `Dockerfile`
+
+Place this `Dockerfile` in the root of your project:
+
+```Dockerfile
+# Use an OpenJDK base image
+FROM openjdk:17-jdk-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the jar file into the container
+COPY target/your-app-name.jar app.jar
+
+# Expose port (adjust if your app uses a different port)
+EXPOSE 8080
+
+# Run the jar file
+ENTRYPOINT ["java", "-jar", "app.jar"]
+```
+
+Replace `your-app-name.jar` with the actual JAR file name.
+
+---
+
+### 🏗️ Step 3: Build the Docker Image
+
+Run this command in the same directory as your `Dockerfile`:
+
+```bash
+docker build -t your-app-name .
+```
+
+---
+
+### ▶️ Step 4: Run the Docker Container
+
+```bash
+docker run -p 8080:8080 your-app-name
+```
+
+This maps your local port 8080 to the container's port 8080.
+
+---
+
+### 📌 Optional Tips
+
+- Use `.dockerignore` to avoid copying unnecessary files.
+- For multi-stage builds (to reduce image size), you can build the JAR inside Docker too.
+- You can push the image to Docker Hub or another registry for deployment.
+
+Would you like a multi-stage Dockerfile or one tailored for GraalVM/native-image?
+
 ---
 
 ----------------------------------------------------------------------------
 ---
+
+
+# docker-compose.yml file
+
+
+### docker-compose.yml
+- This file is located at the docker folder in spring boot application
+
+sms proj docker-compose.yml
+
+```yml
+services:
+  db:
+    container_name: opc-hub
+    image: postgres:17
+  volumes:
+    - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  ports:
+    - "5432:5432"
+  environment:
+    POSTGRES_USER: your_user
+    POSTGRES_PASSWORD: your_password
+    POSTGRES_DB: your_database
+```
+
+chat gpt 
+```yml
+version: '3.8'
+
+services:
+  db:
+    image: postgres:17
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: your_user
+      POSTGRES_PASSWORD: your_password
+      POSTGRES_DB: your_database
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+```
+
+#### Run this docker-compose.yml
+
+- Go to the directory folder where it is present in cmd
+
+```bash
+$ docker-compose up
+```
+
+------------------------------------------------------------------------------------
+---
+
 
 # CURL Commands
 
