@@ -5,20 +5,26 @@
 
 ---
 
-…or create a new repository on the command line
+## Create a new repository on the command line
 echo "# Sarath69Kumar.github.io" >> README.md
 ```
 git init
 git add README.md	//	For single file
 git add .			//	To push all the files like new and existing at once
 git commit -m "first commit"
+git remote add origin git@github.com:s14321k/SbMsDocKub.git
 git branch -M main	// This is used to rename the current branch. -M will force do the rename if the branch name is already main
 git push -u origin main	//Push changes to repository
-…or push an existing repository from the command line
-git remote add origin https://github.com/Sarath69Kumar/Sarath69Kumar.github.io.git
 ```
 
-
+## Push the contents to the existing repo
+```bash
+cd ./go to the respective directory
+cd add .	//To add all the files
+cd comit -m "commit message"
+git branch -M branchName
+git push -u origin main
+```
 
 If commit can't be done
 `Delete index.lock in-->repositoryFolder/.git/index.lock`

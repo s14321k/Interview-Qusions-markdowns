@@ -215,6 +215,7 @@ public class HttpStatusController {
         404, "Not Found – The requested resource was not found.",
         405, "Method Not Allowed – The HTTP method used is not allowed for the requested resource.",
         408, "Request Timeout – The client took too long to send the request.",
+        417, "Update operation failed. Please try again or contact Dev team",
         429, "Too Many Requests – The client has sent too many requests in a given time.",
         500, "Internal Server Error – A generic server error message.",
         502, "Bad Gateway – The server received an invalid response from an upstream server.",
@@ -1221,7 +1222,9 @@ throws Exception
 
 ## [Exception Handling in Spring boot](https://www.tutorialspoint.com/spring_boot/spring_boot_exception_handling.htm)
 
-#### @ControllerAdvice
+- @ControllerAdvice and @ExceptionHandler combines and work for handling exceptions
+
+### @ControllerAdvice
 
 - to handle the exceptions globally.
 
@@ -1231,7 +1234,7 @@ throws Exception
 
 ![img.png](images/AnnotationGlobalException.png)
 
-## [Annotations in Spring boot](https://www.javatpoint.com/spring-boot-annotations)
+# [Annotations in Spring boot](https://www.javatpoint.com/spring-boot-annotations)
 
 - `@SpringBootApplication` - Combination of
   - `@EnableAutoConfiguration` -
@@ -1239,30 +1242,33 @@ throws Exception
   - `@Configuration` - is a class level annotation.
     - `@Bean` - is a method level annotation.
     - `@Primary` - is annotated on top of bean when the particular bean has to be primary.
-- @Required - Applied at the bean setter method. This should be populated at configuration time with the required property.
-- @Autowired - provides annotation-based autowiring by providing @Autowired.
+- `@Required` - Applied at the bean setter method. This should be populated at configuration time with the required property.
+- `@Autowired` - provides annotation-based autowiring by providing @Autowired.
 
-  - @Qualifier
-  - @Primary
+  - `@Qualifier`
+  - `@Primary`
 
-- @Component -
-  - @Controller -
-  - @RestController -
-  - @Service -
-  - @Repository -
-  - @Query - To write custom quries.
-  - @Modifing
-  - @EntityGraph - ![img.png](images/AnnotationEntityGraph.png)
-  - Projection - Creating interface to write particular queries in custom we can use projection.
-- @RequestMapping -
-  - @GetMapping -
-  - @PutMapping -
-  - @PostMapping -
-  - @DeleteMapping -
-  - @PatchMapping -
-- @Aspect -
+- `@EnableJpaRepositories`
+- `@EntityScan`
+
+- `@Component` -
+  - `@Controller` -
+  - `@RestController` -
+  - `@Service` -
+  - `@Repository` -
+  - `@Query` - To write custom quries.
+  - `@Modifing` - used along with @Transactional tells jpa that it is a modification query(`delete`, `update`, ***even*** `insert`)
+  - `@EntityGraph` - ![img.png](images/AnnotationEntityGraph.png)
+  - `Projection interface` - Creating interface to write particular queries in custom we can use projection.
+- `@RequestMapping` -
+  - `@GetMapping` -
+  - `@PutMapping` -
+  - `@PostMapping` -
+  - `@DeleteMapping` -
+  - `@PatchMapping` - To modify only one column, not the enitre table
+- @Aspect - AOP(Aspect oriented programing)
 - [@Async](https://www.baeldung.com/spring-async)
-- @ConditionalOnProperties -
+- @ConditionalOnProperties - 
 - [@PropertySource](https://github.com/ysm-dev/kingbbode.github.io/blob/1a457952e9fa34d834ead979c8e5bd02a25c3975/_posts/seminar/2016/2016-04-30-Spring-Camp-2016.md)
 
 ## MongoRelated Annotations
@@ -1273,21 +1279,35 @@ throws Exception
 
 ## Entity or Model Annotations
 
-- @Data - (Equivalent to @Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode
-- @Entity
-- @Table(name = "")
-- @NoArgsConstructor
-- @AllArgsConstructor
-- @DynamicInsert
-- @DynamicUpdate
-- @MappedSuperclass //Acts as a parent class for all other classes id fields
+### Class Level (On top of the class)
+
+- `@Data` - (Equivalent to @Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode)
+- `@Entity` - 
+- `@Table(name = "")`
+- `@Column(updatable/insertable/ = false)`
+- `@NoArgsConstructor`
+- `@AllArgsConstructor`
+- `@DynamicInsert` - Tells Hibernate: "When doing an INSERT, only include the columns whose values are set (non-null)."
+- `@DynamicUpdate` - Tells Hibernate: "When doing an UPDATE, only include the columns whose values are set (non-null)."
+- `@MappedSuperclass` //Acts as a parent class for all other classes id fields
 - [@Embeddable](https://www.baeldung.com/spring-jpa-embedded-method-parameters#1-embeddable) - Class level annotation
+- `@EntityListeners(AuditingEntityListener.class)` - Should be used on top of entity class if we use auditing annotations
+- `@EnableJpaAuditing` -  - Should be used on top of main class if we use auditing annotations.
+
+### Data level (On top of the data)
+
 - [@EmbeddedId](https://www.baeldung.com/spring-jpa-embedded-method-parameters#2-entity-and-embeddedid) - Method Level Annotation
 - [@Embedded](https://www.baeldung.com/jpa-embedded-embeddable#embedded)
-- @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_one_generator")
-- @SequenceGenerator(name = "", sequenceName = "", allocationSize = 1)
+- `@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_one_generator")`
+- `@SequenceGenerator(name = "", sequenceName = "", allocationSize = 1)`
+- `@Builder`
+ - `@Singular` 
+- `@CreatedDate`
+- `@CreatedBy`
+- `@LastModifiedDate`
+- `@LastModifiedBy`
 
-  **Annotations to extract the values from the URI**
+## **Annotations to extract the values from the URI**
 
 Spring Boot provides a wide range of parameter binding annotations for various purposes. Here are some other commonly used annotations beyond the ones you mentioned:
 
@@ -1506,9 +1526,9 @@ public class Application {
 }
 ```
 
-### [@Autowired](https://bushansirgur.in/spring-boot-autowire-annotation-with-example/)
+## [@Autowired](https://bushansirgur.in/spring-boot-autowire-annotation-with-example/)
 
-#### [Autowiring is of 4 types in spring](http://javainsimpleway.com/autowiring-in-spring/)
+### [Autowiring is of 4 types in spring](http://javainsimpleway.com/autowiring-in-spring/)
 
 [List of java interview questions](https://www.java2novice.com/java_interview_questions/spring-autowire-modes/)
 
@@ -1605,6 +1625,12 @@ These are the main types of @Autowired annotations you might encounter in a Spri
 
 ![img_18.png](images/img_18.png)
 
+## @EnableTransactionManagement
+- Used on top of the class
+- So that Spring can intercept methods annotated with @Transactional
+- Allows your @Transactional methods to automatically start, commit, and rollback DB transactions
+
+
 ## [@Transactional](https://stackoverflow.com/a/54326437/11962586)
 
 - Used to roll back the process.
@@ -1621,9 +1647,7 @@ Required is the default propagation. Spring checks if there is an active transac
 When the propagation is Requires_New, spring suspends the current transaction if it exists and creates a new one.
 
 #### SaveAndFlush
-
-### [@EnableTransactionManagement]())
-- 
+- Will save and commit each values.
 
 ## [Pagiantion using JPA](https://www.baeldung.com/spring-data-jpa-pagination-sorting)
 
@@ -1855,9 +1879,126 @@ Remember to use dependency injection in Spring Boot to achieve loose coupling an
 
 In general, constructor injection is considered a best practice as it promotes immutability and ensures that dependencies are set at object creation time, leading to better object consistency. However, both setter injection and `@Autowired` annotation have their use cases, especially for optional or dynamic dependencies. Ultimately, the choice between these injection methods depends on factors such as readability, maintainability, and specific requirements of your application.
 
-## SSO (Single Sign On)
+------------------------------------------------------------
+-
 
-### `Single sign on` with `Spring security OAuth2` or `KeyClock`
+## JPA Auditing Annotations
+
+Excellent question — you’re thinking like a pro now  
+Let’s go deep and clear:  
+Spring Data JPA has **4 main auditing annotations** — and that’s it. But around them, there are **supporting pieces** you should know.  
+I'll give you an **enhanced summary table** + the surrounding ecosystem. 👇 
+
+---
+
+***Note:***
+
+- `@EntityListeners(AuditingEntityListener.class)` This should be placed on top of the entity class to make the class autitable.
+- `@EnableJpaAuditing` This should be placed on top of the main class. Along with `@SpringBootApplication`
+
+---
+
+### ✅ **Spring Data JPA Auditing Annotations — Full Table**
+
+| Annotation         | Purpose                         | Fills Value When?    | Typical Field Name   |
+|--------------------|----------------------------------|----------------------|----------------------|
+| `@CreatedDate`     | Stores timestamp when created    | On **INSERT**         | `created_at`         |
+| `@CreatedBy`       | Stores user who created entity   | On **INSERT**         | `created_by`         |
+| `@LastModifiedDate`| Stores timestamp when modified   | On **UPDATE**         | `updated_at`         |
+| `@LastModifiedBy`  | Stores user who modified entity  | On **UPDATE**         | `updated_by`         |
+
+✅ These 4 are the **core** auditing annotations in **Spring Data JPA**.
+
+---
+
+### ✅ **Supporting Components You Should Know**
+
+| Component                     | Purpose                                     |
+|--------------------------------|---------------------------------------------|
+| `@EnableJpaAuditing`           | Enables auditing support in Spring Data JPA |
+| `AuditingEntityListener`      | Listens to entity changes, triggers auditing|
+| `AuditorAware<T>`              | Supplies current user info (for `@CreatedBy`, `@LastModifiedBy`) |
+| `@EntityListeners(...)`        | Activates entity lifecycle hooks (like auditing) |
+
+---
+
+#### 🔥 **Descriptions for Each Auditing Annotation**
+
+| Annotation         | Description                                 |
+|--------------------|---------------------------------------------|
+| `@CreatedDate`     | Automatically sets the **created timestamp** at the time of entity insertion. Uses `java.time` (e.g., `LocalDateTime`). |
+| `@CreatedBy`       | Automatically sets the **user** who created the entity. Uses the value provided by `AuditorAware`. |
+| `@LastModifiedDate`| Automatically updates the **timestamp** every time the entity is updated. |
+| `@LastModifiedBy`  | Automatically updates the **user** who last modified the entity. |
+
+---
+
+### ✅ **Lifecycle of Auditing**
+| Event      | Auditing Fields Affected               |
+|------------|-----------------------------------------|
+| `save()` or new entity insert | `@CreatedDate`, `@CreatedBy` |
+| `save()` on existing entity update | `@LastModifiedDate`, `@LastModifiedBy` |
+
+---
+
+### ✅ **Bonus — Beyond Core Annotations (Extra Goodies)**
+
+| Concept             | Description                                | Example                  |
+|---------------------|--------------------------------------------|--------------------------|
+| `@PrePersist`, `@PreUpdate` | JPA lifecycle callbacks (manual alternative to auditing) | Set timestamps manually  |
+| Database Triggers   | You can also handle auditing at **DB level** (e.g., MySQL `ON UPDATE`) | `created_at`, `updated_at` auto managed by DB |
+| Hibernate Interceptors | Global audit logic via Hibernate Interceptor | Logs changes globally    |
+
+---
+
+### ✅ **Real-World Recommendation**
+- Use **Spring Data Auditing** (`@CreatedDate`, etc.) if you’re already using JPA.
+- If you have **complex audit logs** (like audit tables), then:
+  - Use **EntityListeners**
+  - Or **Hibernate Envers** (full audit history framework)
+  - Or **custom audit tables**.
+
+---
+
+### ✅ **Pro Tip: Auditing + Database Defaults**
+You can combine **Spring auditing** with **DB defaults** like `CURRENT_TIMESTAMP` for extra safety (so even if app fails, DB will still populate fields).
+
+---
+
+### ✅ **Summary Table: Auditing Ecosystem**
+
+| Item                  | Description                          |
+|-----------------------|--------------------------------------|
+| `@CreatedDate`         | Auto-set creation timestamp          |
+| `@CreatedBy`           | Auto-set creator username            |
+| `@LastModifiedDate`    | Auto-set update timestamp            |
+| `@LastModifiedBy`      | Auto-set last modifier username      |
+| `@EnableJpaAuditing`   | Enables auditing globally             |
+| `AuditorAware<T>`      | Supplies current user info            |
+| `AuditingEntityListener` | Listens and populates fields         |
+
+---
+
+#### 🔥 So in short:
+- There are **4 main annotations** (`@CreatedDate`, `@CreatedBy`, `@LastModifiedDate`, `@LastModifiedBy`)
+- Supported by `@EnableJpaAuditing`, `AuditorAware`, and listeners.
+- Optional: Hibernate Envers or triggers if you want **full audit history** tables.
+
+---
+
+Would you also like me to show you an **advanced pattern** where you track **full audit history** (who changed *what* and *when*) using **Hibernate Envers**?  
+(It’s next level: versioning + audit trail like banking systems.)  
+Just say: *Yes, show audit history pattern!* 🚀
+
+-----------------------------------------------------------
+-
+
+
+
+
+# SSO (Single Sign On)
+
+## `Single sign on` with `Spring security OAuth2` or `KeyClock`
 
 SSO, or Single Sign-On, is an authentication process that allows a user to access multiple applications or services with a single set of credentials (username and password) after the initial login. In other words, it enables users to log in once and gain access to various systems and services without having to enter their credentials repeatedly. SSO is widely used in various IT and web applications to enhance user convenience and security.
 
@@ -1889,7 +2030,7 @@ SSO is a crucial component of modern identity and access management (IAM) system
 
 ## [SPRING METHOD SECURITY](https://www.baeldung.com/spring-security-method-security)
 
-## AOP (Aspect-Oriented Programming)
+# AOP (Aspect-Oriented Programming)
 
 In Spring Boot it is a powerful technique for managing cross-cutting concerns in your application. Cross-cutting concerns are aspects of your application that affect multiple parts of the codebase, such as logging, security, transaction management, and error handling. AOP allows you to modularize and separate these concerns from your main business logic.
 
