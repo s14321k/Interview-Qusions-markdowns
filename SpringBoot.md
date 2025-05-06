@@ -7,12 +7,21 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 
 <!-- TOC -->
   * [Top 15 Q&A](#top-15-qa)
+  * [Spring boot cmds](#spring-boot-cmds)
+    * [Gradle](#gradle-)
+    * [Maven](#maven)
   * [HTTP Status codes🚀](#http-status-codes)
     * [**1xx (Informational)**](#1xx-informational)
     * [**2xx (Success)**](#2xx-success)
     * [**3xx (Redirection)**](#3xx-redirection)
     * [**4xx (Client Errors)**](#4xx-client-errors)
     * [**5xx (Server Errors)**](#5xx-server-errors)
+    * [**Spring Boot Controller (`HttpStatusController.java`)**](#spring-boot-controller-httpstatuscontrollerjava)
+    * [**Frontend (React)**](#frontend-react)
+      * [**Updated React Component (`HttpStatusChecker.js`)**](#updated-react-component-httpstatuscheckerjs)
+  * [**How This Works**](#how-this-works)
+    * [**Example Requests**](#example-requests)
+    * [**Advantages of This Approach**🎯](#advantages-of-this-approach)
   * [Difference between spring and spring boot?](#difference-between-spring-and-spring-boot)
   * [Spring Boot Profiles](#spring-boot-profiles)
   * [Mention the need for it.](#mention-the-need-for-it)
@@ -70,17 +79,20 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   * [Spring Architecture](#spring-architecture)
   * [HandlerInterseptor & Filter](#handlerinterseptor--filter)
   * [Exception Handling in Spring boot](#exception-handling-in-spring-boot)
-      * [@ControllerAdvice](#controlleradvice)
+    * [@ControllerAdvice](#controlleradvice)
       * [@ExceptionHandler](#exceptionhandler)
-  * [Annotations in Spring boot](#annotations-in-spring-boot)
+* [Annotations in Spring boot](#annotations-in-spring-boot)
   * [MongoRelated Annotations](#mongorelated-annotations)
   * [Entity or Model Annotations](#entity-or-model-annotations)
+    * [Class Level (On top of the class)](#class-level-on-top-of-the-class)
+    * [Data level (On top of the data)](#data-level-on-top-of-the-data)
+  * [**Annotations to extract the values from the URI**](#annotations-to-extract-the-values-from-the-uri)
   * [@Qualifier, @Primary, @Autowired, @Required](#qualifier-primary-autowired-required)
     * [@Qualifier](#qualifier)
       * [Qualifier in method level](#qualifier-in-method-level)
     * [@Primary](#primary)
-    * [@Autowired](#autowired)
-      * [Autowiring is of 4 types in spring](#autowiring-is-of-4-types-in-spring)
+  * [@Autowired](#autowired)
+    * [Autowiring is of 4 types in spring](#autowiring-is-of-4-types-in-spring)
       * [**Field Injection:**](#field-injection)
       * [**Method Injection:**](#method-injection)
       * [**Constructor Injection:**](#constructor-injection)
@@ -89,19 +101,31 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   * [@Controller vs @RestController](#controller-vs-restcontroller)
     * [@Controller](#controller)
     * [@RestController](#restcontroller)
+  * [@EnableTransactionManagement](#enabletransactionmanagement)
   * [@Transactional](#transactional)
     * [@Transactional propagation isolation](#transactional-propagation-isolation)
       * [@Transactional(propagation = Propagation.REQUIRED)](#transactionalpropagation--propagationrequired)
       * [@Transactional(propagation = Propagation.REQUIRES_NEW)](#transactionalpropagation--propagationrequiresnew)
       * [SaveAndFlush](#saveandflush)
-  * [### @EnableTransactionManagement)](#-enabletransactionmanagement)
   * [Pagiantion using JPA](#pagiantion-using-jpa)
   * [Dependency Injection](#dependency-injection)
     * [Pros and Cons in injections](#pros-and-cons-in-injections)
-  * [SSO (Single Sign On)](#sso-single-sign-on)
-    * [`Single sign on` with `Spring security OAuth2` or `KeyClock`](#single-sign-on-with-spring-security-oauth2-or-keyclock)
+  * [------------------------------------------------------------](#------------------------------------------------------------)
+  * [JPA Auditing Annotations](#jpa-auditing-annotations)
+    * [✅ **Spring Data JPA Auditing Annotations — Full Table**](#-spring-data-jpa-auditing-annotations--full-table)
+    * [✅ **Supporting Components You Should Know**](#-supporting-components-you-should-know)
+      * [🔥 **Descriptions for Each Auditing Annotation**](#-descriptions-for-each-auditing-annotation)
+    * [✅ **Lifecycle of Auditing**](#-lifecycle-of-auditing)
+    * [✅ **Bonus — Beyond Core Annotations (Extra Goodies)**](#-bonus--beyond-core-annotations-extra-goodies)
+    * [✅ **Real-World Recommendation**](#-real-world-recommendation)
+    * [✅ **Pro Tip: Auditing + Database Defaults**](#-pro-tip-auditing--database-defaults)
+    * [✅ **Summary Table: Auditing Ecosystem**](#-summary-table-auditing-ecosystem)
+      * [🔥 So in short:](#-so-in-short)
+  * [-----------------------------------------------------------](#-----------------------------------------------------------)
+* [SSO (Single Sign On)](#sso-single-sign-on)
+  * [`Single sign on` with `Spring security OAuth2` or `KeyClock`](#single-sign-on-with-spring-security-oauth2-or-keyclock)
   * [SPRING METHOD SECURITY](#spring-method-security)
-  * [AOP (Aspect-Oriented Programming)](#aop-aspect-oriented-programming)
+* [AOP (Aspect-Oriented Programming)](#aop-aspect-oriented-programming)
 * [🚀Cookies](#cookies)
 * [**Managing Cookies in a Spring Boot Application**](#managing-cookies-in-a-spring-boot-application)
   * [**1. What Cookies Should Be Sent from a Spring Boot Application to the Frontend?**](#1-what-cookies-should-be-sent-from-a-spring-boot-application-to-the-frontend)
@@ -142,6 +166,45 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 <!-- TOC -->
 
 ## [Top 15 Q&A](https://www.java67.com/2018/06/top-15-spring-boot-interview-questions-answers-java-jee-programmers.html)
+
+## Spring boot cmds
+
+- First go to the root directory of the project
+
+### Gradle
+
+```bash
+./gradlew bootRun or ./gradlew clean bootRun
+./gradlew build or ./gradlew clean build
+./gradlew bootJar
+./gradlew bootWar
+./gradlew clean
+./gradlew test
+./gradlew check
+./gradlew jacocoTestReport
+./gradlew jacocoRootReport
+./gradlew jacocoTestCoverageVerification
+```
+
+### Maven
+```bash
+mvn spring-boot:run or mvn clean spring-boot:run
+mvn package or mvn clean package
+mvn spring-boot:repackage
+mvn spring-boot:build-image
+mvn clean
+mvn test
+mvn check
+mvn jacoco:report
+mvn jacoco:check
+```
+
+### Java Cmds
+
+```bash
+java -jar target/app.jar //if it is a maven project
+java -jar build/libs/app.jar //if it is a gradle project
+```
 
 ## HTTP Status codes🚀
 

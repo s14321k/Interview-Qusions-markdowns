@@ -7,6 +7,10 @@
 
 ## 1. [Caching in microservice](https://www.linkedin.com/pulse/exploring-caching-patterns-microservices-architecture-saeed-anabtawi/)
 
+## Deployment, Portability and scalability
+### VM and Containers
+
+
 ## How does Microservices comunicate between each other.
 
 - Using `feign client`, `RestClient`, `WebClient`, `RestTemplate`.
@@ -310,7 +314,7 @@ Choosing the right algorithm is crucial for effective load balancing:
 
 Maintaining load balance in microservices requires a combination of client-side and server-side strategies, effective service discovery, and the use of appropriate load balancing algorithms. Leveraging modern tools and technologies like service meshes, reverse proxies, and cloud-based load balancers, along with robust monitoring and auto-scaling mechanisms, ensures that your microservices architecture can handle varying loads efficiently and reliably.
 
-## API Gateway
+# API Gateway
 
 > Explain gate way (API Gateway) function in micro service.
 > > API gateway is the entry point and handles the request loads. By default it has load balancer. In spite of configuring load balancer in the client service, api gate way will handle the load balancing for all the services.
@@ -345,3 +349,7 @@ Here's a simple explanation of its uses:
 8. **Transformation and Aggregation**: The API Gateway can transform request and response formats and aggregate multiple service calls into a single request, simplifying the client's interaction with the microservices.
 
 Overall, an API Gateway simplifies client interactions with a microservices-based application by handling various cross-cutting concerns in a centralized and efficient manner.
+
+## Microservice Strangler Fig Patterns strategy
+- Legacy system to microservice.
+- First Old tree. On top of that new small trees are growing. Then the entire old tree is removed and new trees ocupies that place.

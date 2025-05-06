@@ -1,5 +1,13 @@
 # Docker
 
+## Vm vs Containers
+
+![Container](\images\vmVsContainers.png)
+
+## Docker Architechture
+
+![DockerArchitecture](\images\DockerArchitecture.png)
+
 ## Container
 
 - Container is a small microVM which runs on top of Linux. It has all the dependencies of application code, client libraries. 
@@ -10,7 +18,7 @@
 ```
 $ docker run -d -p 8800:80 httpd
 ```
-- -d - to detach and run in the background
+- -d - to detach and run in the background. If we dont use this, then it will run in foreground and we wont be able to write commands for other containers
 - -p - to open up a port and publish on my host ip and access it remotely
 
 **Show the web page**
@@ -25,6 +33,22 @@ $ curl localhost:8800
 
 -----------------------------------------------------------------------
 ---
+
+## Types of Docker creation
+
+1 - **Dockerfile** 
+- is a file that contains instructions for creating a Docker image. It is a text file that contains commands to be executed by the Docker engine.
+
+  1 - **Disadvantages** 
+  - it is a static file that cannot be updated after the image is created. It is not very flexible.
+  - it is not very easy to 
+    - create complex images.
+    - create custom images.
+    - create images for different operating systems.
+    - create images for different architectures.
+    - create images for different versions of the operating system.
+
+![DockerFileCreation](\images\DockerFileCreation.png)
 
 # All Docker Commands
 
@@ -58,6 +82,14 @@ Downloads an image from Docker Hub.
 ### ✅ Listing images
 ```bash
 docker images
+```
+Shows all images on your machine.
+
+---
+
+### ✅ Inspecting images
+```bash
+docker inspect <image-id or name>
 ```
 Shows all images on your machine.
 
@@ -287,12 +319,13 @@ docker-compose build
 # Docker in Spring boot
 
 ---
+## Dockerfile
 
 **To create a Docker image from a Spring Boot application and push it to Docker Hub (or any other container registry), follow these steps:**
 
 ---
 
-### **Step 1: Package the Spring Boot Application**
+### 📦 **Step 1: Package the Spring Boot Application**
 Make sure your application is packaged into a JAR file.
 
 ```bash
@@ -305,23 +338,19 @@ This creates a `target/your-app.jar` (for Maven) or `build/libs/your-app.jar` (f
 
 ---
 
-### **Step 2: Create a Dockerfile**
+### 🐳 **Step 2: Create a Dockerfile**
 
 Create a file named `Dockerfile` in the root of your project:
 
 ```Dockerfile
 # Use a lightweight base image with Java
 FROM openjdk:17-jdk-slim
-
 # Set the working directory
 WORKDIR /app
-
 # Copy the jar file
 COPY target/your-app.jar app.jar
-
 # Expose port (optional, for documentation)
 EXPOSE 8080
-
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
 ```
@@ -330,31 +359,46 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 ---
 
-### **Step 3: Build the Docker Image**
+### 🏗️ **Step 3: Build the Docker Image**
 
 Run the following command in the directory containing your Dockerfile:
 
+Look for username docker desktop. My case **s14321** `your-dockerhub-username` 
 ```bash
-docker build -t your-dockerhub-username/your-app-name:tag .
+docker build . -t your-dockerhub-username/your-app-name:tag .
 ```
 
 Example:
 
 ```bash
-docker build -t johndoe/springboot-app:1.0 .
+docker build . -t s14321k/acounts:d1
 ```
 
 ---
 
-### **Step 4: Test the Docker Image Locally (Optional)**
+### ▶️  ️**Step 4: Test the Docker Image Locally (Optional)**
 
 ```bash
-docker run -p 8080:8080 johndoe/springboot-app:1.0
+docker run -d -p 8080:8080 s14321k/acounts:d1
+```
+
+To run the same image as another instance(container). Change the port number and run. 
+First port number should be changed because it is already in use and exposed to outer world, 
+were is the second port number is handled inside the docker.
+
+```bash
+docker run -d -p 8081:8080 s14321k/acounts:d1
+```
+
+***To stop the container***. Run this command. First four characters of container id is enough
+
+```bash
+docker stop <container-id>
 ```
 
 ---
 
-### **Step 5: Log in to Docker Hub**
+### 🚀 **Step 5: Log in to Docker Hub**
 
 ```bash
 docker login
@@ -364,13 +408,52 @@ Enter your Docker Hub username and password when prompted.
 
 ---
 
-### **Step 6: Push the Docker Image**
+### 🚀 **Step 6: Push the Docker Image**
 
 ```bash
 docker push johndoe/springboot-app:1.0
 ```
 
+-----------------------------------------------------------------------------
+------------------
+
+## Build packs instead of Dockerfile
+
+***Maven: pom.xml***
+
+- under configuration, create tag 
+
+```
+<image>
+  <name>your-dockerhub-username/your-app-name:tag</name>
+</image>
+```
+
+```bash
+./mvnw spring-boot:build-image
+```
 ---
+
+***Gradle: build.gradle***
+
+- under configuration, create tag 
+
+```
+image {
+    name = "your-dockerhub-username/your-app-name:tag"
+}
+
+// or
+
+bootBuildImage {
+	imageName = 's14321l/${rootProject.name}:d1'
+}
+```
+
+```bash
+./gradlew bootBuildImage
+```
+
 
 ### ✅ Optional: Automate with Jib (if using Maven or Gradle)
 
@@ -472,95 +555,6 @@ Once set up, pushing code to the `main` branch will:
 
 
 ------------------------------------------------------------------------------------
----
-
-# Spring boot image creation
-
-To create a Docker image for your Spring Boot application, you need to follow these steps:
-
----
-
-### ✅ Prerequisites
-
-- You have a Spring Boot project (JAR or WAR built with Maven/Gradle).
-- Docker is installed on your machine.
-
----
-
-### 📦 Step 1: Package Your Spring Boot Application
-
-If using Maven:
-
-```bash
-./mvnw clean package
-```
-
-If using Gradle:
-
-```bash
-./gradlew clean build
-```
-
-After this, you should have a `*.jar` file in the `target/` (Maven) or `build/libs/` (Gradle) directory.
-
----
-
-### 🐳 Step 2: Create a `Dockerfile`
-
-Place this `Dockerfile` in the root of your project:
-
-```Dockerfile
-# Use an OpenJDK base image
-FROM openjdk:17-jdk-slim
-
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy the jar file into the container
-COPY target/your-app-name.jar app.jar
-
-# Expose port (adjust if your app uses a different port)
-EXPOSE 8080
-
-# Run the jar file
-ENTRYPOINT ["java", "-jar", "app.jar"]
-```
-
-Replace `your-app-name.jar` with the actual JAR file name.
-
----
-
-### 🏗️ Step 3: Build the Docker Image
-
-Run this command in the same directory as your `Dockerfile`:
-
-```bash
-docker build -t your-app-name .
-```
-
----
-
-### ▶️ Step 4: Run the Docker Container
-
-```bash
-docker run -p 8080:8080 your-app-name
-```
-
-This maps your local port 8080 to the container's port 8080.
-
----
-
-### 📌 Optional Tips
-
-- Use `.dockerignore` to avoid copying unnecessary files.
-- For multi-stage builds (to reduce image size), you can build the JAR inside Docker too.
-- You can push the image to Docker Hub or another registry for deployment.
-
-Would you like a multi-stage Dockerfile or one tailored for GraalVM/native-image?
-
----
-
-----------------------------------------------------------------------------
 ---
 
 
@@ -916,4 +910,7 @@ lsof -i :8080
 | `kubectl` | Kubernetes control |
 
 ---
+
+# Docker Trouble shoots
+- If docker server is not seen, then check with cmd docker ps. If shows error. Open the docker desktop.
 

@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Docker.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/DockerArchitecture.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/DockerFileCreation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/vmVsContainers.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Git.md" beforeDir="false" afterPath="$PROJECT_DIR$/Git.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Kuberneties.md" beforeDir="false" afterPath="$PROJECT_DIR$/Kuberneties.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docker.md" beforeDir="false" afterPath="$PROJECT_DIR$/Docker.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice.md" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,27 +53,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.codeium.enabled": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Intell",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Intell/images/DockerArchitecture.png&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Intell\images" />
       <recent name="D:\Git\Angular\Java-Interview-Qus\images" />
     </key>
   </component>
@@ -116,7 +120,10 @@
       <workItem from="1745666479281" duration="274000" />
       <workItem from="1745776927725" duration="1295000" />
       <workItem from="1745779325425" duration="595000" />
-      <workItem from="1745906479961" duration="4665000" />
+      <workItem from="1745906479961" duration="5078000" />
+      <workItem from="1745993636881" duration="2187000" />
+      <workItem from="1746077092762" duration="4966000" />
+      <workItem from="1746187211009" duration="12619000" />
     </task>
     <task id="LOCAL-00001" summary="added points and restructured the points">
       <option name="closed" value="true" />
@@ -228,7 +235,14 @@
       <option name="project" value="LOCAL" />
       <updated>1745556483047</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="1. Git commands&#10;2. Docker commands&#10;3. Removed docker cmds from kuberneties">
+      <created>1745913040552</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1745913040552</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,6 +269,7 @@
     <MESSAGE value="Changed order" />
     <MESSAGE value="Added points" />
     <MESSAGE value="Jenkins Kubernetis" />
-    <option name="LAST_COMMIT_MESSAGE" value="Jenkins Kubernetis" />
+    <MESSAGE value="1. Git commands&#10;2. Docker commands&#10;3. Removed docker cmds from kuberneties" />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Git commands&#10;2. Docker commands&#10;3. Removed docker cmds from kuberneties" />
   </component>
 </project>
