@@ -8,8 +8,9 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 <!-- TOC -->
   * [Top 15 Q&A](#top-15-qa)
   * [Spring boot cmds](#spring-boot-cmds)
-    * [Gradle](#gradle-)
+    * [Gradle](#gradle)
     * [Maven](#maven)
+    * [Java Cmds](#java-cmds)
   * [HTTP Status codes🚀](#http-status-codes)
     * [**1xx (Informational)**](#1xx-informational)
     * [**2xx (Success)**](#2xx-success)

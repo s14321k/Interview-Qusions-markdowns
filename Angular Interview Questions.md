@@ -103,7 +103,7 @@
   * [28. Explain static typing in angular](#28-explain-static-typing-in-angular)
   * [29. Explain subject in angular](#29-explain-subject-in-angular)
   * [30. Javascript vs Typescript](#30-javascript-vs-typescript)
-  * [31. what is node_module](#31-what-is-node_module)
+  * [31. what is node_module](#31-what-is-nodemodule)
   * [1. **What is Angular? Why do we need Angular?**](#1-what-is-angular-why-do-we-need-angular)
   * [2. **What is a Component?**](#2-what-is-a-component)
   * [3. **What is a Directive? How many types of Directives?**](#3-what-is-a-directive-how-many-types-of-directives)

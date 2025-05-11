@@ -1,3 +1,101 @@
+<!-- TOC Alt + Insert -->
+* [Docker](#docker)
+  * [Vm vs Containers](#vm-vs-containers)
+  * [Docker Architechture](#docker-architechture)
+  * [Container](#container)
+  * [simple image creation](#simple-image-creation)
+  * [-----------------------------------------------------------------------](#-----------------------------------------------------------------------)
+  * [Types of Docker creation](#types-of-docker-creation)
+* [All Docker Commands](#all-docker-commands)
+  * [🔹 **1. Setup & Info Commands**](#-1-setup--info-commands)
+  * [🔹 **2. Image Management**](#-2-image-management)
+    * [✅ Pulling images](#-pulling-images)
+    * [✅ Listing images](#-listing-images)
+    * [✅ Inspecting images](#-inspecting-images)
+    * [✅ Deleting images](#-deleting-images)
+  * [🔹 **3. Container Lifecycle**](#-3-container-lifecycle)
+    * [✅ Run a new container](#-run-a-new-container)
+    * [✅ List containers](#-list-containers)
+    * [✅ Stop a container](#-stop-a-container)
+    * [✅ Start a stopped container](#-start-a-stopped-container)
+    * [✅ Restart a container](#-restart-a-container)
+    * [✅ Kill a container](#-kill-a-container)
+    * [✅ Remove a container](#-remove-a-container)
+  * [🔹 **4. Working with Containers**](#-4-working-with-containers)
+    * [✅ Run a shell in a running container](#-run-a-shell-in-a-running-container)
+    * [✅ Run a one-time command inside a container](#-run-a-one-time-command-inside-a-container)
+    * [✅ View logs of a container](#-view-logs-of-a-container)
+    * [✅ Copy files to/from a container](#-copy-files-tofrom-a-container)
+  * [🔹 **5. Docker Volumes (Persistent Storage)**](#-5-docker-volumes-persistent-storage)
+    * [✅ Create a volume](#-create-a-volume)
+    * [✅ List volumes](#-list-volumes)
+    * [✅ Mount a volume in a container](#-mount-a-volume-in-a-container)
+    * [✅ Remove volume](#-remove-volume)
+  * [🔹 **6. Docker Networks**](#-6-docker-networks)
+    * [✅ Create a network](#-create-a-network)
+    * [✅ Connect container to a network](#-connect-container-to-a-network)
+  * [🔹 **7. Cleanup & Maintenance**](#-7-cleanup--maintenance)
+    * [✅ Remove all stopped containers](#-remove-all-stopped-containers)
+    * [✅ Remove unused images, networks, volumes](#-remove-unused-images-networks-volumes)
+    * [✅ Remove everything (be careful!)](#-remove-everything-be-careful)
+  * [🔹 **8. Docker Compose (multi-container setup)**](#-8-docker-compose-multi-container-setup)
+    * [✅ Start all services](#-start-all-services)
+    * [✅ Stop all services](#-stop-all-services)
+    * [✅ Build or rebuild images](#-build-or-rebuild-images)
+  * [✅ Bonus: Useful Commands Summary Table](#-bonus-useful-commands-summary-table)
+  * [----------------------------------------------------------------------------](#----------------------------------------------------------------------------)
+* [Docker in Spring boot](#docker-in-spring-boot)
+  * [Dockerfile](#dockerfile)
+    * [📦 **Step 1: Package the Spring Boot Application**](#-step-1-package-the-spring-boot-application)
+    * [🐳 **Step 2: Create a Dockerfile**](#-step-2-create-a-dockerfile)
+    * [🏗️ **Step 3: Build the Docker Image**](#-step-3-build-the-docker-image)
+    * [▶️  ️**Step 4: Test the Docker Image Locally (Optional)**](#-step-4-test-the-docker-image-locally-optional)
+    * [🚀 **Step 5: Log in to Docker Hub**](#-step-5-log-in-to-docker-hub)
+    * [🚀 **Step 6: Push the Docker Image**](#-step-6-push-the-docker-image)
+  * [-----------------------------------------------------------------------------](#-----------------------------------------------------------------------------)
+  * [Build packs instead of Dockerfile](#build-packs-instead-of-dockerfile)
+    * [✅ Optional: Automate with Jib (if using Maven or Gradle)](#-optional-automate-with-jib-if-using-maven-or-gradle)
+  * [-----------------------------------------------------------------------------](#------------------------------------------------------------------------------1)
+  * [✅ Sample Spring Boot Project Structure](#-sample-spring-boot-project-structure)
+  * [🐳 Sample Dockerfile (in root directory)](#-sample-dockerfile-in-root-directory)
+  * [🚀 GitHub Actions Workflow (`.github/workflows/docker-image.yml`)](#-github-actions-workflow-githubworkflowsdocker-imageyml)
+  * [🛡️ Set Secrets in GitHub Repository](#-set-secrets-in-github-repository)
+  * [------------------------------------------------------------------------------------](#------------------------------------------------------------------------------------)
+* [docker-compose.yml file](#docker-composeyml-file)
+    * [docker-compose.yml](#docker-composeyml)
+      * [Run this docker-compose.yml](#run-this-docker-composeyml)
+  * [------------------------------------------------------------------------------------](#-------------------------------------------------------------------------------------1)
+* [CURL Commands](#curl-commands)
+  * [🔹 **1. Basic HTTP GET**](#-1-basic-http-get)
+  * [🔹 **2. GET with custom path**](#-2-get-with-custom-path)
+  * [🔹 **3. GET with headers (e.g., Auth)**](#-3-get-with-headers-eg-auth)
+  * [🔹 **4. POST with JSON data**](#-4-post-with-json-data)
+  * [🔹 **5. PUT (update request)**](#-5-put-update-request)
+  * [🔹 **6. DELETE request**](#-6-delete-request)
+  * [🔹 **7. See full HTTP response (status, headers, body)**](#-7-see-full-http-response-status-headers-body)
+  * [🔹 **8. Save response to a file**](#-8-save-response-to-a-file)
+  * [🔹 **9. Follow redirects**](#-9-follow-redirects)
+  * [🔹 **10. Form submission (x-www-form-urlencoded)**](#-10-form-submission-x-www-form-urlencoded)
+  * [🔹 **11. Basic Authentication**](#-11-basic-authentication)
+  * [🔹 **12. Send custom headers**](#-12-send-custom-headers)
+  * [🔹 **13. Upload a file**](#-13-upload-a-file)
+  * [🔹 **14. Test Docker container API**](#-14-test-docker-container-api)
+  * [🔹 Bonus: Curl Cheat Sheet Summary](#-bonus-curl-cheat-sheet-summary)
+* [Other most used commands](#other-most-used-commands)
+  * [🔹 1. **`wget`** – alternative to `curl` (simpler for downloads)](#-1-wget--alternative-to-curl-simpler-for-downloads)
+  * [🔹 2. **`httpie`** – human-friendly `curl` alternative](#-2-httpie--human-friendly-curl-alternative)
+  * [🔹 3. **`ping`** – test if a host/IP is reachable](#-3-ping--test-if-a-hostip-is-reachable)
+  * [🔹 4. **`netstat` / `ss`** – check active ports](#-4-netstat--ss--check-active-ports)
+  * [🔹 5. **`telnet` / `nc` (netcat)** – test port connectivity](#-5-telnet--nc-netcat--test-port-connectivity)
+  * [🔹 6. **`jq`** – JSON viewer/parser](#-6-jq--json-viewerparser)
+  * [🔹 7. **`docker logs`** – debug container output](#-7-docker-logs--debug-container-output)
+  * [🔹 8. **`docker exec`** – run commands inside a container](#-8-docker-exec--run-commands-inside-a-container)
+  * [🔹 9. **`kubectl`** (if using Kubernetes)](#-9-kubectl-if-using-kubernetes)
+  * [🔹 10. **`lsof`** – check which process is using a port](#-10-lsof--check-which-process-is-using-a-port)
+  * [✅ Summary of Most Common Tools (Beyond `curl`)](#-summary-of-most-common-tools-beyond-curl)
+* [Docker Trouble shoots](#docker-trouble-shoots)
+<!-- TOC -->
+
 # Docker
 
 ## Vm vs Containers
@@ -458,6 +556,85 @@ bootBuildImage {
 ### ✅ Optional: Automate with Jib (if using Maven or Gradle)
 
 Instead of writing a Dockerfile manually, you can use [Google Jib](https://github.com/GoogleContainerTools/jib), which builds optimized Docker images without Docker installed.
+
+Step 1: Add the Jib plugin to your build.gradle file:
+
+```gradle
+plugins {
+    id 'com.google.cloud.tools.jib' version '3.3.1'
+}
+```
+
+Step 2: Add the Jib configuration to your build.gradle file:
+
+```gradle
+jib {
+    from {
+        image = 'openjdk:21-jdk-slim'
+    }
+    to {
+        image = 'your-group/your-image-name:latest'
+    }
+}
+``` 
+
+if maven
+
+```maven
+<packaging>jar</packaging>
+<plugins>
+    <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>3.3.1</version>
+        <configuration>
+            <to>
+                <image>your-dockerhub-username/your-app-name:tag</image>
+            </to>
+        </configuration>
+    </plugin>
+</plugins>
+```
+
+
+
+To compile and build a Java application using Jib with Maven and Gradle, you can use the following commands:
+
+**Maven:**
+```bash
+mvn compile jib:dockerBuild
+```
+This command compiles your Java code and then uses the Jib plugin to build a Docker image.
+
+**Gradle:**
+```bash
+# First login using 
+
+./gradlew login
+
+./gradlew build jib
+
+# or
+
+./gradlew jib
+
+# or for local build
+
+./gradlew jibDockerBuild
+```
+This command compiles your Java code and then uses the Jib plugin to build a Docker image.
+
+Note: Make sure you have the Jib plugin configured in your `pom.xml` file (for Maven) or `build.gradle` file (for Gradle) before running these commands.
+
+If you're using a specific version of Jib, you may need to specify the version in the command. For example:
+```bash
+mvn compile org.jib:jib-maven-plugin:2.8.0:build
+```
+Or:
+```bash
+gradle build org.jib:jib-gradle-plugin:2.8.0:jib
+```
+Replace `2.8.0` with the version of Jib you're using.
 
 -----------------------------------------------------------------------------
 ------------------

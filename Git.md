@@ -1,3 +1,12 @@
+<!-- TOC -->
+  * [Question and answers](#question-and-answers)
+    * [1. Git vs Github](#1-git-vs-github)
+  * [Create a new repository on the command line](#create-a-new-repository-on-the-command-line)
+  * [Push the contents to the existing repo](#push-the-contents-to-the-existing-repo)
+* [NPM install](#npm-install)
+    * [Difference Between Pull and Fetch](#difference-between-pull-and-fetch)
+<!-- TOC -->
+
 ## Question and answers
 ### 1. Git vs Github
 - Git is a version control. Github is a web-based hosting service for git repositories

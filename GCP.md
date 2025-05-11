@@ -1,3 +1,9 @@
+<!-- TOC Alt + Insert -->
+* [GCP commands](#gcp-commands)
+    * [To run cloud postgreSQL](#to-run-cloud-postgresql)
+    * [To get the ssl](#to-get-the-ssl)
+<!-- TOC -->
+
 # GCP commands
 - gcloud auth login
 - gcloud config set project <proj-name>

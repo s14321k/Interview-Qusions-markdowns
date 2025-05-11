@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/images/DockerArchitecture.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/DockerFileCreation.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/vmVsContainers.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/intellijShortcuts.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular Interview Questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/Angular Interview Questions.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Docker.md" beforeDir="false" afterPath="$PROJECT_DIR$/Docker.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GCP.md" beforeDir="false" afterPath="$PROJECT_DIR$/GCP.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git.md" beforeDir="false" afterPath="$PROJECT_DIR$/Git.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Microservice.md" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,6 +124,9 @@
       <workItem from="1745993636881" duration="2187000" />
       <workItem from="1746077092762" duration="4966000" />
       <workItem from="1746187211009" duration="12619000" />
+      <workItem from="1746860067451" duration="3142000" />
+      <workItem from="1746959798625" duration="6330000" />
+      <workItem from="1746973653598" duration="588000" />
     </task>
     <task id="LOCAL-00001" summary="added points and restructured the points">
       <option name="closed" value="true" />
