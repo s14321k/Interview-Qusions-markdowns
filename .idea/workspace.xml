@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/intellijShortcuts.md" afterDir="false" />
+    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="TOC update and Docker cmd updates">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular Interview Questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/Angular Interview Questions.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Docker.md" beforeDir="false" afterPath="$PROJECT_DIR$/Docker.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GCP.md" beforeDir="false" afterPath="$PROJECT_DIR$/GCP.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Git.md" beforeDir="false" afterPath="$PROJECT_DIR$/Git.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microservice.md" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +58,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Intell/images/DockerArchitecture.png&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Intell/images&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -73,10 +69,28 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Intell\images" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Intell\images" />
       <recent name="D:\Git\Angular\Java-Interview-Qus\images" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Intell" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Intell" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -126,7 +140,10 @@
       <workItem from="1746187211009" duration="12619000" />
       <workItem from="1746860067451" duration="3142000" />
       <workItem from="1746959798625" duration="6330000" />
-      <workItem from="1746973653598" duration="588000" />
+      <workItem from="1746973653598" duration="3717000" />
+      <workItem from="1748754849374" duration="2597000" />
+      <workItem from="1750253471719" duration="949000" />
+      <workItem from="1751460079598" duration="9544000" />
     </task>
     <task id="LOCAL-00001" summary="added points and restructured the points">
       <option name="closed" value="true" />
@@ -245,7 +262,14 @@
       <option name="project" value="LOCAL" />
       <updated>1745913040552</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="TOC update and Docker cmd updates">
+      <created>1746974415157</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1746974415157</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,6 +297,11 @@
     <MESSAGE value="Added points" />
     <MESSAGE value="Jenkins Kubernetis" />
     <MESSAGE value="1. Git commands&#10;2. Docker commands&#10;3. Removed docker cmds from kuberneties" />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Git commands&#10;2. Docker commands&#10;3. Removed docker cmds from kuberneties" />
+    <MESSAGE value="TOC update and Docker cmd updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="TOC update and Docker cmd updates" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
