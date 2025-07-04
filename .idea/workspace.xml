@@ -4,10 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="Spring boot">
+    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docker.md" beforeDir="false" afterPath="$PROJECT_DIR$/Docker.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GCP.md" beforeDir="false" afterPath="$PROJECT_DIR$/GCP.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Git.md" beforeDir="false" afterPath="$PROJECT_DIR$/Git.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hibernate.md" beforeDir="false" afterPath="$PROJECT_DIR$/Hibernate.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java 8 to 17.md" beforeDir="false" afterPath="$PROJECT_DIR$/Java 8 to 17.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaQuestions.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaQuestions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Kuberneties.md" beforeDir="false" afterPath="$PROJECT_DIR$/Kuberneties.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LogicsToSee.md" beforeDir="false" afterPath="$PROJECT_DIR$/LogicsToSee.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice.md" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.md" beforeDir="false" afterPath="$PROJECT_DIR$/react.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql_root_queries.md" beforeDir="false" afterPath="$PROJECT_DIR$/sql_root_queries.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +154,7 @@
       <workItem from="1748754849374" duration="2597000" />
       <workItem from="1750253471719" duration="949000" />
       <workItem from="1751460079598" duration="23203000" />
-      <workItem from="1751613539970" duration="1085000" />
+      <workItem from="1751613539970" duration="11149000" />
     </task>
     <task id="LOCAL-00001" summary="added points and restructured the points">
       <option name="closed" value="true" />
@@ -284,7 +294,14 @@
       <option name="project" value="LOCAL" />
       <updated>1751517915769</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Spring boot">
+      <created>1751615838339</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1751615838339</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -315,7 +332,8 @@
     <MESSAGE value="TOC update and Docker cmd updates" />
     <MESSAGE value="Spring boot readable format updated" />
     <MESSAGE value="Java Basic" />
-    <option name="LAST_COMMIT_MESSAGE" value="Java Basic" />
+    <MESSAGE value="Spring boot" />
+    <option name="LAST_COMMIT_MESSAGE" value="Spring boot" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

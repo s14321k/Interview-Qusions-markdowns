@@ -1,312 +1,622 @@
 <!-- TOC -->
-  * [Question and answers](#question-and-answers)
-    * [1. Git vs Github](#1-git-vs-github)
-  * [Create a new repository on the command line](#create-a-new-repository-on-the-command-line)
-  * [Push the contents to the existing repo](#push-the-contents-to-the-existing-repo)
-* [NPM install](#npm-install)
-    * [Difference Between Pull and Fetch](#difference-between-pull-and-fetch)
+* [Git & GitHub Q\&A and Commands](#git--github-qa-and-commands)
 <!-- TOC -->
 
-## Question and answers
-### 1. Git vs Github
-- Git is a version control. Github is a web-based hosting service for git repositories
-- We can run git without github, but not github without git.
 
 ---
 
-## Create a new repository on the command line
+# Git & GitHub Q\&A and Commands
+
+---
+
+<details>
+<summary><strong>1. Git vs GitHub</strong></summary>
+
+* **Git:** A distributed version control system to track changes in source code during software development.
+* **GitHub:** A web-based hosting service for Git repositories, providing collaboration tools, issue tracking, and more.
+* You **can use Git without GitHub**, but GitHub requires Git to manage repositories.
+
+</details>
+
+---
+
+<details>
+<summary><strong>2. Create a New Repository on the Command Line</strong></summary>
+
+```bash
 echo "# Sarath69Kumar.github.io" >> README.md
-```
+
 git init
-git add README.md	//	For single file
-git add .			//	To push all the files like new and existing at once
+git add README.md        # Add single file
+git add .                # Add all files (new and existing)
 git commit -m "first commit"
 git remote add origin git@github.com:s14321k/SbMsDocKub.git
-git branch -M main	// This is used to rename the current branch. -M will force do the rename if the branch name is already main
-git push -u origin main	//Push changes to repository
+git branch -M main       # Rename current branch to main
+git push -u origin main  # Push to remote repository
 ```
 
-## Push the contents to the existing repo
+---
+
+If push or commit fails due to index.lock file:
+
 ```bash
-cd ./go to the respective directory
-cd add .	//To add all the files
-cd comit -m "commit message"
+rm -f .git/index.lock
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>3. Push Contents to an Existing Repo</strong></summary>
+
+```bash
+cd /path/to/repo
+git add .
+git commit -m "commit message"
 git branch -M branchName
 git push -u origin main
 ```
 
-If commit can't be done
-`Delete index.lock in-->repositoryFolder/.git/index.lock`
+---
 
-https://www.earthdatascience.org/courses/intro-to-earth-data-science/open-reproducible-science/bash/bash-commands-to-manage-directories-files/
+**Common Git commands**
 
-https://www.geeksforgeeks.org/working-on-git-bash/#:~:text=Step%201%3A%20Go%20to%20Github,local%20repository%20will%20be%20pushed.&text=Step%203%3A%20Push%20the%20changes%20in%20your%20local%20repository%20to%20GitHub.&text=Here%20the%20files%20have%20been,master%20branch%20of%20your%20repository.
+* Check local changes: `git status`
+* Fetch remote changes (without merge): `git fetch`
+* Pull remote changes and merge: `git pull`
 
-https://www.atlassian.com/git/tutorials/merging-vs-rebasing#workflow-walkthrough
+</details>
 
-First time opening Bash:
-```
-SARATH-555@SARATH-555 MINGW64 ~
-$ ls
-'3D Objects'/         IntelGraphicsProfiles/                                                                         NetHood@        Templates@
-AppData/             Links/                                                                                         OneDrive/       Videos/
-'Application Data'@  'Local Settings'@                                                                               Pictures/       eclipse/
-Contacts/            Music/                                                                                         PrintHood@      jee-2020-06/
-Cookies@            'My Documents'@                                                                                 Recent@         jee-2021-03/
-Desktop/             NTUSER.DAT                                                                                    'Saved Games'/   ntuser.dat.LOG1
-Documents/           NTUSER.DAT{53b39e88-18c4-11ea-a811-000d3aa4692b}.TM.blf                                        Searches/       ntuser.dat.LOG2
-Downloads/           NTUSER.DAT{53b39e88-18c4-11ea-a811-000d3aa4692b}.TMContainer00000000000000000001.regtrans-ms   SendTo@         ntuser.ini
-Favorites/           NTUSER.DAT{53b39e88-18c4-11ea-a811-000d3aa4692b}.TMContainer00000000000000000002.regtrans-ms  'Start Menu'@
+---
 
-SARATH-555@SARATH-555 MINGW64 ~
-$ cd OneDrive/ECLIPSE/'JEE Struts'/
-```
+<details>
+<summary><strong>4. Navigate Directories in Git Bash</strong></summary>
 
-Directory Commamnds
-> To navigate to your home directory, use "cd" or "cd ~"
+* Go home directory: `cd` or `cd ~`
+* Go up one directory: `cd ..`
+* Go back to previous directory: `cd -`
+* Go to root: `cd /`
+* Navigate multiple levels: `cd ~/folder/subfolder/`
 
-> To navigate up one directory level, use "cd .."
+Example:
 
-> To navigate to the previous directory (or back), use "cd -"
-
-> To navigate into the root directory, use "cd /"
-
-> To navigate through multiple levels of directory at once, specify the full directory path that you want to go to.
-
-> For example, use "cd ~/OFGT-data/images/" to go directly to the images subdirectory in the OFGT-data folder.
-
-> As another example, "cd ~/Desktop" will move you to the Desktop subdirectory inside your home directory.
-
-
-To remove files
-In the command-line, navigate to your local repository.
-Ensure you are in the default branch:
-`$ git checkout branch_name`	checkout which branch you will be working on
-The rm -r command will recursively remove your folder:
-`$ git rm -r folder-name`
-Commit the change:
-`$ git commit -m "Remove duplicated directory"`
-Push the change to your remote repository:
-`git push origin branch_name`
-
-
-**To check the local changes**
-
-	$ git status
-
-**To Check The remote Commits**
-
-	$ git fetch
-
-**rename a file**
-
-	$ git checkout master
-	$ git mv casesensitive tmp
-	$ git mv tmp CaseSensitive
-	$ git commit -m "Name changed"
-
-**To Add a file**
-
-	$ git add 'file name'
-	$ git commit -m 'file name'
-	$ git push
-
-**To push all the files like new and existing at once**
-
-	$ git add .
-	$ git commit -m 'file name'
-	$ git push
-
-**To Roll Back commit**
-
-	$ git reset --hard HEAD~1 	it will get you back 1 commit
-	$ git reset --hard ORIG_HEAD	will point to a commit directly before merge has occurred.
-
-
-**To pull all changes from remote**
-	$ git pull
-
-**To Create new branch**
-
-	$ git branch new-branch-name
-
-**To create new branch and checkout on single command**
-	
-	$ git checkout -b new_branch_name
-
-	or
-
-	$ git switch -c new_branch_name
-
-**To check from which branch this new branch is created**
-	
-	$ git reflog
-
-**Compare with another branch**
-	$ git merge-base current_branch_name comparing_branch_name
-
-~~~~~~~~~~~~
-SSH creation
-~~~~~~~~~~~~
-
-stack overflow --> https://stackoverflow.com/questions/32910928/ssh-keygen-no-such-file-or-directory
-
-https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key
-
---open gitbash
-```
-SARATH-555@SARATH-555 MINGW64 ~
-$ ssh-keygen -t ed25519 -C "silvershinesarath@gmail.com"
-Generating public/private ed25519 key pair.
-Enter file in which to save the key (/c/Users/SARATH-555/.ssh/id_ed25519): [press enter]
-Created directory '/c/Users/SARATH-555/.ssh'.
-Enter passphrase (empty for no passphrase): [type a passphrase] press enter if dont want password			//https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases
-Enter same passphrase again: [again type the same passphrase] press enter if dont want password
-Your identification has been saved in /c/Users/SARATH-555/.ssh/id_ed25519
-Your public key has been saved in /c/Users/SARATH-555/.ssh/id_ed25519.pub
-The key fingerprint is:
-SHA256:Cp4wcfJ1IYWokJAVA+L9g9xDiVNh6MVY6kZHMNIw/LE silvershinesarath@gmail.com
-The key's randomart image is:
-+--[ED25519 256]--+
-|*O*+*Booo        |
-|*.+*Ooo. .       |
-| o=B=+. .        |
-|  =EB. .         |
-|  o=o=  S        |
-|  .+ oo.         |
-|    o .          |
-|                 |
-|                 |
-+----[SHA256]-----+
-
-SARATH-555@SARATH-555 MINGW64 ~
-$ ls -al ~/.ssh
-total 18
-drwxr-xr-x 1 SARATH-555 197121   0 Jan 11 22:30 ./
-drwxr-xr-x 1 SARATH-555 197121   0 Jan 11 22:28 ../
--rw-r--r-- 1 SARATH-555 197121 464 Jan 11 22:30 id_ed25519
--rw-r--r-- 1 SARATH-555 197121 109 Jan 11 22:30 id_ed25519.pub
+```bash
+cd ~/Desktop
 ```
 
-Then go to the .ssh folder and open the file.pub in notepad
-and copy the keys starts with ssh-ed
-and paste it in the github (https://github.com/settings/ssh/new).
+</details>
 
-//Adding new ssh file --> https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+---
 
+<details>
+<summary><strong>5. Remove Files/Folders</strong></summary>
 
+```bash
+git checkout branch_name     # Ensure on correct branch
+git rm -r folder-name        # Remove folder recursively
+git commit -m "Remove folder"
+git push origin branch_name
+```
 
+---
 
-Codeberg
+Rename files:
 
+```bash
+git mv oldfilename newfilename
+git commit -m "Renamed file"
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>6. Rollback Commit</strong></summary>
+
+* Rollback last commit but keep changes staged:
+
+```bash
+git reset --soft HEAD~1
+```
+
+* Rollback last commit and discard changes:
+
+```bash
+git reset --hard HEAD~1
+```
+
+* Undo merge:
+
+```bash
+git reset --hard ORIG_HEAD
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>7. Branch Management</strong></summary>
+
+* Create a new branch:
+
+```bash
+git branch new-branch-name
+```
+
+* Create and switch to new branch:
+
+```bash
+git checkout -b new_branch_name
+# or
+git switch -c new_branch_name
+```
+
+* Check branch origin:
+
+```bash
+git reflog
+```
+
+* Compare two branches:
+
+```bash
+git merge-base current_branch comparing_branch
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>8. SSH Key Generation for GitHub</strong></summary>
+
+Generate SSH key:
+
+```bash
+ssh-keygen -t ed25519 -C "your-email@example.com"
+```
+
+* Press enter to accept default file location.
+* Enter a passphrase or leave blank.
+* Add generated public key (`id_ed25519.pub`) to GitHub at [https://github.com/settings/ssh/new](https://github.com/settings/ssh/new).
+
+List `.ssh` folder:
+
+```bash
+ls -al ~/.ssh
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>9. Pushing to Codeberg (or other Git hosting)</strong></summary>
+
+```bash
 touch README.md
-~~~
 git init
 git checkout -b main
 git add README.md
 git commit -m "first commit"
-git remote add origin https://codeberg.org/SilverShineSarath/Rest-Ful-Web-Service.git
+git remote add origin https://codeberg.org/username/repository.git
 git push -u origin main
-~~~
-Pushing an existing repository from the command line
+```
 
-	$ git remote add origin https://codeberg.org/SilverShineSarath/Rest-Ful-Web-Service.git
-	$ git push -u origin main
+---
 
-```GitLab``` - https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html
+Push existing repo:
+
+```bash
+git remote add origin https://codeberg.org/username/repository.git
+git push -u origin main
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>10. Using Git in IDE (e.g., IntelliJ)</strong></summary>
+
+* Clone repository via VCS > Git > paste clone URL > Clone.
+* Switch branches via bottom-right corner branch icon.
+* Use `Ctrl+Shift+R` to find/replace in project.
+* Use commit tab to select files, commit and push.
+
+</details>
+
+---
+
+<details>
+<summary><strong>11. NPM Commands</strong></summary>
+
+* Install packages with offline mode and no audit:
+
+```bash
+npm install --prefer-offline --no-audit
+```
+
+* Show npm config:
+
+```bash
+npm config list
+```
+
+* Update npm globally:
+
+```bash
+npm install npm -g
+```
+
+* List globally installed packages:
+
+```bash
+npm list -g --depth=0
+```
+
+* Show outdated packages:
+
+```bash
+npm outdated
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>12. Git Pull vs Fetch</strong></summary>
+
+| Command     | Description                                                                    | Use case                                 |
+| ----------- | ------------------------------------------------------------------------------ | ---------------------------------------- |
+| `git fetch` | Downloads changes from remote but **does not merge** into your working branch. | Review changes before merging. Safer.    |
+| `git pull`  | Downloads changes and **immediately merges** into your current branch.         | Quick update and merge. More convenient. |
+
+---
+
+**Summary:**
+
+* Fetch = get changes only
+* Pull = get + merge changes
+
+Use fetch to review first, pull to update fast.
+
+</details>
+
+---
 
 
-Office type -
-	In browser
-	- Select the project in your projects
-	- select "Branches" which is under the project name
-	- Select "New branch" button
-	//note - can also delete the existing active branchs if no need
-	- Give appropriate branch name and click create branch+
-	- In clone copy clone with SSH
-	
-	In intelij
-	- select vcs -> git version control -> paste the clone -> click clone
-	- right bottom corner we can see the branch icon, click that and select the branch which is created and right click and give checkout.
-	- ctrl+shift+r to find the specific word in project. Then replace it and commit and push to branch.
-	- left top corner we can see commit tab. In that select the files to be moved, and give commit and push.
-	
-~~~
-> git init
-> git rev-parse --git-dir
-Open repository: d:\React Codings
-> git status -z -u
-> git symbolic-ref --short HEAD
-> git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track) refs/heads/master refs/remotes/master
-> git for-each-ref --sort -committerdate --format %(refname) %(objectname) %(*objectname)
-> git remote --verbose
-> git show --textconv :A_FirstProgram/index.js
-> git ls-files --stage -- D:\React Codings\A_FirstProgram\index.js
-> git check-ignore -v -z --stdin
-> git config --get commit.template
-> git ls-files --stage -- D:\React Codings\A_FirstProgram\index.js
-> git show --textconv :A_FirstProgram/index.js
-> git status -z -u
-> git symbolic-ref --short HEAD
-> git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track) refs/heads/master refs/remotes/master
-> git for-each-ref --sort -committerdate --format %(refname) %(objectname) %(*objectname)
-> git remote --verbose
-> git config --get commit.template
-> git status -z -u
-> git symbolic-ref --short HEAD
-> git for-each-ref --format=%(refname)%00%(upstream:short)%00%(objectname)%00%(upstream:track) refs/heads/master refs/remotes/master
-> git for-each-ref --sort -committerdate --format %(refname) %(objectname) %(*objectname)
-> git remote --verbose
-> git config -
-~~~
+Sure! Here’s a **step-by-step Git beginner tutorial** in a clear, friendly way:
 
-# NPM install
+<details>
+<summary><strong>Step 1: Install Git</strong></summary>
 
-#install packages
+* Download Git from [git-scm.com](https://git-scm.com/downloads) and install it on your computer.
+* After installation, you can use Git via command line (Git Bash on Windows) or GUI tools like GitHub Desktop.
 
-	$ npm install --prefer-offline --no-audit
+</details>
 
-#show current npm configuration
+<details>
+<summary><strong>Step 2: Configure Git</strong></summary>
 
-	$ npm config list
+Open your terminal or Git Bash and set your identity so Git knows who you are:
 
-#Upgrade NPM to latest version
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "youremail@example.com"
+```
 
-	$ npm install npm -g
+This info will appear in your commits.
 
-#see what packages are installed globally
+</details>
 
-	$ npm list -g --depth=0
+<details>
+<summary><strong>Step 3: Create a New Repository</strong></summary>
 
-#see what packages can be upgraded
+To create a new Git repository in an existing folder:
 
-	$npm outdated
+```bash
+cd your-project-folder
+git init
+```
+
+This starts tracking files in that folder.
+
+</details>
+
+<details>
+<summary><strong>Step 4: Stage and Commit Changes</strong></summary>
+
+1. Add files to the staging area (preparing them for commit):
+
+```bash
+git add filename.txt          # add a single file
+git add .                    # add all new and changed files
+```
+
+2. Commit your changes with a message:
+
+```bash
+git commit -m "Add initial project files"
+```
+
+Each commit is like a snapshot of your project.
+
+</details>
+
+<details>
+<summary><strong>Step 5: Connect to a Remote Repository</strong></summary>
+
+If you want to push your code to GitHub or any Git server:
+
+```bash
+git remote add origin git@github.com:username/repo.git
+```
+
+Replace the URL with your repo URL.
+
+</details>
+
+<details>
+<summary><strong>Step 6: Push Changes to Remote</strong></summary>
+
+Send your commits to the remote server:
+
+```bash
+git push -u origin main
+```
+
+The `-u` sets the upstream branch so next pushes can be done simply by `git push`.
+
+</details>
+
+<details>
+<summary><strong>Step 7: Pull Latest Changes</strong></summary>
+
+To update your local repo with changes from remote:
+
+```bash
+git pull
+```
+
+This fetches and merges remote changes.
+
+</details>
+
+---
+
+Great! Here’s a clear, friendly explanation of **branching and merging in Git** with collapsible sections:
+
+<details>
+<summary><strong>What is a Branch?</strong></summary>
+
+* A **branch** is a separate line of development in your project.
+* Think of it like a parallel universe where you can try new features or fixes without affecting the main code.
+* The default branch is usually called `main` or `master`.
+
+</details>
+
+<details>
+<summary><strong>Why Use Branches?</strong></summary>
+
+* To work on new features independently.
+* To fix bugs safely.
+* To experiment without breaking the stable code.
+* To collaborate with others without conflict.
+
+</details>
+
+<details>
+<summary><strong>How to Create and Switch Branches</strong></summary>
+
+1. **Create a new branch:**
+
+```bash
+git branch feature-branch
+```
+
+2. **Switch to the new branch:**
+
+```bash
+git checkout feature-branch
+```
+
+Or combine both in one command:
+
+```bash
+git checkout -b feature-branch
+```
+
+From Git 2.23+, you can also use:
+
+```bash
+git switch -c feature-branch
+```
+
+</details>
+
+<details>
+<summary><strong>Check Which Branch You Are On</strong></summary>
+
+```bash
+git branch
+```
+
+The current branch will be highlighted with a `*`.
+
+</details>
+
+<details>
+<summary><strong>Make Changes and Commit on Your Branch</strong></summary>
+
+Just like usual:
+
+```bash
+git add .
+git commit -m "Add new feature"
+```
+
+These commits stay isolated on your branch.
+
+</details>
+
+<details>
+<summary><strong>Merging Branches</strong></summary>
+
+When your feature or fix is ready, merge your branch into another branch (usually `main`):
+
+1. Switch to the branch you want to merge into:
+
+```bash
+git checkout main
+```
+
+2. Merge the feature branch:
+
+```bash
+git merge feature-branch
+```
+
+This will bring all the commits from `feature-branch` into `main`.
+
+</details>
+
+<details>
+<summary><strong>Resolving Merge Conflicts</strong></summary>
+
+* Sometimes Git can’t automatically merge files because of conflicting changes.
+* You will see conflict markers like `<<<<<<`, `======`, `>>>>>>`.
+* You need to manually edit the files to resolve conflicts.
+* After fixing, add and commit:
+
+```bash
+git add conflicted-file.txt
+git commit -m "Resolve merge conflict"
+```
+
+</details>
+
+<details>
+<summary><strong>Deleting a Branch After Merge</strong></summary>
+
+If you no longer need the feature branch:
+
+```bash
+git branch -d feature-branch
+```
+
+If the branch is not merged and you want to force delete:
+
+```bash
+git branch -D feature-branch
+```
+
+</details>
+
+---
+
+Awesome! Here’s a clear and friendly explanation of **Git Rebase** with collapsible markdown:
+
+<details>
+<summary><strong>What is Git Rebase?</strong></summary>
+
+* Git rebase is a way to **reapply commits from one branch onto another base commit**.
+* Instead of merging branches with a merge commit, rebase **rewrites history** by moving your branch’s commits on top of another branch.
+* It helps keep a **clean, linear commit history**.
+
+</details>
+
+<details>
+<summary><strong>Why Use Rebase?</strong></summary>
+
+* To keep commit history simple and linear.
+* To avoid unnecessary merge commits.
+* To update your feature branch with the latest changes from the main branch before merging.
+* Makes reviewing history easier.
+
+</details>
+
+<details>
+<summary><strong>How to Use Rebase</strong></summary>
+
+Suppose you’re working on `feature-branch` and want to update it with the latest `main` branch changes:
+
+1. Checkout your feature branch:
+
+```bash
+git checkout feature-branch
+```
+
+2. Rebase on top of `main`:
+
+```bash
+git rebase main
+```
+
+This takes your feature commits and reapplies them after the latest commits from `main`.
+
+</details>
+
+<details>
+<summary><strong>What Happens During Rebase?</strong></summary>
+
+* Git **temporarily saves** your commits.
+* Resets your branch to point at the target branch (`main`).
+* Reapplies your commits one by one on top of `main`.
+* If there are conflicts, Git pauses and asks you to resolve them.
+
+</details>
+
+<details>
+<summary><strong>Resolving Conflicts During Rebase</strong></summary>
+
+* Git will stop on a conflicted commit and show which files have conflicts.
+* Fix the conflicts manually.
+* Stage the resolved files:
+
+```bash
+git add conflicted-file.txt
+```
+
+* Continue the rebase:
+
+```bash
+git rebase --continue
+```
+
+* To abort the rebase and go back to the original state:
+
+```bash
+git rebase --abort
+```
+
+</details>
+
+<details>
+<summary><strong>Rebase vs Merge</strong></summary>
+
+| Feature           | Merge                                          | Rebase                                                         |
+| ----------------- | ---------------------------------------------- | -------------------------------------------------------------- |
+| History           | Creates a merge commit, keeps branch structure | Rewrites commits to create linear history                      |
+| Commit Graph      | Branching and merging shown                    | Linear commit history                                          |
+| Conflict Handling | Conflicts handled once during merge            | Conflicts may need to be resolved multiple times during rebase |
+| Use Case          | Good for preserving full history               | Good for clean history before merging feature branches         |
+
+</details>
+
+<details>
+<summary><strong>When NOT to Rebase</strong></summary>
+
+* Don’t rebase commits that have already been pushed to a shared/public repository — it rewrites history and can cause problems for others.
+* Safe to rebase only your **local** branches or branches that nobody else is using yet.
+
+</details>
+
+---
 
 
-USAA to create authentication token
-!! check  wiki go/NPMSetup
-
-- go to jfrog
-- create api key
-
-### Difference Between Pull and Fetch
-
-- In Git, both pull and fetch are used to retrieve updates from a remote repository, but they differ in their functionality:
-
-- The key difference between git fetch and pull is that git pull copies changes from a remote repository directly into your working directory, while git fetch does not. The git fetch command only copies changes into your local Git repo. The git pull command does both.
-
-**Fetch:**
-Downloads the changes from the remote repository to your local repository, but does not merge them into your working directory.
-Allows you to review the changes before integrating them.
-Safer option as it doesn't directly modify your local working copy.
-
-**Pull:**
-Combines two operations: fetch and merge.
-Downloads changes from the remote repository and immediately merges them into your current branch.
-Faster and more convenient if you want to quickly update your local branch with changes from the remote repository.
-
-***In essence:***
-Fetch: gets the changes, pull gets and merges the changes.
-Fetch: is safer, pull is more convenient.
-Use fetch if you want to review changes before merging, use pull if you want to quickly update your local branch.
 

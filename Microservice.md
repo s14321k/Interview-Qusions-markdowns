@@ -44,359 +44,981 @@
   * [Microservice Strangler Fig Patterns strategy](#microservice-strangler-fig-patterns-strategy)
 <!-- TOC -->
 
-
-## [YouTube](https://www.youtube.com/watch?v=tGGo15irME8&t=2305s&ab_channel=CodeDecode)
-
-## [GIT hub](https://github.com/codedecode25/Microservices_vaccination_citizen)
-
-[YOUTUBE](https://www.youtube.com/@CodeDecode/playlists)
-[CircuitBreaker Pattern](https://www.vinsguru.com/circuit-breaker-pattern/)
-
-## 1. [Caching in microservice](https://www.linkedin.com/pulse/exploring-caching-patterns-microservices-architecture-saeed-anabtawi/)
-
-## Deployment, Portability and scalability
-### VM and Containers
-
-
-## How does Microservices comunicate between each other.
-
-- Using `feign client`, `RestClient`, `WebClient`, `RestTemplate`.
-
-## Microservice Architecture
-
-Microservices architecture is an approach to software development where an application is composed of loosely coupled, independently deployable services. Each service is focused on a specific business capability and communicates with other services via well-defined APIs. This architecture promotes modularity, scalability, and flexibility, allowing teams to develop, deploy, and scale services independently. It also enables faster development cycles, easier maintenance, and better fault isolation compared to traditional monolithic architectures.
-
-- **Scalability :** Allows indipendent services (applications) to be scalled.
-- **Flexibility and Agility :** Each service can be developed, deployed independently.
-- **Resilience and Fault Isolation :** If one service fails, it doesn't bring down entire system.
-- **Technology Diversity :** Different microservices can be built using different technologies.
-- **Easy Maintenance and Updates :** It's easier to understand, maintain, and update the codebase.
-- **Easier Integration :** Microservices communicate with each other through well defined API's.
-
-## [SERVICE DISCOVERY](https://www.geeksforgeeks.org/service-discovery-and-service-registry-in-microservices/)
-
-Service discovery is a crucial aspect of distributed systems, particularly in architectures like microservices where applications are composed of many independent services. It's the mechanism by which various services can find and communicate with each other dynamically, without relying on hard-coded configuration.
-
-Here's how service discovery typically works:
-
-1. **Registration**: When a microservice starts up, it registers itself with the service registry. This registration typically includes metadata such as the service name, host IP address, port, and possibly other attributes like health checks, version, etc.
-
-2. **Discovery**: When a microservice needs to communicate with another service, instead of relying on a static configuration file, it queries the service registry to dynamically discover the location and endpoints of the required service.
-
-3. **Load Balancing**: In addition to providing service location information, service discovery systems often incorporate load balancing mechanisms to distribute incoming requests across multiple instances of a service. This helps improve performance, scalability, and fault tolerance.
-
-4. **Health Monitoring**: Service discovery systems may also monitor the health of registered services by periodically sending health check requests. If a service fails to respond or is unhealthy, it can be automatically removed from the registry, preventing other services from attempting to communicate with it.
-
-5. **Dynamic Updates**: As services scale up or down, or as new services are deployed, the service registry is updated dynamically to reflect these changes. This ensures that all services have an up-to-date view of the available services in the system.
-
-6. **Integration with Orchestration Platforms**: Service discovery often integrates with container orchestration platforms like Kubernetes, Docker Swarm, or Mesos. These platforms manage the lifecycle of containers or virtual machines running microservices and provide additional features like automatic scaling, self-healing, and resource allocation.
-
-There are various tools and technologies available for implementing service discovery, including:
-
-- **DNS-based Solutions**: Services register themselves as DNS records, and other services resolve these DNS records to discover service endpoints.
-- **Centralized Service Registries**: Services register themselves with a central server or database, and other services query this registry to discover service endpoints. Examples include Netflix Eureka, Consul, and etcd.
-
-- **Peer-to-Peer Approaches**: Services communicate directly with each other to discover and exchange information about available services. This approach is less common but can be useful in certain scenarios.
-
-Overall, service discovery is a fundamental building block of distributed systems, enabling dynamic and scalable communication between microservices in modern architectures.
-
-## Load Balancing
-
-Load balancing in a microservices architecture is essential for ensuring that incoming network traffic is evenly distributed across multiple instances of a service, helping to improve performance, scalability, fault tolerance, and reliability. There are various strategies and tools for implementing load balancing in a microservices environment:
-
-1. **Client-Side Load Balancing**:
-
-   In client-side load balancing, the responsibility for load balancing is placed on the client making the service requests. This approach is commonly used with microservices and can be achieved through libraries or components like Netflix Ribbon or custom load balancers.
-
-   - **Netflix Ribbon**: Ribbon is a client-side load balancing library provided by Netflix. It allows you to configure load balancing rules for service clients. You can integrate Ribbon with Spring Cloud, and it will automatically distribute requests to available instances of a service. Here's an example configuration in a Spring Boot application:
-
-     ```xml
-     <dependency>
-         <groupId>org.springframework.cloud</groupId>
-         <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-     </dependency>
-     ```
-
-     Configure the service client with `@LoadBalanced` `RestTemplate` and specify the service name in your requests, and Ribbon will handle load balancing.
-
-     **For feign client**
-
-     ```xml
-     <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-     </dependency>
-     ```
-
-     ```java
-     @LoadBalancerClient(value = "FLIGHT-RESERVATION")
-     public class ReservationLoadBalancerConfig {
-
-        @Bean
-        @LoadBalanced
-        public Feign.Builder feiBuilder() {
-           return Feign.builder();
-        }
-
-     }
-     ```
-
-2. **Server-Side Load Balancing**:
-
-   Server-side load balancing is typically performed by an intermediary component, such as a reverse proxy or an API gateway. These components route incoming requests to appropriate instances of services based on load balancing algorithms.
-
-   - **API Gateway (e.g., Spring Cloud Gateway or Netflix Zuul)**: API gateways can be used as server-side load balancers. They provide routing and load balancing capabilities. Spring Cloud Gateway, for example, can be used to route requests to various microservices.
-
-   - **Nginx or HAProxy**: You can use reverse proxy servers like Nginx or HAProxy to perform server-side load balancing. They can distribute traffic to multiple instances of your services based on load balancing algorithms like round-robin, least connections, or IP hashing.
-
-3. **Container Orchestration Platforms (e.g., Kubernetes)**:
-
-   In a microservices architecture deployed on container orchestration platforms like Kubernetes, load balancing is often provided as an inherent feature of the platform. Kubernetes, for instance, uses Services and Ingress Controllers to balance traffic across pods running your microservices.
-
-   - **Kubernetes Services**: When you deploy microservices in Kubernetes, you create a Service resource that automatically load balances traffic across pods based on the service selector.
-
-   - **Kubernetes Ingress**: For HTTP traffic, Kubernetes provides the Ingress resource, which can be used to manage external access to services and can include load balancing configurations.
-
-4. **Service Discovery**:
-
-   Service discovery tools like Consul or Eureka help with dynamic load balancing by keeping track of available instances of services and providing an up-to-date registry that clients can query to discover services. These tools often integrate with client-side load balancers or can be used in conjunction with server-side load balancing.
-
-5. **Content-Based Routing**:
-
-   In addition to simple load balancing, you can implement content-based routing using an API gateway or custom middleware to route requests to specific instances or services based on the content of the request (e.g., URL path, headers, or request parameters).
-
-Load balancing is a crucial part of designing and maintaining a resilient microservices architecture. The choice of load balancing strategy and tooling depends on your specific requirements, infrastructure, and the technology stack you're using.
-
-## Microservice Questions
-
-### 1. How will you handle if one microservice is malfunctioning
-
-- By creating multiple instances by running the same application on different ports. So that if one gets malfunction, then other will handle.
-
-### 2. Why we use microservices.
-
-Microservices are a software architectural style that structures an application as a collection of small, independent, and loosely coupled services. This approach is commonly used for various reasons:
+# Microservice
 
 ---
 
-### **1. Scalability**
-- **Fine-grained Scaling:** Each service can scale independently based on its specific resource requirements, optimizing cost and performance.
-- **Resilience:** If one service becomes overwhelmed, others remain unaffected, improving the system's overall reliability.
+## 🔗 Useful Resources
 
-### **2. Modularity and Maintainability**
-- **Isolated Development:** Teams can work on individual services without interfering with others, enhancing productivity.
-- **Ease of Updates:** Updates, bug fixes, or new features can be implemented in a single service without risking the entire application.
-
-### **3. Technology Diversity**
-- **Best Fit for Purpose:** Different microservices can use different programming languages, databases, or frameworks, selecting the best tool for each task.
-
-### **4. Faster Time to Market**
-- **Parallel Development:** Different teams can develop and deploy services independently, reducing the time required to launch features.
-
-### **5. Resilience and Fault Isolation**
-- **Fail Safely:** A failure in one microservice doesn't cause the entire application to fail, as opposed to monolithic applications where a single error might bring down the entire system.
-
-### **6. Continuous Deployment and Delivery**
-- Microservices enable automated deployment pipelines, allowing frequent and incremental updates without impacting the overall system.
-
-### **7. Improved Business Agility**
-- **Quick Adaptation:** Changes in business requirements can be implemented faster by updating or adding relevant services.
-
-### **8. Enhanced Testing**
-- **Focused Testing:** Each service can be tested independently, simplifying debugging and improving test coverage.
-
-### **9. Cloud-readiness**
-- Microservices align well with cloud-native architectures, benefiting from features like containerization (e.g., Docker) and orchestration (e.g., Kubernetes).
-
-### **10. Reusability**
-- Services can be reused across different parts of the application or even in other projects, reducing duplication and effort.
+* ▶️ [YouTube - Code Decode](https://www.youtube.com/watch?v=tGGo15irME8&t=2305s&ab_channel=CodeDecode)
+* 💻 [GitHub - Microservices Vaccination App](https://github.com/codedecode25/Microservices_vaccination_citizen)
+* 🎞️ [Code Decode YouTube Playlists](https://www.youtube.com/@CodeDecode/playlists)
+* 🛡️ [Circuit Breaker Pattern (VinsGuru)](https://www.vinsguru.com/circuit-breaker-pattern/)
+* 🧠 [Caching in Microservices (LinkedIn)](https://www.linkedin.com/pulse/exploring-caching-patterns-microservices-architecture-saeed-anabtawi/)
+* 🔎 [Service Discovery (GeeksForGeeks)](https://www.geeksforgeeks.org/service-discovery-and-service-registry-in-microservices/)
 
 ---
 
-### **Challenges to Consider**
-While microservices provide significant benefits, they also introduce complexities:
-- **Communication Overhead:** Requires managing inter-service communication (e.g., using APIs, message queues).
-- **Increased DevOps Effort:** Requires a robust infrastructure for deployment, monitoring, and scaling.
-- **Data Consistency:** Maintaining consistency across distributed services can be challenging.
+<details>
+<summary><strong>📦 Microservice Architecture Overview</strong></summary>
 
-By addressing these challenges with tools and best practices, microservices can significantly improve application flexibility, reliability, and efficiency.
+Microservices architecture is an approach where an application is composed of **loosely coupled, independently deployable services**. Each service is:
 
-### 3. Explain Circuit Breaker in microservice.
+* Focused on a specific business capability.
+* Communicates via well-defined APIs.
+* Developed and deployed independently.
 
-- Has three states,
+### 🔑 Key Benefits:
 
-  - open - all calls blocked due to failure.
-  - closed - all calls are good to proceed.
-  - half- open - only few calls allowed according to the properties set by percentage.
+* **Scalability:** Each service can be scaled independently.
+* **Flexibility & Agility:** Allows rapid development and deployment.
+* **Resilience & Fault Isolation:** Failure in one service doesn't affect others.
+* **Technology Diversity:** Services can use different tech stacks.
+* **Maintainability:** Smaller, focused codebases are easier to manage.
+* **Easy Integration:** REST, gRPC, messaging, etc.
 
-- These three can be configured in recilience4j properties
+</details>
 
-_In microservice architectures, a circuit breaker is a design pattern used to detect failures and encapsulate the logic of preventing a failure from constantly recurring, allowing microservices to maintain stability and resilience._
+---
 
-Here's how the circuit breaker pattern works:
+<details>
+<summary><strong>🔁 Microservice Communication</strong></summary>
 
-1. **Closed State (Normal Operation):**
+Services communicate using synchronous and asynchronous mechanisms.
 
-   - In the closed state, the circuit breaker allows requests to flow normally from one service to another.
-   - It monitors the success and failure rates of these requests.
+### 🔌 Communication Options:
 
-2. **Open State (Failure Detected):**
+* **Feign Client** (Declarative REST Client)
+* **RestTemplate** (Traditional blocking client)
+* **WebClient** (Reactive, non-blocking)
+* **gRPC / Thrift** (Binary protocols)
+* **Message Brokers:** Kafka, RabbitMQ for event-driven communication
 
-   - If the failure rate crosses a predefined threshold, the circuit breaker trips and moves to the open state.
-   - In this state, requests are immediately failed without trying to send them to the downstream service, preventing further overload or strain on the already failing service.
+</details>
 
-3. **Half-Open State (Trial Recovery):**
-   - After a certain period, the circuit breaker transitions to the half-open state to test if the downstream service has recovered.
-   - It allows a limited number of test requests to pass through.
-   - If these requests succeed, the circuit breaker will reset back to the closed state.
-   - If they fail, it goes back to the open state and the cycle continues.
+---
 
-### Benefits of Using a Circuit Breaker in Microservices
+<details>
+<summary><strong>🚀 Deployment, Portability, and Scalability</strong></summary>
 
-1. **Fault Isolation:** It helps in isolating faults and preventing cascading failures across multiple microservices.
-2. **Improved Stability:** By failing fast and gracefully, it prevents services from waiting on unresponsive services, thus improving the overall stability of the system.
-3. **Faster Recovery:** It allows the system to recover faster by reducing the load on failing services and giving them time to heal.
+### 🖥️ Virtual Machines (VMs):
 
-### Implementation Considerations
+* Heavyweight
+* Takes minutes to boot
+* OS-level abstraction
 
-- **Thresholds:** Careful selection of failure thresholds and timeout periods is crucial. These thresholds determine when the circuit breaker trips to the open state.
-- **Fallback Mechanisms:** Often used in conjunction with fallback mechanisms to provide default responses or degraded functionality when the circuit breaker is open.
-- **Monitoring and Logging:** Effective monitoring and logging are essential to understand the state transitions and behavior of the circuit breaker, aiding in tuning and troubleshooting.
+### 📦 Containers (e.g., Docker):
 
-### Common Libraries and Tools
+* Lightweight and portable
+* Fast startup time
+* Share host OS kernel
+* Ideal for microservices
 
-- **Hystrix:** A widely used library by Netflix for implementing circuit breakers.
-- **Resilience4j:** A lightweight, easy-to-use library inspired by Hystrix but designed for functional programming.
-- **Spring Cloud Circuit Breaker:** An abstraction over different circuit breaker implementations like Hystrix, Resilience4j, and others, integrated with the Spring ecosystem.
+### 📈 Scalability:
 
-In conclusion, the circuit breaker pattern is a crucial component in building resilient microservice architectures, helping to manage failures gracefully and ensuring the overall health of the system.
+* Use orchestration tools like **Kubernetes**, **Docker Swarm** for:
 
-1. Why MongoDB.
-2. How will you maintain load balance in microservice.
+    * Horizontal scaling
+    * Auto-healing
+    * Load balancing
+    * Zero-downtime deployments
 
-- Client side load balance. Refer flightCheckin project -> ReservationLoadBalancerConfig.java
-- Throug API gate way. It has service discovery and according to the number of instances it will raise the request to multiple instance to manage load.
+</details>
 
-Maintaining load balance in a microservice architecture is crucial for ensuring scalability, reliability, and high availability of services. Here are key strategies and tools for effective load balancing in microservices:
+---
 
-### 1. **Client-Side Load Balancing**
+<details>
+<summary><strong>🧠 Caching in Microservices</strong></summary>
 
-In client-side load balancing, the client determines which instance of a microservice to send a request to.
+Caching improves performance, reduces latency, and decreases load on services.
 
-- **Service Discovery Integration:** Clients use a service discovery mechanism (e.g., Consul, Eureka, etc.) to get a list of available service instances.
-- **Load Balancer Library:** The client uses a library (like Netflix Ribbon) to choose an instance based on a load-balancing algorithm such as round-robin, random, or least connections.
+### 🔂 Common Caching Patterns:
 
-#### Advantages:
+* **Client-Side Cache:** Stores data locally (e.g., browser cache).
+* **Server-Side Cache:** Shared cache used by services (e.g., Redis, Memcached).
+* **CDN (Edge Cache):** For static content close to end-users.
+* **Write-Through Cache:** Data written to cache and DB simultaneously.
+* **Read-Through Cache:** Cache first, DB only if miss.
+* **Cache-Aside (Lazy Load):** App fetches data, stores in cache.
 
-- Reduces the need for an intermediary load balancer.
-- Can make intelligent decisions based on client-specific logic.
+### 🛠️ Tools:
 
-#### Disadvantages:
+* **Spring Cache Abstraction**
+* **Redis**
+* **Caffeine**
+* **Hazelcast**
 
-- Clients need to be updated if service instances change frequently.
-- Potentially more complex client logic.
+</details>
 
-### 2. **Server-Side Load Balancing**
+---
 
-In server-side load balancing, a load balancer sits between the client and the microservice instances, distributing incoming requests.
+<details>
+<summary><strong>🔍 Service Discovery</strong></summary>
 
-- **Reverse Proxies and Load Balancers:** Tools like NGINX, HAProxy, or AWS Elastic Load Balancing can distribute traffic among service instances.
-- **Service Meshes:** Service meshes (e.g., Istio, Linkerd) can handle load balancing along with other functionalities like service discovery, security, and observability.
+Service discovery helps services find each other dynamically without hardcoding IPs or ports.
 
-#### Advantages:
+### 🧭 How It Works:
 
-- Simplifies client logic by abstracting the load-balancing mechanism.
-- Easier to manage and scale load balancing centrally.
+1. **Registration:** Services register themselves to a registry.
+2. **Discovery:** Other services query the registry to get endpoint info.
+3. **Load Balancing:** Requests are spread across healthy service instances.
+4. **Health Checks:** Periodic checks to remove failed instances.
+5. **Dynamic Updates:** Automatically reflects scaling or shutdown.
+6. **Integration with Orchestration Tools:** e.g., Kubernetes, Consul, Eureka
 
-#### Disadvantages:
+### 🧰 Popular Tools:
 
-- Introduces an additional component that can become a bottleneck or single point of failure if not properly managed.
+* **Netflix Eureka**
+* **Consul**
+* **etcd**
+* **Kubernetes built-in service registry**
 
-### 3. **DNS-Based Load Balancing**
+### 🔧 Types:
 
-DNS-based load balancing involves configuring the DNS to return different IP addresses (of service instances) for each request, distributing the load at the DNS level.
+* **Centralized Registry:** e.g., Eureka, Consul
+* **DNS-Based Discovery:** Leverages service names via DNS
+* **Client-Side Discovery:** Client queries the registry and load balances
+* **Server-Side Discovery:** Load balancer (e.g., API Gateway) handles discovery
 
-- **Round Robin DNS:** Distributes traffic by rotating through a list of IP addresses.
-- **Weighted Round Robin:** Assigns weights to IP addresses to distribute traffic based on capacity.
+</details>
 
-#### Advantages:
+---
 
-- Simple to implement.
-- No need for additional infrastructure components.
 
-#### Disadvantages:
+## 📌 Topics Covered
 
-- DNS caching can lead to uneven load distribution.
-- Limited control over the distribution algorithm.
+* [⚖️ Load Balancing in Microservices](#-load-balancing-in-microservices)
+* [❓ Common Microservice Interview Questions](#-common-microservice-interview-questions)
+* [🔌 Circuit Breaker Pattern](#-circuit-breaker-pattern)
 
-### 4. **Service Discovery**
+---
 
-Service discovery mechanisms help in dynamically discovering service instances. They can be integrated with load balancers for efficient traffic distribution.
+<details>
+<summary><strong>⚖️ Load Balancing in Microservices</strong></summary>
 
-- **Consul, Eureka, Zookeeper:** Common service discovery tools that keep track of available service instances.
-- **Kubernetes:** Uses built-in service discovery with its DNS service (kube-dns) and native load balancing.
+Load balancing ensures traffic is evenly distributed across service instances, improving **performance**, **reliability**, and **scalability**.
 
-### 5. **Distributed Load Balancers**
+### 🧭 1. Client-Side Load Balancing
 
-In some advanced setups, load balancing is distributed across different regions or data centers.
+In this strategy, the **client selects the service instance** using an internal load-balancing library.
 
-- **Global Load Balancers:** Tools like AWS Global Accelerator, Cloudflare, or Google Cloud Load Balancer can distribute traffic across multiple regions.
-- **Anycast Routing:** Uses the same IP address in multiple locations, routing traffic to the nearest or best-performing instance.
+#### 🧰 Tools:
 
-### Load Balancing Algorithms
+* **Netflix Ribbon** (Deprecated, but conceptually important)
+* **Spring Cloud LoadBalancer**
+* **Feign Clients with @LoadBalancerClient**
 
-Choosing the right algorithm is crucial for effective load balancing:
+#### 📦 Sample: Ribbon Dependency
 
-- **Round Robin:** Simple and fair, distributing requests sequentially.
-- **Least Connections:** Sends traffic to the instance with the fewest active connections.
-- **IP Hash:** Distributes requests based on the client’s IP address, useful for session persistence.
-- **Weighted Round Robin/Least Connections:** Assigns weights to instances based on their capacity, distributing traffic accordingly.
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+</dependency>
+```
 
-### Monitoring and Auto-Scaling
+#### 📦 Sample: LoadBalanced Feign Client
 
-- **Monitoring Tools:** Use monitoring tools like Prometheus, Grafana, and ELK stack to keep track of service performance and load.
-- **Auto-Scaling:** Implement auto-scaling policies based on metrics such as CPU usage, memory usage, or request rate to dynamically adjust the number of service instances.
+```xml
+<dependency>
+   <groupId>org.springframework.cloud</groupId>
+   <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+</dependency>
+```
 
-### Conclusion
+```java
+@LoadBalancerClient(value = "FLIGHT-RESERVATION")
+public class ReservationLoadBalancerConfig {
+   @Bean
+   @LoadBalanced
+   public Feign.Builder feiBuilder() {
+      return Feign.builder();
+   }
+}
+```
 
-Maintaining load balance in microservices requires a combination of client-side and server-side strategies, effective service discovery, and the use of appropriate load balancing algorithms. Leveraging modern tools and technologies like service meshes, reverse proxies, and cloud-based load balancers, along with robust monitoring and auto-scaling mechanisms, ensures that your microservices architecture can handle varying loads efficiently and reliably.
+### 🌐 2. Server-Side Load Balancing
 
-# API Gateway
+Handled by a **gateway or reverse proxy** that distributes requests to service instances.
 
-> Explain gate way (API Gateway) function in micro service.
-> > API gateway is the entry point and handles the request loads. By default it has load balancer. In spite of configuring load balancer in the client service, api gate way will handle the load balancing for all the services.
+#### 🔧 Tools:
 
-> Pre-filter and post-filter
+* **API Gateway** (Spring Cloud Gateway, Netflix Zuul)
+* **NGINX**, **HAProxy**
+* **AWS ELB**, **Azure Load Balancer**
 
-> Popular open-source API gateways:
-> > 1. Kong Gateway, 2. Apache APISIX, 3. Traefik
+### 📦 3. Kubernetes-Based Load Balancing
 
-An API Gateway is a server that acts as an intermediary for requests from clients seeking services from backend servers. It is a fundamental component in a microservices architecture, providing a centralized entry point for managing and routing requests to the appropriate services.
+Kubernetes inherently supports load balancing.
 
-Here's a simple explanation of its uses:
+* **Services**: Distribute traffic to pods using label selectors.
+* **Ingress Controllers**: Manage HTTP load balancing and routing.
 
-1. **Request Routing**: The API Gateway routes incoming client requests to the appropriate backend service. It knows where each microservice resides and forwards the requests accordingly.
+### 🔍 4. DNS-Based Load Balancing
 
-2. **Load Balancing**: It distributes incoming requests evenly across multiple instances of a service, ensuring no single instance is overwhelmed and improving the application's availability and responsiveness.
+Uses DNS records to return different service IPs.
 
-3. **Security**: The gateway can handle authentication and authorization, ensuring that only authorized clients can access the services. It can also enforce security policies and manage API keys or tokens.
+* **Round Robin DNS**
+* **Weighted DNS**
 
-- `Pre-Filter` When the consumer sends the request to API gateway, API gate way(spring cloud API Gateway) will authenticate and sends the request to the respective micro-service app.
+⚠️ DNS caching may reduce effectiveness.
 
-- `Post-Filter` Responce from the micro-service application will be logged inside the API Gate way or adding the headers to the responce by API Gateway. This is handled in Post-Filter.
+### 📡 5. Global/Distributed Load Balancing
 
-4. **Centralized Logging and Monitoring**: It collects logs and metrics for all requests passing through, providing a centralized point for monitoring and troubleshooting.
+For multi-region or high availability:
 
-5. **Rate Limiting and Throttling**: The API Gateway can control the rate of requests sent to the backend services, protecting them from being overwhelmed by too many requests in a short period (rate limiting) or by regulating the traffic flow (throttling).
+* **AWS Global Accelerator**
+* **Cloudflare Load Balancer**
+* **Anycast IP Routing**
 
-6. **Caching**: It can cache responses to frequent requests, reducing the load on backend services and improving response times for clients.
+### ⚙️ Load Balancing Algorithms
 
-7. **Protocol Translation**: The gateway can translate between different protocols. For example, it can accept HTTP requests from clients and convert them to a different protocol used by backend services.
+| Algorithm                | Description                        |
+| ------------------------ | ---------------------------------- |
+| **Round Robin**          | Sequential request distribution    |
+| **Least Connections**    | Sends to least busy instance       |
+| **IP Hash**              | Sticky sessions based on client IP |
+| **Weighted Round Robin** | Based on service capacity          |
+| **Random**               | Randomly selects a node            |
 
-8. **Transformation and Aggregation**: The API Gateway can transform request and response formats and aggregate multiple service calls into a single request, simplifying the client's interaction with the microservices.
+### 📊 Monitoring & Auto-scaling
 
-Overall, an API Gateway simplifies client interactions with a microservices-based application by handling various cross-cutting concerns in a centralized and efficient manner.
+* **Prometheus**, **Grafana** for observability
+* **Horizontal Pod Autoscaler (K8s)** for dynamic scaling
 
-## Microservice Strangler Fig Patterns strategy
-- Legacy system to microservice.
-- First Old tree. On top of that new small trees are growing. Then the entire old tree is removed and new trees ocupies that place.
+</details>
+
+---
+
+<details>
+<summary><strong>❓ Common Microservice Interview Questions</strong></summary>
+
+### Q1: 🛑 How do you handle a malfunctioning microservice?
+
+* Deploy **multiple instances** on different ports.
+* Use **load balancing** to redirect traffic from the failed instance to healthy ones.
+* Implement **circuit breakers**, **health checks**, and **retry logic**.
+
+---
+
+### Q2: 🚀 Why do we use Microservices?
+
+Microservices break down an application into smaller, independent services. Benefits include:
+
+#### ✅ Key Advantages:
+
+1. **Scalability:** Scale only what’s needed.
+2. **Modularity & Maintainability:** Small, manageable components.
+3. **Technology Diversity:** Use the right tool for the job.
+4. **Faster Time to Market:** Independent development/deployment.
+5. **Resilience:** Failures don’t affect the whole system.
+6. **CI/CD Friendly:** Easier to automate deployments.
+7. **Agility:** Quickly adapt to business changes.
+8. **Focused Testing:** Better unit and integration testing.
+9. **Cloud Readiness:** Works well with Docker, Kubernetes.
+10. **Reusability:** Services reused across applications.
+
+#### ⚠️ Challenges:
+
+* Complexity in inter-service communication
+* Data consistency
+* Infrastructure overhead
+* Monitoring and debugging complexity
+
+---
+
+### Q3: 🌐 How will you maintain load balance in microservices?
+
+#### ✅ Strategies:
+
+1. **Client-Side Load Balancing**
+
+    * Uses service discovery + Ribbon/Spring Cloud LoadBalancer.
+    * Example: `ReservationLoadBalancerConfig.java`
+
+2. **API Gateway**
+
+    * Routes and load balances requests to services.
+
+3. **Reverse Proxies**
+
+    * NGINX/HAProxy to balance HTTP/TCP traffic.
+
+4. **Kubernetes**
+
+    * Built-in load balancing via `Services` and `Ingress`.
+
+5. **Service Mesh**
+
+    * (e.g., Istio) offers fine-grained control.
+
+6. **Global Load Balancers**
+
+    * Cloud-based solutions for multi-region deployment.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔌 Circuit Breaker Pattern</strong></summary>
+
+A circuit breaker **prevents cascading failures** by stopping calls to a failing service and allowing time for recovery.
+
+### 🔁 Circuit Breaker States
+
+| State         | Description                                                   |
+| ------------- | ------------------------------------------------------------- |
+| **Closed**    | Normal operation. Requests flow through.                      |
+| **Open**      | Too many failures. All calls blocked.                         |
+| **Half-Open** | Trial state. A few requests allowed to test service recovery. |
+
+---
+
+### ⚙️ How It Works
+
+1. **Closed**: All requests allowed. Failures are tracked.
+2. **Open**: If failure threshold is met, no further calls are allowed.
+3. **Half-Open**: After a cooldown period, a few requests are tested.
+
+    * If they succeed → back to Closed.
+    * If they fail → back to Open.
+
+---
+
+### ✅ Benefits
+
+* **Fault Isolation**
+* **Improved System Stability**
+* **Faster Recovery**
+
+---
+
+### 🔧 Configuration (Resilience4j Example)
+
+```yaml
+resilience4j.circuitbreaker:
+  instances:
+    myService:
+      slidingWindowSize: 10
+      failureRateThreshold: 50
+      waitDurationInOpenState: 30s
+      permittedNumberOfCallsInHalfOpenState: 3
+```
+
+---
+
+### 🧰 Common Libraries
+
+| Tool                             | Notes                                           |
+| -------------------------------- | ----------------------------------------------- |
+| **Hystrix**                      | Netflix's legacy library (no longer maintained) |
+| **Resilience4j**                 | Lightweight, modern, Java 8+ functional         |
+| **Spring Cloud Circuit Breaker** | Abstraction for different circuit breaker tools |
+
+---
+
+</details>
+
+---
+
+# API Gateway in Microservices
+
+<details>
+<summary><strong>🌐 API Gateway in Microservices</strong></summary>
+
+An **API Gateway** is a **centralized entry point** for handling all requests in a microservices architecture. It performs routing, security, monitoring, load balancing, and more, abstracting the internal system complexity from clients.
+
+---
+
+### 🧭 Key Responsibilities of an API Gateway
+
+| Feature                              | Description                                                        |
+| ------------------------------------ | ------------------------------------------------------------------ |
+| **Routing**                          | Directs requests to the correct backend service.                   |
+| **Load Balancing**                   | Distributes incoming traffic across multiple service instances.    |
+| **Authentication & Authorization**   | Ensures only verified clients can access services.                 |
+| **Centralized Logging & Monitoring** | Captures logs and metrics for observability.                       |
+| **Rate Limiting & Throttling**       | Protects services from overload by limiting request rates.         |
+| **Caching**                          | Stores responses for repeated requests to improve performance.     |
+| **Protocol Translation**             | Converts between client and backend protocols (e.g., HTTP ↔ gRPC). |
+| **Request/Response Transformation**  | Modifies payloads, headers, or response format.                    |
+| **Aggregation**                      | Combines responses from multiple services into a single output.    |
+
+---
+
+### ⚖️ Built-in Load Balancing
+
+Most API Gateways (e.g., Spring Cloud Gateway, Apigee, Kong) provide **built-in server-side load balancing**:
+
+* Removes the need for client-side load balancers (e.g., Ribbon).
+* Distributes traffic to available service instances automatically.
+* Integrates with service discovery for dynamic routing.
+
+---
+
+### 🔐 Filters: Pre and Post
+
+API Gateways use filters for cross-cutting concerns.
+
+#### 🔹 Pre-Filters
+
+* Executed **before routing**.
+* Common uses: **authentication**, **logging**, **header validation**.
+
+#### 🔹 Post-Filters
+
+* Executed **after service response**.
+* Common uses: **adding headers**, **logging**, **metrics collection**.
+
+---
+
+### 🧰 Popular API Gateway Solutions
+
+| Gateway                  | Type                      | Description                                                                                           |
+| ------------------------ | ------------------------- | ----------------------------------------------------------------------------------------------------- |
+| **Apigee**               | Commercial (Google Cloud) | Enterprise-grade API management. Full support for analytics, rate limiting, monetization, and OAuth2. |
+| **Kong Gateway**         | Open Source / Enterprise  | Built on NGINX. Plugin-based. Scalable and performant.                                                |
+| **Apache APISIX**        | Open Source               | High-performance, dynamic, cloud-native API Gateway built on OpenResty.                               |
+| **Traefik**              | Open Source               | Modern reverse proxy with dynamic service discovery. Great for Docker and Kubernetes.                 |
+| **Spring Cloud Gateway** | Open Source (Java/Spring) | Native to Spring ecosystem. Built-in filters, reactive support.                                       |
+| **NGINX**                | Open Source / Commercial  | Traditional reverse proxy/load balancer with API management extensions.                               |
+
+---
+
+### ✅ Advantages of API Gateways
+
+* Simplifies client interaction with backend microservices.
+* Centralized policy enforcement.
+* Reduces complexity on client side.
+* Enables observability and security best practices.
+
+---
+
+### ⚠️ Things to Watch Out For
+
+* **Single Point of Failure**: Must ensure gateway is highly available.
+* **Latency Overhead**: Adds a hop in request-response cycle.
+* **Scaling Needs**: Should scale horizontally to meet traffic demand.
+
+---
+
+</details>
+
+---
+
+Here’s a **collapsible section** comparing **Eureka** and **Apigee Gateway** in terms of features and configuration. This includes:
+
+* Purpose
+* Feature set
+* Typical use cases
+* Configuration overview
+
+Formatted in both **table form** and **collapsible markdown** for clear, structured documentation.
+
+---
+
+<details>
+<summary><strong>🔍 Eureka vs Apigee API Gateway – Feature & Configuration Comparison</strong></summary>
+
+### 📊 Feature Comparison Table
+
+| Feature / Capability                | **Eureka (Netflix OSS)**                   | **Apigee (Google Cloud API Gateway)**                |
+| ----------------------------------- | ------------------------------------------ | ---------------------------------------------------- |
+| **Type**                            | Service Discovery                          | Full-featured API Gateway & Management Platform      |
+| **Provider**                        | Netflix OSS, Spring Cloud Netflix          | Google Cloud (Enterprise Product)                    |
+| **Primary Role**                    | Registers and discovers microservices      | Routes, secures, monitors, and manages APIs          |
+| **Load Balancing**                  | ✖️ (Used with Ribbon / Spring Cloud LB)    | ✔️ Built-in                                          |
+| **Authentication & Authorization**  | ✖️ Delegated to other tools                | ✔️ OAuth 2.0, API Keys, JWT                          |
+| **Traffic Management (Rate Limit)** | ✖️                                         | ✔️ Policies for throttling, quotas, rate limiting    |
+| **Request/Response Transformation** | ✖️                                         | ✔️ Header/body manipulation supported                |
+| **Analytics & Monitoring**          | ✖️ Basic via Spring Boot Actuator          | ✔️ Advanced API usage analytics, billing, monitoring |
+| **Caching Support**                 | ✖️                                         | ✔️ Built-in response caching                         |
+| **Protocol Support**                | Internal only (HTTP, REST)                 | HTTP(S), gRPC, WebSockets                            |
+| **API Monetization**                | ✖️                                         | ✔️ Supported                                         |
+| **Service Mesh Integration**        | Partial (e.g., with Istio via workarounds) | Not natively, but supports proxying into meshes      |
+| **Multi-Cloud / Hybrid Support**    | No                                         | ✔️ Designed for hybrid and multi-cloud deployments   |
+| **UI Management Console**           | ✔️ (via Spring Dashboard or Eureka UI)     | ✔️ Full-featured web interface for managing APIs     |
+
+---
+
+### ⚙️ Configuration Overview
+
+| Configuration Step        | **Eureka**                                                | **Apigee**                                         |
+| ------------------------- | --------------------------------------------------------- | -------------------------------------------------- |
+| **1. Add Dependencies**   | `spring-cloud-starter-netflix-eureka-server`              | No dependencies; managed via GCP & API proxies     |
+| **2. Enable Server**      | `@EnableEurekaServer` on a Spring Boot app                | Create API proxies in Apigee UI or via Apigee APIs |
+| **3. Register Clients**   | `@EnableEurekaClient` + service name in `application.yml` | Upload or define OpenAPI spec or proxy endpoint    |
+| **4. Discovery Settings** | Specify `eureka.client.serviceUrl.defaultZone`            | Define routing targets and policies                |
+| **5. Load Balancing**     | Use Ribbon or Spring Cloud LoadBalancer                   | Automatically handled within Apigee                |
+| **6. Security & Auth**    | Custom or delegated (e.g., Spring Security, OAuth config) | Built-in: API key validation, OAuth2, JWT policies |
+| **7. Logging/Monitoring** | Via Spring Boot Actuator, Zipkin, Sleuth                  | Advanced monitoring dashboards in Apigee Console   |
+| **8. Rate Limiting**      | Not built-in (custom logic or Spring Cloud Gateway)       | Policy-driven configuration per API in Apigee      |
+
+---
+
+### ✅ When to Use What?
+
+| Use Case                             | Use **Eureka**              | Use **Apigee**                                      |
+| ------------------------------------ | --------------------------- | --------------------------------------------------- |
+| Internal service discovery           | ✔️ Yes                      | ✖️ Overkill for internal use only                   |
+| Public API management                | ✖️ Not suitable             | ✔️ Ideal for managing and exposing public APIs      |
+| API monetization / external clients  | ✖️ Not supported            | ✔️ Monetization, subscriptions, analytics           |
+| Lightweight Spring Boot projects     | ✔️ Simple to integrate      | ✖️ Heavyweight; best for large-scale API ecosystems |
+| Enterprise-grade security/compliance | ✖️ Custom handling required | ✔️ Built-in policies and regulatory support         |
+| Multi-cloud or hybrid deployment     | ✖️ No                       | ✔️ Designed for it                                  |
+
+---
+
+</details>
+
+---
+
+## **basic configuration/code samples** for both **Eureka** (Spring Boot/Netflix OSS) and **Apigee** (Google Cloud API Gateway) to help you get started.
+
+---
+
+<details>
+<summary><strong>🔧 Eureka – Service Discovery Setup (Spring Boot)</strong></summary>
+
+### 🖥️ 1. Setup Eureka Server
+
+#### 👉 Dependencies (`pom.xml`)
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+</dependency>
+```
+
+#### 👉 Main Class
+
+```java
+@SpringBootApplication
+@EnableEurekaServer
+public class EurekaServerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaServerApplication.class, args);
+    }
+}
+```
+
+#### 👉 `application.yml` (Eureka Server)
+
+```yaml
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+```
+
+---
+
+### 📦 2. Setup Eureka Client (Microservice)
+
+#### 👉 Dependencies (`pom.xml`)
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+</dependency>
+```
+
+#### 👉 Main Class
+
+```java
+@SpringBootApplication
+@EnableEurekaClient
+public class MyServiceApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MyServiceApplication.class, args);
+    }
+}
+```
+
+#### 👉 `application.yml` (Eureka Client)
+
+```yaml
+spring:
+  application:
+    name: my-service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+```
+
+💡 **Now this microservice will register itself with Eureka**, and other services can discover it using its service ID (`my-service`).
+
+---
+
+</details>
+
+<details>
+<summary><strong>🌐 Apigee – API Proxy Setup (Google Cloud)</strong></summary>
+
+Apigee is configured either via the **Apigee Console UI**, **Apigee Management API**, or **gcloud CLI**. Here's how to create a basic proxy.
+
+---
+
+### 🧾 1. Create a Proxy in the Apigee Console
+
+1. Go to: [https://apigee.google.com](https://apigee.google.com)
+2. Choose your organization and environment.
+3. Click **Develop > API Proxies > +Proxy**
+4. Select:
+
+    * **Reverse proxy**
+    * **Provide backend URL** (e.g., `https://my-backend-service.com`)
+5. Configure routing, authentication, quota, etc.
+6. Click **Deploy** to `test` or `prod`.
+
+---
+
+### 💻 2. Example: Proxy via OpenAPI Spec
+
+You can import an OpenAPI (Swagger) spec file and generate the proxy.
+
+```bash
+gcloud api-gateway api-configs create my-config \
+    --api=my-api \
+    --openapi-spec=openapi.yaml \
+    --project=my-gcp-project \
+    --backend-auth-service-account=my-sa@my-gcp-project.iam.gserviceaccount.com \
+    --display-name="My API Config"
+```
+
+---
+
+### 🔐 3. Attach Auth, Quota, and Caching Policies (XML)
+
+In Apigee proxies, you define policies in `XML`.
+
+#### 📌 Example: Quota Policy (`quota.xml`)
+
+```xml
+<Quota name="QuotaPolicy">
+  <Interval>1</Interval>
+  <TimeUnit>minute</TimeUnit>
+  <Allow>100</Allow>
+</Quota>
+```
+
+Attach it inside your proxy under `<Step>` tag.
+
+---
+
+### 📄 4. Example: Sample `openapi.yaml`
+
+```yaml
+swagger: '2.0'
+info:
+  title: Example API
+  version: 1.0.0
+host: my-api-id.a.run.app
+x-google-backend:
+  address: https://backend.example.com
+paths:
+  /hello:
+    get:
+      operationId: sayHello
+      responses:
+        '200':
+          description: A successful response
+```
+
+💡 Upload this using `gcloud` or import from Apigee UI.
+
+---
+
+### 📊 5. Monitoring in Apigee
+
+* Navigate to **Analyze > API Metrics**
+* View charts on traffic, latency, errors, quota usage, etc.
+* Enable **logging to Stackdriver (Cloud Logging)** for detailed logs.
+
+</details>
+
+---
+
+ # **Microservice Strangler Fig Pattern Strategy**
+
+---
+
+<details>
+<summary><strong>🌳 Microservice Strangler Fig Pattern Strategy</strong></summary>
+
+### 🔄 **Purpose**
+
+The **Strangler Fig Pattern** is a migration strategy used to **gradually replace a legacy monolithic system** with a new microservices-based architecture. Instead of rewriting everything from scratch, new features are built as microservices while the old system continues to operate. Over time, the legacy parts are "strangled" and fully replaced.
+
+---
+
+### 🌱 **Analogy: The Strangler Fig Tree**
+
+* In nature, a **strangler fig** starts growing beside or on top of a tree.
+* Over time, its roots grow down, wrap around the host tree, and eventually **replace it entirely**.
+* In software, the **old monolith is the tree**, and the **new microservices are the fig**.
+
+---
+
+### 🧠 **How It Works**
+
+| Phase                             | Description                                                                                                           |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| **1. Identify Boundaries**        | Choose a part of the legacy system (e.g., a module or service) that can be separated.                                 |
+| **2. Create Proxy/Routing Layer** | Use a façade or API Gateway to intercept requests and direct some to the legacy system and some to new microservices. |
+| **3. Replace Incrementally**      | One piece at a time, rewrite legacy functionality as a microservice and update routing.                               |
+| **4. Retire Legacy Code**         | Once a module is fully migrated, remove it from the old system. Repeat for the next module.                           |
+
+---
+
+### 🧰 **Tools Often Used**
+
+* **API Gateway / Reverse Proxy** – e.g., Spring Cloud Gateway, NGINX, Apigee
+* **Service Mesh** – for more granular control of routing (e.g., Istio)
+* **Message Brokers** – to decouple legacy and new systems using events (e.g., Kafka, RabbitMQ)
+
+---
+
+### ✅ **Advantages**
+
+* No need for a risky big-bang rewrite
+* Continuous delivery possible during migration
+* Minimizes downtime and regression risks
+* Parallel development of new and old systems
+
+---
+
+### ⚠️ **Challenges**
+
+* Routing complexity and maintenance during the transition
+* Consistent data management between legacy and new systems
+* Requires strong architectural planning and communication between teams
+
+---
+
+### 💡 Example Use Case
+
+Imagine a legacy e-commerce app:
+
+* You start by moving **user registration and authentication** to a new microservice.
+* Route all login/signup traffic to the new service.
+* Continue to move modules like **product catalog**, **order service**, etc., until the monolith is fully replaced.
+
+---
+
+### 📘 Summary
+
+> **The Strangler Fig Pattern** is a safe and strategic approach to migrate from a legacy system to microservices **incrementally**, enabling agility and avoiding complete system overhauls.
+
+</details>
+
+---
+
+# **important topics in Microservices**
+---
+
+<details>
+<summary><strong>🧱 1. Microservices vs Monolithic Architecture</strong></summary>
+
+| Feature              | Monolithic                        | Microservices                                |
+| -------------------- | --------------------------------- | -------------------------------------------- |
+| **Architecture**     | Single codebase                   | Distributed services                         |
+| **Deployment**       | One deployment for all modules    | Independent deployment per service           |
+| **Scalability**      | Scale whole app                   | Scale individual services                    |
+| **Technology Stack** | Usually uniform                   | Polyglot possible                            |
+| **Fault Isolation**  | Hard (single failure = app crash) | Easy (one service crash doesn’t affect rest) |
+| **Maintenance**      | Difficult as app grows            | Easier due to modularity                     |
+
+✅ Use microservices when you need flexibility, scalability, and faster delivery.
+
+</details>
+
+---
+
+<details>
+<summary><strong>📬 2. Inter-Service Communication</strong></summary>
+
+Microservices must talk to each other in a decoupled and efficient way:
+
+### 🔹 Synchronous Communication
+
+* **REST API** – Common, simple over HTTP
+* **gRPC** – Efficient, contract-first communication (Protobuf)
+
+### 🔹 Asynchronous Communication
+
+* **Message Queues** (RabbitMQ, ActiveMQ)
+* **Event Streaming** (Kafka, Pulsar)
+
+🔁 **When to use what?**
+
+| Communication | Use Case                                   |
+| ------------- | ------------------------------------------ |
+| REST/gRPC     | Real-time, blocking requests               |
+| Kafka         | Event-driven, high throughput, scalability |
+| RabbitMQ      | Queued, reliable delivery of tasks         |
+
+</details>
+
+---
+
+<details>
+<summary><strong>🧩 3. Design Patterns in Microservices</strong></summary>
+
+### 🧠 Common Patterns
+
+* **API Gateway** – Central entry point
+* **Circuit Breaker** – Prevent cascading failures
+* **Service Discovery** – Dynamic service location (e.g., Eureka)
+* **Strangler Fig** – Legacy to microservices migration
+* **Saga Pattern** – Manage distributed transactions
+* **CQRS** – Command Query Responsibility Segregation
+* **Event Sourcing** – Persist system state using event history
+* **Bulkhead** – Isolate services to avoid total failure
+
+💡 These patterns solve challenges around **resilience**, **fault-tolerance**, and **scalability**.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔐 4. Security in Microservices</strong></summary>
+
+### 🛡️ Best Practices
+
+* **Authentication**: OAuth2, OpenID Connect
+* **Authorization**: Role-based or attribute-based
+* **JWT**: Token-based stateless auth
+* **API Gateway**: Acts as a security gateway
+* **Encrypt Data**: Both at-rest and in-transit
+* **Zero Trust Model**: Never trust, always verify
+
+🔐 Security should be **centralized at the gateway** but also **enforced at service level**.
+
+</details>
+
+---
+
+<details>
+<summary><strong>📊 5. Observability: Logging, Monitoring, Tracing</strong></summary>
+
+### 📘 Key Concepts
+
+| Feature     | Description                                         |
+| ----------- | --------------------------------------------------- |
+| **Logging** | Use centralized log collectors (e.g., ELK stack)    |
+| **Metrics** | Use Prometheus, Micrometer, Grafana for stats       |
+| **Tracing** | Use OpenTelemetry, Jaeger, Zipkin to trace requests |
+
+* **Correlation ID** – Trace a request across services
+* **Health Checks** – Expose readiness/liveness endpoints
+
+🧠 **Observability = Monitoring + Logging + Tracing**
+
+</details>
+
+---
+
+<details>
+<summary><strong>⚙️ 6. Configuration Management</strong></summary>
+
+### 🧾 Strategies
+
+* **Spring Cloud Config** – Centralized config for all services
+* **Kubernetes ConfigMap / Secrets** – Externalize environment settings
+* **Vault** – Secure secrets management
+
+### 🔁 Refresh strategies
+
+* Use **Actuator endpoints** or **bus refresh** in Spring to update configs dynamically.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🚀 7. Deployment & Orchestration</strong></summary>
+
+### 🧰 Tools
+
+| Layer             | Tools                                 |
+| ----------------- | ------------------------------------- |
+| **Containers**    | Docker                                |
+| **Orchestration** | Kubernetes, Docker Swarm              |
+| **Service Mesh**  | Istio, Linkerd                        |
+| **CI/CD**         | Jenkins, GitHub Actions, GitLab CI/CD |
+
+### 🏗️ Key Features
+
+* **Horizontal Scaling**
+* **Rolling Deployments**
+* **Self-healing**
+* **Service Discovery (in-built in K8s)**
+
+</details>
+
+---
+
+<details>
+<summary><strong>📦 8. Microservices Testing Types</strong></summary>
+
+| Test Type            | Purpose                                 |
+| -------------------- | --------------------------------------- |
+| **Unit Test**        | Test logic in isolation                 |
+| **Integration Test** | Test interaction between components     |
+| **Contract Test**    | Verify service communication agreements |
+| **End-to-End Test**  | Simulate full user journeys             |
+| **Performance Test** | Check behavior under load               |
+
+Tools: **JUnit, TestContainers, WireMock, Postman/Newman, Gatling**
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔄 9. Data Management in Microservices</strong></summary>
+
+### 🗃️ Principles
+
+* **Database per service** – No shared DBs
+* **Eventual consistency** – Accept delays in sync
+* **Distributed Transactions** – Use **Saga** or **Outbox Pattern**
+
+### 🛠️ Tools
+
+* **Kafka / Debezium** – For event-based data sync
+* **Change Data Capture (CDC)** – Listen to DB changes
+
+</details>
+
+---
+
+<details>
+<summary><strong>📚 10. API Versioning & Documentation</strong></summary>
+
+### 📌 API Versioning Strategies
+
+* URI versioning: `/api/v1/users`
+* Header versioning: `Accept-Version: v1`
+* Media type versioning: `application/vnd.company.v1+json`
+
+### 📘 Documentation
+
+* **Swagger/OpenAPI** – Interactive API docs
+* **SpringDoc** – Swagger integration with Spring Boot
+
+</details>
+
+---
+
+

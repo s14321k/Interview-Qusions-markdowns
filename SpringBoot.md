@@ -109,9 +109,36 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   * [🔑 What is SSO?](#-what-is-sso)
   * [🔗 Integration with Spring Security OAuth2 or Keycloak](#-integration-with-spring-security-oauth2-or-keycloak)
   * [📚 Spring Method Security Reference](#-spring-method-security-reference)
-* [AOP (Aspect-Oriented Programming) in Spring Boot](#aop-aspect-oriented-programming-in-spring-boot)
-  * [How to Implement AOP in Spring Boot](#how-to-implement-aop-in-spring-boot)
-  * [Summary](#summary)
+* [⚙️ Aspect-Oriented Programming (AOP) in Spring Boot](#-aspect-oriented-programming-aop-in-spring-boot)
+  * [🛠️ How AOP Works in Spring Boot](#-how-aop-works-in-spring-boot)
+    * [1. **Add Spring AOP Dependency**](#1-add-spring-aop-dependency)
+    * [2. **Enable Aspect Support**](#2-enable-aspect-support)
+    * [3. **Create an Aspect Class**](#3-create-an-aspect-class)
+    * [4. **Define Pointcuts**](#4-define-pointcuts)
+    * [5. **Use AOP with Your Services**](#5-use-aop-with-your-services)
+    * [🔐 Security](#-security)
+    * [🧾 Auditing](#-auditing)
+    * [🔁 Retry Logic (Custom)](#-retry-logic-custom)
+  * [✅ Summary](#-summary)
+* [📦 AOP in Spring Boot – Explained (with Custom Annotations + Logging)](#-aop-in-spring-boot--explained-with-custom-annotations--logging)
+    * [Purpose:](#purpose)
+    * [Example usage:](#example-usage-1)
+    * [Corresponding Aspect:](#corresponding-aspect)
+    * [Purpose:](#purpose-1)
+    * [Example usage:](#example-usage-2)
+    * [Retry Logic Aspect:](#retry-logic-aspect)
+    * [SLF4J is used for logging with support from Logback.](#slf4j-is-used-for-logging-with-support-from-logback)
+* [Advanced AOP Topics in Spring Boot](#advanced-aop-topics-in-spring-boot)
+    * [Why?](#why)
+    * [How?](#how)
+    * [Example usage:](#example-usage-3)
+    * [Why?](#why-1)
+    * [How?](#how-1)
+    * [Now logs are saved to DB on every annotated method call.](#now-logs-are-saved-to-db-on-every-annotated-method-call)
+    * [Why?](#why-2)
+    * [Concept:](#concept)
+    * [Simple AOP Implementation Idea:](#simple-aop-implementation-idea)
+    * [This basic implementation tracks failure counts and opens the circuit if failures exceed the threshold, then resets after a timeout.](#this-basic-implementation-tracks-failure-counts-and-opens-the-circuit-if-failures-exceed-the-threshold-then-resets-after-a-timeout)
   * [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
     * [Setup:](#setup)
     * [Directory Structure:](#directory-structure)
@@ -120,7 +147,7 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     * [Group Membership:](#group-membership)
     * [Updates:](#updates)
     * [Security:](#security)
-    * [Summary](#summary-1)
+    * [Summary](#summary)
 * [🛠️ Spring Boot Commands](#-spring-boot-commands)
   * [🧰 Gradle Commands](#-gradle-commands)
   * [🔧 Maven Commands](#-maven-commands)
@@ -2537,99 +2564,887 @@ Single Sign-On (SSO) is an authentication process allowing a user to access mult
 
 ---
 
-# AOP (Aspect-Oriented Programming) in Spring Boot
+Here’s a **completely refactored**, **clearer**, and **well-structured** version of your **AOP in Spring Boot** explanation — with collapsible sections, *"why it’s needed"*, *"how it works"*, and **realistic usage examples**.
 
-AOP is a technique to modularize cross-cutting concerns like logging, security, transactions, and error handling — aspects that affect multiple parts of your app.
+---
+
+# ⚙️ Aspect-Oriented Programming (AOP) in Spring Boot
+
+Aspect-Oriented Programming (**AOP**) is a programming paradigm used to **separate cross-cutting concerns** from core business logic. In large applications, certain functionalities like logging, security, transactions, etc., appear across many parts of the code — AOP allows us to **modularize** and **centralize** such concerns.
 
 ---
 
 <details>
-<summary><strong>Why Use AOP?</strong></summary>
+<summary><strong>🎯 What Are Cross-Cutting Concerns?</strong></summary>
 
-- **Logging:** Track method entry, exit, and parameters.
-- **Security:** Enforce authentication and authorization rules.
-- **Caching:** Improve performance by caching method results.
-- **Exception Handling:** Centralize error handling logic.
-- **Transaction Management:** Manage transactional boundaries declaratively.
+Cross-cutting concerns are functionalities that span across multiple layers or modules of an application and are **not part of core business logic**, but are still essential.
+
+**Examples:**
+
+* Logging
+* Security (authentication/authorization)
+* Caching
+* Performance monitoring
+* Error handling
+* Transaction management
+
+Using AOP, these concerns can be **injected transparently**, rather than duplicated in multiple classes.
 
 </details>
 
 ---
 
-## How to Implement AOP in Spring Boot
-
 <details>
-<summary><strong>Step-by-step Guide</strong></summary>
+<summary><strong>💡 Why Use AOP in Spring Boot?</strong></summary>
 
-1. **Add Dependency**  
-   Include the Spring Boot AOP starter in your `pom.xml` or `build.gradle`:
+| Concern                | Without AOP                                         | With AOP                                                     |
+| ---------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
+| **Logging**            | You manually add logs in every method.              | A logging aspect can log method entry/exit automatically.    |
+| **Security**           | You check user roles in each method.                | A security aspect can enforce roles before method execution. |
+| **Transactions**       | You write boilerplate code in every service method. | Spring AOP + `@Transactional` handles it declaratively.      |
+| **Exception Handling** | You handle exceptions in each class.                | A centralized aspect can catch and log exceptions.           |
 
-    ```xml
-    <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-aop</artifactId>
-    </dependency>
-    ```
+✅ **Benefits of Using AOP**:
 
-2. **Create an Aspect Class**
-   Use the `@Aspect` annotation and define advice methods:
-
-   ```java
-   import org.aspectj.lang.annotation.Aspect;
-   import org.aspectj.lang.annotation.Before;
-
-   @Aspect
-   public class LoggingAspect {
-       @Before("execution(* com.example.service.*.*(..))")
-       public void logMethodEntry() {
-           // Logging logic here
-       }
-   }
-   ```
-
-3. **Define Pointcuts**
-   The expression `"execution(* com.example.service.*.*(..))"` targets all methods in the `com.example.service` package.
-
-4. **Enable AOP in Configuration**
-   Add `@EnableAspectJAutoProxy` in a configuration class:
-
-   ```java
-   import org.springframework.context.annotation.Configuration;
-   import org.springframework.context.annotation.EnableAspectJAutoProxy;
-
-   @Configuration
-   @EnableAspectJAutoProxy
-   public class AopConfig {
-       // Additional AOP configuration if needed
-   }
-   ```
-
-5. **Use Aspects on Beans**
-   Annotate your service classes with `@Service` so Spring manages them:
-
-   ```java
-   import org.springframework.stereotype.Service;
-
-   @Service
-   public class MyService {
-       // Business logic
-   }
-   ```
-
-   The aspect will intercept calls to methods in this class as configured.
+* Cleaner, more modular code
+* Easier testing and debugging
+* Better separation of concerns
+* Improved maintainability
 
 </details>
 
 ---
 
-## Summary
+## 🛠️ How AOP Works in Spring Boot
 
-* AOP cleanly separates cross-cutting concerns from business logic.
-* Spring Boot uses AspectJ under the hood for AOP support.
-* Applying AOP improves modularity, readability, and maintainability.
+Spring Boot uses **AspectJ (runtime weaving)** to implement AOP. You define aspects (classes) that contain advice (code to run) which are triggered by **pointcuts** (method matching rules).
 
 ---
 
+<details>
+<summary><strong>📦 Step-by-Step Implementation</strong></summary>
+
+### 1. **Add Spring AOP Dependency**
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-aop</artifactId>
+</dependency>
+```
+
+---
+
+### 2. **Enable Aspect Support**
+
+Create a config class to enable proxy-based AOP:
+
+```java
+@Configuration
+@EnableAspectJAutoProxy
+public class AopConfig {
+}
+```
+
+---
+
+### 3. **Create an Aspect Class**
+
+Use `@Aspect` and define **advice** methods:
+
+```java
+@Aspect
+@Component
+public class LoggingAspect {
+
+    @Before("execution(* com.example.service.*.*(..))")
+    public void logBefore(JoinPoint joinPoint) {
+        System.out.println("Method Invoked: " + joinPoint.getSignature().getName());
+    }
+
+    @AfterReturning(pointcut = "execution(* com.example.service.*.*(..))", returning = "result")
+    public void logAfter(Object result) {
+        System.out.println("Returned Value: " + result);
+    }
+
+    @AfterThrowing(pointcut = "execution(* com.example.service.*.*(..))", throwing = "ex")
+    public void logException(Exception ex) {
+        System.out.println("Exception Occurred: " + ex.getMessage());
+    }
+}
+```
+
+---
+
+### 4. **Define Pointcuts**
+
+* `execution(* com.example.service.*.*(..))`
+  → Targets **all methods** in the `service` package.
+* You can create reusable pointcuts:
+
+```java
+@Pointcut("within(@org.springframework.stereotype.Service *)")
+public void serviceLayer() {}
+```
+
+---
+
+### 5. **Use AOP with Your Services**
+
+```java
+@Service
+public class MyService {
+    public String sayHello(String name) {
+        return "Hello, " + name;
+    }
+}
+```
+
+Any call to `sayHello()` will now be intercepted by your logging aspect.
+
+</details>
+
+---
+
+<details>
+<summary><strong>📌 Common AOP Annotations</strong></summary>
+
+| Annotation        | Purpose                                                   |
+| ----------------- | --------------------------------------------------------- |
+| `@Aspect`         | Declares the class as an Aspect                           |
+| `@Before`         | Runs advice **before** the target method                  |
+| `@AfterReturning` | Runs advice **after** the method returns normally         |
+| `@AfterThrowing`  | Runs advice if the method throws an exception             |
+| `@Around`         | Runs **before and after** method execution (full control) |
+| `@Pointcut`       | Defines reusable expressions for target methods           |
+
+</details>
+
+---
+
+<details>
+<summary><strong>📈 Real-World Use Cases</strong></summary>
+
+### 🔐 Security
+
+```java
+@Before("@annotation(AdminOnly)")
+public void checkAdminAccess() {
+    // throw exception if user is not admin
+}
+```
+
+### 🧾 Auditing
+
+```java
+@AfterReturning("execution(* com.app.*.*(..))")
+public void logAuditTrail() {
+    // store user action in audit logs
+}
+```
+
+### 🔁 Retry Logic (Custom)
+
+```java
+@Around("@annotation(Retryable)")
+public Object retry(ProceedingJoinPoint joinPoint) {
+    // Retry method execution 3 times if it fails
+}
+```
+
+</details>
+
+---
+
+## ✅ Summary
+
+* **AOP (Aspect-Oriented Programming)** helps modularize cross-cutting concerns like logging, security, and transactions.
+* Spring Boot integrates AOP using **AspectJ** and **proxy-based weaving**.
+* With minimal setup, you can centralize and simplify common behaviors.
+* This leads to **cleaner**, **testable**, and **well-structured codebases**.
+
+---
+
+<details>
+<summary><strong>🧩 Project Overview</strong></summary>
+
+```java
+
+// File: pom.xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" ...>
+<modelVersion>4.0.0</modelVersion>
+<groupId>com.example</groupId>
+<artifactId>aop-demo</artifactId>
+<version>1.0-SNAPSHOT</version>
+<dependencies>
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter</artifactId>
+</dependency>
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-aop</artifactId>
+</dependency>
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-logging</artifactId>
+</dependency>
+</dependencies>
+</project>
+
+// File: src/main/java/com/example/config/AopConfig.java
+package com.example.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+@Configuration
+@EnableAspectJAutoProxy
+public class AopConfig {
+}
+
+// File: src/main/java/com/example/annotations/LogExecution.java
+package com.example.annotations;
+
+import java.lang.annotation.*;
+
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface LogExecution {
+}
+
+// File: src/main/java/com/example/annotations/Retryable.java
+package com.example.annotations;
+
+import java.lang.annotation.*;
+
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface Retryable {
+int attempts() default 3;
+}
+
+// File: src/main/java/com/example/aspects/LoggingAspect.java
+package com.example.aspects;
+
+import com.example.annotations.LogExecution;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+public class LoggingAspect {
+
+    private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
+
+    @Before("@annotation(logExecution)")
+    public void logMethodCall(JoinPoint joinPoint, LogExecution logExecution) {
+        logger.info("Method called: {} with args: {}", joinPoint.getSignature(), joinPoint.getArgs());
+    }
+
+    @AfterReturning(pointcut = "@annotation(logExecution)", returning = "result")
+    public void logMethodReturn(JoinPoint joinPoint, LogExecution logExecution, Object result) {
+        logger.info("Method returned: {} with result: {}", joinPoint.getSignature(), result);
+    }
+
+    @AfterThrowing(pointcut = "@annotation(logExecution)", throwing = "ex")
+    public void logMethodError(JoinPoint joinPoint, LogExecution logExecution, Throwable ex) {
+        logger.error("Method {} threw exception: {}", joinPoint.getSignature(), ex.getMessage());
+    }
+}
+
+// File: src/main/java/com/example/aspects/RetryAspect.java
+package com.example.aspects;
+
+import com.example.annotations.Retryable;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+public class RetryAspect {
+
+    private static final Logger logger = LoggerFactory.getLogger(RetryAspect.class);
+
+    @Around("@annotation(retryable)")
+    public Object retry(ProceedingJoinPoint pjp, Retryable retryable) throws Throwable {
+        int maxAttempts = retryable.attempts();
+        int attempt = 0;
+        Throwable lastException = null;
+
+        while (attempt < maxAttempts) {
+            try {
+                logger.info("Attempt {} for method: {}", attempt + 1, pjp.getSignature());
+                return pjp.proceed();
+            } catch (Throwable ex) {
+                lastException = ex;
+                logger.warn("Attempt {} failed with exception: {}", attempt + 1, ex.getMessage());
+                attempt++;
+            }
+        }
+        logger.error("All {} attempts failed for method: {}", maxAttempts, pjp.getSignature());
+        throw lastException;
+    }
+}
+
+// File: src/main/java/com/example/service/MyService.java
+package com.example.service;
+
+import com.example.annotations.LogExecution;
+import com.example.annotations.Retryable;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MyService {
+
+    private int counter = 0;
+
+    @LogExecution
+    @Retryable(attempts = 3)
+    public String riskyOperation() {
+        counter++;
+        if (counter < 3) {
+            throw new RuntimeException("Simulated failure");
+        }
+        return "Operation successful on attempt: " + counter;
+    }
+}
+
+// File: src/main/java/com/example/DemoApplication.java
+package com.example;
+
+import com.example.service.MyService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DemoApplication implements CommandLineRunner {
+
+    @Autowired
+    private MyService myService;
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        myService.riskyOperation();
+    }
+}
+```
+</details>
+
+Here is a **complete, beginner-friendly explanation** of the **Spring Boot AOP Project Template** with collapsible markdown sections. This version covers all aspects—**custom annotations**, **logging with SLF4J**, **retry logic**, and **how the pieces connect together**.
+
+---
+
+# 📦 AOP in Spring Boot – Explained (with Custom Annotations + Logging)
+
+AOP (Aspect-Oriented Programming) allows you to separate cross-cutting concerns like logging, security, and retry mechanisms from your core business logic. This makes the code **cleaner**, **more modular**, and **easier to maintain**.
+
+---
+
+<details>
+<summary><strong>🔍 What is AOP?</strong></summary>
+
+AOP stands for **Aspect-Oriented Programming**, and it helps you inject common functionality (like logging, security, transactions) into different parts of the application **without duplicating code**.
+
+💡 For example:
+
+* Instead of writing logging code in every method, AOP lets you write one **aspect class** to handle logging for all methods.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🧱 Key AOP Terminology</strong></summary>
+
+| Term           | Description                                                                      |
+| -------------- | -------------------------------------------------------------------------------- |
+| **Aspect**     | A module that encapsulates a cross-cutting concern (e.g., logging)               |
+| **Advice**     | Code that is executed at a join point (before, after, around a method)           |
+| **Join Point** | A point in the application (like a method execution) where advice can be applied |
+| **Pointcut**   | An expression to match join points                                               |
+| **Weaving**    | Linking aspects with the target objects                                          |
+
+
+---
+
+This Spring Boot AOP Project includes:
+
+* `@LogExecution` — a **custom annotation** to log method execution
+* `@Retryable` — a **custom retry annotation** to reattempt failed methods
+* **SLF4J + Logback** — for structured logging
+* Full **aspect classes** to intercept and act on methods
+* A working service (`MyService`) that simulates failures
+
+</details>
+
+---
+
+<details>
+<summary><strong>⚙️ Setup – Dependencies</strong></summary>
+
+Add this to your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-aop</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-logging</artifactId>
+</dependency>
+```
+
+And enable AOP:
+
+```java
+@Configuration
+@EnableAspectJAutoProxy
+public class AopConfig {}
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>🛡️ Custom Annotation: @LogExecution</strong></summary>
+
+### Purpose:
+
+Logs method **entry**, **return value**, and **exceptions** centrally.
+
+```java
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface LogExecution {}
+```
+
+### Example usage:
+
+```java
+@LogExecution
+public String fetchUserData(String id) {
+    return "User " + id;
+}
+```
+
+### Corresponding Aspect:
+
+```java
+@Before("@annotation(LogExecution)")
+public void logBefore(JoinPoint jp) { ... }
+
+@AfterReturning(...)
+public void logReturn(...) { ... }
+
+@AfterThrowing(...)
+public void logException(...) { ... }
+```
+
+This helps monitor what's happening in your app without modifying business logic.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔁 Custom Annotation: @Retryable</strong></summary>
+
+### Purpose:
+
+Retries a method if it fails, for a fixed number of attempts.
+
+```java
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Retryable {
+    int attempts() default 3;
+}
+```
+
+### Example usage:
+
+```java
+@Retryable(attempts = 3)
+public String callRemoteService() {
+    ...
+}
+```
+
+### Retry Logic Aspect:
+
+```java
+@Around("@annotation(retryable)")
+public Object retry(ProceedingJoinPoint pjp, Retryable retryable) throws Throwable {
+    ...
+}
+```
+
+Each time the method throws an exception, it retries until success or until the attempt limit is reached.
+
+</details>
+
+---
+
+<details>
+<summary><strong>📋 Real Example: MyService.java</strong></summary>
+
+```java
+@Service
+public class MyService {
+
+    private int counter = 0;
+
+    @LogExecution
+    @Retryable(attempts = 3)
+    public String riskyOperation() {
+        counter++;
+        if (counter < 3) {
+            throw new RuntimeException("Failed attempt");
+        }
+        return "Success on attempt " + counter;
+    }
+}
+```
+
+💡 This simulates a flaky method. AOP handles retries and logging transparently!
+
+</details>
+
+---
+
+<details>
+<summary><strong>📊 Logging with SLF4J + Logback</strong></summary>
+
+### SLF4J is used for logging with support from Logback.
+
+```java
+private static final Logger logger = LoggerFactory.getLogger(YourClass.class);
+
+logger.info(\"Message\");
+logger.warn(\"Warning\");
+logger.error(\"Error\", exception);
+```
+
+🎯 This is configured automatically with Spring Boot starter logging.
+
+Optionally, you can add a custom `logback.xml` file to control:
+
+* Log file paths
+* Log levels (INFO, DEBUG, ERROR)
+* Pattern layouts
+
+</details>
+
+---
+
+<details>
+<summary><strong>🏁 Application Entry Point</strong></summary>
+
+```java
+@SpringBootApplication
+public class DemoApplication implements CommandLineRunner {
+
+    @Autowired
+    private MyService myService;
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        myService.riskyOperation();
+    }
+}
+```
+
+This runs on app start and triggers the `riskyOperation()` method.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🧪 Testing & Output</strong></summary>
+
+When you run the app, you'll see:
+
+```plaintext
+INFO  Method called: riskyOperation
+WARN  Attempt 1 failed with exception...
+WARN  Attempt 2 failed with exception...
+INFO  Returned Value: Success on attempt 3
+```
+
+🎉 This shows:
+
+* Logging worked
+* Retry succeeded after failure
+* No duplicate logging in your service logic
+
+</details>
+
+---
+
+<details>
+<summary><strong>✅ Benefits Recap</strong></summary>
+
+* ✨ **Cleaner Code**: No duplicate logic across services
+* 🔄 **Reusable**: Apply annotations anywhere!
+* 📦 **Modular**: Central logic for retry, logging, etc.
+* 🔐 **Ready for Prod**: Easily extend for security, validation, etc.
+
+</details>
+
+---
+
+# Advanced AOP Topics in Spring Boot
+
+---
+
+<details>
+<summary><strong>⏱️ Adding Timing/Profiling to <code>@LogExecution</code></strong></summary>
+
+### Why?
+
+Measure how long methods take to execute. Helps identify slow parts of your app.
+
+---
+
+### How?
+
+Modify your `LoggingAspect` to capture start and end time using `@Around` advice.
+
+```java
+@Around("@annotation(com.example.annotations.LogExecution)")
+public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
+    long start = System.currentTimeMillis();
+
+    Object proceed = joinPoint.proceed(); // execute method
+
+    long executionTime = System.currentTimeMillis() - start;
+    logger.info("{} executed in {} ms", joinPoint.getSignature(), executionTime);
+
+    return proceed;
+}
+```
+
+---
+
+### Example usage:
+
+```java
+@LogExecution
+public String processData() {
+    // Some processing
+    return "done";
+}
+```
+
+Logs output:
+
+```
+processData() executed in 120 ms
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>💾 Persisting Logs to a Database</strong></summary>
+
+### Why?
+
+* Centralized log storage
+* Query and analyze logs easily
+* Useful for auditing and monitoring
+
+---
+
+### How?
+
+1. **Create a Log entity:**
+
+```java
+@Entity
+public class LogEntry {
+    @Id @GeneratedValue
+    private Long id;
+
+    private String methodName;
+    private String message;
+    private LocalDateTime timestamp;
+
+    // getters/setters
+}
+```
+
+2. **Create a Spring Data repository:**
+
+```java
+public interface LogEntryRepository extends JpaRepository<LogEntry, Long> {}
+```
+
+3. **Modify your Aspect to save logs:**
+
+```java
+@Component
+public class LoggingAspect {
+
+    @Autowired
+    private LogEntryRepository logRepo;
+
+    @AfterReturning(pointcut = "@annotation(com.example.annotations.LogExecution)", returning = "result")
+    public void logAfterReturning(JoinPoint joinPoint, Object result) {
+        LogEntry log = new LogEntry();
+        log.setMethodName(joinPoint.getSignature().toShortString());
+        log.setMessage("Returned: " + result);
+        log.setTimestamp(LocalDateTime.now());
+
+        logRepo.save(log);
+    }
+}
+```
+
+4. **Configure database connection** in `application.properties` (e.g., for H2):
+
+```properties
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.jpa.hibernate.ddl-auto=update
+```
+
+---
+
+### Now logs are saved to DB on every annotated method call.
+
+</details>
+
+---
+
+<details>
+<summary><strong>⚡ Circuit Breaker Pattern using AOP</strong></summary>
+
+### Why?
+
+Prevent cascading failures by stopping calls to failing services temporarily.
+
+---
+
+### Concept:
+
+* **Closed:** Calls go through normally.
+* **Open:** Fail fast without calling the service.
+* **Half-Open:** Test if service is back by allowing limited calls.
+
+---
+
+### Simple AOP Implementation Idea:
+
+1. **Create annotation:**
+
+```java
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CircuitBreaker {
+    int failureThreshold() default 3; // fail after 3 exceptions
+    long resetTimeout() default 5000; // milliseconds before trying again
+}
+```
+
+2. **Aspect logic:**
+
+```java
+@Aspect
+@Component
+public class CircuitBreakerAspect {
+
+    private Map<String, Integer> failureCount = new ConcurrentHashMap<>();
+    private Map<String, Long> lastFailureTime = new ConcurrentHashMap<>();
+    private Map<String, Boolean> circuitOpen = new ConcurrentHashMap<>();
+
+    @Around("@annotation(circuitBreaker)")
+    public Object circuitBreakerAdvice(ProceedingJoinPoint pjp, CircuitBreaker circuitBreaker) throws Throwable {
+        String methodKey = pjp.getSignature().toShortString();
+
+        if (circuitOpen.getOrDefault(methodKey, false)) {
+            long elapsed = System.currentTimeMillis() - lastFailureTime.getOrDefault(methodKey, 0L);
+            if (elapsed > circuitBreaker.resetTimeout()) {
+                // Half-open: try once
+                try {
+                    Object result = pjp.proceed();
+                    resetCircuit(methodKey);
+                    return result;
+                } catch (Throwable t) {
+                    openCircuit(methodKey);
+                    throw t;
+                }
+            } else {
+                throw new RuntimeException("Circuit open - fast fail");
+            }
+        }
+
+        try {
+            Object result = pjp.proceed();
+            resetCircuit(methodKey);
+            return result;
+        } catch (Throwable t) {
+            int failures = failureCount.getOrDefault(methodKey, 0) + 1;
+            failureCount.put(methodKey, failures);
+            if (failures >= circuitBreaker.failureThreshold()) {
+                openCircuit(methodKey);
+            }
+            throw t;
+        }
+    }
+
+    private void openCircuit(String key) {
+        circuitOpen.put(key, true);
+        lastFailureTime.put(key, System.currentTimeMillis());
+    }
+
+    private void resetCircuit(String key) {
+        circuitOpen.put(key, false);
+        failureCount.put(key, 0);
+    }
+}
+```
+
+3. **Usage example:**
+
+```java
+@CircuitBreaker(failureThreshold = 2, resetTimeout = 10000)
+public String unstableService() {
+    // Unreliable external call
+}
+```
+
+---
+
+### This basic implementation tracks failure counts and opens the circuit if failures exceed the threshold, then resets after a timeout.
+
+For production-grade, consider libraries like **Resilience4j**.
+
+</details>
+
+---
 
 ## LDAP (Lightweight Directory Access Protocol)
 

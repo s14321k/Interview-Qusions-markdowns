@@ -1,74 +1,107 @@
 
-# Can we overload main method?
+Here’s your **refactored and collapsible version** of the `main` method overloading explanation using **Markdown with collapsible sections** (perfect for tools like GitHub or Markdown previewers that support HTML):
 
-**can** overload the `main` method in Java, but the JVM will only call the standard `main` method with the signature:
+---
+
+<details>
+<summary><strong>Can we overload the <code>main</code> method in Java?</strong></summary>
+
+Yes, we **can overload** the `main` method in Java, but the JVM will only call the standard `main` method with this signature:
 
 ```java
 public static void main(String[] args)
 ```
 
-### Example of Overloading `main`:
+---
+
+<details>
+<summary><strong>🔁 Example: Overloading <code>main</code></strong></summary>
+
 ```java
 public class MainOverloadExample {
-    // Standard main method (entry point for JVM)
-    public static void main(String[] args) {
-        System.out.println("Standard main method");
-        
-        // Calling overloaded main methods
-        main(10);
-        main("Overloaded main");
-    }
+   // Standard main method (entry point for JVM)
+   public static void main(String[] args) {
+      System.out.println("Standard main method");
 
-    // Overloaded main method with an int parameter
-    public static void main(int a) {
-        System.out.println("Overloaded main with int: " + a);
-    }
+      // Calling overloaded main methods
+      main(10);
+      main("Overloaded main");
+   }
 
-    // Overloaded main method with a String parameter
-    public static void main(String str) {
-        System.out.println("Overloaded main with String: " + str);
-    }
+   // Overloaded main method with an int parameter
+   public static void main(int a) {
+      System.out.println("Overloaded main with int: " + a);
+   }
+
+   // Overloaded main method with a String parameter
+   public static void main(String str) {
+      System.out.println("Overloaded main with String: " + str);
+   }
 }
 ```
 
-### Output:
+</details>
+
+---
+
+<details>
+<summary><strong>🖨️ Output</strong></summary>
+
 ```
-Standard main method
-Overloaded main with int: 10
+Standard main method  
+Overloaded main with int: 10  
 Overloaded main with String: Overloaded main
 ```
 
-### Key Points:
-- Overloading means defining multiple methods with the same name but different parameters.
-- The JVM **only calls** `public static void main(String[] args)`.
-- Other `main` methods can be explicitly called within the program.
+</details>
 
+---
 
-🚀
+<details>
+<summary><strong>📝 Key Points</strong></summary>
 
+* ✅ Overloading = same method name, different parameter types or count
+* 🚫 JVM calls only `public static void main(String[] args)`
+* ✅ Overloaded `main` methods must be **called manually** from within your code
 
+</details>
 
-# What happens if we remove static from main method?
+</details>
 
-If you remove `static` from the `main` method in Java, the program will **compile successfully** but will fail at **runtime** with an error like:
+---
+
+<details>
+<summary><strong>❓ What happens if we remove <code>static</code> from the <code>main</code> method?</strong></summary>
+
+Removing `static` from the `main` method compiles successfully but causes a **runtime error**:
 
 ```
-Error: Main method is not static in class MainOverloadExample, please define the main method as:
+Error: Main method is not static in class Test, please define the main method as:
    public static void main(String[] args)
 ```
 
-### Why does this happen?
+---
+
+<details>
+<summary><strong>🧠 Why does this happen?</strong></summary>
 
 1. **JVM Calls `main` Without Creating an Object**
-    - The Java Virtual Machine (JVM) **directly** invokes the `main` method when a program starts.
-    - If `main` is **not static**, it belongs to an instance of the class.
-    - But the JVM doesn't create an instance of your class before calling `main`, so it cannot call a non-static method.
 
-2. **Static Methods Can Be Called Without an Object**
-    - `static` means the method belongs to the **class itself**, not an instance.
-    - This allows the JVM to call `main` **without instantiating the class**.
+   * The JVM directly looks for `public static void main(String[] args)` to start the program.
+   * A **non-static** method needs an object, but the JVM **doesn’t create** one automatically.
 
-### What Happens if `main` is Non-Static?
+2. **Static = Class-level Method**
+
+   * A `static` method belongs to the class, not to an instance.
+   * JVM can call it **without instantiating** the class.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🧪 Code Example (With Error)</strong></summary>
+
 ```java
 public class Test {
     public void main(String[] args) { // Removed 'static'
@@ -76,14 +109,19 @@ public class Test {
     }
 }
 ```
-#### Expected Error at Runtime:
+
+🧨 **Runtime Error**:
+
 ```
-Error: Main method is not static in class Test, please define the main method as:
-   public static void main(String[] args)
+Error: Main method is not static in class Test
 ```
 
-### How to Call Non-Static `main` Manually?
-If you **really** want to use a non-static `main`, you must create an instance first:
+</details>
+
+---
+
+<details>
+<summary><strong>✅ How to Call a Non-Static <code>main</code> Manually?</strong></summary>
 
 ```java
 public class Test {
@@ -91,16 +129,36 @@ public class Test {
         System.out.println("Non-static main method");
     }
 
-    public static void main(String[] args) { // Standard main
+    public static void main(String[] args) { // Correct static main
         Test obj = new Test();
-        obj.main(args); // Manually calling non-static main
+        obj.main(args); // Manually calling the non-static method
     }
 }
 ```
-✅ This will work, but the JVM **will never** directly invoke a non-static `main`.
 
-### Conclusion:
-- **Always declare `main` as `public static void main(String[] args)`** for execution by the JVM.
-- If you remove `static`, the JVM cannot call it, and you get a runtime error.
+✅ This works, but the JVM **still uses** the static `main` to start execution.
+
+</details>
+
+---
+
+<details>
+<summary><strong>📌 Conclusion</strong></summary>
+
+* Always declare the entry point as:
+
+  ```java
+  public static void main(String[] args)
+  ```
+
+* JVM will not execute the `main` method if `static` is missing.
+
+* You can **manually** call a non-static `main`, but it's not recommended as the program entry point.
+
+</details>
+
+</details>
+
+---
 
 🚀

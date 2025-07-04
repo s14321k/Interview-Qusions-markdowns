@@ -1,57 +1,88 @@
-# [Kuberneties](https://youtu.be/Wf2eSG3owoA?si=5VqnQFD4Jqe9DZmK)
-- Pod - In a POD only one main application and multiple applications can run. Each pod gets its IP address. Each POD can communicate with each other using internal IP address
-- Node - If one node crashes the other node can take care of it due to the blue print. ie, copy of main app.
-- Service - Service will have a static Address shared with multiple nodes which has the copy of the same application. Kind of microservice.
-	    Service has two functionalities. Permanent IP and Load Balancer.
-		we have two types of service, internal and external
-		Internal - External should not access DB. So using internal service
-		External - Url like we need has to be set. For eg, https://www.sarath.com/. To make this we have Ingress. First request goes to Ingress and then goes to Service
- 		Ingress - To make this we have Ingress. First request goes to Ingress and then goes to Service.
-- ConfigMap - If new DB configuration needed. Just mapping to the DB is enough. No need to setup entire thing
-- Secret - To store the username and password
-- StatefulSet - Create using statefulSet for Database, to avoid data inconsistencies. Host DB outside from the kuberneties clusture
-- StateLess - Deployment for Stateless apps
-- Deployment - 
-- Volume - Log data and other data are stored in storage drive which can be in the same machine, ie same server node where the pod node is running or can be the remote storage, ie outside the server.
-
-## Architecture design of **Google Kubernetes Engine (GKE)**:
+# Kubernetes
 
 ---
 
-### 🏗️ **GKE Architecture Overview**
+<details>
+<summary><strong>Kubernetes Overview</strong></summary>
 
-GKE is a managed Kubernetes service on **Google Cloud Platform (GCP)**. It abstracts away much of the complexity of Kubernetes management and infrastructure provisioning, but the underlying components are standard Kubernetes elements.
+* **Pod**
+  In a POD, only one main application runs but it can have multiple containers. Each pod gets its own IP address and pods communicate internally using these IPs.
+
+* **Node**
+  Nodes are worker machines. If one node crashes, others take over the workload because of Kubernetes’ replication (blueprint) mechanism.
+
+* **Service**
+  Service provides a stable IP address and load balancing over multiple pods (copies of the same app).
+  Types of Service:
+
+    * **Internal**: Used for internal communication, e.g., DB access restricted inside the cluster.
+    * **External**: Exposes an app to outside traffic (e.g., public URL). Uses **Ingress** as an entry point, which routes requests to services.
+
+* **Ingress**
+  Entry point for external traffic. It receives requests and forwards them to appropriate services inside the cluster.
+
+* **ConfigMap**
+  Used to inject configuration data (like DB configs) into pods without rebuilding images.
+
+* **Secret**
+  Securely stores sensitive data such as usernames and passwords.
+
+* **StatefulSet**
+  Manages stateful applications like databases, ensuring stable network IDs and storage.
+
+* **Stateless (Deployment)**
+  Used for stateless applications with replicas, where no persistent state is stored in pods.
+
+* **Volume**
+  Persistent storage for logs, data, etc., which can be local to the node or remote (network storage).
+
+</details>
 
 ---
 
-### 🧱 **Key Components of GKE Architecture**
+<details>
+<summary><strong>Google Kubernetes Engine (GKE) Architecture</strong></summary>
 
-#### 1. **Control Plane (Managed by Google)**
-- **Kubernetes API Server** – Exposes Kubernetes API; main entry point for all administrative tasks.
-- **etcd** – Kuberneties own DB to store information. Key-value store for cluster state and metadata.
-- **Scheduler** – Will decide the container to be deployed in which node or where to deploy the container. Assigns workloads to nodes.
-- **Controller Manager** – Watches cluster state and makes changes to achieve desired state.
-- **Cloud Controller Manager** – Integrates Kubernetes with GCP infrastructure (e.g., load balancers, persistent disks). Responsible to connect with other cloud services inside GKE. 
+### 🏗️ GKE Overview
 
-> Note: In **Autopilot mode**, GKE handles all the nodes and infrastructure; in **Standard mode**, you manage node pools.
+Managed Kubernetes service by Google Cloud Platform (GCP). It manages control plane components for you.
 
-#### 2. **Node Pool (Managed or User-managed)**
-- Group of VM instances (based on GCE - Google Compute Engine).
-- Each node runs:
-  - **kubelet** – Node agent for managing pods.
-  - **kube-proxy** – Handles network routing.
-  - **Container Runtime** – Usually containerd, runs containers.
+### 🧱 Key Components
 
-#### 3. **Add-ons and Integrations**
-- **GCP IAM** – Controls access to GKE cluster resources.
-- **Cloud Monitoring & Logging** – Stackdriver integration for metrics and logs.
-- **Load Balancing** – Automatically provisions GCP Load Balancers for exposed services.
-- **Persistent Storage** – Integrates with GCE Persistent Disks, Filestore, etc.
-- **Networking** – VPC-native clusters with CNI, Pod IPs, and GKE-native networking policies.
+1. **Control Plane (Managed by Google)**
+
+    * Kubernetes API Server — main API endpoint
+
+    * etcd — distributed key-value store for cluster state
+
+    * Scheduler — decides which node runs which pod
+
+    * Controller Manager — monitors cluster and manages state
+
+    * Cloud Controller Manager — integrates Kubernetes with GCP services (load balancers, disks)
+
+   > Autopilot mode: Google manages nodes.
+   > Standard mode: You manage node pools.
+
+2. **Node Pool (Managed/User-managed)**
+
+    * Group of VM instances running:
+
+        * kubelet (node agent)
+        * kube-proxy (network proxy)
+        * Container runtime (containerd)
+
+3. **Add-ons & Integrations**
+
+    * GCP IAM for access control
+    * Cloud Monitoring & Logging
+    * Load balancing with GCP LB
+    * Persistent storage integration
+    * VPC-native networking
 
 ---
 
-### 🔗 **Architecture Diagram (Textual)**
+### 🔗 Architecture Diagram (Text)
 
 ```
                 +---------------------+
@@ -84,55 +115,77 @@ GKE is a managed Kubernetes service on **Google Cloud Platform (GCP)**. It abstr
 ---
 
 ### 🧠 Deployment Options
-- **Standard Mode**: You manage node pools.
-- **Autopilot Mode**: Fully managed nodes; more opinionated but simplified.
+
+* **Standard Mode** — You manage nodes
+* **Autopilot Mode** — Fully managed nodes by Google
+
+</details>
 
 ---
 
+<details>
+<summary><strong>GKE YouTube Demo Commands</strong></summary>
 
+### Part 1: Create a Sample Website Using Docker Container
 
-## [Youtube GKE Cmd](https://youtu.be/vIKy3pDz3jM?si=CZ8hifKfaekiSERk)
-
-
-Part - 1:
-=======
-Create a sample website using docker container
-
+```bash
 docker run -p 8080:80 nginx:latest
 docker cp index.html [container-id]:/usr/share/nginx/html/
 docker commit [container-id] cad/web:version1
 docker tag cad/web:version1 us.gcr.io/youtube-demo-255723/cad-site:version1
 docker push us.gcr.io/youtube-demo-255723/cad-site:version1
+```
 
-PART - 2
-=======
-Deploying container in GKE cluster
+---
 
- gcloud config set project youtube-demo-255723
- gcloud config set compute/zone us-central1-a
+### Part 2: Deploying Container in GKE Cluster
 
-Creating a GKE cluster
+```bash
+gcloud config set project youtube-demo-255723
+gcloud config set compute/zone us-central1-a
+```
 
- gcloud container clusters create gk-cluster --num-nodes=1
- gcloud container clusters get-credentials gk-cluster
-  This command configures kubectl to use the cluster you created.
+Create a GKE cluster:
 
-Deploying an application to the cluster
- kubectl create deployment web-server --image=us.gcr.io/youtube-demo-255723/cad-site:version1
+```bash
+gcloud container clusters create gk-cluster --num-nodes=1
+gcloud container clusters get-credentials gk-cluster
+# Configures kubectl to use your new cluster
+```
 
-Exposing the Deployment
- kubectl expose deployment web-server --type LoadBalancer --port 80 --target-port 80
+Deploy an application:
 
-Inspecting and viewing the application
- 1. Inspect the running Pods by using
-             kubectl get pods
- 2. Inspect the hello-server Service by using 
-             kubectl get service
+```bash
+kubectl create deployment web-server --image=us.gcr.io/youtube-demo-255723/cad-site:version1
+```
 
-Sources:
+Expose the deployment as a service:
 
- • https://cloud.google.com/container-re...
- • https://docs.docker.com/engine/refere...
- • https://cloud.google.com/sdk/gcloud/r...
- • https://cloud.google.com/kubernetes-e...
-----------
+```bash
+kubectl expose deployment web-server --type LoadBalancer --port 80 --target-port 80
+```
+
+Inspect running pods:
+
+```bash
+kubectl get pods
+```
+
+Check service details:
+
+```bash
+kubectl get service
+```
+
+---
+
+### Sources
+
+* [https://cloud.google.com/container-registry/docs/pushing-and-pulling](https://cloud.google.com/container-registry/docs/pushing-and-pulling)
+* [https://docs.docker.com/engine/reference/commandline/commit/](https://docs.docker.com/engine/reference/commandline/commit/)
+* [https://cloud.google.com/sdk/gcloud/reference/container/clusters/create](https://cloud.google.com/sdk/gcloud/reference/container/clusters/create)
+* [https://cloud.google.com/kubernetes-engine/docs/concepts/architecture](https://cloud.google.com/kubernetes-engine/docs/concepts/architecture)
+
+</details>
+
+---

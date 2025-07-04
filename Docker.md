@@ -1,494 +1,441 @@
-<!-- TOC Alt + Insert -->
-* [Docker](#docker)
-  * [Vm vs Containers](#vm-vs-containers)
-  * [Docker Architechture](#docker-architechture)
-  * [Container](#container)
-  * [simple image creation](#simple-image-creation)
-  * [-----------------------------------------------------------------------](#-----------------------------------------------------------------------)
-  * [Types of Docker creation](#types-of-docker-creation)
-* [All Docker Commands](#all-docker-commands)
-  * [🔹 **1. Setup & Info Commands**](#-1-setup--info-commands)
-  * [🔹 **2. Image Management**](#-2-image-management)
-    * [✅ Pulling images](#-pulling-images)
-    * [✅ Listing images](#-listing-images)
-    * [✅ Inspecting images](#-inspecting-images)
-    * [✅ Deleting images](#-deleting-images)
-  * [🔹 **3. Container Lifecycle**](#-3-container-lifecycle)
-    * [✅ Run a new container](#-run-a-new-container)
-    * [✅ List containers](#-list-containers)
-    * [✅ Stop a container](#-stop-a-container)
-    * [✅ Start a stopped container](#-start-a-stopped-container)
-    * [✅ Restart a container](#-restart-a-container)
-    * [✅ Kill a container](#-kill-a-container)
-    * [✅ Remove a container](#-remove-a-container)
-  * [🔹 **4. Working with Containers**](#-4-working-with-containers)
-    * [✅ Run a shell in a running container](#-run-a-shell-in-a-running-container)
-    * [✅ Run a one-time command inside a container](#-run-a-one-time-command-inside-a-container)
-    * [✅ View logs of a container](#-view-logs-of-a-container)
-    * [✅ Copy files to/from a container](#-copy-files-tofrom-a-container)
-  * [🔹 **5. Docker Volumes (Persistent Storage)**](#-5-docker-volumes-persistent-storage)
-    * [✅ Create a volume](#-create-a-volume)
-    * [✅ List volumes](#-list-volumes)
-    * [✅ Mount a volume in a container](#-mount-a-volume-in-a-container)
-    * [✅ Remove volume](#-remove-volume)
-  * [🔹 **6. Docker Networks**](#-6-docker-networks)
-    * [✅ Create a network](#-create-a-network)
-    * [✅ Connect container to a network](#-connect-container-to-a-network)
-  * [🔹 **7. Cleanup & Maintenance**](#-7-cleanup--maintenance)
-    * [✅ Remove all stopped containers](#-remove-all-stopped-containers)
-    * [✅ Remove unused images, networks, volumes](#-remove-unused-images-networks-volumes)
-    * [✅ Remove everything (be careful!)](#-remove-everything-be-careful)
-  * [🔹 **8. Docker Compose (multi-container setup)**](#-8-docker-compose-multi-container-setup)
-    * [✅ Start all services](#-start-all-services)
-    * [✅ Stop all services](#-stop-all-services)
-    * [✅ Build or rebuild images](#-build-or-rebuild-images)
-  * [✅ Bonus: Useful Commands Summary Table](#-bonus-useful-commands-summary-table)
-  * [----------------------------------------------------------------------------](#----------------------------------------------------------------------------)
-* [Docker in Spring boot](#docker-in-spring-boot)
-  * [Dockerfile](#dockerfile)
-    * [📦 **Step 1: Package the Spring Boot Application**](#-step-1-package-the-spring-boot-application)
-    * [🐳 **Step 2: Create a Dockerfile**](#-step-2-create-a-dockerfile)
-    * [🏗️ **Step 3: Build the Docker Image**](#-step-3-build-the-docker-image)
-    * [▶️  ️**Step 4: Test the Docker Image Locally (Optional)**](#-step-4-test-the-docker-image-locally-optional)
-    * [🚀 **Step 5: Log in to Docker Hub**](#-step-5-log-in-to-docker-hub)
-    * [🚀 **Step 6: Push the Docker Image**](#-step-6-push-the-docker-image)
-  * [-----------------------------------------------------------------------------](#-----------------------------------------------------------------------------)
-  * [Build packs instead of Dockerfile](#build-packs-instead-of-dockerfile)
-    * [✅ Optional: Automate with Jib (if using Maven or Gradle)](#-optional-automate-with-jib-if-using-maven-or-gradle)
-  * [-----------------------------------------------------------------------------](#------------------------------------------------------------------------------1)
-  * [✅ Sample Spring Boot Project Structure](#-sample-spring-boot-project-structure)
-  * [🐳 Sample Dockerfile (in root directory)](#-sample-dockerfile-in-root-directory)
-  * [🚀 GitHub Actions Workflow (`.github/workflows/docker-image.yml`)](#-github-actions-workflow-githubworkflowsdocker-imageyml)
-  * [🛡️ Set Secrets in GitHub Repository](#-set-secrets-in-github-repository)
-  * [------------------------------------------------------------------------------------](#------------------------------------------------------------------------------------)
-* [docker-compose.yml file](#docker-composeyml-file)
-    * [docker-compose.yml](#docker-composeyml)
-      * [Run this docker-compose.yml](#run-this-docker-composeyml)
-  * [------------------------------------------------------------------------------------](#-------------------------------------------------------------------------------------1)
-* [CURL Commands](#curl-commands)
-  * [🔹 **1. Basic HTTP GET**](#-1-basic-http-get)
-  * [🔹 **2. GET with custom path**](#-2-get-with-custom-path)
-  * [🔹 **3. GET with headers (e.g., Auth)**](#-3-get-with-headers-eg-auth)
-  * [🔹 **4. POST with JSON data**](#-4-post-with-json-data)
-  * [🔹 **5. PUT (update request)**](#-5-put-update-request)
-  * [🔹 **6. DELETE request**](#-6-delete-request)
-  * [🔹 **7. See full HTTP response (status, headers, body)**](#-7-see-full-http-response-status-headers-body)
-  * [🔹 **8. Save response to a file**](#-8-save-response-to-a-file)
-  * [🔹 **9. Follow redirects**](#-9-follow-redirects)
-  * [🔹 **10. Form submission (x-www-form-urlencoded)**](#-10-form-submission-x-www-form-urlencoded)
-  * [🔹 **11. Basic Authentication**](#-11-basic-authentication)
-  * [🔹 **12. Send custom headers**](#-12-send-custom-headers)
-  * [🔹 **13. Upload a file**](#-13-upload-a-file)
-  * [🔹 **14. Test Docker container API**](#-14-test-docker-container-api)
-  * [🔹 Bonus: Curl Cheat Sheet Summary](#-bonus-curl-cheat-sheet-summary)
-* [Other most used commands](#other-most-used-commands)
-  * [🔹 1. **`wget`** – alternative to `curl` (simpler for downloads)](#-1-wget--alternative-to-curl-simpler-for-downloads)
-  * [🔹 2. **`httpie`** – human-friendly `curl` alternative](#-2-httpie--human-friendly-curl-alternative)
-  * [🔹 3. **`ping`** – test if a host/IP is reachable](#-3-ping--test-if-a-hostip-is-reachable)
-  * [🔹 4. **`netstat` / `ss`** – check active ports](#-4-netstat--ss--check-active-ports)
-  * [🔹 5. **`telnet` / `nc` (netcat)** – test port connectivity](#-5-telnet--nc-netcat--test-port-connectivity)
-  * [🔹 6. **`jq`** – JSON viewer/parser](#-6-jq--json-viewerparser)
-  * [🔹 7. **`docker logs`** – debug container output](#-7-docker-logs--debug-container-output)
-  * [🔹 8. **`docker exec`** – run commands inside a container](#-8-docker-exec--run-commands-inside-a-container)
-  * [🔹 9. **`kubectl`** (if using Kubernetes)](#-9-kubectl-if-using-kubernetes)
-  * [🔹 10. **`lsof`** – check which process is using a port](#-10-lsof--check-which-process-is-using-a-port)
-  * [✅ Summary of Most Common Tools (Beyond `curl`)](#-summary-of-most-common-tools-beyond-curl)
-* [Docker Trouble shoots](#docker-trouble-shoots)
-<!-- TOC -->
-
 # Docker
 
-## Vm vs Containers
+<details>
+<summary><strong>Vm vs Containers</strong></summary>
 
 ![Container](\images\vmVsContainers.png)
 
-## Docker Architechture
+</details>
+
+<details>
+<summary><strong>Docker Architecture</strong></summary>
 
 ![DockerArchitecture](\images\DockerArchitecture.png)
 
-## Container
+</details>
 
-- Container is a small microVM which runs on top of Linux. It has all the dependencies of application code, client libraries. 
+<details>
+<summary><strong>Container</strong></summary>
 
-## simple image creation
+- Container is a small microVM which runs on top of Linux. It has all the dependencies of application code, client libraries.
+
+</details>
+
+<details>
+<summary><strong>Simple image creation</strong></summary>
 
 **Create a container image**
-```
+```bash
 $ docker run -d -p 8800:80 httpd
-```
-- -d - to detach and run in the background. If we dont use this, then it will run in foreground and we wont be able to write commands for other containers
-- -p - to open up a port and publish on my host ip and access it remotely
+````
+
+* `-d` - detach and run in background.
+* `-p` - map host port to container port.
 
 **Show the web page**
-```
+
+```bash
 $ curl localhost:8800
 ```
 
 **Kill the Container**
+
+```bash
+$ docker stop <container-id>
 ```
-$ curl localhost:8800
-```
 
------------------------------------------------------------------------
----
+</details>
 
-## Types of Docker creation
+<details>
+<summary><strong>Types of Docker creation</strong></summary>
 
-1 - **Dockerfile** 
-- is a file that contains instructions for creating a Docker image. It is a text file that contains commands to be executed by the Docker engine.
+1. **Dockerfile**
 
-  1 - **Disadvantages** 
-  - it is a static file that cannot be updated after the image is created. It is not very flexible.
-  - it is not very easy to 
-    - create complex images.
-    - create custom images.
-    - create images for different operating systems.
-    - create images for different architectures.
-    - create images for different versions of the operating system.
+  * A file containing instructions for creating Docker images.
+  * Static, less flexible for complex/custom images or multi-OS/arch/version support.
 
 ![DockerFileCreation](\images\DockerFileCreation.png)
 
-# [All Docker Commands](https://phoenixnap.com/kb/docker-commands-cheat-sheet)
-
-## 🔹 **1. Setup & Info Commands**
-
-**step-by-step guide to essential Docker commands**, grouped by purpose, with a brief explanation of **when and why to use each**.
-
-
-| Command | Purpose |
-|--------|---------|
-| `docker version` | Check Docker client/server versions. Use it to verify Docker is installed. |
-| `docker info` | Get system-wide Docker info: containers, images, storage, etc. |
-| `docker system df` | Show disk usage by Docker (images, volumes, etc.). |
+</details>
 
 ---
 
-## 🔹 **2. Image Management**
+# All Docker Commands
 
-### ✅ Pulling images
+<details>
+<summary><strong>1. Setup & Info Commands</strong></summary>
+
+| Command            | Purpose                                                 |
+| ------------------ | ------------------------------------------------------- |
+| `docker version`   | Check Docker client/server versions                     |
+| `docker info`      | Show system-wide Docker info (containers, images, etc.) |
+| `docker system df` | Show disk usage by Docker                               |
+
+</details>
+
+<details>
+<summary><strong>2. Image Management</strong></summary>
+
+<details>
+<summary>✅ Pulling images</summary>
+
 ```bash
 docker pull <image-name>
-```
-Example:
-```bash
 docker pull nginx
 ```
-Downloads an image from Docker Hub.
 
----
+</details>
 
-### ✅ Listing images
+<details>
+<summary>✅ Listing images</summary>
+
 ```bash
 docker images
 ```
-Shows all images on your machine.
 
----
+</details>
 
-### ✅ Inspecting images
+<details>
+<summary>✅ Inspecting images</summary>
+
 ```bash
 docker inspect <image-id or name>
 ```
-Shows all images on your machine.
 
----
+</details>
 
-### ✅ Deleting images
+<details>
+<summary>✅ Deleting images</summary>
+
 ```bash
 docker rmi <image-id or name>
 ```
-Removes one or more Docker images.
 
----
+</details>
 
-## 🔹 **3. Container Lifecycle**
+</details>
 
-### ✅ Run a new container
-```bash
-docker run <options> <image>
-```
-Example:
+<details>
+<summary><strong>3. Container Lifecycle</strong></summary>
+
+<details>
+<summary>✅ Run a new container</summary>
+
 ```bash
 docker run -d -p 8080:80 nginx
 ```
-Runs `nginx` in the background (`-d`), maps port 8080 to 80.
 
-Useful options:
-- `-d`: detached mode
-- `-p`: port mapping
-- `--name`: name the container
-- `-v`: mount volume
-- `--rm`: remove container after exit
+Useful options: `-d` (detached), `-p` (port), `--name`, `-v` (volume), `--rm`.
 
----
+</details>
 
-### ✅ List containers
+<details>
+<summary>✅ List containers</summary>
+
 ```bash
-docker ps        # only running
+docker ps        # running only
+docker ps -a     # all containers (running + stopped)
 ```
-***even more details (like containers that have already exited earlier)***
-```bash
-docker ps -a     # all (including stopped)
-```
-This will list all containers, including:
 
-- Running
-- Exited
-- Stopped
-- Dead
+</details>
 
----
+<details>
+<summary>✅ Stop a container</summary>
 
-### ✅ Stop a container
 ```bash
 docker stop <container-name or id>
 ```
 
----
+</details>
 
-### ✅ Start a stopped container
+<details>
+<summary>✅ Start a stopped container</summary>
+
 ```bash
 docker start <container-name or id>
 ```
 
----
+</details>
 
-### ✅ Restart a container
+<details>
+<summary>✅ Restart a container</summary>
+
 ```bash
 docker restart <container-name or id>
 ```
 
----
+</details>
 
-### ✅ Kill a container
+<details>
+<summary>✅ Kill a container</summary>
+
 ```bash
-docker kill <image>
+docker kill <container-name or id>
 ```
 
----
-### ✅ Remove a container
-**🧹 To remove all stopped containers:**
-```bash
-$ docker rm $(docker ps -a -q)
-or
-$ docker container prune
-```
+</details>
 
-**🧹 To remove everything (containers + volumes + networks + images):**
-```bash
-$ docker system prune -a
-```
+<details>
+<summary>✅ Remove a container</summary>
+
+Remove one or all stopped containers:
+
 ```bash
 docker rm <container-name or id>
+docker rm $(docker ps -a -q)
+docker container prune
 ```
 
----
+Remove everything (containers, images, volumes, networks):
 
-## 🔹 **4. Working with Containers**
+```bash
+docker system prune -a
+```
 
-### ✅ Run a shell in a running container
+</details>
+
+</details>
+
+<details>
+<summary><strong>4. Working with Containers</strong></summary>
+
+<details>
+<summary>✅ Run a shell in a running container</summary>
+
 ```bash
 docker exec -it <container-name> bash
 ```
-Use this to debug inside a container.
 
----
+</details>
 
-### ✅ Run a one-time command inside a container
-```bash
-docker run --rm <image> <command>
-```
-Example:
+<details>
+<summary>✅ Run a one-time command inside a container</summary>
+
 ```bash
 docker run --rm alpine echo hello
 ```
 
----
+</details>
 
-### ✅ View logs of a container
+<details>
+<summary>✅ View logs of a container</summary>
+
 ```bash
 docker logs <container-name>
 ```
 
----
+</details>
 
-### ✅ Copy files to/from a container
+<details>
+<summary>✅ Copy files to/from a container</summary>
+
 ```bash
 docker cp <container>:<path> <local-path>
 docker cp <local-path> <container>:<path>
 ```
 
----
+</details>
 
-## 🔹 **5. Docker Volumes (Persistent Storage)**
+</details>
 
-### ✅ Create a volume
+<details>
+<summary><strong>5. Docker Volumes (Persistent Storage)</strong></summary>
+
+<details>
+<summary>✅ Create a volume</summary>
+
 ```bash
 docker volume create <name>
 ```
 
-### ✅ List volumes
+</details>
+
+<details>
+<summary>✅ List volumes</summary>
+
 ```bash
 docker volume ls
 ```
 
-### ✅ Mount a volume in a container
+</details>
+
+<details>
+<summary>✅ Mount a volume in a container</summary>
+
 ```bash
 docker run -v <volume-name>:/app/data <image>
 ```
 
-### ✅ Remove volume
+</details>
+
+<details>
+<summary>✅ Remove volume</summary>
+
 ```bash
 docker volume rm <name>
 ```
 
----
+</details>
 
-## 🔹 **6. Docker Networks**
+</details>
 
-### ✅ Create a network
+<details>
+<summary><strong>6. Docker Networks</strong></summary>
+
+<details>
+<summary>✅ Create a network</summary>
+
 ```bash
 docker network create <name>
 ```
 
-### ✅ Connect container to a network
+</details>
+
+<details>
+<summary>✅ Connect container to a network</summary>
+
 ```bash
 docker network connect <network> <container>
 ```
 
----
+</details>
 
-## 🔹 **7. Cleanup & Maintenance**
+</details>
 
-### ✅ Remove all stopped containers
+<details>
+<summary><strong>7. Cleanup & Maintenance</strong></summary>
+
+<details>
+<summary>✅ Remove all stopped containers</summary>
+
 ```bash
 docker container prune
 ```
 
-### ✅ Remove unused images, networks, volumes
+</details>
+
+<details>
+<summary>✅ Remove unused images, networks, volumes</summary>
+
 ```bash
 docker system prune
 ```
 
-### ✅ Remove everything (be careful!)
+</details>
+
+<details>
+<summary>✅ Remove everything (be careful!)</summary>
+
 ```bash
 docker system prune -a --volumes
 ```
 
----
+</details>
 
-## 🔹 **8. Docker Compose (multi-container setup)**
+</details>
 
-### ✅ Start all services
+<details>
+<summary><strong>8. Docker Compose (multi-container setup)</strong></summary>
+
+<details>
+<summary>✅ Start all services</summary>
+
 ```bash
 docker-compose up -d
 ```
 
-### ✅ Stop all services
+</details>
+
+<details>
+<summary>✅ Stop all services</summary>
+
 ```bash
 docker-compose down
 ```
 
-### ✅ Build or rebuild images
+</details>
+
+<details>
+<summary>✅ Build or rebuild images</summary>
+
 ```bash
 docker-compose build
 ```
 
----
+</details>
 
-## ✅ Bonus: Useful Commands Summary Table
+</details>
 
-| Task | Command |
-|------|---------|
-| Run a container | `docker run` |
-| List containers | `docker ps [-a]` |
-| Start/stop | `docker start/stop` |
-| Remove | `docker rm/rmi` |
-| Show logs | `docker logs` |
+<details>
+<summary>✅ Bonus: Useful Commands Summary Table</summary>
+
+| Task                 | Command                       |
+| -------------------- | ----------------------------- |
+| Run a container      | `docker run`                  |
+| List containers      | `docker ps [-a]`              |
+| Start/stop           | `docker start/stop`           |
+| Remove               | `docker rm/rmi`               |
+| Show logs            | `docker logs`                 |
 | Shell into container | `docker exec -it <name> bash` |
-| System cleanup | `docker system prune` |
+| System cleanup       | `docker system prune`         |
 
-----------------------------------------------------------------------------
----
-
-
-
-
-# Docker in Spring boot
-
----
-## Dockerfile
-
-**To create a Docker image from a Spring Boot application and push it to Docker Hub (or any other container registry), follow these steps:**
+</details>
 
 ---
 
-### 📦 **Step 1: Package the Spring Boot Application**
-Make sure your application is packaged into a JAR file.
+# Docker in Spring Boot
+
+<details>
+<summary><strong>Dockerfile</strong></summary>
+
+### 📦 Step 1: Package the Spring Boot Application
 
 ```bash
 ./mvnw clean package
-# or if you're using Gradle
+# or for Gradle
 ./gradlew build
 ```
 
-This creates a `target/your-app.jar` (for Maven) or `build/libs/your-app.jar` (for Gradle).
+Produces `target/your-app.jar` or `build/libs/your-app.jar`.
 
 ---
 
-### 🐳 **Step 2: Create a Dockerfile**
-
-Create a file named `Dockerfile` in the root of your project:
+### 🐳 Step 2: Create a Dockerfile
 
 ```Dockerfile
-# Use a lightweight base image with Java
 FROM openjdk:17-jdk-slim
-# Set the working directory
 WORKDIR /app
-# Copy the jar file
 COPY target/your-app.jar app.jar
-# Expose port (optional, for documentation)
 EXPOSE 8080
-# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
 ```
 
-> ⚠️ Replace `target/your-app.jar` with the actual path to your built JAR file.
+> Replace `target/your-app.jar` with your actual JAR path.
 
 ---
 
-### 🏗️ **Step 3: Build the Docker Image**
+### 🏗️ Step 3: Build the Docker Image
 
-Run the following command in the directory containing your Dockerfile:
-
-Look for username docker desktop. My case **s14321** `your-dockerhub-username` 
 ```bash
-docker build . -t your-dockerhub-username/your-app-name:tag .
+docker build . -t your-dockerhub-username/your-app-name:tag
 ```
 
 Example:
 
 ```bash
-docker build . -t s14321k/acounts:d1
+docker build . -t s14321k/accounts:d1
 ```
 
 ---
 
-### ▶️  ️**Step 4: Test the Docker Image Locally (Optional)**
+### ▶️ Step 4: Test the Docker Image Locally (Optional)
 
 ```bash
-docker run -d -p 8080:8080 s14321k/acounts:d1
+docker run -d -p 8080:8080 s14321k/accounts:d1
+docker run -d -p 8081:8080 s14321k/accounts:d1  # Another instance on different host port
 ```
 
-To run the same image as another instance(container). Change the port number and run. 
-First port number should be changed because it is already in use and exposed to outer world, 
-were is the second port number is handled inside the docker.
-
-```bash
-docker run -d -p 8081:8080 s14321k/acounts:d1
-```
-
-***To stop the container***. Run this command. First four characters of container id is enough
+Stop container:
 
 ```bash
 docker stop <container-id>
@@ -496,152 +443,108 @@ docker stop <container-id>
 
 ---
 
-### 🚀 **Step 5: Log in to Docker Hub**
+### 🚀 Step 5: Log in to Docker Hub
 
 ```bash
 docker login
 ```
 
-Enter your Docker Hub username and password when prompted.  
-
 ---
 
-### 🚀 **Step 6: Push the Docker Image**
+### 🚀 Step 6: Push the Docker Image
 
 ```bash
-docker push johndoe/springboot-app:1.0
+docker push your-dockerhub-username/your-app-name:tag
 ```
 
------------------------------------------------------------------------------
-------------------
+</details>
 
-## Build packs instead of Dockerfile
+<details>
+<summary><strong>Build packs instead of Dockerfile</strong></summary>
 
-***Maven: pom.xml***
+* **Maven (`pom.xml`)**:
 
-- under configuration, create tag 
-
-```
+```xml
 <image>
   <name>your-dockerhub-username/your-app-name:tag</name>
 </image>
 ```
 
+Run:
+
 ```bash
 ./mvnw spring-boot:build-image
 ```
----
 
-***Gradle: build.gradle***
+* **Gradle (`build.gradle`)**:
 
-- under configuration, create tag 
-
-```
+```gradle
 image {
     name = "your-dockerhub-username/your-app-name:tag"
 }
-
 // or
-
 bootBuildImage {
 	imageName = 's14321l/${rootProject.name}:d1'
 }
 ```
 
+Run:
+
 ```bash
 ./gradlew bootBuildImage
 ```
 
+---
 
-### ✅ Optional: Automate with Jib (if using Maven or Gradle)
+### ✅ Optional: Automate with Jib (Maven or Gradle)
 
-Instead of writing a Dockerfile manually, you can use [Google Jib](https://github.com/GoogleContainerTools/jib), which builds optimized Docker images without Docker installed.
+* Add Jib plugin, configure image name.
 
-Step 1: Add the Jib plugin to your build.gradle file:
+* **Maven example**:
+
+```xml
+<plugin>
+  <groupId>com.google.cloud.tools</groupId>
+  <artifactId>jib-maven-plugin</artifactId>
+  <version>3.3.1</version>
+  <configuration>
+    <to>
+      <image>your-dockerhub-username/your-app-name:tag</image>
+    </to>
+  </configuration>
+</plugin>
+```
+
+* **Gradle example**:
 
 ```gradle
 plugins {
     id 'com.google.cloud.tools.jib' version '3.3.1'
 }
-```
-
-Step 2: Add the Jib configuration to your build.gradle file:
-
-```gradle
 jib {
-    from {
-        image = 'openjdk:21-jdk-slim'
-    }
-    to {
-        image = 'your-group/your-image-name:latest'
-    }
+    from { image = 'openjdk:21-jdk-slim' }
+    to { image = 'your-group/your-image-name:latest' }
 }
-``` 
-
-if maven
-
-```maven
-<packaging>jar</packaging>
-<plugins>
-    <plugin>
-        <groupId>com.google.cloud.tools</groupId>
-        <artifactId>jib-maven-plugin</artifactId>
-        <version>3.3.1</version>
-        <configuration>
-            <to>
-                <image>your-dockerhub-username/your-app-name:tag</image>
-            </to>
-        </configuration>
-    </plugin>
-</plugins>
 ```
 
+Build commands:
 
+* Maven:
 
-To compile and build a Java application using Jib with Maven and Gradle, you can use the following commands:
-
-**Maven:**
 ```bash
 mvn compile jib:dockerBuild
 ```
-This command compiles your Java code and then uses the Jib plugin to build a Docker image.
 
-**Gradle:**
+* Gradle:
+
 ```bash
-# First login using 
-
-./gradlew login
-
-./gradlew build jib
-
-# or
-
 ./gradlew jib
-
-# or for local build
-
-./gradlew jibDockerBuild
 ```
-This command compiles your Java code and then uses the Jib plugin to build a Docker image.
 
-Note: Make sure you have the Jib plugin configured in your `pom.xml` file (for Maven) or `build.gradle` file (for Gradle) before running these commands.
+</details>
 
-If you're using a specific version of Jib, you may need to specify the version in the command. For example:
-```bash
-mvn compile org.jib:jib-maven-plugin:2.8.0:build
-```
-Or:
-```bash
-gradle build org.jib:jib-gradle-plugin:2.8.0:jib
-```
-Replace `2.8.0` with the version of Jib you're using.
-
------------------------------------------------------------------------------
-------------------
-
-## ✅ Sample Spring Boot Project Structure
-
-**sample project structure** along with a **GitHub Actions workflow** to build your Spring Boot app and push the Docker image to Docker Hub automatically on every push to the `main` branch.
+<details>
+<summary><strong>Sample Spring Boot Project Structure</strong></summary>
 
 ```
 springboot-docker-app/
@@ -651,7 +554,7 @@ springboot-docker-app/
 │           └── com/example/demo/
 │               └── DemoApplication.java
 ├── target/
-│   └── demo-0.0.1-SNAPSHOT.jar   # After build
+│   └── demo-0.0.1-SNAPSHOT.jar
 ├── pom.xml
 ├── Dockerfile
 └── .github/
@@ -661,7 +564,7 @@ springboot-docker-app/
 
 ---
 
-## 🐳 Sample Dockerfile (in root directory)
+### 🐳 Sample Dockerfile
 
 ```Dockerfile
 FROM openjdk:17-jdk-slim
@@ -673,7 +576,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 
 ---
 
-## 🚀 GitHub Actions Workflow (`.github/workflows/docker-image.yml`)
+### 🚀 GitHub Actions Workflow (`.github/workflows/docker-image.yml`)
 
 ```yaml
 name: Build and Push Docker Image
@@ -687,26 +590,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
-
-      - name: Build JAR with Maven
-        run: ./mvnw clean package -DskipTests
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
+      - run: ./mvnw clean package -DskipTests
+      - uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v5
+      - uses: docker/build-push-action@v5
         with:
           context: .
           push: true
@@ -715,51 +609,40 @@ jobs:
 
 ---
 
-## 🛡️ Set Secrets in GitHub Repository
+### 🛡️ Set Secrets in GitHub Repository
 
-Go to your GitHub repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**:
+* `DOCKER_USERNAME`: Docker Hub username
+* `DOCKER_PASSWORD`: Docker Hub password or token
 
-- `DOCKER_USERNAME` → your Docker Hub username
-- `DOCKER_PASSWORD` → your Docker Hub password or personal access token
+Push to `main` branch builds and pushes image automatically.
+
+</details>
 
 ---
-
-Once set up, pushing code to the `main` branch will:
-
-1. Build the JAR
-2. Build a Docker image
-3. Push it to your Docker Hub repo
-
-
-------------------------------------------------------------------------------------
----
-
 
 # docker-compose.yml file
 
+<details>
+<summary><strong>docker-compose.yml samples</strong></summary>
 
-### docker-compose.yml
-- This file is located at the docker folder in spring boot application
-
-sms proj docker-compose.yml
-
-```yml
+```yaml
 services:
   db:
     container_name: opc-hub
     image: postgres:17
-  volumes:
-    - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-  ports:
-    - "5432:5432"
-  environment:
-    POSTGRES_USER: your_user
-    POSTGRES_PASSWORD: your_password
-    POSTGRES_DB: your_database
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: your_user
+      POSTGRES_PASSWORD: your_password
+      POSTGRES_DB: your_database
 ```
 
-chat gpt 
-```yml
+ChatGPT sample:
+
+```yaml
 version: '3.8'
 
 services:
@@ -780,65 +663,52 @@ volumes:
   postgres_data:
 ```
 
-#### Run this docker-compose.yml
-
-- Go to the directory folder where it is present in cmd
-
-```bash
-$ docker-compose up
-```
-
-------------------------------------------------------------------------------------
 ---
 
+### Run this docker-compose.yml
+
+Go to folder with `docker-compose.yml`:
+
+```bash
+docker-compose up
+```
+
+</details>
+
+---
 
 # CURL Commands
 
-Absolutely! Here's a practical and **comprehensive list of commonly used `curl` commands and syntax**, especially useful when working with **Dockerized APIs**, **microservices**, or **Spring Boot apps**.
+<details>
+<summary><strong>Common curl commands for API testing</strong></summary>
 
-These are things you’d typically do when testing or interacting with an API hosted on `localhost` (or inside a Docker container).
-
----
-
-## 🔹 **1. Basic HTTP GET**
+### 1. Basic HTTP GET
 
 ```bash
 curl http://localhost:8080
 ```
-➡️ Sends a GET request to root endpoint (`/`) on port 8080.
 
----
-
-## 🔹 **2. GET with custom path**
+### 2. GET with custom path
 
 ```bash
 curl http://localhost:8080/api/users
 ```
-➡️ Access `/api/users` endpoint — commonly used with REST APIs.
 
----
-
-## 🔹 **3. GET with headers (e.g., Auth)**
+### 3. GET with headers (Auth)
 
 ```bash
 curl -H "Authorization: Bearer <token>" http://localhost:8080/api/users
 ```
-➡️ Sends a GET request with a JWT or OAuth token.
 
----
-
-## 🔹 **4. POST with JSON data**
+### 4. POST with JSON data
 
 ```bash
 curl -X POST http://localhost:8080/api/users \
      -H "Content-Type: application/json" \
      -d '{"name": "John", "email": "john@example.com"}'
 ```
-➡️ Sends a POST request with a JSON body.
 
----
-
-## 🔹 **5. PUT (update request)**
+### 5. PUT (update)
 
 ```bash
 curl -X PUT http://localhost:8080/api/users/1 \
@@ -846,213 +716,153 @@ curl -X PUT http://localhost:8080/api/users/1 \
      -d '{"name": "Jane"}'
 ```
 
----
-
-## 🔹 **6. DELETE request**
+### 6. DELETE request
 
 ```bash
 curl -X DELETE http://localhost:8080/api/users/1
 ```
-➡️ Deletes user with ID 1.
 
----
-
-## 🔹 **7. See full HTTP response (status, headers, body)**
+### 7. See full HTTP response
 
 ```bash
 curl -i http://localhost:8080/api/users
 ```
 
-- `-i`: show response headers + body.
-- Helpful for checking `200 OK`, `404 Not Found`, etc.
-
----
-
-## 🔹 **8. Save response to a file**
+### 8. Save response to file
 
 ```bash
 curl http://localhost:8080/api/data -o output.json
 ```
 
----
-
-## 🔹 **9. Follow redirects**
+### 9. Follow redirects
 
 ```bash
 curl -L http://localhost:8080/redirect-me
 ```
 
----
-
-## 🔹 **10. Form submission (x-www-form-urlencoded)**
+### 10. Form submission (x-www-form-urlencoded)
 
 ```bash
 curl -X POST http://localhost:8080/login \
      -d "username=admin&password=secret"
 ```
 
----
-
-## 🔹 **11. Basic Authentication**
+### 11. Basic Authentication
 
 ```bash
 curl -u admin:secret http://localhost:8080/secure
 ```
 
----
-
-## 🔹 **12. Send custom headers**
+### 12. Send custom headers
 
 ```bash
 curl -H "X-Request-ID: abc123" http://localhost:8080/api
 ```
 
----
-
-## 🔹 **13. Upload a file**
+### 13. Upload a file
 
 ```bash
 curl -F "file=@/path/to/file.txt" http://localhost:8080/upload
 ```
 
----
+### 14. Test Docker container API
 
-## 🔹 **14. Test Docker container API**
-
-Assuming you started a Spring Boot app like:
 ```bash
 docker run -p 8800:8080 my-spring-app
-```
-
-You can test:
-```bash
 curl http://localhost:8800/actuator/health
 ```
 
 ---
 
-## 🔹 Bonus: Curl Cheat Sheet Summary
+### Bonus: Curl Cheat Sheet Summary
 
-| Task | Command |
-|------|---------|
-| Basic GET | `curl http://localhost:8080` |
-| POST JSON | `curl -X POST -H "Content-Type: application/json" -d '{"key":"val"}' URL` |
-| PUT/DELETE | `curl -X PUT/DELETE URL` |
-| Auth Header | `curl -H "Authorization: Bearer TOKEN" URL` |
-| Basic Auth | `curl -u user:pass URL` |
-| Follow Redirect | `curl -L URL` |
-| Save Output | `curl URL -o file.txt` |
-| Show Headers | `curl -i URL` |
+| Task            | Command                                                                   |
+| --------------- | ------------------------------------------------------------------------- |
+| Basic GET       | `curl http://localhost:8080`                                              |
+| POST JSON       | `curl -X POST -H "Content-Type: application/json" -d '{"key":"val"}' URL` |
+| PUT/DELETE      | `curl -X PUT/DELETE URL`                                                  |
+| Auth Header     | `curl -H "Authorization: Bearer TOKEN" URL`                               |
+| Basic Auth      | `curl -u user:pass URL`                                                   |
+| Follow Redirect | `curl -L URL`                                                             |
+| Save Output     | `curl URL -o file.txt`                                                    |
+| Show Headers    | `curl -i URL`                                                             |
 
----
-
-# Other most used commands
-
-**essential command-line tools** commonly used by developers (especially when working with Docker, APIs, microservices, or Spring Boot apps). Here's a curated list of the **most commonly used commands** (apart from `curl`) with when/why to use them:
+</details>
 
 ---
 
-## 🔹 1. **`wget`** – alternative to `curl` (simpler for downloads)
+# Other Most Used Commands
+
+<details>
+<summary><strong>Essential tools used alongside Docker & APIs</strong></summary>
+
+### 1. wget – simpler alternative to curl (downloads)
 
 ```bash
 wget http://localhost:8080/file.zip
 ```
 
-- Great for downloading files (like API exports, artifacts).
-- Less flexible than `curl`, but easier for plain downloads.
-
----
-
-## 🔹 2. **`httpie`** – human-friendly `curl` alternative
+### 2. httpie – human-friendly curl alternative
 
 ```bash
 http GET http://localhost:8080/api/users
 http POST http://localhost:8080/api/users name=John
 ```
 
-- Much cleaner than `curl` for REST APIs.
-- Example:
-  ```bash
-  http POST :8080/api login=user password=pass
-  ```
+Install with:
 
-✅ Install it via:
 ```bash
 pip install httpie
 ```
 
----
-
-## 🔹 3. **`ping`** – test if a host/IP is reachable
+### 3. ping – test host/IP connectivity
 
 ```bash
 ping localhost
 ping google.com
 ```
 
-- Checks basic network connectivity.
-
----
-
-## 🔹 4. **`netstat` / `ss`** – check active ports
+### 4. netstat / ss – check active ports
 
 ```bash
-netstat -tuln   # show listening ports
-ss -tuln        # modern alternative to netstat
+netstat -tuln
+ss -tuln
 ```
 
-- Useful for seeing if your Docker container or Spring Boot app is bound to the correct port.
-
----
-
-## 🔹 5. **`telnet` / `nc` (netcat)** – test port connectivity
+### 5. telnet / nc (netcat) – test port connectivity
 
 ```bash
 telnet localhost 8080
 nc -zv localhost 8080
 ```
 
-- Checks if a port is open and accepting connections (e.g., is your app running?).
-
----
-
-## 🔹 6. **`jq`** – JSON viewer/parser
+### 6. jq – JSON viewer/parser
 
 ```bash
 curl localhost:8080/api | jq
 ```
 
-- Beautifies JSON output in terminal.
-- Can also filter specific fields: `jq '.data[0].name'`
+Install with:
 
-✅ Install with:
 ```bash
-sudo apt install jq  # or brew install jq
+sudo apt install jq
+# or on Mac
+brew install jq
 ```
 
----
-
-## 🔹 7. **`docker logs`** – debug container output
+### 7. docker logs – debug container output
 
 ```bash
 docker logs <container-name>
 ```
 
-- See logs of a running or crashed Docker container.
-
----
-
-## 🔹 8. **`docker exec`** – run commands inside a container
+### 8. docker exec – run commands inside container
 
 ```bash
 docker exec -it <container-name> bash
 ```
 
-- Useful for debugging inside a running container.
-
----
-
-## 🔹 9. **`kubectl`** (if using Kubernetes)
+### 9. kubectl – Kubernetes CLI
 
 ```bash
 kubectl get pods
@@ -1060,34 +870,81 @@ kubectl logs <pod-name>
 kubectl exec -it <pod-name> -- bash
 ```
 
-- For managing apps deployed in Kubernetes clusters.
-
----
-
-## 🔹 10. **`lsof`** – check which process is using a port
+### 10. lsof – check which process uses a port
 
 ```bash
 lsof -i :8080
 ```
 
-- Find out what app is using port 8080.
-
 ---
 
-## ✅ Summary of Most Common Tools (Beyond `curl`)
+### Summary Table
 
-| Tool | Purpose |
-|------|---------|
-| `http` (httpie) | Easier curl alternative |
-| `ping`, `telnet`, `nc` | Check connectivity |
-| `wget` | Download files |
-| `jq` | Pretty print JSON |
-| `netstat`, `ss`, `lsof` | Port checks |
-| `docker logs/exec` | Debug containers |
-| `kubectl` | Kubernetes control |
+| Tool              | Purpose                  |
+| ----------------- | ------------------------ |
+| http (httpie)     | Easier curl alternative  |
+| ping, telnet, nc  | Connectivity checks      |
+| wget              | File downloads           |
+| jq                | Pretty print/filter JSON |
+| netstat, ss, lsof | Port/process checks      |
+| docker logs/exec  | Container debugging      |
+| kubectl           | Kubernetes management    |
+
+</details>
 
 ---
 
 # Docker Trouble shoots
-- If docker server is not seen, then check with cmd docker ps. If shows error. Open the docker desktop.
+
+---
+
+<details>
+<summary><strong>Docker Trouble shoots</strong></summary>
+
+* If `docker ps` shows error or no response, **make sure Docker Desktop (or Docker daemon) is running**.
+
+* Check Docker service status:
+
+```bash
+# On Linux
+sudo systemctl status docker
+
+# Start Docker if not running
+sudo systemctl start docker
+```
+
+* Common issues & fixes:
+
+  * **Docker daemon not running**: Start Docker Desktop or the Docker service.
+
+  * **Permission denied**: Run docker commands with `sudo` or add your user to `docker` group:
+
+  ```bash
+  sudo usermod -aG docker $USER
+  newgrp docker
+  ```
+
+  * **Port conflicts**: Make sure ports required by your containers or Docker are free.
+
+  * **Image pull failures**: Check internet connection or Docker Hub credentials.
+
+  * **Disk space full**: Clean unused Docker objects with
+
+  ```bash
+  docker system prune -a
+  ```
+
+* **Restart Docker Desktop** can fix many transient problems.
+
+* Use logs and verbose flags to diagnose:
+
+```bash
+docker logs <container-name>
+docker info
+docker system df
+```
+
+</details>
+
+---
 
