@@ -837,6 +837,227 @@ literal == "Sarath"; // true (both point to pool)
 
 ---
 
+
+<details>
+<summary><strong>🧠 Java Memory Areas Related to Strings</strong></summary>
+
+### Memory Areas Related to Strings
+
+Strings are stored differently depending on how they are created and the Java version.
+
+```markdown
++----------------------+
+|   String Creation    |
++----------------------+
+         |
+         v
++----------------------+
+| Is it a Literal?     |-------------------------------+
++----------------------+                               |
+         | No                                             | Yes
+         v                                               v
++-----------------------------+          +-----------------------------+
+| new String("Hello")         |          | "Hello" (String Literal)    |
+| (Heap Object)               |          | Goes to String Pool         |
++-----------------------------+          +-----------------------------+
+         |                                              |
+         v                                              v
++-----------------------------+          +-----------------------------+
+| Eden Space (Young Gen)      |          | Interned in:                |
+| (In Heap)                   |          | - PermGen (Java ≤7)         |
++-----------------------------+          | - MetaSpace (Java 8+)       |
+                                         +-----------------------------+
+```
+
+---
+
+### Memory Areas Explained
+
+| Area          | Description                                              | Java Version     |
+| ------------- | -------------------------------------------------------- | ---------------- |
+| Eden Space    | New objects, including new Strings created with `new`    | All versions     |
+| PermGen Space | Stores class metadata and interned strings               | Java 7 and below |
+| MetaSpace     | Replaces PermGen for class metadata and interned strings | Java 8 and above |
+
+---
+
+### Interning and String Pool
+
+* **String Pool** stores literals and interned strings.
+* `String.intern()` adds strings explicitly to the pool.
+* Pool was in PermGen (≤Java7), moved to MetaSpace (Java8+).
+
+---
+
+### Example
+
+```java
+String a = "Hello";              // Stored in String pool
+String b = new String("Hello");  // New object in Eden Space (Heap)
+
+System.out.println(a == b);          // false
+System.out.println(a == b.intern()); // true
+```
+
+---
+
+### Summary Table
+
+| Java Version | Heap (Eden Space)      | PermGen / MetaSpace | String Pool Location |
+| ------------ | ---------------------- | ------------------- | -------------------- |
+| Java ≤ 7     | `new String()` objects | PermGen             | PermGen              |
+| Java 8+      | `new String()` objects | MetaSpace           | MetaSpace            |
+
+</details>
+
+---
+
+## 🧠 Java Memory Spaces (JVM Memory Structure)
+
+Java Virtual Machine (JVM) memory is split into several **memory areas**, each with a **specific purpose** for managing objects, threads, and class-level data.
+
+---
+
+### 🔁 Flow Diagram (Markdown Text Format)
+
+```markdown
+                 +-------------------------+
+                 |   Java Application      |
+                 +-------------------------+
+                             |
+                             v
+                +--------------------------+
+                |   JVM Memory Structure   |
+                +--------------------------+
+                             |
+                             v
+   +---------------------------+---------------------------+
+   |                           |                           |
+   v                           v                           v
++--------+            +----------------+         +-----------------+
+|  Heap  | <-------+  |     Stack      |         |   Metaspace     |
+|        |         |  | (Thread-local) |         |  (Class info)   |
++--------+         |  +----------------+         +-----------------+
+     |             |        |                            |
+     |             |        v                            v
+     |             |   +------------+              +-------------+
+     |             |   | Primitive  |              | Class Names |
+     |             |   | Locals     |              | Methods     |
+     |             |   +------------+              | Constant Pool|
+     |             |                                +-------------+
+     |
+     v
++-------------------------------------------+
+| Young Generation (Eden + 2 Survivor spaces)|
++-------------------------------------------+
+| Old Generation (Tenured space)             |
++-------------------------------------------+
+```
+
+---
+
+## 🧩 JVM Memory Areas Explained
+
+### 1. **Heap**
+
+* **Purpose**: Stores all **objects**, **class instances**, **arrays**
+* **Managed by**: Garbage Collector (GC)
+* **Subdivided into**:
+
+  * **Young Generation**
+
+    * **Eden Space**: New objects created here.
+    * **Survivor Spaces (S0/S1)**: Surviving objects from minor GC.
+  * **Old Generation**: Long-lived objects promoted here.
+
+---
+
+### 2. **Young Generation (YG)**
+
+* Optimized for fast allocation and collection (minor GC).
+* **Eden Space**:
+
+  * Where all new objects are created.
+  * If not garbage collected, moved to Survivor.
+* **Survivor Space (S0 & S1)**:
+
+  * Objects that survive GC cycles.
+  * After a few cycles, moved to Old Gen.
+
+---
+
+### 3. **Old Generation (Tenured)**
+
+* Stores **long-living objects** (e.g., strings in use, singletons).
+* Collected less frequently via **major GC** (slower than minor GC).
+
+---
+
+### 4. **Stack**
+
+* **Thread-local memory**
+* Stores:
+
+  * Method calls (stack frames)
+  * Primitive local variables
+  * Object references (not actual objects)
+* Automatically **pushed/popped** during method calls
+* Faster than heap memory
+* Throws `StackOverflowError` if exceeded
+
+---
+
+### 5. **Metaspace** (Java 8+)
+
+* Stores **class metadata**
+* Replaced **PermGen** from Java 8 onwards
+* Grows dynamically (unlike PermGen which had fixed size)
+* Contains:
+
+  * Class names
+  * Method/field metadata
+  * Constant pool (for that class)
+* **Not part of the heap** — resides in **native memory**
+
+---
+
+### 6. **Program Counter (PC) Register**
+
+* **Thread-specific**: Keeps track of current instruction address
+* Helps resume execution in the correct place
+
+---
+
+### 7. **Native Method Stack**
+
+* For executing **native (non-Java)** methods via JNI (Java Native Interface)
+
+---
+
+## ✅ Summary Table
+
+| Memory Area       | Purpose                               | Collected by GC | Thread Scoped |
+| ----------------- | ------------------------------------- | --------------- | ------------- |
+| Heap (Eden + Old) | Stores objects, arrays                | ✅               | ❌             |
+| Stack             | Stores local variables & method calls | ❌               | ✅             |
+| Metaspace         | Class metadata                        | ✅ (limited)     | ❌             |
+| PC Register       | Tracks next instruction               | ❌               | ✅             |
+| Native Stack      | Native method handling                | ❌               | ✅             |
+
+
+### JVM Memory Areas Explained
+
+| Memory Area             | Purpose                                     | Notes                        |
+| ----------------------- | ------------------------------------------- | ---------------------------- |
+| **Heap**                | Stores objects and arrays                   | Managed by Garbage Collector |
+| **Young Generation**    | New objects allocated here                  | Eden + Survivor spaces       |
+| **Old Generation**      | Long-lived objects moved here               | Major GC occurs              |
+| **Stack**               | Stores method calls, primitives, references | Thread-local, fast access    |
+| **Metaspace**           | Stores class metadata and interned strings  | Outside heap, Java 8+        |
+| **PC Register**         | Tracks current instruction address          | Thread-local                 |
+| **Native Method Stack** | For native method execution                 | JNI calls                    |
+---
+
 ### String Literal vs String Object
 
 * **String Literal:** Stored in the String pool.

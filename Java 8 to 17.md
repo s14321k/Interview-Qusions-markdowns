@@ -1,72 +1,3 @@
-<!-- TOC -->
-
-- [Java 8 streams vs collections](#java-8-streams-vs-collections)
-  - [Stream API](#stream-api)
-    - [Stream is a part of collection interface](#stream-is-a-part-of-collection-interface)
-      - [Key Differences](#key-differences)
-      - [Example](#example)
-        - [Collections Example](#collections-example)
-        - [Streams Example](#streams-example)
-    - [Intermediate \& Terminal](#intermediate--terminal)
-  - [Collectors from java.util.stream](#collectors-from-javautilstream)
-- [JAVA8 to JAVA17 And Java8 and java17](#java8-to-java17-and-java8-and-java17)
-  - [Java 8 (March 2014)](#java-8-march-2014)
-  - [Java 9 (September 2017)](#java-9-september-2017)
-  - [Java 10 (March 2018)](#java-10-march-2018)
-  - [Java 11 (September 2018)](#java-11-september-2018)
-  - [Java 12 (March 2019)](#java-12-march-2019)
-  - [Java 13 (September 2019)](#java-13-september-2019)
-  - [Java 14 (March 2020)](#java-14-march-2020)
-  - [Java 15 (September 2020)](#java-15-september-2020)
-  - [Java 16 (March 2021)](#java-16-march-2021)
-  - [Java 17 (September 2021)](#java-17-september-2021)
-  - [Java 8](#java-8)
-  - [1. Lambda Expression and Stream API](#1-lambda-expression-and-stream-api)
-    - [Why do we need lambda?](#why-do-we-need-lambda)
-    - [Before Lambda and Stream API](#before-lambda-and-stream-api)
-    - [Using Stream and Lambda, IntStream](#using-stream-and-lambda-intstream)
-      - [Why lambda expression is used?](#why-lambda-expression-is-used)
-      - [map() and flatMap() in streamAPI](#map-and-flatmap-in-streamapi)
-  - [2. Method Reference](#2-method-reference)
-    - [Without Method Reference](#without-method-reference)
-    - [Using Method Referance](#using-method-referance)
-  - [3. Default Methods](#3-default-methods)
-  - [4. Type Annotations](#4-type-annotations)
-    - [1. Local variable definition @NotNull](#1-local-variable-definition-notnull)
-    - [2. Constructor Call @NotEmpty](#2-constructor-call-notempty)
-    - [3. Generic Type @Email](#3-generic-type-email)
-  - [5. Double colon operator in java](#5-double-colon-operator-in-java)
-    - [Syntax](#syntax)
-  - [6. Optional](#6-optional)
-    - [Why use `Optional`?](#why-use-optional)
-    - [Basics of `Optional`:](#basics-of-optional)
-      - [Example:](#example-1)
-      - [Date Time API](#date-time-api)
-      - [StringJoiner](#stringjoiner)
-      - [Record class \& Sealed classes](#record-class--sealed-classes)
-  - [7. Collections improvements](#7-collections-improvements)
-    - [1. **Streams API**](#1-streams-api)
-      - [Key Features:](#key-features)
-      - [Example:](#example-2)
-    - [2. **Default Methods in Interfaces**](#2-default-methods-in-interfaces)
-      - [Key Default Methods:](#key-default-methods)
-    - [3. **New Methods in the Map Interface**](#3-new-methods-in-the-map-interface)
-      - [Key Methods:](#key-methods)
-    - [4. **Collectors Utility Class**](#4-collectors-utility-class)
-      - [Example:](#example-3)
-    - [5. **Improvements in Concurrent Collections**](#5-improvements-in-concurrent-collections)
-      - [Example:](#example-4)
-- [Java 9](#java-9)
-  - [1. Closing a Resource with try-with-resources](#1-closing-a-resource-with-try-with-resources)
-    - [2. Private interface methods](#2-private-interface-methods)
-    - [Records in java](#records-in-java)
-
----
-
-Here's a **refactored, clean, and collapsible Markdown** version of your content. This format is **user-friendly**, **organized**, and ideal for platforms like GitHub, Obsidian, or Notion that support collapsible sections using `<details>` tags.
-
----
-
 # [Java 8 Streams vs Collections](https://www.java2novice.com/java_interview_questions/java-8-streams-vs-collection-framework/)
 
 ## 📺 [Video Explanation](https://youtu.be/lyl2Y5rwfx4?si=WiTKZxZDzVDnEVFV)
@@ -1028,6 +959,87 @@ List<Integer> flatList = listOfLists.stream().flatMap(List::stream).collect(Coll
 ```
 
 </details>
+
+# @SafeVarargs in Java
+
+<details>
+<summary><strong>@SafeVarargs in Java — Explanation & Example</strong></summary>
+
+---
+
+## What is `@SafeVarargs`?
+
+* Suppresses unchecked warnings related to **generic varargs**.
+* Indicates the method/constructor **does not perform unsafe operations** on varargs.
+* Can be applied only to:
+
+  * `final` methods
+  * `static` methods
+  * constructors
+
+---
+
+## Why use `@SafeVarargs`?
+
+* Java varargs use arrays internally, and generics + arrays are unsafe by nature.
+* Using generic varargs causes compiler **unchecked warnings**.
+* `@SafeVarargs` tells the compiler **"this is safe, don’t warn me."**
+
+---
+
+## Example without `@SafeVarargs` (generates warning)
+
+```java
+public class Example {
+    public static <T> void printAll(T... items) {
+        for (T item : items) {
+            System.out.println(item);
+        }
+    }
+
+    public static void main(String[] args) {
+        printAll("Hello", "World"); // Warning about unchecked generic array creation
+    }
+}
+```
+
+---
+
+## Example with `@SafeVarargs` (no warning)
+
+```java
+public class Example {
+    @SafeVarargs
+    public static <T> void printAll(T... items) {
+        for (T item : items) {
+            System.out.println(item);
+        }
+    }
+
+    public static void main(String[] args) {
+        printAll("Hello", "World"); // No warning now
+    }
+}
+```
+
+---
+
+## Important Notes
+
+* **Cannot** annotate non-final instance methods.
+* Use only when method **does not perform unsafe operations** on varargs.
+* Helps **document intent** and keeps builds warning-free.
+
+---
+
+## When to use?
+
+* Static or final utility methods with generic varargs.
+* When sure the varargs usage is safe.
+
+</details>
+
+---
 
 
 
