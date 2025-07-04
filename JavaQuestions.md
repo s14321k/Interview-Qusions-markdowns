@@ -14,6 +14,13 @@
 
 6. Get  even numbers from an array using stream.
 
+7. Print a given array "cyclically" in a loop to output the desired pattern
+   Given Array-[1,2,3,4,5,6]
+   Sample output
+   Group(No. of Column)- 4 Iterations(No. of rows)- 7 Output will be 1, 2, 3, 4 5, 6, 1, 2 3, 4, 5, 6 1, 2, 3, 4 5, 6, 1, 2 3, 4, 5, 6 1, 2, 3, 4
+   if Group- 5 Iterations- 2 Output will be 1, 2, 3, 4, 5 6, 1, 2, 3, 4
+   if Group- 3 Iterations- 3 Output will be 1, 2, 3 4, 5, 6 1, 2, 3
+
 ```java
 public class SimpleClass 
 {

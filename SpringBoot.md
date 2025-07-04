@@ -11,6 +11,17 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     * [🔁 Bean Scopes](#-bean-scopes)
     * [🌱 Bean Lifecycle Overview](#-bean-lifecycle-overview)
     * [🧷 Other Important Annotations](#-other-important-annotations)
+* [⚡ Spring Boot Caching Annotations – Complete Guide](#-spring-boot-caching-annotations--complete-guide)
+    * [🧠 Description](#-description)
+    * [✅ Parameters](#-parameters)
+    * [🛠️ Examples](#-examples)
+    * [🧠 Description](#-description-1)
+    * [✅ Parameters](#-parameters-1)
+    * [🛠️ Examples](#-examples-1)
+    * [⏱ Scheduled Eviction](#-scheduled-eviction)
+    * [🧠 Description](#-description-2)
+    * [✅ Parameters](#-parameters-2)
+    * [🛠️ Examples](#-examples-2)
   * [🌱 Spring vs Spring Boot](#-spring-vs-spring-boot)
   * [🔧 Spring Boot Profiles](#-spring-boot-profiles)
   * [❓ Why Use Spring Boot?](#-why-use-spring-boot)
@@ -289,16 +300,214 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     - `@ConditionalOnJava`, `@ConditionalOnExpression`
 </details>
 
-<details>
-<summary><strong>Caching</strong></summary>
 
-- `@EnableCaching` – Enables cache abstraction
-- `@Cacheable` – Caches method results
-- `@CacheEvict` – Removes entries from cache
-- `@CachePut` – Updates cache without skipping method logic
+✅ `@Cacheable` — to retrieve from cache
+✅ `@CacheEvict` — to remove from cache
+✅ `@CachePut` — to update the cache forcibly
+
+---
+
+# ⚡ Spring Boot Caching Annotations – Complete Guide
+
+This guide covers:
+- ✅ `@Cacheable`
+- 🧹 `@CacheEvict`
+- 🔁 `@CachePut`
+
+---
+
+<details>
+<summary>🔍 1. Overview of Spring Caching Annotations</summary>
+
+| Annotation    | Purpose                                          | Typical Use Case                          |
+|---------------|--------------------------------------------------|--------------------------------------------|
+| `@Cacheable`  | Caches the result of a method call               | Read operations / GET endpoints            |
+| `@CacheEvict` | Removes entry/entries from cache                 | Delete or update operations                |
+| `@CachePut`   | Forces a method call and updates the cache       | Update operations (write-through caching)  |
+
 </details>
 
-Here is your content **restructured in clean, collapsible Markdown format**, with **corrections, clarity, and consistency** added — perfect for documentation, interviews, or personal notes.
+---
+
+<details>
+<summary>🚀 2. @Cacheable – Read from Cache</summary>
+
+### 🧠 Description
+Caches the method return value based on cache name and key. If value is already cached, method is **not executed**.
+
+### ✅ Parameters
+
+| Parameter      | Description |
+|----------------|-------------|
+| `value`        | Cache name(s) |
+| `key`          | SpEL to compute key (optional) |
+| `keyGenerator` | Custom key generator bean name |
+| `cacheManager` | Specific cache manager to use |
+| `cacheResolver`| Custom cache resolver |
+| `condition`    | Only cache if this SpEL evaluates to true |
+| `unless`       | Do not cache if this SpEL evaluates to true |
+| `sync`         | Prevent multiple threads from computing same key (default: false) |
+
+### 🛠️ Examples
+
+```java
+@Cacheable(value = "products")
+public Product getProduct(String id) { ... }
+
+@Cacheable(value = "users", key = "#user.id", condition = "#user.active")
+public User getUser(User user) { ... }
+
+@Cacheable(value = "inventory", key = "#sku", unless = "#result == null")
+public Inventory fetchInventory(String sku) { ... }
+
+@Cacheable(value = "pricing", key = "#itemId", sync = true)
+public Price calculatePrice(String itemId) { ... }
+````
+
+</details>
+
+---
+
+<details>
+<summary>🧹 3. @CacheEvict – Remove from Cache</summary>
+
+### 🧠 Description
+
+Used to **evict (remove)** entries from the cache. Can target a specific key or the whole cache.
+
+### ✅ Parameters
+
+| Parameter          | Description                                     |
+| ------------------ | ----------------------------------------------- |
+| `value`            | Cache name(s)                                   |
+| `key`              | SpEL expression for key (optional)              |
+| `allEntries`       | Evict all entries in the cache (default: false) |
+| `beforeInvocation` | Evict before method execution (default: false)  |
+| `condition`        | Only evict if this SpEL evaluates to true       |
+| `unless`           | Skip eviction if this evaluates to true         |
+| `keyGenerator`     | Custom key generator                            |
+| `cacheManager`     | Specific cache manager                          |
+| `cacheResolver`    | Custom cache resolver                           |
+
+### 🛠️ Examples
+
+```java
+@CacheEvict(value = "products", key = "#productId")
+public void deleteProduct(String productId) { ... }
+
+@CacheEvict(value = "products", allEntries = true)
+public void clearProductCache() { ... }
+
+@CacheEvict(value = "users", key = "#user.id", condition = "#user.deactivated")
+public void deactivateUser(User user) { ... }
+
+@CacheEvict(value = "items", key = "#id", beforeInvocation = true)
+public void riskyDelete(String id) throws Exception { ... }
+```
+
+### ⏱ Scheduled Eviction
+
+```java
+@CacheEvict(value = "smsPartner", allEntries = true)
+@Scheduled(fixedRate = 600000) // 10 minutes
+public void clearCacheOnTTL() {
+    System.out.println("Evicting smsPartner cache...");
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>🔁 4. @CachePut – Force Update Cache</summary>
+
+### 🧠 Description
+
+Forces method execution and **updates cache** with the result — useful for write-through caching (i.e., cache updated when DB is updated).
+
+### ✅ Parameters
+
+| Parameter       | Description                       |
+| --------------- | --------------------------------- |
+| `value`         | Cache name(s)                     |
+| `key`           | SpEL to compute key               |
+| `keyGenerator`  | Custom key generator bean         |
+| `cacheManager`  | Specific cache manager            |
+| `cacheResolver` | Custom cache resolver             |
+| `condition`     | Only update cache if this is true |
+| `unless`        | Skip update if this is true       |
+
+### 🛠️ Examples
+
+```java
+@CachePut(value = "products", key = "#product.id")
+public Product updateProduct(Product product) {
+    return productRepository.save(product);
+}
+
+@CachePut(value = "inventory", key = "#sku", unless = "#result == null")
+public Inventory refreshStock(String sku) { ... }
+```
+
+📌 Unlike `@Cacheable`, **`@CachePut` always runs the method**.
+
+</details>
+
+---
+
+<details>
+<summary>📁 5. Common Setup – Spring Boot Project</summary>
+
+```
+src/
+├── java/
+│   └── com/example/demo/
+│       ├── DemoApplication.java
+│       ├── config/CacheConfig.java
+│       ├── service/ProductService.java
+│       └── controller/ProductController.java
+└── resources/
+    └── application.yml
+```
+
+```java
+@SpringBootApplication
+@EnableCaching
+@EnableScheduling
+public class DemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>🧩 6. Custom Key Generator</summary>
+
+```java
+@Bean("customKeyGenerator")
+public KeyGenerator customKeyGenerator() {
+    return (target, method, params) -> Arrays.stream(params)
+        .map(Object::toString)
+        .collect(Collectors.joining("-"));
+}
+```
+
+Use in annotations:
+
+```java
+@Cacheable(value = "users", keyGenerator = "customKeyGenerator")
+@CacheEvict(value = "users", keyGenerator = "customKeyGenerator")
+@CachePut(value = "users", keyGenerator = "customKeyGenerator")
+```
+
+</details>
+```
 
 ---
 
