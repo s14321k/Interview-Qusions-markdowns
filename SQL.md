@@ -1,54 +1,57 @@
 <!-- TOC -->
-
-- [SQL Ques](#sql-ques)
-  - [ALL Queries](#all-queries)
-  - [1. Find max and second max salary for a employee table MySQL](#1-find-max-and-second-max-salary-for-a-employee-table-mysql)
-  - [Highest Salary in each department](#highest-salary-in-each-department)
-  - [2. Types of Relationship in DBMS](#2-types-of-relationship-in-dbms)
-  - [3. View in sql](#3-view-in-sql)
-  - [4. Predicate in SQL](#4-predicate-in-sql)
-  - [5. SQL Constraints](#5-sql-constraints)
-    - [1. **Primary Key Constraint**](#1-primary-key-constraint)
-    - [2. **Foreign Key Constraint**](#2-foreign-key-constraint)
-    - [3. **Unique Constraint**](#3-unique-constraint)
-    - [4. **Not Null Constraint**](#4-not-null-constraint)
-    - [5. **Check Constraint**](#5-check-constraint)
-    - [6. **Default Constraint**](#6-default-constraint)
-    - [Summary](#summary)
-  - [6. Joins in SQL](#6-joins-in-sql)
-  - [7. KeyWords](#7-keywords)
-  - [8. Sql functions](#8-sql-functions)
-  - [SQL Questions](#sql-questions)
-    - [1. Indexing inSQL](#1-indexing-insql)
-    - [2. primary key vs foreign key](#2-primary-key-vs-foreign-key)
-      - [Primary Key](#primary-key)
-      - [Foreign Key](#foreign-key)
-      - [Differences](#differences)
-      - [Summary](#summary-1)
-    - [3. stored procedure](#3-stored-procedure)
-    - [Key Features and Benefits of Stored Procedures](#key-features-and-benefits-of-stored-procedures)
-      - [Creating and Using Stored Procedures](#creating-and-using-stored-procedures)
-        - [Example: Creating a Stored Procedure](#example-creating-a-stored-procedure)
-        - [Example: Executing a Stored Procedure](#example-executing-a-stored-procedure)
-        - [Example: Creating a Stored Procedure with Output Parameters](#example-creating-a-stored-procedure-with-output-parameters)
-      - [Summary](#summary-2)
-    - [4. Write a query to fetch the employee whose age is greater than 40?](#4-write-a-query-to-fetch-the-employee-whose-age-is-greater-than-40)
-    - [5. Describe Referential constraint?](#5-describe-referential-constraint)
-    - [6. Composite and Foreign Key](#6-composite-and-foreign-key)
-    - [7. Normalization](#7-normalization)
-      - [Normal Forms](#normal-forms)
-      - [Summary of Benefits](#summary-of-benefits)
-    - [8. What are the ways to reduce the load in database.](#8-what-are-the-ways-to-reduce-the-load-in-database)
-    - [9. Primary Key vs Unique Key](#9-primary-key-vs-unique-key)
-      - [Primary Key](#primary-key-1)
-      - [Unique Key](#unique-key)
-      - [Key Differences](#key-differences)
-      - [Usage Examples](#usage-examples)
-      - [Summary](#summary-3)
-
-Here’s a **refactored and collapsible** version of your SQL notes in **Markdown**, with improved readability, collapsible sections, and a **table format** where it adds clarity:
-
----
+* [📘 SQL Interview Prep](#-sql-interview-prep)
+    * [❓ Query to Get Max or Nth Max Salary](#-query-to-get-max-or-nth-max-salary)
+    * [🔍 Queries](#-queries)
+    * [📄 What is a View?](#-what-is-a-view)
+    * [🛠️ Syntax](#-syntax)
+    * [📌 Predicates = Expressions that evaluate to TRUE / FALSE / UNKNOWN](#-predicates--expressions-that-evaluate-to-true--false--unknown)
+    * [✅ What Are Constraints?](#-what-are-constraints)
+    * [🔍 Examples](#-examples)
+      * [1. **Primary Key**](#1-primary-key)
+      * [2. **Foreign Key**](#2-foreign-key)
+      * [3. **Unique**](#3-unique)
+      * [4. **Not Null**](#4-not-null)
+      * [5. **Check**](#5-check)
+      * [6. **Default**](#6-default)
+    * [📌 Types of Joins](#-types-of-joins)
+    * [Types of Functions](#types-of-functions)
+    * [🔍 What is Indexing?](#-what-is-indexing)
+    * [Example](#example)
+    * [📌 Definitions](#-definitions)
+    * [✅ Primary Key Example](#-primary-key-example)
+    * [🔗 Foreign Key Example](#-foreign-key-example)
+    * [🔄 Differences](#-differences)
+    * [📘 What is a Stored Procedure?](#-what-is-a-stored-procedure)
+    * [✅ Benefits](#-benefits)
+    * [🔨 Example: Input Parameter](#-example-input-parameter)
+    * [📤 Example: Output Parameter](#-example-output-parameter)
+    * [📌 SQL Query](#-sql-query)
+    * [📘 What Is a Referential Constraint?](#-what-is-a-referential-constraint)
+    * [🔗 Example](#-example)
+    * [🧩 Composite Key](#-composite-key)
+    * [🔗 Foreign Key](#-foreign-key)
+    * [🧠 Summary Table](#-summary-table)
+    * [✅ What Is Normalization?](#-what-is-normalization)
+    * [🔢 Normal Forms Overview](#-normal-forms-overview)
+    * [📊 Example: 1NF to 5NF Progression](#-example-1nf-to-5nf-progression)
+    * [✅ Benefits of Normalization](#-benefits-of-normalization)
+    * [💡 Key Techniques](#-key-techniques)
+    * [🧠 Purpose](#-purpose)
+    * [🧬 Key Differences](#-key-differences)
+    * [✅ Primary Key Example](#-primary-key-example-1)
+    * [🔁 Unique Key Example](#-unique-key-example)
+    * [📌 Summary](#-summary)
+    * [📧 Why Check for Duplicate Emails?](#-why-check-for-duplicate-emails)
+    * [🧾 Table Structure](#-table-structure)
+    * [🧠 Query to Identify Duplicates by Email](#-query-to-identify-duplicates-by-email)
+    * [📥 Fetch All Duplicate Rows](#-fetch-all-duplicate-rows)
+    * [🧪 Sample Output](#-sample-output)
+    * [✅ Use Case](#-use-case)
+    * [✅ 1. Using `GROUP BY` (Recommended)](#-1-using-group-by-recommended)
+    * [✅ 2. Using Conditional Aggregation (Pivot Style)](#-2-using-conditional-aggregation-pivot-style)
+    * [❌ Invalid Version (for comparison)](#-invalid-version-for-comparison)
+    * [🧠 Summary](#-summary-1)
+<!-- TOC -->
 
 # 📘 SQL Interview Prep
 
@@ -233,10 +236,6 @@ CREATE TABLE Orders (
 
 ---
 
-Here's the **continued, refactored, and collapsible version** of your SQL notes, matching the structure from before — now including Joins, Keywords, Functions, Indexing, Keys, and Stored Procedures.
-
----
-
 <details>
 <summary><strong>🔗 7. SQL Joins</strong></summary>
 
@@ -418,11 +417,6 @@ PRINT @Count;
 ```
 
 </details>
-
----
-
-
-Here's the **final refactored continuation** of your SQL notes with collapsible sections, tables, and formatting to maximize clarity and consistency. These sections include commonly asked SQL topics like queries, referential integrity, composite keys, normalization, and performance strategies.
 
 ---
 
@@ -657,6 +651,155 @@ CREATE TABLE Employees (
 ---
 
 Understanding when and where to use **primary** vs **unique** keys helps enforce clean data design and maintain integrity across your database schema.
+
+</details>
+
+---
+
+<details open>
+<summary><strong>🔍 19. Find Duplicate Records by Email</strong></summary>
+
+### 📧 Why Check for Duplicate Emails?
+
+Email is often expected to be **unique** in employee records. Detecting duplicates helps:
+
+* Ensure data accuracy
+* Prevent login issues
+* Maintain referential integrity
+
+---
+
+### 🧾 Table Structure
+
+```sql
+CREATE TABLE Employee (
+    ID INT PRIMARY KEY,
+    EmployeeName VARCHAR(100),
+    Email VARCHAR(100),
+    Department VARCHAR(50),
+    Salary DECIMAL(10, 2),
+    HireDate DATE
+);
+```
+
+---
+
+### 🧠 Query to Identify Duplicates by Email
+
+```sql
+SELECT Email, COUNT(*) AS Occurrences
+FROM Employee
+GROUP BY Email
+HAVING COUNT(*) > 1;
+```
+
+* **`GROUP BY Email`**: Groups records with the same email
+* **`HAVING COUNT(*) > 1`**: Filters only those emails that appear more than once
+
+---
+
+### 📥 Fetch All Duplicate Rows
+
+To get full employee details where email is duplicated:
+
+```sql
+SELECT *
+FROM Employee
+WHERE Email IN (
+    SELECT Email
+    FROM Employee
+    GROUP BY Email
+    HAVING COUNT(*) > 1
+);
+```
+
+---
+
+### 🧪 Sample Output
+
+| ID  | EmployeeName | Email                                         | Department | Salary   | HireDate   |
+| --- | ------------ | --------------------------------------------- | ---------- | -------- | ---------- |
+| 101 | Alice        | [alice@example.com](mailto:alice@example.com) | HR         | 50000.00 | 2020-01-10 |
+| 108 | A. Smith     | [alice@example.com](mailto:alice@example.com) | Finance    | 52000.00 | 2021-04-22 |
+
+---
+
+### ✅ Use Case
+
+* Detect accidental duplicates in data entry
+* Audit external imports for conflicts
+* Prepare for applying a **`UNIQUE` constraint** on `Email`
+
+</details>
+
+---
+
+<details open>
+<summary><strong>20. 📊 Count Male and Female Students in Grade 5</strong></summary>
+
+To get the **count of male and female students** in **grade 5**, your SQL query should be properly structured.
+
+
+
+### ✅ 1. Using `GROUP BY` (Recommended)
+
+```sql
+SELECT gender, COUNT(*) AS count
+FROM student
+WHERE grade = '5'
+GROUP BY gender;
+```
+
+🧾 **Output Example:**
+
+| gender | count |
+| ------ | ----- |
+| Male   | 10    |
+| Female | 8     |
+
+---
+
+### ✅ 2. Using Conditional Aggregation (Pivot Style)
+
+```sql
+SELECT
+    COUNT(CASE WHEN gender = 'Male' THEN 1 END) AS male_count,
+    COUNT(CASE WHEN gender = 'Female' THEN 1 END) AS female_count
+FROM student
+WHERE grade = '5';
+```
+
+🧾 **Output Example:**
+
+| male\_count | female\_count |
+| ----------- | ------------- |
+| 10          | 8             |
+
+---
+
+### ❌ Invalid Version (for comparison)
+
+```sql
+-- Incorrect syntax and logic
+SELECT gender FROM student WHERE grade = '5' COUNT(gender) = Male AND COUNT(gender) = Female;
+```
+
+That won't work because:
+
+* `COUNT()` is an aggregate function and cannot be used directly in a `WHERE` clause.
+* String comparison (`Male`, `Female`) needs quotes.
+* `COUNT(gender) = Male` is not valid SQL syntax.
+
+---
+
+### 🧠 Summary
+
+| Task                         | Query Type          | Output Format       |
+| ---------------------------- | ------------------- | ------------------- |
+| Count by gender              | `GROUP BY`          | Rows by gender      |
+| Count male/female as columns | Conditional `COUNT` | Pivot-style one row |
+
+Use whichever output format fits your application/reporting need.
 
 </details>
 
