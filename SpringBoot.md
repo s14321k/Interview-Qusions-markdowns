@@ -262,6 +262,7 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 - `@DynamicInsert`, `@DynamicUpdate` – Hibernate-specific
 - `@Embedded`, `@EmbeddedId`, `@Embeddable`
 - `@MappedSuperclass`, `@EntityListeners`, `@EntityGraph`
+![EntityGraph](images/AnnotationEntityGraph.png)
 - `@EnableJpaRepositories`, `@EntityScan`
 - `@NamedQuery`, `@Version`, `@PersistenceContext`
 </details>

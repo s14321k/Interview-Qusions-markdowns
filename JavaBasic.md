@@ -890,6 +890,8 @@ Strings are stored differently depending on how they are created and the Java ve
 
 ### Memory Areas Explained
 
+![HeapPermgenSpace](images/HeapPermgenSpace.png)
+
 | Area          | Description                                              | Java Version     |
 | ------------- | -------------------------------------------------------- | ---------------- |
 | Eden Space    | New objects, including new Strings created with `new`    | All versions     |
@@ -1292,6 +1294,8 @@ public class Example {
 
 ### Data Binding in Java
 
+![staticVsDynamicBinding](images/staticVsDynamicBinding.png)
+
 * **Static Binding (Early Binding)**: Method calls resolved at compile-time (static, private, final methods).
 * **Dynamic Binding (Late Binding)**: Method calls resolved at runtime via overriding (non-static, non-final, non-private methods).
 
@@ -1583,7 +1587,12 @@ Comparator<Student> nameComparator = (s1, s2) -> s1.name.compareTo(s2.name);
 
 ---
 
-## 🌐 Collections Hierarchy Overview
+![Collection](images/ListQueueSet.png)
+
+---
+
+<details>
+<summary>## 🌐 Collections Hierarchy Overview</summary>
 
 ```text
 Iterable
@@ -1607,9 +1616,12 @@ Map (Not part of Collection)
   └── TreeMap
 ```
 
+</details>
+
 ---
 
-## 🧭 Interactive Decision Flowchart: Pick the Right Collection
+<details>
+<summary>## 🧭 Interactive Decision Flowchart: Pick the Right Collection</summary>
 
 ```
   Start
@@ -1651,30 +1663,37 @@ Map (Not part of Collection)
   │     - `CopyOnWriteArrayList`
   │     - `Collections.synchronizedSet(...)`
   └── No → Use as-is (default)
-
 ```
 
-### 🧠 Example Scenarios
-
-#### 1. You need to store data with keys and values and want to sort them by keys:
-
-→ TreeMap
-
-#### 2. You want to store a list of names with duplicates and access by index:
-
-→ ArrayList
-
-#### 3. You want to store a set of unique cities, and order doesn’t matter:
-
-→ HashSet
-
-#### 4. You want to store key-value pairs with insertion order preserved and need thread safety:
-
-→ LinkedHashMap + `Collections.synchronizedMap(...)`
+</details>
 
 ---
 
-### 🧰 Summary
+<details>
+<summary>🧠 Example Scenarios</summary>
+
+#### 1. You need to store data with keys and values and want to sort them by keys:
+
+→ `TreeMap`
+
+#### 2. You want to store a list of names with duplicates and access by index:
+
+→ `ArrayList`
+
+#### 3. You want to store a set of unique cities, and order doesn’t matter:
+
+→ `HashSet`
+
+#### 4. You want to store key-value pairs with insertion order preserved and need thread safety:
+
+→ `LinkedHashMap` + `Collections.synchronizedMap(...)`
+
+</details>
+
+---
+
+<details>
+<summary>🧰 Summary Table</summary>
 
 | Need                           | Collection                                                           |
 | ------------------------------ | -------------------------------------------------------------------- |
@@ -1688,9 +1707,12 @@ Map (Not part of Collection)
 | Unique, no order               | `HashSet`                                                            |
 | Thread safety                  | `ConcurrentHashMap`, `CopyOnWriteArrayList`, `synchronizedMap`, etc. |
 
+</details>
+
 ---
 
-## 🛠 Core Interfaces and Key Differences
+<details>
+<summary>🛠 Core Interfaces and Key Differences</summary>
 
 ### Iterable vs Collection
 
@@ -1701,20 +1723,22 @@ Map (Not part of Collection)
 
 ### Iterator vs Enumeration
 
-| Feature         | Iterator                                       | Enumeration                                       |
-|-----------------|------------------------------------------------|---------------------------------------------------|
-| Remove Element  | ✅ Allows remove() during traversal            | ❌ Read-only; cannot modify                       |
-| Coverage        | Universal cursor (works with all collections)  | Only for legacy classes like Vector, Hashtable    |
-| Method Support  | hasNext(), next(), remove()                    | hasMoreElements(), nextElement()                  |
-| Direction       | Forward only                                   | Forward only                                      |
-| Used For        | All modern collections                         | Legacy (Vector, Hashtable)                        |
-| Thread Safety   | Not thread-safe by default                     | ❌ Not thread-safe                                |
-| Fail-fast       | ✅                                             | ❌                                                |
+| Feature        | Iterator                                      | Enumeration                                    |
+| -------------- | --------------------------------------------- | ---------------------------------------------- |
+| Remove Element | ✅ Allows remove() during traversal            | ❌ Read-only; cannot modify                     |
+| Coverage       | Universal cursor (works with all collections) | Only for legacy classes like Vector, Hashtable |
+| Method Support | hasNext(), next(), remove()                   | hasMoreElements(), nextElement()               |
+| Direction      | Forward only                                  | Forward only                                   |
+| Used For       | All modern collections                        | Legacy (Vector, Hashtable)                     |
+| Thread Safety  | Not thread-safe by default                    | ❌ Not thread-safe                              |
+| Fail-fast      | ✅                                             | ❌                                              |
+
+</details>
 
 ---
 
-
-## 📦 Utility Classes and Interfaces
+<details>
+<summary>📦 Utility Classes and Interfaces</summary>
 
 ### Collection Interface Methods
 
@@ -1732,7 +1756,10 @@ Map (Not part of Collection)
 
 * `iterator()` — only method
 
+</details>
+
 ---
+
 
 ## 🧩 List Implementations
 
@@ -1759,6 +1786,16 @@ Map (Not part of Collection)
 * Doubly linked list
 * Insertion/deletion faster (O(1) at ends)
 * Slower random access (O(n))
+
+![ArrayListVsLinkedList](images/ArrayListVsLinkedList.png)
+
+![singlyLinkedList](images/singlyLinkedList.png)
+
+![doublyLinkedList](images/doublyLinkedList.png)
+
+![singlyVsDouble1](images/singlyVsDouble1.png)
+
+![singlyVsDouble2](images/singlyVsDouble2.png)
 
 ### Vector (Legacy)
 
@@ -1861,6 +1898,10 @@ Map (Not part of Collection)
 
 <details>
 <summary><strong>🧠 equals() vs == vs hashCode()</strong></summary>
+
+![equalsHashCode](images/equalsHashCode.png)
+
+![equalsVsDoubleEqual](images/equalsVsDoubleEqual.png)
 
 * When used as keys in `HashMap` or elements in `HashSet`, override both.
 * **Contract:**
@@ -2098,6 +2139,8 @@ See [StackOverflow: int vs Integer](https://stackoverflow.com/questions/8660691/
 <summary>Final, Finally, and Finalize</summary>
 
 ### `final` keyword
+
+![FinalKeyWord](images/FinalKeyWord.png)
 
 * Used to declare constants, prevent method overriding or inheritance.
 

@@ -3,14 +3,14 @@
 <details>
 <summary><strong>Vm vs Containers</strong></summary>
 
-![Container](\images\vmVsContainers.png)
+![Container](images/vmVsContainers.png)
 
 </details>
 
 <details>
 <summary><strong>Docker Architecture</strong></summary>
 
-![DockerArchitecture](\images\DockerArchitecture.png)
+![DockerArchitecture](images/DockerArchitecture.png)
 
 </details>
 
@@ -54,7 +54,7 @@ $ docker stop <container-id>
   * A file containing instructions for creating Docker images.
   * Static, less flexible for complex/custom images or multi-OS/arch/version support.
 
-![DockerFileCreation](\images\DockerFileCreation.png)
+![DockerFileCreation](images/DockerFileCreation.png)
 
 </details>
 
