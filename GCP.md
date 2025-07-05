@@ -123,11 +123,9 @@
 
 ---
 
-**clear comparison between App Engine, Cloud Run, Cloud Functions, and GKE**—the four major compute options in **Google Cloud Platform (GCP)**—so you can choose the right one based on your needs:
-
----
-
 ## 🚀 GCP Compute Services Comparison
+
+**clear comparison between App Engine, Cloud Run, Cloud Functions, and GKE**—the four major compute options in **Google Cloud Platform (GCP)**—so you can choose the right one based on your needs:
 
 | Feature / Service      | **App Engine**                      | **Cloud Run**                             | **Cloud Functions**                        | **GKE (Kubernetes Engine)**             |
 | ---------------------- | ----------------------------------- | ----------------------------------------- | ------------------------------------------ | --------------------------------------- |

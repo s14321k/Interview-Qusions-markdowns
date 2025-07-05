@@ -1,0 +1,3761 @@
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <title>Scroll to Top/Bottom</title>
+    <style>
+        body {
+            height: 3000px; /* Just for demonstration scrolling */
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #scrollBtn {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        #scrollBtn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <script>
+        const btn = document.getElementById("scrollBtn");
+
+        btn.addEventListener("click", () => {
+            const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2;
+
+            if (isAtBottom) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+            }
+        });
+
+        window.addEventListener("scroll", () => {
+            const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2;
+            btn.innerText = isAtBottom ? "↑" : "↓";
+        });
+    </script>
+</head>
+
+<body>
+<h1 id="java-interview-question-bank">Java Interview Question Bank</h1>
+<ul>
+    <li><a href="https://www.java2novice.com/java-interview-questions/">Java Interview Questions 1</a></li>
+    <li><a href="https://www.java67.com/2015/03/top-40-core-java-interview-questions-answers-telephonic-round.html">Java Interview Questions 2</a></li>
+    <li><a href="https://www.javamadesoeasy.com/">Java Go through Points</a></li>
+</ul>
+<hr>
+<h2 id="-primary-main-features-of-java">🚀 Primary Main Features of Java</h2>
+<details>
+    <summary>Click to expand Java main features</summary>
+
+    1. Platform Independent<br>2. Object Oriented Programming Language<br>   - Abstraction<br>   - Encapsulation<br>   - Inheritance<br>   - Polymorphism<br>3. Simple<br>4. Robust<br>5. Secure<br>6. Distributed<br>7. Multithreading<br>8. Portable<br>
+</details>
+
+<hr>
+<h2 id="-class-loaders-in-java">🧩 Class Loaders in Java</h2>
+<details>
+    <summary>Click to expand Class Loaders explanation</summary>
+
+    ### 1. Bootstrap Class Loader
+    - Parent of all class loaders.
+    - Loads core Java classes from <code>rt.jar</code> and essential libraries (located in <code>JAVA_HOME/jre/lib</code>).
+    - Implemented in native code and not accessible directly by Java code.
+
+    ### 2. Extension Class Loader
+    - Loads classes from extension directories (<code>JAVA_HOME/jre/lib/ext</code> or specified by <code>java.ext.dirs</code>).
+    - Child of Bootstrap Class Loader.
+
+    ### 3. System/Application Class Loader
+    - Loads classes from application&#39;s classpath (<code>CLASSPATH</code> environment or <code>-cp</code> option).
+    - Child of Extension Class Loader.
+
+</details>
+
+<hr>
+<h2 id="-identifiers-in-java">🆔 Identifiers in Java</h2>
+<details>
+    <summary>Click to expand Java Identifiers and Keywords</summary>
+
+    - Identifiers start with alphabets, underscore <code>_</code>, or dollar <code>$</code>.
+    - Case sensitive.
+    - <strong>Keywords cannot be used as identifiers</strong>.
+
+    ### Some Java Keywords
+
+    | Keyword    | Usage                                       |
+    |------------|---------------------------------------------|
+    | <code>class</code>    | Declare a class                             |
+    | <code>public</code>   | Accessibility modifier                      |
+    | <code>static</code>   | Belongs to class rather than instance      |
+    | <code>void</code>     | Method returns nothing                      |
+    | <code>main</code>     | Entry point of Java program                 |
+    | <code>new</code>      | Create new object                           |
+    | <code>if</code>, <code>else</code> | Conditional statements                     |
+    | <code>for</code>, <code>while</code>, <code>do</code> | Loop constructs                      |
+    | <code>return</code>   | Exit method and optionally return value    |
+    | <code>try</code>, <code>catch</code>, <code>finally</code> | Exception handling blocks          |
+    | <code>throw</code>, <code>throws</code> | Exception declaration and throwing     |
+
+</details>
+
+<hr>
+<h2 id="-what-is-a-class-">🏷️ What is a Class?</h2>
+<p>A <strong>class</strong> is a blueprint or template from which objects are created. It contains data (fields) and behaviors (methods).</p>
+<hr>
+<h2 id="-common-types-of-classes-in-java">🏗️ Common Types of Classes in Java</h2>
+<details>
+    <summary>Click to expand Common Java Class Types</summary>
+
+    ### 1. Regular (Concrete) Class
+    - Can be instantiated to create objects.
+    - Contains fields, methods, constructors.
+
+    <code>java
+        public class Car {
+        // Fields, methods, constructors
+        }
+        ````
+
+        ### 2. Abstract Class
+
+        * Cannot be instantiated.
+        * May contain abstract methods to be implemented by subclasses.</code>java
+    public abstract class Shape {
+    // Abstract and regular methods
+    }
+    <code>### 3. Interface
+
+        * Collection of abstract methods (before Java 8).
+        * From Java 8, can have default method implementations.</code>java
+    public interface Drawable {
+    void draw(); // implicitly public and abstract
+    }
+    <code>### 4. Final Class
+
+        * Cannot be extended (subclassed).</code>java
+    public final class UtilityClass {
+    // Methods and fields
+    }
+    <code>### 5. Inner Class
+
+        * Defined inside another class.
+        * Can be static or non-static.</code>java
+    public class Outer {
+    class Inner {
+    // Inner class
+    }
+    }
+    <code>### 6. Static Nested Class
+
+        * Static class inside another class.
+        * Cannot access instance variables of outer class.</code>java
+    public class Outer {
+    static class Nested {
+    // Static nested class
+    }
+    }
+    <code>### 7. Anonymous Class
+
+        * Local class without a name.
+        * Usually used to instantiate interfaces or extend classes once.</code>java
+    Runnable myRunnable = new Runnable() {
+    public void run() {
+    // Implementation
+    }
+    };
+    ```
+
+</details>
+
+<hr>
+<h2 id="-example-of-anonymous-class">🧩 Example of Anonymous Class</h2>
+<pre><code class="lang-java"><span class="hljs-keyword">class</span> <span class="hljs-title">Polygon</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">display</span>(<span class="hljs-params"></span>) </span>{
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Inside the Polygon class"</span>);
+    }
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">AnonymousDemo</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">createClass</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-comment">// Anonymous class extending Polygon</span>
+        Polygon p1 = <span class="hljs-keyword">new</span> Polygon() {
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">display</span>(<span class="hljs-params"></span>) </span>{
+                System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Inside an anonymous class."</span>);
+            }
+        };
+        p1.display();
+    }
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(<span class="hljs-params">String[] args</span>) </span>{
+        AnonymousDemo an = <span class="hljs-keyword">new</span> AnonymousDemo();
+        an.createClass();
+    }
+}
+</code></pre>
+<p><strong>Output:</strong>
+    <code>Inside an anonymous class.</code></p>
+<hr>
+<h2 id="-common-java-terms">📚 Common Java Terms</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Term</th>
+        <th>Explanation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>import java.io.*;</code></td>
+        <td>Import all classes from <code>java.io</code> package</td>
+    </tr>
+    <tr>
+        <td><code>class</code></td>
+        <td>Defines a class containing data and methods</td>
+    </tr>
+    <tr>
+        <td><code>static void main()</code></td>
+        <td><code>static</code> means method can be called without object instantiation</td>
+    </tr>
+    <tr>
+        <td><code>void</code></td>
+        <td>Method returns no value</td>
+    </tr>
+    <tr>
+        <td><code>System.in</code></td>
+        <td>Standard input stream (keyboard input)</td>
+    </tr>
+    <tr>
+        <td><code>System.out</code></td>
+        <td>Standard output stream (console output)</td>
+    </tr>
+    <tr>
+        <td><code>println()</code></td>
+        <td>Prints text and moves to a new line</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h1 id="java-constructors">Java Constructors</h1>
+<p>In Java:</p>
+<ul>
+    <li>You can create multiple constructors in a single class without limit.</li>
+    <li>Constructors are special methods used to initialize objects.</li>
+    <li>They are invoked when an object is created using the <code>new</code> keyword.</li>
+</ul>
+<hr>
+<h2 id="1-default-constructor">1. Default Constructor</h2>
+<ul>
+    <li>No parameters.</li>
+    <li>Provided automatically by Java if no constructor is explicitly defined.</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> {
+    <span class="hljs-comment">// Default constructor</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MyClass</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-comment">// Initialization logic</span>
+    }
+}
+`
+</code></pre>
+<hr>
+<h2 id="2-parameterized-constructor">2. Parameterized Constructor</h2>
+<ul>
+    <li>Takes one or more parameters.</li>
+    <li>Used to initialize object properties with given values.</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+    <span class="hljs-keyword">public</span> MyClass(<span class="hljs-keyword">int</span> x, String <span class="hljs-keyword">str</span>) {
+        <span class="hljs-comment">// Initialization using parameters</span>
+    }
+}
+</code></pre>
+<hr>
+<h2 id="3-copy-constructor">3. Copy Constructor</h2>
+<ul>
+    <li>Creates a new object by copying an existing object&#39;s state.</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">private</span> String <span class="hljs-keyword">str</span>;
+
+    <span class="hljs-comment">// Copy constructor</span>
+    <span class="hljs-keyword">public</span> MyClass(MyClass original) {
+        <span class="hljs-keyword">this</span>.x = original.x;
+        <span class="hljs-keyword">this</span>.<span class="hljs-keyword">str</span> = original.<span class="hljs-keyword">str</span>;
+    }
+}
+</code></pre>
+<hr>
+<h2 id="4-constructor-chaining">4. Constructor Chaining</h2>
+<ul>
+    <li>One constructor calls another within the same class using <code>this()</code>.</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> x;
+    <span class="hljs-keyword">private</span> String <span class="hljs-keyword">str</span>;
+
+    <span class="hljs-keyword">public</span> MyClass(<span class="hljs-keyword">int</span> x, String <span class="hljs-keyword">str</span>) {
+        <span class="hljs-keyword">this</span>.x = x;
+        <span class="hljs-keyword">this</span>.<span class="hljs-keyword">str</span> = <span class="hljs-keyword">str</span>;
+    }
+
+    <span class="hljs-keyword">public</span> MyClass() {
+        <span class="hljs-keyword">this</span>(<span class="hljs-number">0</span>, <span class="hljs-string">"default"</span>);
+    }
+}
+</code></pre>
+<hr>
+<h2 id="5-private-constructor">5. Private Constructor</h2>
+<ul>
+    <li>Has private access modifier.</li>
+    <li>Prevents instantiation from outside the class.</li>
+    <li>Commonly used for utility classes or singleton patterns.</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">UtilityClass</span> {
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">UtilityClass</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-comment">// Prevent instantiation</span>
+    }
+}
+</code></pre>
+<hr>
+<h1 id="private-class-vs-private-constructor">Private Class vs Private Constructor</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Feature</th>
+        <th>Private Class</th>
+        <th>Private Constructor</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><strong>Scope</strong></td>
+        <td>Accessible only within the enclosing class</td>
+        <td>Accessible only within the class itself</td>
+    </tr>
+    <tr>
+        <td><strong>Purpose</strong></td>
+        <td>Encapsulate helper functionality, inner logic</td>
+        <td>Prevent external instantiation of the class</td>
+    </tr>
+    <tr>
+        <td><strong>Instantiation</strong></td>
+        <td>Can be instantiated inside the enclosing class</td>
+        <td>Prevents instantiation except from within the class</td>
+    </tr>
+    <tr>
+        <td><strong>Use Cases</strong></td>
+        <td>Nested helper classes</td>
+        <td>Singleton pattern, utility classes, controlled creation</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h2 id="example-private-class">Example: Private Class</h2>
+<pre><code class="lang-java">public class OuterClass {
+
+   <span class="hljs-keyword"> private</span><span class="hljs-keyword"> static</span> class InnerClass {
+        // Inner logic
+    }
+
+   <span class="hljs-keyword"> public</span> void doSomething() {
+        InnerClass inner =<span class="hljs-built_in"> new </span>InnerClass();
+        // Use inner<span class="hljs-built_in"> instance
+</span>    }
+}
+</code></pre>
+<hr>
+<h2 id="example-private-constructor-singleton-">Example: Private Constructor (Singleton)</h2>
+<pre><code class="lang-java">public class Singleton {
+
+   <span class="hljs-keyword"> private</span><span class="hljs-keyword"> static</span> Singleton instance;
+
+   <span class="hljs-keyword"> private</span> Singleton() {
+        // Private<span class="hljs-keyword"> constructor</span>
+    }
+
+   <span class="hljs-keyword"> public</span><span class="hljs-keyword"> static</span> Singleton getInstance() {
+       <span class="hljs-built_in"> if </span>(instance == null) {
+           <span class="hljs-built_in"> instance </span>=<span class="hljs-built_in"> new </span>Singleton();
+        }
+       <span class="hljs-built_in"> return </span>instance;
+    }
+}
+</code></pre>
+<hr>
+<p><strong>Summary:</strong></p>
+<ul>
+    <li><strong>Private Class:</strong> Controls access to the class itself (typically nested classes).</li>
+    <li><strong>Private Constructor:</strong> Controls instantiation of the class.</li>
+</ul>
+<hr>
+<h1 id="modifiers-in-java">Modifiers in Java</h1>
+<hr>
+<h2 id="1-access-modifiers">1. Access Modifiers</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Modifier</th>
+        <th>Access within class</th>
+        <th>Access within package</th>
+        <th>Access outside package by subclass</th>
+        <th>Access outside package (non-subclass)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><strong>public</strong></td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td>Yes</td>
+    </tr>
+    <tr>
+        <td><strong>protected</strong></td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td>No</td>
+    </tr>
+    <tr>
+        <td><strong>default</strong></td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td>No</td>
+        <td>No</td>
+    </tr>
+    <tr>
+        <td><strong>private</strong></td>
+        <td>Yes</td>
+        <td>No</td>
+        <td>No</td>
+        <td>No</td>
+    </tr>
+    </tbody>
+</table>
+<h3 id="details">Details</h3>
+<ul>
+    <li><strong><code>public</code></strong>: Accessible from anywhere.</li>
+    <li><strong><code>protected</code></strong>: Accessible in the same package and subclasses (even outside package).</li>
+    <li><strong><code>default</code></strong> (no modifier): Accessible only within the same package.</li>
+    <li><strong><code>private</code></strong>: Accessible only within the defining class.</li>
+</ul>
+<h3 id="example-of-private-modifier">Example of Private Modifier</h3>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sarath</span> </span>{
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">String</span> name = <span class="hljs-string">"sarath"</span>; <span class="hljs-comment">// accessible only within this class</span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Friend</span> </span>{
+    <span class="hljs-keyword">public</span> void access() {
+        Sarath sar = <span class="hljs-keyword">new</span> <span class="hljs-type">Sarath</span>();
+        <span class="hljs-keyword">String</span> <span class="hljs-keyword">var</span> = sar.name; <span class="hljs-comment">// Compilation error: name has private access in Sarath</span>
+    }
+}
+`
+</code></pre>
+<hr>
+<h3 id="private-constructor">Private Constructor</h3>
+<ul>
+    <li>A constructor declared <code>private</code> restricts instantiation <strong>outside the class</strong>.</li>
+    <li><p>Commonly used in:</p>
+        <ul>
+            <li><strong>Singleton Pattern</strong> (single instance control)</li>
+            <li><strong>Utility classes</strong> (only static members, no instances)</li>
+        </ul>
+    </li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">UtilityClass</span> {
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">UtilityClass</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-comment">// Prevent instantiation</span>
+    }
+}
+</code></pre>
+<hr>
+<h2 id="2-non-access-modifiers">2. Non-Access Modifiers</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Modifier</th>
+        <th>Applies To</th>
+        <th>Purpose</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>static</code></td>
+        <td>Variables, methods, inner classes</td>
+        <td>Makes members belong to the class rather than instances</td>
+    </tr>
+    <tr>
+        <td><code>final</code></td>
+        <td>Variables, methods, classes</td>
+        <td>Prevents reassignment, method overriding, or subclassing</td>
+    </tr>
+    <tr>
+        <td><code>abstract</code></td>
+        <td>Classes, methods</td>
+        <td>Defines classes or methods that cannot be instantiated or must be overridden</td>
+    </tr>
+    <tr>
+        <td><code>native</code></td>
+        <td>Methods</td>
+        <td>Declares a method implemented in platform-dependent code (e.g., C/C++)</td>
+    </tr>
+    <tr>
+        <td><code>strictfp</code></td>
+        <td>Classes, methods</td>
+        <td>Ensures consistent floating-point calculations across platforms (Removed in Java 17)</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h3 id="-static-modifier"><code>static</code> Modifier</h3>
+<ul>
+    <li><p><strong>Static Variables (Class Variables)</strong></p>
+        <ul>
+            <li>Single copy shared across all instances.</li>
+            <li>Used for constants or shared data.</li>
+        </ul>
+        <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> staticCount = <span class="hljs-number">0</span>;
+}
+</code></pre>
+    </li>
+    <li><p><strong>Static Methods</strong></p>
+        <ul>
+            <li>Called without creating an instance.</li>
+            <li>Cannot access instance members directly.</li>
+        </ul>
+        <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> {
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">display</span>(<span class="hljs-params"></span>) </span>{
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Static method"</span>);
+    }
+}
+</code></pre>
+    </li>
+    <li><p><strong>Static Blocks</strong></p>
+        <ul>
+            <li>Run once when the class is loaded.</li>
+            <li>Used for static variable initialization or setup.</li>
+        </ul>
+        <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> {
+    <span class="hljs-keyword">static</span> {
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Static block executed"</span>);
+    }
+}
+</code></pre>
+    </li>
+</ul>
+<hr>
+<h3 id="-final-modifier"><code>final</code> Modifier</h3>
+<ul>
+    <li><p><strong>Final Variables</strong></p>
+        <ul>
+            <li>Constants; value assigned once and cannot be changed.</li>
+        </ul>
+        <pre><code class="lang-java"><span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> MAX_USERS = <span class="hljs-number">100</span>;
+</code></pre>
+    </li>
+    <li><p><strong>Final Methods</strong></p>
+        <ul>
+            <li>Cannot be overridden by subclasses.</li>
+        </ul>
+        <pre><code class="lang-java"><span class="hljs-keyword">public</span> final <span class="hljs-keyword">void</span> <span class="hljs-built_in">display</span>() {
+    System.out.<span class="hljs-built_in">println</span>(<span class="hljs-string">"Cannot override this method"</span>);
+}
+</code></pre>
+    </li>
+    <li><p><strong>Final Classes</strong></p>
+        <ul>
+            <li>Cannot be subclassed.</li>
+        </ul>
+        <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UtilityClass</span> </span>{
+    <span class="hljs-comment">// cannot be extended</span>
+}
+</code></pre>
+    </li>
+</ul>
+<hr>
+<h3 id="-abstract-modifier"><code>abstract</code> Modifier</h3>
+<ul>
+    <li><p><strong>Abstract Classes</strong></p>
+        <ul>
+            <li>Cannot be instantiated directly.</li>
+            <li>May contain abstract methods (no implementation).</li>
+        </ul>
+        <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Shape</span> {
+    <span class="hljs-function"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">draw</span>(<span class="hljs-params"></span>)</span>;
+}
+</code></pre>
+    </li>
+    <li><p><strong>Abstract Methods</strong></p>
+        <ul>
+            <li>Must be overridden by subclasses.</li>
+        </ul>
+        <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span></span>;
+</code></pre>
+    </li>
+</ul>
+<hr>
+<h3 id="-native-modifier"><code>native</code> Modifier</h3>
+<ul>
+    <li>Indicates that the method is implemented in platform-dependent code, typically in C or C++.</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">native</span> <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">nativeMethod</span><span class="hljs-params">()</span></span>;
+</code></pre>
+<ul>
+    <li>Requires use of JNI (Java Native Interface).</li>
+</ul>
+<hr>
+<h3 id="summary-table">Summary Table</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Modifier</th>
+        <th>Type</th>
+        <th>Can apply to</th>
+        <th>Effect / Use case</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>public</code></td>
+        <td>Access</td>
+        <td>Classes, methods, vars</td>
+        <td>Accessible everywhere</td>
+    </tr>
+    <tr>
+        <td><code>protected</code></td>
+        <td>Access</td>
+        <td>Methods, vars</td>
+        <td>Package + subclasses only</td>
+    </tr>
+    <tr>
+        <td><code>default</code></td>
+        <td>Access</td>
+        <td>Classes, methods, vars</td>
+        <td>Package only</td>
+    </tr>
+    <tr>
+        <td><code>private</code></td>
+        <td>Access</td>
+        <td>Classes, methods, vars</td>
+        <td>Class only</td>
+    </tr>
+    <tr>
+        <td><code>static</code></td>
+        <td>Non-access</td>
+        <td>Vars, methods, classes</td>
+        <td>Belongs to class, shared</td>
+    </tr>
+    <tr>
+        <td><code>final</code></td>
+        <td>Non-access</td>
+        <td>Vars, methods, classes</td>
+        <td>Constant, no override, no subclass</td>
+    </tr>
+    <tr>
+        <td><code>abstract</code></td>
+        <td>Non-access</td>
+        <td>Classes, methods</td>
+        <td>Abstract behavior, must subclass/override</td>
+    </tr>
+    <tr>
+        <td><code>native</code></td>
+        <td>Non-access</td>
+        <td>Methods</td>
+        <td>Implemented in native code</td>
+    </tr>
+    <tr>
+        <td><code>strictfp</code></td>
+        <td>Non-access</td>
+        <td>Classes, methods</td>
+        <td>Consistent floating-point (removed in Java 17)</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h1 id="strings-in-java">Strings in Java</h1>
+<h2 id="string-vs-stringbuffer-vs-stringbuilder-vs-string-pool">String vs StringBuffer vs StringBuilder vs String Pool</h2>
+<h3 id="string-vs-stringbuffer-vs-stringbuilder">String vs StringBuffer vs StringBuilder</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Feature</th>
+        <th>String</th>
+        <th>StringBuffer</th>
+        <th>StringBuilder</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Mutability</td>
+        <td>Immutable</td>
+        <td>Mutable</td>
+        <td>Mutable</td>
+    </tr>
+    <tr>
+        <td>Thread Safety</td>
+        <td>Thread-safe by nature</td>
+        <td>Thread-safe (synchronized)</td>
+        <td>Not thread-safe</td>
+    </tr>
+    <tr>
+        <td>Performance</td>
+        <td>Slow for concatenation</td>
+        <td>Slower due to synchronization</td>
+        <td>Faster (recommended for single-thread)</td>
+    </tr>
+    <tr>
+        <td>Introduced</td>
+        <td>Java 1.0</td>
+        <td>Java 1.0</td>
+        <td>Java 1.5</td>
+    </tr>
+    <tr>
+        <td>Use Case</td>
+        <td>When immutability needed</td>
+        <td>Multi-threaded environment string manipulation</td>
+        <td>Single-threaded environment string manipulation</td>
+    </tr>
+    </tbody>
+</table>
+<ul>
+    <li>Since <code>String</code> is immutable, every manipulation creates a new object, which may cause performance overhead and memory churn.</li>
+    <li><code>StringBuffer</code> and <code>StringBuilder</code> are mutable and provide methods like <code>append()</code>, <code>insert()</code>, <code>delete()</code>, and <code>substring()</code> for efficient string manipulation.</li>
+    <li>Internally, the <code>+</code> operator for string concatenation uses either <code>StringBuffer</code> or <code>StringBuilder</code>.</li>
+</ul>
+<hr>
+<h3 id="string-pool">String Pool</h3>
+<ul>
+    <li>A <strong>String Pool</strong> (or <strong>String Intern Pool</strong>) is a special memory area in the Java heap where JVM stores literal String values.</li>
+    <li>When a String literal is created, JVM checks the pool first. If it exists, the reference is reused; else, a new String object is created in the pool.</li>
+    <li>This saves memory and improves performance.</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-built_in">String</span> <span class="hljs-keyword">literal</span> = <span class="hljs-string">"Sarath"</span>;           // Uses <span class="hljs-built_in">String</span> Pool
+<span class="hljs-built_in">String</span> object = <span class="hljs-keyword">new</span> <span class="hljs-built_in">String</span>(<span class="hljs-string">"Sarath"</span>); // <span class="hljs-keyword">New</span> object <span class="hljs-keyword">on</span> heap, <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> pool by <span class="hljs-keyword">default</span>
+
+// Comparisons:
+<span class="hljs-keyword">literal</span> == object;  // <span class="hljs-literal">false</span> (different references)
+<span class="hljs-keyword">literal</span> == <span class="hljs-string">"Sarath"</span>; // <span class="hljs-literal">true</span> (both point <span class="hljs-keyword">to</span> pool)
+</code></pre>
+<hr>
+<h3 id="memory-areas-related-to-strings">Memory Areas Related to Strings</h3>
+<ul>
+    <li><strong>Eden Space:</strong> Where new objects (including String objects) are allocated.</li>
+    <li><strong>PermGen Space (Permanent Generation):</strong> Used in older Java versions to store class metadata and interned Strings.</li>
+    <li><strong>MetaSpace:</strong> Replaced PermGen since Java 8 to store class metadata outside the heap.</li>
+</ul>
+<hr>
+<details>
+    <summary><strong>🧠 Java Memory Areas Related to Strings</strong></summary>
+
+    ### Memory Areas Related to Strings
+
+    Strings are stored differently depending on how they are created and the Java version.
+
+    <code>markdown
+        +----------------------+
+        |   String Creation    |
+        +----------------------+
+        |
+        v
+        +----------------------+
+        | Is it a Literal?     |-------------------------------+
+        +----------------------+                               |
+        | No                                             | Yes
+        v                                               v
+        +-----------------------------+          +-----------------------------+
+        | new String(&quot;Hello&quot;)         |          | &quot;Hello&quot; (String Literal)    |
+        | (Heap Object)               |          | Goes to String Pool         |
+        +-----------------------------+          +-----------------------------+
+        |                                              |
+        v                                              v
+        +-----------------------------+          +-----------------------------+
+        | Eden Space (Young Gen)      |          | Interned in:                |
+        | (In Heap)                   |          | - PermGen (Java ≤7)         |
+        +-----------------------------+          | - MetaSpace (Java 8+)       |
+        +-----------------------------+</code>
+
+    ---
+
+    ### Memory Areas Explained
+
+    | Area          | Description                                              | Java Version     |
+    | ------------- | -------------------------------------------------------- | ---------------- |
+    | Eden Space    | New objects, including new Strings created with <code>new</code>    | All versions     |
+    | PermGen Space | Stores class metadata and interned strings               | Java 7 and below |
+    | MetaSpace     | Replaces PermGen for class metadata and interned strings | Java 8 and above |
+
+    ---
+
+    ### Interning and String Pool
+
+    <em> <strong>String Pool</strong> stores literals and interned strings.
+    </em> <code>String.intern()</code> adds strings explicitly to the pool.
+    * Pool was in PermGen (≤Java7), moved to MetaSpace (Java8+).
+
+    ---
+
+    ### Example
+
+    <code>java
+        String a = &quot;Hello&quot;;              // Stored in String pool
+        String b = new String(&quot;Hello&quot;);  // New object in Eden Space (Heap)
+
+        System.out.println(a == b);          // false
+        System.out.println(a == b.intern()); // true</code>
+
+    ---
+
+    ### Summary Table
+
+    | Java Version | Heap (Eden Space)      | PermGen / MetaSpace | String Pool Location |
+    | ------------ | ---------------------- | ------------------- | -------------------- |
+    | Java ≤ 7     | <code>new String()</code> objects | PermGen             | PermGen              |
+    | Java 8+      | <code>new String()</code> objects | MetaSpace           | MetaSpace            |
+
+</details>
+
+<hr>
+<h2 id="-java-memory-spaces-jvm-memory-structure-">🧠 Java Memory Spaces (JVM Memory Structure)</h2>
+<p>Java Virtual Machine (JVM) memory is split into several <strong>memory areas</strong>, each with a <strong>specific purpose</strong> for managing objects, threads, and class-level data.</p>
+<hr>
+<h3 id="-flow-diagram-markdown-text-format-">🔁 Flow Diagram (Markdown Text Format)</h3>
+<pre><code class="lang-markdown">                 +-------------------------+
+                 |<span class="hljs-string">   Java Application      </span>|
+                 +-------------------------+
+                             |<span class="hljs-string">
+                             v
+                +--------------------------+
+                </span>|<span class="hljs-string">   JVM Memory Structure   </span>|
+                +--------------------------+
+                             |<span class="hljs-string">
+                             v
+   +---------------------------+---------------------------+
+   </span>|<span class="hljs-string">                           </span>|<span class="hljs-string">                           </span>|
+   v                           v                           v
++--------+            +----------------+         +-----------------+
+|<span class="hljs-string">  Heap  </span>|<span class="hljs-string"> &lt;-------+  </span>|<span class="hljs-string">     Stack      </span>|<span class="hljs-string">         </span>|<span class="hljs-string">   Metaspace     </span>|
+|<span class="hljs-string">        </span>|<span class="hljs-string">         </span>|<span class="hljs-string">  </span>|<span class="hljs-string"> (Thread-local) </span>|<span class="hljs-string">         </span>|<span class="hljs-string">  (Class info)   </span>|
++--------+         |<span class="hljs-string">  +----------------+         +-----------------+
+     </span>|<span class="hljs-string">             </span>|<span class="hljs-string">        </span>|<span class="hljs-string">                            </span>|
+     |<span class="hljs-string">             </span>|<span class="hljs-string">        v                            v
+     </span>|<span class="hljs-string">             </span>|<span class="hljs-string">   +------------+              +-------------+
+     </span>|<span class="hljs-string">             </span>|<span class="hljs-string">   </span>|<span class="hljs-string"> Primitive  </span>|<span class="hljs-string">              </span>|<span class="hljs-string"> Class Names </span>|
+     |<span class="hljs-string">             </span>|<span class="hljs-string">   </span>|<span class="hljs-string"> Locals     </span>|<span class="hljs-string">              </span>|<span class="hljs-string"> Methods     </span>|
+     |<span class="hljs-string">             </span>|<span class="hljs-string">   +------------+              </span>|<span class="hljs-string"> Constant Pool</span>|
+     |<span class="hljs-string">             </span>|<span class="hljs-string">                                +-------------+
+     </span>|
+     v
++-------------------------------------------+
+|<span class="hljs-string"> Young Generation (Eden + 2 Survivor spaces)</span>|
++-------------------------------------------+
+|<span class="hljs-string"> Old Generation (Tenured space)             </span>|
++-------------------------------------------+
+</code></pre>
+<hr>
+<h2 id="-jvm-memory-areas-explained">🧩 JVM Memory Areas Explained</h2>
+<h3 id="1-heap-">1. <strong>Heap</strong></h3>
+<ul>
+    <li><strong>Purpose</strong>: Stores all <strong>objects</strong>, <strong>class instances</strong>, <strong>arrays</strong></li>
+    <li><strong>Managed by</strong>: Garbage Collector (GC)</li>
+    <li><p><strong>Subdivided into</strong>:</p>
+        <ul>
+            <li><p><strong>Young Generation</strong></p>
+                <ul>
+                    <li><strong>Eden Space</strong>: New objects created here.</li>
+                    <li><strong>Survivor Spaces (S0/S1)</strong>: Surviving objects from minor GC.</li>
+                </ul>
+            </li>
+            <li><strong>Old Generation</strong>: Long-lived objects promoted here.</li>
+        </ul>
+    </li>
+</ul>
+<hr>
+<h3 id="2-young-generation-yg-">2. <strong>Young Generation (YG)</strong></h3>
+<ul>
+    <li>Optimized for fast allocation and collection (minor GC).</li>
+    <li><p><strong>Eden Space</strong>:</p>
+        <ul>
+            <li>Where all new objects are created.</li>
+            <li>If not garbage collected, moved to Survivor.</li>
+        </ul>
+    </li>
+    <li><p><strong>Survivor Space (S0 &amp; S1)</strong>:</p>
+        <ul>
+            <li>Objects that survive GC cycles.</li>
+            <li>After a few cycles, moved to Old Gen.</li>
+        </ul>
+    </li>
+</ul>
+<hr>
+<h3 id="3-old-generation-tenured-">3. <strong>Old Generation (Tenured)</strong></h3>
+<ul>
+    <li>Stores <strong>long-living objects</strong> (e.g., strings in use, singletons).</li>
+    <li>Collected less frequently via <strong>major GC</strong> (slower than minor GC).</li>
+</ul>
+<hr>
+<h3 id="4-stack-">4. <strong>Stack</strong></h3>
+<ul>
+    <li><strong>Thread-local memory</strong></li>
+    <li><p>Stores:</p>
+        <ul>
+            <li>Method calls (stack frames)</li>
+            <li>Primitive local variables</li>
+            <li>Object references (not actual objects)</li>
+        </ul>
+    </li>
+    <li>Automatically <strong>pushed/popped</strong> during method calls</li>
+    <li>Faster than heap memory</li>
+    <li>Throws <code>StackOverflowError</code> if exceeded</li>
+</ul>
+<hr>
+<h3 id="5-metaspace-java-8-">5. <strong>Metaspace</strong> (Java 8+)</h3>
+<ul>
+    <li>Stores <strong>class metadata</strong></li>
+    <li>Replaced <strong>PermGen</strong> from Java 8 onwards</li>
+    <li>Grows dynamically (unlike PermGen which had fixed size)</li>
+    <li><p>Contains:</p>
+        <ul>
+            <li>Class names</li>
+            <li>Method/field metadata</li>
+            <li>Constant pool (for that class)</li>
+        </ul>
+    </li>
+    <li><strong>Not part of the heap</strong> — resides in <strong>native memory</strong></li>
+</ul>
+<hr>
+<h3 id="6-program-counter-pc-register-">6. <strong>Program Counter (PC) Register</strong></h3>
+<ul>
+    <li><strong>Thread-specific</strong>: Keeps track of current instruction address</li>
+    <li>Helps resume execution in the correct place</li>
+</ul>
+<hr>
+<h3 id="7-native-method-stack-">7. <strong>Native Method Stack</strong></h3>
+<ul>
+    <li>For executing <strong>native (non-Java)</strong> methods via JNI (Java Native Interface)</li>
+</ul>
+<hr>
+<h2 id="-summary-table">✅ Summary Table</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Memory Area</th>
+        <th>Purpose</th>
+        <th>Collected by GC</th>
+        <th>Thread Scoped</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Heap (Eden + Old)</td>
+        <td>Stores objects, arrays</td>
+        <td>✅</td>
+        <td>❌</td>
+    </tr>
+    <tr>
+        <td>Stack</td>
+        <td>Stores local variables &amp; method calls</td>
+        <td>❌</td>
+        <td>✅</td>
+    </tr>
+    <tr>
+        <td>Metaspace</td>
+        <td>Class metadata</td>
+        <td>✅ (limited)</td>
+        <td>❌</td>
+    </tr>
+    <tr>
+        <td>PC Register</td>
+        <td>Tracks next instruction</td>
+        <td>❌</td>
+        <td>✅</td>
+    </tr>
+    <tr>
+        <td>Native Stack</td>
+        <td>Native method handling</td>
+        <td>❌</td>
+        <td>✅</td>
+    </tr>
+    </tbody>
+</table>
+<h3 id="jvm-memory-areas-explained">JVM Memory Areas Explained</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Memory Area</th>
+        <th>Purpose</th>
+        <th>Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><strong>Heap</strong></td>
+        <td>Stores objects and arrays</td>
+        <td>Managed by Garbage Collector</td>
+    </tr>
+    <tr>
+        <td><strong>Young Generation</strong></td>
+        <td>New objects allocated here</td>
+        <td>Eden + Survivor spaces</td>
+    </tr>
+    <tr>
+        <td><strong>Old Generation</strong></td>
+        <td>Long-lived objects moved here</td>
+        <td>Major GC occurs</td>
+    </tr>
+    <tr>
+        <td><strong>Stack</strong></td>
+        <td>Stores method calls, primitives, references</td>
+        <td>Thread-local, fast access</td>
+    </tr>
+    <tr>
+        <td><strong>Metaspace</strong></td>
+        <td>Stores class metadata and interned strings</td>
+        <td>Outside heap, Java 8+</td>
+    </tr>
+    <tr>
+        <td><strong>PC Register</strong></td>
+        <td>Tracks current instruction address</td>
+        <td>Thread-local</td>
+    </tr>
+    <tr>
+        <td><strong>Native Method Stack</strong></td>
+        <td>For native method execution</td>
+        <td>JNI calls</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h3 id="string-literal-vs-string-object">String Literal vs String Object</h3>
+<ul>
+    <li><strong>String Literal:</strong> Stored in the String pool.</li>
+    <li><strong>String Object:</strong> Created via <code>new</code> keyword, stored in heap, separate from the pool.</li>
+    <li><code>.intern()</code> can be used to add a String object to the pool explicitly.</li>
+</ul>
+<hr>
+<h3 id="string-manipulation-concat-vs-operator">String Manipulation: <code>concat()</code> vs <code>+</code> Operator</h3>
+<ul>
+    <li><code>concat()</code> only creates a new String object if the length of the string being concatenated is greater than zero.</li>
+    <li>The <code>+</code> operator always creates a new String object regardless.</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-keyword">String </span><span class="hljs-keyword">str1 </span>= <span class="hljs-string">"Rock"</span><span class="hljs-comment">;</span>
+<span class="hljs-keyword">String </span><span class="hljs-keyword">str2 </span>= <span class="hljs-string">"Star"</span><span class="hljs-comment">;</span>
+<span class="hljs-keyword">String </span><span class="hljs-keyword">str3 </span>= <span class="hljs-keyword">str1.concat(str2); </span>// <span class="hljs-string">"RockStar"</span>
+</code></pre>
+<hr>
+<h3 id="deep-copy-vs-shallow-copy">Deep Copy vs Shallow Copy</h3>
+<ul>
+    <li><strong>Shallow Copy:</strong> Copies only the reference of an object; both objects point to the same data.</li>
+    <li><strong>Deep Copy:</strong> Copies the actual data and creates an independent clone.</li>
+</ul>
+<hr>
+<h3 id="why-is-string-immutable-in-java-">Why is String Immutable in Java?</h3>
+<ul>
+    <li>Multiple references can point to the same String in the String pool.</li>
+    <li>If String were mutable, one reference changing the String would affect others unexpectedly.</li>
+    <li>Immutability ensures thread safety, security, and consistency.</li>
+    <li>Immutable Strings have stable hash codes, making them reliable as keys in hash-based collections.</li>
+</ul>
+<hr>
+<h3 id="creating-an-immutable-class-in-java">Creating an Immutable Class in Java</h3>
+<ol>
+    <li>Declare the class as <code>final</code> so it can&#39;t be extended.</li>
+    <li>Declare all fields as <code>private</code> and <code>final</code>.</li>
+    <li>Do not provide setter methods.</li>
+    <li>Initialize all fields via constructor (defensive copies for mutable fields).</li>
+    <li>Provide only getters.</li>
+    <li>Ensure deep copy of mutable objects.</li>
+</ol>
+<hr>
+<h3 id="creating-a-singleton-class-in-java">Creating a Singleton Class in Java</h3>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Database</span> </span>{
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Database dbInstance;
+
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Database</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">// private constructor to prevent instantiation</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">synchronized</span> Database <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">if</span> (dbInstance == <span class="hljs-keyword">null</span>) {
+            dbInstance = <span class="hljs-keyword">new</span> Database();
+        }
+        <span class="hljs-keyword">return</span> dbInstance;
+    }
+}
+</code></pre>
+<hr>
+<h1 id="wrapper-classes-and-autoboxing">Wrapper Classes and Autoboxing</h1>
+<p>Java provides wrapper classes for primitives to allow objects to represent primitive types.</p>
+<table>
+    <thead>
+    <tr>
+        <th>Primitive Type</th>
+        <th>Wrapper Class</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>int</td>
+        <td>Integer</td>
+    </tr>
+    <tr>
+        <td>long</td>
+        <td>Long</td>
+    </tr>
+    <tr>
+        <td>short</td>
+        <td>Short</td>
+    </tr>
+    <tr>
+        <td>byte</td>
+        <td>Byte</td>
+    </tr>
+    <tr>
+        <td>char</td>
+        <td>Character</td>
+    </tr>
+    <tr>
+        <td>float</td>
+        <td>Float</td>
+    </tr>
+    <tr>
+        <td>double</td>
+        <td>Double</td>
+    </tr>
+    <tr>
+        <td>boolean</td>
+        <td>Boolean</td>
+    </tr>
+    </tbody>
+</table>
+<h3 id="autoboxing">Autoboxing</h3>
+<ul>
+    <li>Automatic conversion of primitive types to their corresponding wrapper classes.</li>
+</ul>
+<h3 id="example-custom-wrapper-class-demonstrating-autoboxing">Example Custom Wrapper Class Demonstrating Autoboxing</h3>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyInteger</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-keyword">value</span>;
+
+    <span class="hljs-comment">// Constructor</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MyInteger</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> <span class="hljs-keyword">value</span></span>) </span>{
+        <span class="hljs-keyword">this</span>.<span class="hljs-keyword">value</span> = <span class="hljs-keyword">value</span>;
+    }
+
+    <span class="hljs-comment">// Getter</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getValue</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">value</span>;
+    }
+
+    <span class="hljs-comment">// Setter</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setValue</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> <span class="hljs-keyword">value</span></span>) </span>{
+        <span class="hljs-keyword">this</span>.<span class="hljs-keyword">value</span> = <span class="hljs-keyword">value</span>;
+    }
+
+    <span class="hljs-comment">// Method demonstrating autoboxing</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setIntegerValue</span>(<span class="hljs-params">Integer integerValue</span>) </span>{
+        <span class="hljs-keyword">this</span>.<span class="hljs-keyword">value</span> = integerValue;  <span class="hljs-comment">// Autoboxing converts Integer to int automatically</span>
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(<span class="hljs-params">String[] args</span>) </span>{
+        MyInteger myIntWrapper = <span class="hljs-keyword">new</span> MyInteger(<span class="hljs-number">42</span>);
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Wrapped Value: "</span> + myIntWrapper.getValue());
+
+        myIntWrapper.setValue(<span class="hljs-number">100</span>);
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Modified Value: "</span> + myIntWrapper.getValue());
+
+        myIntWrapper.setIntegerValue(<span class="hljs-number">123</span>); <span class="hljs-comment">// Autoboxing occurs here</span>
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Autoboxed Value: "</span> + myIntWrapper.getValue());
+    }
+}
+</code></pre>
+<h3 id="stackoverflow-due-to-out-of-memory">StackOverflow - Due to out of memory</h3>
+<details>
+    <summary>📦 <strong>Pass by Value vs Pass by Reference</strong></summary>
+
+    <em> Java is <strong>always pass by value</strong>.
+    </em> It does <strong>not support pass by reference</strong>.
+    * Object references are passed by value, but the reference still points to the same object.
+
+</details>
+
+<hr>
+<h1 id="object-oriented-programming-oop-in-java">Object-Oriented Programming (OOP) in Java</h1>
+<p>OOP refers to programming using <strong>objects</strong>. The main concepts are:</p>
+<ul>
+    <li>Polymorphism</li>
+    <li>Encapsulation</li>
+    <li>Inheritance</li>
+    <li>Abstraction</li>
+    <li>Class, Object, Method</li>
+</ul>
+<hr>
+<h2 id="1-polymorphism">1. Polymorphism</h2>
+<h3 id="definition">Definition</h3>
+<p>Ability to differentiate entities with the same name efficiently. Achieved mainly by:</p>
+<ul>
+    <li><strong>Compile-time Polymorphism</strong> (Method Overloading)</li>
+    <li><strong>Run-time Polymorphism</strong> (Method Overriding)</li>
+</ul>
+<h3 id="inheritance-vs-polymorphism">Inheritance vs Polymorphism</h3>
+<ul>
+    <li><strong>Inheritance</strong>: New class inherits properties/methods of an existing class (code reuse).</li>
+    <li><strong>Polymorphism</strong>: Same method name behaves differently based on context (overloading/overriding).</li>
+</ul>
+<h3 id="types-of-inheritance">Types of Inheritance</h3>
+<ol>
+    <li>Single</li>
+    <li>Multi-level</li>
+    <li>Multiple (Not supported in Java classes)</li>
+    <li>Hybrid</li>
+    <li>Hierarchical</li>
+</ol>
+<hr>
+<h3 id="method-overloading">Method Overloading</h3>
+<p>Same method name with different parameters in the same class.</p>
+<h3 id="constructor-overloading">Constructor Overloading</h3>
+<p>Multiple constructors with different parameter lists.</p>
+<h3 id="method-overriding">Method Overriding</h3>
+<p>Subclass provides specific implementation of a superclass method.</p>
+<h4 id="covariant-return-type">Covariant Return Type</h4>
+<p>Overriding method can return subtype of the original method&#39;s return type.</p>
+<hr>
+<h3 id="overriding-restrictions-on-private-static-final-methods">Overriding Restrictions on private, static, final methods</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Modifier</th>
+        <th>Overridable?</th>
+        <th>Explanation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>private</td>
+        <td>No</td>
+        <td>Not visible to subclasses</td>
+    </tr>
+    <tr>
+        <td>static</td>
+        <td>No</td>
+        <td>Resolved at compile-time (static binding)</td>
+    </tr>
+    <tr>
+        <td>final</td>
+        <td>No</td>
+        <td>Cannot be changed by subclasses</td>
+    </tr>
+    </tbody>
+</table>
+<h4 id="overloading-allowed-for-private-static-final-methods-within-same-class">Overloading allowed for private, static, final methods within same class</h4>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> {
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> final <span class="hljs-keyword">void</span> <span class="hljs-title">method</span>(<span class="hljs-params"></span>) </span>{
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Private static final no-arg"</span>);
+    }
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> final <span class="hljs-keyword">void</span> <span class="hljs-title">method</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x</span>) </span>{
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Private static final with int: "</span> + x);
+    }
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(<span class="hljs-params">String[] args</span>) </span>{
+        Example.method();
+        Example.method(<span class="hljs-number">5</span>);
+    }
+}
+</code></pre>
+<hr>
+<h3 id="data-binding-in-java">Data Binding in Java</h3>
+<ul>
+    <li><strong>Static Binding (Early Binding)</strong>: Method calls resolved at compile-time (static, private, final methods).</li>
+    <li><strong>Dynamic Binding (Late Binding)</strong>: Method calls resolved at runtime via overriding (non-static, non-final, non-private methods).</li>
+</ul>
+<p>Example of dynamic binding:</p>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> </span>{ void sound() { <span class="hljs-type">System</span>.out.println(<span class="hljs-string">"Animal sound"</span>); } }
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Animal</span> </span>{ void sound() { <span class="hljs-type">System</span>.out.println(<span class="hljs-string">"Dog barks"</span>); } }
+
+<span class="hljs-type">Animal</span> animal = <span class="hljs-keyword">new</span> <span class="hljs-type">Dog</span>();
+animal.sound();  <span class="hljs-comment">// Prints: Dog barks (dynamic binding)</span>
+</code></pre>
+<hr>
+<h2 id="2-inheritance">2. Inheritance</h2>
+<ul>
+    <li>Mechanism where subclass inherits fields and methods of superclass.</li>
+    <li>Java <strong>does not support multiple inheritance</strong> with classes due to ambiguity issues.</li>
+    <li><p>Terminology:</p>
+        <ul>
+            <li><strong>Superclass/Base/Parent</strong></li>
+            <li><strong>Subclass/Derived/Child</strong></li>
+        </ul>
+    </li>
+</ul>
+<hr>
+<h2 id="3-encapsulation">3. Encapsulation</h2>
+<ul>
+    <li>Hiding internal state and requiring all interaction to be performed through an object&#39;s methods.</li>
+    <li>Protects object integrity by preventing direct access to fields.</li>
+    <li>Improves code maintainability.</li>
+</ul>
+<hr>
+<h2 id="4-abstraction">4. Abstraction</h2>
+<ul>
+    <li>Abstract classes may have abstract methods (no body) and concrete methods.</li>
+    <li>Declared using <code>abstract</code> keyword.</li>
+    <li>Provides a base class that subclasses must extend and implement abstract methods.</li>
+</ul>
+<hr>
+<h2 id="5-interface">5. Interface</h2>
+<ul>
+    <li>Defines <strong>abstract methods</strong> (Java 7 and before: only abstract methods).</li>
+    <li>Since Java 8: supports <code>default</code> and <code>static</code> methods with bodies.</li>
+    <li>Java 9: supports <code>private</code> methods for code reuse inside interfaces.</li>
+</ul>
+<h3 id="private-methods-in-interface">Private methods in interface</h3>
+<ul>
+    <li>Used to avoid code duplication in default/static methods.</li>
+    <li>Not accessible by implementing classes.</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">MyInterface</span> {
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">publicAbstractMethod</span>(<span class="hljs-params"></span>)</span>;
+    <span class="hljs-function"><span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title">defaultMethod</span>(<span class="hljs-params"></span>) </span>{
+        privateHelper();
+    }
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">staticMethod</span>(<span class="hljs-params"></span>) </span>{
+        privateHelper();
+    }
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">privateHelper</span>(<span class="hljs-params"></span>) </span>{
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Helper inside interface"</span>);
+    }
+}
+</code></pre>
+<hr>
+<h3 id="variables-in-interfaces">Variables in Interfaces</h3>
+<ul>
+    <li>Implicitly <code>public static final</code> (constants).</li>
+</ul>
+<h3 id="class-inside-interface">Class inside Interface</h3>
+<ul>
+    <li>Allowed; nested class inside interface is implicitly <code>public static</code>.</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-keyword">interface</span> <span class="hljs-title">Outer</span> {
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Inner</span> {
+        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span>(<span class="hljs-params"></span>) </span>{
+            System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Class inside interface"</span>);
+        }
+    }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Test</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(<span class="hljs-params">String[] args</span>) </span>{
+        Outer.Inner obj = <span class="hljs-keyword">new</span> Outer.Inner();
+        obj.display();
+    }
+}
+</code></pre>
+<h3 id="interface-inside-class">Interface inside Class</h3>
+<ul>
+    <li>Nested interfaces are implicitly <code>static</code>.</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outer</span> </span>{
+    <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">InnerInterface</span> </span>{
+        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>;
+    }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Impl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Outer</span>.<span class="hljs-title">InnerInterface</span> </span>{
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span> </span>{
+        System.out.println(<span class="hljs-string">"Interface inside class"</span>);
+    }
+}
+</code></pre>
+<hr>
+<h3 id="marker-interface-vs-functional-interface">Marker Interface vs Functional Interface</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Interface Type</th>
+        <th>Description</th>
+        <th>Example</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Marker Interface</td>
+        <td>No methods; used to mark a class for special treatment</td>
+        <td><code>Serializable</code></td>
+    </tr>
+    <tr>
+        <td>Functional Interface</td>
+        <td>Exactly one abstract method; can have default/static methods</td>
+        <td><code>Runnable</code></td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h3 id="common-functional-interfaces-and-marker-interfaces">Common Functional Interfaces and Marker Interfaces</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Interface</th>
+        <th>Method Signature</th>
+        <th>Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Runnable</td>
+        <td><code>void run()</code></td>
+        <td>Used for threads, no return value</td>
+    </tr>
+    <tr>
+        <td>Callable</td>
+        <td><code>V call()</code></td>
+        <td>Returns a value, can throw checked exceptions</td>
+    </tr>
+    <tr>
+        <td>Cloneable</td>
+        <td><code>Object clone()</code></td>
+        <td>Marker interface, enables object cloning</td>
+    </tr>
+    <tr>
+        <td>Comparable</td>
+        <td><code>int compareTo(T o)</code></td>
+        <td>Defines natural order</td>
+    </tr>
+    <tr>
+        <td>Comparator</td>
+        <td><code>int compare(T o1, T o2)</code></td>
+        <td>Custom ordering</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h3 id="java-8-interface-enhancements">Java 8+ Interface Enhancements</h3>
+<ul>
+    <li><code>default</code> methods with implementation</li>
+    <li><code>static</code> methods</li>
+    <li><code>@FunctionalInterface</code> annotation to indicate single abstract method interface</li>
+</ul>
+<p>Example:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title">DefaultStaticExampleInterface</span> {
+    <span class="hljs-function"><span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title">show</span>(<span class="hljs-params"></span>) </span>{
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Default method in interface"</span>);
+    }
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">display</span>(<span class="hljs-params"></span>) </span>{
+        System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Static method in interface"</span>);
+    }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">DefaultStaticExampleClass</span> <span class="hljs-title">implements</span> <span class="hljs-title">DefaultStaticExampleInterface</span> {}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> {
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(<span class="hljs-params">String[] args</span>) </span>{
+        DefaultStaticExampleInterface.display();
+        DefaultStaticExampleClass obj = <span class="hljs-keyword">new</span> DefaultStaticExampleClass();
+        obj.show();
+    }
+}
+</code></pre>
+<hr>
+<h2 id="6-functional-interfaces-in-java-java-util-function-">6. Functional Interfaces in Java (<code>java.util.function</code>)</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Interface</th>
+        <th>Method</th>
+        <th>Description</th>
+        <th>Example</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>Supplier&lt;T&gt;</code></td>
+        <td><code>get()</code></td>
+        <td>Supplies a result with no input</td>
+        <td><code>Supplier&lt;String&gt; s = () -&gt; &quot;Hello&quot;;</code></td>
+    </tr>
+    <tr>
+        <td><code>Consumer&lt;T&gt;</code></td>
+        <td><code>accept(T)</code></td>
+        <td>Consumes an input without returning a result</td>
+        <td><code>Consumer&lt;String&gt; c = s -&gt; System.out.println(s);</code></td>
+    </tr>
+    <tr>
+        <td><code>Predicate&lt;T&gt;</code></td>
+        <td><code>test(T)</code></td>
+        <td>Returns a boolean based on input condition</td>
+        <td><code>Predicate&lt;Integer&gt; p = x -&gt; x &gt; 10;</code></td>
+    </tr>
+    <tr>
+        <td><code>UnaryOperator&lt;T&gt;</code></td>
+        <td><code>apply(T)</code></td>
+        <td>Takes one argument, returns same type</td>
+        <td><code>UnaryOperator&lt;Integer&gt; square = x -&gt; x * x;</code></td>
+    </tr>
+    <tr>
+        <td><code>BinaryOperator&lt;T&gt;</code></td>
+        <td><code>apply(T, T)</code></td>
+        <td>Takes two arguments of same type, returns same type</td>
+        <td><code>BinaryOperator&lt;Integer&gt; add = (a,b) -&gt; a + b;</code></td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h2 id="7-comparable-vs-comparator">7. Comparable vs Comparator</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Comparable</th>
+        <th>Comparator</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Single sort logic (<code>compareTo</code>)</td>
+        <td>Multiple sort logic (<code>compare</code>)</td>
+    </tr>
+    <tr>
+        <td>Affects the original class (must modify class)</td>
+        <td>Doesn&#39;t modify original class</td>
+    </tr>
+    <tr>
+        <td>Used when default natural ordering is sufficient</td>
+        <td>Used when custom sort logic is needed</td>
+    </tr>
+    </tbody>
+</table>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-java"><span class="hljs-comment">// Comparable</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Student</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Comparable</span>&lt;<span class="hljs-title">Student</span>&gt; </span>{
+    <span class="hljs-keyword">int</span> age;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">compareTo</span><span class="hljs-params">(Student s)</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.age - s.age;
+    }
+}
+
+<span class="hljs-comment">// Comparator</span>
+Comparator&lt;Student&gt; nameComparator = (s1, s2) -&gt; s1.name.compareTo(s2.name);
+</code></pre>
+<hr>
+<h2 id="8-implements-vs-extends-">8. <code>implements</code> vs <code>extends</code></h2>
+<table>
+    <thead>
+    <tr>
+        <th>Keyword</th>
+        <th>Used For</th>
+        <th>Supports Multiple Inheritance</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>implements</code></td>
+        <td>Interface implementation</td>
+        <td>✅ Yes</td>
+    </tr>
+    <tr>
+        <td><code>extends</code></td>
+        <td>Class inheritance</td>
+        <td>❌ No (only one class)</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h2 id="9-interface-vs-abstract-class">9. Interface vs Abstract Class</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Feature</th>
+        <th>Interface</th>
+        <th>Abstract Class</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Methods</td>
+        <td>Only abstract (Java 7), default/static (Java 8+)</td>
+        <td>Abstract and concrete methods</td>
+    </tr>
+    <tr>
+        <td>Multiple Inheritance</td>
+        <td>Yes</td>
+        <td>No</td>
+    </tr>
+    <tr>
+        <td>Constructor</td>
+        <td>Not allowed</td>
+        <td>Can have constructors</td>
+    </tr>
+    <tr>
+        <td>main() method</td>
+        <td>❌ Cannot have main</td>
+        <td>✅ Can have main</td>
+    </tr>
+    <tr>
+        <td>Access Modifiers</td>
+        <td>All methods are <code>public</code></td>
+        <td>Can have any access modifier</td>
+    </tr>
+    </tbody>
+</table>
+<h3 id="why-use-interface-over-abstract-class-">Why use interface over abstract class?</h3>
+<ul>
+    <li>To define a contract for implementation across unrelated classes.</li>
+    <li>Supports multiple inheritance for type polymorphism.</li>
+</ul>
+<hr>
+<h2 id="10-cohesion-vs-coupling">10. Cohesion vs Coupling</h2>
+<h3 id="coupling">Coupling</h3>
+<p><strong>Definition:</strong> Degree of direct knowledge one class has of another.</p>
+<table>
+    <thead>
+    <tr>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Tight Coupling</td>
+        <td>Classes are highly dependent on each other. Difficult to test/modify.</td>
+    </tr>
+    <tr>
+        <td>Loose Coupling</td>
+        <td>Classes communicate via interfaces or abstraction. Promotes flexibility.</td>
+    </tr>
+    </tbody>
+</table>
+<p><strong>Example:</strong></p>
+<blockquote>
+    <p>Spring Framework uses <strong>Dependency Injection (DI)</strong> to reduce tight coupling via POJOs.</p>
+</blockquote>
+<p><img src="images/Coupling.png" alt="Coupling.png"></p>
+<hr>
+<h3 id="cohesion">Cohesion</h3>
+<p><strong>Definition:</strong> Degree to which class members (methods/variables) are related to each other.</p>
+<table>
+    <thead>
+    <tr>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>High Cohesion</td>
+        <td>Class has well-defined responsibility, easier to maintain &amp; reuse.</td>
+    </tr>
+    <tr>
+        <td>Low Cohesion</td>
+        <td>Class handles many unrelated tasks. Difficult to understand and maintain.</td>
+    </tr>
+    </tbody>
+</table>
+<p><img src="images/Cohesion.png" alt="Cohesion.png"></p>
+<p><strong>Comparison:</strong></p>
+<ul>
+    <li><strong>High Cohesion</strong>: Specific, clear responsibilities. 👍</li>
+    <li><strong>Low Cohesion</strong>: General, unrelated logic. 👎</li>
+</ul>
+<hr>
+<h2 id="summary">Summary</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Concept</th>
+        <th>Goal</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><strong>Polymorphism</strong></td>
+        <td>Same interface, different behavior</td>
+    </tr>
+    <tr>
+        <td><strong>Encapsulation</strong></td>
+        <td>Hide internal details</td>
+    </tr>
+    <tr>
+        <td><strong>Inheritance</strong></td>
+        <td>Code reuse, hierarchical logic</td>
+    </tr>
+    <tr>
+        <td><strong>Abstraction</strong></td>
+        <td>Define contract via interfaces/abstract classes</td>
+    </tr>
+    <tr>
+        <td><strong>Loose Coupling</strong></td>
+        <td>Better modularity via DI/Interfaces</td>
+    </tr>
+    <tr>
+        <td><strong>High Cohesion</strong></td>
+        <td>Clear responsibility, easier maintenance</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h1 id="-java-collections-framework-guide">🧱 Java Collections Framework Guide</h1>
+<h2 id="-why-collections-framework-">🔍 Why Collections Framework?</h2>
+<ul>
+    <li>Avoids writing boilerplate data structure logic (list, set, map, queue).</li>
+    <li>Offers ready-to-use implementations and utility methods.</li>
+    <li>Ensures standardization across all Java applications.</li>
+</ul>
+<hr>
+<h2 id="-collections-hierarchy-overview">🌐 Collections Hierarchy Overview</h2>
+<pre><code class="lang-text">Iterable
+  └── Collection
+        ├── <span class="hljs-built_in">List</span>
+        │     ├── ArrayList
+        │     ├── LinkedList
+        │     └── Vector → <span class="hljs-built_in">Stack</span>
+        ├── <span class="hljs-built_in">Set</span>
+        │     ├── HashSet
+        │     ├── LinkedHashSet
+        │     └── TreeSet
+        └── <span class="hljs-built_in">Queue</span>
+              ├── PriorityQueue
+              └── Deque
+                    └── ArrayDeque
+
+<span class="hljs-built_in">Map</span> (<span class="hljs-literal">Not</span> part of Collection)
+  ├── HashMap
+  │     └── LinkedHashMap
+  └── TreeMap
+</code></pre>
+<hr>
+<h2 id="-interactive-decision-flowchart-pick-the-right-collection">🧭 Interactive Decision Flowchart: Pick the Right Collection</h2>
+<pre><code>  <span class="hljs-keyword">Start</span>
+  ↓
+  <span class="hljs-keyword">Do</span> you need **<span class="hljs-keyword">key</span>-<span class="hljs-keyword">value</span> pairs**?
+  ├── Yes → <span class="hljs-keyword">Use</span> a **<span class="hljs-keyword">Map</span>**
+  │     ↓
+  │  <span class="hljs-keyword">Do</span> <span class="hljs-keyword">keys</span> need <span class="hljs-keyword">to</span> be **sorted**?
+  │     ├── Yes → <span class="hljs-keyword">Use</span> **TreeMap**
+  │     └── <span class="hljs-keyword">No</span>
+  │         ↓
+  │       Need <span class="hljs-keyword">to</span> **<span class="hljs-keyword">preserve</span> insertion <span class="hljs-keyword">order</span>**?
+  │         ├── Yes → <span class="hljs-keyword">Use</span> **LinkedHashMap**
+  │         └── <span class="hljs-keyword">No</span> → <span class="hljs-keyword">Use</span> **HashMap**
+  ↓
+  <span class="hljs-keyword">No</span> → <span class="hljs-keyword">Move</span> <span class="hljs-keyword">to</span> **Collection side (<span class="hljs-keyword">List</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">Set</span>)**
+  ↓
+  <span class="hljs-keyword">Do</span> you **<span class="hljs-keyword">allow</span> duplicates**?
+  ├── Yes → <span class="hljs-keyword">Use</span> a **<span class="hljs-keyword">List</span>**
+  │     ↓
+  │  Need **random <span class="hljs-keyword">access</span> <span class="hljs-keyword">by</span> <span class="hljs-keyword">index</span>**?
+  │     ├── Yes → <span class="hljs-keyword">Use</span> **ArrayList**
+  │     └── <span class="hljs-keyword">No</span> → <span class="hljs-keyword">Use</span> **LinkedList**
+  └── <span class="hljs-keyword">No</span> → <span class="hljs-keyword">Use</span> a **<span class="hljs-keyword">Set</span>**
+  ↓
+  Need elements **sorted**?
+  ├── Yes → <span class="hljs-keyword">Use</span> **TreeSet**
+  └── <span class="hljs-keyword">No</span>
+  ↓
+  <span class="hljs-keyword">Preserve</span> **insertion <span class="hljs-keyword">order</span>**?
+  ├── Yes → <span class="hljs-keyword">Use</span> **LinkedHashSet**
+  └── <span class="hljs-keyword">No</span> → <span class="hljs-keyword">Use</span> **HashSet**
+
+  <span class="hljs-keyword">After</span> selecting collection:
+
+  <span class="hljs-keyword">Do</span> you need **<span class="hljs-keyword">thread</span> safety**?
+  ├── Yes → <span class="hljs-keyword">Use</span> <span class="hljs-keyword">concurrent</span> <span class="hljs-keyword">or</span> synchronized alternatives:
+  │     - <span class="hljs-string">`ConcurrentHashMap`</span>
+  │     - <span class="hljs-string">`CopyOnWriteArrayList`</span>
+  │     - <span class="hljs-string">`Collections.synchronizedSet(...)`</span>
+  └── <span class="hljs-keyword">No</span> → <span class="hljs-keyword">Use</span> <span class="hljs-keyword">as</span>-<span class="hljs-keyword">is</span> (<span class="hljs-keyword">default</span>)
+</code></pre><h3 id="-example-scenarios">🧠 Example Scenarios</h3>
+<h4 id="1-you-need-to-store-data-with-keys-and-values-and-want-to-sort-them-by-keys-">1. You need to store data with keys and values and want to sort them by keys:</h4>
+<p>→ TreeMap</p>
+<h4 id="2-you-want-to-store-a-list-of-names-with-duplicates-and-access-by-index-">2. You want to store a list of names with duplicates and access by index:</h4>
+<p>→ ArrayList</p>
+<h4 id="3-you-want-to-store-a-set-of-unique-cities-and-order-doesn-t-matter-">3. You want to store a set of unique cities, and order doesn’t matter:</h4>
+<p>→ HashSet</p>
+<h4 id="4-you-want-to-store-key-value-pairs-with-insertion-order-preserved-and-need-thread-safety-">4. You want to store key-value pairs with insertion order preserved and need thread safety:</h4>
+<p>→ LinkedHashMap + <code>Collections.synchronizedMap(...)</code></p>
+<hr>
+<h3 id="-summary">🧰 Summary</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Need</th>
+        <th>Collection</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Key-value with sorted keys</td>
+        <td><code>TreeMap</code></td>
+    </tr>
+    <tr>
+        <td>Key-value with insertion order</td>
+        <td><code>LinkedHashMap</code></td>
+    </tr>
+    <tr>
+        <td>Simple key-value (no order)</td>
+        <td><code>HashMap</code></td>
+    </tr>
+    <tr>
+        <td>List with index access</td>
+        <td><code>ArrayList</code></td>
+    </tr>
+    <tr>
+        <td>List without index priority</td>
+        <td><code>LinkedList</code></td>
+    </tr>
+    <tr>
+        <td>Unique, sorted elements</td>
+        <td><code>TreeSet</code></td>
+    </tr>
+    <tr>
+        <td>Unique, insertion order</td>
+        <td><code>LinkedHashSet</code></td>
+    </tr>
+    <tr>
+        <td>Unique, no order</td>
+        <td><code>HashSet</code></td>
+    </tr>
+    <tr>
+        <td>Thread safety</td>
+        <td><code>ConcurrentHashMap</code>, <code>CopyOnWriteArrayList</code>, <code>synchronizedMap</code>, etc.</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h2 id="-core-interfaces-and-key-differences">🛠 Core Interfaces and Key Differences</h2>
+<h3 id="iterable-vs-collection">Iterable vs Collection</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Interface</th>
+        <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><code>Iterable</code></td>
+        <td>Root interface for iteration</td>
+    </tr>
+    <tr>
+        <td><code>Collection</code></td>
+        <td>Base interface for Lists, Sets, Queues</td>
+    </tr>
+    </tbody>
+</table>
+<h3 id="iterator-vs-enumeration">Iterator vs Enumeration</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Feature</th>
+        <th>Iterator</th>
+        <th>Enumeration</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Remove Element</td>
+        <td>✅ Allows remove() during traversal</td>
+        <td>❌ Read-only; cannot modify</td>
+    </tr>
+    <tr>
+        <td>Coverage</td>
+        <td>Universal cursor (works with all collections)</td>
+        <td>Only for legacy classes like Vector, Hashtable</td>
+    </tr>
+    <tr>
+        <td>Method Support</td>
+        <td>hasNext(), next(), remove()</td>
+        <td>hasMoreElements(), nextElement()</td>
+    </tr>
+    <tr>
+        <td>Direction</td>
+        <td>Forward only</td>
+        <td>Forward only</td>
+    </tr>
+    <tr>
+        <td>Used For</td>
+        <td>All modern collections</td>
+        <td>Legacy (Vector, Hashtable)</td>
+    </tr>
+    <tr>
+        <td>Thread Safety</td>
+        <td>Not thread-safe by default</td>
+        <td>❌ Not thread-safe</td>
+    </tr>
+    <tr>
+        <td>Fail-fast</td>
+        <td>✅</td>
+        <td>❌</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h2 id="-utility-classes-and-interfaces">📦 Utility Classes and Interfaces</h2>
+<h3 id="collection-interface-methods">Collection Interface Methods</h3>
+<ul>
+    <li><code>add(E e)</code>, <code>remove(Object o)</code></li>
+    <li><code>addAll()</code>, <code>removeAll()</code></li>
+    <li><code>size()</code>, <code>isEmpty()</code></li>
+    <li><code>clear()</code></li>
+    <li><code>stream()</code></li>
+</ul>
+<h3 id="iterator-interface">Iterator Interface</h3>
+<ul>
+    <li><code>hasNext()</code>, <code>next()</code>, <code>remove()</code></li>
+</ul>
+<h3 id="iterable-interface">Iterable Interface</h3>
+<ul>
+    <li><code>iterator()</code> — only method</li>
+</ul>
+<hr>
+<h2 id="-list-implementations">🧩 List Implementations</h2>
+<details>
+    <summary><strong>📋 List Implementations</strong></summary>
+
+
+    | Type       | Order Maintained | Sorted | Allows Duplicates | Thread Safe                   |
+    | ---------- | ---------------- | ------ | ----------------- | ----------------------------- |
+    | ArrayList  | ✅ Yes            | ❌ No   | ✅ Yes             | ❌ No                          |
+    | LinkedList | ✅ Yes            | ❌ No   | ✅ Yes             | ❌ No                          |
+    | Vector     | ✅ Yes            | ❌ No   | ✅ Yes             | ✅ Yes                         |
+    | Stack      | ✅ Yes            | ❌ No   | ✅ Yes             | ✅ Yes (inherited from Vector) |
+
+
+    ### ArrayList
+
+    <em> Backed by <strong>resizable array</strong>
+    </em> Random access supported (O(1))
+    <em> Not synchronized
+
+        ### LinkedList
+
+    </em> Doubly linked list
+    <em> Insertion/deletion faster (O(1) at ends)
+    </em> Slower random access (O(n))
+
+    ### Vector (Legacy)
+
+    <em> Synchronized version of ArrayList
+    </em> Avoid unless thread-safe list is needed
+
+    ### Stack (Legacy)
+
+    <em> LIFO structure
+    </em> Prefer <code>Deque</code> (like <code>ArrayDeque</code>) over <code>Stack</code>
+
+</details>
+
+<hr>
+<h2 id="-queue-implementations">🌀 Queue Implementations</h2>
+<details>
+    <summary><strong>🔄 Queue &amp; Deque</strong></summary>
+
+    | Interface       | Implementations                             | Notes                                    |
+    | --------------- | ------------------------------------------- | ---------------------------------------- |
+    | <code>Queue</code>         | <code>LinkedList</code>, <code>PriorityQueue</code>               | FIFO, priority-based                     |
+    | <code>Deque</code>         | <code>ArrayDeque</code>, <code>LinkedList</code>                  | Double-ended (add/remove from both ends) |
+    | <code>BlockingQueue</code> | <code>LinkedBlockingQueue</code>, <code>ArrayBlockingQueue</code> | Thread-safe queues                       |
+
+    | Type                                     | Order Maintained | Sorted | Allows Duplicates | Thread Safe                      |
+    | ---------------------------------------- | ---------------- | ------ | ----------------- |----------------------------------|
+    | Queue (Interface)                        | ✅ FIFO           | ❌ No   | ✅ Yes             | Depends on implementation     |
+    | Deque (Interface)                        | ✅ Ends           | ❌ No   | ✅ Yes             | Depends on implementation     |
+    | ArrayDeque                               | ✅ Yes            | ❌ No   | ✅ Yes             | ❌ No                         |
+    | LinkedList (as Queue)                    | ✅ Yes            | ❌ No   | ✅ Yes             | ❌ No                         |
+    | PriorityQueue                            | ✅ Partial (Heap) | ✅ Yes  | ✅ Yes             | ❌ No                         |
+    | ConcurrentLinkedQueue                    | ✅ Yes            | ❌ No   | ✅ Yes             | ✅ Yes                        |
+    | BlockingQueue (e.g. LinkedBlockingQueue) | ✅ Yes            | ❌ No   | ✅ Yes             | ✅ Yes                        |
+
+</details>
+
+<hr>
+<h2 id="-set-implementations">🎯 Set Implementations</h2>
+<details>
+    <summary><strong>🚫 Set Implementations</strong></summary>
+
+    ### HashSet
+
+    <em> Unordered, unique elements
+    </em> Backed by HashMap
+    <em> Average time: O(1)
+
+        ### LinkedHashSet
+
+    </em> Ordered by insertion
+    <em> Slightly more memory than HashSet
+
+        ### TreeSet
+
+    </em> Sorted order (natural or custom Comparator)
+    <em> Backed by Red-Black Tree
+    </em> Time complexity: O(log n)
+
+
+    | Type          | Order Maintained   | Sorted | Allows Duplicates | Thread Safe |
+    | ------------- |--------------------| ------ | ----------------- | ----------- |
+    | HashSet       | ❌                 | ❌     | ❌                | ❌          |
+    | LinkedHashSet | ✅                 | ❌     | ❌                | ❌          |
+    | TreeSet       | ✅ (Sorted)        | ✅     | ❌                | ❌          |
+
+</details>
+
+<hr>
+<h2 id="-map-implementations">🧮 Map Implementations</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Type</th>
+        <th>Ordered?</th>
+        <th>Thread Safe</th>
+        <th>Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>HashMap</td>
+        <td>❌</td>
+        <td>❌</td>
+        <td>Most used, allows one null key</td>
+    </tr>
+    <tr>
+        <td>LinkedHashMap</td>
+        <td>✅</td>
+        <td>❌</td>
+        <td>Preserves insertion order</td>
+    </tr>
+    <tr>
+        <td>TreeMap</td>
+        <td>✅ (Sorted)</td>
+        <td>❌</td>
+        <td>Sorted by natural/comparator key</td>
+    </tr>
+    <tr>
+        <td>Hashtable</td>
+        <td>❌</td>
+        <td>✅ (legacy)</td>
+        <td>Slower, use only for legacy support</td>
+    </tr>
+    <tr>
+        <td>ConcurrentHashMap</td>
+        <td>❌</td>
+        <td>✅ (modern)</td>
+        <td>Thread-safe, no null keys allowed</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h2 id="-thread-safety-comparison">🧠 Thread Safety Comparison</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Collection</th>
+        <th>Thread Safe?</th>
+        <th>Alternative</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>ArrayList</td>
+        <td>❌</td>
+        <td><code>CopyOnWriteArrayList</code></td>
+    </tr>
+    <tr>
+        <td>HashMap</td>
+        <td>❌</td>
+        <td><code>ConcurrentHashMap</code></td>
+    </tr>
+    <tr>
+        <td>HashSet</td>
+        <td>❌</td>
+        <td><code>Collections.synchronizedSet()</code></td>
+    </tr>
+    <tr>
+        <td>TreeSet</td>
+        <td>❌</td>
+        <td><code>ConcurrentSkipListSet</code> (via concurrent pkg)</td>
+    </tr>
+    <tr>
+        <td>Stack</td>
+        <td>✅ (legacy)</td>
+        <td>Prefer <code>ArrayDeque</code></td>
+    </tr>
+    <tr>
+        <td>Vector</td>
+        <td>✅</td>
+        <td>Use cautiously (legacy)</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h2 id="-hashcode-and-equals-in-hash-based-collections">🧠 <code>hashCode()</code> and <code>equals()</code> in Hash-Based Collections</h2>
+<details>
+    <summary><strong>🧠 equals() vs == vs hashCode()</strong></summary>
+
+    <em> When used as keys in <code>HashMap</code> or elements in <code>HashSet</code>, override both.
+    </em> <strong>Contract:</strong>
+
+    <em> If <code>a.equals(b)</code> is true → <code>a.hashCode() == b.hashCode()</code> must be true
+    </em> But the reverse isn&#39;t mandatory.
+
+    <em> <code>==</code> → compares <strong>reference</strong> (memory address)
+    </em> <code>equals()</code> → compares <strong>value/content</strong>
+    * <code>hashCode()</code> → used in hashing collections (<code>HashMap</code>, <code>HashSet</code>, etc.)
+
+    Example:
+
+    <code>java
+        String a = &quot;hello&quot;;
+        String b = new String(&quot;hello&quot;);
+
+        System.out.println(a == b);        // false
+        System.out.println(a.equals(b));   // true</code>
+
+</details>
+
+
+<details>
+    <summary><strong>🧵 Synchronized &amp; Concurrent Collections</strong></summary>
+
+    <em> Legacy synchronized: <code>Vector</code>, <code>Hashtable</code>
+    </em> Wrapper methods:
+
+    <em> <code>Collections.synchronizedList(list)</code>
+    </em> Modern concurrent collections:
+
+    <em> <code>ConcurrentHashMap</code>
+    </em> <code>CopyOnWriteArrayList</code>
+    <em> <code>BlockingQueue</code>
+    </em> <code>ConcurrentLinkedQueue</code>
+
+</details>
+
+<hr>
+<h2 id="-summary-when-to-use-what-">🛡️ Summary: When to Use What?</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Need</th>
+        <th>Use</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Random access</td>
+        <td><code>ArrayList</code></td>
+    </tr>
+    <tr>
+        <td>Frequent insert/delete (ends)</td>
+        <td><code>LinkedList</code></td>
+    </tr>
+    <tr>
+        <td>Thread-safe list</td>
+        <td><code>CopyOnWriteArrayList</code></td>
+    </tr>
+    <tr>
+        <td>No duplicates</td>
+        <td><code>Set</code>, <code>HashSet</code></td>
+    </tr>
+    <tr>
+        <td>Sorted no duplicates</td>
+        <td><code>TreeSet</code></td>
+    </tr>
+    <tr>
+        <td>Ordered no duplicates</td>
+        <td><code>LinkedHashSet</code></td>
+    </tr>
+    <tr>
+        <td>FIFO</td>
+        <td><code>Queue</code>, <code>LinkedList</code>, <code>ArrayDeque</code></td>
+    </tr>
+    <tr>
+        <td>LIFO (stack)</td>
+        <td><code>ArrayDeque</code></td>
+    </tr>
+    <tr>
+        <td>Key-value, no order</td>
+        <td><code>HashMap</code></td>
+    </tr>
+    <tr>
+        <td>Key-value, insertion order</td>
+        <td><code>LinkedHashMap</code></td>
+    </tr>
+    <tr>
+        <td>Key-value, sorted keys</td>
+        <td><code>TreeMap</code></td>
+    </tr>
+    <tr>
+        <td>Thread-safe key-value</td>
+        <td><code>ConcurrentHashMap</code></td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h1 id="-java-collections-framework-overview-java-1-0-java-21-"><strong>Java Collections Framework Overview (Java 1.0 - Java 21)</strong></h1>
+<details>
+    <summary>Java Collections Timeline &amp; Features</summary>
+
+    | <strong>Java Version</strong> | <strong>New Collections &amp; Features (null, Sync)</strong>                                                                                                  | <strong>Description &amp; Key Features</strong>                                            |
+    |------------------|---------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+    | <strong>JDK 1.0</strong>      | - <code>Vector (many, Y)</code><br>- <code>Stack (many, Y)</code><br>- <code>Hashtable ((0, 0), Y)</code><br>- <code>Properties ((0, many), Y)</code><br>- <code>Enumeration</code>                 | Initial synchronized collections. <code>Hashtable</code> and <code>Properties</code> store key-value pairs. |
+    | <strong>JDK 1.2</strong>      | - <code>ArrayList (many, N)</code><br>- <code>LinkedList (many, N)</code><br>- <code>HashSet (N/A, N)</code><br>- <code>TreeSet (N/A, N)</code><br>- <code>HashMap ((1, many), N)</code><br>- <code>TreeMap ((0, many), N)</code><br>- <code>Iterator</code><br>- <code>ListIterator</code> | Core interfaces introduced (<code>Collection</code>, <code>Set</code>, <code>List</code>, <code>Map</code>). <code>TreeMap</code> disallows <code>null</code> keys. |
+    | <strong>JDK 1.4</strong>      | - <code>LinkedHashSet (N/A, N)</code><br>- <code>LinkedHashMap ((1, many), N)</code>                                                                             | Maintains insertion order. <code>LinkedHashMap</code> allows one <code>null</code> key.          |
+    | <strong>JDK 1.5</strong>      | - <code>Queue (varies, N)</code><br>- <code>CopyOnWriteArrayList (many, Y)</code><br>- <code>CopyOnWriteArraySet (N/A, Y)</code><br>- Enhanced for-each loop                  | <code>Queue</code> implementations vary in null handling (<code>PriorityQueue</code> disallows <code>null</code>). Thread-safe <code>CopyOnWriteArrayList</code>. |
+    | <strong>JDK 1.6</strong>      | - <code>NavigableSet (N/A, N)</code><br>- <code>NavigableMap ((0, many), N)</code><br>- <code>Deque (varies, N)</code><br>- <code>ArrayDeque (N/A, N)</code><br>- <code>ConcurrentSkipListSet (N/A, Y)</code><br>- <code>ConcurrentSkipListMap ((0, many), Y)</code> | Sorted and double-ended queue structures added. <code>ConcurrentSkipListMap</code> disallows <code>null</code> keys. |
+    | <strong>JDK 1.8</strong>      | - <code>stream()</code><br>- <code>parallelStream()</code><br>- <code>spliterator()</code><br>- <code>removeIf()</code><br>- <code>HashMap</code> performance improvements                          | Functional programming (Streams API, lambdas). <code>HashMap</code> optimized internally with red-black trees. |
+    | <strong>JDK 9</strong>        | - <code>List.of() (0, N)</code><br>- <code>Set.of() (0, N)</code><br>- <code>Map.of() ((0, 0), N)</code><br>- <code>Map.ofEntries() ((0, 0), N)</code>                                  | Factory methods for <strong>immutable</strong> collections. Nulls not allowed.          |
+    | <strong>JDK 10</strong>       | - <code>List.copyOf() (varies, N)</code><br>- <code>Set.copyOf() (varies, N)</code><br>- <code>Map.copyOf() ((varies, varies), N)</code>                                      | Unmodifiable copies creation methods. Null behavior depends on original collection. |
+    | <strong>JDK 11</strong>       | - <code>Collection.toArray(IntFunction)</code>                                                                                                       | Converts collections to arrays of desired runtime type.                    |
+    | <strong>JDK 21</strong>       | - <code>SequencedCollection (varies, N)</code><br>- <code>SequencedSet (varies, N)</code><br>- <code>SequencedMap ((varies, varies), N)</code>                              | Interfaces for collections with <strong>defined order</strong> and reversed views.      |
+
+</details>
+
+<details>
+    <summary>Legend &amp; Key Takeaways</summary>
+
+    ### Legend:
+
+    - <strong>(null keys, null values)</strong> — For key-value collections (<code>Map</code>)
+    - <strong>(null values only)</strong> — For non-key-value collections (<code>List</code>, <code>Set</code>, <code>Queue</code>, etc.)
+    - <strong>Thread Safety:</strong>
+    - <strong>Y</strong> — Synchronized
+    - <strong>N</strong> — Not synchronized
+
+    ---
+
+    ### Key Takeaways:
+
+    - <strong>Thread-Safe Collections:</strong><br>  Legacy classes like <code>Vector</code> and <code>Hashtable</code> are synchronized but modern alternatives such as <code>ConcurrentHashMap</code> and <code>CopyOnWriteArrayList</code> provide better concurrency.
+
+    - <strong>Null Handling:</strong><br>  - <code>HashMap</code> allows one <code>null</code> key.<br>  - <code>TreeMap</code> and <code>ConcurrentSkipListMap</code> disallow <code>null</code> keys.<br>  - Most lists and sets allow <code>null</code> values except immutable collections (<code>List.of()</code>, <code>Set.of()</code>) and <code>ConcurrentSkipListSet</code>.
+
+    - <strong>Performance &amp; Optimizations:</strong><br>  Java 8+ optimized <code>HashMap</code> internals and introduced streams API for functional-style operations.
+
+    - <strong>Immutable Collections (Java 9+):</strong><br>  Factory methods create unmodifiable collections that do not accept <code>null</code> elements.
+
+    - <strong>Ordered Collections (Java 21):</strong><br>  New <code>SequencedCollection</code>, <code>SequencedSet</code>, and <code>SequencedMap</code> interfaces provide consistent iteration order with additional operations.
+
+</details>
+
+<hr>
+<details>
+    <summary>Applet Lifecycle Methods</summary>
+
+    - <code>public void init()</code>: Called once to initialize the applet.
+    - <code>public void start()</code>: Called after <code>init()</code> or when browser is maximized; starts the applet.
+    - <code>public void stop()</code>: Called when applet is stopped or browser minimized; stops the applet.
+    - <code>public void destroy()</code>: Called once to destroy the applet.
+
+</details>
+
+<hr>
+<details>
+    <summary>Serialization and Deserialization</summary>
+
+    - Serialization converts an object into a byte stream for storage or transmission.
+    - Deserialization reconstructs the object from the byte stream.
+    - Use <code>writeObject()</code> and <code>ObjectOutputStream</code> for serialization.
+    - Use <code>readObject()</code> and <code>ObjectInputStream</code> for deserialization.
+    - Only classes implementing <code>java.io.Serializable</code> can be serialized.
+
+    <details>
+        <summary>Transient Keyword</summary>
+
+        - Fields marked <code>transient</code> are <strong>not serialized</strong>.
+
+    </details>
+
+    <p></details></p>
+<hr>
+<details>
+    <summary>Autoboxing and Auto-Unboxing</summary>
+
+    ### Boxing &amp; Autoboxing (Primitive → Wrapper Object)
+
+    <code>java
+        Integer boxedValue = Integer.valueOf(10);  // Boxing
+        Integer autoBoxedValue = 10;                // Autoboxing
+        ````
+
+        ### Unboxing &amp; Auto-unboxing (Wrapper Object → Primitive)</code>java
+    int unboxedValue = boxedValue.intValue();  // Unboxing
+    int autoUnboxedValue = boxedValue;         // Auto-unboxing
+    ```
+
+</details>
+
+<hr>
+<details>
+    <summary>Variables in Java</summary>
+
+    <em> <strong>Local:</strong> Inside method body; cannot be <code>static</code>.
+    </em> <strong>Instance:</strong> Inside class body; each object has its own copy.
+    <em> <em>*Static:</em></em> Shared across all instances; memory allocated once when class loads.
+
+</details>
+
+<hr>
+<details>
+    <summary>Initialization vs Instantiation</summary>
+
+    <em> <strong>Initialization:</strong> Assigning initial values to variables.
+    </em> <strong>Instantiation:</strong> Creating new objects from classes to access properties and methods.
+
+</details>
+
+<hr>
+<details>
+    <summary>Float vs Double</summary>
+
+    | Type   | Size (bytes) | Precision (digits) | Notes                     |
+    | ------ | ------------ | ------------------ | ------------------------- |
+    | float  | 4            | 6-7                | Approximate, less precise |
+    | double | 8            | 15-16              | More precise than float   |
+
+</details>
+
+<hr>
+<details>
+    <summary>int vs Integer</summary>
+
+    <em> <code>int</code> is a primitive data type.
+    </em> <code>Integer</code> is an object wrapper class.
+
+    See <a href="https://stackoverflow.com/questions/8660691/what-is-the-difference-between-integer-and-int-in-java">StackOverflow: int vs Integer</a>.
+
+</details>
+
+<hr>
+<details>
+    <summary>size() vs length</summary>
+
+    | Usage             | Applies To  | Returns                            | Example            |
+    | ----------------- | ----------- | ---------------------------------- | ------------------ |
+    | <code>size()</code> method   | Collections | Number of elements in a collection | <code>list.size()</code>      |
+    | <code>length</code> property | Arrays      | Number of elements in an array     | <code>array.length</code>     |
+    | <code>length()</code> method | Strings     | Number of characters in a string   | <code>&quot;hello&quot;.length()</code> |
+
+    ### Why?
+
+    <em> Arrays: <code>.length</code> is a <strong>property</strong> (field), accessed without parentheses.
+    </em> Strings: <code>.length()</code> is a <strong>method</strong>, called with parentheses.
+
+</details>
+
+<hr>
+<details>
+    <summary>Final, Finally, and Finalize</summary>
+
+    ### <code>final</code> keyword
+
+    <em> Used to declare constants, prevent method overriding or inheritance.
+
+        ### <code>finally</code> block
+
+    </em> Used after try-catch blocks for cleanup code that always executes.
+    <em> Can be skipped if <code>System.exit()</code> is called before it.
+
+        ### <code>finalize()</code> method
+
+    </em> Called by Garbage Collector before object destruction (deprecated and discouraged).
+
+</details>
+
+<hr>
+<details>
+    <summary>Garbage Collection in Java</summary>
+
+    <em> Automatically frees memory occupied by unreachable objects.
+    </em> Operates on the Java Heap.
+    <em> Several algorithms exist: Serial, Parallel, CMS, G1.
+    </em> <code>finalize()</code> is unreliable for cleanup; prefer <code>AutoCloseable</code>.
+    <em> Use profiling tools for monitoring.
+    </em> Nullify references and clear collections to aid GC.
+
+    ### Example:
+
+    <code>java
+        MyClass obj = new MyClass();
+        // use obj
+        obj = null; // eligible for GC</code>
+
+</details>
+
+<hr>
+<details>
+    <summary>Manually Invoking Garbage Collection</summary>
+
+    <em> Use <code>System.gc()</code> or <code>Runtime.getRuntime().gc()</code> to </em>suggest<em> GC run.
+
+    <code>java
+        System.gc();
+        Runtime.getRuntime().gc();</code>
+
+</em> JVM may ignore these calls.
+    * Manual GC calls are discouraged; trust JVM automatic GC.
+
+</details>
+
+<hr>
+<h2 id="caching-in-java">Caching in java</h2>
+<ul>
+    <li>Caching is a technique wherein objects in your application are stored in a temporary storage area known as cache.</li>
+</ul>
+<p><img src="images/CacheFlow.png" alt="CacheFlow.png"></p>
+<hr>
+<h1 id="two-types-of-error-">Two types of error:-</h1>
+<h1 id="two-types-of-error">Two types of error</h1>
+<details>
+    <summary>🛑 1. Syntax Error or Compile Time Error</summary>
+
+    - A syntax error occurs when the structure of your code violates the rules of the programming language.
+    - It&#39;s related to the grammar or syntax of the language, and these errors are detected by the compiler or interpreter during the compilation or interpretation process.
+    - Syntax errors prevent the program from being executed successfully.
+
+</details>
+
+<details>
+    <summary>⚠️ 2. Semantic Error or Run Time Error</summary>
+
+    - A semantic error is a logical error in the program that does not violate the syntax of the programming language but leads to incorrect behavior.
+
+</details>
+
+<hr>
+<h1 id="exception-handling">Exception Handling</h1>
+<details>
+    <summary>📌 Overview of Exception Hierarchy</summary>
+
+    - In Java, an exception is an event that disrupts the normal flow of the program. It is an object which is thrown at runtime.
+
+    <code>Throwable
+        |
+        |__ Exception
+        |
+        |__ (IOException, SQLException, ClassNotFoundException, RuntimeException) Checked Exceptions
+        |
+        |__ (ArithmeticException, NullPointerException, NumberFormatException, IndexOutOfBoundException
+        |
+        |__ ArrayOutOfBoundException, StringIndexOutOfBoundException)Unchecked Exceptions
+
+        &gt; Detailed tree structure
+
+        java.lang.Throwable (class)
+        │
+        ├── java.lang.Error (class)
+        │   ├── AssertionError (class)
+        │   ├── OutOfMemoryError (class)
+        │   ├── StackOverflowError (class)
+        │   ├── VirtualMachineError (class)
+        │   │   ├── InternalError (class)
+        │   │   └── OutOfMemoryError (class)
+        │   └── LinkageError (class)
+        │       ├── ClassNotFoundError (class)
+        │       └── NoClassDefFoundError (class)
+        │
+        └── java.lang.Exception(Checked exceptions) (class)
+        ├── IOException (class)
+        │   ├── FileNotFoundException (class)
+        │   ├── EOFException (class)
+        │   ├── SocketException (class)
+        │   ├── IOException
+        │   └── SQLException (class)
+        ├── RuntimeException(Unchecked exception) (class)
+        │   ├── NullPointerException (class)
+        │   ├── ArithmeticException (class)
+        │   ├── ArrayIndexOutOfBoundsException (class)
+        │   ├── ClassCastException (class)
+        │   ├── IllegalArgumentException (class)
+        │   ├── IllegalStateException (class)
+        │   └── UnsupportedOperationException (class)
+        ├── SQLException (class)
+        ├── ParseException (class)
+        └── InterruptedException (class)</code>
+
+</details>
+
+<h2 id="throw-new-and-throws">throw new and throws</h2>
+<details>
+    <summary>🎯 throw vs throws</summary>
+
+    ### <code>throw</code>
+
+    - Used to <strong>explicitly throw</strong> an exception from code.
+    - Followed by an exception instance (usually <code>new</code>).
+
+    <code>java
+        throw new CustomException(&quot;This is a custom exception message&quot;);
+        ````
+
+        ---
+
+        ### `throws`
+
+        * Used in **method signature** to declare that the method may throw exceptions.</code>java
+    public void myMethod() throws IOException {
+    // may throw IOException
+    }
+    <code>``
+
+        &gt; 🔁</code>throw<code>is **used inside** the method body to raise exception,
+    &gt;</code>throws` is <strong>declared on</strong> the method signature.
+
+</details>
+
+<hr>
+<h2 id="-checked-and-unchecked-exceptions-https-www-javamadesoeasy-com-2015-05-exception-handling-exception-hierarchy-html-"><a href="https://www.javamadesoeasy.com/2015/05/exception-handling-exception-hierarchy.html">Checked and Unchecked Exceptions</a></h2>
+<details>
+    <summary>✅ Checked vs Unchecked Exceptions</summary>
+
+    <img src="images/Checked_UnChecked.png" alt="Checked vs Unchecked">
+
+    ### 1. <strong>Checked Exceptions</strong>
+
+    <em> Must be handled with try-catch or declared with <code>throws</code>.
+    </em> Examples: <code>IOException</code>, <code>SQLException</code>, <code>ClassNotFoundException</code>.
+
+    <code>java
+        try {
+        // risky operation
+        } catch (IOException | SQLException e) {
+        // handle checked exceptions
+        }</code>
+
+    or
+
+    <code>java
+        public void method() throws IOException {
+        // may throw IOException
+        }</code>
+
+    ---
+
+    ### 2. <strong>Unchecked Exceptions</strong>
+
+    <em> Subclass of <code>RuntimeException</code>.
+    </em> Not mandatory to handle, but can be caught.
+
+    Examples: <code>NullPointerException</code>, <code>ArithmeticException</code>, <code>IndexOutOfBoundsException</code>.
+
+    <code>java
+        try {
+        String value = null;
+        value.length(); // throws NPE
+        } catch (NullPointerException e) {
+        System.out.println(&quot;Handled NPE&quot;);
+        }</code>
+
+    ✅ <strong>Best practice</strong>: Prevent them through defensive programming rather than relying on exception handling.
+
+</details>
+
+<hr>
+<details>
+    <summary>🛠 Best Practices for Exception Handling</summary>
+
+    <em> Use <strong>specific</strong> exception types (avoid <code>Exception e</code> unless necessary).
+    </em> Avoid empty <code>catch</code> blocks.
+    <em> Log exceptions with stack trace for debugging.
+    </em> Never use exceptions for flow control.
+    <em> Use <code>finally</code> or <code>try-with-resources</code> for cleanup.
+    </em> Use <strong>custom exceptions</strong> for domain-specific cases.
+    <em> Consider <em>*rethrowing</em></em> after logging if needed.
+
+</details>
+
+<hr>
+<details>
+    <summary>🧪 Exiting finally block early</summary>
+
+    <em> Normally, the <code>finally</code> block always executes.
+    </em> It can be <strong>skipped</strong> using <code>System.exit()</code>:
+
+    <code>java
+        try {
+        System.exit(0); // skips finally
+        } finally {
+        System.out.println(&quot;This will not print&quot;);
+        }</code>
+
+</details>
+<code>---
+
+
+    ## Try with Resource [(Java 7 and Java 9 Improvements)](https://www.tutorialspoint.com/java9/java9_try_with_resources_improvement.htm)
+
+    &lt;details&gt;
+    &lt;summary&gt;🧱 Traditional try-catch-finally Block&lt;/summary&gt;</code>java
+Scanner scanner = null;
+try {
+scanner = new Scanner(new File(&quot;test.txt&quot;));
+while (scanner.hasNext()) {
+System.out.println(scanner.nextLine());
+}
+} catch (FileNotFoundException e) {
+e.printStackTrace();
+} finally {
+if (scanner != null) {
+scanner.close();
+}
+}
+````
+
+</details>
+
+<hr>
+<details>
+    <summary>✨ try-with-resources (Java 7+)</summary>
+
+    <em> Automatically closes resources that implement <code>AutoCloseable</code> or <code>Closeable</code>.
+    </em> Eliminates the need for a <code>finally</code> block to close resources.
+
+    <code>java
+        try (Scanner scanner = new Scanner(new File(&quot;test.txt&quot;))) {
+        while (scanner.hasNext()) {
+        System.out.println(scanner.nextLine());
+        }
+        } catch (FileNotFoundException fnfe) {
+        fnfe.printStackTrace();
+        }</code>
+
+</details>
+
+<hr>
+<details>
+    <summary>📚 try-with-resources with Multiple Resources</summary>
+
+    <em> You can declare <em>*multiple resources</em></em>, separated by semicolons <code>;</code>.
+
+    <code>java
+        try (
+        Scanner scanner = new Scanner(new File(&quot;testRead.txt&quot;));
+        PrintWriter writer = new PrintWriter(new File(&quot;testWrite.txt&quot;))
+        ) {
+        while (scanner.hasNext()) {
+        writer.print(scanner.nextLine());
+        }
+        }</code>
+
+</details>
+
+<hr>
+<details>
+    <summary>🧩 Custom Resource with AutoCloseable</summary>
+
+    * Any class that implements <code>AutoCloseable</code> or <code>Closeable</code> can be used with try-with-resources.
+
+    <code>java
+        public class MyResource implements AutoCloseable {
+        @Override
+        public void close() throws Exception {
+        System.out.println(&quot;Closed MyResource&quot;);
+        }
+        }</code>
+
+</details>
+
+<hr>
+<details>
+    <summary>🧯 Multi-Catch (Java 7+)</summary>
+
+    <em> You can catch <strong>multiple exceptions in a single block</strong> if they are <strong>unrelated by inheritance</strong>.
+    </em> This avoids code duplication for similar exception-handling logic.
+
+    <code>java
+        try {
+        // Code that may throw multiple exceptions
+        } catch (IOException | SQLException e) {
+        e.printStackTrace();
+        }</code>
+
+    ❗ You <strong>cannot</strong> do this if one exception is a subclass of another:
+
+    <code>java
+        // ❌ This will cause a compile-time error
+        catch (Exception | IOException e) { ... }</code>
+
+</details>
+
+<hr>
+<details>
+    <summary>🤔 Can We Have a try Block Without a catch Block?</summary>
+
+    ✅ Yes, Java allows a <code>try</code> block without a <code>catch</code> block <strong>if a <code>finally</code> block is present</strong>.
+
+    <code>java
+        try {
+        // risky code
+        } finally {
+        // cleanup code
+        }</code>
+
+    🚫 The <code>finally</code> block will always run <strong>unless <code>System.exit()</code> is called</strong> in the try block.
+
+</details>
+---
+
+
+# <a href="https://codegym.cc/groups/multithreading-in-java">Multithreading</a>
+
+<details>
+    <summary>🧮 Volatile Keyword</summary>
+
+    - <code>volatile</code> ensures visibility of changes to variables across threads.
+    - It&#39;s used for lightweight synchronization, often for flags.
+    - Does <strong>not</strong> guarantee atomicity.
+
+</details>
+
+<hr>
+<details>
+    <summary>🔒 Deadlock</summary>
+
+    - Occurs when two or more threads wait indefinitely for each other’s resources.
+    - Thread A holds resource X and waits for resource Y, while Thread B holds Y and waits for X.
+
+</details>
+
+<hr>
+<details>
+    <summary>⚡ Race Condition</summary>
+
+    - Happens when two or more threads access shared data and try to change it at the same time.
+    - Example: one thread reads from a list while another deletes from it.
+
+</details>
+
+<hr>
+<details>
+    <summary>🔁 <a href="https://www.geeksforgeeks.org/fail-fast-fail-safe-iterators-java/">Fail-Fast vs Fail-Safe Iterators</a></summary>
+
+    ### ✅ Fail-Safe:
+    - Uses <strong>copy of the collection</strong>.
+    - No <code>ConcurrentModificationException</code>.
+    - Ex: <code>ConcurrentHashMap</code>, <code>CopyOnWriteArrayList</code>.
+
+    <code>java
+        Map&lt;String, String&gt; map = new ConcurrentHashMap&lt;&gt;();
+        map.put(&quot;key1&quot;, &quot;value1&quot;);
+        Iterator&lt;String&gt; it = map.keySet().iterator();
+        map.put(&quot;key2&quot;, &quot;value2&quot;); // No exception
+        ````
+
+        ### ❌ Fail-Fast:
+
+        * Throws `ConcurrentModificationException` on structural changes.
+        * Ex: `ArrayList`, `HashMap`.</code>java
+    List<String> list = new ArrayList&lt;&gt;();
+    list.add(&quot;item1&quot;);
+    Iterator<String> it = list.iterator();
+        list.add(&quot;item2&quot;); // Throws exception
+        ```
+
+</details>
+
+<hr>
+<details>
+    <summary>📞 Callable vs Runnable</summary>
+
+    | Feature             | Runnable         | Callable         |
+    | ------------------- | ---------------- | ---------------- |
+    | Return Value        | No               | Yes (<code>V call()</code>) |
+    | Can throw Exception | No               | Yes              |
+    | Submission          | Thread, Executor | Executor only    |
+
+    <code>java
+        Callable&lt;String&gt; task = () -&gt; &quot;Result&quot;;
+        Future&lt;String&gt; future = executor.submit(task);
+        String result = future.get(); // blocks until done</code>
+
+    <img src="images/CallableVsRunnable.png" alt="img.png">
+
+</details>
+
+<hr>
+<details>
+    <summary>🚦 Future - Asynchronous Computation</summary>
+
+    <em> <code>Future</code> allows retrieving results from async tasks.
+    </em> Use <code>ExecutorService</code> to submit tasks and receive a <code>Future</code>.
+
+    <code>java
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        Future&lt;String&gt; future = executor.submit(() -&gt; &quot;Hello&quot;);
+        System.out.println(future.get()); // Waits for result</code>
+
+</details>
+
+<hr>
+<details>
+    <summary>🏗️ Guidelines: How to Handle Multithreading in Projects</summary>
+
+    1. Understand threads, synchronization, locks.
+    2. Use <code>java.util.concurrent</code> collections.
+    3. Use <code>synchronized</code>, <code>ReentrantLock</code>, or atomic classes.
+    4. Prefer <code>ExecutorService</code> for thread pooling.
+    5. Use <code>Callable</code>, <code>Future</code> for async results.
+    6. Use tools like <code>CountDownLatch</code>, <code>Semaphore</code>, <code>ThreadLocal</code>.
+    7. Avoid deadlocks by lock ordering.
+    8. Handle thread interruption properly.
+    9. Use modern features like <code>CompletableFuture</code>, <code>@Async</code>.
+    10. Document your concurrency design!
+
+</details>
+
+<hr>
+<details>
+    <summary>🛡️ Synchronization Mechanisms</summary>
+
+    ### 🔸 Method-Level
+
+    <code>java
+        public synchronized void method() { }</code>
+
+    ### 🔸 Block-Level
+
+    <code>java
+        synchronized(lockObj) {
+        // critical section
+        }</code>
+
+    ### 🔸 Class-Level
+
+    <code>java
+        public static synchronized void staticMethod() { }</code>
+
+    ### 🔸 wait/notify/notifyAll
+
+    <code>java
+        synchronized (sharedObject) {
+        while (!condition) sharedObject.wait();
+        sharedObject.notify();
+        }</code>
+
+    ### 🔸 Explicit Lock (ReentrantLock)
+
+    <code>java
+        ReentrantLock lock = new ReentrantLock();
+        lock.lock();
+        try {
+        // critical code
+        } finally {
+        lock.unlock();
+        }</code>
+
+    ### 🔸 volatile
+
+    <code>java
+        private volatile boolean running = true;</code>
+
+</details>
+
+<hr>
+<details>
+    <summary>🚀 Asynchronous Techniques</summary>
+
+    ### 1. Threads
+
+    <code>java
+        new Thread(() -&gt; { /* async task */ }).start();</code>
+
+    ### 2. ExecutorService
+
+    <code>java
+        ExecutorService executor = Executors.newCachedThreadPool();
+        executor.submit(() -&gt; { /* async task */ });
+        executor.shutdown();</code>
+
+    ### 3. CompletableFuture (Java 8+)
+
+    <code>java
+        CompletableFuture.runAsync(() -&gt; { /* async task */ });</code>
+
+    ### 4. CompletableFuture with Callback
+
+    <code>java
+        CompletableFuture.supplyAsync(() -&gt; &quot;result&quot;)
+        .thenAccept(result -&gt; System.out.println(result));</code>
+
+    ### 5. Spring @Async
+
+    <code>java
+        @Async
+        public void asyncMethod() { /* async task */ }</code>
+
+</details>
+
+<hr>
+<details>
+    <summary>🔄 Synchronized Collections vs Non-Synchronized</summary>
+
+    ### ✅ Synchronized
+
+    <em> Thread-safe
+    </em> Slower due to locking
+    <em> Examples: <code>Vector</code>, <code>Hashtable</code>, <code>Collections.synchronizedList()</code>
+
+        <code>java
+            List&lt;String&gt; syncList = Collections.synchronizedList(new ArrayList&lt;&gt;());</code>
+
+        ### ❌ Non-Synchronized
+
+    </em> Not thread-safe
+    <em> Fast in single-threaded environments
+    </em> Examples: <code>ArrayList</code>, <code>HashMap</code>, <code>HashSet</code>
+
+    <code>java
+        List&lt;String&gt; list = new ArrayList&lt;&gt;();</code>
+
+</details>
+
+<hr>
+<h1 id="-multithreading-concepts-advanced">🧵 Multithreading Concepts: Advanced</h1>
+<details>
+    <summary>🔁 Process vs Thread Synchronization</summary>
+
+    ### 🧩 <strong>Process Synchronization</strong>
+
+    - Controls access across <strong>multiple independent processes</strong>.
+    - Used in <strong>multi-process systems</strong> to avoid data conflicts.
+
+    #### 🔐 Common IPC Mechanisms:
+
+    1. <strong>Semaphore</strong> – Allows limited access to shared resources.
+    2. <strong>Mutex</strong> – Ensures only one process accesses a resource at a time.
+    3. <strong>Condition Variables</strong> – Coordination based on specific conditions.
+    4. <strong>Message Passing</strong> – Communicate via queues or sockets.
+    5. <strong>Critical Section</strong> – Protected section of code using the above.
+
+    ---
+
+    ### 🧵 <strong>Thread Synchronization</strong>
+
+    - Coordinates threads <strong>within the same process</strong>.
+    - Java provides many built-in tools:
+
+    #### ☑️ Techniques:
+
+    - <code>synchronized</code> methods/blocks
+    - <code>wait()</code>, <code>notify()</code>, <code>notifyAll()</code>
+    - <code>volatile</code> keyword
+    - Explicit locks (<code>ReentrantLock</code>)
+    - Thread-safe collections: <code>ConcurrentHashMap</code>, <code>CopyOnWriteArrayList</code>
+
+    🔑 Thread sync ensures <strong>safe access to shared memory</strong> and avoids race conditions.
+
+</details>
+
+<hr>
+<details>
+    <summary>⚙️ Parallel Method Execution in Java</summary>
+
+    ### 1️⃣ <strong>Using <code>Thread</code> Class (Basic)</strong>
+
+    <code>java
+        class Task1 extends Thread {
+        public void run() {
+        for (int i = 1; i &lt;= 5; i++) System.out.println(&quot;Task1 - Count: &quot; + i);
+        }
+        }
+
+        class Task2 extends Thread {
+        public void run() {
+        for (int i = 1; i &lt;= 5; i++) System.out.println(&quot;Task2 - Count: &quot; + i);
+        }
+        }
+        ````
+
+        🟡 **`start()` runs them in parallel**, but order is not guaranteed.
+
+        ---
+
+        ### 2️⃣ **Using `Runnable` Interface**</code>java
+    class Task implements Runnable {
+    private String name;
+    public Task(String name) { this.name = name; }
+
+    public void run() {
+    for (int i = 1; i &lt;= 5; i++) System.out.println(name + &quot; - Count: &quot; + i);
+    }
+    }
+    <code>✅ Better than extending `Thread` → separates logic from threading.
+
+        ---
+
+        ### 3️⃣ **Using `ExecutorService` (Thread Pool)**</code>java
+    ExecutorService executor = Executors.newFixedThreadPool(2);
+    executor.execute(() -&gt; { /<em> Task1 </em>/ });
+    executor.execute(() -&gt; { /<em> Task2 </em>/ });
+    executor.shutdown();
+    <code>✅ Scalable, reusable, **production-level** approach.
+
+        ---
+
+        ### 4️⃣ **Using `CompletableFuture` (Java 8+)**</code>java
+    CompletableFuture<Void> task1 = CompletableFuture.runAsync(() -&gt; { /<em> Task1 </em>/ });
+    CompletableFuture<Void> task2 = CompletableFuture.runAsync(() -&gt; { /<em> Task2 </em>/ });
+
+        CompletableFuture.allOf(task1, task2).join();
+        <code>✅ Best for **non-blocking**, modern async tasks.
+
+            ---
+
+            ### 📊 Which One Should You Use?
+
+            | Approach            | Best When                                        |
+            | ------------------- | ------------------------------------------------ |
+            | `Thread`            | Simple and quick demos/tests                     |
+            | `Runnable`          | Cleaner logic, reusable, better practice         |
+            | `ExecutorService`   | Managing **many tasks**, scalability and control |
+            | `CompletableFuture` | Asynchronous, reactive programming, modern Java  |
+
+            &lt;/details&gt;
+            ---
+
+            &lt;details&gt;
+            &lt;summary&gt;🔁 &lt;strong&gt;Collections.synchronizedMap() vs ConcurrentHashMap&lt;/strong&gt;&lt;/summary&gt;
+
+            ### 1. Collections.synchronizedMap(Map\&lt;K, V&gt;)
+
+            * Wraps a regular map with synchronized methods.
+            * Synchronizes on the entire map for every operation.
+            * Slower under high concurrency due to full-map lock.
+            * Manual synchronization needed during iteration.</code>java
+        Map<String, String> map = Collections.synchronizedMap(new HashMap&lt;&gt;());
+        synchronized (map) {
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+        System.out.println(entry.getKey() + &quot; -&gt; &quot; + entry.getValue());
+        }
+        }
+        <code>---
+
+            ### 2. ConcurrentHashMap\&lt;K, V&gt;
+
+            * Fine-grained locking or lock-free (Java 8+).
+            * Allows concurrent access without blocking readers.
+            * Weakly consistent iterator (no ConcurrentModificationException).
+            * Best for high-concurrency scenarios.</code>java
+        Map<String, String> map = new ConcurrentHashMap&lt;&gt;();
+        map.put(&quot;A&quot;, &quot;Apple&quot;);
+        map.put(&quot;B&quot;, &quot;Banana&quot;);
+
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+        System.out.println(entry.getKey() + &quot; -&gt; &quot; + entry.getValue());
+        }
+        <code>``
+
+            ---
+
+            ### ⚖️ Key Differences
+
+            | Feature           |</code>Collections.synchronizedMap()<code>|</code>ConcurrentHashMap<code>|
+            | ----------------- | ------------------------------- | -------------------- |
+            | Locking Mechanism | Entire map                      | Fine-grained locking |
+            | Concurrency       | Low                             | High                 |
+            | Read Operations   | Blocking                        | Lock-free (Java 8+)  |
+            | Write Operations  | Full lock                       | Partial locking      |
+            | Iteration Safety  | Must synchronize manually       | Weakly consistent    |
+            | Null Keys/Values  | ✅ Yes                           | ❌ No (NPE thrown)    |
+            | Performance       | Lower under contention          | High scalability     |
+
+            ---
+
+            ### 🧭 When to Use What?
+
+            * ✅ Use</code>Collections.synchronizedMap()<code>when:
+
+            * Few concurrent threads
+            * You need</code>null<code>keys/values
+            * Simplicity is more important than performance
+
+            * ✅ Use</code>ConcurrentHashMap<code>when:
+
+            * High concurrency &amp; performance is required
+            * Safe iteration without locking is needed
+            *</code>null<code>keys/values are not needed
+
+            ---
+
+            ### ❗ Why ConcurrentHashMap Disallows Nulls?
+
+            * Prevents ambiguity in</code>map.get(key)<code>:
+
+            *</code>null<code>might mean missing key or</code>null<code>value.
+            * Avoids needing extra synchronization for</code>null` checks.
+        * Ensures safe concurrent computation.
+
+</details>
+
+<hr>
+<h1 id="-design-patterns-in-java">🧩 Design Patterns in Java</h1>
+<details>
+    <summary>🧩 <strong>Design Patterns in Java</strong></summary>
+
+    ## 🔒 Singleton Pattern
+    <details>
+        <summary>🔒 <strong>1. Singleton Pattern</strong></summary>
+
+        Ensures a class has only one instance and provides a global access point.
+
+        <code>java
+            public class Singleton {
+            private static Singleton instance;
+            private Singleton() {}
+            public static Singleton getInstance() {
+            if (instance == null) {
+            instance = new Singleton();
+            }
+            return instance;
+            }
+            }</code>
+
+        ✅ Used for: Shared resources like DB connections, logging, configuration
+
+    </details>
+
+    <hr>
+    <h2 id="-factory-pattern">🏭 Factory Pattern</h2>
+    <details>
+        <summary>🏭 <strong>2. Factory Pattern</strong></summary>
+
+        Creates objects without specifying the exact class.
+
+        <code>java
+            interface Product { void create(); }
+
+            class ConcreteProduct implements Product {
+            public void create() { System.out.println(&quot;Concrete product.&quot;); }
+            }
+
+            class ProductFactory {
+            public static Product createProduct() {
+            return new ConcreteProduct();
+            }
+            }</code>
+
+        ✅ Used for: Abstracting complex object creation
+
+    </details>
+
+    <hr>
+    <h2 id="-abstract-factory-pattern">🏭🏢 Abstract Factory Pattern</h2>
+    <details>
+        <summary>🏭🏢 <strong>3. Abstract Factory Pattern</strong></summary>
+
+        Creates families of related objects without specifying concrete classes.
+
+        <code>java
+            interface AbstractFactory {
+            Product createProduct();
+            AnotherProduct createAnotherProduct();
+            }</code>
+
+        ✅ Used when: Different families of related objects are needed.
+
+    </details>
+
+    <hr>
+    <h2 id="-builder-pattern">🏗️ Builder Pattern</h2>
+    <details>
+        <summary>🏗️ <strong>4. Builder Pattern</strong></summary>
+
+        Separates object construction from representation.
+
+        <code>java
+            class ProductBuilder {
+            private Product product = new Product();
+
+            public ProductBuilder withPart1(String part1) {
+            product.setPart1(part1);
+            return this;
+            }
+
+            public Product build() {
+            return product;
+            }
+            }</code>
+
+        ✅ Used when: Many optional fields/configs are involved.
+
+    </details>
+
+    <hr>
+    <h2 id="-adapter-pattern">🔌 Adapter Pattern</h2>
+    <details>
+        <summary>🔌 <strong>5. Adapter Pattern</strong></summary>
+
+        Makes incompatible interfaces compatible.
+
+        <code>java
+            class Adapter implements Target {
+            private Adaptee adaptee;
+            public void request() {
+            adaptee.specificRequest();
+            }
+            }</code>
+
+        ✅ Used for: Legacy systems or 3rd-party libraries.
+
+    </details>
+
+    <hr>
+    <h2 id="-decorator-pattern">🎨 Decorator Pattern</h2>
+    <details>
+        <summary>🎨 <strong>6. Decorator Pattern</strong></summary>
+
+        Dynamically adds responsibilities to objects.
+
+        <code>java
+            class Decorator implements Component {
+            private Component component;
+            public void operation() {
+            component.operation();
+            }
+            }</code>
+
+        ✅ Used for: Extending functionality without altering core logic.
+
+    </details>
+
+    <hr>
+    <h2 id="-observer-pattern">👀 Observer Pattern</h2>
+    <details>
+        <summary>👀 <strong>7. Observer Pattern</strong></summary>
+
+        One-to-many dependency; observers update when subject changes.
+
+        <code>java
+            interface Observer { void update(String message); }
+
+            class Subject {
+            List&lt;Observer&gt; observers = new ArrayList&lt;&gt;();
+            void notifyObservers(String msg) {
+            for (Observer o : observers) o.update(msg);
+            }
+            }</code>
+
+        ✅ Used for: Event listeners, pub/sub systems.
+
+    </details>
+
+    <hr>
+    <h2 id="-strategy-pattern">🧠 Strategy Pattern</h2>
+    <details>
+        <summary>🧠 <strong>8. Strategy Pattern</strong></summary>
+
+        Encapsulates algorithms and makes them interchangeable at runtime.
+
+        <code>java
+            interface Strategy { void execute(); }
+
+            class Context {
+            private Strategy strategy;
+            public void executeStrategy() { strategy.execute(); }
+            }</code>
+
+        ✅ Used for: Pluggable algorithms.
+
+    </details>
+
+    <hr>
+    <h2 id="-command-pattern">🕹️ Command Pattern</h2>
+    <details>
+        <summary>🕹️ <strong>9. Command Pattern</strong></summary>
+
+        Encapsulates a request as an object.
+
+        <code>java
+            interface Command { void execute(); }
+
+            class Invoker {
+            Command command;
+            void executeCommand() { command.execute(); }
+            }</code>
+
+        ✅ Used for: Queued tasks, undo/redo.
+
+    </details>
+
+    <hr>
+    <h2 id="-mvc-pattern">📐 MVC Pattern</h2>
+    <details>
+        <summary>📐 <strong>10. MVC Pattern (Model-View-Controller)</strong></summary>
+
+        <em> <strong>Model</strong>: Business logic/data
+        </em> <strong>View</strong>: UI
+        <em> <em>*Controller</em></em>: Handles input and routes to model/view
+
+        ✅ Used for: Separating concerns in UI applications
+
+    </details>
+
+    <p></details></p>
+<hr>
+<details>
+    <summary>🌐 <strong>URL vs URI</strong></summary>
+
+    ### Summary
+
+    <em> All <strong>URLs are URIs</strong>, but not all <strong>URIs are URLs</strong>.
+    </em> URI syntax:
+    <code>scheme:[//authority]path[?query][#fragment]</code>
+
+    <img src="images/UrlUri.png" alt="UrlUri.png">
+
+    ### Tabular Comparison
+
+    | URL                                                         | URI                                                       |
+    | ----------------------------------------------------------- | --------------------------------------------------------- |
+    | Uniform Resource Locator: Contains info to fetch a resource | Uniform Resource Identifier: Identifies a resource        |
+    | <code>&lt;Protocol&gt;&lt;domain&gt;&lt;path&gt;</code>                                  | <code>&lt;protocol&gt;://&lt;service-name&gt;/&lt;ResourceType&gt;/&lt;ResourceID&gt;</code> |
+    | <img src="images/img_15.png" alt="img\_15.png">                           | <img src="images/img_14.png" alt="img\_14.png">                         |
+
+</details>
+
+<hr>
+<details>
+    <summary>🧠 <strong>Authentication vs Authorization</strong></summary>
+
+    <em> <strong>Authentication</strong>: Verifies </em>who<em> the user is.
+</em> <strong>Authorization</strong>: Determines <em>what</em> a user is allowed to access.
+    * Both are often used together in secure systems.
+
+</details>
+
+<hr>
+<details>
+    <summary>🗂️ <strong>Session Management Techniques</strong></summary>
+
+    <em> <a href="https://www.javainuse.com/spring/springboot_session">Session Handling in Spring Boot</a>
+    </em> Methods of session tracking:
+
+    <em> Cookies
+    </em> Hidden form fields
+    <em> URL rewriting
+    </em> <code>HttpSession</code>
+
+</details>
+
+<hr>
+<details>
+    <summary>📋 <strong>Loggers Overview</strong></summary>
+
+    <img src="images/Loggers.png" alt="Loggers.png">
+
+    <em> Commonly used loggers: SLF4J, Log4j2, java.util.logging, Logback.
+    </em> Helps in decoupling code from the logging implementation.
+
+</details>
+
+<hr>
+<details>
+    <summary>🔗 <strong>Association, Aggregation, and Composition</strong></summary>
+
+    <em> <strong>Association</strong>: General relationship between classes.
+    </em> <strong>Aggregation</strong>: &quot;Has-a&quot; relationship, loosely coupled.
+    <em> <strong>Composition</strong>: Strong ownership, tightly coupled.
+
+        <code>mermaid
+            graph TB
+            A[Association] -- Weak (Loose Coupling) --&gt; B[Aggregation]
+            A -- Strong (Tight Coupling) --&gt; C[Composition]</code>
+
+        <img src="images/AssosiationAggregation.png" alt="AssosiationAggregation.png">
+
+    </em> Spring Boot MongoDB Join Example: <a href="https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html">Link</a>
+
+</details>
+
+<hr>
+<details>
+    <summary>📥 <strong>Varargs and @SafeVarargs</strong></summary>
+
+    <em> Varargs allow a method to accept an arbitrary number of parameters.
+    </em> Syntax: <code>method(Type... args)</code>
+    <em> Compiler gives <strong>unchecked warning</strong> with generics.
+
+        ### Example with warning:
+
+        <code>java
+            private void print(List... topics) {
+            for (List&lt;String&gt; topic : topics) {
+            System.out.println(topic);
+            }
+            }</code>
+
+        ### Suppressing warnings:
+
+        <code>java
+            @SafeVarargs
+            private void print(List... topics) {
+            for (List&lt;String&gt; topic : topics) {
+            System.out.println(topic);
+            }
+            }</code>
+
+        ### Notes:
+
+    </em> <code>@SafeVarargs</code> only allowed on:
+
+    <em> Final methods
+    </em> Static methods
+    <em> Constructors (Java 9+)
+    </em> Not allowed on private methods before Java 9.
+
+</details>
+
+<hr>
+<details>
+    <summary>📐 <strong>Java Math Functions</strong></summary>
+
+    ### 1. Trigonometric:
+
+    <em> <code>Math.sin()</code>, <code>Math.cos()</code>, <code>Math.tan()</code>
+    </em> <code>Math.atan()</code>, <code>Math.atan2()</code>
+
+    ### 2. Exponential / Logarithmic:
+
+    <em> <code>Math.exp()</code>, <code>Math.log()</code>, <code>Math.log10()</code>
+
+        ### 3. Power / Root:
+
+    </em> <code>Math.pow()</code>, <code>Math.sqrt()</code>, <code>Math.cbrt()</code>
+
+    ### 4. Rounding:
+
+    <em> <code>Math.ceil()</code>, <code>Math.floor()</code>, <code>Math.round()</code>
+
+        ### 5. Misc:
+
+    </em> <code>Math.abs()</code>, <code>Math.max()</code>, <code>Math.min()</code>
+
+    ---
+
+    <details>
+        <summary>🔻 <strong>Math.floor() Explained</strong></summary>
+
+        Rounds <strong>down</strong> to the nearest integer (toward negative infinity).
+
+        <code>java
+            System.out.println(Math.floor(10.5));   // 10.0
+            System.out.println(Math.floor(-10.5));  // -11.0</code>
+
+    </details>
+
+    <details>
+        <summary>📊 <strong>Math.max() and Math.min()</strong></summary>
+
+        ### Math.max():
+
+        Returns the greater of two values.
+
+        <code>java
+            int max = Math.max(5, 10);  // 10</code>
+
+        ### Math.min():
+
+        Returns the smaller of two values.
+
+        <code>java
+            int min = Math.min(5, 10);  // 5</code>
+
+        Supports: <code>int</code>, <code>long</code>, <code>float</code>, <code>double</code>
+
+    </details>
+
+    <p></details></p>
+<hr>
+<h1 id="java-questions">Java Questions</h1>
+<h2 id="14-how-to-compile-simple-applications">14. How to compile simple applications</h2>
+<h2 id="15-what-are-required-to-run-simple-java-applications">15. What are required to run simple Java applications</h2>
+<h2 id="16-what-is-the-difference-between-jdk-and-jre">16. What is the difference between JDK and JRE</h2>
+<h2 id="17-is-it-possible-run-the-application-with-jre">17. Is it possible run the application with JRE</h2>
+<h2 id="18-what-is-jvm">18. What is JVM</h2>
+<h2 id="19-what-are-collection-how-collections-are-used">19. What are collection, how collections are used</h2>
+<h2 id="20-hashmap-what-is-the-complexity-of-traversing">20. Hashmap, what is the complexity of traversing</h2>
+<h2 id="-stream-api-https-www-tutorialspoint-com-java8-java8_streams-htm-"><a href="https://www.tutorialspoint.com/java8/java8_streams.htm">Stream API</a></h2>
+<ul>
+    <li><p>Using collections framework in Java, a developer has to use loops and make repeated checks. Another concern is efficiency; as multi-core processors are available at ease, a Java developer has to write parallel code processing that can be pretty error-prone.</p>
+    </li>
+    <li><p>To resolve such issues, Java 8 introduced the concept of stream that lets the developer to proccess data declaratively and leverage multicore architecture without the need to write any specific code for it.</p>
+    </li>
+    <li><p><strong>forEach()</strong> - to iterate each element of the stream.</p>
+    </li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-built_in">Random</span> <span class="hljs-built_in">random</span> = new <span class="hljs-built_in">Random</span>()<span class="hljs-comment">;</span>
+<span class="hljs-built_in">random</span>.ints().limit(<span class="hljs-number">10</span>).forEach(System.out::println)<span class="hljs-comment">;</span>
+</code></pre>
+<ul>
+    <li><strong>map()</strong> - used to map each element to its corresponding result.</li>
+</ul>
+<pre><code class="lang-java">List&lt;Integer&gt; numbers = Arrays.asList(<span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">7</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>);
+<span class="hljs-comment">//get list of unique squares</span>
+List&lt;Integer&gt; squaresList = numbers.stream().map( i -&gt; i*i).distinct().collect(Collectors.toList());
+</code></pre>
+<ul>
+    <li><strong>filter()</strong> - used to eliminate elements based on a criteria.</li>
+</ul>
+<pre><code class="lang-java">List&lt;String&gt;strings = Arrays.asList(<span class="hljs-string">"abc"</span>, <span class="hljs-string">""</span>, <span class="hljs-string">"bc"</span>, <span class="hljs-string">"efg"</span>, <span class="hljs-string">"abcd"</span>,<span class="hljs-string">""</span>, <span class="hljs-string">"jkl"</span>);
+<span class="hljs-comment">//get count of empty string</span>
+<span class="hljs-type">int</span> <span class="hljs-built_in">count</span> = strings.stream().filter(<span class="hljs-built_in">string</span> -&gt; <span class="hljs-built_in">string</span>.isEmpty()).<span class="hljs-built_in">count</span>();
+</code></pre>
+<ul>
+    <li><strong>sorted()</strong> - Used to sort the stream</li>
+</ul>
+<pre><code class="lang-java"><span class="hljs-built_in">Random</span> <span class="hljs-built_in">random</span> = new <span class="hljs-built_in">Random</span>()<span class="hljs-comment">;</span>
+<span class="hljs-built_in">random</span>.ints().limit(<span class="hljs-number">10</span>).sorted().forEach(System.out::println)<span class="hljs-comment">;</span>
+</code></pre>
+<h2 id="24-cqrs-pattern-what-is-the-solution-scenario-used">24. Cqrs Pattern, what is the solution scenario used</h2>
+<p>The Command Query Responsibility Segregation (CQRS) pattern is a design pattern that separates the responsibilities for reading and writing data in a system. In a traditional architecture, the same model is often used for both reading and writing operations. CQRS suggests splitting the model into two parts: one for handling commands (changing state) and another for handling queries (reading state).</p>
+<p><strong>Solution Scenario for CQRS:</strong></p>
+<h3 id="1-separation-of-concerns-">1. <strong>Separation of Concerns:</strong></h3>
+<ul>
+    <li><p><strong>Scenario:</strong></p>
+        <ul>
+            <li>In a complex application, the requirements for reading data (queries) and writing data (commands) can be different.</li>
+            <li>Performance and scalability considerations may vary between reading and writing operations.</li>
+        </ul>
+    </li>
+    <li><p><strong>Solution:</strong></p>
+        <ul>
+            <li>CQRS allows you to create separate models for handling reads and writes.</li>
+            <li>The read model can be optimized for query performance and can be denormalized to suit the specific needs of different views.</li>
+            <li>The write model focuses on processing commands and updating the system&#39;s state.</li>
+        </ul>
+    </li>
+</ul>
+<h3 id="2-scalability-">2. <strong>Scalability:</strong></h3>
+<ul>
+    <li><p><strong>Scenario:</strong></p>
+        <ul>
+            <li>Some systems may experience different scalability requirements for read and write operations.</li>
+            <li>Reads are often more frequent than writes in many applications.</li>
+        </ul>
+    </li>
+    <li><p><strong>Solution:</strong></p>
+        <ul>
+            <li>CQRS enables independent scaling of the read and write components.</li>
+            <li>Read models can be replicated or distributed to multiple servers for improved read performance, while the write model can be optimized for handling command processing.</li>
+        </ul>
+    </li>
+</ul>
+<h3 id="3-flexibility-and-optimization-">3. <strong>Flexibility and Optimization:</strong></h3>
+<ul>
+    <li><p><strong>Scenario:</strong></p>
+        <ul>
+            <li>Business requirements for reporting and analytics may differ from the requirements for transactional processing.</li>
+            <li>Read models might need to be denormalized or transformed to suit specific reporting needs.</li>
+        </ul>
+    </li>
+    <li><p><strong>Solution:</strong></p>
+        <ul>
+            <li>CQRS allows flexibility in designing read models tailored to specific query requirements.</li>
+            <li>You can optimize read models for specific use cases, aggregating data from multiple sources or transforming it as needed for presentation.</li>
+        </ul>
+    </li>
+</ul>
+<h3 id="4-event-sourcing-">4. <strong>Event Sourcing:</strong></h3>
+<ul>
+    <li><p><strong>Scenario:</strong></p>
+        <ul>
+            <li>Storing the state changes as a series of events can be valuable for auditing, debugging, or rebuilding the state at any point in time.</li>
+        </ul>
+    </li>
+    <li><p><strong>Solution:</strong></p>
+        <ul>
+            <li>CQRS is often used in conjunction with event sourcing. Instead of storing the current state of the system, events are stored, and the system&#39;s state can be reconstructed by replaying these events.</li>
+            <li>Event sourcing can be particularly useful in scenarios where the history of state changes is important.</li>
+        </ul>
+    </li>
+</ul>
+<h3 id="5-complex-domain-logic-">5. <strong>Complex Domain Logic:</strong></h3>
+<ul>
+    <li><p><strong>Scenario:</strong></p>
+        <ul>
+            <li>In domains with complex business logic, separating read and write responsibilities can lead to a more maintainable and comprehensible system.</li>
+        </ul>
+    </li>
+    <li><p><strong>Solution:</strong></p>
+        <ul>
+            <li>CQRS allows for the creation of a domain model that focuses on handling commands and enforcing business rules without the complexities introduced by read-specific concerns.</li>
+            <li>Read models can be simpler and optimized for efficient querying.</li>
+        </ul>
+    </li>
+</ul>
+<p>It&#39;s important to note that while CQRS provides benefits, it also adds complexity to a system. Therefore, it&#39;s generally recommended to apply CQRS in scenarios where the separation of concerns and independent scalability of read and write components provide significant advantages for the specific requirements of the application.</p>
+<h2 id="25-what-build-tool-used">25. What build tool used</h2>
+<p>Apache Maven
+    Gradle</p>
+<h2 id="26-what-is-the-difference-between-install-and-deploy">26. What is the difference between install and deploy</h2>
+<ul>
+    <li>Running an installer executable to install a software application on a computer.</li>
+    <li>Deploying a web application to a web server or a cloud service.</li>
+</ul>
+<hr>
+<p>Yet to do</p>
+<p><a href="https://www.geeksforgeeks.org/serialversionuid-in-java/">https://www.geeksforgeeks.org/serialversionuid-in-java/</a></p>
+<hr>
+<p><a href="https://wiki.sei.cmu.edu/confluence/display/java/OBJ58-J.+Limit+the+extensibility+of+classes+and+methods+with+invariants">https://wiki.sei.cmu.edu/confluence/display/java/OBJ58-J.+Limit+the+extensibility+of+classes+and+methods+with+invariants</a></p>
+<hr>
+<hr>
+<h1 id="junit">Junit</h1>
+<blockquote>
+    <p><a href="https://www.java2novice.com/junit-examples/junit-annotations/">https://www.java2novice.com/junit-examples/junit-annotations/</a></p>
+</blockquote>
+<h2 id="junit-mockito">Junit mockito</h2>
+<blockquote>
+    <p><a href="https://programmingtechie.com/2020/10/16/spring-boot-testing-tutorial-unit-testing-with-junit-5-and-mockito/">https://programmingtechie.com/2020/10/16/spring-boot-testing-tutorial-unit-testing-with-junit-5-and-mockito/</a></p>
+</blockquote>
+<hr>
+<h2 id="java-questions">Java Questions</h2>
+<ol>
+    <li>Sort employee Array using java 7 and 8</li>
+    <li>Difference/similarities between Arraylist vs Linkedlist</li>
+    <li>Explain ConcurrentModification Exception</li>
+    <li>Explain abstract and interface</li>
+    <li>What is functional interface</li>
+    <li><p>Why we use lambda expression
+        Lambda expressions in Java provide a concise and expressive way to represent anonymous functions. They were introduced in Java 8 as part of the Java SE 8 release, along with the functional programming features. Here are some reasons why lambda expressions are used in Java:</p>
+    </li>
+    <li><p><strong>Conciseness:</strong></p>
+    </li>
+    <li><p>Lambda expressions allow you to express instances of single-method interfaces (functional interfaces) more concisely compared to using anonymous classes. This leads to cleaner and more readable code.</p>
+        <p><strong>Example:</strong></p>
+        <pre><code class="lang-java"><span class="hljs-comment">// Without lambda expression</span>
+Runnable runnable = <span class="hljs-keyword">new</span> Runnable() {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-built_in">run</span>() {
+        System.out.<span class="hljs-built_in">println</span>(<span class="hljs-string">"Hello, World!"</span>);
+    }
+};
+
+<span class="hljs-comment">// With lambda expression</span>
+Runnable runnableLambda = () -&gt; System.out.<span class="hljs-built_in">println</span>(<span class="hljs-string">"Hello, World!"</span>);
+</code></pre>
+    </li>
+    <li><p><strong>Functional Interfaces:</strong></p>
+    </li>
+    <li><p>Lambda expressions are primarily used with functional interfaces, which are interfaces with a single abstract method. They allow you to treat functionality as a method argument, enabling a more functional programming style.</p>
+        <p><strong>Example:</strong></p>
+        <pre><code class="lang-java"><span class="hljs-comment">// Functional interface</span>
+<span class="hljs-keyword">interface</span> <span class="hljs-title">MyFunctionalInterface</span> {
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">myMethod</span>(<span class="hljs-params"></span>)</span>;
+}
+
+<span class="hljs-comment">// Using lambda expression with functional interface</span>
+MyFunctionalInterface myFunction = () -&gt; System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"My Method"</span>);
+</code></pre>
+    </li>
+    <li><p><strong>Readability:</strong></p>
+    </li>
+    <li><p>Lambda expressions improve the readability of code, especially when dealing with functional programming constructs like streams and predicates. They allow you to express the logic more directly.</p>
+        <p><strong>Example:</strong></p>
+        <pre><code class="lang-java"><span class="hljs-comment">// Without lambda expression</span>
+<span class="hljs-built_in">List</span>&lt;<span class="hljs-built_in">Integer</span>&gt; numbers = Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>);
+numbers.forEach(<span class="hljs-literal">new</span> Consumer&lt;<span class="hljs-built_in">Integer</span>&gt;() {
+    <span class="hljs-keyword">public</span> <span class="hljs-literal">void</span> accept(<span class="hljs-built_in">Integer</span> n) {
+        System.out.println(n);
+    }
+});
+
+<span class="hljs-comment">// With lambda expression</span>
+numbers.forEach(n -&gt; System.out.println(n));
+</code></pre>
+    </li>
+    <li><p><strong>Functional Programming:</strong></p>
+    </li>
+    <li><p>Lambda expressions facilitate functional programming concepts, such as passing behavior as an argument, which makes it easier to write more modular and reusable code.</p>
+        <p><strong>Example:</strong></p>
+        <pre><code class="lang-java"><span class="hljs-symbol">List</span>&lt;<span class="hljs-keyword">String&gt; </span>names = Arrays.asList(<span class="hljs-string">"Alice"</span>, <span class="hljs-string">"Bob"</span>, <span class="hljs-string">"Charlie"</span>)<span class="hljs-comment">;</span>
+
+// Without lambda expression
+<span class="hljs-symbol">Collections.sort</span>(names, new Comparator&lt;<span class="hljs-keyword">String&gt;() </span>{
+    public int compare(<span class="hljs-keyword">String </span><span class="hljs-built_in">s1</span>, <span class="hljs-keyword">String </span><span class="hljs-built_in">s2</span>) {
+        return <span class="hljs-built_in">s1</span>.compareTo(<span class="hljs-built_in">s2</span>)<span class="hljs-comment">;</span>
+    }
+})<span class="hljs-comment">;</span>
+
+// With lambda expression
+<span class="hljs-symbol">Collections.sort</span>(names, (<span class="hljs-built_in">s1</span>, <span class="hljs-built_in">s2</span>) -&gt; <span class="hljs-built_in">s1</span>.compareTo(<span class="hljs-built_in">s2</span>))<span class="hljs-comment">;</span>
+</code></pre>
+    </li>
+    <li><p><strong>Parallelism:</strong></p>
+    </li>
+    <li><p>Lambda expressions play a crucial role in enabling parallelism and concurrency through the use of the Streams API. They make it easier to write parallelizable code by expressing operations that can be executed concurrently.</p>
+        <p><strong>Example:</strong></p>
+        <pre><code class="lang-java">List&lt;Integer&gt; numbers = Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>)<span class="hljs-comment">;</span>
+
+// Without lambda expression
+<span class="hljs-built_in">int</span> sum = <span class="hljs-number">0</span><span class="hljs-comment">;</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> <span class="hljs-built_in">number</span> : numbers) {
+    sum += <span class="hljs-built_in">number</span><span class="hljs-comment">;</span>
+}
+
+// <span class="hljs-keyword">With</span> lambda expression <span class="hljs-literal">and</span> parallel stream
+<span class="hljs-built_in">int</span> sumParallel = numbers.parallelStream().reduce(<span class="hljs-number">0</span>, (x, y) -&gt; x + y)<span class="hljs-comment">;</span>
+</code></pre>
+    </li>
+</ol>
+<p>Lambda expressions, along with functional interfaces, contribute to making Java code more expressive, readable, and suitable for functional programming paradigms. They are particularly valuable in scenarios where concise, single-purpose behavior is required, such as in the case of functional interfaces or functional programming constructs like streams and parallel processing. 7. How will you maintain code standards 8. Deployment in GCP 9. How to check application health 10. Explain Polymorphism and encapsulation 11. Major Issues in the project. 12. Singleton design pattern 14. How to deploy in jenkins 15. Thumb rule of Junit testing 16. Why String is immutable? 17. What is try catch finally 18. Stream api 19. Parallel stream 20. Inbuilt methods in stream. 21. Find duplicates using the stream. 22. Sort the numbers using comparator/comparable. 23. Collections in java 24. Predicate in java 8 25. Optional in java 8 26. Uses of map in stream function 27. Multithreading 28. Synchronisation in java 29. Difference between runtime and checked exceptions. 30. Explain the try with resources 31. Serialization 32. Explain Some of the features in Java 8 33. Java streams API methods and its uses with example. 34. In filter streams, what is the return type? 35. What is method reference. 36. How many class you can create inside try with resources? 37. Given an employee array and asked to list it in code by filtering it&#39;s name and age using streams. 38. an employee array and asked to list employees with particular employee name and age and asked to return true using stream. 39. how will you group the employeeList by age alone. 40. how do you list sum of ages in an employeeList? 41. Given an employee array and asked to list it in code by filtering it&#39;s name. 42. types of string declaration and how it stores internally 43. How to create a immutable class? 44. Brief run() method. 45. Difference between Fail fast and fail safe. 46. Explain Hashmap and hash set. 47. Integer[20,10,25,9,7] find max 3 numbers using streamAPI. 48. What is purpose of default method in interface 49. public class Calculator {
+    public int add(int a, int b) {
+    return a + b;
+    }</p>
+<pre><code>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">float</span> a, <span class="hljs-keyword">float</span> b)</span> </span>{
+        <span class="hljs-keyword">return</span> a + b;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">double</span> a, <span class="hljs-keyword">double</span> b)</span> </span>{
+        <span class="hljs-keyword">return</span> a + b;
+    }
+</code></pre><p>}
+    How will you simplify the boiler plate code for the above program? return a+b should not be used again and again but it should be compatible for all the three return types? 50. Static Keyword in method, class and variable with example. 51. Throw and Throws explain with example. 52. Default vs Static Methods in functionalInterface in Java8</p>
+<table>
+    <thead>
+    <tr>
+        <th>Communication</th>
+        <th>Check</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Coding Skill</td>
+        <td>Should be ready for write pseudo code</td>
+    </tr>
+    <tr>
+        <td>Java Concept</td>
+        <td>Java Concept, Spring, collections, Threads , Java 8</td>
+    </tr>
+    <tr>
+        <td>Database knowledge</td>
+        <td>Schema, data model…etc</td>
+    </tr>
+    <tr>
+        <td>Unix</td>
+        <td>Basic commands , cp, grep, mv, cd, pwd, ls, ftp, ssh, find. Ps,</td>
+    </tr>
+    <tr>
+        <td>SQL/PLSQL</td>
+        <td>Joining of the two table ( one to many, may to One mapping scenario), inter join, Outerjoin etc</td>
+    </tr>
+    <tr>
+        <td>CI/CD</td>
+        <td>Deployments..</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
