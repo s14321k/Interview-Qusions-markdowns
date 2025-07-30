@@ -8,9 +8,14 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 <!-- TOC -->
   * [Top 15 Q&A](#top-15-qa)
 * [Annotations in Spring boot](#annotations-in-spring-boot)
+* [⚙️ Bean Definitions & Dependency Injection - A Deep Dive](#-bean-definitions--dependency-injection---a-deep-dive)
     * [🔁 Bean Scopes](#-bean-scopes)
     * [🌱 Bean Lifecycle Overview](#-bean-lifecycle-overview)
     * [🧷 Other Important Annotations](#-other-important-annotations)
+    * [How to Enable Auditing](#how-to-enable-auditing)
+    * [Core Auditing Annotations](#core-auditing-annotations)
+    * [Example Implementation](#example-implementation)
+    * [Advanced Auditing with Hibernate Envers](#advanced-auditing-with-hibernate-envers)
 * [⚡ Spring Boot Caching Annotations – Complete Guide](#-spring-boot-caching-annotations--complete-guide)
     * [🧠 Description](#-description)
     * [✅ Parameters](#-parameters)
@@ -22,10 +27,28 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     * [🧠 Description](#-description-2)
     * [✅ Parameters](#-parameters-2)
     * [🛠️ Examples](#-examples-2)
-  * [🌱 Spring vs Spring Boot](#-spring-vs-spring-boot)
-  * [🔧 Spring Boot Profiles](#-spring-boot-profiles)
+    * [🧠 Description](#-description-3)
+    * [✅ Implementation Steps](#-implementation-steps)
+    * [🧠 Description](#-description-4)
+    * [✅ Parameters](#-parameters-3)
+    * [🛠️ Example](#-example)
+    * [1. Caffeine Cache Configuration](#1-caffeine-cache-configuration)
+    * [2. EhCache (JCache - JSR-107) Configuration](#2-ehcache-jcache---jsr-107-configuration)
+    * [3. Redis Cache Configuration](#3-redis-cache-configuration)
+    * [1. Defining Profile-Specific Properties](#1-defining-profile-specific-properties)
+    * [2. Using the `@Profile` Annotation](#2-using-the-profile-annotation)
+    * [3. Activating Profiles](#3-activating-profiles)
+    * [1. Profile-Specific Properties Files](#1-profile-specific-properties-files)
+    * [2. Profile Groups (Spring Boot 2.4+)](#2-profile-groups-spring-boot-24)
+    * [3. The `default` Profile](#3-the-default-profile)
+    * [4. Best Practices](#4-best-practices)
   * [❓ Why Use Spring Boot?](#-why-use-spring-boot)
   * [✨ Key Features of Spring Boot](#-key-features-of-spring-boot)
+    * [1. Starter Dependencies](#1-starter-dependencies)
+    * [2. Auto-Configuration](#2-auto-configuration)
+    * [3. Embedded Servers](#3-embedded-servers)
+    * [4. Spring Actuator](#4-spring-actuator)
+    * [5. Externalized Configuration](#5-externalized-configuration)
   * [⚙️ External Configuration Sources](#-external-configuration-sources)
     * [🔁 1. Singleton Pattern](#-1-singleton-pattern)
     * [🧩 2. Dependency Injection (DI)](#-2-dependency-injection-di)
@@ -58,6 +81,13 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     * [Key Methods in `WebClient`:](#key-methods-in-webclient)
     * [Example with headers:](#example-with-headers)
     * [When to choose?](#when-to-choose)
+    * [1. Dependencies (`pom.xml`)](#1-dependencies-pomxml)
+    * [2. Configuration (`application.properties`)](#2-configuration-applicationproperties)
+    * [3. The Declarative HTTP Client (`@HttpExchange`)](#3-the-declarative-http-client-httpexchange)
+    * [4. Client and Resilience Configuration](#4-client-and-resilience-configuration)
+    * [5. The Resilient and Observable Service](#5-the-resilient-and-observable-service)
+    * [6. Global Exception Handling with Problem Details](#6-global-exception-handling-with-problem-details)
+    * [Summary of the Flow](#summary-of-the-flow)
     * [Useful Resources:](#useful-resources)
 * [Spring MVC Concepts & Exception Handling](#spring-mvc-concepts--exception-handling)
     * [Overview](#overview)
@@ -77,9 +107,9 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 * [Spring Transaction Management & Pagination with JPA](#spring-transaction-management--pagination-with-jpa)
     * [Propagation Types](#propagation-types)
     * [Useful Methods](#useful-methods)
+  * [Pagination](#pagination)
+    * [🚀 Modern High-Performance Pagination: Keyset, Slices, and Projections](#-modern-high-performance-pagination-keyset-slices-and-projections)
 * [Dependency Injection (DI) in Spring Boot](#dependency-injection-di-in-spring-boot)
-* [JPA Auditing Annotations](#jpa-auditing-annotations)
-    * [🔥 In short:](#-in-short)
 * [🍪 Cookies in Spring Boot](#-cookies-in-spring-boot)
     * [1.1 Authentication Cookies](#11-authentication-cookies)
     * [1.2 CSRF Protection Cookies](#12-csrf-protection-cookies)
@@ -105,7 +135,6 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     * [✅ LoadBalanced `RestTemplate` Bean:](#-loadbalanced-resttemplate-bean)
     * [✅ Example `spring-boot-service.yaml`:](#-example-spring-boot-serviceyaml)
     * [📌 Final Thoughts:](#-final-thoughts)
-* [SSO (Single Sign-On)](#sso-single-sign-on)
   * [🔑 What is SSO?](#-what-is-sso)
   * [🔗 Integration with Spring Security OAuth2 or Keycloak](#-integration-with-spring-security-oauth2-or-keycloak)
   * [📚 Spring Method Security Reference](#-spring-method-security-reference)
@@ -119,7 +148,15 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     * [🔐 Security](#-security)
     * [🧾 Auditing](#-auditing)
     * [🔁 Retry Logic (Custom)](#-retry-logic-custom)
-  * [✅ Summary](#-summary)
+    * [@Around("@annotation(Retryable)")](#aroundannotationretryable)
+      * [1. **Calling Unreliable External Services or APIs**](#1-calling-unreliable-external-services-or-apis)
+      * [2. **Handling Transient Database Errors**](#2-handling-transient-database-errors)
+      * [3. **Consuming Messages from a Queue**](#3-consuming-messages-from-a-queue)
+      * [Why Use `@Around` Advice for This?](#why-use-around-advice-for-this)
+      * [Summary of Roles](#summary-of-roles)
+      * [Execution Order and Layering](#execution-order-and-layering)
+      * [Good Practice vs. Bad Practice](#good-practice-vs-bad-practice)
+      * [Which Tool Should You Use? A Scenario-Based Guide](#which-tool-should-you-use-a-scenario-based-guide)
 * [📦 AOP in Spring Boot – Explained (with Custom Annotations + Logging)](#-aop-in-spring-boot--explained-with-custom-annotations--logging)
     * [Purpose:](#purpose)
     * [Example usage:](#example-usage-1)
@@ -128,89 +165,396 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     * [Example usage:](#example-usage-2)
     * [Retry Logic Aspect:](#retry-logic-aspect)
     * [SLF4J is used for logging with support from Logback.](#slf4j-is-used-for-logging-with-support-from-logback)
-* [Advanced AOP Topics in Spring Boot](#advanced-aop-topics-in-spring-boot)
-    * [Why?](#why)
-    * [How?](#how)
-    * [Example usage:](#example-usage-3)
-    * [Why?](#why-1)
-    * [How?](#how-1)
-    * [Now logs are saved to DB on every annotated method call.](#now-logs-are-saved-to-db-on-every-annotated-method-call)
-    * [Why?](#why-2)
-    * [Concept:](#concept)
-    * [Simple AOP Implementation Idea:](#simple-aop-implementation-idea)
-    * [This basic implementation tracks failure counts and opens the circuit if failures exceed the threshold, then resets after a timeout.](#this-basic-implementation-tracks-failure-counts-and-opens-the-circuit-if-failures-exceed-the-threshold-then-resets-after-a-timeout)
-  * [LDAP (Lightweight Directory Access Protocol)](#ldap-lightweight-directory-access-protocol)
-    * [Setup:](#setup)
-    * [Directory Structure:](#directory-structure)
-    * [Attributes per user:](#attributes-per-user)
-    * [Authentication:](#authentication)
-    * [Group Membership:](#group-membership)
-    * [Updates:](#updates)
-    * [Security:](#security)
-    * [Summary](#summary)
-* [🛠️ Spring Boot Commands](#-spring-boot-commands)
-  * [🧰 Gradle Commands](#-gradle-commands)
-  * [🔧 Maven Commands](#-maven-commands)
-  * [☕ Java Execution Commands](#-java-execution-commands)
-  * [📡 HTTP Status Codes 🚀](#-http-status-codes-)
-  * [Projections and Aggregations](#projections-and-aggregations)
-  * [Role Based Authorizations](#role-based-authorizations)
-  * [GateWay](#gateway)
-  * [Authorization Tutorial](#authorization-tutorial)
-  * [Spring boot vs Spring Webflux](#spring-boot-vs-spring-webflux)
-* [Spring Boot Questions](#spring-boot-questions)
 <!-- TOC -->
 
 ## [Top 15 Q&A](https://www.java67.com/2018/06/top-15-spring-boot-interview-questions-answers-java-jee-programmers.html)
+
+<details>
+<summary><strong>1. What is Spring Boot and why is it used?</strong></summary>
+
+Spring Boot is a framework that makes it easy to create stand-alone, production-grade Spring-based Applications that you can "just run". It takes an opinionated view of the Spring platform, which paves the way for a faster and more efficient development experience.
+
+| Feature                  | Description                                                                 |
+| ------------------------ | --------------------------------------------------------------------------- |
+| **Auto-Configuration**   | Automatically configures the application based on JARs in the classpath.    |
+| **Starter Dependencies** | Simplifies dependency management with pre-configured bundles (e.g., `spring-boot-starter-web`). |
+| **Embedded Servers**     | Includes embedded servers like Tomcat, Jetty, or Undertow, so you don't need to deploy WAR files. |
+| **Production-Ready**     | Provides production-ready features like metrics, health checks, and externalized configuration. |
+
+</details>
+
+<details>
+<summary><strong>2. What is the difference between `@SpringBootApplication`, `@EnableAutoConfiguration`, and `@Configuration`?</strong></summary>
+
+These annotations work together to configure a Spring Boot application.
+
+| Annotation                  | Purpose                                                                      |
+| --------------------------- | ---------------------------------------------------------------------------- |
+| **`@Configuration`**        | Marks a class as a source of bean definitions.                               |
+| **`@EnableAutoConfiguration`**| Enables Spring Boot's auto-configuration mechanism, which configures the application based on dependencies. |
+| **`@ComponentScan`**        | Scans for Spring components (like `@Service`, `@Controller`) in the specified packages. |
+| **`@SpringBootApplication`**| A convenience annotation that combines all three: `@Configuration`, `@EnableAutoConfiguration`, and `@ComponentScan`. |
+
+</details>
+
+<details>
+<summary><strong>3. What are Spring Boot Starters?</strong></summary>
+
+Spring Boot Starters are a set of convenient dependency descriptors that you can include in your application. They simplify your build configuration by providing a one-stop-shop for all the Spring and related technologies that you need, without having to hunt down and configure compatible versions yourself.
+
+| Starter Example                  | Purpose                                                                 |
+| -------------------------------- | ----------------------------------------------------------------------- |
+| `spring-boot-starter-web`        | For building web applications, including RESTful APIs with Spring MVC.  |
+| `spring-boot-starter-data-jpa`   | For using Spring Data JPA with Hibernate for database access.           |
+| `spring-boot-starter-test`       | For testing Spring Boot applications with JUnit, Mockito, etc.          |
+| `spring-boot-starter-security`   | For adding authentication and authorization to your application.        |
+
+</details>
+
+<details>
+<summary><strong>4. How can you change the port of the embedded Tomcat server in Spring Boot?</strong></summary>
+
+You can change the port by setting the `server.port` property.
+
+| Method                                      | Example                                         |
+| ------------------------------------------- | ----------------------------------------------- |
+| **`application.properties`**                | `server.port=8090`                              |
+| **`application.yml`**                       | `server: port: 8090`                            |
+| **Command-line argument**                   | `java -jar app.jar --server.port=8090`          |
+
+</details>
+
+<details>
+<summary><strong>5. What is Spring Actuator? What are its advantages?</strong></summary>
+
+Spring Actuator is a sub-project of Spring Boot that adds production-ready features to your application. It exposes a series of endpoints to help you monitor and manage your application in a production environment.
+
+| Advantage                  | Description                                                                 |
+| -------------------------- | --------------------------------------------------------------------------- |
+| **Monitoring & Management**| Exposes endpoints like `/health`, `/metrics`, `/info` to check application status. |
+| **Extensibility**          | Allows you to create custom Actuator endpoints.                             |
+| **Integration**            | Integrates with external monitoring systems like Prometheus and Grafana.    |
+
+</details>
 
 - `Projection interface` - Creating interface to write particular queries in custom we can use projection
 
 # [Annotations in Spring boot](https://www.javatpoint.com/spring-boot-annotations)
 
 <details>
-<summary><strong>Core Application</strong></summary>
+<summary><strong>Core Application Annotations</strong></summary>
 
-- `@SpringBootApplication` – Combines @Configuration, @EnableAutoConfiguration, @ComponentScan
-- `@Configuration` – Declares the class as a source of Spring beans
-- `@EnableAutoConfiguration` – Enables Spring Boot’s auto configuration
-- `@ComponentScan` – Scans the package for Spring components
+| Annotation | Description |
+|---|---|
+| `@SpringBootApplication` | A convenience annotation that combines `@Configuration`, `@EnableAutoConfiguration`, and `@ComponentScan`. It's the entry point of the application. |
+| `@Configuration` | Marks a class as a source of bean definitions. |
+| `@EnableAutoConfiguration` | Enables Spring Boot's auto-configuration, attempting to configure the application based on classpath dependencies. |
+| `@ComponentScan` | Configures component scanning directives. It tells Spring where to look for components (`@Service`, `@Controller`, etc.). |
+
 </details>
 
 <details>
 <summary><strong>🧩 Bean Definitions & Dependency Injection</strong></summary>
 
+# ⚙️ Bean Definitions & Dependency Injection - A Deep Dive
+
+In Spring, the concepts of **Beans** and **Dependency Injection (DI)** are fundamental. They are the core principles of the Inversion of Control (IoC) container.
+
+---
+
+<details>
+<summary><strong>🌱 What is a Spring Bean?</strong></summary>
+
+A **Spring Bean** is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. These are the fundamental building blocks of any Spring application. Instead of creating objects yourself (e.g., `new MyService()`), you delegate this responsibility to the Spring framework.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🧩 What is Dependency Injection (DI)?</strong></summary>
+
+**Dependency Injection** is a design pattern where an object receives other objects that it depends on (its dependencies) rather than creating them itself. This is the primary way Spring manages relationships between beans.
+
+- **Without DI:**
+  ```java
+  public class MyService {
+      private final MyRepository repository = new MyRepository(); // Hard-coded dependency
+  }
+  ```
+- **With DI:**
+  ```java
+  @Service
+  public class MyService {
+      private final MyRepository repository;
+
+      // Spring injects the dependency
+      public MyService(MyRepository repository) {
+          this.repository = repository;
+      }
+  }
+  ```
+
+**Benefits of DI:**
+- **Loose Coupling:** Components are not tightly bound to each other.
+- **Easier Testing:** You can easily inject mock objects in tests.
+- **Flexibility & Maintainability:** It's easy to swap implementations of a dependency.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔧 How to Define Beans</strong></summary>
+
+There are two primary ways to define a bean:
+
+**1. Using Stereotype Annotations:**
+The easiest way is to annotate your class with one of Spring's stereotype annotations. Spring's component scanning will automatically detect and register them as beans.
+
+| Annotation      | Purpose                                             |
+| --------------- | --------------------------------------------------- |
+| `@Component`    | Generic stereotype for any Spring-managed component. |
+| `@Service`      | For service layer classes (business logic).         |
+| `@Repository`   | For persistence layer classes (data access).        |
+| `@Controller`   | For Spring MVC controllers.                         |
+| `@RestController` | For RESTful controllers in Spring MVC.              |
+| `@Configuration`| For classes that define other beans.                |
+
+**Example:**
+```java
+@Service
+public class UserServiceImpl implements UserService {
+    // ...
+}
+```
+
+**2. Using `@Bean` methods:**
+You can explicitly declare a bean in a `@Configuration` class. This is useful for beans from third-party libraries where you cannot annotate the class directly.
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+```
+</details>
+
+---
+
+<details>
+<summary><strong>💉 How to Inject Dependencies</strong></summary>
+
+Spring offers several ways to inject dependencies into a bean.
+
+**1. Constructor Injection (Recommended)**
+Dependencies are provided through the class constructor.
+
+- **Pros:** Ensures required dependencies are set, promotes immutability.
+- **Cons:** Can lead to large constructors if a class has too many dependencies (which is a sign of a design problem).
+
+```java
+@Service
+public class MyService {
+    private final MyRepository repository;
+
+    @Autowired // Optional in Spring since 4.3 if there's only one constructor
+    public MyService(MyRepository repository) {
+        this.repository = repository;
+    }
+}
+```
+
+**2. Setter Injection**
+Dependencies are injected through setter methods.
+
+- **Pros:** Good for optional dependencies.
+- **Cons:** Can lead to partially configured objects.
+
+```java
+@Service
+public class MyService {
+    private MyRepository repository;
+
+    @Autowired
+    public void setRepository(MyRepository repository) {
+        this.repository = repository;
+    }
+}
+```
+
+**3. Field Injection**
+Dependencies are injected directly into fields.
+
+- **Pros:** Very concise.
+- **Cons:** Hides dependencies, makes testing harder, can lead to circular dependency issues. **Generally discouraged.**
+
+```java
+@Service
+public class MyService {
+    @Autowired
+    private MyRepository repository;
+}
+```
+</details>
+
+---
+
+<details>
+<summary><strong>🤔 Resolving Ambiguous Dependencies</strong></summary>
+
+What happens if you have multiple beans of the same type? Spring will throw an exception. You can resolve this ambiguity using `@Qualifier` or `@Primary`.
+
+**1. `@Qualifier`**
+Specifies which bean to inject by name.
+
+```java
+@Service
+public class MyService {
+    private final PaymentService paymentService;
+
+    public MyService(@Qualifier("creditCardPaymentService") PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
+}
+
+@Service("creditCardPaymentService")
+public class CreditCardPaymentService implements PaymentService {}
+
+@Service("payPalPaymentService")
+public class PayPalPaymentService implements PaymentService {}
+```
+
+**2. `@Primary`**
+Marks one bean as the default choice. If `@Qualifier` is not used, the `@Primary` bean will be injected.
+
+```java
+@Primary
+@Service
+public class CreditCardPaymentService implements PaymentService {}
+
+@Service
+public class PayPalPaymentService implements PaymentService {}
+```
+Now, any injection of `PaymentService` will receive `CreditCardPaymentService` by default.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔁 Bean Scopes</strong></summary>
+
+The scope of a bean defines its lifecycle and visibility.
+
+| Scope          | Description                                                  |
+| -------------- | ------------------------------------------------------------ |
+| `singleton`    | (Default) Only one instance of the bean is created per container. |
+| `prototype`    | A new instance is created every time the bean is requested.  |
+| `request`      | (Web-aware) A new instance for each HTTP request.            |
+| `session`      | (Web-aware) A new instance for each HTTP session.            |
+| `application`  | (Web-aware) A single instance for the lifecycle of the `ServletContext`. |
+
+**Example:**
+```java
+@Component
+@Scope("prototype")
+public class MyPrototypeBean {
+    // ...
+}
+```
+</details>
+
+---
+
+<details>
+<summary><strong>🌱 Bean Lifecycle Callbacks</strong></summary>
+
+You can execute custom logic at specific points in a bean's lifecycle.
+
+- **`@PostConstruct`**: The annotated method is executed after the bean has been created and dependencies have been injected.
+- **`@PreDestroy`**: The annotated method is executed just before the bean is removed from the container.
+
+**Example:**
+```java
+@Component
+public class MyBean {
+
+    @PostConstruct
+    public void initialize() {
+        System.out.println("MyBean has been initialized.");
+    }
+
+    @PreDestroy
+    public void cleanup() {
+        System.out.println("MyBean is about to be destroyed.");
+    }
+}
+```
+</details>
+
+<details>
+<summary><strong>🧩 Bean Definitions & Dependency Injection</strong></summary>
 - `@Bean` – Declares a method as a Spring bean definition. The return value is managed by the Spring container.
 
 ---
 
 ### 🔁 Bean Scopes
 
-> Defines how many instances of a bean Spring will create and how they're shared.
+> The scope of a bean defines the lifecycle and visibility of that bean. Spring supports several scopes, which determine how many instances of a bean are created and how they are shared.
 
 - **`singleton`** *(Default)*  
-  ➤ Only one shared instance of the bean is maintained per Spring container.  
-  ⚠️ Avoid shared mutable state to prevent thread safety issues.
+  ➤ **Description:** Only one shared instance of the bean is created and managed by the Spring container. This single instance is returned every time the bean is requested.  
+  ➤ **Use Case:** Ideal for stateless services, repositories, and configuration classes.  
+  ➤ ⚠️ **Warning:** Avoid storing shared, mutable state in singleton beans to prevent thread-safety issues in multi-threaded environments.
 
 - **`prototype`**  
-  ➤ A new bean instance is created every time it is requested.
+  ➤ **Description:** A new instance of the bean is created every time it is requested from the container. Spring creates, configures, and assembles the bean, but does not manage its complete lifecycle. The client code is responsible for cleaning up prototype-scoped beans.  
+  ➤ **Use Case:** Suitable for stateful beans, where each user or thread needs its own independent object (e.g., a shopping cart object).
 
 - **`request`** *(Web only)*  
-  ➤ One bean instance per HTTP request.
+  ➤ **Description:** A new bean instance is created for each incoming HTTP request. The bean is destroyed when the request is completed. This scope is only valid in the context of a web-aware Spring `ApplicationContext`.  
+  ➤ **Use Case:** Useful for holding request-specific data, such as user authentication information or request-specific state.
 
 - **`session`** *(Web only)*  
-  ➤ One bean instance per user session.
+  ➤ **Description:** A new bean instance is created for each HTTP user session. The bean lives as long as the user's session. This scope is only valid in a web-aware Spring `ApplicationContext`.  
+  ➤ **Use Case:** Perfect for storing user-specific data that needs to persist across multiple requests, like a user's profile or shopping cart.
+
+- **`application`** *(Web only)*  
+  ➤ **Description:** A single bean instance is created for the entire lifecycle of the `ServletContext`. It's similar to a singleton but is specific to the web application's lifecycle.  
+  ➤ **Use Case:** For application-wide data that needs to be shared across all sessions and requests, like application configuration or a cache of common data.
 
 - **`global-session`** *(Portlet only)*  
-  ➤ One bean instance per global HTTP session.
+  ➤ **Description:** This scope is typically used in portlet-based web applications. It creates a single bean instance for a global HTTP session. If you are not working with portlets, this scope is effectively the same as the `session` scope.
 
 ---
 
 ### 🌱 Bean Lifecycle Overview
 
-> The bean lifecycle describes how beans are created, managed, and destroyed.
+> The bean lifecycle describes the process of how a Spring bean is created, managed within the Spring container, and finally destroyed. Understanding this lifecycle is crucial for customizing bean behavior and managing resources effectively.
 
-- Instantiation → Property population → Initialization → Use → Destruction
-- Lifecycle callbacks like `@PostConstruct`, `@PreDestroy`, or `InitializingBean`/`DisposableBean` interfaces can be used.
+The lifecycle of a Spring bean follows these main phases:
+
+1.  **Instantiation:** The Spring container creates an instance of the bean.
+2.  **Populating Properties (Dependency Injection):** The container injects dependencies into the bean through mechanisms like setter injection or constructor injection.
+3.  **Bean Name Awareness:** If the bean implements the `BeanNameAware` interface, the container calls the `setBeanName()` method, passing the bean's ID.
+4.  **Bean Factory Awareness:** If the bean implements the `BeanFactoryAware` interface, the container calls the `setBeanFactory()` method, providing it with a reference to the bean factory.
+5.  **Application Context Awareness:** If the bean implements the `ApplicationContextAware` interface, the container calls the `setApplicationContext()` method, passing a reference to the enclosing application context.
+6.  **Pre-initialization (BeanPostProcessors):** The `postProcessBeforeInitialization()` method of any registered `BeanPostProcessor` interfaces is called before the bean's initialization methods.
+7.  **Initialization:**
+    *   If the bean is annotated with `@PostConstruct`, the annotated method is called.
+    *   If the bean implements the `InitializingBean` interface, the `afterPropertiesSet()` method is called.
+    *   If a custom `init-method` is defined in the bean's configuration, it is invoked.
+8.  **Post-initialization (BeanPostProcessors):** The `postProcessAfterInitialization()` method of any registered `BeanPostProcessor` interfaces is called.
+9.  **Bean is Ready:** The bean is now ready to be used by the application.
+10. **Destruction:** When the container is shut down, the destruction phase begins.
+    *   If the bean is annotated with `@PreDestroy`, the annotated method is called.
+    *   If the bean implements the `DisposableBean` interface, the `destroy()` method is called.
+    *   If a custom `destroy-method` is defined, it is invoked.
 
 ![Bean Lifecycle](images/img_17.png)
 
@@ -218,53 +562,211 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
 
 ### 🧷 Other Important Annotations
 
-- `@Primary` – Designates a bean as the default when multiple candidates are available.
-- `@Autowired` – Automatically injects dependencies by type.
-- `@Qualifier("beanName")` – Used with `@Autowired` to resolve ambiguity by name.
-- `@Lazy` – Delays the initialization of a bean until it is first requested.
-- `@Value("${property.key}")` – Injects values from properties or environment.
-- `@Required` *(legacy)* – Ensures the property is populated; throws an exception if not.
-- `@Inject` / `@Resource` – JSR-330/250 alternatives to `@Autowired`.
-- `@Scope("scopeName")` – Sets the scope of the bean (e.g., `singleton`, `prototype`, etc.)
+* `@Primary` – When you have multiple beans of the same type, this annotation designates one as the primary candidate to be injected. It's a way to resolve ambiguity without having to use `@Qualifier` everywhere.
 
+* `@Autowired` – This is the most common annotation for dependency injection. It allows Spring to automatically inject a bean of the required type. It can be used on constructors, setters, or fields.
+
+* `@Qualifier("beanName")` – Used in conjunction with `@Autowired` to resolve ambiguity when there are multiple beans of the same type. You specify which bean to inject by providing its name.
+
+* `@Lazy` – By default, Spring creates and initializes all singleton beans at startup. The `@Lazy` annotation on a bean will delay its initialization until it is first requested by another bean. This can be useful for speeding up application startup time if some beans are not immediately needed.
+
+* `@Value("${property.key}")` – Injects values from property files (`application.properties` or `application.yml`), environment variables, or other configuration sources directly into a field. It also supports Spring Expression Language (SpEL) for more complex value injections.
+
+* `@Required` *(legacy)* – This annotation was used on setter methods to indicate that the dependency must be injected. If the dependency was not available, a `BeanInitializationException` would be thrown. It is considered legacy and has been largely replaced by constructor injection, which naturally enforces required dependencies.
+
+* `@Inject` / `@Resource` – These are alternatives to `@Autowired` from the Java EE world (JSR-330 and JSR-250, respectively).
+    - `@Inject`: Works similarly to `@Autowired` but does not have the `required` attribute.
+    - `@Resource`: Can inject beans by name or by type. If a name is provided (`@Resource(name="myBean")`), it injects by name; otherwise, it falls back to type.
+
+* `@Scope("scopeName")` – Sets the scope of a bean. The most common scopes are `singleton` (one instance per container, the default) and `prototype` (a new instance every time it's requested). Other web-aware scopes include `request`, `session`, and `application`.
+
+* `@DependsOn` – Specifies that a bean must be initialized before the current bean. This is useful for controlling the startup order, especially when one bean relies on another being fully initialized but doesn't have a direct dependency on it.
+
+* `@Order` – Defines the sort order for a component when multiple beans of the same type are collected into a list (e.g., `@Autowired private List<MyInterface> myBeans`). Components with lower values have higher priority and will appear earlier in the list.
+
+</details>
+
+<details>
+<summary><strong>🧪 Testing Annotations</strong></summary>
+
+* `@SpringBootTest` – This annotation is used for integration testing. It loads the full application context, which means it starts up your entire Spring Boot application, including all beans, services, and data sources. It's powerful but can be slower than more focused test slices.
+
+* `@WebMvcTest` – This is a test slice annotation that focuses only on the web layer. It auto-configures the Spring MVC infrastructure and limits the scanned beans to controllers (`@Controller`, `@RestController`, etc.). It does not load the full application context, making it much faster for testing web controllers in isolation. Services and repositories are not loaded unless explicitly included.
+
+* `@DataJpaTest` – This test slice is used for testing the persistence layer. It focuses on JPA components, configuring an in-memory database (like H2) by default and scanning for `@Entity` classes and Spring Data JPA repositories. It is ideal for testing repository logic without loading the entire application.
+
+* `@MockBean` – This annotation is used to add a Mockito mock to the Spring `ApplicationContext`. It replaces any existing bean of the same type with a mock. This is extremely useful for integration tests where you want to mock external services or specific components.
+
+* `@SpyBean` – Similar to `@MockBean`, this annotation adds a Mockito spy to the `ApplicationContext`. A spy wraps a real instance of the bean, allowing you to call the actual methods of the object while also being able to stub or verify specific methods.
+
+* `@AutoConfigureMockMvc` – This annotation is used to auto-configure a `MockMvc` instance, which is the main entry point for server-side Spring MVC testing. It allows you to send HTTP requests to your controllers and assert the responses without needing a running server.
+
+* `@TestPropertySource` – This annotation is used to load a properties file or define inline properties for a test class. It allows you to override application properties for a specific test, which is useful for configuring test-specific settings like a test database connection.
+
+* `@Sql` – This annotation is used to execute SQL scripts against a database before or after a test method. It's a convenient way to set up or clean up the database state for your tests, ensuring they run in a predictable environment.
 </details>
 
 <details>
 <summary><strong>Stereotype Annotations</strong></summary>
 
-- `@Component` – Generic Spring-managed bean
-- `@Controller` – MVC controller component
-- `@RestController` – Combines @Controller and @ResponseBody
-- `@Service` – Marks a service layer component
-- `@Repository` – Marks DAO with exception translation
+Stereotype annotations are used to mark classes as Spring components. They are specializations of the generic `@Component` annotation, each carrying a specific meaning for the layer it represents.
+
+* `@Component` – This is the most generic Spring-managed component. Any class annotated with `@Component` will be detected during component scanning and registered as a bean in the Spring container.
+
+* `@Controller` – This annotation marks a class as a Spring MVC controller. It is typically used in combination with `@RequestMapping` to handle incoming web requests. Controllers are responsible for processing user input and returning a view or data.
+
+* `@RestController` – This is a convenience annotation that combines `@Controller` and `@ResponseBody`. It is used for creating RESTful web services. It simplifies the controller implementation by automatically serializing the return object into JSON or XML and writing it to the response body.
+
+* `@Service` – This annotation marks a class as a service layer component. The service layer is where the business logic of the application resides. While it is technically the same as `@Component`, using `@Service` makes the intent clearer and allows for better separation of concerns.
+
+* `@Repository` – This annotation is used to mark a class as a Data Access Object (DAO). It is used on classes that are responsible for accessing the database. One of the key features of `@Repository` is that it enables exception translation, which means it catches platform-specific exceptions (like `SQLException`) and re-throws them as Spring's unified, unchecked exceptions.
 </details>
 
 <details>
 <summary><strong>Web Annotations</strong></summary>
 
-- `@RequestMapping` – Maps HTTP requests
-- `@GetMapping` / `@PostMapping` / etc. – Shortcut mappings
-- `@PathVariable` – Binds URI template variables
-- `@RequestParam` – Binds query params
-- `@RequestBody` / `@ResponseBody` – Bind request/response payload
-- `@ModelAttribute` – Binds form data to objects
-- `@CrossOrigin` – Enables CORS
-- `@SessionAttributes` – Persists model in session
+Web annotations are used to handle web requests, bind data from requests, and manage web-related configurations in a Spring MVC or Spring WebFlux application.
+
+- `@RequestMapping` – This is a versatile annotation used to map HTTP requests to handler methods of MVC and REST controllers. It can be configured with the path, HTTP method (GET, POST, etc.), headers, and parameters.
+
+- `@GetMapping` / `@PostMapping` / etc. – These are shortcut annotations for `@RequestMapping` that are specific to a particular HTTP method. For example, `@GetMapping` is equivalent to `@RequestMapping(method = RequestMethod.GET)`. They make the code more readable and less verbose.
+
+- `@PathVariable` – This annotation is used to bind a method parameter to a URI template variable. For example, in a URL like `/users/{id}`, `@PathVariable("id")` can be used to extract the `id` value from the path.
+
+- `@RequestParam` – This annotation binds a method parameter to a web request parameter from the query string (e.g., `/users?name=John`). It can also be used to extract parameters from form data.
+
+- `@RequestBody` / `@ResponseBody` –
+    - `@RequestBody`: This annotation indicates that a method parameter should be bound to the body of the HTTP request. Spring's `HttpMessageConverter`s will deserialize the request body (e.g., a JSON payload) into a Java object.
+    - `@ResponseBody`: This annotation, when used on a method, indicates that the return value should be serialized directly to the HTTP response body. It is commonly used in REST controllers to return JSON or XML data.
+
+- `@ModelAttribute` – This annotation is used to bind a method parameter or method return value to a named model attribute, which is then exposed to a web view. It is often used for binding form data to an object.
+
+- `@CrossOrigin` – This annotation is used to enable Cross-Origin Resource Sharing (CORS) on a per-method or per-class basis. It allows you to control which origins, headers, and methods are allowed to access your endpoints from a different domain.
+
+- `@SessionAttributes` – This annotation is used to store model attributes in the HTTP session between requests. This is useful for maintaining state across a series of requests, such as in a multi-step wizard form.
 </details>
 
 <details>
 <summary><strong>JPA & Data Access</strong></summary>
 
-- `@Entity`, `@Table`, `@Id`, `@GeneratedValue`, `@SequenceGenerator`
-- `@Column`, `@Transient`, `@Enumerated`, `@Lob`
-- `@Query`, `@Modifying`, `@Transactional`
-- `@OneToOne`, `@ManyToOne`, `@ManyToMany`, `@JoinColumn`
-- `@DynamicInsert`, `@DynamicUpdate` – Hibernate-specific
-- `@Embedded`, `@EmbeddedId`, `@Embeddable`
-- `@MappedSuperclass`, `@EntityListeners`, `@EntityGraph`
-![EntityGraph](images/AnnotationEntityGraph.png)
-- `@EnableJpaRepositories`, `@EntityScan`
-- `@NamedQuery`, `@Version`, `@PersistenceContext`
+These annotations are fundamental for working with data persistence in Spring applications using the Java Persistence API (JPA).
+
+*   **`@Entity`**: Marks a Java class as a JPA entity, which means it represents a table in a relational database.
+*   **`@Table`**: Specifies the details of the table that an entity maps to. You can define the table name, schema, and unique constraints.
+*   **`@Id`**: Declares the primary key field of an entity.
+*   **`@GeneratedValue`**: Configures the way the primary key value is generated (e.g., auto-increment, sequence).
+*   **`@SequenceGenerator`**: Defines a primary key generator that uses a database sequence.
+*   **`@Column`**: Specifies the mapping for a persistent property or field. You can define the column name, length, and whether it's nullable.
+*   **`@Transient`**: Marks a field to be ignored by the persistence provider, so it won't be saved to the database.
+*   **`@Enumerated`**: Specifies how an `Enum` type should be persisted in the database (either as a string or an integer).
+*   **`@Lob`**: Indicates that a property should be persisted as a Large Object (LOB) type in the database (e.g., `CLOB` or `BLOB`).
+*   **`@Query`**: Allows you to define custom queries (using JPQL or native SQL) directly on a repository method.
+*   **`@Modifying`**: Used with `@Query` to indicate that a query will modify the database (e.g., an `UPDATE` or `DELETE` operation).
+*   **`@Transactional`**: Declares that a method or class should be executed within a database transaction.
+*   **`@OneToOne`, `@ManyToOne`, `@OneToMany`, `@ManyToMany`**: These annotations define the relationships between entities (e.g., one-to-one, many-to-one, etc.).
+*   **`@JoinColumn`**: Specifies the foreign key column in a relationship.
+*   **`@DynamicInsert`, `@DynamicUpdate`**: Hibernate-specific annotations that optimize `INSERT` and `UPDATE` statements by only including non-null or modified fields.
+*   **`@Embedded`, `@EmbeddedId`, `@Embeddable`**: Used for embedding one class within another entity, which is useful for grouping related properties.
+*   **`@MappedSuperclass`**: Designates a class whose mapping information is applied to the entities that inherit from it.
+*   **`@EntityListeners`**: Registers listener classes for an entity to respond to lifecycle events (e.g., for auditing).
+*   **`@EntityGraph`**: Allows you to define a graph of associations to fetch eagerly, helping to solve the N+1 query problem.
+    ![EntityGraph](images/AnnotationEntityGraph.png)
+*   **`@EnableJpaRepositories`**: Enables Spring Data JPA repositories and scans for repository interfaces.
+*   **`@EntityScan`**: Scans for entity classes.
+*   **`@NamedQuery`**: Defines a static, named query that can be referenced by its name.
+*   **`@Version`**: Used for optimistic locking to prevent concurrent modifications.
+*   **`@PersistenceContext`**: Injects an `EntityManager` instance, which is the main interface for interacting with the persistence context.
+</details>
+
+<details>
+<summary><strong>JPA Auditing Annotations</strong></summary>
+
+Spring Data JPA provides powerful auditing capabilities to automatically track creation and modification details for entities.
+
+### How to Enable Auditing
+
+1.  **Enable JPA Auditing:** Add `@EnableJpaAuditing` to your main Spring Boot application class.
+2.  **Add Entity Listener:** Annotate your entity with `@EntityListeners(AuditingEntityListener.class)`.
+
+### Core Auditing Annotations
+
+| Annotation          | Purpose                                     | When Set      |
+| ------------------- | ------------------------------------------- | ------------- |
+| `@CreatedDate`      | Stores the creation timestamp of an entity. | On INSERT     |
+| `@CreatedBy`        | Stores the user who created the entity.     | On INSERT     |
+| `@LastModifiedDate` | Stores the last modification timestamp.     | On UPDATE     |
+| `@LastModifiedBy`   | Stores the user who last modified the entity. | On UPDATE     |
+
+### Example Implementation
+
+**1. Add Auditing Fields to Your Entity:**
+
+```java
+@Entity
+@EntityListeners(AuditingEntityListener.class)
+public class AuditableEntity {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdDate;
+
+    @LastModifiedDate
+    @Column(nullable = false)
+    private LocalDateTime lastModifiedDate;
+
+    @CreatedBy
+    @Column(nullable = false, updatable = false)
+    private String createdBy;
+
+    @LastModifiedBy
+    @Column(nullable = false)
+    private String lastModifiedBy;
+
+    // Getters and setters
+}
+```
+
+**2. Implement `AuditorAware`:**
+
+To automatically populate `@CreatedBy` and `@LastModifiedBy`, you need to provide a bean that implements `AuditorAware`. This bean tells Spring Security who the current user is.
+
+```java
+@Configuration
+public class JpaAuditConfig {
+
+    @Bean
+    public AuditorAware<String> auditorProvider() {
+        // Return a lambda that gets the current user from the security context
+        // For example, using Spring Security:
+        return () -> Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+                             .map(Authentication::getName);
+        // If security is not in place, you can return a default value:
+        // return () -> Optional.of("system");
+    }
+}
+```
+
+**3. Enable Auditing in Main Application:**
+
+```java
+@SpringBootApplication
+@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
+public class DemoApplication {
+    // ...
+}
+```
+
+### Advanced Auditing with Hibernate Envers
+
+For more complex auditing requirements, such as maintaining a full revision history of your entities (i.e., an audit log), consider using **Hibernate Envers**. It automatically creates audit tables and tracks every change, deletion, and insertion.
+
+*   **Setup:** Add the `spring-data-envers` dependency.
+*   **Usage:** Annotate your entity with `@Audited`.
+
 </details>
 
 <details>
@@ -328,6 +830,18 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     - `@ConditionalOnJava`, `@ConditionalOnExpression`
 </details>
 
+<details>
+<summary><strong>🔐 Security Annotations</strong></summary>
+
+* `@EnableWebSecurity` – Enables Spring Security’s web security support.
+* `@EnableGlobalMethodSecurity` – Enables method-level security with annotations like `@PreAuthorize`.
+* `@PreAuthorize` / `@PostAuthorize` – Secures methods with SpEL expressions before/after execution.
+* `@Secured` – JSR-250 standard annotation to secure methods based on roles.
+* `@RolesAllowed` – Another JSR-250 annotation for role-based security.
+* `@AuthenticationPrincipal` – Injects the current authenticated user (`Principal`) into a controller method.
+* `@EnableWebFluxSecurity` – Enables security for reactive web applications (WebFlux).
+</details>
+
 
 ✅ `@Cacheable` — to retrieve from cache
 ✅ `@CacheEvict` — to remove from cache
@@ -347,11 +861,13 @@ This guide covers:
 <details>
 <summary>🔍 1. Overview of Spring Caching Annotations</summary>
 
-| Annotation    | Purpose                                          | Typical Use Case                          |
-|---------------|--------------------------------------------------|--------------------------------------------|
-| `@Cacheable`  | Caches the result of a method call               | Read operations / GET endpoints            |
-| `@CacheEvict` | Removes entry/entries from cache                 | Delete or update operations                |
-| `@CachePut`   | Forces a method call and updates the cache       | Update operations (write-through caching)  |
+Spring's caching abstraction provides a powerful and easy way to improve application performance by caching the results of expensive operations. It is driven by a few key annotations that you can add to your methods.
+
+| Annotation    | Purpose                                          | How it Works                                                                                             | Typical Use Case                          |
+|---------------|--------------------------------------------------|----------------------------------------------------------------------------------------------------------|-------------------------------------------|
+| `@Cacheable`  | Caches the result of a method call.              | Before executing the method, Spring checks if a result for the given arguments is already in the cache. If yes, the cached result is returned without executing the method. If no, the method is executed, and its result is stored in the cache. | Read operations, fetching data (e.g., `GET` endpoints). |
+| `@CacheEvict` | Removes an entry or all entries from a cache.    | This annotation is used to signal that a cache entry (or all entries) should be removed. It is typically used on methods that change the state of the data being cached. | `DELETE` or `UPDATE` operations that invalidate cached data. |
+| `@CachePut`   | Forces a method execution and then updates the cache with the result. | Unlike `@Cacheable`, this annotation does not cause the method execution to be skipped. Instead, it always executes the method and then places its result into the cache. | `UPDATE` operations where you want to refresh the cache with the new state of an object (write-through caching). |
 
 </details>
 
@@ -361,36 +877,63 @@ This guide covers:
 <summary>🚀 2. @Cacheable – Read from Cache</summary>
 
 ### 🧠 Description
-Caches the method return value based on cache name and key. If value is already cached, method is **not executed**.
+The `@Cacheable` annotation is used on a method to indicate that its result should be cached. When a method annotated with `@Cacheable` is called, Spring first checks the cache to see if a result for the given arguments already exists.
+
+- **If a result is found in the cache**, the cached value is returned immediately, and the method is **not executed**.
+- **If no result is found**, the method is executed, and its return value is stored in the cache before being returned.
 
 ### ✅ Parameters
 
 | Parameter      | Description |
 |----------------|-------------|
-| `value`        | Cache name(s) |
-| `key`          | SpEL to compute key (optional) |
-| `keyGenerator` | Custom key generator bean name |
-| `cacheManager` | Specific cache manager to use |
-| `cacheResolver`| Custom cache resolver |
-| `condition`    | Only cache if this SpEL evaluates to true |
-| `unless`       | Do not cache if this SpEL evaluates to true |
-| `sync`         | Prevent multiple threads from computing same key (default: false) |
+| `value` or `cacheNames` | **(Required)** The name of the cache(s) where the result will be stored. You can specify multiple cache names. |
+| `key`          | A Spring Expression Language (SpEL) expression used to compute a custom cache key. By default, Spring uses the method parameters to generate a key. Example: `key = "#id"` to use the `id` parameter as the key. |
+| `keyGenerator` | The name of a custom `KeyGenerator` bean to use for creating the cache key. This is an alternative to using the `key` parameter. |
+| `cacheManager` | The name of a specific `CacheManager` bean to use, which is useful if you have multiple cache managers configured. |
+| `cacheResolver`| A reference to a custom `CacheResolver` bean, which provides more advanced logic for resolving the cache(s) to use at runtime. |
+| `condition`    | A SpEL expression that must evaluate to `true` for the result to be cached. For example, `condition = "#user.isActive()"` will only cache the result if the user is active. |
+| `unless`       | A SpEL expression that, if it evaluates to `true`, will prevent the result from being cached. This is checked *after* the method has been executed. For example, `unless = "#result == null"` prevents caching of null results. |
+| `sync`         | If set to `true`, it ensures that only one thread builds the cache value for a specific key. Other threads will be blocked until the value is computed and added to the cache. This prevents multiple threads from executing the same method for the same key concurrently. |
 
 ### 🛠️ Examples
 
+**1. Basic Caching:**
+Caches the `Product` object in the "products" cache. The default key will be based on the `id` parameter.
 ```java
 @Cacheable(value = "products")
-public Product getProduct(String id) { ... }
+public Product getProduct(String id) {
+    // Simulates a slow data fetch
+    return productRepository.findById(id).orElse(null);
+}
+```
 
+**2. Conditional Caching with a Custom Key:**
+Caches a `User` object only if the user is active. The key is explicitly set to the user's ID.
+```java
 @Cacheable(value = "users", key = "#user.id", condition = "#user.active")
-public User getUser(User user) { ... }
+public User findUser(User user) {
+    return userRepository.findById(user.getId()).orElse(null);
+}
+```
 
+**3. Preventing Null Values from Being Cached:**
+Uses the `unless` parameter to avoid caching if the method returns `null`.
+```java
 @Cacheable(value = "inventory", key = "#sku", unless = "#result == null")
-public Inventory fetchInventory(String sku) { ... }
+public Inventory fetchInventory(String sku) {
+    return inventoryService.getInventory(sku);
+}
+```
 
+**4. Synchronized Caching:**
+Prevents multiple threads from calculating the price for the same item at the same time.
+```java
 @Cacheable(value = "pricing", key = "#itemId", sync = true)
-public Price calculatePrice(String itemId) { ... }
-````
+public Price calculatePrice(String itemId) {
+    // Expensive price calculation logic
+    return pricingEngine.calculate(itemId);
+}
+```
 
 </details>
 
@@ -401,45 +944,59 @@ public Price calculatePrice(String itemId) { ... }
 
 ### 🧠 Description
 
-Used to **evict (remove)** entries from the cache. Can target a specific key or the whole cache.
+The `@CacheEvict` annotation is used to remove entries from a cache. This is useful when the underlying data has changed (e.g., after a delete or update operation), and you need to clear out the old, stale data from the cache.
+
+You can evict a single entry based on a key, or clear all entries in a cache.
 
 ### ✅ Parameters
 
-| Parameter          | Description                                     |
-| ------------------ | ----------------------------------------------- |
-| `value`            | Cache name(s)                                   |
-| `key`              | SpEL expression for key (optional)              |
-| `allEntries`       | Evict all entries in the cache (default: false) |
-| `beforeInvocation` | Evict before method execution (default: false)  |
-| `condition`        | Only evict if this SpEL evaluates to true       |
-| `unless`           | Skip eviction if this evaluates to true         |
-| `keyGenerator`     | Custom key generator                            |
-| `cacheManager`     | Specific cache manager                          |
-| `cacheResolver`    | Custom cache resolver                           |
+| Parameter                | Description                                                                                                                                                                                                                                                                   |
+|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `value` or `cacheNames`  | **(Required)** The name of the cache(s) to evict from.                                                                                                                                                                                                                        |
+| `key`                    | A SpEL expression to identify the specific entry to evict.                                                                                                                                                                                                                    |
+| `allEntries`             | If `true`, all entries in the specified cache(s) will be removed. Defaults to `false`.                                                                                                                                                                                        |
+| `beforeInvocation`       | If `true`, the eviction happens *before* the method is called. The default is `false`, meaning eviction occurs *after* a successful method execution. Setting this to `true` is useful if the method might throw an exception, as the cache entry will be removed regardless. |
+| `condition`              | A SpEL expression that must be `true` for the eviction to occur.                                                                                                                                                                                                              |
 
 ### 🛠️ Examples
 
+**1. Evicting a Single Entry:**
+Removes a single product from the "products" cache when it is deleted.
 ```java
 @CacheEvict(value = "products", key = "#productId")
-public void deleteProduct(String productId) { ... }
+public void deleteProduct(String productId) {
+    productRepository.deleteById(productId);
+}
+```
 
+**2. Evicting All Entries:**
+Clears the entire "products" cache.
+```java
 @CacheEvict(value = "products", allEntries = true)
-public void clearProductCache() { ... }
+public void refreshAllProducts() {
+    // Logic to reload products if needed
+}
+```
 
-@CacheEvict(value = "users", key = "#user.id", condition = "#user.deactivated")
-public void deactivateUser(User user) { ... }
-
-@CacheEvict(value = "items", key = "#id", beforeInvocation = true)
-public void riskyDelete(String id) throws Exception { ... }
+**3. Conditional Eviction:**
+Only evicts the user from the cache if the `deactivated` flag is true.
+```java
+@CacheEvict(value = "users", key = "#user.id", condition = "#user.isDeactivated()")
+public void updateUserStatus(User user) {
+    // ... update user logic
+}
 ```
 
 ### ⏱ Scheduled Eviction
 
+You can combine `@CacheEvict` with `@Scheduled` to periodically clear a cache. This is useful for data that becomes stale after a certain amount of time.
+
 ```java
-@CacheEvict(value = "smsPartner", allEntries = true)
-@Scheduled(fixedRate = 600000) // 10 minutes
-public void clearCacheOnTTL() {
-    System.out.println("Evicting smsPartner cache...");
+// Evicts the "reports" cache every 15 minutes
+@CacheEvict(value = "reports", allEntries = true)
+@Scheduled(fixedRateString = "900000") // 15 * 60 * 1000 ms
+public void clearReportsCache() {
+    log.info("Clearing the reports cache.");
 }
 ```
 
@@ -452,149 +1009,463 @@ public void clearCacheOnTTL() {
 
 ### 🧠 Description
 
-Forces method execution and **updates cache** with the result — useful for write-through caching (i.e., cache updated when DB is updated).
+The `@CachePut` annotation is used to update the cache with the result of a method, without interfering with the method's execution.
+
+Unlike `@Cacheable`, `@CachePut` **always executes the method**. After the method completes successfully, its result is placed into the cache, either adding a new entry or updating an existing one. This is useful for "write-through" caching, where you want to ensure the cache is always up-to-date after an item is modified.
 
 ### ✅ Parameters
 
-| Parameter       | Description                       |
-| --------------- | --------------------------------- |
-| `value`         | Cache name(s)                     |
-| `key`           | SpEL to compute key               |
-| `keyGenerator`  | Custom key generator bean         |
-| `cacheManager`  | Specific cache manager            |
-| `cacheResolver` | Custom cache resolver             |
-| `condition`     | Only update cache if this is true |
-| `unless`        | Skip update if this is true       |
+| Parameter       | Description                                                                                                                 |
+| --------------- |-----------------------------------------------------------------------------------------------------------------------------|
+| `value` or `cacheNames` | **(Required)** The name of the cache(s) to update.                                                                          |
+| `key`           | A SpEL expression to compute the key for the cache entry. This should typically match the key used for `@Cacheable`.        |
+| `condition`     | A SpEL expression that must be `true` for the cache to be updated.                                                          |
+| `unless`        | A SpEL expression that, if `true`, will prevent the cache from being updated. This is checked *after* the method execution. |
 
 ### 🛠️ Examples
 
+**1. Updating a Product:**
+When a product is updated, this method ensures the "products" cache is updated with the new product data.
 ```java
 @CachePut(value = "products", key = "#product.id")
 public Product updateProduct(Product product) {
     return productRepository.save(product);
 }
-
-@CachePut(value = "inventory", key = "#sku", unless = "#result == null")
-public Inventory refreshStock(String sku) { ... }
 ```
 
-📌 Unlike `@Cacheable`, **`@CachePut` always runs the method**.
+**2. Conditional Update:**
+Only updates the inventory in the cache if the result is not null.
+```java
+@CachePut(value = "inventory", key = "#sku", unless = "#result == null")
+public Inventory refreshStock(String sku) {
+    // Logic to refresh and return inventory
+    return inventoryService.updateStock(sku);
+}
+```
+
+📌 **Key Difference:** Use `@Cacheable` for read operations to avoid method execution. Use `@CachePut` for write/update operations to force method execution and refresh the cache.
 
 </details>
 
 ---
 
 <details>
-<summary>📁 5. Common Setup – Spring Boot Project</summary>
+<summary><strong>📁 5. Common Setup – Spring Boot Project</strong></summary>
 
+To enable caching in a Spring Boot application, you need to follow two simple steps:
+
+**Step 1: Add Dependencies**
+
+First, add the `spring-boot-starter-cache` dependency to your `pom.xml` (for Maven) or `build.gradle` (for Gradle). This brings in the core caching abstractions.
+
+```xml
+<!-- pom.xml -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-cache</artifactId>
+</dependency>
 ```
-src/
-├── java/
-│   └── com/example/demo/
-│       ├── DemoApplication.java
-│       ├── config/CacheConfig.java
-│       ├── service/ProductService.java
-│       └── controller/ProductController.java
-└── resources/
-    └── application.yml
+
+Next, you need to add a caching provider. **Caffeine** is a popular, high-performance choice and is recommended by the Spring team.
+
+```xml
+<!-- pom.xml -->
+<dependency>
+    <groupId>com.github.ben-manes.caffeine</groupId>
+    <artifactId>caffeine</artifactId>
+</dependency>
 ```
+
+**Step 2: Enable Caching**
+
+Finally, add the `@EnableCaching` annotation to one of your configuration classes, typically your main application class.
 
 ```java
 @SpringBootApplication
 @EnableCaching
-@EnableScheduling
-public class DemoApplication {
+public class YourApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(YourApplication.class, args);
     }
 }
 ```
+
+That's it! Spring Boot will auto-configure the Caffeine cache manager, and you can start using caching annotations like `@Cacheable`, `@CachePut`, and `@CacheEvict` in your components.
 
 </details>
 
 ---
 
 <details>
-<summary>🧩 6. Custom Key Generator</summary>
+<summary><strong>🧩 6. Custom Key Generator</strong></summary>
+
+### 🧠 Description
+
+By default, Spring's caching mechanism generates keys based on the method parameters. However, for more complex scenarios, you might need a custom key generation strategy. For example, you might want to generate a key based on a specific field of an object passed as a parameter.
+
+To do this, you create a bean that implements the `KeyGenerator` interface and specify it in your caching annotations.
+
+### ✅ Implementation Steps
+
+**1. Create a Custom Key Generator Class:**
+Create a class that implements `KeyGenerator` and overrides the `generate` method.
 
 ```java
-@Bean("customKeyGenerator")
-public KeyGenerator customKeyGenerator() {
-    return (target, method, params) -> Arrays.stream(params)
-        .map(Object::toString)
-        .collect(Collectors.joining("-"));
+import org.springframework.cache.interceptor.KeyGenerator;
+import org.springframework.stereotype.Component;
+import java.lang.reflect.Method;
+
+@Component("customKeyGenerator")
+public class CustomKeyGenerator implements KeyGenerator {
+
+    @Override
+    public Object generate(Object target, Method method, Object... params) {
+        // A simple key generation strategy: ClassName.MethodName.Param0.Param1
+        StringBuilder key = new StringBuilder();
+        key.append(target.getClass().getSimpleName());
+        key.append(".");
+        key.append(method.getName());
+        for (Object param : params) {
+            key.append(".");
+            key.append(param.toString());
+        }
+        return key.toString();
+    }
 }
 ```
 
-Use in annotations:
+**2. Use the Custom Key Generator:**
+In your caching annotation, reference the bean name of your custom key generator using the `keyGenerator` attribute.
 
 ```java
-@Cacheable(value = "users", keyGenerator = "customKeyGenerator")
-@CacheEvict(value = "users", keyGenerator = "customKeyGenerator")
-@CachePut(value = "users", keyGenerator = "customKeyGenerator")
+@Service
+public class ProductService {
+
+    @Cacheable(value = "products", keyGenerator = "customKeyGenerator")
+    public Product findProduct(String productId, String storeId) {
+        // ... logic to find a product
+    }
+}
 ```
 
+In this example, instead of relying on the default key, the `customKeyGenerator` bean will be used to create a key like `ProductService.findProduct.someProductId.someStoreId`.
+
 </details>
+
+<details>
+<summary><strong>🔄 7. Grouping Caching Annotations with @Caching</strong></summary>
+
+### 🧠 Description
+
+The `@Caching` annotation allows you to group multiple caching annotations on a single method. This is useful when you need to apply different caching rules or interact with multiple caches at the same time.
+
+For example, you might want to evict several entries from different caches and also put a new value into another cache when a method is called.
+
+### ✅ Parameters
+
+The `@Caching` annotation has one main attribute, which is an array of other caching annotations:
+- `evict`: An array of `@CacheEvict` annotations.
+- `put`: An array of `@CachePut` annotations.
+- `cacheable`: An array of `@Cacheable` annotations.
+
+### 🛠️ Example
+
+In this example, when `updateProduct` is called:
+1.  It evicts the product from the `products` cache.
+2.  It evicts all entries from the `productSummaries` cache.
+3.  It puts the updated product back into the `products` cache.
+
+```java
+@Service
+public class ProductService {
+
+    @Caching(
+        evict = {
+            @CacheEvict(value = "products", key = "#product.id"),
+            @CacheEvict(value = "productSummaries", allEntries = true)
+        },
+        put = {
+            @CachePut(value = "products", key = "#product.id")
+        }
+    )
+    public Product updateProduct(Product product) {
+        // ... logic to update the product in the database
+        return productRepository.save(product);
+    }
+}
 ```
+
+This ensures that related caches are consistently managed in a single, atomic operation tied to the method execution.
+
+</details>
+
+<details>
+<summary><strong>⚙️ 8. Advanced Cache Configuration</strong></summary>
+
+While Spring Boot's auto-configuration for caching is convenient, you often need to customize cache behavior, such as setting expiration policies or configuring multiple cache managers.
+
+### 1. Caffeine Cache Configuration
+
+You can define cache-specific configurations, like TTL (Time to Live) or maximum size, in your `application.yml`.
+
+*   **Dependency:** `spring-boot-starter-cache` and `com.github.ben-manes.caffeine:caffeine`.
+*   **Configuration (`application.yml`):**
+
+    ```yml
+    spring:
+      cache:
+        cache-names:
+          - products
+          - customer-details
+        caffeine:
+          spec: >
+            initialCapacity=10,
+            maximumSize=500,
+            expireAfterAccess=600s
+    ```
+
+    This configures two caches (`products` and `customer-details`) with a default Caffeine spec.
+
+### 2. EhCache (JCache - JSR-107) Configuration
+
+*   **Dependency:** `spring-boot-starter-cache` and `javax.cache:cache-api`, `org.ehcache:ehcache`.
+*   **Configuration:** Requires an `ehcache.xml` file on the classpath.
+
+    ```xml
+    <!-- src/main/resources/ehcache.xml -->
+    <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://www.ehcache.org/v3"
+            xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd">
+
+        <cache alias="products">
+            <key-type>java.lang.String</key-type>
+            <value-type>com.example.model.Product</value-type>
+            <expiry>
+                <ttl unit="minutes">10</ttl>
+            </expiry>
+            <resources>
+                <heap unit="entries">100</heap>
+            </resources>
+        </cache>
+    </config>
+    ```
+*   **`application.yml`:**
+    ```yml
+    spring:
+      cache:
+        jcache:
+          config: classpath:ehcache.xml
+    ```
+
+### 3. Redis Cache Configuration
+
+Using Redis for caching is ideal for distributed systems where the cache needs to be shared across multiple service instances.
+
+*   **Dependency:** `spring-boot-starter-data-redis` and `spring-boot-starter-cache`.
+*   **Configuration (`application.yml`):**
+
+    ```yml
+    spring:
+      cache:
+        type: redis
+      redis:
+        host: localhost
+        port: 6379
+    ```
+
+    You can also set a default TTL for all Redis caches:
+    ```yml
+    spring:
+      cache:
+        redis:
+          time-to-live: 600000 # 10 minutes in milliseconds
+    ```
+
+</details>
 
 ---
 
-## 🌱 Spring vs Spring Boot
+<details>
+<summary><strong>🌱 Spring vs Spring Boot</strong></summary>
 
 
 <details>
 <summary><strong>🔍 Difference between Spring and Spring Boot</strong></summary>
 
-| Spring                                                                 | Spring Boot                                     |
-|-----------------------------------------------------------------------|--------------------------------------------------|
-| A comprehensive Java application framework                            | A module built on top of Spring Framework       |
-| Provides tools & libraries to create flexible, customizable web apps  | Provides a ready-to-use structure for Spring apps |
-| Requires extensive configuration                                       | Minimal configuration with defaults             |
-| Steeper learning curve                                                 | Developer-friendly and quick to start           |
-| Manual setup for server, dependencies, etc.                           | Embedded server and auto dependency management  |
+While Spring Boot is built on top of the Spring Framework, they serve different purposes. The Spring Framework provides a comprehensive programming and configuration model for modern Java-based enterprise applications. It focuses on flexibility and providing all the necessary tools for dependency injection, data access, transaction management, and more.
+
+Spring Boot, on the other hand, is an extension of the Spring Framework that aims to simplify the development of production-ready applications. It takes an "opinionated" view of the Spring platform, which means it makes assumptions about the best way to configure and set up an application, drastically reducing boilerplate code and configuration.
+
+Here’s a summary of the key differences:
+
+| Feature                  | Spring Framework                                       | Spring Boot                                                 |
+| ------------------------ | ------------------------------------------------------ | ----------------------------------------------------------- |
+| **Primary Goal**         | To provide a flexible and comprehensive framework.     | To simplify the development of Spring applications.         |
+| **Configuration**        | Requires explicit, manual configuration (XML or Java). | Emphasizes "convention over configuration" with auto-configuration. |
+| **Boilerplate Code**     | Often involves significant boilerplate code.           | Drastically reduces boilerplate code.                       |
+| **Embedded Server**      | Requires manual setup of a web server (e.g., Tomcat).  | Includes embedded servers (Tomcat, Jetty, Undertow) out-of-the-box. |
+| **Dependency Management**| Dependencies must be managed manually.                 | Simplifies dependency management via "starters".            |
+| **Ease of Use**          | Has a steeper learning curve due to its flexibility.   | Designed to be easy to learn and quick to get started with. |
+
+In short, **Spring** gives you the tools and flexibility to build an application from the ground up, while **Spring Boot** gives you a pre-configured, production-ready starting point to build on top of.
+
 </details>
 
-
----
-
-## 🔧 Spring Boot Profiles
+</details>
 
 
 <details>
-<summary><strong>📂 Spring Boot Profiles (Environment-based Configuration)</strong></summary>
+<summary><strong>🔧 Spring Boot Profiles</strong></summary>
 
-- Profiles in Spring Boot let you define **different sets of configurations** for environments like `dev`, `test`, `prod`, etc.
-- Common use cases:
-  - Use **different databases** for dev and test environments
-  - Conditionally create **Beans only in specific profiles**
-- Profiles can be declared in:
-  - `application.properties` or `application.yml`
-  - Java configuration using `@Profile`
-- Activate a profile by setting:
+Spring Boot Profiles allow you to register different beans and configurations for different environments, such as `dev`, `test`, and `prod`. This ensures that your application behaves correctly based on the context it's running in.
 
+<details>
+<summary><strong>📂 How to Define and Activate Profiles</strong></summary>
 
-* Use **meaningful profile names** like:
+### 1. Defining Profile-Specific Properties
 
-    * `local`, `dev`, `test`, `qa`, `prod`
-* Spring uses the **`default`** profile if none is specified.
+The most common way to manage configurations for different environments is by using profile-specific property files. Spring Boot automatically loads the correct file based on the active profile.
+
+The naming convention is `application-{profile}.properties` or `application-{profile}.yml`.
+
+*   `application.properties`: Default properties, loaded for all profiles.
+*   `application-dev.properties`: Loaded when the `dev` profile is active.
+*   `application-prod.properties`: Loaded when the `prod` profile is active.
+
+**Example:**
+
+`application-dev.properties`:
+```properties
+server.port=9090
+logging.level.com.example=DEBUG
+```
+
+`application-prod.properties`:
+```properties
+server.port=8080
+logging.level.com.example=INFO
+```
+
+### 2. Using the `@Profile` Annotation
+
+The `@Profile` annotation allows you to conditionally register beans or entire configuration classes.
+
+*   **On a `@Bean` method:** The bean is created only if the specified profile is active.
+*   **On a `@Configuration` class:** The entire class and all its `@Bean` definitions are processed only if the profile is active.
+
+**Example:**
+This configuration creates an in-memory H2 database for development but connects to a PostgreSQL database in production.
+
+```java
+@Configuration
+public class DataSourceConfig {
+
+    @Bean("dataSource")
+    @Profile("dev")
+    public DataSource devDataSource() {
+        // In-memory database for development
+        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
+    }
+
+    @Bean("dataSource")
+    @Profile("prod")
+    public DataSource prodDataSource() {
+        // Production database connection pool
+        return DataSourceBuilder.create()
+            .url("jdbc:postgresql://prod-db:5432/mydatabase")
+            .username("user")
+            .password("secret")
+            .build();
+    }
+}
+```
+
+### 3. Activating Profiles
+
+You can activate a profile in several ways. Here are the most common methods:
+
+*   **In `application.properties`:**
+    ```properties
+    spring.profiles.active=dev
+    ```
+
+*   **As a command-line argument (overrides properties file):**
+    ```shell
+    java -jar my-app.jar --spring.profiles.active=prod
+    ```
+
+*   **For tests (most common for testing):**
+    ```java
+    @SpringBootTest
+    @ActiveProfiles("test")
+    class MyServiceTests {
+        // ... tests
+    }
+    ```
 
 </details>
 
+<details>
+<summary><strong>✨ Advanced Features & Best Practices</strong></summary>
+
+### 1. Profile-Specific Properties Files
+
+Instead of one large YAML file, you can create separate properties files for each profile. This approach is often cleaner for managing a large number of properties.
+
+*   `application.properties`: Contains common properties loaded for all profiles.
+*   `application-dev.properties`: Contains properties specific to the `dev` environment.
+*   `application-prod.properties`: Contains properties specific to the `prod` environment.
+
+When a profile is active (e.g., `dev`), Spring Boot loads `application.properties` first, and then `application-dev.properties`. Any properties in the `dev` file will override those in the default file.
+
+### 2. Profile Groups (Spring Boot 2.4+)
+
+Profile groups allow you to activate a set of related profiles with a single profile name. This is useful for organizing complex configurations.
+
+**Example (`application.yml`):**
+
+```yml
+spring:
+  profiles:
+    group:
+      "production":
+        - "prod-db"
+        - "prod-api"
+        - "prod-metrics"
+```
+Activating the `production` profile will automatically activate `prod-db`, `prod-api`, and `prod-metrics` as well.
+
+### 3. The `default` Profile
+
+If no profile is explicitly activated, Spring Boot uses the `default` profile. Any properties defined outside a profile-specific document in `application.yml` or in the main `application.properties` file are considered part of the `default` profile.
+
+### 4. Best Practices
+
+*   **Use Meaningful Names:** Adopt a consistent naming convention for profiles, such as `local`, `dev`, `test`, `qa`, `staging`, and `prod`.
+*   **Externalize Secrets:** Never commit sensitive data like database passwords or API keys to version control. Use environment variables, a secrets manager (like HashiCorp Vault), or Spring Cloud Config for production secrets.
+*   **Avoid Complex Logic:** Use profile negation (e.g., `@Profile("!prod")`) sparingly, as it can make your configuration difficult to understand and debug.
+*   **Leverage Profile Groups:** For applications with many configuration facets (e.g., feature flags, different database types), use profile groups to simplify management.
+
+</details>
+</details>
 
 ---
 
 ## ❓ Why Use Spring Boot?
 
-
 <details>
-<summary><strong>💡 Need for Spring Boot</strong></summary>
+<summary><strong>💡 Why Spring Boot was Created</strong></summary>
 
-- ✅ **Standalone** Spring applications without external server setup  
-- ✅ **Auto dependency management** with starters  
-- ✅ **Embedded HTTP servers** (like Tomcat, Jetty)  
-- ✅ **Auto configuration** reduces manual setup  
-- ✅ **Less boilerplate** code and faster development  
-- ✅ **Convention over configuration**  
+Before Spring Boot, setting up a Spring application was a complex and time-consuming process. Developers had to manually:
+
+1.  **Configure Dependencies:** Find and add compatible versions of Spring modules and third-party libraries to their `pom.xml` or `build.gradle`. Version mismatches often led to conflicts.
+2.  **Set Up a Web Server:** Download, configure, and deploy the application to an external web server like Tomcat or Jetty.
+3.  **Write Boilerplate Configuration:** Create extensive XML or Java-based configuration files to wire up components like `DispatcherServlet`, `ViewResolver`, and data sources.
+
+This "configuration burden" made it difficult to get a simple application running quickly.
+
+**Spring Boot was created to solve these problems.** It provides a highly opinionated, "convention over configuration" approach that simplifies the setup process, allowing developers to create standalone, production-grade Spring applications with minimal effort.
+
 </details>
 
 ---
@@ -602,19 +1473,34 @@ Use in annotations:
 ## ✨ Key Features of Spring Boot
 
 <details>
-<summary><strong>🚀 Features of Spring Boot</strong></summary>
+<summary><strong>🚀 Key Features of Spring Boot</strong></summary>
 
-- 🔹 **Starter Dependencies**  
-  ➤ Bundles common dependencies into simple starters (e.g., `spring-boot-starter-web`)
+Spring Boot offers several powerful features that accelerate application development and simplify configuration.
 
-- 🔹 **Spring Initializer**  
-  ➤ Web-based project scaffolding tool to generate Spring Boot structure
+### 1. Starter Dependencies
+Starters are a set of convenient dependency descriptors that you can include in your application. They bundle common dependencies into single, one-stop-shop starters, simplifying your build configuration.
 
-- 🔹 **Spring Actuator**  
-  ➤ Exposes endpoints for monitoring and managing app (e.g., `/health`, `/metrics`)
+*   **`spring-boot-starter-web`**: For building RESTful web applications with Spring MVC and an embedded Tomcat server.
+*   **`spring-boot-starter-data-jpa`**: For using Spring Data JPA with Hibernate.
+*   **`spring-boot-starter-test`**: For testing Spring Boot applications with libraries like JUnit, Mockito, and Spring Test.
 
-- 🔹 **Embedded Logging & Security**  
-  ➤ Built-in logging via Logback/SLF4J and default Spring Security setup
+### 2. Auto-Configuration
+Spring Boot automatically configures your application based on the JAR dependencies you have added. For example, if `spring-boot-starter-web` is on the classpath, it auto-configures Tomcat, a `DispatcherServlet`, and other web-related components without requiring any manual XML or Java configuration.
+
+### 3. Embedded Servers
+Spring Boot includes embedded HTTP servers like Tomcat, Jetty, and Undertow. This allows you to run your application as a standalone JAR file using `java -jar my-app.jar`, without needing to deploy it to an external web server.
+
+### 4. Spring Actuator
+The Actuator module provides production-ready features to help you monitor and manage your application. It exposes a set of endpoints over HTTP or JMX.
+
+*   **`/health`**: Shows application health information.
+*   **`/metrics`**: Displays a variety of application metrics, such as memory usage and HTTP request counts.
+*   **`/info`**: Provides arbitrary application info.
+*   **`/env`**: Shows the current environment properties.
+
+### 5. Externalized Configuration
+Spring Boot allows you to externalize your configuration so you can work with the same application code in different environments. You can use properties files, YAML files, environment variables, and command-line arguments to specify configuration properties.
+
 </details>
 
 ---
@@ -904,7 +1790,8 @@ public class UserRepository {
 ```java
 @Repository
 public class UserRepository {
-    @PersistenceContext private EntityManager entityManager;
+    @PersistenceContext 
+    private EntityManager entityManager;
 
     @Transactional
     public void saveUser(User user) {
@@ -1009,7 +1896,6 @@ public class UserRepository {
 ```
 
 </details>
-```
 
 ---
 
@@ -1191,13 +2077,218 @@ WebClient webClient = WebClient.builder()
 ---
 
 <details>
-<summary><strong>RestClient in Spring 6</strong></summary>
+<summary><strong>🚀 Building Modern, Resilient, and Observable Microservices in Spring Boot 3.2+</strong></summary>
 
-* `WebClient` supports synchronous HTTP but requires `spring-boot-starter-webflux`.
-* `RestClient` introduced in Spring 6 avoids adding webflux dependency for synchronous calls.
-* Useful if you want simple synchronous HTTP calls without reactive dependencies.
+This guide integrates several modern Spring Boot features to build a robust microservice client that is scalable, observable, and resilient to failures. We'll combine:
 
-🔗 [More on RestClient](https://howtodoinjava.com/spring/spring-restclient/)
+* **Virtual Threads:** For high-throughput, non-blocking I/O with simple, synchronous code.
+* **Declarative HTTP Client (`@HttpExchange`):** For a clean, interface-based REST client.
+* **`RestClient`:** The synchronous, modern alternative to `RestTemplate`.
+* **Observability (`@Observed`):** For automatic metrics and tracing.
+* **Retry Pattern (Resilience4j):** To handle transient, temporary failures.
+* **Circuit Breaker (Resilience4j):** To prevent cascading failures after retries fail.
+* **Problem Details (RFC 7807):** For standardized API error responses.
+
+### 1. Dependencies (`pom.xml`)
+
+You need starters for web, actuator (for observability), AOP (for annotations to work), and Resilience4j (for circuit breaking and retries).
+
+```xml
+<dependencies>
+    <!-- For web server and virtual threads -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- For @Observed and other Actuator features -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
+    <!-- Enables @AspectJ support for @Observed, @Retry, and @CircuitBreaker -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-aop</artifactId>
+    </dependency>
+
+    <!-- Spring Cloud Circuit Breaker with Resilience4j implementation -->
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+    </dependency>
+    
+    <!-- Micrometer tracing with Zipkin/Jaeger bridge -->
+    <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-tracing-bridge-brave</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.zipkin.reporter2</groupId>
+        <artifactId>zipkin-reporter-brave</artifactId>
+    </dependency>
+</dependencies>
+```
+
+### 2. Configuration (`application.properties`)
+
+Enable virtual threads, problem details, and configure both the retry and circuit breaker behaviors.
+
+```properties
+# Enable virtual threads for handling all web requests
+spring.threads.virtual.enabled=true
+
+# Enable RFC 7807 Problem Details for all exceptions
+spring.mvc.problemdetails.enabled=true
+
+# Configure tracing to always sample for demonstration purposes
+management.tracing.sampling.probability=1.0
+
+# Resilience4j Retry configuration
+# The 'todos-api' instance name is shared with the circuit breaker
+resilience4j.retry.instances.todos-api.max-attempts=3 # Try the call up to 3 times on failure
+resilience4j.retry.instances.todos-api.wait-duration=500ms # Wait 500ms between retry attempts
+
+# Resilience4j Circuit Breaker configuration
+resilience4j.circuitbreaker.instances.todos-api.failure-rate-threshold=50 # Open circuit if 50% of requests fail
+resilience4j.circuitbreaker.instances.todos-api.sliding-window-size=10 # Based on the last 10 requests (after retries)
+resilience4j.circuitbreaker.instances.todos-api.wait-duration-in-open-state=10s # Wait 10s before transitioning to half-open
+resilience4j.circuitbreaker.instances.todos-api.permitted-number-of-calls-in-half-open-state=2 # Allow 2 test requests
+```
+
+### 3. The Declarative HTTP Client (`@HttpExchange`)
+
+Define a Java interface to act as your HTTP client. Spring will create a proxy implementation at runtime, powered by `RestClient`.
+
+```java
+// Represents the external API contract
+public interface TodoClient {
+    @GetExchange("/todos/{id}")
+    Todo getTodoById(@PathVariable("id") Integer id);
+}
+
+// A simple record to map the JSON response
+public record Todo(Integer id, String title, Boolean completed) {}
+```
+
+### 4. Client and Resilience Configuration
+
+Create the `RestClient` and the `TodoClient` proxy beans. No changes are needed here.
+
+```java
+@Configuration
+public class AppConfig {
+
+    // 1. Create a RestClient bean pointing to the external service
+    @Bean
+    public RestClient restClient() {
+        return RestClient.builder()
+            .baseUrl("https://jsonplaceholder.typicode.com")
+            .build();
+    }
+
+    // 2. Create the declarative client proxy
+    @Bean
+    public TodoClient todoClient(RestClient restClient) {
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory
+            .builderFor(RestClientAdapter.create(restClient))
+            .build();
+        return factory.createClient(TodoClient.class);
+    }
+}
+```
+
+### 5. The Resilient and Observable Service
+
+The service layer now uses `@Retry` as the first line of defense and `@CircuitBreaker` as the second.
+
+- **`@Retry`**: Intercepts the call first. If it fails, it will be re-attempted automatically based on the configuration.
+- **`@CircuitBreaker`**: Only records a failure if all retry attempts fail. It then decides whether to open the circuit.
+
+```java
+@Service
+@Observed(name = "todo.service") // A name for all observations in this class
+public class TodoService {
+
+    private final TodoClient todoClient;
+
+    public TodoService(TodoClient todoClient) {
+        this.todoClient = todoClient;
+    }
+
+    @Observed(name = "get.todo.by.id") // More specific name for this observation
+    @Retry(name = "todos-api")
+    @CircuitBreaker(name = "todos-api", fallbackMethod = "getTodoFallback")
+    public Todo getTodoById(Integer id) {
+        // This call is now resilient and observable
+        return todoClient.getTodoById(id);
+    }
+
+    // Fallback method executed when the circuit is open or the call fails after all retries
+    private Todo getTodoFallback(Integer id, Throwable t) {
+        System.err.println("Fallback for getTodoById, error: " + t.getMessage());
+        // Return a default/cached response
+        return new Todo(id, "Default Todo (fallback)", false);
+    }
+}
+```
+
+### 6. Global Exception Handling with Problem Details
+
+The exception handler remains the same, as it correctly handles the final state of failure (e.g., `CallNotPermittedException` when the circuit is open).
+
+```java
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    // Handles the exception when the circuit breaker is open
+    @ExceptionHandler(CallNotPermittedException.class)
+    public ProblemDetail handleCallNotPermittedException(CallNotPermittedException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.SERVICE_UNAVAILABLE);
+        problemDetail.setTitle("Service Unavailable");
+        problemDetail.setDetail("The external service is currently unavailable. Please try again later.");
+        problemDetail.setProperty("cause", "Circuit breaker is open");
+        return problemDetail;
+    }
+
+    // Handles exceptions from the RestClient (e.g., 404 Not Found)
+    @ExceptionHandler(HttpClientErrorException.class)
+    public ProblemDetail handleHttpClientErrorException(HttpClientErrorException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(ex.getStatusCode());
+        problemDetail.setTitle("External API Error");
+        problemDetail.setDetail(ex.getMessage());
+        return problemDetail;
+    }
+    
+    // A catch-all for any other unexpected errors
+    @ExceptionHandler(Exception.class)
+    public ProblemDetail handleGenericException(Exception ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        problemDetail.setTitle("An unexpected error occurred");
+        problemDetail.setDetail(ex.getMessage());
+        return problemDetail;
+    }
+}
+```
+
+### Summary of the Flow
+
+The execution flow now has an extra layer of resilience:
+
+1.  An HTTP request arrives at the `TodoController`. Spring uses a **virtual thread** to handle it.
+2.  The controller calls `TodoService.getTodoById()`.
+3.  **`@Observed`** starts a timer and creates a trace span.
+4.  **`@Retry`** intercepts the call. If the underlying method throws an exception, it will wait and re-attempt the call up to the configured number of times.
+5.  **`@CircuitBreaker`** is the next interceptor. It only receives the call if the `@Retry` mechanism succeeds on its first try, or it receives the final exception if all retries fail.
+6.  If all retries fail, the `@CircuitBreaker` records it as a single failure. If the failure threshold is breached, the circuit opens.
+7.  If the circuit is open, subsequent calls are blocked by the `@CircuitBreaker`, and the `getTodoFallback` method is invoked immediately.
+8.  If the circuit is closed, the call proceeds to the **`@HttpExchange` client (`TodoClient`)**, which uses **`RestClient`** to make the HTTP request.
+9.  If any unrecoverable exception occurs, the **`GlobalExceptionHandler`** catches it and returns a standardized **`ProblemDetail`** JSON response.
+10. Finally, **`@Observed`** stops the timer and completes the trace span, exporting the data to your monitoring system.
+
+This layered architecture creates a highly robust system that can automatically recover from transient faults while still protecting itself from prolonged outages.
+</details>
 
 ---
 
@@ -1737,6 +2828,8 @@ private Optional<SomeBean> someBean;
 
 ---
 
+## Pagination
+
 <details>
 <summary><strong>Pagination using Spring Data JPA</strong></summary>
 
@@ -1752,6 +2845,89 @@ Page<Entity> page = repository.findAll(pageable);
 ````
 
 🔗 [Baeldung Pagination & Sorting Guide](https://www.baeldung.com/spring-data-jpa-pagination-sorting)
+
+---
+
+### 🚀 Modern High-Performance Pagination: Keyset, Slices, and Projections
+
+For modern applications, especially those with "infinite scroll" UIs, traditional offset-based pagination can become a performance bottleneck. A combination of newer patterns provides a much more scalable solution.
+
+<details>
+<summary><strong>1. Keyset Pagination (The "Seek Method")</strong></summary>
+
+**The Problem with `OFFSET`:**
+Traditional pagination (`PageRequest.of(100, 10)`) generates SQL like `... LIMIT 10 OFFSET 1000`. The database has to scan and discard 1000 rows, which gets very slow on large tables.
+
+**The Solution:**
+Keyset pagination uses a `WHERE` clause to fetch rows that come *after* the last item you saw. This is extremely fast as it uses an index to "seek" to the starting point.
+
+**How to Use It:**
+You define a custom repository method that uses the last seen value as a bookmark.
+
+```java
+public interface ProductRepository extends JpaRepository<Product, Long> {
+
+    // Keyset pagination: find the first 10 products with an ID greater than the last one seen
+    List<Product> findFirst10ByIdGreaterThanOrderByIdAsc(Long lastSeenId);
+}
+```
+</details>
+
+<details>
+<summary><strong>2. Using `Slice<T>` for Infinite Scroll</strong></summary>
+
+For infinite scroll, you don't need the total page count. `Slice<T>` is a more efficient alternative to `Page<T>`.
+
+-   **`Page<T>`:** Runs an expensive `COUNT(*)` query to calculate `getTotalPages()`.
+-   **`Slice<T>`:** Avoids the `COUNT` query. It only checks if a *next* page exists, which is perfect for "Load More" buttons.
+
+**How to Use It:**
+Simply change the return type in your repository. Spring Data automatically fetches one extra record to determine if `hasNext()` should be true.
+
+```java
+public interface ProductRepository extends JpaRepository<Product, Long> {
+
+    // Return a Slice instead of a List or Page for better performance
+    Slice<Product> findFirst10ByIdGreaterThanOrderByIdAsc(Long lastSeenId);
+}
+```
+Your service can then check `slice.hasNext()` to inform the UI.
+</details>
+
+<details>
+<summary><strong>3. DTO Projections for Leaner Payloads</strong></summary>
+
+You rarely need to send the entire entity to the client. DTO (Data Transfer Object) projections let you select only the necessary columns, reducing data transfer.
+
+**How to Use It:**
+
+1.  **Create a DTO Record/Class:**
+    ```java
+    public record ProductSummaryDto(Long id, String name, BigDecimal price) {}
+    ```
+
+2.  **Use it in your Repository:**
+    ```java
+    public interface ProductRepository extends JpaRepository<Product, Long> {
+
+        @Query("SELECT new com.example.dto.ProductSummaryDto(p.id, p.name, p.price) FROM Product p WHERE p.id > :lastSeenId ORDER BY p.id ASC")
+        Slice<ProductSummaryDto> findNextProducts(@Param("lastSeenId") Long lastSeenId, Pageable pageable);
+    }
+    ```
+    *Note: We use `Pageable` here with `PageRequest.ofSize(10)` to control the limit dynamically.*
+</details>
+
+<details>
+<summary><strong>✅ Summary: The Ultimate Combination</strong></summary>
+
+For the most performant and modern pagination, you combine all three:
+
+1.  **Keyset Pagination Logic:** To avoid slow `OFFSET` queries.
+2.  **`Slice<T>`:** To avoid the unnecessary `COUNT` query.
+3.  **DTO Projections:** To fetch only the data you need.
+
+This approach provides a superior user experience for features like infinite scrolling and is highly scalable for applications with very large datasets.
+</details>
 
 </details>
 
@@ -1868,143 +3044,6 @@ Avoid field injection for better maintainability and testability.
 
 For more details:
 [JavaTpoint - Dependency Injection in Spring](https://www.javatpoint.com/dependency-injection-in-spring)
-
----
-
-
-# JPA Auditing Annotations
-
-Excellent question — you’re thinking like a pro now!  
-Let’s dive deep and clear things up:
-
-Spring Data JPA has **4 main auditing annotations**, supported by a few key components. Here’s a clear summary 👇
-
----
-
-<details>
-<summary><strong>Setup Notes</strong></summary>
-
-- Place `@EntityListeners(AuditingEntityListener.class)` on your entity class to enable auditing.
-- Place `@EnableJpaAuditing` on your main Spring Boot application class (with `@SpringBootApplication`).
-
-</details>
-
----
-
-<details>
-<summary><strong>Spring Data JPA Auditing Annotations — Core Table</strong></summary>
-
-| Annotation          | Purpose                         | When Set               | Typical Field Name   |
-|---------------------|---------------------------------|------------------------|---------------------|
-| `@CreatedDate`       | Stores creation timestamp        | On **INSERT**          | `created_at`        |
-| `@CreatedBy`         | Stores creator user              | On **INSERT**          | `created_by`        |
-| `@LastModifiedDate`  | Stores last modification time    | On **UPDATE**          | `updated_at`        |
-| `@LastModifiedBy`    | Stores last modifier user        | On **UPDATE**          | `updated_by`        |
-
-These 4 annotations are the core of Spring Data JPA auditing.
-
-</details>
-
----
-
-<details>
-<summary><strong>Supporting Components You Should Know</strong></summary>
-
-| Component                      | Purpose                                    |
-|-------------------------------|--------------------------------------------|
-| `@EnableJpaAuditing`           | Enables auditing support globally          |
-| `AuditingEntityListener`       | Listens to entity lifecycle events for auditing |
-| `AuditorAware<T>`              | Provides current user information (for `@CreatedBy` and `@LastModifiedBy`) |
-| `@EntityListeners(...)`        | Activates entity lifecycle hooks           |
-
-</details>
-
----
-
-<details>
-<summary><strong>Descriptions for Each Auditing Annotation</strong></summary>
-
-| Annotation          | Description                                         |
-|---------------------|-----------------------------------------------------|
-| `@CreatedDate`       | Auto sets creation timestamp (`LocalDateTime`, etc.) when entity is inserted |
-| `@CreatedBy`         | Auto sets user who created entity, via `AuditorAware` implementation |
-| `@LastModifiedDate`  | Auto updates timestamp when entity is updated       |
-| `@LastModifiedBy`    | Auto updates user who last modified entity          |
-
-</details>
-
----
-
-<details>
-<summary><strong>Lifecycle of Auditing Fields</strong></summary>
-
-| Event                        | Auditing Fields Updated                  |
-|------------------------------|------------------------------------------|
-| New entity insertion (`save()`) | `@CreatedDate`, `@CreatedBy`              |
-| Existing entity update (`save()`) | `@LastModifiedDate`, `@LastModifiedBy`     |
-
-</details>
-
----
-
-<details>
-<summary><strong>Bonus: Beyond Core Annotations (Extra Goodies)</strong></summary>
-
-| Concept                     | Description                                  | Example / Use Case                      |
-|-----------------------------|----------------------------------------------|---------------------------------------|
-| `@PrePersist`, `@PreUpdate` | JPA lifecycle callbacks for manual auditing | Manually set timestamps if needed     |
-| Database Triggers           | DB-level auditing (e.g., MySQL `ON UPDATE`)  | DB auto manages `created_at`, `updated_at` fields |
-| Hibernate Interceptors      | Global audit logging via Hibernate hooks      | Capture changes across all entities   |
-
-</details>
-
----
-
-<details>
-<summary><strong>Real-World Recommendations</strong></summary>
-
-- Use **Spring Data Auditing** annotations if you use JPA and want simple audit fields.
-- For complex audit logs (audit history tables), consider:
-    - Entity listeners
-    - Hibernate Envers (full audit history)
-    - Custom audit tables
-
-</details>
-
----
-
-<details>
-<summary><strong>Pro Tip: Combine Auditing with DB Defaults</strong></summary>
-
-- Use Spring auditing **together** with DB defaults like `CURRENT_TIMESTAMP`.
-- This ensures audit fields get populated even if app crashes or misses the update.
-
-</details>
-
----
-
-<details>
-<summary><strong>Summary Table: Auditing Ecosystem</strong></summary>
-
-| Item                     | Description                          |
-|--------------------------|------------------------------------|
-| `@CreatedDate`            | Auto-set creation timestamp        |
-| `@CreatedBy`              | Auto-set creator user              |
-| `@LastModifiedDate`       | Auto-set update timestamp          |
-| `@LastModifiedBy`         | Auto-set last modifier user        |
-| `@EnableJpaAuditing`      | Enables auditing globally          |
-| `AuditorAware<T>`         | Supplies current user info          |
-| `AuditingEntityListener`  | Listener to populate audit fields  |
-
-</details>
-
----
-
-### 🔥 In short:
-
-- The **4 main annotations** (`@CreatedDate`, `@CreatedBy`, `@LastModifiedDate`, `@LastModifiedBy`) do the heavy lifting.
-- They’re powered by `@EnableJpaAuditing`, `AuditorAware`, and entity listeners.
-- For full audit history, consider Hibernate Envers or DB triggers.
 
 ---
 
@@ -2334,7 +3373,7 @@ Spring Boot follows an internal evaluation order when applying auto-configuratio
 ```properties
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.example.MyAutoConfiguration
-````
+```
 
 ### Notes:
 
@@ -2351,7 +3390,7 @@ com.example.MyAutoConfiguration
 ---
 
 <details>
-<summary><strong>🔹 4. <code>.properties</code> vs <code>.yml</code> Configuration Files</strong></summary>
+<summary><strong>🔹 <code>.properties</code> vs <code>.yml</code> Configuration Files</strong></summary>
 
 * Both formats are **functionally equivalent**
 * Use either for defining Spring Boot config
@@ -2528,7 +3567,8 @@ spec:
 
 
     
-# SSO (Single Sign-On)
+<details>
+<summary><strong>SSO (Single Sign-On)</strong></summary>
 
 ## 🔑 What is SSO?
 
@@ -2562,6 +3602,8 @@ Single Sign-On (SSO) is an authentication process allowing a user to access mult
 ---
 
 ## 📚 [Spring Method Security Reference](https://www.baeldung.com/spring-security-method-security)
+
+</details>
 
 ---
 
@@ -2753,18 +3795,146 @@ public Object retry(ProceedingJoinPoint joinPoint) {
 }
 ```
 
+### @Around("@annotation(Retryable)")
+
+The `@Around("@annotation(Retryable)")` AOP advice is incredibly helpful for building resilient applications. It allows you to create a custom, declarative retry mechanism for handling transient (temporary) failures.
+
+Here are the key scenarios where this approach is beneficial:
+
+#### 1. **Calling Unreliable External Services or APIs**
+This is the most common use case. When your application communicates with other microservices, third-party APIs (like payment gateways, social media APIs, or weather services), or any network resource, failures can happen for many reasons:
+*   Temporary network glitches.
+*   The external service is briefly down for a restart.
+*   The service is overloaded and returns a rate-limiting error (e.g., HTTP 429).
+*   Request timeouts.
+
+Instead of failing the entire operation immediately, you can annotate the client method with `@Retryable` to automatically re-attempt the call a few times.
+
+**Example:**
+```java
+@Service
+public class PaymentGatewayClient {
+
+    @Retryable(attempts = 3, delay = 200) // Retry 3 times, with a 200ms delay
+    public PaymentStatus processPayment(Order order) {
+        // ... logic to call the external payment API
+        // This might throw a RestClientException or TimeoutException
+    }
+}
+```
+
+#### 2. **Handling Transient Database Errors**
+Database operations can sometimes fail due to temporary issues that resolve themselves quickly:
+*   **Deadlock:** Two transactions are waiting for each other to release locks. One will be chosen as a "deadlock victim" and rolled back. Retrying the transaction will likely succeed.
+*   **Connection Pool Exhaustion:** The application might temporarily run out of available database connections. A short wait and retry can allow a connection to become available.
+*   **Temporary Network Partition:** The connection between the application server and the database server is briefly lost.
+
+**Example:**
+```java
+@Service
+public class OrderService {
+
+    @Transactional
+    @Retryable(attempts = 2)
+    public void updateInventory(Long productId, int quantity) {
+        // ... database logic that could face a deadlock
+    }
+}
+```
+
+#### 3. **Consuming Messages from a Queue**
+When processing a message from a queue (like RabbitMQ, SQS, or Kafka), the processing logic might depend on other services or resources that are temporarily unavailable. Instead of immediately sending the message to a Dead-Letter Queue (DLQ), you can retry processing it. This prevents the DLQ from filling up with messages that could have been processed successfully after a short delay.
+
+**Example:**
+```java
+@Component
+public class OrderMessageListener {
+
+    @RabbitListener(queues = "orders.queue")
+    @Retryable(attempts = 4, delay = 1000) // Retry 4 times, waiting 1 second between attempts
+    public void handleOrderMessage(OrderMessage message) {
+        // Process the order, which might involve calling other services
+    }
+}
+```
+
+#### Why Use `@Around` Advice for This?
+
+The `@Around` advice is essential for retry logic because it allows you to:
+1.  **Wrap the original method call** inside a `try-catch` block.
+2.  **Control execution:** You can call `proceedingJoinPoint.proceed()` to execute the target method.
+3.  **Handle exceptions:** If an exception is caught, you can decide whether to re-throw it or to loop and try again.
+4.  **Manage state:** You can keep track of the number of attempts made.
+
 </details>
 
 ---
 
-## ✅ Summary
+<details>
+<summary><strong><code>@Observed</code> vs. AOP vs. SLF4J: Understanding the Roles</strong></summary>
+
+It's important to clarify that **SLF4J is not an alternative to AOP or `@Observed`**. Rather, SLF4J (Simple Logging Facade for Java) is a **logging API** that both custom AOP aspects and the mechanisms behind `@Observed` can use to actually write log messages.
+
+Here is a table that clarifies the distinct roles of each:
+
+| Feature              | `@Observed` (Micrometer)                                                                                        | Custom AOP (`@Aspect`)                                                                                                          | SLF4J (Logging API)                                                                                                                     |
+|:---------------------|:----------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------|
+| **Role**             | **High-Level Observability**                                                                                    | **General Cross-Cutting Logic**                                                                                                 | **Logging Implementation**                                                                                                              |
+| **Primary Purpose**  | To declare that a method should be observed (metrics, traces, logs) in a standardized way.                      | To intercept method calls to apply custom, reusable logic (e.g., security, caching, complex logging).                           | To provide a simple, universal API for writing log messages that can be directed to various logging frameworks (Logback, Log4j2, etc.). |
+| **How it Works**     | It's an annotation that triggers a pre-configured AOP aspect provided by Micrometer.                            | You write your own aspect (`@Aspect`) and advice (`@Before`, `@Around`) to define exactly what happens when a method is called. | It's a library with a `Logger` interface. You get a logger instance and call methods like `logger.info()`, `logger.error()`.            |
+| **Relationship**     | **Uses AOP and a logging API (like SLF4J) under the hood** to automatically generate logs, metrics, and traces. | **Can use SLF4J** to implement detailed, custom logging logic inside its advice methods.                                        | **Is used by** other mechanisms. It doesn't do anything on its own; it's a tool to be called from your code.                            |
+| **Example Use Case** | "I want to measure the duration, count the calls, and trace the execution of this method."                      | "I need to log the full request payload for debugging, but only if the user has an 'ADMIN' role."                               | "I need to write a log message that says 'User successfully updated' inside my `updateUser` method."                                    |
+
+#### Summary of Roles
+
+*   **`@Observed`** is the "what" (I want to observe this).
+*   **AOP** is the "how" for custom logic (I will intercept this method and do X, Y, and Z).
+*   **SLF4J** is the "tool" used to perform the actual logging action (Write this message to the console/file).
+</details>
+
+<details>
+<summary><strong>🤝 Combining, Best Practices, and Scenarios</strong></summary>
+
+It's common and powerful to combine these technologies. Here’s how to do it effectively.
+
+#### Execution Order and Layering
+When you apply multiple annotations to a single method, they are "layered" using AOP proxies. You can control their order with `@Order` on the aspect classes. A typical, effective order is:
+
+1.  **Transaction (`@Transactional`):** Should be the outermost layer to manage the entire operation's lifecycle.
+2.  **Resilience (`@Retry`, `@CircuitBreaker`):** Wraps the operation to handle failures. Retrying should happen *within* the transaction to ensure consistency.
+3.  **Observability (`@Observed`):** Measures the performance and traces the execution of the resilient operation.
+4.  **Custom Logic (`@Aspect`):** Your own aspects for logging, security, etc., usually come last.
+5.  **Your Business Logic:** The core method code is at the very center.
+
+#### Good Practice vs. Bad Practice
+
+| Good Practice 👍                                                                                                                              | Bad Practice 👎                                                                                                                                                                     |
+|:----------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Use `@Observed` for standard observability.** It provides consistent metrics, tracing, and logs out-of-the-box.                             | **Re-implementing basic timers or counters in a custom aspect.** This reinvents the wheel and misses out on the rich ecosystem Micrometer provides.                                 |
+| **Use custom AOP for business-specific cross-cutting concerns.** (e.g., "Log the payload of this *specific* method if the user is an admin"). | **Putting business logic inside an aspect.** An aspect should not know *how* to process a payment, only that a payment method is being called.                                      |
+| **Use SLF4J within your custom aspects for logging.** This keeps your logging implementation decoupled and configurable.                      | **Using `System.out.println()` in an aspect.** This is inflexible, cannot be configured (e.g., log levels, file output), and is considered bad practice in production applications. |
+| **Keep aspects focused on a single responsibility.** One aspect for logging, another for security, etc.                                       | **Creating a single, massive "God" aspect** that handles logging, security, caching, and more. This violates the single-responsibility principle.                                   |
+
+#### Which Tool Should You Use? A Scenario-Based Guide
+
+| Scenario                                                                                                  | Recommended Tool                                                    | Why?                                                                                                                                                             |
+|:----------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| "I need to measure how long a method takes and how often it's called."                                    | **`@Observed`**                                                     | It's the standard, out-of-the-box solution for metrics and tracing. It integrates perfectly with tools like Prometheus and Zipkin.                               |
+| "I need to log the full request and response objects for debugging a specific, complex service method."   | **Custom AOP (`@Aspect`) + SLF4J**                                  | This requires custom logic that is not provided by `@Observed`. The aspect gives you the interception capability, and SLF4J provides the logging mechanism.      |
+| "I need to check if a user has the 'ADMIN' role before they can execute any method in my `AdminService`." | **Custom AOP (`@Aspect`)** or **Spring Security (`@PreAuthorize`)** | This is a classic cross-cutting concern. AOP is perfect for creating a reusable security check. Spring Security's method security is a specialized form of this. |
+| "I just want to add a simple log entry inside my business logic."                                         | **SLF4J**                                                           | If the logging is specific to a single point in your business logic (not a reusable concern), direct use of a logger is simple and appropriate.                  |
+
+</details>
+
+<details>
+<summary><strong>✅ Summary</strong></summary>
 
 * **AOP (Aspect-Oriented Programming)** helps modularize cross-cutting concerns like logging, security, and transactions.
 * Spring Boot integrates AOP using **AspectJ** and **proxy-based weaving**.
 * With minimal setup, you can centralize and simplify common behaviors.
 * This leads to **cleaner**, **testable**, and **well-structured codebases**.
 
----
+</details>
 
 <details>
 <summary><strong>🧩 Project Overview</strong></summary>
@@ -2944,6 +4114,7 @@ public class DemoApplication implements CommandLineRunner {
     }
 }
 ```
+
 </details>
 
 Here is a **complete, beginner-friendly explanation** of the **Spring Boot AOP Project Template** with collapsible markdown sections. This version covers all aspects—**custom annotations**, **logging with SLF4J**, **retry logic**, and **how the pieces connect together**.
@@ -3016,7 +4187,8 @@ And enable AOP:
 ```java
 @Configuration
 @EnableAspectJAutoProxy
-public class AopConfig {}
+public class AopConfig {
+}
 ```
 
 </details>
@@ -3048,14 +4220,20 @@ public String fetchUserData(String id) {
 ### Corresponding Aspect:
 
 ```java
-@Before("@annotation(LogExecution)")
-public void logBefore(JoinPoint jp) { ... }
+@Before("@annotation(logExecution)")
+public void logMethodCall(JoinPoint joinPoint, LogExecution logExecution) {
+    logger.info("Method called: {} with args: {}", joinPoint.getSignature(), joinPoint.getArgs());
+}
 
-@AfterReturning(...)
-public void logReturn(...) { ... }
+@AfterReturning(pointcut = "@annotation(logExecution)", returning = "result")
+public void logMethodReturn(JoinPoint joinPoint, LogExecution logExecution, Object result) {
+    logger.info("Method returned: {} with result: {}", joinPoint.getSignature(), result);
+}
 
-@AfterThrowing(...)
-public void logException(...) { ... }
+@AfterThrowing(pointcut = "@annotation(logExecution)", throwing = "ex")
+public void logMethodError(JoinPoint joinPoint, LogExecution logExecution, Throwable ex) {
+    logger.error("Method {} threw exception: {}", joinPoint.getSignature(), ex.getMessage());
+}
 ```
 
 This helps monitor what's happening in your app without modifying business logic.
@@ -3117,9 +4295,9 @@ public class MyService {
     public String riskyOperation() {
         counter++;
         if (counter < 3) {
-            throw new RuntimeException("Failed attempt");
+            throw new RuntimeException("Simulated failure");
         }
-        return "Success on attempt " + counter;
+        return "Operation successful on attempt: " + counter;
     }
 }
 ```
@@ -3215,611 +4393,3 @@ INFO  Returned Value: Success on attempt 3
 </details>
 
 ---
-
-# Advanced AOP Topics in Spring Boot
-
----
-
-<details>
-<summary><strong>⏱️ Adding Timing/Profiling to <code>@LogExecution</code></strong></summary>
-
-### Why?
-
-Measure how long methods take to execute. Helps identify slow parts of your app.
-
----
-
-### How?
-
-Modify your `LoggingAspect` to capture start and end time using `@Around` advice.
-
-```java
-@Around("@annotation(com.example.annotations.LogExecution)")
-public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
-    long start = System.currentTimeMillis();
-
-    Object proceed = joinPoint.proceed(); // execute method
-
-    long executionTime = System.currentTimeMillis() - start;
-    logger.info("{} executed in {} ms", joinPoint.getSignature(), executionTime);
-
-    return proceed;
-}
-```
-
----
-
-### Example usage:
-
-```java
-@LogExecution
-public String processData() {
-    // Some processing
-    return "done";
-}
-```
-
-Logs output:
-
-```
-processData() executed in 120 ms
-```
-
-</details>
-
----
-
-<details>
-<summary><strong>💾 Persisting Logs to a Database</strong></summary>
-
-### Why?
-
-* Centralized log storage
-* Query and analyze logs easily
-* Useful for auditing and monitoring
-
----
-
-### How?
-
-1. **Create a Log entity:**
-
-```java
-@Entity
-public class LogEntry {
-    @Id @GeneratedValue
-    private Long id;
-
-    private String methodName;
-    private String message;
-    private LocalDateTime timestamp;
-
-    // getters/setters
-}
-```
-
-2. **Create a Spring Data repository:**
-
-```java
-public interface LogEntryRepository extends JpaRepository<LogEntry, Long> {}
-```
-
-3. **Modify your Aspect to save logs:**
-
-```java
-@Component
-public class LoggingAspect {
-
-    @Autowired
-    private LogEntryRepository logRepo;
-
-    @AfterReturning(pointcut = "@annotation(com.example.annotations.LogExecution)", returning = "result")
-    public void logAfterReturning(JoinPoint joinPoint, Object result) {
-        LogEntry log = new LogEntry();
-        log.setMethodName(joinPoint.getSignature().toShortString());
-        log.setMessage("Returned: " + result);
-        log.setTimestamp(LocalDateTime.now());
-
-        logRepo.save(log);
-    }
-}
-```
-
-4. **Configure database connection** in `application.properties` (e.g., for H2):
-
-```properties
-spring.datasource.url=jdbc:h2:mem:testdb
-spring.jpa.hibernate.ddl-auto=update
-```
-
----
-
-### Now logs are saved to DB on every annotated method call.
-
-</details>
-
----
-
-<details>
-<summary><strong>⚡ Circuit Breaker Pattern using AOP</strong></summary>
-
-### Why?
-
-Prevent cascading failures by stopping calls to failing services temporarily.
-
----
-
-### Concept:
-
-* **Closed:** Calls go through normally.
-* **Open:** Fail fast without calling the service.
-* **Half-Open:** Test if service is back by allowing limited calls.
-
----
-
-### Simple AOP Implementation Idea:
-
-1. **Create annotation:**
-
-```java
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface CircuitBreaker {
-    int failureThreshold() default 3; // fail after 3 exceptions
-    long resetTimeout() default 5000; // milliseconds before trying again
-}
-```
-
-2. **Aspect logic:**
-
-```java
-@Aspect
-@Component
-public class CircuitBreakerAspect {
-
-    private Map<String, Integer> failureCount = new ConcurrentHashMap<>();
-    private Map<String, Long> lastFailureTime = new ConcurrentHashMap<>();
-    private Map<String, Boolean> circuitOpen = new ConcurrentHashMap<>();
-
-    @Around("@annotation(circuitBreaker)")
-    public Object circuitBreakerAdvice(ProceedingJoinPoint pjp, CircuitBreaker circuitBreaker) throws Throwable {
-        String methodKey = pjp.getSignature().toShortString();
-
-        if (circuitOpen.getOrDefault(methodKey, false)) {
-            long elapsed = System.currentTimeMillis() - lastFailureTime.getOrDefault(methodKey, 0L);
-            if (elapsed > circuitBreaker.resetTimeout()) {
-                // Half-open: try once
-                try {
-                    Object result = pjp.proceed();
-                    resetCircuit(methodKey);
-                    return result;
-                } catch (Throwable t) {
-                    openCircuit(methodKey);
-                    throw t;
-                }
-            } else {
-                throw new RuntimeException("Circuit open - fast fail");
-            }
-        }
-
-        try {
-            Object result = pjp.proceed();
-            resetCircuit(methodKey);
-            return result;
-        } catch (Throwable t) {
-            int failures = failureCount.getOrDefault(methodKey, 0) + 1;
-            failureCount.put(methodKey, failures);
-            if (failures >= circuitBreaker.failureThreshold()) {
-                openCircuit(methodKey);
-            }
-            throw t;
-        }
-    }
-
-    private void openCircuit(String key) {
-        circuitOpen.put(key, true);
-        lastFailureTime.put(key, System.currentTimeMillis());
-    }
-
-    private void resetCircuit(String key) {
-        circuitOpen.put(key, false);
-        failureCount.put(key, 0);
-    }
-}
-```
-
-3. **Usage example:**
-
-```java
-@CircuitBreaker(failureThreshold = 2, resetTimeout = 10000)
-public String unstableService() {
-    // Unreliable external call
-}
-```
-
----
-
-### This basic implementation tracks failure counts and opens the circuit if failures exceed the threshold, then resets after a timeout.
-
-For production-grade, consider libraries like **Resilience4j**.
-
-</details>
-
----
-
-## LDAP (Lightweight Directory Access Protocol)
-
-LDAP is a widely used protocol for accessing and managing directory information services. It provides a central location for managing user accounts, authentication, and organizational data.
-
-<details>
-<summary><strong>What is LDAP?</strong></summary>
-
-- LDAP stands for **Lightweight Directory Access Protocol**.
-- It operates over TCP/IP networks and is used for centralized user/resource management.
-- Directories are hierarchical and store data in entries identified by Distinguished Names (DNs).
-- LDAP servers include Microsoft Active Directory, OpenLDAP, Novell eDirectory.
-- LDAP clients query and interact with LDAP servers.
-
-</details>
-
----
-
-<details>
-<summary><strong>Key Concepts and Features</strong></summary>
-
-1. **Directory Services**  
-   Hierarchical and searchable collections of data representing users, devices, etc.
-
-2. **Hierarchical Data Structure**  
-   Organized in a tree-like format, entries have attributes (e.g., `cn`, `uid`, `mail`).
-
-3. **Common Use Cases**  
-   Authentication, authorization, address books, email systems, centralized user management.
-
-4. **LDAP Server & Clients**  
-   Servers store/manage directory data; clients query and update entries.
-
-5. **Protocol Operations**  
-   Search, add, modify, delete entries over the LDAP protocol.
-
-6. **Security**  
-   Supports secure connections (LDAPS), authentication via passwords or certificates.
-
-7. **Schema**  
-   Defines attribute types, mandatory/optional fields, ensuring data consistency.
-
-8. **LDIF (LDAP Data Interchange Format)**  
-   Text format for importing/exporting LDAP entries.
-
-</details>
-
----
-
-<details>
-<summary><strong>Example Scenario: LDAP in an Organization (ABC Corp)</strong></summary>
-
-### Setup:
-- LDAP server installed (OpenLDAP, Active Directory).
-- Hosted on dedicated or cloud server.
-
-### Directory Structure:
-- Root DN: `dc=abc,dc=corp`
-- Departments as organizational units (OUs):
-    - `ou=Sales,ou=Departments,dc=abc,dc=corp`
-    - `ou=Marketing,ou=Departments,dc=abc,dc=corp`
-- Users under departments:
-    - `cn=John Doe,ou=Sales,ou=Departments,dc=abc,dc=corp`
-    - `cn=Jane Smith,ou=Marketing,ou=Departments,dc=abc,dc=corp`
-
-### Attributes per user:
-- `cn` (Common Name)
-- `uid` (User ID)
-- `sn` (Surname)
-- `mail` (Email)
-- `userPassword` (Password)
-- `memberOf` (Groups user belongs to)
-
-### Authentication:
-- Applications query LDAP to validate username and password.
-- Access granted if credentials match.
-
-### Group Membership:
-- `memberOf` controls access and permissions.
-
-### Updates:
-- Admins add/modify/delete entries as employees join, leave, or move departments.
-
-### Security:
-- Use **LDAPS** (LDAP over SSL) for encrypted communication.
-- ACLs restrict access to directory data.
-
-</details>
-
----
-
-### Summary
-
-LDAP enables organizations to centrally manage user accounts, authentication, and directory information in a structured and secure way. It simplifies user access and administrative management across enterprise applications and systems.
-
-
-
-
-
-# 🛠️ Spring Boot Commands
-
-> Make sure to run all commands from the **root directory** of the project.
-
-## 🧰 Gradle Commands
-
-<details>
-<summary><strong>🧰 Gradle Commands</strong></summary>
-
-- `./gradlew bootRun`  
-  ➤ Runs the Spring Boot application.
-
-- `./gradlew clean bootRun`  
-  ➤ Cleans previous build and starts the app.
-
-- `./gradlew build`  
-  ➤ Compiles, tests, and builds the app into a JAR/WAR file.
-
-- `./gradlew clean build`  
-  ➤ Cleans and rebuilds the entire project.
-
-- `./gradlew bootJar`  
-  ➤ Builds an executable JAR file (Spring Boot specific).
-
-- `./gradlew bootWar`  
-  ➤ Builds a WAR file (used if packaging is WAR).
-
-- `./gradlew clean`  
-  ➤ Deletes the `build/` directory.
-
-- `./gradlew test`  
-  ➤ Runs unit tests.
-
-- `./gradlew check`  
-  ➤ Runs all checks including tests, code style, etc.
-
-- `./gradlew jacocoTestReport`  
-  ➤ Generates a code coverage report using JaCoCo for tests.
-
-- `./gradlew jacocoRootReport`  
-  ➤ Aggregates code coverage across multi-module projects.
-
-- `./gradlew jacocoTestCoverageVerification`  
-  ➤ Fails the build if test coverage doesn't meet threshold.
-</details>
-
----
-
-## 🔧 Maven Commands
-
-<details>
-<summary><strong>🔧 Maven Commands</strong></summary>
-
-- `mvn spring-boot:run`  
-  ➤ Runs the Spring Boot application.
-
-- `mvn clean spring-boot:run`  
-  ➤ Cleans the project and starts the application.
-
-- `mvn package`  
-  ➤ Compiles and builds the app into a JAR/WAR file.
-
-- `mvn clean package`  
-  ➤ Cleans and rebuilds the project.
-
-- `mvn spring-boot:repackage`  
-  ➤ Repackages the JAR/WAR with Spring Boot support (executability).
-
-- `mvn spring-boot:build-image`  
-  ➤ Builds a container image using Cloud Native Buildpacks.
-
-- `mvn clean`  
-  ➤ Removes target directory and cleans the project.
-
-- `mvn test`  
-  ➤ Runs tests.
-
-- `mvn check`  
-  ➤ Not a default Maven phase (likely used via plugins like SpotBugs or Checkstyle).
-
-- `mvn jacoco:report`  
-  ➤ Generates code coverage report using JaCoCo.
-
-- `mvn jacoco:check`  
-  ➤ Verifies code coverage metrics.
-</details>
-
----
-
-## ☕ Java Execution Commands
-
-<details>
-<summary><strong>☕ Java Execution Commands</strong></summary>
-
-- `java -jar target/app.jar`  
-  ➤ Runs the compiled app JAR (Maven build).
-
-- `java -jar build/libs/app.jar`  
-  ➤ Runs the compiled app JAR (Gradle build).
-</details>
-
----
-
-## 📡 HTTP Status Codes 🚀
-
-<details>
-<summary><strong>🔵 1xx – Informational</strong></summary>
-
-- **100 Continue**  
-  ➤ The server received the request headers. The client should continue with the request body.
-
-- **101 Switching Protocols**  
-  ➤ The server is switching protocols as requested by the client.
-
-- **103 Early Hints**  
-  ➤ Prepares the client for the final response by sending some headers early.
-
-</details>
-
----
-
-<details>
-<summary><strong>🟢 2xx – Success</strong></summary>
-
-- **200 OK**  
-  ➤ The request was successful.
-
-- **201 Created**  
-  ➤ A new resource was successfully created.
-
-- **202 Accepted**  
-  ➤ The request has been received but not completed.
-
-- **204 No Content**  
-  ➤ The request succeeded, but there is no content in the response.
-
-</details>
-
----
-
-<details>
-<summary><strong>🟡 3xx – Redirection</strong></summary>
-
-- **301 Moved Permanently**  
-  ➤ The requested resource has been permanently moved to a new URL.
-
-- **302 Found**  
-  ➤ Temporary redirect to a different URL.
-
-- **304 Not Modified**  
-  ➤ Resource hasn’t changed since the last request.
-
-- **307 Temporary Redirect**  
-  ➤ Request should be repeated at another URL using the same method.
-
-</details>
-
----
-
-<details>
-<summary><strong>🟠 4xx – Client Errors</strong></summary>
-
-- **400 Bad Request**  
-  ➤ The server cannot process the malformed request.
-
-- **401 Unauthorized**  
-  ➤ Authentication is required to access the resource.
-
-- **403 Forbidden**  
-  ➤ You are authenticated but not authorized to access the resource.
-
-- **404 Not Found**  
-  ➤ The requested resource could not be found.
-
-- **405 Method Not Allowed**  
-  ➤ HTTP method used is not allowed for this endpoint.
-
-- **408 Request Timeout**  
-  ➤ The server timed out waiting for the request.
-
-- **429 Too Many Requests**  
-  ➤ Too many requests have been sent in a short period (rate limiting).
-
-</details>
-
----
-
-<details>
-<summary><strong>🔴 5xx – Server Errors</strong></summary>
-
-- **500 Internal Server Error**  
-  ➤ The server encountered an unexpected condition.
-
-- **502 Bad Gateway**  
-  ➤ Invalid response from an upstream server.
-
-- **503 Service Unavailable**  
-  ➤ Server is currently unavailable due to overload or maintenance.
-
-- **504 Gateway Timeout**  
-  ➤ Upstream server failed to respond in time.
-
-</details>
-
----
-
-
-
-
-
-
-
-## [Projections and Aggregations](https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html)
-
-## [Role Based Authorizations](https://www.codejava.net/frameworks/spring-boot/spring-boot-security-role-based-authorization-tutorial)
-
-## [GateWay](https://spring.io/guides/gs/gateway/)
-
-## [Authorization Tutorial](https://auth0.com/blog/spring-boot-authorization-tutorial-secure-an-api-java/)
-
-## [Spring boot vs Spring Webflux](https://medium.com/deno-the-complete-reference/spring-boot-vs-spring-webflux-performance-comparison-for-hello-world-case-386da4e9c418)
-
-# Spring Boot Questions
-
-1. rest api status code.
-2. Normal vs stereotype annotation and its uses with example.
-3. How will you generate base64UrlEncode(payload)
-4. Spring profiles
-5. Different ways to autoincrement ID value
-6. @OneToMany , @ManyToMany & @JoinColumn
-7. Rest-template vs webclient
-8. JWT & Auth token generation
-9. Spring boot annotations
-10. Spring boot Autoconfiguration. Describe in detail.
-11. Autowiring in spring boot
-12. Application properties vs YML
-13. Spring Boot Global Exception Handling
-14. How to configure hibernate in your spring boot application?
-15. How hibernate retrieve the database values?
-16. what about JPA Repository
-17. @service vs @Repository
-18. scopes of spring bean
-19. features of springboot
-20. In rest API how to receive in spring boot
-21. How to write Junit test cases for service class in spring boot
-22. How to connect two database in the properties file?
-23. Application.properties have two or more db connections how will you use it in your POJO?
-24. what is entity graph?
-25. In what way you call the value from the application.properties file in your class file?
-26. Hibernate annotation?
-27. How do you map the primary key to another table.
-28. What annotation is used to store Primary key field from parent table to child table?
-29. Why Spring Boot over Spring?
-30. What are all annotations that by default comes from spring boot when using different packages.
-31. What is Controller advice?
-32. Controller vs RestController
-33. RestController in detail with example.
-34. Spring MVC vs spring boot.
-35. Use of @SpringBootApplication?
-36. What is IOC and Dependency injection? Explain in detail.
-37. Use of @componentScan, how to scan a particular class?
-38. What is @Autowired & @Qualifier. Explain in detail.
-39. Spring profiles - if there are two application.properties how will you access a particular one?
-40. What is Sonar Qube. How will you implement in your application?
-41. What is swager and actuater. Expalin how we can implement in application and what are the use?
-42. What is ORM why we use that?
-43. What is hibernate. How hibernate differes from jpa?
-44. What is the purpose of using @entity and @id?
-45. write any stored procedure.
-46. What are environments you know. How to differentiate that environments?
-47. What is aspect
-48. how to configure server properties to dev ,qa,prod env
-49. how will you generate jwt token and you pass the jwt to backend and which class is processing the token?
-50. How will you maintain login details
-51. How jwt token gets changed? and how it remains for the particular user?
-52. How will you maintain load balance.
-53. How will you maintain load balance in cloud?
-54. Different ways to create primary key using Spring Data JPA?

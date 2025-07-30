@@ -2,12 +2,15 @@
 <!-- TOC -->
 * [Java Interview Question Bank](#java-interview-question-bank)
   * [🚀 Primary Main Features of Java](#-primary-main-features-of-java)
+    * [Java's Main Features (with Examples)](#javas-main-features-with-examples)
   * [🧩 Class Loaders in Java](#-class-loaders-in-java)
     * [1. Bootstrap Class Loader](#1-bootstrap-class-loader)
     * [2. Extension Class Loader](#2-extension-class-loader)
     * [3. System/Application Class Loader](#3-systemapplication-class-loader)
+    * [Java Class Loaders (Simple & Clear)](#java-class-loaders-simple--clear)
   * [🆔 Identifiers in Java](#-identifiers-in-java)
     * [Some Java Keywords](#some-java-keywords)
+    * [Java Identifiers (Short & Simple)](#java-identifiers-short--simple)
   * [🏷️ What is a Class?](#-what-is-a-class)
   * [🏗️ Common Types of Classes in Java](#-common-types-of-classes-in-java)
     * [1. Regular (Concrete) Class](#1-regular-concrete-class)
@@ -105,18 +108,12 @@
   * [Summary](#summary)
 * [🧱 Java Collections Framework Guide](#-java-collections-framework-guide)
   * [🔍 Why Collections Framework?](#-why-collections-framework)
-  * [🌐 Collections Hierarchy Overview](#-collections-hierarchy-overview)
-  * [🧭 Interactive Decision Flowchart: Pick the Right Collection](#-interactive-decision-flowchart-pick-the-right-collection)
-    * [🧠 Example Scenarios](#-example-scenarios)
       * [1. You need to store data with keys and values and want to sort them by keys:](#1-you-need-to-store-data-with-keys-and-values-and-want-to-sort-them-by-keys)
       * [2. You want to store a list of names with duplicates and access by index:](#2-you-want-to-store-a-list-of-names-with-duplicates-and-access-by-index)
       * [3. You want to store a set of unique cities, and order doesn’t matter:](#3-you-want-to-store-a-set-of-unique-cities-and-order-doesnt-matter)
       * [4. You want to store key-value pairs with insertion order preserved and need thread safety:](#4-you-want-to-store-key-value-pairs-with-insertion-order-preserved-and-need-thread-safety)
-    * [🧰 Summary](#-summary)
-  * [🛠 Core Interfaces and Key Differences](#-core-interfaces-and-key-differences)
     * [Iterable vs Collection](#iterable-vs-collection)
     * [Iterator vs Enumeration](#iterator-vs-enumeration)
-  * [📦 Utility Classes and Interfaces](#-utility-classes-and-interfaces)
     * [Collection Interface Methods](#collection-interface-methods)
     * [Iterator Interface](#iterator-interface)
     * [Iterable Interface](#iterable-interface)
@@ -260,6 +257,63 @@
 7. Multithreading  
 8. Portable  
 
+### Java's Main Features (with Examples)
+
+1. **Platform Independent**
+   - Write once, run anywhere. Java code compiles to bytecode, which runs on any OS with a JVM.
+   - _Example:_
+     ```java
+     // Compile on Windows, run on Linux
+     javac Hello.java
+     java Hello
+     ```
+
+2. **Object-Oriented**
+   - Uses classes and objects. Supports Abstraction, Encapsulation, Inheritance, and Polymorphism.
+   - _Example:_
+     ```java
+     class Dog { void bark() { System.out.println("Woof"); } }
+     ```
+
+3. **Simple**
+   - Easy syntax, no pointers, automatic memory management.
+   - _Example:_
+     ```java
+     int x = 5; // No pointer arithmetic
+     ```
+
+4. **Robust**
+   - Strong memory management, exception handling, type checking.
+   - _Example:_
+     ```java
+     try { int a = 5/0; } catch(Exception e) { System.out.println("Error"); }
+     ```
+
+5. **Secure**
+   - No explicit pointer, runs in JVM sandbox, bytecode verification.
+   - _Example:_
+     // Applets run in restricted environment
+
+6. **Distributed**
+   - Supports networking, RMI, and web applications.
+   - _Example:_
+     ```java
+     import java.net.*;
+     Socket s = new Socket("localhost", 8080);
+     ```
+
+7. **Multithreaded**
+   - Can run multiple threads (tasks) at once.
+   - _Example:_
+     ```java
+     new Thread(() -> System.out.println("Hello from thread")).start();
+     ```
+
+8. **Portable**
+   - Java programs run the same on any platform with JVM.
+   - _Example:_
+     // Bytecode runs on Windows, Mac, Linux
+
 </details>
 
 ---
@@ -270,18 +324,47 @@
 <summary>Click to expand Class Loaders explanation</summary>
 
 ### 1. Bootstrap Class Loader
-- Parent of all class loaders.
-- Loads core Java classes from `rt.jar` and essential libraries (located in `JAVA_HOME/jre/lib`).
-- Implemented in native code and not accessible directly by Java code.
 
 ### 2. Extension Class Loader
-- Loads classes from extension directories (`JAVA_HOME/jre/lib/ext` or specified by `java.ext.dirs`).
-- Child of Bootstrap Class Loader.
 
 ### 3. System/Application Class Loader
-- Loads classes from application's classpath (`CLASSPATH` environment or `-cp` option).
-- Child of Extension Class Loader.
 
+
+
+### Java Class Loaders (Simple & Clear)
+
+Java uses class loaders to load classes into memory in a specific order:
+
+1. **Bootstrap Class Loader**
+   - Loads core Java classes (like `java.lang.*`).
+   - Built into JVM, not accessible in Java code.
+   - _Example:_ Loads `String.class` from the JDK.
+
+2. **Extension (Platform) Class Loader**
+   - Loads classes from extension directories (e.g., `JAVA_HOME/lib/ext`).
+   - _Example:_ Loads optional Java libraries.
+
+3. **System (Application) Class Loader**
+   - Loads classes from your application's classpath.
+   - _Example:_ Loads your own classes: `com.myapp.Main`.
+
+**Hierarchy:**
+
+```
+Bootstrap
+   ↓
+Extension
+   ↓
+System (Application)
+```
+
+**Code Example:**
+```java
+ClassLoader cl = MyClass.class.getClassLoader();
+System.out.println(cl); // Usually prints 'sun.misc.Launcher$AppClassLoader'
+```
+
+---
 </details>
 
 ---
@@ -310,6 +393,31 @@
 | `return`   | Exit method and optionally return value    |
 | `try`, `catch`, `finally` | Exception handling blocks          |
 | `throw`, `throws` | Exception declaration and throwing     |
+
+
+### Java Identifiers (Short & Simple)
+
+**Identifiers** are names for variables, methods, classes, etc.
+
+**Rules:**
+* Must start with a letter (A-Z, a-z), underscore `_`, or dollar sign `$`.
+* Can contain digits (0-9) after the first character.
+* Case sensitive (`MyVar` ≠ `myvar`).
+* Cannot use Java keywords (like `class`, `int`).
+
+**Examples:**
+```java
+int age;
+String _name;
+double $salary;
+// int 2ndValue; // Invalid: cannot start with digit
+// int class;    // Invalid: 'class' is a keyword
+```
+
+**Common Java Keywords:**
+`class`, `public`, `static`, `void`, `if`, `else`, `for`, `while`, `return`, `try`, `catch`, `throw`, `throws`
+
+---
 
 </details>
 
@@ -871,8 +979,8 @@ Strings are stored differently depending on how they are created and the Java ve
 +----------------------+
 | Is it a Literal?     |-------------------------------+
 +----------------------+                               |
-         | No                                             | Yes
-         v                                               v
+         | No                                          | Yes
+         v                                             v
 +-----------------------------+          +-----------------------------+
 | new String("Hello")         |          | "Hello" (String Literal)    |
 | (Heap Object)               |          | Goes to String Pool         |
