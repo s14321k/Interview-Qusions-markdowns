@@ -676,6 +676,9 @@ These annotations are fundamental for working with data persistence in Spring ap
 *   **`@NamedQuery`**: Defines a static, named query that can be referenced by its name.
 *   **`@Version`**: Used for optimistic locking to prevent concurrent modifications.
 *   **`@PersistenceContext`**: Injects an `EntityManager` instance, which is the main interface for interacting with the persistence context.
+*   **`@PrePersist`**: Marks a method as a callback that is executed before an entity is first saved (persisted) to the database. It's ideal for setting default values, such as creation timestamps or UUIDs, right before the `INSERT` operation.
+*   **`@PostPersist`**: Marks a method as a callback that is executed after an entity has been saved to the database. This is useful for logging, sending notifications, or triggering subsequent processes after a successful `INSERT`.
+
 </details>
 
 <details>
@@ -766,6 +769,47 @@ For more complex auditing requirements, such as maintaining a full revision hist
 
 *   **Setup:** Add the `spring-data-envers` dependency.
 *   **Usage:** Annotate your entity with `@Audited`.
+
+</details>
+
+
+<details>
+<summary><strong>Lifecycle Callback Example: `@PrePersist` and `@PostPersist`</strong></summary>
+
+These annotations are used to trigger methods at specific lifecycle events of an entity.
+
+**Use Case:** Automatically setting `createdAt` and `updatedAt` timestamps.
+
+```java
+@Entity
+public class User {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String name;
+
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void onPrePersist() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PostPersist
+    public void onPostPersist() {
+        System.out.println("User saved with ID: " + id);
+    }
+}
+```
+
+* **`@PrePersist`**: Before a new `User` entity is saved, the `onPrePersist` method is called, setting the initial `createdAt` and `updatedAt` values.
+* **`@PostPersist`**: After the `User` has been saved and the ID has been generated, `onPostPersist` is called, allowing you to perform actions like logging.
 
 </details>
 
