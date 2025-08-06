@@ -1,9 +1,9 @@
-https://www.interviewbit.com/rest-api-interview-questions/
-https://www.interviewbit.com/spring-boot-interview-questions/
-https://www.baeldung.com/spring-mvc-session-attributes
-https://www.digitalocean.com/community/tutorials/spring-bean-scopes
+<https://www.interviewbit.com/rest-api-interview-questions/>
+<https://www.interviewbit.com/spring-boot-interview-questions/>
+<https://www.baeldung.com/spring-mvc-session-attributes>
+<https://www.digitalocean.com/community/tutorials/spring-bean-scopes>
 
-https://www.marcobehler.com/guides/spring-and-spring-boot-versions
+<https://www.marcobehler.com/guides/spring-and-spring-boot-versions>
 
 <!-- TOC -->
   * [Top 15 Q&A](#top-15-qa)
@@ -17,20 +17,12 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     * [Example Implementation](#example-implementation)
     * [Advanced Auditing with Hibernate Envers](#advanced-auditing-with-hibernate-envers)
 * [⚡ Spring Boot Caching Annotations – Complete Guide](#-spring-boot-caching-annotations--complete-guide)
-    * [🧠 Description](#-description)
     * [✅ Parameters](#-parameters)
     * [🛠️ Examples](#-examples)
-    * [🧠 Description](#-description-1)
-    * [✅ Parameters](#-parameters-1)
     * [🛠️ Examples](#-examples-1)
     * [⏱ Scheduled Eviction](#-scheduled-eviction)
-    * [🧠 Description](#-description-2)
-    * [✅ Parameters](#-parameters-2)
     * [🛠️ Examples](#-examples-2)
-    * [🧠 Description](#-description-3)
     * [✅ Implementation Steps](#-implementation-steps)
-    * [🧠 Description](#-description-4)
-    * [✅ Parameters](#-parameters-3)
     * [🛠️ Example](#-example)
     * [1. Caffeine Cache Configuration](#1-caffeine-cache-configuration)
     * [2. EhCache (JCache - JSR-107) Configuration](#2-ehcache-jcache---jsr-107-configuration)
@@ -50,6 +42,7 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     * [4. Spring Actuator](#4-spring-actuator)
     * [5. Externalized Configuration](#5-externalized-configuration)
   * [⚙️ External Configuration Sources](#-external-configuration-sources)
+  * [Design Patterns](#design-patterns)
     * [🔁 1. Singleton Pattern](#-1-singleton-pattern)
     * [🧩 2. Dependency Injection (DI)](#-2-dependency-injection-di)
     * [📦 3. Factory Pattern](#-3-factory-pattern)
@@ -60,12 +53,15 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     * [🔐 8. Strategy Pattern](#-8-strategy-pattern)
   * [📚 Spring Boot Advanced Concepts](#-spring-boot-advanced-concepts)
     * [🔄 Bean Lifecycle Phases](#-bean-lifecycle-phases)
-    * [🔧 Configure Bean Lifecycle Using:](#-configure-bean-lifecycle-using)
+    * [🔧 Configure Bean Lifecycle Using](#-configure-bean-lifecycle-using)
+* [JPA](#jpa)
+  * [🧠 Java Persistence API (JPA) – Custom Queries](#-java-persistence-api-jpa--custom-queries)
     * [1. **Named Queries**](#1-named-queries)
     * [2. **Dynamic Queries (Criteria API)**](#2-dynamic-queries-criteria-api)
     * [3. **Native SQL Queries**](#3-native-sql-queries)
     * [4. **JPQL (Java Persistence Query Language)**](#4-jpql-java-persistence-query-language)
     * [5. **Criteria API**](#5-criteria-api)
+  * [🔎 Query Types in @Repository](#-query-types-in-repository)
     * [1. **Basic Derived Query**](#1-basic-derived-query)
     * [2. **Derived Query with Parameters**](#2-derived-query-with-parameters)
     * [3. **Custom JPQL Query**](#3-custom-jpql-query)
@@ -74,12 +70,12 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
   * [💾 Database Transaction Approaches in Java](#-database-transaction-approaches-in-java)
     * [✅ Summary Table](#-summary-table)
 * [Spring Configuration & REST API Client Overview](#spring-configuration--rest-api-client-overview)
-    * [Common Methods for GET Requests:](#common-methods-for-get-requests)
-    * [Basic Setup:](#basic-setup)
-    * [Usage in Service:](#usage-in-service)
-    * [Or Without Bean Injection:](#or-without-bean-injection)
-    * [Key Methods in `WebClient`:](#key-methods-in-webclient)
-    * [Example with headers:](#example-with-headers)
+    * [Common Methods for GET Requests](#common-methods-for-get-requests)
+    * [Basic Setup](#basic-setup)
+    * [Usage in Service](#usage-in-service)
+    * [Or Without Bean Injection](#or-without-bean-injection)
+    * [Key Methods in `WebClient`](#key-methods-in-webclient)
+    * [Example with headers](#example-with-headers)
     * [When to choose?](#when-to-choose)
     * [1. Dependencies (`pom.xml`)](#1-dependencies-pomxml)
     * [2. Configuration (`application.properties`)](#2-configuration-applicationproperties)
@@ -88,22 +84,21 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     * [5. The Resilient and Observable Service](#5-the-resilient-and-observable-service)
     * [6. Global Exception Handling with Problem Details](#6-global-exception-handling-with-problem-details)
     * [Summary of the Flow](#summary-of-the-flow)
-    * [Useful Resources:](#useful-resources)
+    * [Useful Resources](#useful-resources)
 * [Spring MVC Concepts & Exception Handling](#spring-mvc-concepts--exception-handling)
     * [Overview](#overview)
-    * [Lifecycle Methods of HandlerInterceptor:](#lifecycle-methods-of-handlerinterceptor)
-    * [References:](#references)
-    * [Key Annotations:](#key-annotations)
-    * [Example usage:](#example-usage)
+    * [Lifecycle Methods of HandlerInterceptor](#lifecycle-methods-of-handlerinterceptor)
+    * [References](#references)
+    * [Key Annotations](#key-annotations)
 * [Spring Boot Annotations for Extracting Values from URI and Requests](#spring-boot-annotations-for-extracting-values-from-uri-and-requests)
-    * [Common Spring Boot annotations:](#common-spring-boot-annotations)
+    * [Common Spring Boot annotations](#common-spring-boot-annotations)
 * [Spring Dependency Injection & Controller Annotations](#spring-dependency-injection--controller-annotations)
-      * [Qualifier usage at method level example:](#qualifier-usage-at-method-level-example)
+      * [Qualifier usage at method level example](#qualifier-usage-at-method-level-example)
     * [Field Injection](#field-injection)
     * [Setter Injection](#setter-injection)
     * [Constructor Injection (Recommended)](#constructor-injection-recommended)
-    * [With @Qualifier for multiple beans:](#with-qualifier-for-multiple-beans)
-    * [Optional dependencies:](#optional-dependencies)
+    * [With @Qualifier for multiple beans](#with-qualifier-for-multiple-beans)
+    * [Optional dependencies](#optional-dependencies)
 * [Spring Transaction Management & Pagination with JPA](#spring-transaction-management--pagination-with-jpa)
     * [Propagation Types](#propagation-types)
     * [Useful Methods](#useful-methods)
@@ -122,19 +117,19 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
     * [Spring Boot CORS Example](#spring-boot-cors-example)
     * [JavaScript (Frontend)](#javascript-frontend)
     * [Spring Boot (Backend)](#spring-boot-backend)
-    * [When CORS is needed:](#when-cors-is-needed)
+    * [When CORS is needed](#when-cors-is-needed)
   * [✅ Spring Boot Auto-Configuration - Structured Guide](#-spring-boot-auto-configuration---structured-guide)
-    * [Common Conditional Variants:](#common-conditional-variants)
-    * [Steps to Create:](#steps-to-create)
-    * [Notes:](#notes)
-    * [Drawbacks:](#drawbacks)
+    * [Common Conditional Variants](#common-conditional-variants)
+    * [Steps to Create](#steps-to-create)
+    * [Notes](#notes)
+    * [Drawbacks](#drawbacks)
   * [🔄 Load Balancing in Spring Boot](#-load-balancing-in-spring-boot)
-    * [✅ Nginx Example Configuration:](#-nginx-example-configuration)
-    * [✅ Dependencies:](#-dependencies)
-    * [✅ Configuration (application.properties):](#-configuration-applicationproperties)
-    * [✅ LoadBalanced `RestTemplate` Bean:](#-loadbalanced-resttemplate-bean)
-    * [✅ Example `spring-boot-service.yaml`:](#-example-spring-boot-serviceyaml)
-    * [📌 Final Thoughts:](#-final-thoughts)
+    * [✅ Nginx Example Configuration](#-nginx-example-configuration)
+    * [✅ Dependencies](#-dependencies)
+    * [✅ Configuration (application.properties)](#-configuration-applicationproperties)
+    * [✅ LoadBalanced `RestTemplate` Bean](#-loadbalanced-resttemplate-bean)
+    * [✅ Example `spring-boot-service.yaml`](#-example-spring-boot-serviceyaml)
+    * [📌 Final Thoughts](#-final-thoughts)
   * [🔑 What is SSO?](#-what-is-sso)
   * [🔗 Integration with Spring Security OAuth2 or Keycloak](#-integration-with-spring-security-oauth2-or-keycloak)
   * [📚 Spring Method Security Reference](#-spring-method-security-reference)
@@ -158,13 +153,9 @@ https://www.marcobehler.com/guides/spring-and-spring-boot-versions
       * [Good Practice vs. Bad Practice](#good-practice-vs-bad-practice)
       * [Which Tool Should You Use? A Scenario-Based Guide](#which-tool-should-you-use-a-scenario-based-guide)
 * [📦 AOP in Spring Boot – Explained (with Custom Annotations + Logging)](#-aop-in-spring-boot--explained-with-custom-annotations--logging)
-    * [Purpose:](#purpose)
-    * [Example usage:](#example-usage-1)
-    * [Corresponding Aspect:](#corresponding-aspect)
-    * [Purpose:](#purpose-1)
-    * [Example usage:](#example-usage-2)
-    * [Retry Logic Aspect:](#retry-logic-aspect)
-    * [SLF4J is used for logging with support from Logback.](#slf4j-is-used-for-logging-with-support-from-logback)
+    * [Corresponding Aspect](#corresponding-aspect)
+    * [Retry Logic Aspect](#retry-logic-aspect)
+    * [SLF4J is used for logging with support from Logback](#slf4j-is-used-for-logging-with-support-from-logback)
 <!-- TOC -->
 
 ## [Top 15 Q&A](https://www.java67.com/2018/06/top-15-spring-boot-interview-questions-answers-java-jee-programmers.html)
@@ -237,7 +228,7 @@ Spring Actuator is a sub-project of Spring Boot that adds production-ready featu
 
 </details>
 
-- `Projection interface` - Creating interface to write particular queries in custom we can use projection
+* `Projection interface` - Creating interface to write particular queries in custom we can use projection
 
 # [Annotations in Spring boot](https://www.javatpoint.com/spring-boot-annotations)
 
@@ -253,10 +244,10 @@ Spring Actuator is a sub-project of Spring Boot that adds production-ready featu
 
 </details>
 
+# ⚙️ Bean Definitions & Dependency Injection - A Deep Dive
+
 <details>
 <summary><strong>🧩 Bean Definitions & Dependency Injection</strong></summary>
-
-# ⚙️ Bean Definitions & Dependency Injection - A Deep Dive
 
 In Spring, the concepts of **Beans** and **Dependency Injection (DI)** are fundamental. They are the core principles of the Inversion of Control (IoC) container.
 
@@ -276,13 +267,16 @@ A **Spring Bean** is an object that is instantiated, assembled, and otherwise ma
 
 **Dependency Injection** is a design pattern where an object receives other objects that it depends on (its dependencies) rather than creating them itself. This is the primary way Spring manages relationships between beans.
 
-- **Without DI:**
+* **Without DI:**
+
   ```java
   public class MyService {
       private final MyRepository repository = new MyRepository(); // Hard-coded dependency
   }
   ```
-- **With DI:**
+
+* **With DI:**
+
   ```java
   @Service
   public class MyService {
@@ -296,9 +290,10 @@ A **Spring Bean** is an object that is instantiated, assembled, and otherwise ma
   ```
 
 **Benefits of DI:**
-- **Loose Coupling:** Components are not tightly bound to each other.
-- **Easier Testing:** You can easily inject mock objects in tests.
-- **Flexibility & Maintainability:** It's easy to swap implementations of a dependency.
+
+* **Loose Coupling:** Components are not tightly bound to each other.
+* **Easier Testing:** You can easily inject mock objects in tests.
+* **Flexibility & Maintainability:** It's easy to swap implementations of a dependency.
 
 </details>
 
@@ -322,6 +317,7 @@ The easiest way is to annotate your class with one of Spring's stereotype annota
 | `@Configuration`| For classes that define other beans.                |
 
 **Example:**
+
 ```java
 @Service
 public class UserServiceImpl implements UserService {
@@ -342,6 +338,7 @@ public class AppConfig {
     }
 }
 ```
+
 </details>
 
 ---
@@ -354,8 +351,8 @@ Spring offers several ways to inject dependencies into a bean.
 **1. Constructor Injection (Recommended)**
 Dependencies are provided through the class constructor.
 
-- **Pros:** Ensures required dependencies are set, promotes immutability.
-- **Cons:** Can lead to large constructors if a class has too many dependencies (which is a sign of a design problem).
+* **Pros:** Ensures required dependencies are set, promotes immutability.
+* **Cons:** Can lead to large constructors if a class has too many dependencies (which is a sign of a design problem).
 
 ```java
 @Service
@@ -372,8 +369,8 @@ public class MyService {
 **2. Setter Injection**
 Dependencies are injected through setter methods.
 
-- **Pros:** Good for optional dependencies.
-- **Cons:** Can lead to partially configured objects.
+* **Pros:** Good for optional dependencies.
+* **Cons:** Can lead to partially configured objects.
 
 ```java
 @Service
@@ -390,8 +387,8 @@ public class MyService {
 **3. Field Injection**
 Dependencies are injected directly into fields.
 
-- **Pros:** Very concise.
-- **Cons:** Hides dependencies, makes testing harder, can lead to circular dependency issues. **Generally discouraged.**
+* **Pros:** Very concise.
+* **Cons:** Hides dependencies, makes testing harder, can lead to circular dependency issues. **Generally discouraged.**
 
 ```java
 @Service
@@ -400,6 +397,7 @@ public class MyService {
     private MyRepository repository;
 }
 ```
+
 </details>
 
 ---
@@ -440,6 +438,7 @@ public class CreditCardPaymentService implements PaymentService {}
 @Service
 public class PayPalPaymentService implements PaymentService {}
 ```
+
 Now, any injection of `PaymentService` will receive `CreditCardPaymentService` by default.
 
 </details>
@@ -460,6 +459,7 @@ The scope of a bean defines its lifecycle and visibility.
 | `application`  | (Web-aware) A single instance for the lifecycle of the `ServletContext`. |
 
 **Example:**
+
 ```java
 @Component
 @Scope("prototype")
@@ -467,6 +467,7 @@ public class MyPrototypeBean {
     // ...
 }
 ```
+
 </details>
 
 ---
@@ -476,10 +477,11 @@ public class MyPrototypeBean {
 
 You can execute custom logic at specific points in a bean's lifecycle.
 
-- **`@PostConstruct`**: The annotated method is executed after the bean has been created and dependencies have been injected.
-- **`@PreDestroy`**: The annotated method is executed just before the bean is removed from the container.
+* **`@PostConstruct`**: The annotated method is executed after the bean has been created and dependencies have been injected.
+* **`@PreDestroy`**: The annotated method is executed just before the bean is removed from the container.
 
 **Example:**
+
 ```java
 @Component
 public class MyBean {
@@ -495,6 +497,7 @@ public class MyBean {
     }
 }
 ```
+
 </details>
 
 <details>
@@ -507,28 +510,28 @@ public class MyBean {
 
 > The scope of a bean defines the lifecycle and visibility of that bean. Spring supports several scopes, which determine how many instances of a bean are created and how they are shared.
 
-- **`singleton`** *(Default)*  
+* **`singleton`** *(Default)*  
   ➤ **Description:** Only one shared instance of the bean is created and managed by the Spring container. This single instance is returned every time the bean is requested.  
   ➤ **Use Case:** Ideal for stateless services, repositories, and configuration classes.  
   ➤ ⚠️ **Warning:** Avoid storing shared, mutable state in singleton beans to prevent thread-safety issues in multi-threaded environments.
 
-- **`prototype`**  
+* **`prototype`**  
   ➤ **Description:** A new instance of the bean is created every time it is requested from the container. Spring creates, configures, and assembles the bean, but does not manage its complete lifecycle. The client code is responsible for cleaning up prototype-scoped beans.  
   ➤ **Use Case:** Suitable for stateful beans, where each user or thread needs its own independent object (e.g., a shopping cart object).
 
-- **`request`** *(Web only)*  
+* **`request`** *(Web only)*  
   ➤ **Description:** A new bean instance is created for each incoming HTTP request. The bean is destroyed when the request is completed. This scope is only valid in the context of a web-aware Spring `ApplicationContext`.  
   ➤ **Use Case:** Useful for holding request-specific data, such as user authentication information or request-specific state.
 
-- **`session`** *(Web only)*  
+* **`session`** *(Web only)*  
   ➤ **Description:** A new bean instance is created for each HTTP user session. The bean lives as long as the user's session. This scope is only valid in a web-aware Spring `ApplicationContext`.  
   ➤ **Use Case:** Perfect for storing user-specific data that needs to persist across multiple requests, like a user's profile or shopping cart.
 
-- **`application`** *(Web only)*  
+* **`application`** *(Web only)*  
   ➤ **Description:** A single bean instance is created for the entire lifecycle of the `ServletContext`. It's similar to a singleton but is specific to the web application's lifecycle.  
   ➤ **Use Case:** For application-wide data that needs to be shared across all sessions and requests, like application configuration or a cache of common data.
 
-- **`global-session`** *(Portlet only)*  
+* **`global-session`** *(Portlet only)*  
   ➤ **Description:** This scope is typically used in portlet-based web applications. It creates a single bean instance for a global HTTP session. If you are not working with portlets, this scope is effectively the same as the `session` scope.
 
 ---
@@ -539,22 +542,22 @@ public class MyBean {
 
 The lifecycle of a Spring bean follows these main phases:
 
-1.  **Instantiation:** The Spring container creates an instance of the bean.
-2.  **Populating Properties (Dependency Injection):** The container injects dependencies into the bean through mechanisms like setter injection or constructor injection.
-3.  **Bean Name Awareness:** If the bean implements the `BeanNameAware` interface, the container calls the `setBeanName()` method, passing the bean's ID.
-4.  **Bean Factory Awareness:** If the bean implements the `BeanFactoryAware` interface, the container calls the `setBeanFactory()` method, providing it with a reference to the bean factory.
-5.  **Application Context Awareness:** If the bean implements the `ApplicationContextAware` interface, the container calls the `setApplicationContext()` method, passing a reference to the enclosing application context.
-6.  **Pre-initialization (BeanPostProcessors):** The `postProcessBeforeInitialization()` method of any registered `BeanPostProcessor` interfaces is called before the bean's initialization methods.
-7.  **Initialization:**
-    *   If the bean is annotated with `@PostConstruct`, the annotated method is called.
-    *   If the bean implements the `InitializingBean` interface, the `afterPropertiesSet()` method is called.
-    *   If a custom `init-method` is defined in the bean's configuration, it is invoked.
-8.  **Post-initialization (BeanPostProcessors):** The `postProcessAfterInitialization()` method of any registered `BeanPostProcessor` interfaces is called.
-9.  **Bean is Ready:** The bean is now ready to be used by the application.
+1. **Instantiation:** The Spring container creates an instance of the bean.
+2. **Populating Properties (Dependency Injection):** The container injects dependencies into the bean through mechanisms like setter injection or constructor injection.
+3. **Bean Name Awareness:** If the bean implements the `BeanNameAware` interface, the container calls the `setBeanName()` method, passing the bean's ID.
+4. **Bean Factory Awareness:** If the bean implements the `BeanFactoryAware` interface, the container calls the `setBeanFactory()` method, providing it with a reference to the bean factory.
+5. **Application Context Awareness:** If the bean implements the `ApplicationContextAware` interface, the container calls the `setApplicationContext()` method, passing a reference to the enclosing application context.
+6. **Pre-initialization (BeanPostProcessors):** The `postProcessBeforeInitialization()` method of any registered `BeanPostProcessor` interfaces is called before the bean's initialization methods.
+7. **Initialization:**
+    * If the bean is annotated with `@PostConstruct`, the annotated method is called.
+    * If the bean implements the `InitializingBean` interface, the `afterPropertiesSet()` method is called.
+    * If a custom `init-method` is defined in the bean's configuration, it is invoked.
+8. **Post-initialization (BeanPostProcessors):** The `postProcessAfterInitialization()` method of any registered `BeanPostProcessor` interfaces is called.
+9. **Bean is Ready:** The bean is now ready to be used by the application.
 10. **Destruction:** When the container is shut down, the destruction phase begins.
-    *   If the bean is annotated with `@PreDestroy`, the annotated method is called.
-    *   If the bean implements the `DisposableBean` interface, the `destroy()` method is called.
-    *   If a custom `destroy-method` is defined, it is invoked.
+    * If the bean is annotated with `@PreDestroy`, the annotated method is called.
+    * If the bean implements the `DisposableBean` interface, the `destroy()` method is called.
+    * If a custom `destroy-method` is defined, it is invoked.
 
 ![Bean Lifecycle](images/img_17.png)
 
@@ -575,8 +578,8 @@ The lifecycle of a Spring bean follows these main phases:
 * `@Required` *(legacy)* – This annotation was used on setter methods to indicate that the dependency must be injected. If the dependency was not available, a `BeanInitializationException` would be thrown. It is considered legacy and has been largely replaced by constructor injection, which naturally enforces required dependencies.
 
 * `@Inject` / `@Resource` – These are alternatives to `@Autowired` from the Java EE world (JSR-330 and JSR-250, respectively).
-    - `@Inject`: Works similarly to `@Autowired` but does not have the `required` attribute.
-    - `@Resource`: Can inject beans by name or by type. If a name is provided (`@Resource(name="myBean")`), it injects by name; otherwise, it falls back to type.
+  * `@Inject`: Works similarly to `@Autowired` but does not have the `required` attribute.
+  * `@Resource`: Can inject beans by name or by type. If a name is provided (`@Resource(name="myBean")`), it injects by name; otherwise, it falls back to type.
 
 * `@Scope("scopeName")` – Sets the scope of a bean. The most common scopes are `singleton` (one instance per container, the default) and `prototype` (a new instance every time it's requested). Other web-aware scopes include `request`, `session`, and `application`.
 
@@ -604,6 +607,7 @@ The lifecycle of a Spring bean follows these main phases:
 * `@TestPropertySource` – This annotation is used to load a properties file or define inline properties for a test class. It allows you to override application properties for a specific test, which is useful for configuring test-specific settings like a test database connection.
 
 * `@Sql` – This annotation is used to execute SQL scripts against a database before or after a test method. It's a convenient way to set up or clean up the database state for your tests, ensuring they run in a predictable environment.
+
 </details>
 
 <details>
@@ -620,6 +624,7 @@ Stereotype annotations are used to mark classes as Spring components. They are s
 * `@Service` – This annotation marks a class as a service layer component. The service layer is where the business logic of the application resides. While it is technically the same as `@Component`, using `@Service` makes the intent clearer and allows for better separation of concerns.
 
 * `@Repository` – This annotation is used to mark a class as a Data Access Object (DAO). It is used on classes that are responsible for accessing the database. One of the key features of `@Repository` is that it enables exception translation, which means it catches platform-specific exceptions (like `SQLException`) and re-throws them as Spring's unified, unchecked exceptions.
+
 </details>
 
 <details>
@@ -627,23 +632,24 @@ Stereotype annotations are used to mark classes as Spring components. They are s
 
 Web annotations are used to handle web requests, bind data from requests, and manage web-related configurations in a Spring MVC or Spring WebFlux application.
 
-- `@RequestMapping` – This is a versatile annotation used to map HTTP requests to handler methods of MVC and REST controllers. It can be configured with the path, HTTP method (GET, POST, etc.), headers, and parameters.
+* `@RequestMapping` – This is a versatile annotation used to map HTTP requests to handler methods of MVC and REST controllers. It can be configured with the path, HTTP method (GET, POST, etc.), headers, and parameters.
 
-- `@GetMapping` / `@PostMapping` / etc. – These are shortcut annotations for `@RequestMapping` that are specific to a particular HTTP method. For example, `@GetMapping` is equivalent to `@RequestMapping(method = RequestMethod.GET)`. They make the code more readable and less verbose.
+* `@GetMapping` / `@PostMapping` / etc. – These are shortcut annotations for `@RequestMapping` that are specific to a particular HTTP method. For example, `@GetMapping` is equivalent to `@RequestMapping(method = RequestMethod.GET)`. They make the code more readable and less verbose.
 
-- `@PathVariable` – This annotation is used to bind a method parameter to a URI template variable. For example, in a URL like `/users/{id}`, `@PathVariable("id")` can be used to extract the `id` value from the path.
+* `@PathVariable` – This annotation is used to bind a method parameter to a URI template variable. For example, in a URL like `/users/{id}`, `@PathVariable("id")` can be used to extract the `id` value from the path.
 
-- `@RequestParam` – This annotation binds a method parameter to a web request parameter from the query string (e.g., `/users?name=John`). It can also be used to extract parameters from form data.
+* `@RequestParam` – This annotation binds a method parameter to a web request parameter from the query string (e.g., `/users?name=John`). It can also be used to extract parameters from form data.
 
-- `@RequestBody` / `@ResponseBody` –
-    - `@RequestBody`: This annotation indicates that a method parameter should be bound to the body of the HTTP request. Spring's `HttpMessageConverter`s will deserialize the request body (e.g., a JSON payload) into a Java object.
-    - `@ResponseBody`: This annotation, when used on a method, indicates that the return value should be serialized directly to the HTTP response body. It is commonly used in REST controllers to return JSON or XML data.
+* `@RequestBody` / `@ResponseBody` –
+  * `@RequestBody`: This annotation indicates that a method parameter should be bound to the body of the HTTP request. Spring's `HttpMessageConverter`s will deserialize the request body (e.g., a JSON payload) into a Java object.
+  * `@ResponseBody`: This annotation, when used on a method, indicates that the return value should be serialized directly to the HTTP response body. It is commonly used in REST controllers to return JSON or XML data.
 
-- `@ModelAttribute` – This annotation is used to bind a method parameter or method return value to a named model attribute, which is then exposed to a web view. It is often used for binding form data to an object.
+* `@ModelAttribute` – This annotation is used to bind a method parameter or method return value to a named model attribute, which is then exposed to a web view. It is often used for binding form data to an object.
 
-- `@CrossOrigin` – This annotation is used to enable Cross-Origin Resource Sharing (CORS) on a per-method or per-class basis. It allows you to control which origins, headers, and methods are allowed to access your endpoints from a different domain.
+* `@CrossOrigin` – This annotation is used to enable Cross-Origin Resource Sharing (CORS) on a per-method or per-class basis. It allows you to control which origins, headers, and methods are allowed to access your endpoints from a different domain.
 
-- `@SessionAttributes` – This annotation is used to store model attributes in the HTTP session between requests. This is useful for maintaining state across a series of requests, such as in a multi-step wizard form.
+* `@SessionAttributes` – This annotation is used to store model attributes in the HTTP session between requests. This is useful for maintaining state across a series of requests, such as in a multi-step wizard form.
+
 </details>
 
 <details>
@@ -651,33 +657,33 @@ Web annotations are used to handle web requests, bind data from requests, and ma
 
 These annotations are fundamental for working with data persistence in Spring applications using the Java Persistence API (JPA).
 
-*   **`@Entity`**: Marks a Java class as a JPA entity, which means it represents a table in a relational database.
-*   **`@Table`**: Specifies the details of the table that an entity maps to. You can define the table name, schema, and unique constraints.
-*   **`@Id`**: Declares the primary key field of an entity.
-*   **`@GeneratedValue`**: Configures the way the primary key value is generated (e.g., auto-increment, sequence).
-*   **`@SequenceGenerator`**: Defines a primary key generator that uses a database sequence.
-*   **`@Column`**: Specifies the mapping for a persistent property or field. You can define the column name, length, and whether it's nullable.
-*   **`@Transient`**: Marks a field to be ignored by the persistence provider, so it won't be saved to the database.
-*   **`@Enumerated`**: Specifies how an `Enum` type should be persisted in the database (either as a string or an integer).
-*   **`@Lob`**: Indicates that a property should be persisted as a Large Object (LOB) type in the database (e.g., `CLOB` or `BLOB`).
-*   **`@Query`**: Allows you to define custom queries (using JPQL or native SQL) directly on a repository method.
-*   **`@Modifying`**: Used with `@Query` to indicate that a query will modify the database (e.g., an `UPDATE` or `DELETE` operation).
-*   **`@Transactional`**: Declares that a method or class should be executed within a database transaction.
-*   **`@OneToOne`, `@ManyToOne`, `@OneToMany`, `@ManyToMany`**: These annotations define the relationships between entities (e.g., one-to-one, many-to-one, etc.).
-*   **`@JoinColumn`**: Specifies the foreign key column in a relationship.
-*   **`@DynamicInsert`, `@DynamicUpdate`**: Hibernate-specific annotations that optimize `INSERT` and `UPDATE` statements by only including non-null or modified fields.
-*   **`@Embedded`, `@EmbeddedId`, `@Embeddable`**: Used for embedding one class within another entity, which is useful for grouping related properties.
-*   **`@MappedSuperclass`**: Designates a class whose mapping information is applied to the entities that inherit from it.
-*   **`@EntityListeners`**: Registers listener classes for an entity to respond to lifecycle events (e.g., for auditing).
-*   **`@EntityGraph`**: Allows you to define a graph of associations to fetch eagerly, helping to solve the N+1 query problem.
+* **`@Entity`**: Marks a Java class as a JPA entity, which means it represents a table in a relational database.
+* **`@Table`**: Specifies the details of the table that an entity maps to. You can define the table name, schema, and unique constraints.
+* **`@Id`**: Declares the primary key field of an entity.
+* **`@GeneratedValue`**: Configures the way the primary key value is generated (e.g., auto-increment, sequence).
+* **`@SequenceGenerator`**: Defines a primary key generator that uses a database sequence.
+* **`@Column`**: Specifies the mapping for a persistent property or field. You can define the column name, length, and whether it's nullable.
+* **`@Transient`**: Marks a field to be ignored by the persistence provider, so it won't be saved to the database.
+* **`@Enumerated`**: Specifies how an `Enum` type should be persisted in the database (either as a string or an integer).
+* **`@Lob`**: Indicates that a property should be persisted as a Large Object (LOB) type in the database (e.g., `CLOB` or `BLOB`).
+* **`@Query`**: Allows you to define custom queries (using JPQL or native SQL) directly on a repository method.
+* **`@Modifying`**: Used with `@Query` to indicate that a query will modify the database (e.g., an `UPDATE` or `DELETE` operation).
+* **`@Transactional`**: Declares that a method or class should be executed within a database transaction.
+* **`@OneToOne`, `@ManyToOne`, `@OneToMany`, `@ManyToMany`**: These annotations define the relationships between entities (e.g., one-to-one, many-to-one, etc.).
+* **`@JoinColumn`**: Specifies the foreign key column in a relationship.
+* **`@DynamicInsert`, `@DynamicUpdate`**: Hibernate-specific annotations that optimize `INSERT` and `UPDATE` statements by only including non-null or modified fields.
+* **`@Embedded`, `@EmbeddedId`, `@Embeddable`**: Used for embedding one class within another entity, which is useful for grouping related properties.
+* **`@MappedSuperclass`**: Designates a class whose mapping information is applied to the entities that inherit from it.
+* **`@EntityListeners`**: Registers listener classes for an entity to respond to lifecycle events (e.g., for auditing).
+* **`@EntityGraph`**: Allows you to define a graph of associations to fetch eagerly, helping to solve the N+1 query problem.
     ![EntityGraph](images/AnnotationEntityGraph.png)
-*   **`@EnableJpaRepositories`**: Enables Spring Data JPA repositories and scans for repository interfaces.
-*   **`@EntityScan`**: Scans for entity classes.
-*   **`@NamedQuery`**: Defines a static, named query that can be referenced by its name.
-*   **`@Version`**: Used for optimistic locking to prevent concurrent modifications.
-*   **`@PersistenceContext`**: Injects an `EntityManager` instance, which is the main interface for interacting with the persistence context.
-*   **`@PrePersist`**: Marks a method as a callback that is executed before an entity is first saved (persisted) to the database. It's ideal for setting default values, such as creation timestamps or UUIDs, right before the `INSERT` operation.
-*   **`@PostPersist`**: Marks a method as a callback that is executed after an entity has been saved to the database. This is useful for logging, sending notifications, or triggering subsequent processes after a successful `INSERT`.
+* **`@EnableJpaRepositories`**: Enables Spring Data JPA repositories and scans for repository interfaces.
+* **`@EntityScan`**: Scans for entity classes.
+* **`@NamedQuery`**: Defines a static, named query that can be referenced by its name.
+* **`@Version`**: Used for optimistic locking to prevent concurrent modifications.
+* **`@PersistenceContext`**: Injects an `EntityManager` instance, which is the main interface for interacting with the persistence context.
+* **`@PrePersist`**: Marks a method as a callback that is executed before an entity is first saved (persisted) to the database. It's ideal for setting default values, such as creation timestamps or UUIDs, right before the `INSERT` operation.
+* **`@PostPersist`**: Marks a method as a callback that is executed after an entity has been saved to the database. This is useful for logging, sending notifications, or triggering subsequent processes after a successful `INSERT`.
 
 </details>
 
@@ -688,8 +694,8 @@ Spring Data JPA provides powerful auditing capabilities to automatically track c
 
 ### How to Enable Auditing
 
-1.  **Enable JPA Auditing:** Add `@EnableJpaAuditing` to your main Spring Boot application class.
-2.  **Add Entity Listener:** Annotate your entity with `@EntityListeners(AuditingEntityListener.class)`.
+1. **Enable JPA Auditing:** Add `@EnableJpaAuditing` to your main Spring Boot application class.
+2. **Add Entity Listener:** Annotate your entity with `@EntityListeners(AuditingEntityListener.class)`.
 
 ### Core Auditing Annotations
 
@@ -767,11 +773,10 @@ public class DemoApplication {
 
 For more complex auditing requirements, such as maintaining a full revision history of your entities (i.e., an audit log), consider using **Hibernate Envers**. It automatically creates audit tables and tracks every change, deletion, and insertion.
 
-*   **Setup:** Add the `spring-data-envers` dependency.
-*   **Usage:** Annotate your entity with `@Audited`.
+* **Setup:** Add the `spring-data-envers` dependency.
+* **Usage:** Annotate your entity with `@Audited`.
 
 </details>
-
 
 <details>
 <summary><strong>Lifecycle Callback Example: `@PrePersist` and `@PostPersist`</strong></summary>
@@ -816,62 +821,69 @@ public class User {
 <details>
 <summary><strong>MongoDB Annotations</strong></summary>
 
-- `@Document` – Maps Java class to MongoDB collection
-- `@EnableMongoAuditing` – Enables auditing features
-- `@LastModifiedDate` – Sets last modified timestamp automatically
+* `@Document` – Maps Java class to MongoDB collection
+* `@EnableMongoAuditing` – Enables auditing features
+* `@LastModifiedDate` – Sets last modified timestamp automatically
+
 </details>
 
 <details>
 <summary><strong>Lombok & Entity Model Helpers</strong></summary>
 
-- `@Data` – Combines getter/setter/constructor annotations
-- `@Builder`, `@NoArgsConstructor`, `@AllArgsConstructor`, `@Singular`
-- `@CreatedDate`, `@CreatedBy`, `@LastModifiedDate`, `@LastModifiedBy`
+* `@Data` – Combines getter/setter/constructor annotations
+* `@Builder`, `@NoArgsConstructor`, `@AllArgsConstructor`, `@Singular`
+* `@CreatedDate`, `@CreatedBy`, `@LastModifiedDate`, `@LastModifiedBy`
+
 </details>
 
 <details>
 <summary><strong>AOP & Asynchronous</strong></summary>
 
-- `@Aspect`, `@Before`, `@After`, `@Around`, `@Pointcut`
-- `@Async` – Executes method asynchronously
-- `@EnableAsync` – Enables asynchronous processing
+* `@Aspect`, `@Before`, `@After`, `@Around`, `@Pointcut`
+* `@Async` – Executes method asynchronously
+* `@EnableAsync` – Enables asynchronous processing
+
 </details>
 
 <details>
 <summary><strong>Scheduling & Events</strong></summary>
 
-- `@Scheduled` – Schedules method execution
-- `@EnableScheduling` – Enables scheduling support
-- `@EventListener` – Handles application events
+* `@Scheduled` – Schedules method execution
+* `@EnableScheduling` – Enables scheduling support
+* `@EventListener` – Handles application events
+
 </details>
 
 <details>
 <summary><strong>Lifecycle Hooks</strong></summary>
 
-- `@PostConstruct` – Method after bean creation
-- `@PreDestroy` – Method before bean destruction
+* `@PostConstruct` – Method after bean creation
+* `@PreDestroy` – Method before bean destruction
+
 </details>
 
 <details>
 <summary><strong>Configuration & Property Binding</strong></summary>
 
-- `@ConfigurationProperties` – Binds config to POJO
-- `@Value` – Injects properties or SpEL
-- `@PropertySource` – Loads external properties
-- `@Import` – Imports other config classes
+* `@ConfigurationProperties` – Binds config to POJO
+* `@Value` – Injects properties or SpEL
+* `@PropertySource` – Loads external properties
+* `@Import` – Imports other config classes
+
 </details>
 
 <details>
 <summary><strong>Conditional Bean Registration</strong></summary>
 
-- `@Conditional` – Generic conditional configuration
-- `@Profile` – Conditionally loads beans by profile
-- Spring Boot Specific:
-    - `@ConditionalOnBean`, `@ConditionalOnMissingBean`
-    - `@ConditionalOnClass`, `@ConditionalOnMissingClass`
-    - `@ConditionalOnProperty`, `@ConditionalOnResource`
-    - `@ConditionalOnWebApplication`, `@ConditionalOnNotWebApplication`
-    - `@ConditionalOnJava`, `@ConditionalOnExpression`
+* `@Conditional` – Generic conditional configuration
+* `@Profile` – Conditionally loads beans by profile
+* Spring Boot Specific:
+  * `@ConditionalOnBean`, `@ConditionalOnMissingBean`
+  * `@ConditionalOnClass`, `@ConditionalOnMissingClass`
+  * `@ConditionalOnProperty`, `@ConditionalOnResource`
+  * `@ConditionalOnWebApplication`, `@ConditionalOnNotWebApplication`
+  * `@ConditionalOnJava`, `@ConditionalOnExpression`
+
 </details>
 
 <details>
@@ -884,8 +896,8 @@ public class User {
 * `@RolesAllowed` – Another JSR-250 annotation for role-based security.
 * `@AuthenticationPrincipal` – Injects the current authenticated user (`Principal`) into a controller method.
 * `@EnableWebFluxSecurity` – Enables security for reactive web applications (WebFlux).
-</details>
 
+</details>
 
 ✅ `@Cacheable` — to retrieve from cache
 ✅ `@CacheEvict` — to remove from cache
@@ -896,9 +908,10 @@ public class User {
 # ⚡ Spring Boot Caching Annotations – Complete Guide
 
 This guide covers:
-- ✅ `@Cacheable`
-- 🧹 `@CacheEvict`
-- 🔁 `@CachePut`
+
+* ✅ `@Cacheable`
+* 🧹 `@CacheEvict`
+* 🔁 `@CachePut`
 
 ---
 
@@ -920,11 +933,12 @@ Spring's caching abstraction provides a powerful and easy way to improve applica
 <details>
 <summary>🚀 2. @Cacheable – Read from Cache</summary>
 
-### 🧠 Description
+**🧠 Description**
+
 The `@Cacheable` annotation is used on a method to indicate that its result should be cached. When a method annotated with `@Cacheable` is called, Spring first checks the cache to see if a result for the given arguments already exists.
 
-- **If a result is found in the cache**, the cached value is returned immediately, and the method is **not executed**.
-- **If no result is found**, the method is executed, and its return value is stored in the cache before being returned.
+* **If a result is found in the cache**, the cached value is returned immediately, and the method is **not executed**.
+* **If no result is found**, the method is executed, and its return value is stored in the cache before being returned.
 
 ### ✅ Parameters
 
@@ -943,6 +957,7 @@ The `@Cacheable` annotation is used on a method to indicate that its result shou
 
 **1. Basic Caching:**
 Caches the `Product` object in the "products" cache. The default key will be based on the `id` parameter.
+
 ```java
 @Cacheable(value = "products")
 public Product getProduct(String id) {
@@ -953,6 +968,7 @@ public Product getProduct(String id) {
 
 **2. Conditional Caching with a Custom Key:**
 Caches a `User` object only if the user is active. The key is explicitly set to the user's ID.
+
 ```java
 @Cacheable(value = "users", key = "#user.id", condition = "#user.active")
 public User findUser(User user) {
@@ -962,6 +978,7 @@ public User findUser(User user) {
 
 **3. Preventing Null Values from Being Cached:**
 Uses the `unless` parameter to avoid caching if the method returns `null`.
+
 ```java
 @Cacheable(value = "inventory", key = "#sku", unless = "#result == null")
 public Inventory fetchInventory(String sku) {
@@ -971,6 +988,7 @@ public Inventory fetchInventory(String sku) {
 
 **4. Synchronized Caching:**
 Prevents multiple threads from calculating the price for the same item at the same time.
+
 ```java
 @Cacheable(value = "pricing", key = "#itemId", sync = true)
 public Price calculatePrice(String itemId) {
@@ -986,13 +1004,13 @@ public Price calculatePrice(String itemId) {
 <details>
 <summary>🧹 3. @CacheEvict – Remove from Cache</summary>
 
-### 🧠 Description
+**🧠 Description**
 
 The `@CacheEvict` annotation is used to remove entries from a cache. This is useful when the underlying data has changed (e.g., after a delete or update operation), and you need to clear out the old, stale data from the cache.
 
 You can evict a single entry based on a key, or clear all entries in a cache.
 
-### ✅ Parameters
+**✅ Parameters**
 
 | Parameter                | Description                                                                                                                                                                                                                                                                   |
 |--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -1006,6 +1024,7 @@ You can evict a single entry based on a key, or clear all entries in a cache.
 
 **1. Evicting a Single Entry:**
 Removes a single product from the "products" cache when it is deleted.
+
 ```java
 @CacheEvict(value = "products", key = "#productId")
 public void deleteProduct(String productId) {
@@ -1015,6 +1034,7 @@ public void deleteProduct(String productId) {
 
 **2. Evicting All Entries:**
 Clears the entire "products" cache.
+
 ```java
 @CacheEvict(value = "products", allEntries = true)
 public void refreshAllProducts() {
@@ -1024,6 +1044,7 @@ public void refreshAllProducts() {
 
 **3. Conditional Eviction:**
 Only evicts the user from the cache if the `deactivated` flag is true.
+
 ```java
 @CacheEvict(value = "users", key = "#user.id", condition = "#user.isDeactivated()")
 public void updateUserStatus(User user) {
@@ -1051,13 +1072,13 @@ public void clearReportsCache() {
 <details>
 <summary>🔁 4. @CachePut – Force Update Cache</summary>
 
-### 🧠 Description
+**🧠 Description**
 
 The `@CachePut` annotation is used to update the cache with the result of a method, without interfering with the method's execution.
 
 Unlike `@Cacheable`, `@CachePut` **always executes the method**. After the method completes successfully, its result is placed into the cache, either adding a new entry or updating an existing one. This is useful for "write-through" caching, where you want to ensure the cache is always up-to-date after an item is modified.
 
-### ✅ Parameters
+**✅ Parameters**
 
 | Parameter       | Description                                                                                                                 |
 | --------------- |-----------------------------------------------------------------------------------------------------------------------------|
@@ -1070,6 +1091,7 @@ Unlike `@Cacheable`, `@CachePut` **always executes the method**. After the metho
 
 **1. Updating a Product:**
 When a product is updated, this method ensures the "products" cache is updated with the new product data.
+
 ```java
 @CachePut(value = "products", key = "#product.id")
 public Product updateProduct(Product product) {
@@ -1079,6 +1101,7 @@ public Product updateProduct(Product product) {
 
 **2. Conditional Update:**
 Only updates the inventory in the cache if the result is not null.
+
 ```java
 @CachePut(value = "inventory", key = "#sku", unless = "#result == null")
 public Inventory refreshStock(String sku) {
@@ -1143,7 +1166,7 @@ That's it! Spring Boot will auto-configure the Caffeine cache manager, and you c
 <details>
 <summary><strong>🧩 6. Custom Key Generator</strong></summary>
 
-### 🧠 Description
+**🧠 Description**
 
 By default, Spring's caching mechanism generates keys based on the method parameters. However, for more complex scenarios, you might need a custom key generation strategy. For example, you might want to generate a key based on a specific field of an object passed as a parameter.
 
@@ -1199,25 +1222,27 @@ In this example, instead of relying on the default key, the `customKeyGenerator`
 <details>
 <summary><strong>🔄 7. Grouping Caching Annotations with @Caching</strong></summary>
 
-### 🧠 Description
+**🧠 Description**
 
 The `@Caching` annotation allows you to group multiple caching annotations on a single method. This is useful when you need to apply different caching rules or interact with multiple caches at the same time.
 
 For example, you might want to evict several entries from different caches and also put a new value into another cache when a method is called.
 
-### ✅ Parameters
+**✅ Parameters**
 
 The `@Caching` annotation has one main attribute, which is an array of other caching annotations:
-- `evict`: An array of `@CacheEvict` annotations.
-- `put`: An array of `@CachePut` annotations.
-- `cacheable`: An array of `@Cacheable` annotations.
+
+* `evict`: An array of `@CacheEvict` annotations.
+* `put`: An array of `@CachePut` annotations.
+* `cacheable`: An array of `@Cacheable` annotations.
 
 ### 🛠️ Example
 
 In this example, when `updateProduct` is called:
-1.  It evicts the product from the `products` cache.
-2.  It evicts all entries from the `productSummaries` cache.
-3.  It puts the updated product back into the `products` cache.
+
+1. It evicts the product from the `products` cache.
+2. It evicts all entries from the `productSummaries` cache.
+3. It puts the updated product back into the `products` cache.
 
 ```java
 @Service
@@ -1252,8 +1277,8 @@ While Spring Boot's auto-configuration for caching is convenient, you often need
 
 You can define cache-specific configurations, like TTL (Time to Live) or maximum size, in your `application.yml`.
 
-*   **Dependency:** `spring-boot-starter-cache` and `com.github.ben-manes.caffeine:caffeine`.
-*   **Configuration (`application.yml`):**
+* **Dependency:** `spring-boot-starter-cache` and `com.github.ben-manes.caffeine:caffeine`.
+* **Configuration (`application.yml`):**
 
     ```yml
     spring:
@@ -1272,8 +1297,8 @@ You can define cache-specific configurations, like TTL (Time to Live) or maximum
 
 ### 2. EhCache (JCache - JSR-107) Configuration
 
-*   **Dependency:** `spring-boot-starter-cache` and `javax.cache:cache-api`, `org.ehcache:ehcache`.
-*   **Configuration:** Requires an `ehcache.xml` file on the classpath.
+* **Dependency:** `spring-boot-starter-cache` and `javax.cache:cache-api`, `org.ehcache:ehcache`.
+* **Configuration:** Requires an `ehcache.xml` file on the classpath.
 
     ```xml
     <!-- src/main/resources/ehcache.xml -->
@@ -1293,7 +1318,9 @@ You can define cache-specific configurations, like TTL (Time to Live) or maximum
         </cache>
     </config>
     ```
-*   **`application.yml`:**
+
+* **`application.yml`:**
+
     ```yml
     spring:
       cache:
@@ -1305,8 +1332,8 @@ You can define cache-specific configurations, like TTL (Time to Live) or maximum
 
 Using Redis for caching is ideal for distributed systems where the cache needs to be shared across multiple service instances.
 
-*   **Dependency:** `spring-boot-starter-data-redis` and `spring-boot-starter-cache`.
-*   **Configuration (`application.yml`):**
+* **Dependency:** `spring-boot-starter-data-redis` and `spring-boot-starter-cache`.
+* **Configuration (`application.yml`):**
 
     ```yml
     spring:
@@ -1318,6 +1345,7 @@ Using Redis for caching is ideal for distributed systems where the cache needs t
     ```
 
     You can also set a default TTL for all Redis caches:
+
     ```yml
     spring:
       cache:
@@ -1331,7 +1359,6 @@ Using Redis for caching is ideal for distributed systems where the cache needs t
 
 <details>
 <summary><strong>🌱 Spring vs Spring Boot</strong></summary>
-
 
 <details>
 <summary><strong>🔍 Difference between Spring and Spring Boot</strong></summary>
@@ -1357,7 +1384,6 @@ In short, **Spring** gives you the tools and flexibility to build an application
 
 </details>
 
-
 <details>
 <summary><strong>🔧 Spring Boot Profiles</strong></summary>
 
@@ -1372,19 +1398,21 @@ The most common way to manage configurations for different environments is by us
 
 The naming convention is `application-{profile}.properties` or `application-{profile}.yml`.
 
-*   `application.properties`: Default properties, loaded for all profiles.
-*   `application-dev.properties`: Loaded when the `dev` profile is active.
-*   `application-prod.properties`: Loaded when the `prod` profile is active.
+* `application.properties`: Default properties, loaded for all profiles.
+* `application-dev.properties`: Loaded when the `dev` profile is active.
+* `application-prod.properties`: Loaded when the `prod` profile is active.
 
 **Example:**
 
 `application-dev.properties`:
+
 ```properties
 server.port=9090
 logging.level.com.example=DEBUG
 ```
 
 `application-prod.properties`:
+
 ```properties
 server.port=8080
 logging.level.com.example=INFO
@@ -1394,8 +1422,8 @@ logging.level.com.example=INFO
 
 The `@Profile` annotation allows you to conditionally register beans or entire configuration classes.
 
-*   **On a `@Bean` method:** The bean is created only if the specified profile is active.
-*   **On a `@Configuration` class:** The entire class and all its `@Bean` definitions are processed only if the profile is active.
+* **On a `@Bean` method:** The bean is created only if the specified profile is active.
+* **On a `@Configuration` class:** The entire class and all its `@Bean` definitions are processed only if the profile is active.
 
 **Example:**
 This configuration creates an in-memory H2 database for development but connects to a PostgreSQL database in production.
@@ -1428,17 +1456,20 @@ public class DataSourceConfig {
 
 You can activate a profile in several ways. Here are the most common methods:
 
-*   **In `application.properties`:**
+* **In `application.properties`:**
+
     ```properties
     spring.profiles.active=dev
     ```
 
-*   **As a command-line argument (overrides properties file):**
+* **As a command-line argument (overrides properties file):**
+
     ```shell
     java -jar my-app.jar --spring.profiles.active=prod
     ```
 
-*   **For tests (most common for testing):**
+* **For tests (most common for testing):**
+
     ```java
     @SpringBootTest
     @ActiveProfiles("test")
@@ -1456,9 +1487,9 @@ You can activate a profile in several ways. Here are the most common methods:
 
 Instead of one large YAML file, you can create separate properties files for each profile. This approach is often cleaner for managing a large number of properties.
 
-*   `application.properties`: Contains common properties loaded for all profiles.
-*   `application-dev.properties`: Contains properties specific to the `dev` environment.
-*   `application-prod.properties`: Contains properties specific to the `prod` environment.
+* `application.properties`: Contains common properties loaded for all profiles.
+* `application-dev.properties`: Contains properties specific to the `dev` environment.
+* `application-prod.properties`: Contains properties specific to the `prod` environment.
 
 When a profile is active (e.g., `dev`), Spring Boot loads `application.properties` first, and then `application-dev.properties`. Any properties in the `dev` file will override those in the default file.
 
@@ -1477,6 +1508,7 @@ spring:
         - "prod-api"
         - "prod-metrics"
 ```
+
 Activating the `production` profile will automatically activate `prod-db`, `prod-api`, and `prod-metrics` as well.
 
 ### 3. The `default` Profile
@@ -1485,10 +1517,10 @@ If no profile is explicitly activated, Spring Boot uses the `default` profile. A
 
 ### 4. Best Practices
 
-*   **Use Meaningful Names:** Adopt a consistent naming convention for profiles, such as `local`, `dev`, `test`, `qa`, `staging`, and `prod`.
-*   **Externalize Secrets:** Never commit sensitive data like database passwords or API keys to version control. Use environment variables, a secrets manager (like HashiCorp Vault), or Spring Cloud Config for production secrets.
-*   **Avoid Complex Logic:** Use profile negation (e.g., `@Profile("!prod")`) sparingly, as it can make your configuration difficult to understand and debug.
-*   **Leverage Profile Groups:** For applications with many configuration facets (e.g., feature flags, different database types), use profile groups to simplify management.
+* **Use Meaningful Names:** Adopt a consistent naming convention for profiles, such as `local`, `dev`, `test`, `qa`, `staging`, and `prod`.
+* **Externalize Secrets:** Never commit sensitive data like database passwords or API keys to version control. Use environment variables, a secrets manager (like HashiCorp Vault), or Spring Cloud Config for production secrets.
+* **Avoid Complex Logic:** Use profile negation (e.g., `@Profile("!prod")`) sparingly, as it can make your configuration difficult to understand and debug.
+* **Leverage Profile Groups:** For applications with many configuration facets (e.g., feature flags, different database types), use profile groups to simplify management.
 
 </details>
 </details>
@@ -1502,9 +1534,9 @@ If no profile is explicitly activated, Spring Boot uses the `default` profile. A
 
 Before Spring Boot, setting up a Spring application was a complex and time-consuming process. Developers had to manually:
 
-1.  **Configure Dependencies:** Find and add compatible versions of Spring modules and third-party libraries to their `pom.xml` or `build.gradle`. Version mismatches often led to conflicts.
-2.  **Set Up a Web Server:** Download, configure, and deploy the application to an external web server like Tomcat or Jetty.
-3.  **Write Boilerplate Configuration:** Create extensive XML or Java-based configuration files to wire up components like `DispatcherServlet`, `ViewResolver`, and data sources.
+1. **Configure Dependencies:** Find and add compatible versions of Spring modules and third-party libraries to their `pom.xml` or `build.gradle`. Version mismatches often led to conflicts.
+2. **Set Up a Web Server:** Download, configure, and deploy the application to an external web server like Tomcat or Jetty.
+3. **Write Boilerplate Configuration:** Create extensive XML or Java-based configuration files to wire up components like `DispatcherServlet`, `ViewResolver`, and data sources.
 
 This "configuration burden" made it difficult to get a simple application running quickly.
 
@@ -1522,27 +1554,32 @@ This "configuration burden" made it difficult to get a simple application runnin
 Spring Boot offers several powerful features that accelerate application development and simplify configuration.
 
 ### 1. Starter Dependencies
+
 Starters are a set of convenient dependency descriptors that you can include in your application. They bundle common dependencies into single, one-stop-shop starters, simplifying your build configuration.
 
-*   **`spring-boot-starter-web`**: For building RESTful web applications with Spring MVC and an embedded Tomcat server.
-*   **`spring-boot-starter-data-jpa`**: For using Spring Data JPA with Hibernate.
-*   **`spring-boot-starter-test`**: For testing Spring Boot applications with libraries like JUnit, Mockito, and Spring Test.
+* **`spring-boot-starter-web`**: For building RESTful web applications with Spring MVC and an embedded Tomcat server.
+* **`spring-boot-starter-data-jpa`**: For using Spring Data JPA with Hibernate.
+* **`spring-boot-starter-test`**: For testing Spring Boot applications with libraries like JUnit, Mockito, and Spring Test.
 
 ### 2. Auto-Configuration
+
 Spring Boot automatically configures your application based on the JAR dependencies you have added. For example, if `spring-boot-starter-web` is on the classpath, it auto-configures Tomcat, a `DispatcherServlet`, and other web-related components without requiring any manual XML or Java configuration.
 
 ### 3. Embedded Servers
+
 Spring Boot includes embedded HTTP servers like Tomcat, Jetty, and Undertow. This allows you to run your application as a standalone JAR file using `java -jar my-app.jar`, without needing to deploy it to an external web server.
 
 ### 4. Spring Actuator
+
 The Actuator module provides production-ready features to help you monitor and manage your application. It exposes a set of endpoints over HTTP or JMX.
 
-*   **`/health`**: Shows application health information.
-*   **`/metrics`**: Displays a variety of application metrics, such as memory usage and HTTP request counts.
-*   **`/info`**: Provides arbitrary application info.
-*   **`/env`**: Shows the current environment properties.
+* **`/health`**: Shows application health information.
+* **`/metrics`**: Displays a variety of application metrics, such as memory usage and HTTP request counts.
+* **`/info`**: Provides arbitrary application info.
+* **`/env`**: Shows the current environment properties.
 
 ### 5. Externalized Configuration
+
 Spring Boot allows you to externalize your configuration so you can work with the same application code in different environments. You can use properties files, YAML files, environment variables, and command-line arguments to specify configuration properties.
 
 </details>
@@ -1554,88 +1591,91 @@ Spring Boot allows you to externalize your configuration so you can work with th
 <details>
 <summary><strong>📦 Sources of External Configuration</strong></summary>
 
-- `application.properties` / `application.yml`  
-- **Profile-specific config files**  
-  - `application-dev.properties`  
-  - `application-prod.yml`
-- **Command line arguments**  
+* `application.properties` / `application.yml`  
+* **Profile-specific config files**  
+  * `application-dev.properties`  
+  * `application-prod.yml`
+* **Command line arguments**  
   ➤ `--server.port=8081`
-- **Environment variables**
-- **JNDI properties**
-- **Servlet context parameters**
+* **Environment variables**
+* **JNDI properties**
+* **Servlet context parameters**
+
 </details>
 
 ---
+
+## Design Patterns
 
 <details>
 <summary><strong>🎯 Common Design Patterns Used in Spring Boot</strong></summary>
 
 ### 🔁 1. Singleton Pattern
 
-- **Definition**: Ensures a class has only one instance and provides a global point of access to it.
-- **Spring Use**: By default, all Spring beans are singleton scoped.
-- **Example**: Service beans (`@Service`), DAO beans (`@Repository`) – only one instance created and reused.
-- **Benefit**: Saves memory and ensures consistent state across the application.
+* **Definition**: Ensures a class has only one instance and provides a global point of access to it.
+* **Spring Use**: By default, all Spring beans are singleton scoped.
+* **Example**: Service beans (`@Service`), DAO beans (`@Repository`) – only one instance created and reused.
+* **Benefit**: Saves memory and ensures consistent state across the application.
 
 ---
 
 ### 🧩 2. Dependency Injection (DI)
 
-- **Definition**: A design pattern that removes hard-coded dependencies and makes it possible to change them.
-- **Spring Use**: Core to Spring. Spring injects dependencies into beans using:
-    - Constructor injection
-    - Field injection (`@Autowired`)
-    - Setter injection
-- **Benefit**: Loose coupling, better testability, and flexibility.
+* **Definition**: A design pattern that removes hard-coded dependencies and makes it possible to change them.
+* **Spring Use**: Core to Spring. Spring injects dependencies into beans using:
+  * Constructor injection
+  * Field injection (`@Autowired`)
+  * Setter injection
+* **Benefit**: Loose coupling, better testability, and flexibility.
 
 ---
 
 ### 📦 3. Factory Pattern
 
-- **Definition**: Creates objects without exposing the instantiation logic to the client.
-- **Spring Use**: `ApplicationContext.getBean()` acts like a factory.
-- **Example**: Bean creation via `@Bean` methods or component scanning.
-- **Benefit**: Centralizes object creation logic.
+* **Definition**: Creates objects without exposing the instantiation logic to the client.
+* **Spring Use**: `ApplicationContext.getBean()` acts like a factory.
+* **Example**: Bean creation via `@Bean` methods or component scanning.
+* **Benefit**: Centralizes object creation logic.
 
 ---
 
 ### 🏭 4. Prototype Pattern
 
-- **Definition**: Creates new object instances every time they are requested.
-- **Spring Use**: Achieved using `@Scope("prototype")`.
-- **Use case**: When beans are stateful or thread-unsafe and must not be reused.
+* **Definition**: Creates new object instances every time they are requested.
+* **Spring Use**: Achieved using `@Scope("prototype")`.
+* **Use case**: When beans are stateful or thread-unsafe and must not be reused.
 
 ---
 
 ### 🧵 5. Proxy Pattern (AOP)
 
-- **Definition**: Provides a surrogate or placeholder for another object to control access to it.
-- **Spring Use**: Used in AOP for method interception (`@Aspect`, `@Around`, etc.).
-- **Use case**: Logging, transactions, security.
+* **Definition**: Provides a surrogate or placeholder for another object to control access to it.
+* **Spring Use**: Used in AOP for method interception (`@Aspect`, `@Around`, etc.).
+* **Use case**: Logging, transactions, security.
 
 ---
 
 ### ⚙️ 6. Template Method Pattern
 
-- **Definition**: Defines the skeleton of an algorithm in a method, deferring some steps to subclasses.
-- **Spring Use**: Seen in `JdbcTemplate`, `RestTemplate`, `JpaTemplate`.
-- **Benefit**: Avoids duplicate boilerplate logic and allows for customization.
+* **Definition**: Defines the skeleton of an algorithm in a method, deferring some steps to subclasses.
+* **Spring Use**: Seen in `JdbcTemplate`, `RestTemplate`, `JpaTemplate`.
+* **Benefit**: Avoids duplicate boilerplate logic and allows for customization.
 
 ---
 
 ### 🧠 7. Observer Pattern (Events)
 
-- **Definition**: One-to-many dependency between objects so that when one object changes state, all dependents are notified.
-- **Spring Use**: Application events using `@EventListener`.
-- **Example**: Domain events, custom app events like `UserRegisteredEvent`.
+* **Definition**: One-to-many dependency between objects so that when one object changes state, all dependents are notified.
+* **Spring Use**: Application events using `@EventListener`.
+* **Example**: Domain events, custom app events like `UserRegisteredEvent`.
 
 ---
 
 ### 🔐 8. Strategy Pattern
 
-- **Definition**: Enables selecting an algorithm’s behavior at runtime.
-- **Spring Use**: Autowire a list of strategy beans and select based on context or config.
-- **Example**: Payment processing, file parsers.
+* **Definition**: Enables selecting an algorithm’s behavior at runtime.
+* **Spring Use**: Autowire a list of strategy beans and select based on context or config.
+* **Example**: Payment processing, file parsers.
 
 </details>
 
@@ -1653,26 +1693,28 @@ Spring Boot allows you to externalize your configuration so you can work with th
 
 ### 🔄 Bean Lifecycle Phases
 
-- Instantiation
-- Dependency Injection
-- Custom Initialization
-- Ready for Use
-- Destruction
+* Instantiation
+* Dependency Injection
+* Custom Initialization
+* Ready for Use
+* Destruction
 
-### 🔧 Configure Bean Lifecycle Using:
+### 🔧 Configure Bean Lifecycle Using
 
 1. **XML Configuration**
 2. **Spring Interfaces**
-   - `InitializingBean` and `DisposableBean`
+   * `InitializingBean` and `DisposableBean`
 3. **Annotations**
-   - `@PostConstruct`
-   - `@PreDestroy`
+   * `@PostConstruct`
+   * `@PreDestroy`
 
 👉 [Reference](https://bushansirgur.in/spring-boot-bean-annotation-with-example/)
 
 </details>
 
 ---
+
+# JPA
 
 <details>
 <summary><strong>📊 JPARepository vs CrudRepository</strong></summary>
@@ -1687,10 +1729,13 @@ Spring Boot allows you to externalize your configuration so you can work with th
 
 ---
 
+## 🧠 Java Persistence API (JPA) – Custom Queries
+
 <details>
-<summary><strong>🧠 Java Persistence API (JPA) – Custom Queries</strong></summary>
+<summary><strong>Java Persistence API (JPA) – Custom Queries</strong></summary>
 
 ### 1. **Named Queries**
+
 Predefined JPQL inside entity classes or XML.
 
 ```java
@@ -1738,8 +1783,10 @@ query.where(cb.gt(root.get("age"), 25));
 
 ---
 
+## 🔎 Query Types in @Repository
+
 <details>
-<summary><strong>🔎 Query Types in @Repository-annotated Interfaces</strong></summary>
+<summary><strong>Query Types in @Repository-annotated Interfaces</strong></summary>
 
 ### 1. **Basic Derived Query**
 
@@ -1783,8 +1830,8 @@ List<User> findByAgeGreaterThanOrderByLastNameAsc(int age);
 <details>
 <summary><strong>1️⃣ Spring Data JPA (with JpaRepository)</strong></summary>
 
-- Simplifies data access using repository interfaces.
-- Built-in transaction management using `@Transactional`.
+* Simplifies data access using repository interfaces.
+* Built-in transaction management using `@Transactional`.
 
 ```java
 @Repository
@@ -1958,16 +2005,14 @@ public class UserRepository {
 
 ---
 
-
-
 # Spring Configuration & REST API Client Overview
 
 <details>
 <summary><strong>How configuration works in Spring</strong></summary>
 
-- `@Configuration` is a Spring Core annotation indicating the class declares one or more `@Bean` methods.
-- It allows the Spring container to process the class and generate Spring-managed beans.
-- Helps with modular and reusable configuration.
+* `@Configuration` is a Spring Core annotation indicating the class declares one or more `@Bean` methods.
+* It allows the Spring container to process the class and generate Spring-managed beans.
+* Helps with modular and reusable configuration.
 
 🔗 [Learn more](https://www.digitalocean.com/community/tutorials/spring-configuration-annotation)
 </details>
@@ -1977,9 +2022,9 @@ public class UserRepository {
 <details>
 <summary><strong>Is REST API stateless or stateful?</strong></summary>
 
-- REST APIs are **stateless**.
-- Each request must contain all information needed by the server to understand and process it.
-- Server does **not** keep any client state between requests.
+* REST APIs are **stateless**.
+* Each request must contain all information needed by the server to understand and process it.
+* Server does **not** keep any client state between requests.
 
 </details>
 
@@ -1988,18 +2033,18 @@ public class UserRepository {
 <details>
 <summary><strong>Spring Integration using <code>RestTemplate</code></strong></summary>
 
-### Common Methods for GET Requests:
+### Common Methods for GET Requests
 
-- `getForObject(url, classType)`  
+* `getForObject(url, classType)`  
   Retrieves response and unmarshals it to the specified class type.
 
-- `getForEntity(url, responseType)`  
+* `getForEntity(url, responseType)`  
   Retrieves response wrapped in a `ResponseEntity`.
 
-- `exchange(url, httpMethod, requestEntity, responseType)`  
+* `exchange(url, httpMethod, requestEntity, responseType)`  
   Executes HTTP request with specified entity and returns response.
 
-- `execute(url, httpMethod, requestCallback, responseExtractor)`  
+* `execute(url, httpMethod, requestCallback, responseExtractor)`  
   Execute HTTP method with callbacks for request and response handling.
 
 🔗 [Example & details](https://howtodoinjava.com/spring-boot2/resttemplate/spring-restful-client-resttemplate-example/)
@@ -2010,9 +2055,9 @@ public class UserRepository {
 <details>
 <summary><strong>Spring Integration using <code>WebClient</code></strong></summary>
 
-- Introduced in Spring WebFlux; supports both synchronous and reactive models.
-- More modern and flexible than `RestTemplate`.
-- Requires adding the dependency:
+* Introduced in Spring WebFlux; supports both synchronous and reactive models.
+* More modern and flexible than `RestTemplate`.
+* Requires adding the dependency:
 
 ```xml
 <dependency>
@@ -2021,7 +2066,7 @@ public class UserRepository {
 </dependency>
 ````
 
-### Basic Setup:
+### Basic Setup
 
 ```java
 @Configuration
@@ -2033,7 +2078,7 @@ public class WebClientConfig {
 }
 ```
 
-### Usage in Service:
+### Usage in Service
 
 ```java
 @Service
@@ -2054,7 +2099,7 @@ public class MyService {
 }
 ```
 
-### Or Without Bean Injection:
+### Or Without Bean Injection
 
 ```java
 @Service
@@ -2073,7 +2118,7 @@ public class MyService {
 }
 ```
 
-### Key Methods in `WebClient`:
+### Key Methods in `WebClient`
 
 * HTTP methods: `get()`, `post()`, `put()`, `delete()`, `patch()`, etc.
 * `uri(...)`: set request URI.
@@ -2084,7 +2129,7 @@ public class MyService {
 * Error handling: `onStatus(...)`
 * Additional: filters, timeouts, exchange(), etc.
 
-### Example with headers:
+### Example with headers
 
 ```java
 WebClient webClient = WebClient.builder()
@@ -2247,8 +2292,8 @@ public class AppConfig {
 
 The service layer now uses `@Retry` as the first line of defense and `@CircuitBreaker` as the second.
 
-- **`@Retry`**: Intercepts the call first. If it fails, it will be re-attempted automatically based on the configuration.
-- **`@CircuitBreaker`**: Only records a failure if all retry attempts fail. It then decides whether to open the circuit.
+* **`@Retry`**: Intercepts the call first. If it fails, it will be re-attempted automatically based on the configuration.
+* **`@CircuitBreaker`**: Only records a failure if all retry attempts fail. It then decides whether to open the circuit.
 
 ```java
 @Service
@@ -2320,15 +2365,15 @@ public class GlobalExceptionHandler {
 
 The execution flow now has an extra layer of resilience:
 
-1.  An HTTP request arrives at the `TodoController`. Spring uses a **virtual thread** to handle it.
-2.  The controller calls `TodoService.getTodoById()`.
-3.  **`@Observed`** starts a timer and creates a trace span.
-4.  **`@Retry`** intercepts the call. If the underlying method throws an exception, it will wait and re-attempt the call up to the configured number of times.
-5.  **`@CircuitBreaker`** is the next interceptor. It only receives the call if the `@Retry` mechanism succeeds on its first try, or it receives the final exception if all retries fail.
-6.  If all retries fail, the `@CircuitBreaker` records it as a single failure. If the failure threshold is breached, the circuit opens.
-7.  If the circuit is open, subsequent calls are blocked by the `@CircuitBreaker`, and the `getTodoFallback` method is invoked immediately.
-8.  If the circuit is closed, the call proceeds to the **`@HttpExchange` client (`TodoClient`)**, which uses **`RestClient`** to make the HTTP request.
-9.  If any unrecoverable exception occurs, the **`GlobalExceptionHandler`** catches it and returns a standardized **`ProblemDetail`** JSON response.
+1. An HTTP request arrives at the `TodoController`. Spring uses a **virtual thread** to handle it.
+2. The controller calls `TodoService.getTodoById()`.
+3. **`@Observed`** starts a timer and creates a trace span.
+4. **`@Retry`** intercepts the call. If the underlying method throws an exception, it will wait and re-attempt the call up to the configured number of times.
+5. **`@CircuitBreaker`** is the next interceptor. It only receives the call if the `@Retry` mechanism succeeds on its first try, or it receives the final exception if all retries fail.
+6. If all retries fail, the `@CircuitBreaker` records it as a single failure. If the failure threshold is breached, the circuit opens.
+7. If the circuit is open, subsequent calls are blocked by the `@CircuitBreaker`, and the `getTodoFallback` method is invoked immediately.
+8. If the circuit is closed, the call proceeds to the **`@HttpExchange` client (`TodoClient`)**, which uses **`RestClient`** to make the HTTP request.
+9. If any unrecoverable exception occurs, the **`GlobalExceptionHandler`** catches it and returns a standardized **`ProblemDetail`** JSON response.
 10. Finally, **`@Observed`** stops the timer and completes the trace span, exporting the data to your monitoring system.
 
 This layered architecture creates a highly robust system that can automatically recover from transient faults while still protecting itself from prolonged outages.
@@ -2336,7 +2381,7 @@ This layered architecture creates a highly robust system that can automatically 
 
 ---
 
-### Useful Resources:
+### Useful Resources
 
 * [Vinsguru GitHub Samples](https://github.com/vinsguru/vinsguru-blog-code-samples)
 * [Udemy Spring RSocket Course](https://www.udemy.com/course/spring-rsocket/)
@@ -2345,10 +2390,7 @@ This layered architecture creates a highly robust system that can automatically 
 
 </details>
 
-
 ---
-
-
 
 # Spring MVC Concepts & Exception Handling
 
@@ -2357,9 +2399,9 @@ This layered architecture creates a highly robust system that can automatically 
 <details>
 <summary><strong>Spring Architecture</strong></summary>
 
-- **Model:** Encapsulates application data, typically as POJOs.
-- **View:** Responsible for rendering model data; usually generates HTML output for the client's browser.
-- **Controller:** Processes user requests, builds the model, and passes it to the view for rendering.
+* **Model:** Encapsulates application data, typically as POJOs.
+* **View:** Responsible for rendering model data; usually generates HTML output for the client's browser.
+* **Controller:** Processes user requests, builds the model, and passes it to the view for rendering.
 
 </details>
 
@@ -2370,7 +2412,8 @@ This layered architecture creates a highly robust system that can automatically 
 
 ### Overview
 
-- **Filters** intercept requests **before** they reach the `DispatcherServlet`. Good for coarse-grained tasks like:
+* **Filters** intercept requests **before** they reach the `DispatcherServlet`. Good for coarse-grained tasks like:
+
 ```
 
 * Authentication
@@ -2380,7 +2423,8 @@ This layered architecture creates a highly robust system that can automatically 
 
 ```
 
-- **HandlerInterceptors** intercept requests **between** `DispatcherServlet` and Controllers, within Spring MVC, providing access to `Handler` and `ModelAndView`. Ideal for fine-grained tasks like:
+* **HandlerInterceptors** intercept requests **between** `DispatcherServlet` and Controllers, within Spring MVC, providing access to `Handler` and `ModelAndView`. Ideal for fine-grained tasks like:
+
 ```
 
 * Cross-cutting concerns such as application logging
@@ -2389,7 +2433,7 @@ This layered architecture creates a highly robust system that can automatically 
 
 ````
 
-### Lifecycle Methods of HandlerInterceptor:
+### Lifecycle Methods of HandlerInterceptor
 
 ```java
 public class LogInterceptor implements HandlerInterceptor {
@@ -2417,7 +2461,7 @@ public class LogInterceptor implements HandlerInterceptor {
 }
 ```
 
-### References:
+### References
 
 * [Baeldung: HandlerInterceptor vs Filter](https://www.baeldung.com/spring-mvc-handlerinterceptor-vs-filter)
 * [Medium: Filter vs Interceptor in Spring Boot](https://senoritadeveloper.medium.com/filter-vs-interceptor-in-spring-boot-2e49089f682e)
@@ -2432,7 +2476,7 @@ public class LogInterceptor implements HandlerInterceptor {
 <details>
 <summary><strong>Exception Handling in Spring Boot</strong></summary>
 
-### Key Annotations:
+### Key Annotations
 
 * `@ControllerAdvice`
   Used for **global exception handling** across controllers.
@@ -2442,7 +2486,7 @@ public class LogInterceptor implements HandlerInterceptor {
 
 ![Exception Handling Annotations](images/AnnotationGlobalException.png)
 
-### Example usage:
+**Example usage**
 
 ```java
 @ControllerAdvice
@@ -2464,9 +2508,6 @@ public class GlobalExceptionHandler {
 
 ---
 
-
-
-
 # Spring Boot Annotations for Extracting Values from URI and Requests
 
 ---
@@ -2474,8 +2515,8 @@ public class GlobalExceptionHandler {
 <details>
 <summary><strong>@PathVariable</strong></summary>
 
-- Binds a method parameter to a URI template variable.
-- Commonly used in RESTful APIs to capture path segments.
+* Binds a method parameter to a URI template variable.
+* Commonly used in RESTful APIs to capture path segments.
 
 ```java
 @RequestMapping("/user/{id}")
@@ -2621,7 +2662,7 @@ public String getSessionData(@SessionAttribute("userId") Long userId) {
 * `@ModelAttribute` on methods: Add common attributes to the model across multiple handlers.
 * You can create **custom annotations** to encapsulate common parameter bindings.
 
-### Common Spring Boot annotations:
+### Common Spring Boot annotations
 
 * `@EnableAutoConfiguration`
 * `@SpringBootApplication`
@@ -2634,7 +2675,6 @@ public String getSessionData(@SessionAttribute("userId") Long userId) {
 
 ---
 
-
 # Spring Dependency Injection & Controller Annotations
 
 ---
@@ -2642,8 +2682,8 @@ public String getSessionData(@SessionAttribute("userId") Long userId) {
 <details>
 <summary><strong>@Qualifier</strong></summary>
 
-- Used to resolve ambiguity when multiple beans of the same type exist.
-- Specifies exactly which bean to inject.
+* Used to resolve ambiguity when multiple beans of the same type exist.
+* Specifies exactly which bean to inject.
 
 ```java
 public interface GreetingService {
@@ -2681,7 +2721,7 @@ public class Application {
 }
 ````
 
-#### Qualifier usage at method level example:
+#### Qualifier usage at method level example
 
 ```java
 @Bean
@@ -2785,7 +2825,7 @@ public MyService(SomeBean someBean) {
 }
 ```
 
-### With @Qualifier for multiple beans:
+### With @Qualifier for multiple beans
 
 ```java
 @Autowired
@@ -2793,7 +2833,7 @@ public MyService(SomeBean someBean) {
 private SomeBean someBean;
 ```
 
-### Optional dependencies:
+### Optional dependencies
 
 ```java
 @Autowired(required = false)
@@ -2829,7 +2869,6 @@ private Optional<SomeBean> someBean;
 
 </details>
 
-
 # Spring Transaction Management & Pagination with JPA
 
 ---
@@ -2837,9 +2876,9 @@ private Optional<SomeBean> someBean;
 <details>
 <summary><strong>@EnableTransactionManagement</strong></summary>
 
-- Applied at the **class level** to enable Spring's annotation-driven transaction management.
-- Allows Spring to intercept methods annotated with `@Transactional`.
-- Manages automatic **start**, **commit**, and **rollback** of database transactions based on method execution.
+* Applied at the **class level** to enable Spring's annotation-driven transaction management.
+* Allows Spring to intercept methods annotated with `@Transactional`.
+* Manages automatic **start**, **commit**, and **rollback** of database transactions based on method execution.
 
 </details>
 
@@ -2848,22 +2887,22 @@ private Optional<SomeBean> someBean;
 <details>
 <summary><strong>@Transactional</strong></summary>
 
-- Defines transactional boundaries on methods or classes.
-- Automatically rolls back if exceptions occur (e.g., in money transfer, if debit from A fails, rollback to prevent inconsistency).
+* Defines transactional boundaries on methods or classes.
+* Automatically rolls back if exceptions occur (e.g., in money transfer, if debit from A fails, rollback to prevent inconsistency).
 
 🔗 [StackOverflow explanation](https://stackoverflow.com/a/54326437/11962586)
 
 ### Propagation Types
 
-- **`Propagation.REQUIRED`** (default):  
+* **`Propagation.REQUIRED`** (default):  
   Joins an existing transaction if available; otherwise, creates a new one.
 
-- **`Propagation.REQUIRES_NEW`**:  
+* **`Propagation.REQUIRES_NEW`**:  
   Suspends the current transaction (if any) and starts a new, independent transaction.
 
 ### Useful Methods
 
-- **`saveAndFlush()`**:  
+* **`saveAndFlush()`**:  
   Saves an entity and immediately flushes changes to the database (committing within the transaction).
 
 🔗 [Baeldung on Propagation & Isolation](https://www.baeldung.com/spring-transactional-propagation-isolation)
@@ -2877,9 +2916,9 @@ private Optional<SomeBean> someBean;
 <details>
 <summary><strong>Pagination using Spring Data JPA</strong></summary>
 
-- Used to handle large datasets efficiently by retrieving data in chunks (pages).
-- Supports sorting and paging out-of-the-box.
-- Commonly used methods include `findAll(Pageable pageable)`.
+* Used to handle large datasets efficiently by retrieving data in chunks (pages).
+* Supports sorting and paging out-of-the-box.
+* Commonly used methods include `findAll(Pageable pageable)`.
 
 Example:
 
@@ -2915,6 +2954,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findFirst10ByIdGreaterThanOrderByIdAsc(Long lastSeenId);
 }
 ```
+
 </details>
 
 <details>
@@ -2922,8 +2962,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 For infinite scroll, you don't need the total page count. `Slice<T>` is a more efficient alternative to `Page<T>`.
 
--   **`Page<T>`:** Runs an expensive `COUNT(*)` query to calculate `getTotalPages()`.
--   **`Slice<T>`:** Avoids the `COUNT` query. It only checks if a *next* page exists, which is perfect for "Load More" buttons.
+* **`Page<T>`:** Runs an expensive `COUNT(*)` query to calculate `getTotalPages()`.
+* **`Slice<T>`:** Avoids the `COUNT` query. It only checks if a *next* page exists, which is perfect for "Load More" buttons.
 
 **How to Use It:**
 Simply change the return type in your repository. Spring Data automatically fetches one extra record to determine if `hasNext()` should be true.
@@ -2935,6 +2975,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Slice<Product> findFirst10ByIdGreaterThanOrderByIdAsc(Long lastSeenId);
 }
 ```
+
 Your service can then check `slice.hasNext()` to inform the UI.
 </details>
 
@@ -2945,12 +2986,14 @@ You rarely need to send the entire entity to the client. DTO (Data Transfer Obje
 
 **How to Use It:**
 
-1.  **Create a DTO Record/Class:**
+1. **Create a DTO Record/Class:**
+
     ```java
     public record ProductSummaryDto(Long id, String name, BigDecimal price) {}
     ```
 
-2.  **Use it in your Repository:**
+2. **Use it in your Repository:**
+
     ```java
     public interface ProductRepository extends JpaRepository<Product, Long> {
 
@@ -2958,7 +3001,9 @@ You rarely need to send the entire entity to the client. DTO (Data Transfer Obje
         Slice<ProductSummaryDto> findNextProducts(@Param("lastSeenId") Long lastSeenId, Pageable pageable);
     }
     ```
+
     *Note: We use `Pageable` here with `PageRequest.ofSize(10)` to control the limit dynamically.*
+
 </details>
 
 <details>
@@ -2966,28 +3011,26 @@ You rarely need to send the entire entity to the client. DTO (Data Transfer Obje
 
 For the most performant and modern pagination, you combine all three:
 
-1.  **Keyset Pagination Logic:** To avoid slow `OFFSET` queries.
-2.  **`Slice<T>`:** To avoid the unnecessary `COUNT` query.
-3.  **DTO Projections:** To fetch only the data you need.
+1. **Keyset Pagination Logic:** To avoid slow `OFFSET` queries.
+2. **`Slice<T>`:** To avoid the unnecessary `COUNT` query.
+3. **DTO Projections:** To fetch only the data you need.
 
 This approach provides a superior user experience for features like infinite scrolling and is highly scalable for applications with very large datasets.
 </details>
 
 </details>
 
-
-
 # Dependency Injection (DI) in Spring Boot
 
 <details>
 <summary><strong>Why use DI instead of <code>new</code>?</strong></summary>
 
-- **Loose coupling:** DI separates object creation from usage, making code modular and easier to maintain.  
-- **Inversion of Control (IoC):** Spring manages object creation and wiring, improving flexibility.  
-- **Testability:** Enables easy mocking and unit testing.  
-- **Scalability & Reusability:** Interfaces and abstractions let you swap implementations easily.  
-- **Centralized configuration:** Manage dependencies in one place (annotations/config files).  
-- **Less boilerplate:** No need to manually instantiate or wire dependencies.
+* **Loose coupling:** DI separates object creation from usage, making code modular and easier to maintain.  
+* **Inversion of Control (IoC):** Spring manages object creation and wiring, improving flexibility.  
+* **Testability:** Enables easy mocking and unit testing.  
+* **Scalability & Reusability:** Interfaces and abstractions let you swap implementations easily.  
+* **Centralized configuration:** Manage dependencies in one place (annotations/config files).  
+* **Less boilerplate:** No need to manually instantiate or wire dependencies.
 
 </details>
 
@@ -3099,11 +3142,13 @@ For more details:
 Cookies are commonly used for **authentication**, **security**, **session management**, and **user preferences**.
 
 ### 1.1 Authentication Cookies
-- `JSESSIONID`: Session-based authentication.
-- `SESSION`: From Spring Session (e.g., Redis, JDBC).
-- JWT Cookies:
-  - `access_token`: Stores JWT access token.
-  - `refresh_token`: Stores JWT refresh token.
+
+* `JSESSIONID`: Session-based authentication.
+
+* `SESSION`: From Spring Session (e.g., Redis, JDBC).
+* JWT Cookies:
+  * `access_token`: Stores JWT access token.
+  * `refresh_token`: Stores JWT refresh token.
 
 ```java
 ResponseCookie jwtCookie = ResponseCookie.from("access_token", jwtToken)
@@ -3285,8 +3330,8 @@ COR refers to requests from a frontend on one domain to a backend on another.
 * Browsers block COR cookies **without CORS**.
 * You need:
 
-    * `Access-Control-Allow-Credentials: true`
-    * No wildcard `*` in allowed origins.
+  * `Access-Control-Allow-Credentials: true`
+  * No wildcard `*` in allowed origins.
 
 </details>
 
@@ -3324,7 +3369,7 @@ Ensure:
 
 No — **CORS is not part of a cookie**. But browsers **enforce CORS** to decide if cookies should be sent.
 
-### When CORS is needed:
+### When CORS is needed
 
 * ✅ Yes: Frontend and backend on **different domains**.
 * ❌ No: Same domain/subdomain.
@@ -3357,9 +3402,6 @@ No — **CORS is not part of a cookie**. But browsers **enforce CORS** to decide
 
 </details>
 
-
-
-
 Here's your **Spring Boot Auto-Configuration** guide, fully **refactored into collapsible Markdown sections** using `<details>` tags for clarity and expand/collapse behavior:
 
 ---
@@ -3369,11 +3411,11 @@ Here's your **Spring Boot Auto-Configuration** guide, fully **refactored into co
 <details>
 <summary><strong>🔹 1. Conditional Configuration with <code>@Conditional</code></strong></summary>
 
-- Introduced in **Spring 4**
-- Allows **conditional bean registration** in the Spring container
-- Powered by the `Condition` interface
+* Introduced in **Spring 4**
+* Allows **conditional bean registration** in the Spring container
+* Powered by the `Condition` interface
 
-### Common Conditional Variants:
+### Common Conditional Variants
 
 | Annotation                     | Condition                           |
 |-------------------------------|-------------------------------------|
@@ -3408,7 +3450,7 @@ Spring Boot follows an internal evaluation order when applying auto-configuratio
 <details>
 <summary><strong>🔹 3. Creating Custom Auto-Configuration Modules</strong></summary>
 
-### Steps to Create:
+### Steps to Create
 
 1. Create a standard Spring `@Configuration` class
 2. Annotate with conditionals like `@ConditionalOnProperty`, `@ConditionalOnClass`, etc.
@@ -3419,12 +3461,12 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.example.MyAutoConfiguration
 ```
 
-### Notes:
+### Notes
 
 * Spring Boot scans all `spring.factories` across JARs
 * These configurations are auto-loaded at startup
 
-### Drawbacks:
+### Drawbacks
 
 * Hidden from view unless explicitly checked
 * Difficult to test/debug what is actually applied
@@ -3440,9 +3482,9 @@ com.example.MyAutoConfiguration
 * Use either for defining Spring Boot config
 * Choose based on:
 
-    * **Readability**
-    * **Team preference**
-    * **Tooling or CI compatibility**
+  * **Readability**
+  * **Team preference**
+  * **Tooling or CI compatibility**
 
 </details>
 
@@ -3491,7 +3533,6 @@ com.example.MyAutoConfiguration
 
 ---
 
-
 ## 🔄 Load Balancing in Spring Boot
 
 Load balancing in a Spring Boot application ensures high availability, fault tolerance, and efficient traffic distribution. Below are several strategies commonly used:
@@ -3503,7 +3544,7 @@ Load balancing in a Spring Boot application ensures high availability, fault tol
 
 **Nginx and Apache** are popular tools to route traffic across multiple Spring Boot instances.
 
-### ✅ Nginx Example Configuration:
+### ✅ Nginx Example Configuration
 
 ```nginx
 http {
@@ -3535,7 +3576,7 @@ http {
 
 Spring Cloud provides **Eureka** (Service Registry) and **Ribbon** (Client-side Load Balancer).
 
-### ✅ Dependencies:
+### ✅ Dependencies
 
 ```xml
 <dependency>
@@ -3548,13 +3589,13 @@ Spring Cloud provides **Eureka** (Service Registry) and **Ribbon** (Client-side 
 </dependency>
 ```
 
-### ✅ Configuration (application.properties):
+### ✅ Configuration (application.properties)
 
 ```properties
 eureka.client.serviceUrl.defaultZone=http://eureka-server-url
 ```
 
-### ✅ LoadBalanced `RestTemplate` Bean:
+### ✅ LoadBalanced `RestTemplate` Bean
 
 ```java
 @Bean
@@ -3576,7 +3617,7 @@ public RestTemplate restTemplate() {
 
 Kubernetes provides **built-in load balancing** using the Service abstraction.
 
-### ✅ Example `spring-boot-service.yaml`:
+### ✅ Example `spring-boot-service.yaml`
 
 ```yaml
 apiVersion: v1
@@ -3601,16 +3642,14 @@ spec:
 
 ---
 
-### 📌 Final Thoughts:
+### 📌 Final Thoughts
 
 * Choose your load balancing strategy based on **deployment environment**:
 
-    * ✅ **Nginx/Apache** – Best for on-prem or standalone deployments
-    * ✅ **Spring Cloud** – Ideal for microservices with service discovery
-    * ✅ **Kubernetes** – Preferred in containerized, cloud-native deployments
+  * ✅ **Nginx/Apache** – Best for on-prem or standalone deployments
+  * ✅ **Spring Cloud** – Ideal for microservices with service discovery
+  * ✅ **Kubernetes** – Preferred in containerized, cloud-native deployments
 
-
-    
 <details>
 <summary><strong>SSO (Single Sign-On)</strong></summary>
 
@@ -3639,9 +3678,9 @@ Single Sign-On (SSO) is an authentication process allowing a user to access mult
 
 ## 🔗 Integration with Spring Security OAuth2 or Keycloak
 
-- Spring Security OAuth2 and Keycloak are popular tools for implementing SSO in Spring Boot.
-- They act as the Identity Provider or integrate with one.
-- Support OAuth2 and OpenID Connect protocols.
+* Spring Security OAuth2 and Keycloak are popular tools for implementing SSO in Spring Boot.
+* They act as the Identity Provider or integrate with one.
+* Support OAuth2 and OpenID Connect protocols.
 
 ---
 
@@ -3846,15 +3885,18 @@ The `@Around("@annotation(Retryable)")` AOP advice is incredibly helpful for bui
 Here are the key scenarios where this approach is beneficial:
 
 #### 1. **Calling Unreliable External Services or APIs**
+
 This is the most common use case. When your application communicates with other microservices, third-party APIs (like payment gateways, social media APIs, or weather services), or any network resource, failures can happen for many reasons:
-*   Temporary network glitches.
-*   The external service is briefly down for a restart.
-*   The service is overloaded and returns a rate-limiting error (e.g., HTTP 429).
-*   Request timeouts.
+
+* Temporary network glitches.
+* The external service is briefly down for a restart.
+* The service is overloaded and returns a rate-limiting error (e.g., HTTP 429).
+* Request timeouts.
 
 Instead of failing the entire operation immediately, you can annotate the client method with `@Retryable` to automatically re-attempt the call a few times.
 
 **Example:**
+
 ```java
 @Service
 public class PaymentGatewayClient {
@@ -3868,12 +3910,15 @@ public class PaymentGatewayClient {
 ```
 
 #### 2. **Handling Transient Database Errors**
+
 Database operations can sometimes fail due to temporary issues that resolve themselves quickly:
-*   **Deadlock:** Two transactions are waiting for each other to release locks. One will be chosen as a "deadlock victim" and rolled back. Retrying the transaction will likely succeed.
-*   **Connection Pool Exhaustion:** The application might temporarily run out of available database connections. A short wait and retry can allow a connection to become available.
-*   **Temporary Network Partition:** The connection between the application server and the database server is briefly lost.
+
+* **Deadlock:** Two transactions are waiting for each other to release locks. One will be chosen as a "deadlock victim" and rolled back. Retrying the transaction will likely succeed.
+* **Connection Pool Exhaustion:** The application might temporarily run out of available database connections. A short wait and retry can allow a connection to become available.
+* **Temporary Network Partition:** The connection between the application server and the database server is briefly lost.
 
 **Example:**
+
 ```java
 @Service
 public class OrderService {
@@ -3887,9 +3932,11 @@ public class OrderService {
 ```
 
 #### 3. **Consuming Messages from a Queue**
+
 When processing a message from a queue (like RabbitMQ, SQS, or Kafka), the processing logic might depend on other services or resources that are temporarily unavailable. Instead of immediately sending the message to a Dead-Letter Queue (DLQ), you can retry processing it. This prevents the DLQ from filling up with messages that could have been processed successfully after a short delay.
 
 **Example:**
+
 ```java
 @Component
 public class OrderMessageListener {
@@ -3905,10 +3952,11 @@ public class OrderMessageListener {
 #### Why Use `@Around` Advice for This?
 
 The `@Around` advice is essential for retry logic because it allows you to:
-1.  **Wrap the original method call** inside a `try-catch` block.
-2.  **Control execution:** You can call `proceedingJoinPoint.proceed()` to execute the target method.
-3.  **Handle exceptions:** If an exception is caught, you can decide whether to re-throw it or to loop and try again.
-4.  **Manage state:** You can keep track of the number of attempts made.
+
+1. **Wrap the original method call** inside a `try-catch` block.
+2. **Control execution:** You can call `proceedingJoinPoint.proceed()` to execute the target method.
+3. **Handle exceptions:** If an exception is caught, you can decide whether to re-throw it or to loop and try again.
+4. **Manage state:** You can keep track of the number of attempts made.
 
 </details>
 
@@ -3931,9 +3979,10 @@ Here is a table that clarifies the distinct roles of each:
 
 #### Summary of Roles
 
-*   **`@Observed`** is the "what" (I want to observe this).
-*   **AOP** is the "how" for custom logic (I will intercept this method and do X, Y, and Z).
-*   **SLF4J** is the "tool" used to perform the actual logging action (Write this message to the console/file).
+* **`@Observed`** is the "what" (I want to observe this).
+* **AOP** is the "how" for custom logic (I will intercept this method and do X, Y, and Z).
+* **SLF4J** is the "tool" used to perform the actual logging action (Write this message to the console/file).
+
 </details>
 
 <details>
@@ -3942,13 +3991,14 @@ Here is a table that clarifies the distinct roles of each:
 It's common and powerful to combine these technologies. Here’s how to do it effectively.
 
 #### Execution Order and Layering
+
 When you apply multiple annotations to a single method, they are "layered" using AOP proxies. You can control their order with `@Order` on the aspect classes. A typical, effective order is:
 
-1.  **Transaction (`@Transactional`):** Should be the outermost layer to manage the entire operation's lifecycle.
-2.  **Resilience (`@Retry`, `@CircuitBreaker`):** Wraps the operation to handle failures. Retrying should happen *within* the transaction to ensure consistency.
-3.  **Observability (`@Observed`):** Measures the performance and traces the execution of the resilient operation.
-4.  **Custom Logic (`@Aspect`):** Your own aspects for logging, security, etc., usually come last.
-5.  **Your Business Logic:** The core method code is at the very center.
+1. **Transaction (`@Transactional`):** Should be the outermost layer to manage the entire operation's lifecycle.
+2. **Resilience (`@Retry`, `@CircuitBreaker`):** Wraps the operation to handle failures. Retrying should happen *within* the transaction to ensure consistency.
+3. **Observability (`@Observed`):** Measures the performance and traces the execution of the resilient operation.
+4. **Custom Logic (`@Aspect`):** Your own aspects for logging, security, etc., usually come last.
+5. **Your Business Logic:** The core method code is at the very center.
 
 #### Good Practice vs. Bad Practice
 
@@ -4195,7 +4245,6 @@ AOP stands for **Aspect-Oriented Programming**, and it helps you inject common f
 | **Pointcut**   | An expression to match join points                                               |
 | **Weaving**    | Linking aspects with the target objects                                          |
 
-
 ---
 
 This Spring Boot AOP Project includes:
@@ -4242,7 +4291,7 @@ public class AopConfig {
 <details>
 <summary><strong>🛡️ Custom Annotation: @LogExecution</strong></summary>
 
-### Purpose:
+**Purpose**
 
 Logs method **entry**, **return value**, and **exceptions** centrally.
 
@@ -4252,7 +4301,7 @@ Logs method **entry**, **return value**, and **exceptions** centrally.
 public @interface LogExecution {}
 ```
 
-### Example usage:
+**Example usage**
 
 ```java
 @LogExecution
@@ -4261,7 +4310,7 @@ public String fetchUserData(String id) {
 }
 ```
 
-### Corresponding Aspect:
+### Corresponding Aspect
 
 ```java
 @Before("@annotation(logExecution)")
@@ -4289,7 +4338,7 @@ This helps monitor what's happening in your app without modifying business logic
 <details>
 <summary><strong>🔁 Custom Annotation: @Retryable</strong></summary>
 
-### Purpose:
+**Purpose**
 
 Retries a method if it fails, for a fixed number of attempts.
 
@@ -4301,7 +4350,7 @@ public @interface Retryable {
 }
 ```
 
-### Example usage:
+**Example usage**
 
 ```java
 @Retryable(attempts = 3)
@@ -4310,7 +4359,7 @@ public String callRemoteService() {
 }
 ```
 
-### Retry Logic Aspect:
+### Retry Logic Aspect
 
 ```java
 @Around("@annotation(retryable)")
@@ -4355,7 +4404,7 @@ public class MyService {
 <details>
 <summary><strong>📊 Logging with SLF4J + Logback</strong></summary>
 
-### SLF4J is used for logging with support from Logback.
+### SLF4J is used for logging with support from Logback
 
 ```java
 private static final Logger logger = LoggerFactory.getLogger(YourClass.class);
