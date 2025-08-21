@@ -2276,6 +2276,38 @@ public class AppConfig {
             .baseUrl("https://jsonplaceholder.typicode.com")
             .build();
     }
+    @Bean
+    public RestClient legacyAuthRestClient() {
+        System.out.println("[LegacyAuthRestClientConfig] legacyAuthBaseUrl: " + legacyAuthBaseUrl);
+        RestClient.Builder builder = RestClient.builder()
+                .baseUrl(legacyAuthBaseUrl);
+
+        // Add logging interceptor
+        builder = builder.requestInterceptor((request, body, execution) -> {
+            System.out.println("[RestClient] Request URI: " + request.getURI());
+            System.out.println("[RestClient] Request Method: " + request.getMethod());
+            System.out.println("[RestClient] Request Headers: " + request.getHeaders());
+            if (body != null) {
+                System.out.println("[RestClient] Request Body: " + new String(body, StandardCharsets.UTF_8));
+            }
+            ClientHttpResponse response = execution.execute(request, body);
+            System.out.println("[RestClient] Response Status: " + response.getStatusCode());
+            System.out.println("[RestClient] Response Headers: " + response.getHeaders());
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(response.getBody(), StandardCharsets.UTF_8))) {
+                StringBuilder out = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    out.append(line);
+                }
+                System.out.println("[RestClient] Response Body: " + out);
+            } catch (IOException e) {
+                System.out.println("[RestClient] Error reading response body: " + e.getMessage());
+            }
+            return response;
+        });
+
+        return builder.build();
+    }
 
     // 2. Create the declarative client proxy
     @Bean
