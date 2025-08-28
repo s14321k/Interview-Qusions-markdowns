@@ -4541,6 +4541,10 @@ spotless {
     }
 }
 ```
+**Run**
+
+`./gradlew spotlessCheck
+./gradlew spotlessApply`
 
 # Zipkin
 
