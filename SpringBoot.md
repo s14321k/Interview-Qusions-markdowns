@@ -4518,3 +4518,146 @@ INFO  Returned Value: Success on attempt 3
 </details>
 
 ---
+
+# Spotless lint
+
+```gradle
+plugins {
+    id 'com.diffplug.spotless' version '6.25.0'
+}
+spotless {
+    java {
+        googleJavaFormat('1.17.0')
+        target 'src/**/*.java'
+        importOrder('java', 'javax', 'org', 'com', '')
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+    format 'misc', {
+        target '**/*.gradle', '**/*.md', '**/.gitignore'
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+```
+
+# Zipkin
+
+```
+spring:
+  sleuth:
+    scheduled:
+      enabled: false
+
+# Spring Boot 3 native tracing configuration
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    enabled: true
+    propagation:
+      type: w3c
+  zipkin:
+    tracing:
+      endpoint: ${ZIPKIN_ENDPOINT:http://localhost:9411/api/v2/spans}
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,threaddump,loggers,env,prometheus
+    health:
+      show-details: always
+      show-components: always
+      enabled: true
+
+
+# Additional OpenTelemetry configuration
+otel:
+  sdk:
+    disabled: false
+  exporter:
+    zipkin:
+      # Use the same endpoint as defined in management.zipkin.tracing.endpoint
+      endpoint: ${ZIPKIN_ENDPOINT:http://localhost:9411/api/v2/spans}
+  traces:
+    exporter: zipkin
+  metrics:
+    exporter: none
+  logs:
+    exporter: none
+
+# Enhanced logging for local development
+logging:
+  level:
+    root: INFO
+    com.oreillyauto: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.web: DEBUG
+    org.springframework.orm.jpa: TRACE
+```
+
+```gradle
+dependencies {
+    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+    implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
+//    implementation 'io.zipkin.brave:brave-instrumentation-messaging'
+//    implementation 'io.zipkin.gcp:brave-propagation-stackdriver'
+//    implementation 'io.zipkin.gcp:brave-encoder-stackdriver:0.1.0'
+//    implementation 'com.google.cloud:google-cloud-core-grpc'
+//    implementation 'com.google.cloud:spring-cloud-gcp-starter-trace:3.7.4'
+}
+```
+
+# Traceable
+
+```java
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface Traceable {
+}
+```
+
+```java
+import io.micrometer.tracing.Span;
+import io.micrometer.tracing.Tracer;
+import lombok.RequiredArgsConstructor;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+@RequiredArgsConstructor
+public class TraceableAspect {
+
+    private final Tracer tracer;
+
+    @Around("@annotation(com.oreillyauto.ms.core.aop.Traceable)")
+    public Object traceMethod(ProceedingJoinPoint pjp) throws Throwable {
+        MethodSignature signature = (MethodSignature) pjp.getSignature();
+        String spanName = signature.getDeclaringType().getSimpleName() + "." + signature.getName();
+        Span newSpan = tracer.nextSpan().name(spanName).start();
+        try (Tracer.SpanInScope ws = tracer.withSpan(newSpan.start())) {
+            long start = System.currentTimeMillis();
+            Object result = pjp.proceed();
+            long end = System.currentTimeMillis();
+            newSpan.tag("execution.time.ms", String.valueOf(end - start));
+            return result;
+        } catch (Throwable t) {
+            newSpan.error(t);
+            throw t;
+        } finally {
+            newSpan.end();
+        }
+    }
+}
+```
