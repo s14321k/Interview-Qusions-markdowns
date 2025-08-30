@@ -72,3 +72,23 @@ spring.devtools.restart.enabled=false
 - Right click on pom.xml on each project and select add to maven module
 - For gradle, something similar to that.
 
+### Build Cmds
+
+**Remove unused dependency** 
+- `./gradlew buildHealth` if we use `id 'com.autonomousapps.dependency-analysis' version '3.0.1'`
+**Spotless check and apply**
+- `./gradlew spotlessCheck`
+- `./gradlew spotlessApply`
+- `./gradlew clean build`
+- `grep -i 'insecure' specs/product-service-openapi.yml`
+- `grep -i 'security' specs/product-service-openapi.yml`
+- `./gradlew dependencies --refresh-dependencies`
+- `./gradlew dependencyCheckAnalyze --info`
+- `grep -i 'security' specs/product-service-openapi.yml || grep -i 'insecure' specs/product-service-openapi.yml`
+- `./gradlew dependencyCheckAnalyze --info || ./gradlew dependencies --refresh-dependencies`
+- `./gradlew wrapper`
+- `./gradlew tasks --no-daemon`
+- `./gradlew sonar`
+- `./gradlew build --scan`
+- `./gradlew build --no-daemon --console=plain`
+- `./gradlew tasks --all`
