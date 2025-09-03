@@ -804,3 +804,98 @@ Use whichever output format fits your application/reporting need.
 </details>
 
 ---
+
+<details>
+<summary>🐢 How do you optimize a slow login query using email?</summary>
+
+👉 If the login query using **email** is slow, I would optimize it using a combination of **indexing, query tuning, and caching**.
+
+---
+
+<details>
+<summary>1️⃣ Add Index on Email Column</summary>
+
+* Create an **index** on the `email` column.
+* Ensures lookups like `WHERE email = ?` are **faster**.
+
+```sql
+CREATE INDEX idx_users_email ON users(email);
+```
+
+</details>
+
+---
+
+<details>
+<summary>2️⃣ Check Execution Plan</summary>
+
+* Use `EXPLAIN` (MySQL/Postgres) to verify the query **uses the index**.
+* If not, adjust schema or query hints.
+
+```sql
+EXPLAIN SELECT id, password FROM users WHERE email = 'test@example.com';
+```
+
+</details>
+
+---
+
+<details>
+<summary>3️⃣ Optimize Schema</summary>
+
+* Keep `email` column in proper format (e.g., `VARCHAR(255)`).
+* Ensure correct **collation** for case-insensitive search if needed.
+
+</details>
+
+---
+
+<details>
+<summary>4️⃣ Avoid SELECT *</summary>
+
+* Fetch only required columns (e.g., `id, password`).
+* Reduces **I/O load** and speeds up query execution.
+
+</details>
+
+---
+
+<details>
+<summary>5️⃣ Introduce Caching</summary>
+
+* Use **Redis or in-memory cache** for frequently accessed login data.
+* Reduces database hits for repeated logins.
+
+</details>
+
+---
+
+✅ **In short:**
+**Indexing + Query Optimization + Caching = Faster Login Queries** 🚀
+
+---
+
+```text
+🙋 User Login Request (email, password)
+                |
+                v
+🧠 Check Cache (Redis/Memcached)
+      ├── Hit? → ✅ Return User Data (fast)
+      |
+      └── Miss → Query Database
+                     |
+                     v
+             🔍 Indexed Lookup on Email
+                     |
+                     v
+          📦 Fetch Required Columns (id, password)
+                     |
+                     v
+        📝 Store Result in Cache (for next time)
+                     |
+                     v
+        🔑 Validate Password & Return Response
+```
+
+</details>
+
