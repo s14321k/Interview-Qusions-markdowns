@@ -174,3 +174,7 @@ Complex orchestration     → GKE
 - https://github.com/GoogleCloudPlatform/spring-cloud-gcp/tree/main/spring-cloud-gcp-samples/spring-cloud-gcp-trace-sample
 - https://github.com/GoogleCloudPlatform/spring-cloud-gcp/blob/main/spring-cloud-gcp-starters/spring-cloud-gcp-starter-trace/pom.xml
 - https://cloud.google.com/logging/docs
+
+## OpenTelemetry
+- https://opentelemetry.io/
+- 

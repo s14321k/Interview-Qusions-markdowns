@@ -3501,6 +3501,595 @@ Supports: `int`, `long`, `float`, `double`
 
 ---
 
+# Java Principles & Best Practices
+
+<details>
+<summary>1. Single Responsibility Principle (SRP)</summary>
+
+A class should have **only one reason to change**.
+
+**Bad Example:**
+
+```java
+class User {
+    void saveToDatabase() {}
+    void printUserDetails() {}
+}
+```
+
+**Good Example:**
+
+```java
+class User {}
+class UserRepository {
+    void save(User user) {}
+}
+class UserPrinter {
+    void print(User user) {}
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>2. Open/Closed Principle (OCP)</summary>
+
+Classes should be **open for extension, but closed for modification**.
+
+**Bad Example:**
+
+```java
+class Discount {
+    double getDiscount(String type) {
+        if (type.equals("STUDENT")) return 0.2;
+        if (type.equals("SENIOR")) return 0.3;
+        return 0;
+    }
+}
+```
+
+**Good Example (using polymorphism):**
+
+```java
+interface Discount {
+    double getDiscount();
+}
+
+class StudentDiscount implements Discount {
+    public double getDiscount() { return 0.2; }
+}
+
+class SeniorDiscount implements Discount {
+    public double getDiscount() { return 0.3; }
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>3. Liskov Substitution Principle (LSP)</summary>
+
+Subtypes must be **replaceable** with their base types without breaking the program.
+
+**Bad Example:**
+
+```java
+class Bird {
+    void fly() {}
+}
+class Ostrich extends Bird {  // Ostrich can't fly
+    void fly() { throw new UnsupportedOperationException(); }
+}
+```
+
+**Good Example:**
+
+```java
+interface Bird {}
+interface Flyable extends Bird { void fly(); }
+
+class Sparrow implements Flyable {
+    public void fly() { System.out.println("Flying"); }
+}
+
+class Ostrich implements Bird {}
+```
+
+</details>
+
+---
+
+<details>
+<summary>4. Interface Segregation Principle (ISP)</summary>
+
+Clients should not be forced to implement **unnecessary methods**.
+
+**Bad Example:**
+
+```java
+interface Worker {
+    void work();
+    void eat();
+}
+
+class Robot implements Worker {
+    public void work() {}
+    public void eat() {} // Not applicable
+}
+```
+
+**Good Example:**
+
+```java
+interface Workable { void work(); }
+interface Eatable { void eat(); }
+
+class Robot implements Workable {
+    public void work() {}
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>5. Dependency Inversion Principle (DIP)</summary>
+
+Depend on **abstractions**, not on concrete implementations.
+
+**Bad Example:**
+
+```java
+class MySQLDatabase {
+    void connect() {}
+}
+
+class App {
+    MySQLDatabase db = new MySQLDatabase();
+}
+```
+
+**Good Example:**
+
+```java
+interface Database { void connect(); }
+
+class MySQLDatabase implements Database {
+    public void connect() {}
+}
+
+class App {
+    private Database db;
+    App(Database db) { this.db = db; }
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>6. DRY (Don’t Repeat Yourself)</summary>
+
+Avoid duplicating logic. Extract common behavior into methods/classes.
+
+**Bad Example:**
+
+```java
+int areaSquare(int side) { return side * side; }
+int areaRectangle(int length, int width) { return length * width; }
+```
+
+**Good Example:**
+
+```java
+class ShapeUtils {
+    static int area(int a, int b) { return a * b; }
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>7. KISS (Keep It Simple, Stupid)</summary>
+
+Prefer **simple and clear solutions** over clever but complex ones.
+
+**Bad Example:**
+
+```java
+int add(int a, int b) {
+    return (a | b) + (a & b); // Bitwise trick
+}
+```
+
+**Good Example:**
+
+```java
+int add(int a, int b) {
+    return a + b;
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>8. YAGNI (You Aren’t Gonna Need It)</summary>
+
+Don’t write code for future needs that may never come.
+
+**Bad Example:**
+
+```java
+class Car {
+    void fly() {}  // Not needed now
+}
+```
+
+**Good Example:**
+
+```java
+class Car {
+    void drive() {}
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>9. Validate Before Use</summary>
+
+Always **validate inputs** before using them to avoid crashes and bugs.
+
+**Bad Example:**
+
+```java
+int divide(int a, int b) {
+    return a / b;  // Risk of divide by zero
+}
+```
+
+**Good Example:**
+
+```java
+int divide(int a, int b) {
+    if (b == 0) throw new IllegalArgumentException("Divider cannot be zero");
+    return a / b;
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>10. Favor Composition Over Inheritance</summary>
+
+Use **composition** instead of inheritance when possible.
+
+**Bad Example:**
+
+```java
+class Engine {}
+class Car extends Engine {}  // Wrong: Car is not an Engine
+```
+
+**Good Example:**
+
+```java
+class Engine {}
+class Car {
+    private Engine engine;
+    Car(Engine engine) { this.engine = engine; }
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>11. Law of Demeter (LoD)</summary>
+
+An object should only talk to its **direct friends**, not strangers.
+
+**Bad Example:**
+
+```java
+order.getCustomer().getAddress().getCity();
+```
+
+**Good Example:**
+
+```java
+class Order {
+    Customer customer;
+    String getCustomerCity() {
+        return customer.getCity();
+    }
+}
+order.getCustomerCity();
+```
+
+</details>
+
+---
+
+<details>
+<summary>12. Fail Fast Principle</summary>
+
+Detect and report errors **early**, instead of failing silently.
+
+**Usage Example:**
+
+```java
+if (list == null) throw new IllegalArgumentException("List cannot be null");
+```
+
+</details>
+
+---
+
+# Java Memory Management Principles
+
+<details>
+<summary>1. Avoid Creating Unnecessary Objects</summary>
+
+Unnecessary objects increase memory usage and GC pressure.
+
+**Bad Example:**
+
+```java
+String s1 = new String("Hello"); // Creates unnecessary object
+```
+
+**Good Example:**
+
+```java
+String s1 = "Hello"; // Uses string pool
+```
+
+</details>
+
+---
+
+<details>
+<summary>2. Prefer Immutability</summary>
+
+Immutable objects are thread-safe and reduce errors.
+
+**Usage Example:**
+
+```java
+final class Person {
+    private final String name;
+    Person(String name) { this.name = name; }
+    String getName() { return name; }
+}
+```
+
+Immutable objects also reduce chances of memory leaks caused by unintended modifications.
+
+</details>
+
+---
+
+<details>
+<summary>3. Use Primitive Types Instead of Wrappers (when possible)</summary>
+
+Wrappers (`Integer`, `Double`) consume more memory than primitives (`int`, `double`).
+
+**Bad Example:**
+
+```java
+Integer sum = 0;
+for (Integer i = 0; i < 1000; i++) {
+    sum += i;
+}
+```
+
+**Good Example:**
+
+```java
+int sum = 0;
+for (int i = 0; i < 1000; i++) {
+    sum += i;
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>4. Reuse Objects When Possible</summary>
+
+For heavy objects, reuse instances instead of creating new ones repeatedly.
+
+**Usage Example:**
+
+```java
+// Reuse Random instead of creating in every method call
+private static final Random random = new Random();
+```
+
+</details>
+
+---
+
+<details>
+<summary>5. Be Careful with Static References</summary>
+
+Static references live until the class is unloaded and may cause **memory leaks**.
+
+**Bad Example:**
+
+```java
+static List<String> cache = new ArrayList<>();
+```
+
+**Good Example:**
+
+* Use weak references (`WeakHashMap`) if cache entries can be discarded.
+* Clean up static fields when not needed.
+
+</details>
+
+---
+
+<details>
+<summary>6. Close Resources Properly</summary>
+
+Unclosed resources (files, sockets, DB connections) leak memory.
+
+**Bad Example:**
+
+```java
+FileInputStream fis = new FileInputStream("data.txt");
+```
+
+**Good Example (try-with-resources):**
+
+```java
+try (FileInputStream fis = new FileInputStream("data.txt")) {
+    // use fis
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>7. Use StringBuilder/StringBuffer for Concatenation in Loops</summary>
+
+String concatenation in loops creates multiple intermediate objects.
+
+**Bad Example:**
+
+```java
+String result = "";
+for (int i = 0; i < 100; i++) {
+    result += i;
+}
+```
+
+**Good Example:**
+
+```java
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i < 100; i++) {
+    sb.append(i);
+}
+String result = sb.toString();
+```
+
+</details>
+
+---
+
+<details>
+<summary>8. Avoid Memory Leaks with Collections</summary>
+
+Collections can hold references long after they are needed.
+
+**Bad Example:**
+
+```java
+List<byte[]> list = new ArrayList<>();
+while (true) {
+    list.add(new byte[1024]); // OutOfMemoryError
+}
+```
+
+**Good Example:**
+
+```java
+list.clear(); // Release references when no longer needed
+```
+
+Or use `WeakHashMap` when keys should be garbage collected.
+
+</details>
+
+---
+
+<details>
+<summary>9. Use Object Pooling Carefully</summary>
+
+* For lightweight objects, let GC handle them.
+* For expensive resources (DB connections, threads), use pooling (`ExecutorService`, connection pools).
+
+**Usage Example:**
+
+```java
+ExecutorService executor = Executors.newFixedThreadPool(5);
+```
+
+</details>
+
+---
+
+<details>
+<summary>10. Monitor and Tune Garbage Collection</summary>
+
+* Use JVM options to optimize GC (`-Xms`, `-Xmx`, `-XX:+UseG1GC`).
+* Monitor memory with tools like **VisualVM, JConsole, Flight Recorder**.
+
+**Usage:**
+
+```bash
+java -Xms512m -Xmx1024m -XX:+UseG1GC MyApp
+```
+
+</details>
+
+---
+
+<details>
+<summary>11. Weak References for Caching</summary>
+
+Use `WeakReference` or `WeakHashMap` for objects that can be garbage collected.
+
+**Usage Example:**
+
+```java
+Map<Object, String> cache = new WeakHashMap<>();
+```
+
+</details>
+
+---
+
+<details>
+<summary>12. Prefer Local Variables Over Instance Variables</summary>
+
+Local variables are eligible for GC as soon as the method exits, while instance variables may remain longer.
+
+**Usage Example:**
+
+```java
+public int compute() {
+    int temp = 100;  // released quickly
+    return temp * 2;
+}
+```
+
+</details>
+
+---
+
 # Java Questions
 
 ## 14. How to compile simple applications
