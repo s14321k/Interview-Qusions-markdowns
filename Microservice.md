@@ -117,6 +117,7 @@
     * [✅ When to Use Which Resilience Pattern?](#-when-to-use-which-resilience-pattern)
     * [💡 Example: Resilience4j Circuit Breaker + Retry (Java/Spring Boot)](#-example-resilience4j-circuit-breaker--retry-javaspring-boot)
     * [🧰 Tools for Resilience](#-tools-for-resilience)
+* [🧩 Key Components of Microservices Architecture](#-key-components-of-microservices-architecture)
 <!-- TOC -->
 
 # Microservice

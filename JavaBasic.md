@@ -208,6 +208,8 @@
     * [5. Misc:](#5-misc)
     * [Math.max():](#mathmax)
     * [Math.min():](#mathmin)
+* [Java Principles & Best Practices](#java-principles--best-practices)
+* [Java Memory Management Principles](#java-memory-management-principles)
 * [Java Questions](#java-questions)
   * [14. How to compile simple applications](#14-how-to-compile-simple-applications)
   * [15. What are required to run simple Java applications](#15-what-are-required-to-run-simple-java-applications)

@@ -82,6 +82,7 @@
     * [3. The Declarative HTTP Client (`@HttpExchange`)](#3-the-declarative-http-client-httpexchange)
     * [4. Client and Resilience Configuration](#4-client-and-resilience-configuration)
     * [5. The Resilient and Observable Service](#5-the-resilient-and-observable-service)
+    * [🔄 Execution Order with Both Bulkheads](#-execution-order-with-both-bulkheads)
     * [6. Global Exception Handling with Problem Details](#6-global-exception-handling-with-problem-details)
     * [Summary of the Flow](#summary-of-the-flow)
     * [Useful Resources](#useful-resources)
@@ -133,6 +134,8 @@
   * [🔑 What is SSO?](#-what-is-sso)
   * [🔗 Integration with Spring Security OAuth2 or Keycloak](#-integration-with-spring-security-oauth2-or-keycloak)
   * [📚 Spring Method Security Reference](#-spring-method-security-reference)
+* [🔐 Secure Communication Between Microservices in Spring Boot](#-secure-communication-between-microservices-in-spring-boot)
+* [🧪 Testing Secure Microservices with Postman](#-testing-secure-microservices-with-postman)
 * [⚙️ Aspect-Oriented Programming (AOP) in Spring Boot](#-aspect-oriented-programming-aop-in-spring-boot)
   * [🛠️ How AOP Works in Spring Boot](#-how-aop-works-in-spring-boot)
     * [1. **Add Spring AOP Dependency**](#1-add-spring-aop-dependency)
@@ -156,6 +159,9 @@
     * [Corresponding Aspect](#corresponding-aspect)
     * [Retry Logic Aspect](#retry-logic-aspect)
     * [SLF4J is used for logging with support from Logback](#slf4j-is-used-for-logging-with-support-from-logback)
+* [Spotless lint](#spotless-lint)
+* [Zipkin](#zipkin)
+* [Traceable](#traceable)
 <!-- TOC -->
 
 ## [Top 15 Q&A](https://www.java67.com/2018/06/top-15-spring-boot-interview-questions-answers-java-jee-programmers.html)
