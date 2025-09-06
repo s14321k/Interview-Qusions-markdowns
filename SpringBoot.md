@@ -2176,7 +2176,10 @@ This guide integrates several modern Spring Boot features to build a robust micr
 * **Observability (`@Observed`):** For automatic metrics and tracing.
 * **Retry Pattern (Resilience4j):** To handle transient, temporary failures.
 * **Circuit Breaker (Resilience4j):** To prevent cascading failures after retries fail.
+* **Rate Limiter (Resilience4j)** – throttles excessive requests.
+* **Bulkhead (Resilience4j)** – isolates concurrent calls. For bulk head we need Redis.
 * **Problem Details (RFC 7807):** For standardized API error responses.
+* **Aspect Order** – ensures predictable execution order of resilience patterns.
 
 ### 1. Dependencies (`pom.xml`)
 
@@ -2207,6 +2210,12 @@ You need starters for web, actuator (for observability), AOP (for annotations to
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
     </dependency>
+
+    <!-- Resilience4j Annotations (RateLimiter, Bulkhead, etc.) -->
+    <dependency>
+        <groupId>io.github.resilience4j</groupId>
+        <artifactId>resilience4j-spring-boot3</artifactId>
+    </dependency>
     
     <!-- Micrometer tracing with Zipkin/Jaeger bridge -->
     <dependency>
@@ -2218,6 +2227,7 @@ You need starters for web, actuator (for observability), AOP (for annotations to
         <artifactId>zipkin-reporter-brave</artifactId>
     </dependency>
 </dependencies>
+
 ```
 
 ### 2. Configuration (`application.properties`)
@@ -2234,16 +2244,36 @@ spring.mvc.problemdetails.enabled=true
 # Configure tracing to always sample for demonstration purposes
 management.tracing.sampling.probability=1.0
 
-# Resilience4j Retry configuration
-# The 'todos-api' instance name is shared with the circuit breaker
-resilience4j.retry.instances.todos-api.max-attempts=3 # Try the call up to 3 times on failure
-resilience4j.retry.instances.todos-api.wait-duration=500ms # Wait 500ms between retry attempts
+# --- Retry ---
+resilience4j.retry.instances.todos-api.max-attempts=3
+resilience4j.retry.instances.todos-api.wait-duration=500ms
 
-# Resilience4j Circuit Breaker configuration
-resilience4j.circuitbreaker.instances.todos-api.failure-rate-threshold=50 # Open circuit if 50% of requests fail
-resilience4j.circuitbreaker.instances.todos-api.sliding-window-size=10 # Based on the last 10 requests (after retries)
-resilience4j.circuitbreaker.instances.todos-api.wait-duration-in-open-state=10s # Wait 10s before transitioning to half-open
-resilience4j.circuitbreaker.instances.todos-api.permitted-number-of-calls-in-half-open-state=2 # Allow 2 test requests
+# --- Circuit Breaker ---
+resilience4j.circuitbreaker.instances.todos-api.failure-rate-threshold=50
+resilience4j.circuitbreaker.instances.todos-api.sliding-window-size=10
+resilience4j.circuitbreaker.instances.todos-api.wait-duration-in-open-state=10s
+resilience4j.circuitbreaker.instances.todos-api.permitted-number-of-calls-in-half-open-state=2
+
+# --- Rate Limiter ---
+resilience4j.ratelimiter.instances.todos-api.limit-for-period=10
+resilience4j.ratelimiter.instances.todos-api.limit-refresh-period=1s
+resilience4j.ratelimiter.instances.todos-api.timeout-duration=0
+
+# --- Bulkhead (Semaphore) ---
+resilience4j.bulkhead.instances.todos-api.max-concurrent-calls=25
+resilience4j.bulkhead.instances.todos-api.max-wait-duration=50ms
+
+# --- ThreadPool Bulkhead (for async calls) ---
+resilience4j.thread-pool-bulkhead.instances.todos-api.core-thread-pool-size=8
+resilience4j.thread-pool-bulkhead.instances.todos-api.max-thread-pool-size=16
+resilience4j.thread-pool-bulkhead.instances.todos-api.queue-capacity=50
+
+# --- Aspect Order (higher number = wraps outermost) ---
+resilience4j.bulkhead.bulkhead-aspect-order=1
+resilience4j.ratelimiter.ratelimiter-aspect-order=2
+resilience4j.circuitbreaker.circuit-breaker-aspect-order=3
+resilience4j.retry.retry-aspect-order=4
+
 ```
 
 ### 3. The Declarative HTTP Client (`@HttpExchange`)
@@ -2256,7 +2286,9 @@ public interface TodoClient {
     @GetExchange("/todos/{id}")
     Todo getTodoById(@PathVariable("id") Integer id);
 }
+```
 
+```java
 // A simple record to map the JSON response
 public record Todo(Integer id, String title, Boolean completed) {}
 ```
@@ -2276,6 +2308,7 @@ public class AppConfig {
             .baseUrl("https://jsonplaceholder.typicode.com")
             .build();
     }
+
     @Bean
     public RestClient legacyAuthRestClient() {
         System.out.println("[LegacyAuthRestClientConfig] legacyAuthBaseUrl: " + legacyAuthBaseUrl);
@@ -2329,7 +2362,7 @@ The service layer now uses `@Retry` as the first line of defense and `@CircuitBr
 
 ```java
 @Service
-@Observed(name = "todo.service") // A name for all observations in this class
+@Observed(name = "todo.service")
 public class TodoService {
 
     private final TodoClient todoClient;
@@ -2338,22 +2371,59 @@ public class TodoService {
         this.todoClient = todoClient;
     }
 
-    @Observed(name = "get.todo.by.id") // More specific name for this observation
+    // --- Sync path (Semaphore Bulkhead) ---
+    @Observed(name = "get.todo.by.id.sync")
+    @RateLimiter(name = "todos-api")
+    @Bulkhead(name = "todos-api", type = Bulkhead.Type.SEMAPHORE)  // explicit
     @Retry(name = "todos-api")
     @CircuitBreaker(name = "todos-api", fallbackMethod = "getTodoFallback")
     public Todo getTodoById(Integer id) {
-        // This call is now resilient and observable
         return todoClient.getTodoById(id);
     }
 
-    // Fallback method executed when the circuit is open or the call fails after all retries
     private Todo getTodoFallback(Integer id, Throwable t) {
-        System.err.println("Fallback for getTodoById, error: " + t.getMessage());
-        // Return a default/cached response
-        return new Todo(id, "Default Todo (fallback)", false);
+        System.err.println("Fallback (sync): " + t.getMessage());
+        return new Todo(id, "Default Todo (fallback-sync)", false);
+    }
+
+    // --- Async path (ThreadPool Bulkhead) ---
+    @Observed(name = "get.todo.by.id.async")
+    @RateLimiter(name = "todos-api")
+    @Bulkhead(name = "todos-api", type = Bulkhead.Type.THREADPOOL)
+    @Retry(name = "todos-api")
+    @CircuitBreaker(name = "todos-api", fallbackMethod = "getTodoAsyncFallback")
+    public CompletableFuture<Todo> getTodoByIdAsync(Integer id) {
+        return CompletableFuture.supplyAsync(() -> todoClient.getTodoById(id));
+    }
+
+    private CompletableFuture<Todo> getTodoAsyncFallback(Integer id, Throwable t) {
+        System.err.println("Fallback (async): " + t.getMessage());
+        return CompletableFuture.completedFuture(
+            new Todo(id, "Default Todo (fallback-async)", false)
+        );
     }
 }
 ```
+
+### 🔄 Execution Order with Both Bulkheads
+
+With the **aspect order config** you already added:
+
+```
+Bulkhead (semaphore/threadpool)
+  → RateLimiter
+    → CircuitBreaker
+      → Retry
+```
+
+So the request flow is:
+
+1. Enter Bulkhead (reject if pool/concurrency full).
+2. Pass RateLimiter (reject if too many calls/sec).
+3. Pass CircuitBreaker (reject if open).
+4. Retry logic wraps the chain if failure is retriable.
+
+---
 
 ### 6. Global Exception Handling with Problem Details
 
@@ -2393,23 +2463,43 @@ public class GlobalExceptionHandler {
 }
 ```
 
+---
+
 ### Summary of the Flow
 
-The execution flow now has an extra layer of resilience:
+The execution flow now has multiple layers of resilience and observability:
 
 1. An HTTP request arrives at the `TodoController`. Spring uses a **virtual thread** to handle it.
-2. The controller calls `TodoService.getTodoById()`.
-3. **`@Observed`** starts a timer and creates a trace span.
-4. **`@Retry`** intercepts the call. If the underlying method throws an exception, it will wait and re-attempt the call up to the configured number of times.
-5. **`@CircuitBreaker`** is the next interceptor. It only receives the call if the `@Retry` mechanism succeeds on its first try, or it receives the final exception if all retries fail.
-6. If all retries fail, the `@CircuitBreaker` records it as a single failure. If the failure threshold is breached, the circuit opens.
-7. If the circuit is open, subsequent calls are blocked by the `@CircuitBreaker`, and the `getTodoFallback` method is invoked immediately.
-8. If the circuit is closed, the call proceeds to the **`@HttpExchange` client (`TodoClient`)**, which uses **`RestClient`** to make the HTTP request.
-9. If any unrecoverable exception occurs, the **`GlobalExceptionHandler`** catches it and returns a standardized **`ProblemDetail`** JSON response.
-10. Finally, **`@Observed`** stops the timer and completes the trace span, exporting the data to your monitoring system.
+2. The controller calls `TodoService.getTodoById()` (sync) or `getTodoByIdAsync()` (async).
+3. **`@Observed`** starts a timer and creates a trace span for metrics and tracing.
+4. **`@Retry`** is the outermost interceptor:
 
-This layered architecture creates a highly robust system that can automatically recover from transient faults while still protecting itself from prolonged outages.
-</details>
+   * If the call fails, it will pause and retry up to the configured number of attempts.
+   * Each retry re-enters the full chain (Bulkhead → RateLimiter → CircuitBreaker).
+5. **`@CircuitBreaker`** executes next:
+
+   * If retries succeed, the call continues.
+   * If retries fail, the circuit records a single failure.
+   * Once the failure threshold is reached, the circuit opens → further calls are short-circuited, and `getTodoFallback()` (or async fallback) is invoked.
+6. **`@RateLimiter`** checks if the request can proceed within the allowed rate.
+
+   * If no permit is available, the call is immediately rejected.
+7. **`@Bulkhead`** controls concurrency/isolation:
+
+   * **Semaphore Bulkhead** (sync calls): limits concurrent executions.
+   * **ThreadPool Bulkhead** (async calls): offloads execution to a bounded thread pool with a queue.
+   * If capacity is exceeded → call is rejected.
+8. If the call passes all layers, it proceeds to the **`@HttpExchange` client (`TodoClient`)**, which uses **`RestClient`** to perform the external HTTP request.
+9. If any unhandled exception still occurs, the **`GlobalExceptionHandler`** converts it into a standardized **`ProblemDetail`** JSON response (RFC 7807).
+10. Finally, **`@Observed`** stops the timer and completes the trace span, exporting metrics and traces to your observability system (Micrometer, Zipkin/Jaeger, etc.).
+
+This layered architecture ensures:
+
+* **Bulkhead** → isolates failures & protects resources.
+* **RateLimiter** → controls request throughput.
+* **CircuitBreaker** → prevents cascading failures.
+* **Retry** → transparently handles transient issues.
+* **Observed** → gives full visibility into performance and failures.
 
 ---
 

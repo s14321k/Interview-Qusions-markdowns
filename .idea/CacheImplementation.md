@@ -500,13 +500,27 @@ resilience4j:
     instances:
       lostSalesCircuitBreaker:
         baseConfig: default
+        automatic-transition-from-open-to-half-open-enabled: true
+        failure-rate-threshold: 40
+        ignore-exceptions:
+          - com.oreillyauto.opchub.exceptions.gateway.GatewayServiceException
+        minimum-number-of-calls: 8
+        permitted-number-of-calls-in-half-open-state: 4
+        sliding-window-size: 15
+        slow-call-duration-threshold: 3s
+        slow-call-rate-threshold: 30
+        wait-duration-in-open-state: 10s
+    circuit-breaker-aspect-order: 2
   retry:
     configs:
       default:
         maxAttempts: 3
         waitDuration: 500ms
         retryExceptions:
+          - java.net.SocketTimeoutException
+          - org.springframework.web.client.ResourceAccessException
           - org.springframework.web.client.HttpServerErrorException
+          - com.oreillyauto.opchub.exceptions.gateway.GatewayUnavailableException
           - com.oreillyauto.deepvault.exceptions.DataAccessException
           - java.io.IOException
     instances:
