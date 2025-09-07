@@ -128,6 +128,9 @@
     * [LinkedHashSet](#linkedhashset)
     * [TreeSet](#treeset)
   * [🧮 Map Implementations](#-map-implementations)
+    * [🔑 **Key Differences Between `HashMap` and `Hashtable`**](#-key-differences-between-hashmap-and-hashtable)
+    * [✅ **When to Use**](#-when-to-use)
+    * [📌 Example](#-example)
   * [🧠 Thread Safety Comparison](#-thread-safety-comparison)
   * [🧠 `hashCode()` and `equals()` in Hash-Based Collections](#-hashcode-and-equals-in-hash-based-collections)
   * [🛡️ Summary: When to Use What?](#-summary-when-to-use-what)
@@ -1876,14 +1879,12 @@ Map (Not part of Collection)
 <details>
 <summary><strong>📋 List Implementations</strong></summary>
 
-
 | Type       | Order Maintained | Sorted | Allows Duplicates | Thread Safe                   |
 | ---------- | ---------------- | ------ | ----------------- | ----------------------------- |
 | ArrayList  | ✅ Yes            | ❌ No   | ✅ Yes             | ❌ No                          |
 | LinkedList | ✅ Yes            | ❌ No   | ✅ Yes             | ❌ No                          |
 | Vector     | ✅ Yes            | ❌ No   | ✅ Yes             | ✅ Yes                         |
 | Stack      | ✅ Yes            | ❌ No   | ✅ Yes             | ✅ Yes (inherited from Vector) |
-
 
 ### ArrayList
 
@@ -1932,15 +1933,24 @@ Map (Not part of Collection)
 | `Deque`         | `ArrayDeque`, `LinkedList`                  | Double-ended (add/remove from both ends) |
 | `BlockingQueue` | `LinkedBlockingQueue`, `ArrayBlockingQueue` | Thread-safe queues                       |
 
-| Type                                     | Order Maintained | Sorted | Allows Duplicates | Thread Safe                      |
-| ---------------------------------------- | ---------------- | ------ | ----------------- |----------------------------------|
-| Queue (Interface)                        | ✅ FIFO           | ❌ No   | ✅ Yes             | Depends on implementation     |
-| Deque (Interface)                        | ✅ Ends           | ❌ No   | ✅ Yes             | Depends on implementation     |
-| ArrayDeque                               | ✅ Yes            | ❌ No   | ✅ Yes             | ❌ No                         |
-| LinkedList (as Queue)                    | ✅ Yes            | ❌ No   | ✅ Yes             | ❌ No                         |
-| PriorityQueue                            | ✅ Partial (Heap) | ✅ Yes  | ✅ Yes             | ❌ No                         |
-| ConcurrentLinkedQueue                    | ✅ Yes            | ❌ No   | ✅ Yes             | ✅ Yes                        |
-| BlockingQueue (e.g. LinkedBlockingQueue) | ✅ Yes            | ❌ No   | ✅ Yes             | ✅ Yes                        |
+| Type                                         | Order Maintained | Sorted | Allows Duplicates | Thread Safe               | Nulls Allowed             |
+| -------------------------------------------- | ---------------- | ------ | ----------------- | ------------------------- | ------------------------- |
+| **Queue (Interface)**                        | ✅ FIFO           | ❌ No   | ✅ Yes             | Depends on implementation | Depends on implementation |
+| **Deque (Interface)**                        | ✅ Ends           | ❌ No   | ✅ Yes             | Depends on implementation | Depends on implementation |
+| **ArrayDeque**                               | ✅ Yes            | ❌ No   | ✅ Yes             | ❌ No                      | **No nulls**              |
+| **LinkedList (as Queue)**                    | ✅ Yes            | ❌ No   | ✅ Yes             | ❌ No                      | **Multiple nulls**        |
+| **PriorityQueue**                            | ✅ Partial (Heap) | ✅ Yes  | ✅ Yes             | ❌ No                      | **No nulls**              |
+| **ConcurrentLinkedQueue**                    | ✅ Yes            | ❌ No   | ✅ Yes             | ✅ Yes                     | **No nulls**              |
+| **BlockingQueue (e.g. LinkedBlockingQueue)** | ✅ Yes            | ❌ No   | ✅ Yes             | ✅ Yes                     | **No nulls**              |
+
+---
+
+📌 **Key Notes**:
+
+* Most **concurrent queue implementations** in Java **do not allow nulls** (they throw `NullPointerException` if you try to insert).
+* Only **LinkedList (when used as Queue/Deque)** permits **multiple null elements**.
+
+---
 
 </details>
 
@@ -1968,12 +1978,11 @@ Map (Not part of Collection)
 * Backed by Red-Black Tree
 * Time complexity: O(log n)
 
-
-| Type          | Order Maintained   | Sorted | Allows Duplicates | Thread Safe |
-| ------------- |--------------------| ------ | ----------------- | ----------- |
-| HashSet       | ❌                 | ❌     | ❌                | ❌          |
-| LinkedHashSet | ✅                 | ❌     | ❌                | ❌          |
-| TreeSet       | ✅ (Sorted)        | ✅     | ❌                | ❌          |
+| Type              | Order Maintained | Sorted | Allows Duplicates | Thread Safe | Nulls Allowed                                                                                        |
+| ----------------- | ---------------- | ------ | ----------------- | ----------- | ---------------------------------------------------------------------------------------------------- |
+| **HashSet**       | ❌                | ❌      | ❌                 | ❌           | **One null**                                                                                         |
+| **LinkedHashSet** | ✅                | ❌      | ❌                 | ❌           | **One null**                                                                                         |
+| **TreeSet**       | ✅ (Sorted)       | ✅      | ❌                 | ❌           | **None** (throws `NullPointerException` if you add null, since it uses `Comparable` or `Comparator`) |
 
 </details>
 
@@ -1981,13 +1990,62 @@ Map (Not part of Collection)
 
 ## 🧮 Map Implementations
 
-| Type              | Ordered?   | Thread Safe | Notes                               |
-| ----------------- | ---------- | ----------- | ----------------------------------- |
-| HashMap           | ❌          | ❌           | Most used, allows one null key      |
-| LinkedHashMap     | ✅          | ❌           | Preserves insertion order           |
-| TreeMap           | ✅ (Sorted) | ❌           | Sorted by natural/comparator key    |
-| Hashtable         | ❌          | ✅ (legacy)  | Slower, use only for legacy support |
-| ConcurrentHashMap | ❌          | ✅ (modern)  | Thread-safe, no null keys allowed   |
+| Type                  | Ordered?   | Thread Safe | Notes                               | Nulls Allowed                                                                        |
+| --------------------- | ---------- | ----------- | ----------------------------------- | ------------------------------------------------------------------------------------ |
+| **HashMap**           | ❌          | ❌           | Most used, allows one null key      | **1 null key, multiple null values**                                                 |
+| **LinkedHashMap**     | ✅          | ❌           | Preserves insertion order           | **1 null key, multiple null values**                                                 |
+| **TreeMap**           | ✅ (Sorted) | ❌           | Sorted by natural/comparator key    | **No null keys, multiple null values** (unless comparator supports nulls explicitly) |
+| **Hashtable**         | ❌          | ✅ (legacy)  | Slower, use only for legacy support | **No null keys, no null values**                                                     |
+| **ConcurrentHashMap** | ❌          | ✅ (modern)  | Thread-safe, no null keys allowed   | **No null keys, no null values**                                                     |
+
+---
+
+### 🔑 **Key Differences Between `HashMap` and `Hashtable`**
+
+| Feature              | `HashMap`                                                                                          | `Hashtable`                                                                        |
+| -------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| **Thread-safety**    | Not synchronized (not thread-safe). Must be synchronized externally if used in multithreaded code. | Synchronized (thread-safe for concurrent access).                                  |
+| **Performance**      | Faster, since no synchronization overhead.                                                         | Slower, due to synchronized methods.                                               |
+| **Null Keys/Values** | Allows **one `null` key** and multiple `null` values.                                              | **Does not allow** `null` keys or `null` values.                                   |
+| **Legacy vs Modern** | Introduced in **Java 1.2** as part of the Collections Framework.                                   | Legacy class from **Java 1.0**, prior to Collections Framework.                    |
+| **Iteration**        | Iterators are **fail-fast** (throw `ConcurrentModificationException` if modified while iterating). | Enumerators are **not fail-fast**.                                                 |
+| **Use in new code**  | Recommended for most cases (unless thread-safety is needed).                                       | Considered obsolete; replaced by `ConcurrentHashMap` for thread-safe alternatives. |
+
+---
+
+### ✅ **When to Use**
+
+* **Use `HashMap`** → When you don’t need synchronization and want better performance.
+* **Use `ConcurrentHashMap`** → Instead of `Hashtable` if you need thread safety in modern Java.
+* **Avoid `Hashtable`** → Kept mostly for backward compatibility with older codebases.
+
+---
+
+### 📌 Example
+
+```java
+import java.util.*;
+
+public class MapExample {
+    public static void main(String[] args) {
+        // HashMap
+        Map<Integer, String> hashMap = new HashMap<>();
+        hashMap.put(1, "Apple");
+        hashMap.put(2, "Banana");
+        hashMap.put(null, "Cherry"); // null key allowed
+        hashMap.put(3, null);        // null value allowed
+        System.out.println("HashMap: " + hashMap);
+
+        // Hashtable
+        Map<Integer, String> hashtable = new Hashtable<>();
+        hashtable.put(1, "Dog");
+        hashtable.put(2, "Cat");
+        // hashtable.put(null, "Fish"); // ❌ NullPointerException
+        // hashtable.put(3, null);      // ❌ NullPointerException
+        System.out.println("Hashtable: " + hashtable);
+    }
+}
+```
 
 ---
 
