@@ -1690,7 +1690,7 @@ Comparator<Student> nameComparator = (s1, s2) -> s1.name.compareTo(s2.name);
 <summary>## 🌐 Collections Hierarchy Overview</summary>
 
 ```mermaid
-graph TD
+flowchart TD
 
     %% Iterable hierarchy
     Iterable["Iterable"]
@@ -2400,7 +2400,7 @@ Runtime.getRuntime().gc();
 - In Java, an exception is an event that disrupts the normal flow of the program. It is an object which is thrown at runtime.
 
 ```mermaid
-graph TD
+flowchart TD
 
     Throwable["java.lang.Throwable (class)"]
 
@@ -3437,7 +3437,7 @@ class Invoker {
 * **Composition**: Strong ownership, tightly coupled.
 
 ```mermaid
-graph TB
+flowchart TB
     A[Association] -- Weak (Loose Coupling) --> B[Aggregation]
     A -- Strong (Tight Coupling) --> C[Composition]
 ```

@@ -587,6 +587,8 @@ String msg = STR."Hello, \{name}!";
 ### ✅ Summary Table
 
 ```mermaid
+flowchart TD
+
 timeline
     title Java Features (8 → 21 LTS)
     section Java 8 (2014) – LTS
