@@ -377,11 +377,6 @@ Optional<String> min = stream.collect(Collectors.minBy(Comparator.naturalOrder()
 
 ---
 
-Great resource 👍 — you already have a **timeline of Java features from 8 → 21 (LTS)**. To make it even more **practical**, let’s enrich it with **short code examples** for the most important features.
-
-Here’s an enhanced version 👇
-
-````markdown
 # 📘 Java Features from 8 to 21 (LTS)
 
 <details>
@@ -611,7 +606,6 @@ timeline
 ```
 
 </details>
-```
 
 ---
 
