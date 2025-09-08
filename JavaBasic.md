@@ -2393,57 +2393,57 @@ Runtime.getRuntime().gc();
 ---
 # Exception Handling
 
-
 <details>
 <summary>📌 Overview of Exception Hierarchy</summary>
 
 - In Java, an exception is an event that disrupts the normal flow of the program. It is an object which is thrown at runtime.
 
-```mermaid
-flowchart TD
+```
 
-    Throwable["java.lang.Throwable (class)"]
+Throwable
+|
+|__ Exception
+    |
+    |__ (IOException, SQLException, ClassNotFoundException, RuntimeException) Checked Exceptions
+        |
+        |__ (ArithmeticException, NullPointerException, NumberFormatException, IndexOutOfBoundException
+            |
+            |__ ArrayOutOfBoundException, StringIndexOutOfBoundException)Unchecked Exceptions
 
-    %% Error hierarchy
-    Throwable --> Error["java.lang.Error (class)"]
-    Error --> AssertionError["AssertionError (class)"]
-    Error --> OutOfMemoryError["OutOfMemoryError (class)"]
-    Error --> StackOverflowError["StackOverflowError (class)"]
-    Error --> VirtualMachineError["VirtualMachineError (class)"]
-    VirtualMachineError --> InternalError["InternalError (class)"]
-    VirtualMachineError --> OutOfMemoryErrorVM["OutOfMemoryError (class)"]
-    Error --> LinkageError["LinkageError (class)"]
-    LinkageError --> ClassNotFoundError["ClassNotFoundError (class)"]
-    LinkageError --> NoClassDefFoundError["NoClassDefFoundError (class)"]
+> Detailed tree structure
 
-    %% Exception hierarchy
-    Throwable --> Exception["java.lang.Exception (class)"]
+java.lang.Throwable (class)
+│
+├── java.lang.Error (class)
+│   ├── AssertionError (class)
+│   ├── OutOfMemoryError (class)
+│   ├── StackOverflowError (class)
+│   ├── VirtualMachineError (class)
+│   │   ├── InternalError (class)
+│   │   └── OutOfMemoryError (class)
+│   └── LinkageError (class)
+│       ├── ClassNotFoundError (class)
+│       └── NoClassDefFoundError (class)
+│
+└── java.lang.Exception(Checked exceptions) (class)
+├── IOException (class)
+│   ├── FileNotFoundException (class)
+│   ├── EOFException (class)
+│   ├── SocketException (class)
+│   ├── IOException
+│   └── SQLException (class)
+├── RuntimeException(Unchecked exception) (class)
+│   ├── NullPointerException (class)
+│   ├── ArithmeticException (class)
+│   ├── ArrayIndexOutOfBoundsException (class)
+│   ├── ClassCastException (class)
+│   ├── IllegalArgumentException (class)
+│   ├── IllegalStateException (class)
+│   └── UnsupportedOperationException (class)
+├── SQLException (class)
+├── ParseException (class)
+└── InterruptedException (class)
 
-    Exception --> Checked["Checked Exceptions"]
-    Exception --> Unchecked["Unchecked Exceptions (RuntimeException)"]
-
-    %% Checked exceptions
-    Checked --> IOException["IOException"]
-    IOException --> FileNotFoundException["FileNotFoundException"]
-    IOException --> EOFException["EOFException"]
-    IOException --> SocketException["SocketException"]
-
-    Checked --> SQLException["SQLException"]
-    Checked --> ParseException["ParseException"]
-    Checked --> InterruptedException["InterruptedException"]
-
-    %% Unchecked exceptions
-    Unchecked --> NullPointerException["NullPointerException"]
-    Unchecked --> ArithmeticException["ArithmeticException"]
-
-    Unchecked --> ArrayIndexOutOfBoundsException["ArrayIndexOutOfBoundsException"]
-    ArrayIndexOutOfBoundsException --> ArrayOutOfBoundException["ArrayOutOfBoundException"]
-    ArrayIndexOutOfBoundsException --> StringIndexOutOfBoundException["StringIndexOutOfBoundException"]
-
-    Unchecked --> ClassCastException["ClassCastException"]
-    Unchecked --> IllegalArgumentException["IllegalArgumentException"]
-    Unchecked --> IllegalStateException["IllegalStateException"]
-    Unchecked --> UnsupportedOperationException["UnsupportedOperationException"]
 ```
 
 </details>
