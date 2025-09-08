@@ -912,12 +912,32 @@ public class CharFrequency {
         System.out.println("Character Frequencies: " + freqMap);
     }
 }
+
+
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class OccurrencesExample {
+    public static void main(String[] args) {
+        String[] s = {"AA", "BB", "AA", "CC"};
+
+        Map<String, Long> occurrences = Arrays.stream(s)
+                .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+
+        System.out.println(occurrences);
+    }
+}
+
 ```
 
 📦 **Output:**
 
 ```
 Character Frequencies: {a=4, b=3, c=2}
+
+{AA=2, BB=1, CC=1}
+
 ```
 
 ---

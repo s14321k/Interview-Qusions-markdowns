@@ -96,9 +96,64 @@ WHERE (DeptID, Salary) IN (
 
 🔗 [Reference](https://stackoverflow.com/a/8477093/11962586)
 
+
+
+
+We want: **employees whose salary is greater than their manager’s salary**.
+That means we need a **self-join** on the same employee table.
+
+---
+
+### Example table: `employee`
+
+| emp\_id | emp\_name | salary | manager\_id |
+| ------- | --------- | ------ | ----------- |
+| 123     | abc       | 10     | 0           |
+| 0       | cde       | 9      | 231         |
+
+---
+
+### SQL Query
+
+```sql
+SELECT e.emp_id,
+       e.emp_name,
+       e.salary,
+       m.emp_name AS manager_name,
+       m.salary AS manager_salary
+FROM employee e
+JOIN employee m
+  ON e.manager_id = m.emp_id
+WHERE e.salary > m.salary;
+```
+
+---
+
+### ✅ What this does:
+
+* `employee e` → employees
+* `employee m` → managers (same table, self-join)
+* `e.manager_id = m.emp_id` → link employee to their manager
+* `e.salary > m.salary` → filter only employees earning more than their manager
+
+---
+
+### Output (for your sample data):
+
+| emp\_id | emp\_name | salary | manager\_name | manager\_salary |
+| ------- | --------- | ------ | ------------- | --------------- |
+| 123     | abc       | 10     | cde           | 9               |
+
 </details>
 
 ---
+
+
+
+
+
+
+
 
 <details>
 <summary><strong>🔗 3. Types of Relationships in DBMS</strong></summary>
