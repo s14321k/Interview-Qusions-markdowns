@@ -377,175 +377,240 @@ Optional<String> min = stream.collect(Collectors.minBy(Comparator.naturalOrder()
 
 ---
 
+Great resource 👍 — you already have a **timeline of Java features from 8 → 21 (LTS)**. To make it even more **practical**, let’s enrich it with **short code examples** for the most important features.
+
+Here’s an enhanced version 👇
+
+````markdown
 # 📘 Java Features from 8 to 21 (LTS)
 
 <details>
-<summary><strong>Java Features from 8 to 21 (LTS)</strong></summary>
+<summary><strong>Java Features from 8 to 21 (LTS) with Examples</strong></summary>
 
 > 🔗 References: [Reflectoring](https://reflectoring.io/java-release-notes/) | [Pretius](https://pretius.com/blog/java-17-features/)
 
 ---
 
- ***☕ Java 8 (March 2014)*** 
+### ☕ Java 8 (2014)
+- ✅ **Lambda Expressions**
+```java
+List<String> names = List.of("A", "B", "C");
+names.forEach(n -> System.out.println(n));
+````
 
-* ✅ Lambda Expressions
-* ✅ Stream API
-* ✅ Default & Static Methods in Interfaces
-* ✅ Optional Class
-* ✅ New Date-Time API (`java.time`)
-* ✅ Method References
-* ✅ Type Annotations
-* ✅ Nashorn JS Engine (removed later)
+* ✅ **Stream API**
 
----
+```java
+int sum = IntStream.range(1, 5).sum(); // 10
+```
 
-***☕ Java 9 (Sep 2017)***
+* ✅ **New Date-Time API**
 
-* ✅ **Project Jigsaw** (Modular System)
-* ✅ JShell (REPL)
-* ✅ Enhanced Javadoc with search
-* ✅ `List.of()`, `Set.of()`, `Map.of()` factory methods
-* ✅ Process API updates
-* ✅ Private methods in interfaces
-* ✅ Flow API (Reactive Streams)
+```java
+LocalDate today = LocalDate.now();
+```
 
 ---
 
-***☕ Java 10 (Mar 2018)***
+### ☕ Java 9 (2017)
 
-* ✅ `var` keyword (Local Variable Type Inference)
-* ✅ Application Class-Data Sharing (AppCDS)
-* ✅ Garbage Collector Interface (pluggable GC)
+* ✅ **Factory Methods**
 
----
+```java
+List<String> list = List.of("A", "B");
+Set<Integer> set = Set.of(1, 2, 3);
+```
 
-***☕ Java 11 (Sep 2018) – LTS***
+* ✅ **Modules**
 
-* ✅ New String methods (`isBlank()`, `lines()`, `strip()`, `repeat()`)
-* ✅ `var` in lambda parameters
-* ✅ HTTP Client (standardized)
-* ✅ Nest-based access control
-* ✅ Removed Java EE, CORBA, Applet APIs
-* ✅ Single-file source code launcher
+```java
+module com.example.myapp { requires java.sql; }
+```
 
----
+* ✅ **JShell**
 
-***☕ Java 12 (Mar 2019)***
-
-* 🧪 Switch Expressions (Preview)
-* ✅ Default CDS Archives
-* 🧪 Shenandoah GC (Experimental)
-* ✅ Microbenchmarking Framework (JMH-inspired)
+```shell
+jshell> 1 + 2
+$1 ==> 3
+```
 
 ---
 
-***☕ Java 13 (Sep 2019)***
+### ☕ Java 10 (2018)
 
-* 🧪 Text Blocks (Preview)
-* 🧪 Dynamic CDS Archives
-* 🧪 Reimplementation of the legacy socket API
+* ✅ **`var` keyword**
 
----
-
-***☕ Java 14 (Mar 2020)***
-
-* 🧪 Pattern Matching for `instanceof`
-* 🧪 Records (Preview)
-* ✅ Helpful NullPointerExceptions
-* 🧪 Text Blocks (Second Preview)
+```java
+var msg = "Hello"; // type inferred as String
+```
 
 ---
 
-***☕ Java 15 (Sep 2020)***
+### ☕ Java 11 (2018) – LTS
 
-* 🧪 Sealed Classes (Preview)
-* ✅ Text Blocks (Finalized)
-* 🧪 Hidden Classes (for frameworks and proxies)
-* 🧪 Pattern Matching for `instanceof` (Second Preview)
-* 🚫 Nashorn JS engine removed
+* ✅ **New String methods**
 
----
+```java
+"  hi ".strip();     // "hi"
+"java".repeat(3);    // "javajavajava"
+```
 
-***☕ Java 16 (Mar 2021)***
+* ✅ **HTTP Client**
 
-* ✅ Records (Finalized)
-* ✅ Pattern Matching for `instanceof` (Finalized)
-* 🧪 Vector API (Incubator)
-* 🧪 Unix Domain Socket support
-* 🧪 Sealed Classes (Second Preview)
-* ✅ Strong encapsulation of JDK internals (`--illegal-access` no longer opens modules by default)
+```java
+HttpClient client = HttpClient.newHttpClient();
+HttpRequest req = HttpRequest.newBuilder(URI.create("https://example.com")).build();
+```
 
 ---
 
-***☕ Java 17 (Sep 2021) – LTS***
+### ☕ Java 12 (2019)
 
-* ✅ Sealed Classes (Finalized)
-* 🧪 Pattern Matching for `switch` (Preview)
-* 🧪 Foreign Function & Memory API (Incubator)
-* ✅ New macOS rendering pipeline (Metal)
-* 🚫 Applet API deprecated
-* ✅ Strong encapsulation of internal JDK APIs
+* 🧪 **Switch Expressions (Preview)**
 
----
-
-***☕ Java 18 (Mar 2022)***
-
-* 🧪 UTF-8 by default for charset
-* 🧪 Simple Web Server (`jwebserver`)
-* 🧪 Code snippets in Javadoc
-* 🧪 Second Incubator of Foreign Function & Memory API
+```java
+int numLetters = switch (day) {
+    case MONDAY, FRIDAY -> 6;
+    default -> 7;
+};
+```
 
 ---
 
-***☕ Java 19 (Sep 2022)***
+### ☕ Java 13–14 (2019–2020)
 
-* 🧪 Virtual Threads (Project Loom – Preview)
-* 🧪 Structured Concurrency (Preview)
-* 🧪 Record Patterns (Preview)
-* 🧪 Third Incubator of Foreign Function & Memory API
-* 🧪 Vector API (Third Incubator)
+* ✅ **Text Blocks**
 
----
+```java
+String json = """
+              {
+                 "name": "Alice",
+                 "age": 30
+              }
+              """;
+```
 
-***☕ Java 20 (Mar 2023)***
+* 🧪 **Records (Preview in 14)**
 
-* 🧪 Record Patterns (Second Preview)
-* 🧪 Pattern Matching for `switch` (Second Preview)
-* 🧪 Virtual Threads (Second Preview)
-* 🧪 Structured Concurrency (Second Preview)
-* 🧪 Scoped Values (Incubator)
-
----
-
-***☕ Java 21 (Sep 2023) – LTS***
-
-* ✅ Virtual Threads (Finalized) — Major concurrency improvement
-* ✅ Pattern Matching for `switch` (Finalized)
-* ✅ Record Patterns (Finalized)
-* ✅ Sequenced Collections (new interfaces: `SequencedCollection`, `SequencedSet`, etc.)
-* ✅ String Templates (Preview)
-* ✅ Unnamed Patterns & Variables (Preview)
-* ✅ Foreign Function & Memory API (Finalized)
-* ✅ Structured Concurrency (Preview)
+```java
+record Point(int x, int y) {}
+```
 
 ---
 
-**✅ Bonus: Summary Table**
+### ☕ Java 15–16 (2020–2021)
 
-| Version    | Notable Features                                                  |
-| ---------- | ----------------------------------------------------------------- |
-| Java 8     | Lambdas, Streams, Date API                                        |
-| Java 9     | Modules, JShell, Factory Methods                                  |
-| Java 10    | `var`, GC abstraction                                             |
-| Java 11    | HTTP Client, String utils, Removed Java EE                        |
-| Java 12–14 | Switch Expressions, Records (preview), Helpful NPEs               |
-| Java 15–16 | Text Blocks, Sealed Classes, Records (final), Hidden Classes      |
-| Java 17    | Finalized: Sealed Classes, Preview: Pattern Matching for Switch   |
-| Java 18–20 | Virtual Threads (preview), Foreign API improvements               |
-| Java 21    | **Virtual Threads, Sequenced Collections, Record Patterns (LTS)** |
+* ✅ **Records Finalized (16)**
 
+```java
+record Person(String name, int age) {}
+```
+
+* ✅ **Pattern Matching for `instanceof`**
+
+```java
+if (obj instanceof String s) {
+    System.out.println(s.toUpperCase());
+}
+```
+
+---
+
+### ☕ Java 17 (2021) – LTS
+
+* ✅ **Sealed Classes**
+
+```java
+sealed interface Shape permits Circle, Square {}
+final class Circle implements Shape {}
+final class Square implements Shape {}
+```
+
+* 🧪 **Pattern Matching for `switch`**
+
+```java
+String formatted = switch (obj) {
+    case Integer i -> "int: " + i;
+    case String s -> "str: " + s;
+    default -> obj.toString();
+};
+```
+
+---
+
+### ☕ Java 19–20 (2022–2023)
+
+* 🧪 **Virtual Threads (Preview)**
+
+```java
+Thread.startVirtualThread(() -> System.out.println("Hello!"));
+```
+
+* 🧪 **Record Patterns**
+
+```java
+record Point(int x, int y) {}
+if (p instanceof Point(int x, int y)) {
+    System.out.println(x + ", " + y);
+}
+```
+
+---
+
+### ☕ Java 21 (2023) – LTS
+
+* ✅ **Virtual Threads (Finalized)**
+
+```java
+try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+    executor.submit(() -> System.out.println(Thread.currentThread()));
+}
+```
+
+* ✅ **Sequenced Collections**
+
+```java
+SequencedCollection<String> sc = new ArrayList<>();
+sc.addFirst("A");
+sc.addLast("B");
+```
+
+* ✅ **String Templates (Preview)**
+
+```java
+String name = "Alice";
+String msg = STR."Hello, \{name}!";
+```
+
+---
+
+### ✅ Summary Table
+
+```mermaid
+timeline
+    title Java Features (8 → 21 LTS)
+    section Java 8 (2014) – LTS
+      Lambda Expressions, Stream API, Date-Time API : Java 8
+    section Java 9 (2017)
+      Modules (Project Jigsaw), JShell, Factory Methods : Java 9
+    section Java 10 (2018)
+      var keyword, GC Abstraction : Java 10
+    section Java 11 (2018) – LTS
+      HTTP Client, String Methods, Removed Java EE : Java 11
+    section Java 12–14 (2019–2020)
+      Switch Expressions, Text Blocks, Records (preview), Helpful NPEs : Java 12-14
+    section Java 15–16 (2020–2021)
+      Text Blocks Final, Records Final, Sealed Classes (preview), Pattern Matching : Java 15-16
+    section Java 17 (2021) – LTS
+      Sealed Classes, Pattern Matching for switch (preview), Foreign API (incubator) : Java 17
+    section Java 18–20 (2022–2023)
+      Virtual Threads (preview), Structured Concurrency, Record Patterns : Java 18-20
+    section Java 21 (2023) – LTS
+      Virtual Threads Final, Sequenced Collections, Record Patterns, String Templates : Java 21
+```
 
 </details>
+```
 
 ---
 

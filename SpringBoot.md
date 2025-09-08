@@ -6120,10 +6120,6 @@ To trace requests in microservices:
 
 ---
 
-Here’s your answer formatted in the **collapsible breakdown + ASCII diagram + summary table** style we’ve been using 🚀
-
----
-
 <details>  
 <summary>🔐 How to Secure Sensitive Data in Request and Response Bodies?</summary>  
 
@@ -6793,8 +6789,6 @@ public class DemoApplication implements CommandLineRunner {
 
 </details>
 
-Here is a **complete, beginner-friendly explanation** of the **Spring Boot AOP Project Template** with collapsible markdown sections. This version covers all aspects—**custom annotations**, **logging with SLF4J**, **retry logic**, and **how the pieces connect together**.
-
 ---
 
 # 📦 AOP in Spring Boot – Explained (with Custom Annotations + Logging)
@@ -7215,3 +7209,102 @@ public class TraceableAspect {
     }
 }
 ```
+
+---
+
+## 🔎 Elasticsearch in Spring Boot
+
+* **Type**: Distributed full-text search and analytics engine.
+* **Primary Use Case**:
+
+  * Searching large volumes of text or documents.
+  * Supporting advanced queries: fuzzy search, autocomplete, relevancy ranking.
+  * Analytics on logs, metrics, or events (often with ELK stack: Elasticsearch + Logstash + Kibana).
+* **Strengths**:
+
+  * Full-text search (better than SQL `LIKE`).
+  * Handles complex queries (filters, aggregations, scoring).
+  * Distributed and scalable.
+* **Spring Boot Integration**:
+
+  * Via `spring-data-elasticsearch`.
+  * Example:
+
+    ```java
+    @Document(indexName = "products")
+    public class Product {
+        @Id
+        private String id;
+        private String name;
+        private String description;
+    }
+
+    public interface ProductRepository extends ElasticsearchRepository<Product, String> {
+        List<Product> findByName(String name);
+    }
+    ```
+
+---
+
+## ⚡ Redis in Spring Boot
+
+* **Type**: In-memory data store / cache / message broker.
+* **Primary Use Case**:
+
+  * Caching frequently accessed data (reduce DB load).
+  * Session storage.
+  * Message queues / Pub-Sub.
+  * Rate limiting, counters, leaderboard (sorted sets).
+* **Strengths**:
+
+  * Extremely fast (in-memory).
+  * Simple data structures (string, list, set, hash, sorted set, stream).
+  * Good for real-time use cases.
+* **Spring Boot Integration**:
+
+  * Via `spring-boot-starter-data-redis`.
+  * Example:
+
+    ```java
+    @Service
+    public class ProductCacheService {
+        @Autowired
+        private RedisTemplate<String, Product> redisTemplate;
+
+        public void saveProduct(Product product) {
+            redisTemplate.opsForValue().set("product:" + product.getId(), product);
+        }
+
+        public Product getProduct(String id) {
+            return (Product) redisTemplate.opsForValue().get("product:" + id);
+        }
+    }
+    ```
+
+---
+
+## ✅ When to Use What
+
+* Use **Elasticsearch** if:
+
+  * You need **search capabilities** (full-text search, fuzzy search, autocomplete).
+  * Your main queries involve **finding documents by content** rather than by ID.
+
+* Use **Redis** if:
+
+  * You need **caching** to reduce DB load.
+  * You need **fast lookups** (key-value).
+  * You’re building **real-time features** (leaderboards, queues, session store).
+
+---
+
+## 🚀 Combined Usage in Spring Boot
+
+Many production systems actually use **both**:
+
+* Store data in **Postgres/MySQL** (source of truth).
+* Use **Redis** for caching frequently accessed records.
+* Use **Elasticsearch** for search functionality.
+
+---
+

@@ -975,28 +975,21 @@ literal == "Sarath"; // true (both point to pool)
 
 Strings are stored differently depending on how they are created and the Java version.
 
-```markdown
-+----------------------+
-|   String Creation    |
-+----------------------+
-         |
-         v
-+----------------------+
-| Is it a Literal?     |-------------------------------+
-+----------------------+                               |
-         | No                                          | Yes
-         v                                             v
-+-----------------------------+          +-----------------------------+
-| new String("Hello")         |          | "Hello" (String Literal)    |
-| (Heap Object)               |          | Goes to String Pool         |
-+-----------------------------+          +-----------------------------+
-         |                                              |
-         v                                              v
-+-----------------------------+          +-----------------------------+
-| Eden Space (Young Gen)      |          | Interned in:                |
-| (In Heap)                   |          | - PermGen (Java ≤7)         |
-+-----------------------------+          | - MetaSpace (Java 8+)       |
-                                         +-----------------------------+
+```mermaid
+flowchart TD
+
+    Start["String Creation"]
+
+    Start --> IsLiteral{"Is it a Literal?"}
+
+    %% new String path
+    IsLiteral -- No --> NewString["new String(&quot;Hello&quot;) <br/>(Heap Object)"]
+    NewString --> Eden["Eden Space (Young Gen)<br/>(in Heap)"]
+
+    %% String literal path
+    IsLiteral -- Yes --> Literal["&quot;Hello&quot; (String Literal)<br/>Goes to String Pool"]
+    Literal --> Interned["Interned in:<br/>- PermGen (Java ≤ 7)<br/>- Metaspace (Java 8+)"]
+
 ```
 
 ---
@@ -1052,38 +1045,27 @@ Java Virtual Machine (JVM) memory is split into several **memory areas**, each w
 
 ### 🔁 Flow Diagram (Markdown Text Format)
 
-```markdown
-                 +-------------------------+
-                 |   Java Application      |
-                 +-------------------------+
-                             |
-                             v
-                +--------------------------+
-                |   JVM Memory Structure   |
-                +--------------------------+
-                             |
-                             v
-   +---------------------------+---------------------------+
-   |                           |                           |
-   v                           v                           v
-+--------+            +----------------+         +-----------------+
-|  Heap  | <-------+  |     Stack      |         |   Metaspace     |
-|        |         |  | (Thread-local) |         |  (Class info)   |
-+--------+         |  +----------------+         +-----------------+
-     |             |        |                            |
-     |             |        v                            v
-     |             |   +------------+              +-------------+
-     |             |   | Primitive  |              | Class Names |
-     |             |   | Locals     |              | Methods     |
-     |             |   +------------+              | Constant Pool|
-     |             |                                +-------------+
-     |
-     v
-+-------------------------------------------+
-| Young Generation (Eden + 2 Survivor spaces)|
-+-------------------------------------------+
-| Old Generation (Tenured space)             |
-+-------------------------------------------+
+```mermaid
+flowchart TD
+
+    App["Java Application"]
+    App --> JVM["JVM Memory Structure"]
+
+    JVM --> Heap["Heap"]
+    JVM --> Stack["Stack (Thread-local)"]
+    JVM --> Metaspace["Metaspace (Class info)"]
+
+    %% Heap internals
+    Heap --> YoungGen["Young Generation<br/>(Eden + 2 Survivor spaces)"]
+    Heap --> OldGen["Old Generation<br/>(Tenured space)"]
+
+    %% Stack internals
+    Stack --> Primitives["Primitive Locals"]
+
+    %% Metaspace internals
+    Metaspace --> ClassNames["Class Names"]
+    Metaspace --> Methods["Methods"]
+    Metaspace --> ConstantPool["Constant Pool"]
 ```
 
 ---
@@ -1707,26 +1689,34 @@ Comparator<Student> nameComparator = (s1, s2) -> s1.name.compareTo(s2.name);
 <details>
 <summary>## 🌐 Collections Hierarchy Overview</summary>
 
-```text
-Iterable
-  └── Collection
-        ├── List
-        │     ├── ArrayList
-        │     ├── LinkedList
-        │     └── Vector → Stack
-        ├── Set
-        │     ├── HashSet
-        │     ├── LinkedHashSet
-        │     └── TreeSet
-        └── Queue
-              ├── PriorityQueue
-              └── Deque
-                    └── ArrayDeque
+```mermaid
+graph TD
 
-Map (Not part of Collection)
-  ├── HashMap
-  │     └── LinkedHashMap
-  └── TreeMap
+    %% Iterable hierarchy
+    Iterable["Iterable"]
+    Iterable --> Collection["Collection"]
+
+    Collection --> List["List"]
+    List --> ArrayList["ArrayList"]
+    List --> LinkedList["LinkedList"]
+    List --> Vector["Vector"]
+    Vector --> Stack["Stack"]
+
+    Collection --> Set["Set"]
+    Set --> HashSet["HashSet"]
+    Set --> LinkedHashSet["LinkedHashSet"]
+    Set --> TreeSet["TreeSet"]
+
+    Collection --> Queue["Queue"]
+    Queue --> PriorityQueue["PriorityQueue"]
+    Queue --> Deque["Deque"]
+    Deque --> ArrayDeque["ArrayDeque"]
+
+    %% Map hierarchy
+    Map["Map (Not part of Collection)"]
+    Map --> HashMap["HashMap"]
+    HashMap --> LinkedHashMap["LinkedHashMap"]
+    Map --> TreeMap["TreeMap"]
 ```
 
 </details>
@@ -1736,46 +1726,52 @@ Map (Not part of Collection)
 <details>
 <summary>## 🧭 Interactive Decision Flowchart: Pick the Right Collection</summary>
 
-```
-  Start
-  ↓
-  Do you need **key-value pairs**?
-  ├── Yes → Use a **Map**
-  │     ↓
-  │  Do keys need to be **sorted**?
-  │     ├── Yes → Use **TreeMap**
-  │     └── No
-  │         ↓
-  │       Need to **preserve insertion order**?
-  │         ├── Yes → Use **LinkedHashMap**
-  │         └── No → Use **HashMap**
-  ↓
-  No → Move to **Collection side (List or Set)**
-  ↓
-  Do you **allow duplicates**?
-  ├── Yes → Use a **List**
-  │     ↓
-  │  Need **random access by index**?
-  │     ├── Yes → Use **ArrayList**
-  │     └── No → Use **LinkedList**
-  └── No → Use a **Set**
-  ↓
-  Need elements **sorted**?
-  ├── Yes → Use **TreeSet**
-  └── No
-  ↓
-  Preserve **insertion order**?
-  ├── Yes → Use **LinkedHashSet**
-  └── No → Use **HashSet**
-  
-  After selecting collection:
-  
-  Do you need **thread safety**?
-  ├── Yes → Use concurrent or synchronized alternatives:
-  │     - `ConcurrentHashMap`
-  │     - `CopyOnWriteArrayList`
-  │     - `Collections.synchronizedSet(...)`
-  └── No → Use as-is (default)
+```mermaid
+flowchart TD
+
+    Start(["Start"])
+    Start --> NeedKeyValue{"Do you need key-value pairs?"}
+
+    %% Map branch
+    NeedKeyValue -- Yes --> UseMap["Use a Map"]
+    UseMap --> KeysSorted{"Do keys need to be sorted?"}
+    KeysSorted -- Yes --> TreeMap["TreeMap"]
+    KeysSorted -- No --> PreserveOrderMap{"Preserve insertion order?"}
+    PreserveOrderMap -- Yes --> LinkedHashMap["LinkedHashMap"]
+    PreserveOrderMap -- No --> HashMap["HashMap"]
+
+    %% Collection branch
+    NeedKeyValue -- No --> CollectionSide["Move to Collection (List or Set)"]
+    CollectionSide --> AllowDuplicates{"Allow duplicates?"}
+
+    %% List branch
+    AllowDuplicates -- Yes --> UseList["Use a List"]
+    UseList --> RandomAccess{"Need random access by index?"}
+    RandomAccess -- Yes --> ArrayList["ArrayList"]
+    RandomAccess -- No --> LinkedList["LinkedList"]
+
+    %% Set branch
+    AllowDuplicates -- No --> UseSet["Use a Set"]
+    UseSet --> SortedSet{"Need elements sorted?"}
+    SortedSet -- Yes --> TreeSet["TreeSet"]
+    SortedSet -- No --> PreserveOrderSet{"Preserve insertion order?"}
+    PreserveOrderSet -- Yes --> LinkedHashSet["LinkedHashSet"]
+    PreserveOrderSet -- No --> HashSet["HashSet"]
+
+    %% Thread-safety check
+    AfterSelection["After selecting collection"] --> ThreadSafe{"Need thread safety?"}
+    ThreadSafe -- Yes --> ConcurrentOptions["Use concurrent/synchronized alternatives:<br/>- ConcurrentHashMap<br/>- CopyOnWriteArrayList<br/>- Collections.synchronizedSet(...)"]
+    ThreadSafe -- No --> UseDefault["Use as-is (default)"]
+
+    %% Connections
+    TreeMap --> AfterSelection
+    LinkedHashMap --> AfterSelection
+    HashMap --> AfterSelection
+    ArrayList --> AfterSelection
+    LinkedList --> AfterSelection
+    TreeSet --> AfterSelection
+    LinkedHashSet --> AfterSelection
+    HashSet --> AfterSelection
 ```
 
 </details>
@@ -2403,51 +2399,51 @@ Runtime.getRuntime().gc();
 
 - In Java, an exception is an event that disrupts the normal flow of the program. It is an object which is thrown at runtime.
 
-```
-Throwable
-|
-|__ Exception
-    |
-    |__ (IOException, SQLException, ClassNotFoundException, RuntimeException) Checked Exceptions
-        |
-        |__ (ArithmeticException, NullPointerException, NumberFormatException, IndexOutOfBoundException
-            |
-            |__ ArrayOutOfBoundException, StringIndexOutOfBoundException)Unchecked Exceptions
+```mermaid
+graph TD
 
-> Detailed tree structure
+    Throwable["java.lang.Throwable (class)"]
 
-java.lang.Throwable (class)
-│
-├── java.lang.Error (class)
-│   ├── AssertionError (class)
-│   ├── OutOfMemoryError (class)
-│   ├── StackOverflowError (class)
-│   ├── VirtualMachineError (class)
-│   │   ├── InternalError (class)
-│   │   └── OutOfMemoryError (class)
-│   └── LinkageError (class)
-│       ├── ClassNotFoundError (class)
-│       └── NoClassDefFoundError (class)
-│
-└── java.lang.Exception(Checked exceptions) (class)
-├── IOException (class)
-│   ├── FileNotFoundException (class)
-│   ├── EOFException (class)
-│   ├── SocketException (class)
-│   ├── IOException
-│   └── SQLException (class)
-├── RuntimeException(Unchecked exception) (class)
-│   ├── NullPointerException (class)
-│   ├── ArithmeticException (class)
-│   ├── ArrayIndexOutOfBoundsException (class)
-│   ├── ClassCastException (class)
-│   ├── IllegalArgumentException (class)
-│   ├── IllegalStateException (class)
-│   └── UnsupportedOperationException (class)
-├── SQLException (class)
-├── ParseException (class)
-└── InterruptedException (class)
+    %% Error hierarchy
+    Throwable --> Error["java.lang.Error (class)"]
+    Error --> AssertionError["AssertionError (class)"]
+    Error --> OutOfMemoryError["OutOfMemoryError (class)"]
+    Error --> StackOverflowError["StackOverflowError (class)"]
+    Error --> VirtualMachineError["VirtualMachineError (class)"]
+    VirtualMachineError --> InternalError["InternalError (class)"]
+    VirtualMachineError --> OutOfMemoryErrorVM["OutOfMemoryError (class)"]
+    Error --> LinkageError["LinkageError (class)"]
+    LinkageError --> ClassNotFoundError["ClassNotFoundError (class)"]
+    LinkageError --> NoClassDefFoundError["NoClassDefFoundError (class)"]
 
+    %% Exception hierarchy
+    Throwable --> Exception["java.lang.Exception (class)"]
+
+    Exception --> Checked["Checked Exceptions"]
+    Exception --> Unchecked["Unchecked Exceptions (RuntimeException)"]
+
+    %% Checked exceptions
+    Checked --> IOException["IOException"]
+    IOException --> FileNotFoundException["FileNotFoundException"]
+    IOException --> EOFException["EOFException"]
+    IOException --> SocketException["SocketException"]
+
+    Checked --> SQLException["SQLException"]
+    Checked --> ParseException["ParseException"]
+    Checked --> InterruptedException["InterruptedException"]
+
+    %% Unchecked exceptions
+    Unchecked --> NullPointerException["NullPointerException"]
+    Unchecked --> ArithmeticException["ArithmeticException"]
+
+    Unchecked --> ArrayIndexOutOfBoundsException["ArrayIndexOutOfBoundsException"]
+    ArrayIndexOutOfBoundsException --> ArrayOutOfBoundException["ArrayOutOfBoundException"]
+    ArrayIndexOutOfBoundsException --> StringIndexOutOfBoundException["StringIndexOutOfBoundException"]
+
+    Unchecked --> ClassCastException["ClassCastException"]
+    Unchecked --> IllegalArgumentException["IllegalArgumentException"]
+    Unchecked --> IllegalStateException["IllegalStateException"]
+    Unchecked --> UnsupportedOperationException["UnsupportedOperationException"]
 ```
 
 </details>
