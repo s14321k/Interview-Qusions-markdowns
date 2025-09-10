@@ -3147,6 +3147,7 @@ This approach provides a superior user experience for features like infinite scr
 </details>
 
 </details>
+</details>
 
 # Dependency Injection (DI) in Spring Boot
 
@@ -3530,8 +3531,6 @@ No — **CORS is not part of a cookie**. But browsers **enforce CORS** to decide
 
 </details>
 
-Here's your **Spring Boot Auto-Configuration** guide, fully **refactored into collapsible Markdown sections** using `<details>` tags for clarity and expand/collapse behavior:
-
 ---
 
 ## ✅ Spring Boot Auto-Configuration - Structured Guide
@@ -3621,40 +3620,23 @@ com.example.MyAutoConfiguration
 <details>
 <summary><strong>📊 5. Auto-Configuration Flow Diagram</strong></summary>
 
-```plaintext
-              ┌──────────────────────────────┐
-              │  @SpringBootApplication      │
-              │ (Entry Point of Application) │
-              └────────────┬─────────────────┘
-                           │
-      ┌────────────────────┼────────────────────┐
-      │                    │                    │
-┌──────────────┐   ┌────────────────┐   ┌─────────────────────┐
-│ @Configuration│  │@ComponentScan  │   │@EnableAutoConfiguration│
-└──────────────┘   └────────────────┘   └─────────────────────┘
-                                           │
-                             ┌─────────────▼───────────────┐
-                             │ META-INF/spring.factories   │
-                             └─────────────┬───────────────┘
-                                           │
-                                ┌──────────▼─────────┐
-                                │ Classpath Scanning │
-                                └──────────┬─────────┘
-                                           │
-                         ┌─────────────────▼─────────────────┐
-                         │ Conditional Evaluation Begins     │
-                         └─────────────────┬─────────────────┘
-                                           │
-       ┌──────────────────────────────────────────────────────────────┐
-       │ Evaluate Conditions:                                          │
-       │ - OnBean, OnMissingBean, OnClass, OnProperty, OnResource...  │
-       └──────────────────────────────────────────────────────────────┘
-                                           │
-                                ┌──────────▼─────────┐
-                                │ Bean Registered?   │
-                                └──────────┬─────────┘
-                                           │
-                                Yes ───────┘───── No (Ignored)
+```mermaid
+
+flowchart TD
+A["@SpringBootApplication<br/>(Entry Point of Application)"] --> B["@Configuration"]
+A --> C["@ComponentScan"]
+A --> D["@EnableAutoConfiguration"]
+
+    D --> E["META-INF/spring.factories"]
+    E --> F["Classpath Scanning"]
+    F --> G["Conditional Evaluation Begins"]
+
+    G --> H["Evaluate Conditions:<br/>- OnBean<br/>- OnMissingBean<br/>- OnClass<br/>- OnProperty<br/>- OnResource..."]
+
+    H --> I["Bean Registered?"]
+    I -->|Yes| J["Registered"]
+    I -->|No| K["Ignored"]
+
 ```
 
 </details>
@@ -7307,4 +7289,282 @@ Many production systems actually use **both**:
 * Use **Elasticsearch** for search functionality.
 
 ---
+
+# 📊 Detailed Comparison Table
+
+✅ **Expanded and detailed version** for **gRPC, Kafka, RabbitMQ, GraphQL, and REST API**
+
+| **Aspect**              | **gRPC**                                                                                    | **Kafka**                                                                                | **RabbitMQ**                                                                                                          | **GraphQL**                                                                                       | **REST API**                                                                    |
+| ----------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| **Communication style** | Remote Procedure Calls (unary, client streaming, server streaming, bidirectional streaming) | Publish/Subscribe via distributed commit log (stream of ordered records)                 | Message broker with queues and routing (Pub/Sub + work queues)                                                        | Query language over HTTP (client defines exact shape of response)                                 | Resource-based request/response (CRUD using HTTP verbs: GET, POST, PUT, DELETE) |
+| **Transport**           | HTTP/2 with **Protobuf** serialization (binary, compact, strongly typed)                    | Custom TCP protocol, distributed partitions, durable log storage                         | TCP using **AMQP** (lightweight messages, acknowledgements, retries)                                                  | HTTP/1.1 or HTTP/2 (usually JSON), optional WebSockets for subscriptions                          | HTTP/1.1/2 (JSON, XML, or other formats)                                        |
+| **Coupling**            | **Tight — client must know the server contract and schema (Protobuf definitions)**          | **Loose — producers publish to topics, unaware of who consumes**                         | **Medium — producers publish to an exchange, consumers subscribe via queues, some decoupling but not full broadcast** | **Tight — clients must know schema to form queries, though schema provides strong documentation** | **Medium — clients must know endpoint structure and request/response format**   |
+| **Data lifetime**       | **Transient — lives only during the RPC call/stream**                                       | **Persistent — data stored in partitions for hours/days/weeks (configurable retention)** | **Transient by default — messages deleted once acknowledged; supports durable queues for persistence**                | **Transient — response exists only during request/response lifecycle**                            | **Transient — response delivered per request only**                             |
+| **Scalability**         | **Vertical — efficient multiplexing over HTTP/2 per connection**                            | **Massive horizontal scalability — partitioning, consumer groups, distributed brokers**  | **Horizontal — clustering supported, though throughput is lower than Kafka**                                          | **Horizontal — scales at API gateway level with multiple resolvers**                              | **Horizontal — stateless servers behind load balancers**                        |
+| **Best for**            | High-performance microservice communication, real-time APIs, strongly typed interactions    | High-throughput event streaming, event sourcing, analytics pipelines                     | Reliable task queues, job scheduling, background worker processing                                                    | Flexible client-facing APIs that minimize over/under-fetching                                     | Simple, universal CRUD APIs with broad adoption                                 |
+
+---
+
+# 🔑 When to Use (with examples)
+
+### ✅ gRPC
+
+* When you need **synchronous or near real-time interaction between services**.
+
+  * Example: a **user-service** calls an **auth-service** to validate credentials.
+* When you need **bidirectional streaming communication**.
+
+  * Example: a **mobile app** chats with a backend, both sending and receiving messages continuously.
+* When you want **strongly typed contracts** across microservices.
+
+  * Example: backend-to-backend services in a **polyglot system** (Java, Go, Python).
+
+---
+
+### ✅ Kafka
+
+* When you need an **event-driven architecture** where multiple services react to events.
+
+  * Example: a **payment-service** publishes a “PaymentCompleted” event consumed by **shipping-service**, **email-service**, and **analytics-service**.
+* When you need **high-throughput pipelines** for data streams.
+
+  * Example: real-time **clickstream data** or **IoT telemetry** processed by multiple analytics consumers.
+* When you need **durability and replay**.
+
+  * Example: replaying historical events for **fraud detection models** or **audit trails**.
+
+---
+
+### ✅ RabbitMQ
+
+* When you need a **reliable task queue** for job distribution.
+
+  * Example: an **order-service** places tasks in a queue for **invoice generation** or **PDF rendering**.
+* When you need **message acknowledgement and retries**.
+
+  * Example: an **email-service** retries sending if the SMTP server fails.
+* When you need **simple pub/sub** with routing.
+
+  * Example: log processing where different queues handle different log levels (**info**, **warn**, **error**).
+
+---
+
+### ✅ GraphQL
+
+* When you want **clients to decide what data they fetch** (preventing over/under-fetching).
+
+  * Example: a **mobile app** requesting `{ user { id, name, avatar } }` instead of fetching the full user object.
+* When you have **complex relationships** and need efficient data fetching.
+
+  * Example: fetching a **user’s profile, posts, and comments** in one request instead of multiple REST calls.
+* When you want **schema-first API development** with strong tooling.
+
+  * Example: auto-generating **TypeScript types** or **frontend codegen** from GraphQL schema.
+
+---
+
+### ✅ REST API
+
+* When you need **simple CRUD operations** with broad adoption.
+
+  * Example: a **product-service** exposing `/products`, `/products/{id}` for GET/POST/PUT/DELETE.
+* When you need **public APIs** where compatibility matters.
+
+  * Example: exposing a **payment API** for 3rd parties (Stripe, PayPal style).
+* When you want **human-readable, easy-to-test endpoints**.
+
+  * Example: quick cURL or Postman tests without special tooling.
+
+---
+
+# 🌐 Together (Common Architecture)
+
+A modern system often combines them:
+
+1. **Frontend → Backend**
+
+  * Uses **REST API** (simple endpoints) or **GraphQL** (flexible queries) for client-facing apps.
+  * Example: mobile app fetches data via GraphQL.
+
+2. **Backend → Internal Services**
+
+  * Uses **gRPC** for synchronous, strongly typed microservice communication.
+  * Example: profile-service calling auth-service over gRPC.
+
+3. **Event Backbone**
+
+  * Uses **Kafka** for async event streaming.
+  * Example: order-service emits `OrderCreated` → multiple consumers process it.
+
+4. **Job Processing**
+
+  * Uses **RabbitMQ** for background tasks.
+  * Example: email-service or report-service processing queued jobs.
+
+---
+
+# ✅ Rule of Thumb (Expanded)
+
+* **Use gRPC** → For **direct, strongly typed, low-latency communication** (service-to-service, real-time).
+* **Use Kafka** → For **event-driven, high-throughput, durable event distribution** (analytics, pipelines, decoupling).
+* **Use RabbitMQ** → For **task queues, guaranteed delivery, retries, worker jobs** (job scheduling, notifications).
+* **Use GraphQL** → For **flexible, client-driven APIs** (web/mobile apps, complex queries).
+* **Use REST API** → For **simple, standardized, widely compatible APIs** (CRUD, public APIs, quick integrations).
+
+![restGrpcGraphRabitmq.png](images/restGrpcGraphRabitmq.png)
+
+---
+
+# 📊 HTTP Status Codes
+
+---
+
+## 🔵 **1xx — Informational**
+
+Used to indicate that the request was received and is being processed. Rarely used in practice.
+
+* **100 Continue** → Initial part of request received, client can continue.
+* **101 Switching Protocols** → Server is switching protocols (e.g., HTTP → WebSocket).
+* **102 Processing** → Server has accepted but not yet completed the request (WebDAV).
+* **103 Early Hints** → Hints to preload resources before final response (performance).
+
+---
+
+## 🟢 **2xx — Success**
+
+Indicates the request was successfully received, understood, and accepted.
+
+* **200 OK** → Request succeeded (GET, PUT, DELETE).
+* **201 Created** → Resource created successfully (POST, PUT).
+* **202 Accepted** → Request accepted but not processed yet (async jobs).
+* **203 Non-Authoritative Information** → Response returned but metadata may differ from origin.
+* **204 No Content** → Success, no response body (DELETE, PUT updates).
+* **205 Reset Content** → Success, client should reset form/view.
+* **206 Partial Content** → Partial response (used in range requests, e.g., video streaming).
+* **207 Multi-Status** → Multiple independent status codes in one response (WebDAV).
+* **208 Already Reported** → Resource already listed in response (WebDAV).
+* **226 IM Used** → Server fulfilled request using instance manipulation (rare).
+
+---
+
+## 🟡 **3xx — Redirection**
+
+Client must take further action to complete the request.
+
+* **300 Multiple Choices** → Multiple representations exist (rarely used).
+* **301 Moved Permanently** → Resource permanently moved (SEO-friendly redirect).
+* **302 Found** → Temporary redirect (browser redirect).
+* **303 See Other** → Redirect to another URI (common after POST → GET).
+* **304 Not Modified** → Resource not changed since last request (caching).
+* **305 Use Proxy** → Must access via proxy (deprecated).
+* **306 (Unused)** → Reserved, not used anymore.
+* **307 Temporary Redirect** → Like 302, but method must not change (POST stays POST).
+* **308 Permanent Redirect** → Like 301, but method must not change.
+
+---
+
+## 🟠 **4xx — Client Errors**
+
+Request contains bad syntax or cannot be fulfilled by the server.
+
+* **400 Bad Request** → Invalid request (syntax, validation error).
+* **401 Unauthorized** → Authentication required or failed.
+* **402 Payment Required** → Reserved for future use (sometimes used for APIs with quota/billing).
+* **403 Forbidden** → Server understood but refuses (insufficient permissions).
+* **404 Not Found** → Resource not found.
+* **405 Method Not Allowed** → Method not supported for resource.
+* **406 Not Acceptable** → Resource not available in requested format.
+* **407 Proxy Authentication Required** → Must authenticate with proxy.
+* **408 Request Timeout** → Client took too long to send request.
+* **409 Conflict** → Request conflicts with server state (e.g., duplicate resource).
+* **410 Gone** → Resource permanently removed (no forwarding address).
+* **411 Length Required** → Missing `Content-Length` header.
+* **412 Precondition Failed** → Request preconditions failed (e.g., `If-Match` headers).
+* **413 Payload Too Large** → Request body too big.
+* **414 URI Too Long** → URL too long (GET query string).
+* **415 Unsupported Media Type** → Unsupported request content type.
+* **416 Range Not Satisfiable** → Invalid range request (e.g., file download).
+* **417 Expectation Failed** → Server cannot meet requirements of `Expect` header.
+* **418 I’m a teapot** → Joke status (RFC 2324, April Fools 😂).
+* **421 Misdirected Request** → Request sent to wrong server (host mismatch).
+* **422 Unprocessable Entity** → Validation error (syntax ok but semantically invalid).
+* **423 Locked** → Resource locked (WebDAV).
+* **424 Failed Dependency** → Request failed due to previous failure (WebDAV).
+* **425 Too Early** → Server unwilling to process early replay (retry risk).
+* **426 Upgrade Required** → Client must switch protocols (e.g., HTTP → HTTPS).
+* **428 Precondition Required** → Server requires conditions (avoid race conditions).
+* **429 Too Many Requests** → Rate limiting / throttling.
+* **431 Request Header Fields Too Large** → Headers too big.
+* **451 Unavailable For Legal Reasons** → Blocked (e.g., censorship, legal takedown).
+
+---
+
+## 🔴 **5xx — Server Errors**
+
+Server failed to process a valid request.
+
+* **500 Internal Server Error** → Generic server failure.
+* **501 Not Implemented** → Server does not support functionality.
+* **502 Bad Gateway** → Invalid response from upstream server.
+* **503 Service Unavailable** → Server temporarily overloaded or down.
+* **504 Gateway Timeout** → Upstream server took too long to respond.
+* **505 HTTP Version Not Supported** → Version not supported.
+* **506 Variant Also Negotiates** → Server misconfigured content negotiation.
+* **507 Insufficient Storage** → Server cannot store representation (WebDAV).
+* **508 Loop Detected** → Infinite loop in request (WebDAV).
+* **510 Not Extended** → Extensions required to fulfill request.
+* **511 Network Authentication Required** → Client must authenticate to access network (e.g., captive portal in Wi-Fi).
+
+---
+
+# 🔑 Idempotency in REST API Methods
+
+**Idempotent** means:
+👉 Calling the same request **once or multiple times** results in the **same effect on the server**.
+
+---
+
+## ✅ Idempotent HTTP Methods
+
+* **GET** → Safe and idempotent.
+
+  * Example: `GET /users/123` always retrieves the same user.
+* **PUT** → Idempotent.
+
+  * Example: `PUT /users/123 { "name": "Alice" }` → No matter how many times you send it, user 123 ends up as `"Alice"`.
+* **DELETE** → Idempotent.
+
+  * Example: `DELETE /users/123` → Deleting the same user multiple times still results in “user 123 is gone.”
+* **HEAD** → Idempotent (like GET but without response body).
+* **OPTIONS** → Idempotent (fetches available operations).
+
+---
+
+## ❌ Non-Idempotent HTTP Methods
+
+* **POST** → Not idempotent.
+
+  * Example: `POST /orders` creates a new order each time you call it.
+* **PATCH** → Not guaranteed to be idempotent (depends on implementation).
+
+  * Example: `PATCH /users/123 { "balance": "+10" }` → Multiple calls keep incrementing balance.
+
+---
+
+# 🧭 Why Idempotency Matters
+
+* Ensures **safe retries** in distributed systems (e.g., client resends after timeout).
+* Helps design **predictable, fault-tolerant APIs**.
+* Used in **payment APIs** (e.g., Stripe, PayPal) with **Idempotency Keys** to prevent duplicate charges.
+
+---
+
+# GraphQL
+
+- All calls to graphQL are post calls.
+- GraphQlQueryResolver is used instead of JPARepo.
+
+
+
+
 
