@@ -300,7 +300,7 @@ Perfect 👍 — here’s an **ASCII flow diagram** (Markdown) showing how **Pub
 
 +----------------+     (direct RPC call)     +----------------+
 | Client Service | ------------------------> | Server Service |
-|   (caller)     |                          |   (callee)     |
+|   (caller)     |                           |   (callee)     |
 |                | <------------------------ |                |
 +----------------+     (response)            +----------------+
 

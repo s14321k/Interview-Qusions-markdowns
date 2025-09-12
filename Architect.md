@@ -21,48 +21,48 @@ Below is a full ASCII architecture diagram (Markdown code block) that shows fron
                                      |        |
                          (1) REST/GraphQL   (2) Fetch aggregate data
                                      |        v
-                                     |   +----+-----+
+                                     |   +----+------+
                                      |   |  Edge-    |
                                      |   |  Resolver |
-                                     |   +----+-----+
+                                     |   +----+------+
                                      |        |
                                      v        v
                      +---------------+--------+-----------------+
-                     | Internal Service Mesh / Load Balancer   |
-                     | (Service discovery, TLS, LB)            |
-                     +----------+---------------+---------------+
-                                |               |
-               (3) gRPC (fast)   |               |  HTTP (admin/metrics)
-                   calls         |               |
-                                v               v
-              +-----------------+---+     +-----+------------------+
-              |   Auth Service       |     |  Profile Service      |
-              |   (gRPC + HTTP)      |     |  (gRPC + DB)          |
-              +--+----------------+--+     +--+--------------------+
-                 |                |           |
-                 |                |(4) writes/updates
-                 |                v           v
-                 |         +------+-----+   +--+-------------+
-                 |         | Relational |   | NoSQL / Cache  |
-                 |         | DB (Postgres)|  | (Redis/Cassandra)|
-                 |         +------------+   +----------------+
+                     | Internal Service Mesh / Load Balancer    |
+                     | (Service discovery, TLS, LB)             |
+                     +----------+----------------+---------------+
+                                |                |
+               (3) gRPC (fast)  |                |  HTTP (admin/metrics)
+                   calls        |                |
+                                v                v
+              +-----------------+----+     +-----+---------------+
+              |   Auth Service       |     |   Profile Service   |
+              |   (gRPC + HTTP)      |     |   (gRPC + DB)       |
+              +--+----------------+--+     +------------+--------+
+                 |                |                     |
+                 |                |  (4) writes/updates |
+                 |                v                     v
+                 |         +------+-------+   +---------+---------+
+                 |         | Relational   |   |   NoSQL / Cache   |
+                 |         | DB (Postgres)|   | (Redis/Cassandra) |
+                 |         +--------------+   +-------------------+
                  |
                  |  (5) publish events
                  v
-       +---------+---------------------------------------------+
-       |                         Kafka                         |
-       |           (topics: OrderCreated, PaymentCompleted,    |
-       |            ProfileUpdated, AnalyticsEvents...)        |
-       +-----+---------------------+----------------+----------+
-             |                     |                |
-   (6) stream consumers     (7) sink/connectors    (8) analytics
-             |                     |                |
-             v                     v                v
-   +---------+----+        +-------+-------+   +----+-----------+
-   |  Search Index  |        |  Elastic-    |   |  Stream-      |
-   |  Updater (svc) |        |  search Sink |   |  Processing   |
-   | consumes topic  |        |  (Elasticsearch)| |  (Spark/ksql)|
-   +-----------------+        +---------------+   +---------------+
+       +---------+---------------------------------------------------+
+       |                         Kafka                               |
+       |           (topics: OrderCreated, PaymentCompleted,          |
+       |            ProfileUpdated, AnalyticsEvents...)              |
+       +-----+------------------------+-------------------+----------+
+             |                        |                   |
+   (6) stream consumers        (7) sink/connectors       (8) analytics
+             |                        |                   |
+             v                        v                   v
+   +---------+-------+        +-------+----------+   +----+-----------+
+   |  Search Index   |        |  Elastic-        |   |  Stream-       |
+   |  Updater (svc)  |        |  search Sink     |   |  Processing    |
+   | consumes topic  |        |  (Elasticsearch) |   |  (Spark/ksql)  |
+   +-----------------+        +------------------+   +----------------+
              |
              | (9) index documents for full-text search
              v
@@ -80,7 +80,7 @@ Below is a full ASCII architecture diagram (Markdown code block) that shows fron
  (10) workers consume      (11) ack / retry / DLQ
            |                 |
            v                 v
-   +-------+------+     +----+----------+
+   +-------+-------+     +----+----------+
    | Email Worker  |     |  PDF Worker   |
    +---------------+     +---------------+
 
@@ -177,8 +177,6 @@ Below is a full ASCII architecture diagram (Markdown code block) that shows fron
 
 ---
 
-Great 🚀 — here’s the **layered ASCII architecture diagram** (in Markdown) showing how **Jenkins, Terraform, OpenShift, Docker, Kubernetes, Ansible, ArgoCD, Prometheus, Grafana, Zipkin, OpenTelemetry, etc.** fit together in a modern cloud-native stack.
-
 ```markdown
 # Modern DevOps / Cloud-Native Architecture (ASCII)
 
@@ -190,10 +188,10 @@ Great 🚀 — here’s the **layered ASCII architecture diagram** (in Markdown)
           (1) CI/CD Trigger (commit/push) |
                                           v
                 +-------------------------+-------------------------+
-                |                  CI/CD Layer                     |
-                |--------------------------------------------------|
+                |                  CI/CD Layer                    - |
+                |---------------------------------------------------|
                 | Jenkins | GitHub Actions | GitLab CI | Tekton     |
-                +------------------+-------------------------------+
+                +------------------+--------------------------------+
                                    |
                  (2) Build / Test / Package Artifacts (Docker images)
                                    v
@@ -204,9 +202,9 @@ Great 🚀 — here’s the **layered ASCII architecture diagram** (in Markdown)
                                    |
                   (3) Push to Registry (Harbor, ECR, GCR, DockerHub)
                                    v
-                         +---------+---------+
-                         |   Container Registry|
-                         +---------+---------+
+                         +---------+-------------+
+                         |   Container Registry  |
+                         +---------+-------------+
                                    |
              (4) Deploy Infra via IaC (Terraform, Ansible, Pulumi, CFN)
                                    v
@@ -270,5 +268,3 @@ Great 🚀 — here’s the **layered ASCII architecture diagram** (in Markdown)
 * **Prometheus/Grafana/Zipkin** → Observability
 
 ---
-
-👉 Would you like me to also create a **comparison cheat-sheet (like earlier tables)** that places these tools into categories side by side (CI/CD vs IaC vs Orchestration vs Observability) for quick reference?

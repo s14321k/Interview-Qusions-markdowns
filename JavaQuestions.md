@@ -1395,3 +1395,259 @@ System.out.println(sb1.toString().intern() == s1);  // true
 Because `.intern()` returns the canonical representation from the String Pool.
 
 </details>
+
+<details>
+<summary><strong>✨ 20. Find Palindromes using Streams</strong></summary>
+
+* Palindrome: a string that reads the same forwards and backwards.  
+* To check, compare the string with its reverse.  
+* Using streams, you can filter only palindrome words.
+
+```java
+import java.util.*;
+import java.util.stream.*;
+
+public class PalindromeFinder {
+    public static void main(String[] args) {
+        String[] data = {"level", "hoodi", "madam", "java", "racecar"};
+
+        // Find palindromes
+        List<String> palindromes = Arrays.stream(data)
+                                         .filter(PalindromeFinder::isPalindrome)
+                                         .collect(Collectors.toList());
+
+        System.out.println("Palindromes: " + palindromes);
+    }
+
+    // Helper method to check palindrome
+    private static boolean isPalindrome(String str) {
+        return str.equalsIgnoreCase(
+            new StringBuilder(str).reverse().toString()
+        );
+    }
+}
+````
+
+---
+
+### Explanation
+
+| Operation          | Stream Method     | Logic                                                         |
+| ------------------ | ----------------- | ------------------------------------------------------------- |
+| Convert array      | `Arrays.stream()` | Turn the array into a stream.                                 |
+| Filter palindromes | `.filter()`       | Keep only words where `word.equalsIgnoreCase(reverse(word))`. |
+| Collect results    | `.collect()`      | Collect into a `List<String>`.                                |
+
+---
+
+### Example Output
+
+```
+Palindromes: [level, madam, racecar]
+```
+
+</details>
+
+<details>
+<summary><strong>⚡ 21. Sort Map by Values (Streams, TreeMap, Comparator)</strong></summary>
+
+* By default, `HashMap` doesn’t maintain order.  
+* We can sort by **keys** easily using `TreeMap`, but sorting by **values** requires:  
+  - Streams (`.sorted(Map.Entry.comparingByValue())`)  
+  - `TreeMap` with custom comparator  
+  - Collecting into `LinkedHashMap` to preserve sorted order  
+
+```java
+import java.util.*;
+import java.util.stream.*;
+
+public class MapSortByValue {
+    public static void main(String[] args) {
+        Map<String, Integer> scores = new HashMap<>();
+        scores.put("David", 95);
+        scores.put("Jane", 80);
+        scores.put("Mary", 97);
+        scores.put("Lisa", 78);
+        scores.put("Dino", 65);
+
+        // 1️⃣ Using Streams - Ascending by value
+        Map<String, Integer> asc = scores.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                ));
+
+        // 2️⃣ Using Streams - Descending by value
+        Map<String, Integer> desc = scores.entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                ));
+
+        // 3️⃣ Using TreeMap with Comparator (sort by key only)
+        Map<String, Integer> treeByKey = new TreeMap<>(scores);
+
+        System.out.println("Original: " + scores);
+        System.out.println("Sorted Asc by Value: " + asc);
+        System.out.println("Sorted Desc by Value: " + desc);
+        System.out.println("TreeMap Sorted by Key: " + treeByKey);
+    }
+}
+```
+
+---
+
+### Explanation
+
+| Method                           | Approach                                                                 |
+| -------------------------------- | ------------------------------------------------------------------------ |
+| Streams + `sorted`               | Sort by values (`comparingByValue`), then collect into `LinkedHashMap`.   |
+| Streams + reverseOrder           | Same as above, but descending order.                                     |
+| TreeMap with Comparator          | Sorts by **keys**, not values (but useful to show difference).           |
+
+---
+
+### Example Output
+
+```
+Original: {David=95, Jane=80, Mary=97, Lisa=78, Dino=65}
+Sorted Asc by Value: {Dino=65, Lisa=78, Jane=80, David=95, Mary=97}
+Sorted Desc by Value: {Mary=97, David=95, Jane=80, Lisa=78, Dino=65}
+TreeMap Sorted by Key: {David=95, Dino=65, Jane=80, Lisa=78, Mary=97}
+```
+
+</details>
+
+<details>
+<summary><strong>🌀 22. Swap Values without Using Another Variable</strong></summary>
+
+* Normally, swapping uses a temporary variable:  
+
+```java
+  int temp = val1; 
+  val1 = val2; 
+  val2 = temp;
+```
+
+* But we can do it without an extra variable using:
+
+  * **Arithmetic (Addition/Subtraction or Multiplication/Division)**
+  * **Bitwise XOR**
+
+```java
+public class SwapValues {
+    public static void main(String[] args) {
+        int val1 = 9;
+        int val2 = 10;
+
+        System.out.println("Before Swap: val1 = " + val1 + ", val2 = " + val2);
+
+        // 1️⃣ Using Addition & Subtraction
+        val1 = val1 + val2;  // 19
+        val2 = val1 - val2;  // 9
+        val1 = val1 - val2;  // 10
+        System.out.println("After Swap (Add/Sub): val1 = " + val1 + ", val2 = " + val2);
+
+        // Reset values
+        val1 = 9; val2 = 10;
+
+        // 2️⃣ Using Multiplication & Division (⚠️ works only if no zero & no overflow)
+        val1 = val1 * val2;  // 90
+        val2 = val1 / val2;  // 9
+        val1 = val1 / val2;  // 10
+        System.out.println("After Swap (Mul/Div): val1 = " + val1 + ", val2 = " + val2);
+
+        // Reset values
+        val1 = 9; val2 = 10;
+
+        // 3️⃣ Using XOR (bitwise)
+        val1 = val1 ^ val2;  // XOR result
+        val2 = val1 ^ val2;  // gets original val1
+        val1 = val1 ^ val2;  // gets original val2
+        System.out.println("After Swap (XOR): val1 = " + val1 + ", val2 = " + val2);
+    }
+}
+```
+
+---
+
+### Explanation
+
+| Method                    | Logic                                                                         |
+| ------------------------- | ----------------------------------------------------------------------------- |
+| Addition & Subtraction    | Add both → subtract back to extract original values.                          |
+| Multiplication & Division | Multiply → divide back to extract original values. (⚠️ risky: zero/overflow). |
+| XOR Bitwise               | XOR twice cancels out, restoring swapped values.                              |
+
+---
+
+### Example Output
+
+```
+Before Swap: val1 = 9, val2 = 10
+After Swap (Add/Sub): val1 = 10, val2 = 9
+After Swap (Mul/Div): val1 = 10, val2 = 9
+After Swap (XOR): val1 = 10, val2 = 9
+```
+
+</details>
+
+<details>
+<summary><strong>🎯 23. Two Sum using Streams</strong></summary>
+
+* Stream approach:  
+  - Use **IntStream.range** to iterate over indices.  
+  - For each index `i`, find a matching index `j` where `nums[i] + nums[j] == target`.  
+  - Stop at the first valid pair.  
+
+```java
+import java.util.*;
+import java.util.stream.*;
+
+public class TwoSumStream {
+    public static void main(String[] args) {
+        int[] nums = {2, 7, 11, 15, 7};
+        int target = 9;
+
+        int[] result = twoSum(nums, target);
+        System.out.println("Indices: [" + result[0] + ", " + result[1] + "]");
+    }
+
+    public static int[] twoSum(int[] nums, int target) {
+        return IntStream.range(0, nums.length)          // stream of indices i
+                .boxed()
+                .flatMap(i -> IntStream.range(i + 1, nums.length)  // for each i, pair with j > i
+                        .filter(j -> nums[i] + nums[j] == target)
+                        .mapToObj(j -> new int[]{i, j}))
+                .findFirst()   // return first match
+                .orElseThrow(() -> new IllegalArgumentException("No solution found"));
+    }
+}
+````
+
+---
+
+### Explanation
+
+| Operation              | Stream API Used                        | Purpose                                              |
+| ---------------------- | -------------------------------------- | ---------------------------------------------------- |
+| Generate indices       | `IntStream.range(0, n)`                | Iterate over all possible `i`.                       |
+| Pair with next indices | `flatMap(IntStream.range)`             | Generate all pairs `(i, j)` with `j > i`.            |
+| Filter matching sums   | `.filter(nums[i] + nums[j] == target)` | Keep only pairs that match the target.               |
+| Return first match     | `.findFirst()`                         | Get first valid pair (since problem guarantees one). |
+
+---
+
+### Example Output
+
+```
+Indices: [0, 1]
+```
+
+</details>
