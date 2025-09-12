@@ -1448,6 +1448,50 @@ Palindromes: [level, madam, racecar]
 
 </details>
 
+---
+
+<details>
+<summary><strong>Check if a given string is palindrome using recursion.</strong></summary>
+
+```java
+
+/*
+* Java program to check if a given inputted string is palindrome or not using recursion.
+*/
+
+import java.util.*;
+public class InterviewBit { 
+   public static void main(String args[]) { 
+       Scanner s = new Scanner(System.in);
+       String word = s.nextLine();
+       System.out.println("Is "+word+" palindrome? - "+isWordPalindrome(word));
+   } 
+   
+   
+   public static boolean isWordPalindrome(String word){ 
+       String reverseWord = getReverseWord(word); 
+       //if word equals its reverse, then it is a palindrome
+       if(word.equals(reverseWord)){ 
+           return true; 
+       } 
+       return false; 
+   } 
+   
+   public static String getReverseWord(String word){ 
+       if(word == null || word.isEmpty()){ 
+           return word; 
+       } 
+       
+       return word.charAt(word.length()- 1) + getReverseWord(word.substring(0, word.length() - 1)); 
+   }
+}
+
+```
+
+</details>
+
+---
+
 <details>
 <summary><strong>⚡ 21. Sort Map by Values (Streams, TreeMap, Comparator)</strong></summary>
 
@@ -1499,6 +1543,7 @@ public class MapSortByValue {
         System.out.println("TreeMap Sorted by Key: " + treeByKey);
     }
 }
+
 ```
 
 ---
@@ -1523,6 +1568,8 @@ TreeMap Sorted by Key: {David=95, Dino=65, Jane=80, Lisa=78, Mary=97}
 ```
 
 </details>
+
+---
 
 <details>
 <summary><strong>🌀 22. Swap Values without Using Another Variable</strong></summary>
@@ -1598,6 +1645,8 @@ After Swap (XOR): val1 = 10, val2 = 9
 
 </details>
 
+---
+
 <details>
 <summary><strong>🎯 23. Two Sum using Streams</strong></summary>
 
@@ -1651,3 +1700,122 @@ Indices: [0, 1]
 ```
 
 </details>
+
+---
+
+<details>
+<summary><strong>🗂️ 24. Group Employees by Department & Filter by Year using Streams</strong></summary>
+
+* **Group by Department** → use `Collectors.groupingBy(Employee::getDepartment)`.  
+* **Filter by Joining Year** → use `getJoiningDate().getYear() > 2018`.  
+
+```java
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.*;
+
+class Employee {
+    private int id;
+    private String name;
+    private int age;
+    private String department;
+    private double salary;
+    private LocalDate joiningDate;
+
+    public Employee(int id, String name, int age, String department, double salary, LocalDate joiningDate) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.department = department;
+        this.salary = salary;
+        this.joiningDate = joiningDate;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public LocalDate getJoiningDate() {
+        return joiningDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String toString() {
+        return name + " (" + department + ", " + joiningDate + ")";
+    }
+}
+
+public class EmployeeGroupFilter {
+    public static void main(String[] args) {
+        List<Employee> employees = Arrays.asList(
+            new Employee(1, "Alice", 28, "HR", 55000, LocalDate.of(2020, 1, 10)),
+            new Employee(2, "Bob", 35, "IT", 75000, LocalDate.of(2017, 3, 15)),
+            new Employee(3, "Charlie", 30, "IT", 80000, LocalDate.of(2021, 6, 20)),
+            new Employee(4, "David", 40, "Finance", 90000, LocalDate.of(2016, 11, 30)),
+            new Employee(5, "Eva", 22, "HR", 45000, LocalDate.of(2022, 7, 5)),
+            new Employee(6, "Frank", 26, "Finance", 65000, LocalDate.of(2019, 5, 18))
+        );
+
+        // 1️⃣ Group employees by department
+        Map<String, List<Employee>> groupedByDept = employees.stream()
+            .collect(Collectors.groupingBy(Employee::getDepartment));
+
+        // 2️⃣ Filter employees who joined after 2018
+        List<Employee> joinedAfter2018 = employees.stream()
+            .filter(e -> e.getJoiningDate().getYear() > 2018)
+            .collect(Collectors.toList());
+
+        System.out.println("Grouped by Department: " + groupedByDept);
+        System.out.println("Joined after 2018: " + joinedAfter2018);
+
+        // 1️⃣ Sort by joining date ascending
+        List<Employee> asc = employees.stream()
+            .sorted(Comparator.comparing(Employee::getJoiningDate))
+            .collect(Collectors.toList());
+
+        // 2️⃣ Sort by joining date descending
+        List<Employee> desc = employees.stream()
+            .sorted(Comparator.comparing(Employee::getJoiningDate).reversed())
+            .collect(Collectors.toList());
+
+        System.out.println("Ascending: " + asc);
+        System.out.println("Descending: " + desc);
+    }
+}
+````
+
+---
+
+### Explanation
+
+| Operation           | Stream API                                          |
+| ------------------- | --------------------------------------------------- |
+| Group by department | `Collectors.groupingBy(Employee::getDepartment)`    |
+| Filter by year      | `.filter(e -> e.getJoiningDate().getYear() > 2018)` |
+| Collect results     | `.collect(Collectors.toList())`                     |
+| Sort by date asc  | `.sorted(Comparator.comparing(Employee::getJoiningDate))`            |
+| Sort by date desc | `.sorted(Comparator.comparing(Employee::getJoiningDate).reversed())` |
+
+
+---
+
+### Example Output
+
+```
+Grouped by Department: 
+{HR=[Alice (HR, 2020-01-10), Eva (HR, 2022-07-05)], 
+ IT=[Bob (IT, 2017-03-15), Charlie (IT, 2021-06-20)], 
+ Finance=[David (Finance, 2016-11-30), Frank (Finance, 2019-05-18)]}
+
+Joined after 2018: 
+[Alice (HR, 2020-01-10), Charlie (IT, 2021-06-20), Eva (HR, 2022-07-05), Frank (Finance, 2019-05-18)]
+Ascending: [David (2016-11-30), Bob (2017-03-15), Frank (2019-05-18), Alice (2020-01-10), Charlie (2021-06-20), Eva (2022-07-05)]
+Descending: [Eva (2022-07-05), Charlie (2021-06-20), Alice (2020-01-10), Frank (2019-05-18), Bob (2017-03-15), David (2016-11-30)]
+```
+
+</details>
+
+---
