@@ -94,6 +94,15 @@ WHERE (DeptID, Salary) IN (
 );
 ```
 
+**Highest Salary from each Department**
+
+```
+  SELECT dep, MAX(salary) AS highest_salary
+  FROM employee
+  GROUP BY dep;
+```
+
+
 🔗 [Reference](https://stackoverflow.com/a/8477093/11962586)
 
 
