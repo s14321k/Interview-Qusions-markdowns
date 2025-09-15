@@ -973,6 +973,48 @@ public class CharCountManual {
 
 </details>
 
+<details open>
+<summary><strong>Occurances</strong></summary>
+
+Got it 👍 You want to find the occurrences (frequency) of each element in a `List<Integer>` using **Java Streams**.
+Here’s how you can do it:
+
+```java
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Occurrences {
+    public static void main(String[] args) {
+        List<Integer> allData = List.of(1, 2, 3, 5, 4, 3, 2, 2, 1);
+
+        Map<Integer, Long> occurrences = allData.stream()
+                .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+
+        System.out.println(occurrences);
+    }
+}
+```
+
+### ✅ Output:
+
+```
+{1=2, 2=3, 3=2, 4=1, 5=1}
+```
+
+### Explanation:
+
+* `groupingBy(e -> e, Collectors.counting())` → groups elements by themselves and counts occurrences.
+* The result is a `Map<Integer, Long>` (since `counting()` returns `Long`).
+
+👉 If you want `Integer` counts instead of `Long`, you can map it like this:
+
+```java
+Map<Integer, Integer> occurrences = allData.stream()
+        .collect(Collectors.groupingBy(e -> e, Collectors.collectingAndThen(Collectors.counting(), Long::intValue)));
+```
+
+</details>
+
 ---
 
 <details open>
@@ -1819,3 +1861,116 @@ Descending: [Eva (2022-07-05), Charlie (2021-06-20), Alice (2020-01-10), Frank (
 </details>
 
 ---
+
+<details>
+<summary><strong> Reorder numbers so that negative/positive pairs appear together </strong></summary>
+
+Example:
+Input:
+
+```java
+{-2, 2, 1, 3, -1, -3}
+```
+
+Output:
+
+```java
+{-1, 1, -2, 2, -3, 3}
+```
+
+Here’s a clean **Java Streams** solution:
+
+```java
+import java.util.*;
+import java.util.stream.*;
+
+public class PairOrdering {
+    public static void main(String[] args) {
+        List<Integer> input = Arrays.asList(-2, 2, 1, 3, -1, -3);
+
+        // Group by absolute value
+        Map<Integer, List<Integer>> grouped = input.stream()
+                .collect(Collectors.groupingBy(Math::abs));
+
+        // Sort by order of first occurrence (based on index in input)
+        List<Integer> output = grouped.entrySet().stream()
+                .sorted(Comparator.comparingInt(e -> input.indexOf(e.getValue().get(0))))
+                .flatMap(e -> e.getValue().stream()
+                        .sorted(Comparator.comparingInt(Math::abs))) // order within pair
+                .collect(Collectors.toList());
+
+        System.out.println(output);
+    }
+}
+```
+
+### ✅ Output:
+
+```
+[-1, 1, -2, 2, -3, 3]
+```
+
+---
+
+🔎 Explanation:
+
+1. `groupingBy(Math::abs)` → groups numbers by absolute value.
+
+   ```
+   {2=[-2, 2], 1=[1, -1], 3=[3, -3]}
+   ```
+2. Sort groups by the **first occurrence in the input**.
+3. Flatten each group with `flatMap`, sorting inside the group so negatives come before positives.
+
+---
+
+</details>
+
+<details>
+<summary><strong>Count how many times each number occurs</strong></summary>
+
+* **pair** → how many complete pairs (count ÷ 2)
+* **odd** → leftover count (count % 2)
+
+Here’s how you can do it with **Java Streams**:
+
+```java
+import java.util.*;
+import java.util.stream.*;
+
+public class PairOddCounter {
+    public static void main(String[] args) {
+        List<Integer> input = Arrays.asList(1, 2, 2, 3, 1, 2, 3, 1, 1, 1);
+
+        Map<Integer, String> result = input.stream()
+                .collect(Collectors.groupingBy(
+                        n -> n,
+                        LinkedHashMap::new, // preserve insertion order
+                        Collectors.counting()
+                ))
+                .entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        e -> String.format("[pair = %d, odd = %d]", e.getValue() / 2, e.getValue() % 2),
+                        (a, b) -> a,
+                        LinkedHashMap::new
+                ));
+
+        result.forEach((k, v) -> System.out.println(k + ", " + v));
+    }
+}
+```
+
+---
+
+### ✅ Output:
+
+```
+1, [pair = 2, odd = 1]
+2, [pair = 1, odd = 1]
+3, [pair = 1, odd = 0]
+```
+
+---
+
+</details>

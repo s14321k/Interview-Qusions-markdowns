@@ -221,13 +221,6 @@
   * [18. What is JVM](#18-what-is-jvm)
   * [19. What are collection, how collections are used](#19-what-are-collection-how-collections-are-used)
   * [20. Hashmap, what is the complexity of traversing](#20-hashmap-what-is-the-complexity-of-traversing)
-  * [Stream API](#stream-api)
-  * [24. Cqrs Pattern, what is the solution scenario used](#24-cqrs-pattern-what-is-the-solution-scenario-used)
-    * [1. **Separation of Concerns:**](#1-separation-of-concerns)
-    * [2. **Scalability:**](#2-scalability)
-    * [3. **Flexibility and Optimization:**](#3-flexibility-and-optimization)
-    * [4. **Event Sourcing:**](#4-event-sourcing)
-    * [5. **Complex Domain Logic:**](#5-complex-domain-logic)
   * [25. What build tool used](#25-what-build-tool-used)
   * [26. What is the difference between install and deploy](#26-what-is-the-difference-between-install-and-deploy)
 * [Junit](#junit)
@@ -4160,105 +4153,6 @@ public int compute() {
 ## 19. What are collection, how collections are used
 
 ## 20. Hashmap, what is the complexity of traversing
-
-## [Stream API](https://www.tutorialspoint.com/java8/java8_streams.htm)
-
-- Using collections framework in Java, a developer has to use loops and make repeated checks. Another concern is efficiency; as multi-core processors are available at ease, a Java developer has to write parallel code processing that can be pretty error-prone.
-
-- To resolve such issues, Java 8 introduced the concept of stream that lets the developer to proccess data declaratively and leverage multicore architecture without the need to write any specific code for it.
-
-- **forEach()** - to iterate each element of the stream.
-
-```java
-Random random = new Random();
-random.ints().limit(10).forEach(System.out::println);
-```
-
-- **map()** - used to map each element to its corresponding result.
-
-```java
-List<Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
-//get list of unique squares
-List<Integer> squaresList = numbers.stream().map( i -> i*i).distinct().collect(Collectors.toList());
-```
-
-- **filter()** - used to eliminate elements based on a criteria.
-
-```java
-List<String>strings = Arrays.asList("abc", "", "bc", "efg", "abcd","", "jkl");
-//get count of empty string
-int count = strings.stream().filter(string -> string.isEmpty()).count();
-```
-
-- **sorted()** - Used to sort the stream
-
-```java
-Random random = new Random();
-random.ints().limit(10).sorted().forEach(System.out::println);
-```
-
-
-## 24. Cqrs Pattern, what is the solution scenario used
-
-The Command Query Responsibility Segregation (CQRS) pattern is a design pattern that separates the responsibilities for reading and writing data in a system. In a traditional architecture, the same model is often used for both reading and writing operations. CQRS suggests splitting the model into two parts: one for handling commands (changing state) and another for handling queries (reading state).
-
-**Solution Scenario for CQRS:**
-
-### 1. **Separation of Concerns:**
-
-- **Scenario:**
-
-  - In a complex application, the requirements for reading data (queries) and writing data (commands) can be different.
-  - Performance and scalability considerations may vary between reading and writing operations.
-
-- **Solution:**
-  - CQRS allows you to create separate models for handling reads and writes.
-  - The read model can be optimized for query performance and can be denormalized to suit the specific needs of different views.
-  - The write model focuses on processing commands and updating the system's state.
-
-### 2. **Scalability:**
-
-- **Scenario:**
-
-  - Some systems may experience different scalability requirements for read and write operations.
-  - Reads are often more frequent than writes in many applications.
-
-- **Solution:**
-  - CQRS enables independent scaling of the read and write components.
-  - Read models can be replicated or distributed to multiple servers for improved read performance, while the write model can be optimized for handling command processing.
-
-### 3. **Flexibility and Optimization:**
-
-- **Scenario:**
-
-  - Business requirements for reporting and analytics may differ from the requirements for transactional processing.
-  - Read models might need to be denormalized or transformed to suit specific reporting needs.
-
-- **Solution:**
-  - CQRS allows flexibility in designing read models tailored to specific query requirements.
-  - You can optimize read models for specific use cases, aggregating data from multiple sources or transforming it as needed for presentation.
-
-### 4. **Event Sourcing:**
-
-- **Scenario:**
-
-  - Storing the state changes as a series of events can be valuable for auditing, debugging, or rebuilding the state at any point in time.
-
-- **Solution:**
-  - CQRS is often used in conjunction with event sourcing. Instead of storing the current state of the system, events are stored, and the system's state can be reconstructed by replaying these events.
-  - Event sourcing can be particularly useful in scenarios where the history of state changes is important.
-
-### 5. **Complex Domain Logic:**
-
-- **Scenario:**
-
-  - In domains with complex business logic, separating read and write responsibilities can lead to a more maintainable and comprehensible system.
-
-- **Solution:**
-  - CQRS allows for the creation of a domain model that focuses on handling commands and enforcing business rules without the complexities introduced by read-specific concerns.
-  - Read models can be simpler and optimized for efficient querying.
-
-It's important to note that while CQRS provides benefits, it also adds complexity to a system. Therefore, it's generally recommended to apply CQRS in scenarios where the separation of concerns and independent scalability of read and write components provide significant advantages for the specific requirements of the application.
 
 ## 25. What build tool used
 

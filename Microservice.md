@@ -109,6 +109,12 @@
     * [✅ When to Use CQRS](#-when-to-use-cqrs)
     * [💡 Conceptual Code Example (Java)](#-conceptual-code-example-java)
     * [🤝 CQRS and Event Sourcing](#-cqrs-and-event-sourcing)
+  * [Cqrs Pattern, what is the solution scenario used](#cqrs-pattern-what-is-the-solution-scenario-used)
+    * [1. **Separation of Concerns:**](#1-separation-of-concerns)
+    * [2. **Scalability:**](#2-scalability)
+    * [3. **Flexibility and Optimization:**](#3-flexibility-and-optimization)
+    * [4. **Event Sourcing:**](#4-event-sourcing)
+    * [5. **Complex Domain Logic:**](#5-complex-domain-logic)
     * [🔌 1. Circuit Breaker Pattern](#-1-circuit-breaker-pattern)
     * [🔄 2. Retry Pattern](#-2-retry-pattern)
     * [⏳ 3. Timeout Pattern](#-3-timeout-pattern)
@@ -1447,6 +1453,70 @@ CQRS is often used with **Event Sourcing**. In this pattern, instead of storing 
 
 *   The **command** side validates the command and, if successful, creates an event that is stored in the event store.
 *   The **query** side listens to these events to build and update its read models.
+
+## Cqrs Pattern, what is the solution scenario used
+
+The Command Query Responsibility Segregation (CQRS) pattern is a design pattern that separates the responsibilities for reading and writing data in a system. In a traditional architecture, the same model is often used for both reading and writing operations. CQRS suggests splitting the model into two parts: one for handling commands (changing state) and another for handling queries (reading state).
+
+**Solution Scenario for CQRS:**
+
+### 1. **Separation of Concerns:**
+
+- **Scenario:**
+
+  - In a complex application, the requirements for reading data (queries) and writing data (commands) can be different.
+  - Performance and scalability considerations may vary between reading and writing operations.
+
+- **Solution:**
+  - CQRS allows you to create separate models for handling reads and writes.
+  - The read model can be optimized for query performance and can be denormalized to suit the specific needs of different views.
+  - The write model focuses on processing commands and updating the system's state.
+
+### 2. **Scalability:**
+
+- **Scenario:**
+
+  - Some systems may experience different scalability requirements for read and write operations.
+  - Reads are often more frequent than writes in many applications.
+
+- **Solution:**
+  - CQRS enables independent scaling of the read and write components.
+  - Read models can be replicated or distributed to multiple servers for improved read performance, while the write model can be optimized for handling command processing.
+
+### 3. **Flexibility and Optimization:**
+
+- **Scenario:**
+
+  - Business requirements for reporting and analytics may differ from the requirements for transactional processing.
+  - Read models might need to be denormalized or transformed to suit specific reporting needs.
+
+- **Solution:**
+  - CQRS allows flexibility in designing read models tailored to specific query requirements.
+  - You can optimize read models for specific use cases, aggregating data from multiple sources or transforming it as needed for presentation.
+
+### 4. **Event Sourcing:**
+
+- **Scenario:**
+
+  - Storing the state changes as a series of events can be valuable for auditing, debugging, or rebuilding the state at any point in time.
+
+- **Solution:**
+  - CQRS is often used in conjunction with event sourcing. Instead of storing the current state of the system, events are stored, and the system's state can be reconstructed by replaying these events.
+  - Event sourcing can be particularly useful in scenarios where the history of state changes is important.
+
+### 5. **Complex Domain Logic:**
+
+- **Scenario:**
+
+  - In domains with complex business logic, separating read and write responsibilities can lead to a more maintainable and comprehensible system.
+
+- **Solution:**
+  - CQRS allows for the creation of a domain model that focuses on handling commands and enforcing business rules without the complexities introduced by read-specific concerns.
+  - Read models can be simpler and optimized for efficient querying.
+
+It's important to note that while CQRS provides benefits, it also adds complexity to a system. Therefore, it's generally recommended to apply CQRS in scenarios where the separation of concerns and independent scalability of read and write components provide significant advantages for the specific requirements of the application.
+
+
 
 </details>
 

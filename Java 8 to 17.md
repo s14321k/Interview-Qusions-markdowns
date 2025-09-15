@@ -17,6 +17,43 @@ In Java, **Collections** and **Streams** serve different purposes:
 | **Performance**: Varies with collection type (e.g., `ArrayList` vs `LinkedList`). | **Performance**: Efficient, especially with parallel streams.                                    |
 | **Thread Safety**: Some are thread-safe (`Vector`, `Hashtable`), others are not.  | **Thread Safety**: Streams are not thread-safe unless explicitly handled.                        |
 
+
+## [Stream API](https://www.tutorialspoint.com/java8/java8_streams.htm)
+
+- Using collections framework in Java, a developer has to use loops and make repeated checks. Another concern is efficiency; as multi-core processors are available at ease, a Java developer has to write parallel code processing that can be pretty error-prone.
+
+- To resolve such issues, Java 8 introduced the concept of stream that lets the developer to proccess data declaratively and leverage multicore architecture without the need to write any specific code for it.
+
+- **forEach()** - to iterate each element of the stream.
+
+```java
+Random random = new Random();
+random.ints().limit(10).forEach(System.out::println);
+```
+
+- **map()** - used to map each element to its corresponding result.
+
+```java
+List<Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
+//get list of unique squares
+List<Integer> squaresList = numbers.stream().map( i -> i*i).distinct().collect(Collectors.toList());
+```
+
+- **filter()** - used to eliminate elements based on a criteria.
+
+```java
+List<String>strings = Arrays.asList("abc", "", "bc", "efg", "abcd","", "jkl");
+//get count of empty string
+int count = strings.stream().filter(string -> string.isEmpty()).count();
+```
+
+- **sorted()** - Used to sort the stream
+
+```java
+Random random = new Random();
+random.ints().limit(10).sorted().forEach(System.out::println);
+```
+
 ---
 
 ## ⚖️ Key Differences
