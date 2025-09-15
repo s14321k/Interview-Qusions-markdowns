@@ -7,6 +7,18 @@
   * [🚀 GCP Compute Services Comparison](#-gcp-compute-services-comparison)
   * [🔍 Use Case Recommendations](#-use-case-recommendations)
   * [🎯 Visual Summary](#-visual-summary)
+* [⚖️ Why **Pub/Sub** instead of **Kafka** or **gRPC** in Cloud Run / Cloud Functions?](#-why-pubsub-instead-of-kafka-or-grpc-in-cloud-run--cloud-functions)
+    * [1. **Cloud Functions / Cloud Run are serverless & event-driven**](#1-cloud-functions--cloud-run-are-serverless--event-driven)
+    * [2. **gRPC is synchronous, but Functions are async**](#2-grpc-is-synchronous-but-functions-are-async)
+    * [3. **Pub/Sub fits the “fire-and-forget” event model**](#3-pubsub-fits-the-fire-and-forget-event-model)
+    * [4. **Simplicity and ecosystem integration**](#4-simplicity-and-ecosystem-integration)
+* [✅ When to choose what (Rule of Thumb)](#-when-to-choose-what-rule-of-thumb)
+* [🔑 Key Takeaways](#-key-takeaways)
+    * [**1. Cloud Functions**](#1-cloud-functions)
+    * [**2. Cloud Run**](#2-cloud-run)
+    * [**Decision Guide**](#decision-guide)
+* [Stack Trace](#stack-trace)
+  * [OpenTelemetry](#opentelemetry)
 <!-- TOC -->
 
 # GCP Commands
@@ -409,4 +421,35 @@ Choosing between **Cloud Functions** and **Cloud Run** depends on the nature of 
 
 ## OpenTelemetry
 - https://opentelemetry.io/
-- 
+
+
+Google Cloud Dataflow is a serverless, managed stream and batch processing service built on Apache Beam that automatically scales resources and handles complex data engineering tasks. Google Cloud Dataproc is a managed Apache Hadoop and Apache Spark service that provides managed clusters for big data processing using open-source tools, requiring more manual infrastructure management than Dataflow. The choice depends on factors like the need for serverless operation (Dataflow) versus fine-grained cluster control (Dataproc), specific ecosystem tools needed (Beam vs. Hadoop/Spark), and operational preferences.  [1, 2, 3, 4, 5]  
+Choose Dataflow if you need:
+
+• Serverless Operation: Dataflow is fully serverless, meaning you don't have to manage underlying infrastructure like clusters. [2, 3]  
+• Unified Batch and Streaming: It provides a single framework (Apache Beam) for building both batch and streaming data processing pipelines. [1, 2]  
+• Automatic Scaling: Dataflow dynamically scales resources up or down based on job demand, optimizing performance and cost. [2, 6, 7]  
+• Simplified Development: Focus on the logical computation of your pipeline rather than the specifics of how data is processed on a particular runner. [2, 8]
+
+Choose Dataproc if you need:
+
+• Open-Source Hadoop/Spark Expertise: You or your team are already familiar with and want to use Apache Spark, Hadoop, or other tools in the Hadoop ecosystem. [3, 4, 8]  
+• Fine-grained Cluster Control: You require more control over the underlying infrastructure and cluster configuration for specific workloads. [2, 5]  
+• Specific Tool Integration: Your workflow relies on tools beyond the Apache Beam ecosystem, such as Hive, Pig, or Flink, which are readily available in Dataproc. [4, 8]  
+• Cost Optimization: Dataproc allows for managing clusters, including the ability to turn them off when not in use and utilize preemptible instances for cost savings. [2, 5]
+
+Key Differences Summarized
+
+| Feature | Dataflow | Dataproc  |
+| --- | --- | --- |
+| Underlying Technology | Apache Beam | Apache Spark, Hadoop, etc.  |
+| Operational Model | Serverless and fully managed | Managed service for Hadoop/Spark clusters  |
+| Infrastructure Management | Largely automated | Requires more cluster and infrastructure management  |
+| Workload Focus | Unified batch and stream processing | Batch, streaming, querying, machine learning with Hadoop/Spark tools  |
+| Scaling | Automatic, dynamic, and granular | Cluster-based, with autoscaling policies available  |
+
+AI responses may include mistakes.
+
+[1] https://www.youtube.com/watch?v=Mpaj3D2CJrw[2] https://www.linkedin.com/pulse/gcp-dataflow-vs-dataproc-kumar-p[3] https://www.reddit.com/r/dataengineering/comments/1ckq3ou/for_gcp_users_why_would_you_choose_dataproc/[4] https://cloud.google.com/dataproc[5] https://medium.com/@avuzia/gcp-detailed-comparison-of-dataflow-vs-dataproc-871b2f3ad72d[6] https://cloud.google.com/dataflow/docs/overview[7] https://www.economize.cloud/blog/google-dataproc-best-practices-pricing/[8] https://stackoverflow.com/questions/46436794/what-is-the-difference-between-google-cloud-dataflow-and-google-cloud-dataproc[9] https://cloud.google.com/products/dataflow[10] https://cloud.google.com/bigquery/docs/programmatic-analysis[11] https://www.economize.cloud/blog/google-dataflow/[12] https://news.ycombinator.com/item?id=12997560[13] https://www.gcpstudyhub.com/pages/dataproc-vs-dataflow-vs-composer[14] https://cloud.google.com/solutions/data-migration[15] https://www.whizlabs.com/blog/cloud-dataproc-vs-cloud-dataflow/[16] https://medium.com/google-cloud/dataflow-vs-dataproc-1b722bfda9[17] https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/autoscaling[18] https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/scaling-clusters
+Not all images can be exported from Search.
+

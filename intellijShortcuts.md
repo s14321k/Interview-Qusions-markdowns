@@ -6,6 +6,12 @@
     * [intellij Debug enable](#intellij-debug-enable)
       * [✅ What you should do to get changes reflected in debug mode:](#-what-you-should-do-to-get-changes-reflected-in-debug-mode)
     * [To Add all the project to intellij as spring boot](#to-add-all-the-project-to-intellij-as-spring-boot)
+    * [Build & Gradle Commands](#build--gradle-commands)
+      * [🛠️ Dependency Management & Analysis](#-dependency-management--analysis)
+      * [✨ Code Quality & Formatting](#-code-quality--formatting)
+      * [🏗️ Building & Compiling](#-building--compiling)
+      * [🔍 Auditing & Searching](#-auditing--searching)
+      * [⚙️ Gradle Tasks & Wrapper](#-gradle-tasks--wrapper)
 <!-- TOC -->
 
 # Shrotcuts

@@ -106,7 +106,164 @@ Below is a full ASCII architecture diagram (Markdown code block) that shows fron
    Notes:
    - Zipkin can receive spans from the OpenTelemetry Collector (OTLP -> Zipkin exporter).
    - Services may export directly OTLP or Zipkin format; Collector unifies and routes.
+
+         -------------------------------------------------------------------
+         # CI/CD + Infra Layer
+         
+         +-----------------------------------------------------------+
+         |                    Source Control (GitHub)                |
+         +---------------------------+-------------------------------+
+         |
+         (12) push/PR triggers GitHub Actions
+         |
+         v
+         +-----------------------------------------------------------+
+         | GitHub Actions Workflow                                   |
+         |  - Lint/Test/Build                                        |
+         |  - Push container image -> GCP Artifact Registry          |
+         |  - Trigger Tekton Pipeline (via Cloud Run / GKE)          |
+         +---------------------------+-------------------------------+
+         |
+         v
+         +-----------------------------------------------------------+
+         | Tekton Pipelines (Kubernetes-native CI/CD)                |
+         |  - Deploys microservices to GKE/Cloud Run                 |
+         |  - Runs integration/e2e tests                             |
+         |  - Canary/Rolling updates                                 |
+         +---------------------------+-------------------------------+
+         |
+         v
+         +-----------------------------------------------------------+
+         | Terraform (Infra-as-Code)                                 |
+         |  - Provisions GCP infra:                                  |
+         |    - GKE clusters                                         |
+         |    - VPC, Subnets, IAM, Service Accounts                  |
+         |    - Pub/Sub / BigQuery / Storage                         |
+         |    - Secret Manager / Cloud SQL                           |
+         +-----------------------------------------------------------+
+
+  Flow:
+   - GitHub → GitHub Actions → (Infra: Terraform → GCP) & (App: Tekton → GKE/Cloud Run)
+   - Continuous deploy + infra consistency
+
+1. Source & Version Control
+   ──────────────────────────────────────────────────────────────
+   ┌─────────────────────────┐
+   │        GitHub           │
+   │ - App code              │
+   │ - IaC (Terraform)       │
+   │ - Manifests (K8s/Helm)  │
+   └───────────┬─────────────┘
+               │ (push/PR triggers)
+               v
+
+   ──────────────────────────────────────────────────────────────
+2. CI/CD Automation
+   ──────────────────────────────────────────────────────────────
+   ┌─────────────────────────┐
+   │ GitHub Actions          │
+   │ - Run unit tests        │
+   │ - Static analysis (SAST)│
+   │ - Build Docker images   │
+   │ - Push to Artifact Reg. │
+   └───────────┬─────────────┘
+               │ (trigger pipeline)
+               v
+   ┌─────────────────────────┐
+   │ Jenkins / Tekton        │
+   │ - Integration tests     │
+   │ - Security scans (DAST) │
+   │ - Infra deploy (Terraform)
+   │ - App deploy (Helm/K8s) │
+   └───────────┬─────────────┘
+               v
+
+   ──────────────────────────────────────────────────────────────
+3. Infrastructure as Code
+   ──────────────────────────────────────────────────────────────
+   ┌─────────────────────────┐
+   │ Terraform 🌍            │
+   │ - Provisions GCP infra: │
+   │   • GKE clusters        │
+   │   • VPC / Subnets       │
+   │   • Cloud SQL / Spanner │
+   │   • Pub/Sub / Storage   │
+   │   • IAM / Secrets       │
+   └───────────┬─────────────┘
+               v
+
+   ──────────────────────────────────────────────────────────────
+4. Container Orchestration
+   ──────────────────────────────────────────────────────────────
+   ┌─────────────────────────┐
+   │ Kubernetes ☸️ (GKE)     │
+   │ - Deploy workloads      │
+   │ - Service mesh (Istio)  │
+   │ - Config/Secrets (KMS)  │
+   │ - Autoscaling (HPA/VPA) │
+   │ - Rolling/Canary deploy │
+   └───────────┬─────────────┘
+               v
+
+   ──────────────────────────────────────────────────────────────
+5. Application Runtime
+   ──────────────────────────────────────────────────────────────
+   ┌───────────────────────────────────────────────────────────┐
+   │ Microservices Mesh                                         │
+   │ - API Gateway (REST/GraphQL, Auth, Rate-limit)             │
+   │ - Services (gRPC/REST: Auth, Profile, Orders, Payments)    │
+   │ - DBs: Postgres, Redis, Cassandra                          │
+   │ - Eventing: Kafka, RabbitMQ                                │
+   │ - Search: Elasticsearch                                    │
+   │ - Analytics: Spark, BigQuery                               │
+   │ - Workers: Email, PDF, Notifications                       │
+   └───────────────────────────────────────────────────────────┘
+
+   ──────────────────────────────────────────────────────────────
+6. Observability & Ops
+   ──────────────────────────────────────────────────────────────
+   ┌─────────────────────────┐
+   │ OpenTelemetry           │
+   │ - Metrics -> Prometheus │
+   │ - Logs -> ELK/Loki      │
+   │ - Traces -> Jaeger/Zipkin
+   └─────────────────────────┘
+
+   ┌─────────────────────────┐
+   │ Security / Ops          │
+   │ - Vault / Secret Manager│
+   │ - Policy (OPA/Gatekeeper│
+   │ - Monitoring (Grafana)  │
+   │ - Alerting (PagerDuty)  │
+   └─────────────────────────┘
+
+   ──────────────────────────────────────────────────────────────
+7. Delivery to End Users
+   ──────────────────────────────────────────────────────────────
+   ┌─────────────────────────┐
+   │ CDN / Cloud Load Balancer│
+   │ - HTTPS ingress          │
+   │ - DDoS protection        │
+   └───────────┬─────────────┘
+               v
+   ┌─────────────────────────┐
+   │ Frontend UI             │
+   │ - Web, Mobile, CLI      │
+   │ - Uses APIs / WebSockets│
+   └─────────────────────────┘
+
 ```
+### 🔑 What’s Added That Was Missing:
+
+* **CI/CD split:** GitHub Actions (lightweight build/test) + Jenkins/Tekton (integration + deploy).
+* **Terraform:** explicit infra provisioning (network, IAM, DBs, GKE).
+* **Kubernetes (GKE):** with Istio/Service Mesh, autoscaling, rolling updates.
+* **Artifact Registry:** built images are stored before deploy.
+* **Secrets Management:** Vault/Secret Manager (GCP native).
+* **Security:** OPA/Gatekeeper, SAST/DAST in pipelines.
+* **Monitoring:** Prometheus/Grafana, logs, alerts.
+* **Networking/CDN:** GCP Load Balancer, Cloud CDN, HTTPS ingress.
+* **Event/Data layers:** Pub/Sub, BigQuery, Kafka, Spark included.
 
 ---
 
@@ -268,3 +425,124 @@ Below is a full ASCII architecture diagram (Markdown code block) that shows fron
 * **Prometheus/Grafana/Zipkin** → Observability
 
 ---
+
+
+Perfect! Let’s take your **end-to-end system flow** and integrate **all the tools, CI/CD, IaC, Kubernetes/OpenShift, and alternatives** directly into a **Mermaid diagram**. I’ll design it hierarchically so each layer is clear, and interchangeable options are noted.
+Got it! Let's create a **full ASCII flow diagram** that includes **source control → CI/CD → IaC → orchestration → microservices → observability → delivery**, and shows **alternative tools using “or”** like you suggested. I’ll keep it readable while showing the main flow and options.
+
+```
+                                         +------------------------+
+                                         | GitHub / GitLab /      |
+                                         | Bitbucket [Repo]       |
+                                         +-----------+------------+
+                                                     |
+           +-----------------------------------------+----------------------------------------+
+           |                                         |                                        |
+           v                                         v                                        v
++-----------------------------+       +-----------------------------+           +-----------------------------+
+| GitHub Actions              |       | Jenkins 🛠️                  |           | Tekton Pipelines            |
+| Build / Test / Push         |       | CI/CD Automation            |           | Kubernetes-native CI/CD     |
++-------------+---------------+       +-------------+---------------+           +-------------+---------------+
+              |                                     |                                           |
+              +-----------------+-------------------+-------------------+-----------------------+
+                                |                                       |
+                                v                                       v
+                     +-----------------------------+       +-----------------------------+
+                     | Terraform 🌍                |       | Pulumi / CloudFormation     |
+                     | Provision GCP / Multi-cloud |       | Alternative IaC             |
+                     +-------------+---------------+       +-----------------------------+
+                                   |
+                +------------------+--------------------+
+                |                  |                    |
+                v                  v                    v
+           +---------+        +------------+       +----------------+
+           | GKE ☸️  |        | OpenShift  |       | EKS / AKS      |
+           | K8s     |        | Enterprise |       | Rancher        |
+           | Cluster |        | K8s + CI/CD|       | Alternative K8s|
+           +---------+        +------------+       +----------------+
+                |                  |                      |
+                +---------+--------+--------+-------------+
+                                   |
+                                   v
+                  +-----------------------------+
+                  | API Gateway                 |
+                  | Envoy / Kong / Nginx        |
+                  +-------------+---------------+
+                                |
+                                v
+                  +-----------------------------+
+                  | Microservices               |
+                  | Auth / Profile / Orders /   |
+                  | Payments                    |
+                  +-------------+---------------+
+                                |
+        +-----------------------+------------------------+
+        |                       |                        |
+        v                       v                        v
++------------------+        +----------------+        +----------------+
+| Databases        |        | Kafka / Pulsar |        | RabbitMQ / SQS |
+| Postgres /       |        | Event Streaming|        | Task Queue     |
+| Redis / Cassandra|        +----------------+        | Background Jobs|
++------------------+             |                    +----------------+
+        |                        |                        |
+        v                        v                        v
++---------------+        +------------------------+    +----------------------+
+| Elasticsearch |        | Analytics              |    | Workers              |
+| Search Index  |        | Spark / BigQuery / KSQL|    | Email / PDF / Notifs |
++---------------+        +------------------------+    +----------------------+
+                                |
+                                |
+                                v
+                  +-----------------------------+
+                  | Observability / Monitoring  |
+                  | OpenTelemetry / Jaeger /    |
+                  | Zipkin / Prometheus / ELK   |
+                  | Alerts: PagerDuty / Opsgenie|
+                  +-----------------------------+
+                                |
+                                v
+                  +-----------------------------+
+                  | Load Balancer / Ingress     |
+                  | GCP LB / Nginx / OpenShift  |
+                  | Router                      |
+                  +-------------+---------------+
+                                |
+                                v
+                          +------------+
+                          | CDN        |
+                          | Cloud CDN /|
+                          | CloudFront |
+                          +-----+------+
+                                |
+                                v
+                          +--------------+
+                          | Frontend     |
+                          | Web /        |
+                          | Mobile / CLI |
+                          +--------------+
+```
+
+---
+
+
+✅ This version should parse correctly in Mermaid.
+
+If you want, I can also **add dashed arrows or color coding** to show **alternative tools** (like OpenShift replacing GKE+Jenkins/Tekton, Pulumi instead of Terraform, etc.) — that makes the diagram **decision-aware**.
+
+Do you want me to do that next?
+
+
+### 🔑 Notes:
+
+1. **CI/CD Layer**: GitHub Actions, Jenkins, Tekton → all feed into IaC (Terraform/Pulumi) and app deployment.
+2. **IaC Layer**: Terraform is the main tool; Pulumi / CloudFormation are alternatives.
+3. **Orchestration Layer**: GKE is standard; OpenShift can replace GKE + Tekton/Jenkins with integrated CI/CD. EKS/AKS/Rancher are cloud alternatives.
+4. **App Runtime Layer**: All microservices, eventing, DBs, queues, and analytics.
+5. **Observability Layer**: Tracing + metrics + logs + alerts.
+6. **Delivery Layer**: LB + CDN → Frontend.
+
+---
+
+If you want, I can **enhance this diagram further** by showing **interchangeable tools in the same layer with dashed arrows**, making it visually clear which tools can replace which. This makes it a **full architecture + tool decision map** in one view.
+
+Do you want me to do that next?
