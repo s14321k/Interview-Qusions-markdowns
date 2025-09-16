@@ -1273,9 +1273,12 @@ The Cloud Native Computing Foundation (CNCF) defines cloud native with these key
 <details>
 <summary><strong>🔄 13. The Saga Pattern for Distributed Transactions</strong></summary>
 
-Since microservices have their own databases, you cannot use traditional ACID transactions across services. The **Saga Pattern** is a way to manage data consistency across microservices in a distributed transaction.
+Since microservices have their own databases, you cannot use traditional ACID transactions across services.
+The **Saga Pattern** is a way to manage data consistency across microservices in a distributed transaction.
 
-A saga is a sequence of local transactions. Each local transaction updates the database within a single service and publishes an event or message that triggers the next local transaction in the saga. If a local transaction fails, the saga executes a series of **compensating transactions** to undo the preceding transactions.
+A saga is a sequence of local transactions.
+Each local transaction updates the database within a single service and publishes an event or message that triggers the next local transaction in the saga.
+If a local transaction fails, the saga executes a series of **compensating transactions** to undo the preceding transactions.
 
 ---
 
@@ -2052,3 +2055,359 @@ resilience4j:
 * All calls are **async & non-blocking**.
 
 ---
+
+# Microservice questions
+
+1. What are microservices, and how do they differ from monolithic architecture?
+2. What are the main advantages of using microservices?
+3. What are the challenges of microservice architectures?
+4. How do microservices communicate with each other?
+5. What is service discovery, and why is it needed in microservices?
+6. Can you explain API Gateway and its role in microservices?
+7. How do you handle data consistency across multiple microservices?
+8. What is the difference between synchronous and asynchronous communication in microservices?
+9. How do you handle transactions in microservices?
+10. What patterns are used to ensure reliability in microservices (e.g., Circuit Breaker)?
+11. How do you monitor and log across distributed microservices?
+12. What is the role of containerization (e.g., Docker) in microservices?
+13. How do orchestration tools like Kubernetes help in microservices?
+14. What is eventual consistency, and how does it apply to microservices?
+15. How do you manage database per service vs. shared database in microservices?
+16. What are some best practices for designing RESTful APIs for microservices?
+17. How do you secure microservices communication?
+18. What is distributed tracing, and why is it important?
+19. Can you explain the concept of “bounded context” in microservices?
+20. How do you test microservices (unit, integration, contract testing)?
+21. What is the Saga pattern, and when would you use it?
+22. How do you handle versioning of microservices APIs?
+23. What is idempotency, and why is it important in microservices?
+24. How do you deal with inter-service failures?
+25. What design patterns are commonly used in microservices?
+26. How do you handle configuration management in microservices?
+27. What is the difference between orchestration and choreography in microservices?
+28. How do you deploy and scale microservices?
+29. What role does CI/CD play in microservices development?
+30. What are some anti-patterns in microservices?
+
+---
+
+### **1. What are microservices, and how do they differ from monolithic architecture?**
+
+* **Microservices**: An architectural style where an application is built as a collection of small, independent services that communicate via APIs.
+* **Monolithic**: A single, tightly coupled codebase where all functionality (UI, business logic, data access) is bundled together.
+* **Difference**:
+
+  * Microservices = modular, independently deployable, scalable.
+  * Monolith = tightly coupled, hard to scale and maintain.
+
+---
+
+### **2. What are the main advantages of using microservices?**
+
+* **Scalability** – each service can be scaled independently.
+* **Flexibility in technology** – different services can use different programming languages, databases, or frameworks.
+* **Faster development & deployment** – teams can work on services independently and deploy without affecting the whole system.
+* **Fault isolation** – failure in one service doesn’t bring down the entire system.
+* **Better maintainability** – smaller codebases are easier to understand and modify.
+* **Continuous delivery support** – microservices fit naturally with CI/CD pipelines.
+
+---
+
+### **3. What are the challenges of microservice architectures?**
+
+* **Complexity** – more moving parts than a monolith; requires orchestration and governance.
+* **Data consistency** – harder to maintain ACID transactions across services.
+* **Network latency & failures** – communication between services adds overhead and failure points.
+* **Monitoring & debugging** – tracing issues across distributed services is more difficult.
+* **Deployment & configuration management** – need automation tools (CI/CD, Kubernetes).
+* **Security** – more endpoints → larger attack surface.
+* **Team coordination** – requires strong DevOps and collaboration practices.
+
+---
+
+### **4. How do microservices communicate with each other?**
+
+* **Synchronous communication** – direct request/response, usually via HTTP (REST, gRPC).
+* **Asynchronous communication** – using message brokers (Kafka, RabbitMQ, ActiveMQ) for event-driven communication.
+* **Service discovery** – helps services locate each other dynamically.
+* Choice depends on use case: synchronous for real-time queries, asynchronous for decoupling and scalability.
+
+---
+
+### **5. What is service discovery, and why is it needed in microservices?**
+
+* **Service discovery** is the process by which microservices automatically find the network locations of other services they need to communicate with.
+* **Why needed:**
+
+  * In dynamic environments (like containers), services can move or scale, so hardcoding addresses is not feasible.
+  * Ensures requests always reach the correct instance of a service.
+* **Methods:**
+
+  * **Client-side discovery:** service queries a registry to find other services.
+  * **Server-side discovery:** a load balancer or API gateway routes requests to available services.
+
+---
+
+Alright 👍
+
+### **6. Can you explain API Gateway and its role in microservices?**
+
+* **API Gateway** is a server that acts as a single entry point for all client requests to microservices.
+* **Roles:**
+
+  * Request routing to appropriate services
+  * Authentication and authorization
+  * Rate limiting and throttling
+  * Aggregating responses from multiple services
+  * Protocol translation (e.g., HTTP ↔ WebSocket)
+
+---
+
+### **7. How do you handle data consistency across multiple microservices?**
+
+* **Eventual consistency** – updates propagate asynchronously, and systems eventually reach a consistent state.
+* **Saga pattern** – breaking a transaction into a series of local transactions across services, with compensating actions on failure.
+* **Two-phase commit (less common)** – a distributed transaction protocol to ensure ACID consistency, but it’s complex and less scalable.
+* **Design approach:** prefer eventual consistency and idempotent operations.
+
+---
+
+### **8. What is the difference between synchronous and asynchronous communication in microservices?**
+
+* **Synchronous:**
+
+  * Client waits for the service to respond before continuing.
+  * Examples: HTTP REST calls, gRPC.
+  * Pros: simple, real-time responses.
+  * Cons: tighter coupling, higher risk of cascading failures.
+* **Asynchronous:**
+
+  * Client sends a message/event and continues without waiting.
+  * Examples: message queues (Kafka, RabbitMQ).
+  * Pros: decoupled, resilient, better scalability.
+  * Cons: more complex, eventual consistency required.
+
+---
+
+Alright 👍
+
+### **9. How do you handle transactions in microservices?**
+
+* **Distributed transactions** are tricky because each service has its own database.
+* **Approaches:**
+
+  * **Saga pattern:** split a transaction into a series of local transactions with compensating actions if one fails.
+  * **Event-driven architecture:** services react to events to update state asynchronously.
+  * Avoid using traditional two-phase commit unless absolutely necessary due to complexity.
+
+---
+
+### **10. What patterns are used to ensure reliability in microservices (e.g., Circuit Breaker)?**
+
+* **Circuit Breaker:** stops requests to a failing service to prevent cascading failures.
+* **Retry pattern:** retries failed requests with backoff.
+* **Timeouts:** prevent long-running calls from blocking resources.
+* **Bulkhead:** isolates service components so failures in one don’t affect others.
+* **Fallbacks:** provide default responses if a service fails.
+
+---
+
+### **11. How do you monitor and log across distributed microservices?**
+
+* **Centralized logging:** collect logs from all services in one place (e.g., ELK Stack, Splunk).
+* **Distributed tracing:** track requests across services (e.g., Jaeger, Zipkin).
+* **Metrics monitoring:** track service health, latency, and throughput (Prometheus, Grafana).
+* **Alerting:** trigger alerts when failures or anomalies occur.
+
+---
+
+Alright 👍
+
+### **12. What is the role of containerization (e.g., Docker) in microservices?**
+
+* Packages a service with its dependencies into a portable container.
+* Ensures consistent environments across development, testing, and production.
+* Simplifies deployment, scaling, and isolation of services.
+* Works well with orchestration tools like Kubernetes for managing multiple microservices.
+
+---
+
+### **13. How do orchestration tools like Kubernetes help in microservices?**
+
+* Automates deployment, scaling, and management of containerized microservices.
+* Provides service discovery, load balancing, and health checks.
+* Manages rolling updates, self-healing, and resource allocation.
+* Makes microservices more resilient and easier to operate at scale.
+
+---
+
+### **14. What is eventual consistency, and how does it apply to microservices?**
+
+* **Eventual consistency:** data across distributed systems will become consistent over time, but may be temporarily inconsistent.
+* **Application in microservices:**
+
+  * Each service manages its own data, so updates are propagated asynchronously.
+  * Useful in high-scale systems where strong consistency (ACID) is hard to achieve.
+* Requires idempotent operations and careful design to avoid conflicts.
+
+---
+
+Alright 👍
+
+### **15. How do you manage database per service vs. shared database in microservices?**
+- **Database per service (preferred):**
+  - Each service owns its database and schema.
+  - Promotes loose coupling and independence.
+  - Requires patterns like event-driven updates or sagas for cross-service data consistency.
+- **Shared database (not recommended):**
+  - Multiple services access the same database.
+  - Easier to maintain initially but leads to tight coupling and scalability issues.
+
+---
+
+### **16. What are some best practices for designing RESTful APIs for microservices?**
+- Use **resource-based URLs** (`/users`, `/orders`).
+- Use **HTTP methods** correctly (GET, POST, PUT, DELETE).
+- Include **status codes** for success and errors.
+- Support **pagination, filtering, and sorting** for collections.
+- Maintain **versioning** (`/v1/users`) for backward compatibility.
+- Keep APIs **stateless** and idempotent when possible.
+
+---
+
+### **17. How do you secure microservices communication?**
+- **Authentication & authorization:** JWT tokens, OAuth2, API keys.
+- **Transport security:** TLS/HTTPS for all communication.
+- **Network policies:** firewalls, service mesh policies (Istio, Linkerd).
+- **Rate limiting & throttling:** prevent abuse and DoS attacks.
+- **Secret management:** store credentials and keys securely (Vault, Kubernetes secrets).  
+
+---
+
+Alright 👍
+
+### **18. What is distributed tracing, and why is it important?**
+
+* **Distributed tracing** tracks requests as they flow through multiple microservices.
+* Helps identify:
+
+  * Latency bottlenecks
+  * Service failures
+  * Performance issues
+* Tools: **Jaeger, Zipkin, OpenTelemetry**
+* Important because microservices are distributed and traditional logging alone doesn’t show the full request path.
+
+---
+
+Alright 👍
+
+### **19. Can you explain the concept of “bounded context” in microservices?**
+
+* **Bounded context** comes from Domain-Driven Design (DDD).
+* It defines a **clear boundary** within which a service has a specific responsibility and domain model.
+* Ensures services do not overlap or share responsibilities unnecessarily, promoting loose coupling and clarity.
+
+---
+
+### **20. How do you test microservices (unit, integration, contract testing)?**
+
+* **Unit testing:** test individual service logic in isolation.
+* **Integration testing:** test interaction between services or with databases.
+* **Contract testing:** ensure communication between services adheres to agreed API contracts.
+* **End-to-end testing:** optional, tests full workflow across services.
+
+---
+
+### **21. What is the Saga pattern, and when would you use it?**
+
+* **Saga pattern:** manages distributed transactions across multiple services by breaking them into **local transactions** with **compensating actions** on failure.
+* **Use case:** when multiple microservices need to update data consistently without locking distributed databases.
+
+---
+
+### **22. How do you handle versioning of microservices APIs?**
+
+* **URL versioning:** `/v1/users`, `/v2/users`
+* **Header versioning:** specify version in HTTP headers
+* **Query parameter versioning:** `?version=1`
+* Maintain backward compatibility to avoid breaking clients.
+
+---
+
+### **23. What is idempotency, and why is it important in microservices?**
+
+* **Idempotency:** performing the same operation multiple times has the **same effect as once**.
+* Important for:
+
+  * Retry mechanisms
+  * Network failures
+  * Preventing duplicate updates or orders
+
+---
+
+### **24. How do you deal with inter-service failures?**
+
+* Use **circuit breakers** to stop calls to failing services temporarily.
+* Implement **retries with exponential backoff**.
+* Provide **fallback responses** when a service is down.
+* Use **timeouts** to prevent long waits.
+* Monitor and alert on failures for rapid resolution.
+
+---
+
+### **25. What design patterns are commonly used in microservices?**
+
+* **Circuit Breaker** – prevent cascading failures.
+* **Saga** – manage distributed transactions.
+* **API Gateway** – single entry point for clients.
+* **Event Sourcing** – capture state changes as events.
+* **CQRS (Command Query Responsibility Segregation)** – separate read/write models.
+* **Bulkhead** – isolate services to contain failures.
+
+---
+
+### **26. How do you handle configuration management in microservices?**
+
+* Use **centralized configuration services** (e.g., Spring Cloud Config, Consul).
+* Store environment-specific configs outside the codebase.
+* Support **dynamic updates** without redeploying services.
+* Keep secrets encrypted and secure.
+
+---
+
+### **27. What is the difference between orchestration and choreography in microservices?**
+
+* **Orchestration:** a central service controls the flow between microservices.
+* **Choreography:** services react to events independently, no central controller.
+* **Trade-off:** orchestration = easier to manage complex workflows; choreography = more decoupled and scalable.
+
+---
+
+### **28. How do you deploy and scale microservices?**
+
+* **Deployment:** use containerization (Docker) and orchestration platforms (Kubernetes, ECS).
+* **Scaling:**
+
+  * **Horizontal scaling:** add more instances of a service.
+  * **Vertical scaling:** increase resources (CPU/memory) for a service.
+* Use **auto-scaling policies** and **load balancers** to handle traffic dynamically.
+
+---
+
+### **29. What role does CI/CD play in microservices development?**
+
+* Automates building, testing, and deploying individual services.
+* Ensures **faster and more reliable releases**.
+* Supports **independent deployment** of microservices without affecting others.
+* Enables **rollback**, monitoring, and zero-downtime deployments.
+
+---
+
+### **30. What are some anti-patterns in microservices?**
+
+* **Shared database** across services → tight coupling.
+* **God service / huge service** → monolith disguised as microservice.
+* **Chatty communication** → too many synchronous calls between services.
+* **Ignoring monitoring/logging** → difficult to debug distributed issues.
+* **No versioning of APIs** → breaking clients on updates.
+

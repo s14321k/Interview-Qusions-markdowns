@@ -9,6 +9,9 @@
   * [Top 15 Q&A](#top-15-qa)
 * [Annotations in Spring boot](#annotations-in-spring-boot)
 * [⚙️ Bean Definitions & Dependency Injection - A Deep Dive](#-bean-definitions--dependency-injection---a-deep-dive)
+  * [🔹 Field Injection](#-field-injection)
+  * [🔹 Constructor Injection](#-constructor-injection)
+  * [🔹 Which one should you use?](#-which-one-should-you-use)
     * [🔁 Bean Scopes](#-bean-scopes)
     * [🌱 Bean Lifecycle Overview](#-bean-lifecycle-overview)
     * [🧷 Other Important Annotations](#-other-important-annotations)
@@ -107,51 +110,6 @@
   * [Pagination](#pagination)
     * [🚀 Modern High-Performance Pagination: Keyset, Slices, and Projections](#-modern-high-performance-pagination-keyset-slices-and-projections)
 * [Dependency Injection (DI) in Spring Boot](#dependency-injection-di-in-spring-boot)
-* [🍪 Cookies in Spring Boot](#-cookies-in-spring-boot)
-    * [1.1 Authentication Cookies](#11-authentication-cookies)
-    * [1.2 CSRF Protection Cookies](#12-csrf-protection-cookies)
-    * [1.3 User Preference / Custom Cookies](#13-user-preference--custom-cookies)
-    * [2.1 Using `ResponseCookie`](#21-using-responsecookie)
-    * [2.2 Using `HttpServletResponse`](#22-using-httpservletresponse)
-    * [2.3 JavaScript (only if not HttpOnly)](#23-javascript-only-if-not-httponly)
-* [🌐 CORS and COR](#-cors-and-cor)
-    * [Does CORS affect cookies?](#does-cors-affect-cookies)
-    * [Spring Boot CORS Example](#spring-boot-cors-example)
-    * [JavaScript (Frontend)](#javascript-frontend)
-    * [Spring Boot (Backend)](#spring-boot-backend)
-    * [When CORS is needed](#when-cors-is-needed)
-* [🍪 Cookies in Spring Boot (Extended)](#-cookies-in-spring-boot-extended)
-    * [6.1 Authentication & Authorization](#61-authentication--authorization)
-    * [6.2 CSRF Protection](#62-csrf-protection)
-    * [6.3 Tracking and Personalization](#63-tracking-and-personalization)
-    * [6.4 Shopping Carts / E-commerce](#64-shopping-carts--e-commerce)
-    * [6.5 Rate Limiting & Security](#65-rate-limiting--security)
-    * [6.6 SSO (Single Sign-On)](#66-sso-single-sign-on)
-    * [6.7 Cookie Lifetime Strategies](#67-cookie-lifetime-strategies)
-* [🌐 CORS and COR (Extended)](#-cors-and-cor-extended)
-    * [7.1 Frontend-Backend Separation](#71-frontend-backend-separation)
-    * [7.2 Mobile & Desktop Clients](#72-mobile--desktop-clients)
-    * [7.3 Third-Party Integrations](#73-third-party-integrations)
-    * [7.4 Microservices / API Gateway](#74-microservices--api-gateway)
-    * [7.5 Security Considerations](#75-security-considerations)
-    * [7.6 Debugging CORS Issues](#76-debugging-cors-issues)
-    * [7.7 CORS + Cookies in Real Use Case](#77-cors--cookies-in-real-use-case)
-* [🚀 Final Enriched Takeaways](#-final-enriched-takeaways)
-* [🏗️ Spring Boot Application Example (Cookies + CORS)](#-spring-boot-application-example-cookies--cors)
-  * [1️⃣ CORS Configuration (Backend Allowing Cookies)](#1-cors-configuration-backend-allowing-cookies)
-  * [2️⃣ Controller Handling Cookies](#2-controller-handling-cookies)
-  * [3️⃣ User Preferences (Theme / Language Cookie)](#3-user-preferences-theme--language-cookie)
-  * [4️⃣ Frontend (React / Angular / Vue) Fetch Example](#4-frontend-react--angular--vue-fetch-example)
-* [🔑 How This Application Uses Cookies + CORS Together](#-how-this-application-uses-cookies--cors-together)
-* [🛡️ Spring Boot + Spring Security with JWT + CSRF](#-spring-boot--spring-security-with-jwt--csrf)
-  * [1️⃣ Security Configuration](#1-security-configuration)
-  * [2️⃣ JWT Authentication Filter](#2-jwt-authentication-filter)
-  * [3️⃣ JWT Service](#3-jwt-service)
-  * [4️⃣ Auth Controller (Login + Refresh + Logout)](#4-auth-controller-login--refresh--logout)
-  * [5️⃣ CSRF Handling](#5-csrf-handling)
-* [🔑 How It All Works Together](#-how-it-all-works-together)
-    * [🔑 Explanation:](#-explanation)
-    * [🔑 What’s New Here](#-whats-new-here)
   * [✅ Spring Boot Auto-Configuration - Structured Guide](#-spring-boot-auto-configuration---structured-guide)
     * [Common Conditional Variants](#common-conditional-variants)
     * [Steps to Create](#steps-to-create)
@@ -461,6 +419,87 @@ public class MyService {
 }
 ```
 
+---
+
+## 🔹 Field Injection
+
+```java
+@Service
+public class OrderService {
+
+    @Autowired
+    private PaymentService paymentService;  // field injection
+
+    public void placeOrder() {
+        paymentService.pay(100.0);
+    }
+}
+
+```
+
+✅ Pros:
+
+* Short, minimal code
+* Easy for beginners
+
+❌ Cons:
+
+* **Hidden dependencies** → you can’t see from the constructor what this class needs.
+* **Harder to test** (you can’t easily mock dependencies without reflection).
+* Breaks **immutability** (dependencies can be `null` if something goes wrong in Spring).
+* Doesn’t allow you to create required dependencies outside of Spring context.
+
+---
+
+## 🔹 Constructor Injection
+
+```java
+@Service
+public class OrderService {
+
+    private final PaymentService paymentService;
+
+    public OrderService(PaymentService paymentService) {  // constructor injection
+        this.paymentService = paymentService;
+    }
+
+    public void placeOrder() {
+        paymentService.pay(100.0);
+    }
+}
+```
+
+✅ Pros:
+
+* **Dependencies are explicit** → you know what’s required just by looking at the constructor.
+* **Immutable** → `final` fields, cannot be reassigned.
+* **Easier testing** → you can pass in mocks manually.
+* Works well with **Spring Boot autowiring** (since Spring 4.3+, if a class has only one constructor, `@Autowired` is optional).
+* Encourages **good design** (fewer, smaller constructors = fewer responsibilities).
+
+❌ Cons:
+
+* Slightly more boilerplate code compared to field injection.
+* If many dependencies are required, the constructor becomes large (but this is actually a **design smell**, meaning your class is doing too much).
+
+---
+
+## 🔹 Which one should you use?
+
+* **Best practice (recommended)**: ✅ **Constructor injection**
+* **Avoid (unless quick prototype)**: ❌ **Field injection**
+* **Optional**: Setter injection (used when dependency is optional / can change after construction)
+
+---
+
+👉 In fact, the **Spring team itself recommends constructor injection** because:
+
+1. It makes your beans immutable.
+2. It makes dependencies obvious.
+3. It plays nicely with testing and clean architecture.
+
+---
+
 </details>
 
 ---
@@ -505,6 +544,218 @@ public class PayPalPaymentService implements PaymentService {}
 Now, any injection of `PaymentService` will receive `CreditCardPaymentService` by default.
 
 </details>
+
+---
+
+Great question — **cyclic dependency** (also called a *circular dependency*) happens when two or more beans in Spring depend on each other in a loop.
+
+---
+
+### 🔹 Example of Cyclic Dependency
+
+```java
+@Service
+public class AService {
+    private final BService bService;
+
+    public AService(BService bService) {
+        this.bService = bService;
+    }
+}
+```
+
+```java
+@Service
+public class BService {
+    private final AService aService;
+
+    public BService(AService aService) {
+        this.aService = aService;
+    }
+}
+```
+
+Here:
+
+* `AService` depends on `BService`.
+* `BService` depends on `AService`.
+
+When Spring tries to create `AService`, it first needs `BService`, but `BService` itself needs `AService`. 👉 Infinite loop = **`BeanCurrentlyInCreationException`**.
+
+---
+
+### 🔹 Causes of Cyclic Dependency
+
+1. **Bad design / tight coupling** — classes rely too much on each other.
+2. **Constructor injection with circular references** (Spring can’t resolve this).
+3. **Mutual `@Autowired` fields** without clear direction.
+
+---
+
+### 🔹 How to Fix It
+
+1. **Refactor dependencies**
+
+  * Usually, the cycle means your design isn’t clean. Extract a third class (`CService`) to handle shared logic.
+
+   ```java
+   @Service
+   public class CommonService {
+       // shared logic
+   }
+   ```
+
+   Then both `AService` and `BService` depend on `CommonService`, breaking the loop.
+
+2. **Use `@Lazy` injection** (last resort, not best practice)
+
+  * Tells Spring to create the bean later, only when it’s needed.
+
+   ```java
+   @Service
+   public class AService {
+       private final BService bService;
+
+       public AService(@Lazy BService bService) {
+           this.bService = bService;
+       }
+   }
+   ```
+
+   This defers the creation and avoids the immediate cycle.
+
+3. **Use setter injection** (also not ideal, but can break the loop)
+
+  * Makes dependencies optional and set after construction.
+
+---
+
+### 🔹 Key takeaway
+
+* **Cyclic dependency = bean A needs bean B, and bean B needs bean A.**
+* Usually indicates **poor architecture** — classes should not be so tightly coupled.
+* Preferred fix → **refactor** instead of relying on `@Lazy`.
+
+---
+
+Perfect 👍 Let’s walk through a **real Spring Boot example** that shows what happens when there’s a cyclic dependency.
+
+---
+
+## 📝 Example: Cyclic Dependency in Spring Boot
+
+### 1. Create two services that depend on each other
+
+```java
+import org.springframework.stereotype.Service;
+
+@Service
+public class AService {
+    private final BService bService;
+
+    public AService(BService bService) {
+        this.bService = bService;
+    }
+
+    public String callB() {
+        return "A calling -> " + bService.callA();
+    }
+}
+```
+
+```java
+import org.springframework.stereotype.Service;
+
+@Service
+public class BService {
+    private final AService aService;
+
+    public BService(AService aService) {
+        this.aService = aService;
+    }
+
+    public String callA() {
+        return "B calling -> " + aService.toString();
+    }
+}
+```
+
+---
+
+### 2. Create the main Spring Boot application
+
+```java
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CyclicDependencyDemoApp {
+    public static void main(String[] args) {
+        SpringApplication.run(CyclicDependencyDemoApp.class, args);
+    }
+}
+```
+
+---
+
+### 3. Run the app 🚀
+
+When you run it, Spring tries to create `AService`, which needs `BService`, which again needs `AService`.
+
+You’ll see something like:
+
+```
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌─────┐
+|  aService defined in file [AService.class]
+↑     ↓
+|  bService defined in file [BService.class]
+└─────┘
+
+Action:
+
+Relying upon circular references is discouraged and they are prohibited by default.
+Update your application to remove the dependency cycle.
+```
+
+---
+
+## 🔹 How to Fix It
+
+✅ **Option 1 (Best): Refactor design**
+
+Introduce a `CommonService` that handles shared logic instead of making A and B depend on each other.
+
+✅ **Option 2 (Workaround): Use `@Lazy`**
+
+```java
+public BService(@Lazy AService aService) {
+    this.aService = aService;
+}
+```
+
+This defers the dependency until it’s actually needed.
+
+✅ **Option 3: Allow circular references** (not recommended, but possible)
+
+In `application.properties`:
+
+```properties
+spring.main.allow-circular-references=true
+```
+
+This is discouraged because it hides bad design.
+
+---
+
+
 
 ---
 
@@ -2444,10 +2695,11 @@ public class TodoService {
 
     // --- Sync path (Semaphore Bulkhead) ---
     @Observed(name = "get.todo.by.id.sync")
-    @RateLimiter(name = "todos-api")
-    @Bulkhead(name = "todos-api", type = Bulkhead.Type.SEMAPHORE)  // explicit
     @Retry(name = "todos-api")
     @CircuitBreaker(name = "todos-api", fallbackMethod = "getTodoFallback")
+    @RateLimiter(name = "todos-api")
+    @TimeLimiter(name = "flightReservationService")
+    @Bulkhead(name = "todos-api", type = Bulkhead.Type.SEMAPHORE)  // explicit
     public Todo getTodoById(Integer id) {
         return todoClient.getTodoById(id);
     }
@@ -2459,10 +2711,10 @@ public class TodoService {
 
     // --- Async path (ThreadPool Bulkhead) ---
     @Observed(name = "get.todo.by.id.async")
-    @RateLimiter(name = "todos-api")
-    @Bulkhead(name = "todos-api", type = Bulkhead.Type.THREADPOOL)
     @Retry(name = "todos-api")
     @CircuitBreaker(name = "todos-api", fallbackMethod = "getTodoAsyncFallback")
+    @RateLimiter(name = "todos-api")
+    @Bulkhead(name = "todos-api", type = Bulkhead.Type.THREADPOOL)
     public CompletableFuture<Todo> getTodoByIdAsync(Integer id) {
         return CompletableFuture.supplyAsync(() -> todoClient.getTodoById(id));
     }
@@ -4887,13 +5139,6 @@ livenessProbe:
   periodSeconds: 10
 ```
 
-</details>  
-
----
-
-<details>  
-<summary>📊 ASCII Flow Diagram</summary>  
-
 ```text
          🌍 Clients
              |
@@ -4902,7 +5147,7 @@ livenessProbe:
              |
              v
    ┌─────────┴─────────┐
-   |       |       |    |
+   |       |       |   |
 🟦 Pod1   🟦 Pod2   🟦 Pod3 ... (K8s Deployment)
    |       |       |
    v       v       v
@@ -5015,7 +5260,7 @@ public class MessageController {
 }
 ```
 
-</details>  
+</details>
 
 ---
 
@@ -5047,12 +5292,12 @@ env:
 ```text
        🌍 Microservice (Spring Boot)
                   |
-   -----------------------------------------
+   ------------------------------------------
    |        |           |           |       |
 🎭 Profiles ☁️ Config Server 🔑 Env Vars 📦 K8s ConfigMaps
-                  |
-                  v
-          🔄 Dynamic Refresh (@RefreshScope)
+                   |
+                   v
+         🔄 Dynamic Refresh (@RefreshScope)
 ```
 
 </details>  
