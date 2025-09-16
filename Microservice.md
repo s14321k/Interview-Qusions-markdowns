@@ -369,6 +369,37 @@ For multi-region or high availability:
 * **Prometheus**, **Grafana** for observability
 * **Horizontal Pod Autoscaler (K8s)** for dynamic scaling
 
+## 8 Load Balancing Algorithms You Must Know
+
+### 1. Round Robin
+It assigns a request to the first server, then moves to the second, third, and so on, and after reaching the last server, it starts again at the first.
+
+### 2. Least Connections
+The Least Connections algorithm directs incoming requests to the server with the lowest number of active connections.
+
+### 3. Weighted Round Robin
+It assigns different weights to servers based on their capacities and distributes requests proportionally to these weights.
+
+### 4. Weighted Least Connections
+The Weighted Least Connections algorithm combines the Least Connections and Weighted Round Robin algorithms.  
+It directs incoming requests to the server with the lowest ratio of active connections to assigned weight.
+
+### 5. IP Hash
+The IP Hash algorithm determines the server to which a request should be sent based on the source and/or destination IP address.  
+This method maintains session persistence, ensuring that requests from a specific user are directed to the same server.
+
+### 6. Least Response Time
+It directs incoming requests to the server with the lowest response time and the fewest active connections.
+
+### 7. Random
+It directs incoming requests to a randomly selected server from the available pool.
+
+### 8. Least Bandwidth
+It directs incoming requests to the server currently utilizing the least amount of bandwidth.  
+This approach helps to ensure that servers are not overwhelmed by network traffic.
+
+![LoadBalancingAlgo](images/LoadBalancingAlgos.png)
+
 </details>
 
 ---
@@ -766,6 +797,9 @@ eureka:
 ---
 
 </details>
+
+---
+
 <details>
 <summary><strong>🌐 Apigee – API Proxy Setup (Google Cloud)</strong></summary>
 
@@ -991,6 +1025,27 @@ Microservices must talk to each other in a decoupled and efficient way:
 * **Bulkhead** – Isolate services to avoid total failure
 
 💡 These patterns solve challenges around **resilience**, **fault-tolerance**, and **scalability**.
+
+
+➡ 1. API Gateway Pattern: Centralizes external access to your microservices, simplifying communication and providing a single entry point for client requests.
+
+➡ 2. Backends for Frontends Pattern (BFF): Creates dedicated backend services for each frontend, optimizing performance and user experience tailored to each platform.
+
+➡ 3. Service Discovery Pattern: Enables microservices to dynamically discover and communicate with each other, simplifying service orchestration and enhancing system scalability.
+
+➡ 4. Circuit Breaker Pattern: Implements a fault-tolerant mechanism for microservices, preventing cascading failures by automatically detecting and isolating faulty services.
+
+➡ 5. Retry Pattern: Enhances microservices' resilience by automatically retrying failed operations, increasing the chances of successful execution and minimizing transient issues.
+
+➡ 6. Sidecar Pattern: Attaches additional components to your microservices, providing modular functionality without altering the core service itself.
+
+➡ 7. Saga Pattern: Manages distributed transactions across multiple microservices, ensuring data consistency while maintaining the autonomy of your services.
+
+➡ 8. CQRS (Command Query Responsibility Segregation) Pattern: Separates the read and write operations in a microservice, improving performance, scalability, and maintainability.
+
+
+![𝐌𝐢𝐜𝐫𝐨𝐬𝐞𝐫𝐯𝐢𝐜𝐞𝐬 𝐃𝐞𝐬𝐢𝐠𝐧 𝐏𝐚𝐭𝐭𝐞𝐫𝐧𝐬.png](images/𝐌𝐢𝐜𝐫𝐨𝐬𝐞𝐫𝐯𝐢𝐜𝐞𝐬 𝐃𝐞𝐬𝐢𝐠𝐧 𝐏𝐚𝐭𝐭𝐞𝐫𝐧𝐬.png)
+
 
 </details>
 
@@ -1784,10 +1839,6 @@ Microservices architecture is powered by **API gateways, service discovery, load
 
 ---
 
-Here’s your **resilient microservice strategy for handling slow external APIs** in the same **collapsible + ASCII + table** style 🚀
-
----
-
 <details>  
 <summary>✅ How to Handle Microservice Slowness due to External API Calls</summary>  
 
@@ -1918,8 +1969,6 @@ By combining **timeouts, circuit breakers, async patterns, caching, and bulkhead
 </details>  
 
 ---
-
-Perfect 🚀 Let’s build a **Spring Boot example** that demonstrates:
 
 * ✅ `WebClient` with **timeouts**
 * ✅ **Resilience4j** circuit breaker + fallback
@@ -2056,6 +2105,195 @@ resilience4j:
 
 ---
 
+Alright 👍
+
+### **Real-World Microservice Example: Graceful Shutdown Flag in Spring Boot**
+
+In microservices, you often have **background tasks** (e.g., polling a queue, scheduled jobs). When shutting down the application, you want to **signal those threads to stop gracefully**.
+
+---
+
+### **Example: Background Job with `volatile` flag**
+
+```java
+import org.springframework.stereotype.Component;
+
+@Component
+public class BackgroundJob implements Runnable {
+
+    private volatile boolean running = true; // shutdown flag
+
+    @Override
+    public void run() {
+        while (running) {
+            System.out.println("Processing background task...");
+
+            try {
+                Thread.sleep(2000); // simulate work
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        System.out.println("Background job stopped.");
+    }
+
+    public void stopJob() {
+        running = false; // ensure visibility across threads
+    }
+}
+```
+
+---
+
+### **Triggering Stop on Shutdown**
+
+Use Spring Boot’s **lifecycle hooks** to stop the job when the application shuts down:
+
+```java
+import jakarta.annotation.PreDestroy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ShutdownManager {
+
+    @Autowired
+    private BackgroundJob backgroundJob;
+
+    @PreDestroy
+    public void onShutdown() {
+        System.out.println("Application shutting down... stopping background job.");
+        backgroundJob.stopJob();
+    }
+}
+```
+
+---
+
+### **Main Application**
+
+```java
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DemoApplication implements CommandLineRunner {
+
+    private final BackgroundJob backgroundJob;
+
+    public DemoApplication(BackgroundJob backgroundJob) {
+        this.backgroundJob = backgroundJob;
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) {
+        new Thread(backgroundJob).start(); // start job in separate thread
+    }
+}
+```
+
+### **How it works**
+
+1. The background job runs in its own thread.
+2. On shutdown, Spring calls `@PreDestroy`, setting the `volatile running` flag to `false`.
+3. The worker thread immediately **sees the update** and exits the loop gracefully.
+
+✅ **This is a classic real-world use of `volatile`:** a **lightweight shutdown flag** for background workers in microservices.
+
+---
+
+### **Scenario: Counter Increment**
+
+Suppose we want to count requests in a Spring Boot app.
+
+#### ❌ Using `volatile` only (WRONG)
+
+```java
+public class RequestCounter {
+    private volatile int count = 0;
+
+    public void increment() {
+        count++; // not atomic!
+    }
+
+    public int getCount() {
+        return count;
+    }
+}
+```
+
+* Problem: `count++` is actually **three steps**:
+
+  1. Read value
+  2. Increment
+  3. Write back
+
+Even if `count` is `volatile`, **two threads can read the same old value and overwrite each other’s increment**.
+This causes **lost updates**.
+
+---
+
+#### ✅ Correct Approach: Use `AtomicInteger`
+
+```java
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class RequestCounter {
+    private final AtomicInteger count = new AtomicInteger(0);
+
+    public void increment() {
+        count.incrementAndGet(); // atomic operation
+    }
+
+    public int getCount() {
+        return count.get();
+    }
+}
+```
+
+* `AtomicInteger` ensures **atomicity + visibility**.
+* No updates are lost, even with 100s of threads.
+
+---
+
+### **Real-World Microservice Example**
+
+Counting API requests in Spring Boot:
+
+```java
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.concurrent.atomic.AtomicInteger;
+
+@RestController
+public class RequestController {
+
+    private final AtomicInteger counter = new AtomicInteger();
+
+    @GetMapping("/api/hello")
+    public String hello() {
+        int requestNumber = counter.incrementAndGet();
+        return "Hello! You are visitor #" + requestNumber;
+    }
+}
+```
+
+* Each request increments the counter **safely** across multiple threads.
+
+---
+
+### ✅ Key Takeaway
+
+* Use `volatile` when you need **visibility** only (flags, shutdown signals).
+* Use `AtomicInteger`, `AtomicLong`, or `synchronized` when you also need **atomicity** (counters, financial transactions, etc.).
+
+---
+
 # Microservice questions
 
 1. What are microservices, and how do they differ from monolithic architecture?
@@ -2147,8 +2385,6 @@ resilience4j:
   * **Server-side discovery:** a load balancer or API gateway routes requests to available services.
 
 ---
-
-Alright 👍
 
 ### **6. Can you explain API Gateway and its role in microservices?**
 

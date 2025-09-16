@@ -2080,8 +2080,142 @@ System.out.println(a == b);        // false
 System.out.println(a.equals(b));   // true
 ```
 
+---
+
+### **When to override `hashCode()` and `equals()`**
+
+1. **Objects are logically equal based on fields**
+  - If two objects should be considered “equal” based on their content, not memory reference.
+  - Example: two `Person` objects with the same `id` should be considered equal, even if they are different instances.
+
+```java
+class Person {
+    private int id;
+    private String name;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person person = (Person) o;
+        return id == person.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+}
+```
+
+---
+
+2. **When using objects in hash-based collections**
+  - **`HashSet`**, **`HashMap`**, **`HashTable`** rely on `hashCode()` to locate objects.
+  - If you override `equals()` but **not** `hashCode()`, hash-based collections may behave incorrectly (duplicate entries may appear).
+
+---
+
+3. **When objects are keys in maps or elements in sets**
+  - Example: using a `Person` as a key in `HashMap`:
+
+```java
+Map<Person, String> map = new HashMap<>();
+map.put(new Person(1, "Alice"), "Engineer");
+map.put(new Person(1, "Alice"), "Manager"); // Without proper equals & hashCode, both entries may exist
+```
+
+- Correct `equals` + `hashCode` ensures that the second `put` **replaces the first entry**.
+
+---
+
+### **Rules**
+1. If two objects are equal (`equals()`), they **must have the same hash code**.
+2. If two objects have the same hash code, they **may or may not be equal**.
+3. If you override **one**, you almost always override the **other**.
+
+---
+
+### **When you don’t need them**
+- For classes that are **never used in hash-based collections** or where **reference equality (`==`) is sufficient**, you don’t need to override them.
+
+---
+
+Alright 👍 let’s visualize how **`hashCode()`** and **`equals()`** work together inside a **HashMap / HashSet**.
+
+---
+
+### **Step-by-Step Flow (HashMap/HashSet lookup & insert)**
+
+```
+              +---------------------------+
+              |   Object to be inserted   |
+              +---------------------------+
+                           |
+                           v
+                 1. Compute hashCode()
+                           |
+                           v
+                 +-------------------+
+                 | Hash bucket index |
+                 +-------------------+
+                           |
+                           v
+          --------------------------------------
+          |            Bucket[] array          |
+          --------------------------------------
+            |        |        |        |       
+            v        v        v        v       
+          Bucket0  Bucket1  Bucket2  Bucket3 ...
+                     |
+                     v
+         [Existing entries with same hash]
+                     |
+          +-------------------------+
+          |   Compare equals() ?    |
+          +-------------------------+
+                     |
+          Yes ---------------------> Replace/Return
+          No  ---------------------> Insert new
+```
+
+---
+
+### **How it works**
+1. When you insert or lookup an object:
+  - `hashCode()` determines **which bucket** to look in.
+  - `equals()` checks if an **equal object already exists** in that bucket.
+
+2. **HashSet** → Only stores unique objects.
+  - Uses both `hashCode()` + `equals()` to ensure uniqueness.
+
+3. **HashMap** → Key uniqueness works the same way.
+  - If `equals()` returns true for an existing key, the value is replaced.
+
+---
+
+### **Example**
+
+```java
+Set<Person> set = new HashSet<>();
+set.add(new Person(1, "Alice"));
+set.add(new Person(1, "Alice")); // Same ID, same equals/hashCode
+
+System.out.println(set.size()); // 1
+```
+
+If `equals()` and `hashCode()` are **not overridden**, the two objects are treated as different → size = 2.
+
+---
+
+✅ **Interview takeaway**:
+- `hashCode()` → *which bucket*
+- `equals()` → *is it the same object logically?*
+- Together they prevent duplicates and ensure correct behavior.
+
 </details>
 
+---
 
 <details>
 <summary><strong>🧵 Synchronized & Concurrent Collections</strong></summary>
@@ -2196,6 +2330,68 @@ System.out.println(a.equals(b));   // true
 - Use `writeObject()` and `ObjectOutputStream` for serialization.
 - Use `readObject()` and `ObjectInputStream` for deserialization.
 - Only classes implementing `java.io.Serializable` can be serialized.
+
+---
+
+### **1. What is Serialization?**
+
+* **Serialization** is the process of converting an **in-memory Java object** into a **byte stream** (or some other transferable format like JSON, XML, etc.).
+* The reverse process is **deserialization** — converting the byte stream back into an object.
+
+---
+
+### **2. Why do we need to serialize if an object is already in memory (which is bytes anyway)?**
+
+Good question. Yes, technically objects in memory are stored as **bytes** in the JVM heap. But:
+
+* That representation is **JVM-specific**, tied to memory layout, references, garbage collector, etc.
+* You **cannot take those raw JVM bytes** and write them to a file or send them over a network — another JVM (or another language) won’t know how to interpret them.
+* Serialization converts the object into a **standardized format** that can be:
+
+  * Saved to disk
+  * Sent over a network
+  * Reconstructed later
+
+---
+
+### **3. Why Serialization is Needed (Use Cases)**
+
+1. **Persistence**
+
+  * Save an object’s state to a file/database and restore it later.
+  * Example: storing user sessions.
+
+2. **Communication (Distributed Systems)**
+
+  * Send objects over the network (e.g., between microservices).
+  * Example: Spring Boot → JSON serialization for REST APIs.
+
+3. **Caching**
+
+  * Objects are serialized to store in Redis, Hazelcast, or another distributed cache.
+
+4. **Deep Copying**
+
+  * Serialize → Deserialize to create a true deep copy of an object.
+
+---
+
+### **4. Analogy**
+
+Think of an object in memory like **a house**:
+
+* Inside, things are structured in a very specific way (JVM internal representation).
+* If you want to **move the house elsewhere** (send object to another system), you can’t just “copy the ground and bricks” — that won’t make sense.
+* Instead, you **serialize it into blueprints (bytes in standard format)**, send/store them, and then **rebuild the house (deserialize)** elsewhere.
+
+---
+
+✅ **Summary**:
+
+* Objects in memory are *already bytes*, but only meaningful to the **current JVM**.
+* **Serialization** makes those objects **portable and reconstructible**, independent of the JVM’s internal representation.
+
+---
 
 <details>
 <summary>Transient Keyword</summary>
@@ -2376,6 +2572,8 @@ Runtime.getRuntime().gc();
 
 </details>
 
+---
+
 <details>
 <summary>⚠️ 2. Semantic Error or Run Time Error</summary>
 
@@ -2440,6 +2638,8 @@ java.lang.Throwable (class)
 ```
 
 </details>
+
+---
 
 ## throw new and throws
 
@@ -2695,6 +2895,71 @@ try {
 - `volatile` ensures visibility of changes to variables across threads.
 - It's used for lightweight synchronization, often for flags.
 - Does **not** guarantee atomicity.
+
+Alright 👍 let’s ground the `volatile` keyword with a **real-world example**.
+
+---
+
+### **Scenario: Stopping a background thread**
+
+Imagine you have a worker thread running in the background, and you want to **signal it to stop** when the user clicks a “Stop” button.
+
+Without `volatile`, the worker thread **may not see** the updated flag immediately, because of **CPU caching or compiler optimizations**.
+
+---
+
+### **Example**
+
+```java
+public class Worker extends Thread {
+    private volatile boolean running = true; // shared flag
+
+    @Override
+    public void run() {
+        while (running) {
+            System.out.println("Working...");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        System.out.println("Worker stopped.");
+    }
+
+    public void stopWorker() {
+        running = false; // update visible to other threads immediately
+    }
+}
+```
+
+**Main program:**
+
+```java
+public static void main(String[] args) throws InterruptedException {
+    Worker worker = new Worker();
+    worker.start();
+
+    Thread.sleep(5000); // let it run for 5 seconds
+    worker.stopWorker(); // signal to stop
+}
+```
+
+---
+
+### **Why `volatile` matters here**
+
+* Without `volatile`, the worker thread **might never see `running = false`**, because it could keep reading a cached value of `running = true`.
+* With `volatile`, the write in `stopWorker()` is **immediately visible** to the worker thread’s `while (running)` loop.
+
+---
+
+### **Key Points**
+
+* ✅ `volatile` ensures **visibility** of changes between threads.
+* ❌ It does **not ensure atomicity** — if you had `running++` instead of a simple boolean flag, you’d still need synchronization or `AtomicInteger`.
+
+---
 
 </details>
 

@@ -5,9 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="patterns and other changes">
+      <change afterPath="$PROJECT_DIR$/Architect/MS Architect.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DBPerformance/DbPerform.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaLogics/Join Strings with Custom Delimiters.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaLogics/Nth Largest Element.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaLogics/NumberStartingWithOne.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaLogics/PalindromeCheck.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaLogics/PrimeCheck.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaLogics/StirngStartingWithNumber.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaLogics/Sum of the First Two Elements.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/JavaLogics/Words with Vowels.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/LoadBalancingAlgos.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/  .png" afterPathEscaped="$PROJECT_DIR$/images/𝐌𝐢𝐜𝐫𝐨𝐬𝐞𝐫𝐯𝐢𝐜𝐞𝐬 𝐃𝐞𝐬𝐢𝐠𝐧 𝐏𝐚𝐭𝐭𝐞𝐫𝐧𝐬.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Architect.md" beforeDir="false" afterPath="$PROJECT_DIR$/Architect.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaBasic.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaBasic.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Microservice.md" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL.md" beforeDir="false" afterPath="$PROJECT_DIR$/SQL.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -265,7 +279,7 @@
       <workItem from="1757829271338" duration="598000" />
       <workItem from="1757870896086" duration="698000" />
       <workItem from="1757944042254" duration="13564000" />
-      <workItem from="1758003748527" duration="6417000" />
+      <workItem from="1758003748527" duration="10849000" />
     </task>
     <task id="LOCAL-00001" summary="added points and restructured the points">
       <option name="closed" value="true" />
@@ -501,7 +515,15 @@
       <option name="project" value="LOCAL" />
       <updated>1757960589683</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="patterns and other changes">
+      <option name="closed" value="true" />
+      <created>1758019114707</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1758019114707</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
