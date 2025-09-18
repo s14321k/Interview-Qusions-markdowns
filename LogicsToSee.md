@@ -3,7 +3,7 @@ Here’s your **refactored and collapsible version** of the `main` method overlo
 
 ---
 
-<details>
+<details open>
 <summary><strong>Can we overload the <code>main</code> method in Java?</strong></summary>
 
 Yes, we **can overload** the `main` method in Java, but the JVM will only call the standard `main` method with this signature:

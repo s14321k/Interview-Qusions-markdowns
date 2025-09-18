@@ -239,7 +239,7 @@
 
 ## 🚀 Primary Main Features of Java
 
-<details>
+<details open>
 <summary>Click to expand Java main features</summary>
 
 1. Platform Independent  
@@ -828,6 +828,85 @@ public class UtilityClass {
       }
   }
   ```
+
+In Java, a **static block** (also called a *static initializer block*) is used to initialize static variables 
+or run some setup code when the class is first loaded into memory by the JVM.
+
+---
+
+### ✅ Key Points about Static Blocks:
+
+1. **Executed Once**
+
+  * Runs only once, when the class is loaded into the JVM (before `main()` runs and before any object is created).
+
+2. **Initialization of Static Variables**
+
+  * Useful for assigning complex values to `static` variables that cannot be set with a single statement.
+
+3. **Runs Before Constructor**
+
+  * Executes before any constructor or instance block runs.
+
+4. **Multiple Static Blocks**
+
+  * You can have more than one static block; they are executed in the order they appear in the class.
+
+---
+
+### 📌 Example:
+
+```java
+class Demo {
+    static int value;
+
+    // Static block
+    static {
+        System.out.println("Static block executed.");
+        value = 42; // Initializing static variable
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Main method executed.");
+        System.out.println("Value = " + value);
+    }
+}
+```
+
+**Output:**
+
+```
+Static block executed.
+Main method executed.
+Value = 42
+```
+
+---
+
+### ⚡ Common Uses:
+
+1. **Complex static variable initialization**
+
+   ```java
+   static Map<Integer, String> map;
+   static {
+       map = new HashMap<>();
+       map.put(1, "One");
+       map.put(2, "Two");
+   }
+   ```
+
+2. **Loading native libraries**
+
+   ```java
+   static {
+       System.loadLibrary("nativeLib");
+   }
+   ```
+
+3. **Configuration setup** (e.g., reading from a file or environment variables at class load time).
+
+---
 
 ---
 
@@ -2971,6 +3050,54 @@ public static void main(String[] args) throws InterruptedException {
 - Occurs when two or more threads wait indefinitely for each other’s resources.
 - Thread A holds resource X and waits for resource Y, while Thread B holds Y and waits for X.
 
+### 🔹 (threads & resources)
+
+* **Thread A** has *Resource X* and wants *Resource Y*.
+* **Thread B** has *Resource Y* and wants *Resource X*.
+* Neither will release what they already hold → both are stuck → **deadlock**.
+
+---
+
+### 🔹 Key characteristics of Deadlock
+
+1. **Mutual exclusion** → resources can’t be shared.
+2. **Hold and wait** → thread holds one resource while waiting for another.
+3. **No preemption** → resources can’t be forcibly taken away.
+4. **Circular wait** → A waits for B, B waits for A (or longer cycle).
+
+---
+
+### 🔹 Simple Java Example
+
+```java
+class DeadlockDemo {
+    private final Object lock1 = new Object();
+    private final Object lock2 = new Object();
+
+    public void methodA() {
+        synchronized (lock1) {
+            System.out.println("Thread A got lock1");
+            try { Thread.sleep(100); } catch (InterruptedException e) {}
+            synchronized (lock2) {
+                System.out.println("Thread A got lock2");
+            }
+        }
+    }
+
+    public void methodB() {
+        synchronized (lock2) {
+            System.out.println("Thread B got lock2");
+            try { Thread.sleep(100); } catch (InterruptedException e) {}
+            synchronized (lock1) {
+                System.out.println("Thread B got lock1");
+            }
+        }
+    }
+}
+```
+
+* If **Thread A** runs `methodA()` and **Thread B** runs `methodB()` → both can get stuck forever.
+
 </details>
 
 ---
@@ -3308,6 +3435,7 @@ CompletableFuture.allOf(task1, task2).join();
 | `CompletableFuture` | Asynchronous, reactive programming, modern Java  |
 
 </details>
+
 ---
 
 <details>
@@ -4403,27 +4531,6 @@ public int compute() {
 
 ---
 
-# Java Questions
-
-## 14. How to compile simple applications
-
-## 15. What are required to run simple Java applications
-
-## 16. What is the difference between JDK and JRE
-
-## 17. Is it possible run the application with JRE
-
-## 18. What is JVM
-
-## 19. What are collection, how collections are used
-
-## 20. Hashmap, what is the complexity of traversing
-
-## 25. What build tool used
-
-Apache Maven
-Gradle
-
 ## 26. What is the difference between install and deploy
 
 - Running an installer executable to install a software application on a computer.
@@ -4452,16 +4559,6 @@ Yet to do
 > <https://programmingtechie.com/2020/10/16/spring-boot-testing-tutorial-unit-testing-with-junit-5-and-mockito/>
 
 ---
-
-## Java Questions
-
-1. Sort employee Array using java 7 and 8
-2. Difference/similarities between Arraylist vs Linkedlist
-3. Explain ConcurrentModification Exception
-4. Explain abstract and interface
-5. What is functional interface
-6. Why we use lambda expression
-   Lambda expressions in Java provide a concise and expressive way to represent anonymous functions. They were introduced in Java 8 as part of the Java SE 8 release, along with the functional programming features. Here are some reasons why lambda expressions are used in Java:
 
 7. **Conciseness:**
 
@@ -4555,21 +4652,10 @@ Yet to do
   int sumParallel = numbers.parallelStream().reduce(0, (x, y) -> x + y);
   ```
 
-Lambda expressions, along with functional interfaces, contribute to making Java code more expressive, readable, and suitable for functional programming paradigms. They are particularly valuable in scenarios where concise, single-purpose behavior is required, such as in the case of functional interfaces or functional programming constructs like streams and parallel processing. 7. How will you maintain code standards 8. Deployment in GCP 9. How to check application health 10. Explain Polymorphism and encapsulation 11. Major Issues in the project. 12. Singleton design pattern 14. How to deploy in jenkins 15. Thumb rule of Junit testing 16. Why String is immutable? 17. What is try catch finally 18. Stream api 19. Parallel stream 20. Inbuilt methods in stream. 21. Find duplicates using the stream. 22. Sort the numbers using comparator/comparable. 23. Collections in java 24. Predicate in java 8 25. Optional in java 8 26. Uses of map in stream function 27. Multithreading 28. Synchronisation in java 29. Difference between runtime and checked exceptions. 30. Explain the try with resources 31. Serialization 32. Explain Some of the features in Java 8 33. Java streams API methods and its uses with example. 34. In filter streams, what is the return type? 35. What is method reference. 36. How many class you can create inside try with resources? 37. Given an employee array and asked to list it in code by filtering it's name and age using streams. 38. an employee array and asked to list employees with particular employee name and age and asked to return true using stream. 39. how will you group the employeeList by age alone. 40. how do you list sum of ages in an employeeList? 41. Given an employee array and asked to list it in code by filtering it's name. 42. types of string declaration and how it stores internally 43. How to create a immutable class? 44. Brief run() method. 45. Difference between Fail fast and fail safe. 46. Explain Hashmap and hash set. 47. Integer[20,10,25,9,7] find max 3 numbers using streamAPI. 48. What is purpose of default method in interface 49. public class Calculator {
-public int add(int a, int b) {
-return a + b;
-}
+Lambda expressions, along with functional interfaces, contribute to making Java code more expressive, readable, and suitable for functional programming paradigms. 
+They are particularly valuable in scenarios where concise, single-purpose behavior is required, such as in the case of functional interfaces or functional programming constructs like streams and parallel processing. 
 
-        public float add(float a, float b) {
-            return a + b;
-        }
-
-        public double add(double a, double b) {
-            return a + b;
-        }
-
-}
-How will you simplify the boiler plate code for the above program? return a+b should not be used again and again but it should be compatible for all the three return types? 50. Static Keyword in method, class and variable with example. 51. Throw and Throws explain with example. 52. Default vs Static Methods in functionalInterface in Java8
+---
 
 | Communication      | Check                                                                                           |
 | ------------------ | ----------------------------------------------------------------------------------------------- |
@@ -4579,3 +4665,85 @@ How will you simplify the boiler plate code for the above program? return a+b sh
 | Unix               | Basic commands , cp, grep, mv, cd, pwd, ls, ftp, ssh, find. Ps,                                 |
 | SQL/PLSQL          | Joining of the two table ( one to many, may to One mapping scenario), inter join, Outerjoin etc |
 | CI/CD              | Deployments..                                                                                   |
+
+---
+
+## Java Questions
+
+1. Sort employee Array using java 7 and 8
+2. Difference/similarities between Arraylist vs Linkedlist
+3. Explain ConcurrentModification Exception
+4. Explain abstract and interface
+5. What is functional interface
+6. Why we use lambda expression
+   Lambda expressions in Java provide a concise and expressive way to represent anonymous functions. They were introduced in Java 8 as part of the Java SE 8 release, along with the functional programming features. Here are some reasons why lambda expressions are used in Java:
+7. How will you maintain code standards
+8. Deployment in GCP
+9. How to check application health
+10. Explain Polymorphism and encapsulation
+11. Major Issues in the project.
+12. Singleton design pattern
+14. How to deploy in jenkins
+15. Thumb rule of Junit testing 16. Why String is immutable?
+17. What is try catch finally
+18. Stream api 
+19. Parallel stream 
+20. Inbuilt methods in stream. 
+21. Find duplicates using the stream. 
+22. Sort the numbers using comparator/comparable. 
+23. Collections in java 
+24. Predicate in java 8 
+25. Optional in java 8 
+26. Uses of map in stream function 
+27. Multithreading 
+28. Synchronisation in java 
+29. Difference between runtime and checked exceptions. 
+30. Explain the try with resources 
+31. Serialization 
+32. Explain Some of the features in Java 8 
+33. Java streams API methods and its uses with example. 
+34. In filter streams, what is the return type? 
+35. What is method reference. 
+36. How many class you can create inside try with resources? 
+37. Given an employee array and asked to list it in code by filtering it's name and age using streams. 
+38. an employee array and asked to list employees with particular employee name and age and asked to return true using stream. 
+39. how will you group the employeeList by age alone. 
+40. how do you list sum of ages in an employeeList? 
+41. Given an employee array and asked to list it in code by filtering it's name. 
+42. types of string declaration and how it stores internally 
+43. How to create a immutable class? 
+44. Brief run() method. 
+45. Difference between Fail fast and fail safe. 
+46. Explain Hashmap and hash set. 
+47. Integer[20,10,25,9,7] find max 3 numbers using streamAPI. 
+48. What is purpose of default method in interface 
+49. How will you simplify the boiler plate code for the above program? return a+b should not be used again and again but it should be compatible for all the three return types?
+
+```java
+    public class Calculator {
+        public int add(int a, int b) {
+        return a + b;
+        }
+
+        public float add(float a, float b) {
+            return a + b;
+        }
+
+        public double add(double a, double b) {
+            return a + b;
+        }
+
+    }
+```
+50. Static Keyword in method, class and variable with example. 
+51. Throw and Throws explain with example. 
+52. Default vs Static Methods in functionalInterface in Java8
+53. How to compile simple applications
+15. What are required to run simple Java applications
+16. What is the difference between JDK and JRE
+17. Is it possible run the application with JRE
+18. What is JVM
+19. What are collection, how collections are used
+20. Hashmap, what is the complexity of traversing
+25. What build tool used
+

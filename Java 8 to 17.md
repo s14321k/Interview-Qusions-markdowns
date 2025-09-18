@@ -68,7 +68,7 @@ random.ints().limit(10).sorted().forEach(System.out::println);
 
 ## 💡 Example Comparison
 
-<details>
+<details open>
 <summary><strong>📚 Collections Example</strong></summary>
 
 ```java
@@ -84,7 +84,7 @@ for (String name : names) {
 
 </details>
 
-<details>
+<details open>
 <summary><strong>🚀 Streams Example</strong></summary>
 
 ```java

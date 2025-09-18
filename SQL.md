@@ -59,7 +59,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>🔢 1. Max & Nth Max Salary</strong></summary>
 
 ### ❓ Query to Get Max or Nth Max Salary
@@ -75,7 +75,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>🏢 2. Highest Salary in Each Department</strong></summary>
 
 ### 🔍 Queries

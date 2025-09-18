@@ -2,7 +2,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>Kubernetes Overview</strong></summary>
 
 * **Pod**
@@ -40,7 +40,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>Google Kubernetes Engine (GKE) Architecture</strong></summary>
 
 ### 🏗️ GKE Overview

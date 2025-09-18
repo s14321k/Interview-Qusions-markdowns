@@ -25,7 +25,7 @@ Here is a **refactored, clear, and user-friendly** collapsible markdown summary 
 
 ---
 
-<details>
+<details open>
 <summary><strong>1. Eager vs Lazy Loading</strong></summary>
 
 ### What is it?
@@ -61,7 +61,7 @@ private Set<Order> orders;
 
 ---
 
-<details>
+<details open>
 <summary><strong>2. SessionFactory</strong></summary>
 
 * Responsible for creating Hibernate `Session` objects.
@@ -81,7 +81,7 @@ Session session = sessionFactory.openSession();
 
 ---
 
-<details>
+<details open>
 <summary><strong>3. Data Connection Setup and Configuration</strong></summary>
 
 * Configure `hibernate.cfg.xml` or `application.properties` with DB URL, username, password, dialect.
@@ -102,7 +102,7 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
 
 ---
 
-<details>
+<details open>
 <summary><strong>4. Stored Procedures vs Prepared Statements</strong></summary>
 
 | Feature     | PreparedStatement                          | Stored Procedure                           |
@@ -137,7 +137,7 @@ ResultSet rs = cs.executeQuery();
 
 ---
 
-<details>
+<details open>
 <summary><strong>5. Cascading in Hibernate</strong></summary>
 
 * Cascading controls how operations on a parent entity propagate to its related child entities.
@@ -172,7 +172,7 @@ Use cascade carefully—deleting a parent can delete all children!
 
 ---
 
-<details>
+<details open>
 <summary><strong>6. Hibernate get() vs load()</strong></summary>
 
 | Feature     | `get()`                                                       | `load()`                                            |
@@ -201,7 +201,7 @@ MyEntity e = session.load(MyEntity.class, id);
 
 ---
 
-<details>
+<details open>
 <summary><strong>7. Hibernate vs JPA</strong></summary>
 
 | Criteria       | Hibernate                                  | JPA                                          |
@@ -228,7 +228,7 @@ MyEntity e = session.load(MyEntity.class, id);
 
 ---
 
-<details>
+<details open>
 <summary>Use Hibernate as JPA provider for best of both worlds.</summary>
 
 ```java
@@ -242,7 +242,7 @@ javax.persistence.EntityManager em = ...
 
 ---
 
-<details>
+<details open>
 <summary><strong>8. Connection Pooling in Java</strong></summary>
 
 * Manages a pool of database connections for reuse.

@@ -2,7 +2,7 @@
 
 ## Codings
 
-<details>
+<details open>
 <summary>1. Java Program to Remove All Whitespaces Without Using replace()</summary>
 
 ### ✅ Problem
@@ -52,7 +52,7 @@ Without Spaces : 'Java8StreamExample'
 
 ---
 
-<details>
+<details open>
 <summary>2. Find the First Non-Duplicate Character in a String (Java 8)</summary>
 
 ### ✅ Problem
@@ -116,7 +116,7 @@ First non-duplicate character: A
 
 ---
 
-<details>
+<details open>
 <summary>3. Java Program to Find the Top 3 Highest Repeated Characters</summary>
 
 ### ✅ Problem
@@ -194,7 +194,7 @@ p : 2
 ---
 
 
-<details>
+<details open>
 <summary>4. Find Missing Elements from One Array Compared to Another</summary>
 
 ### ✅ Problem
@@ -357,7 +357,7 @@ O(m)    // for building frequency map from array b
 
 ---
 
-<details>
+<details open>
 <summary>6. Get Even Numbers from an Array Using Stream (Java 8)</summary>
 
 ### ✅ Problem
@@ -395,7 +395,7 @@ Even numbers: [2, 4, 6, 8, 10]
 
 ---
 
-<details>
+<details open>
 <summary>7. Print a given array cyclically in a loop to output the desired pattern</summary>
 
 Given Array: `[1, 2, 3, 4, 5, 6]`
@@ -482,7 +482,7 @@ public class CyclicArrayPrinter {
 
 ---
 
-<details>
+<details open>
 <summary>8. Method Overloading Resolution in Java (String vs Object)</summary>
 
 ### ✅ Code:
@@ -560,7 +560,7 @@ String method null
 
 ---
 
-<details>
+<details open>
 <summary>9. Group cars by color prefix (Java 8 Stream)</summary>
 
 ### ✅ Problem Statement
@@ -1151,7 +1151,7 @@ Last 3 Odd Numbers: [1, 3, 7]
 
 ---
 
-<details>
+<details open>
 <summary><strong>🛠️ 16. Capitalize Character After Space</strong></summary>
 
 ### Original Problems
@@ -1343,7 +1343,7 @@ public class SecondLargestWithStreams {
 
 ---
 
-<details>
+<details open>
 <summary><strong>✅ 18. Filter Even and Odd Numbers using Streams</strong></summary>
 
 * `.map()` is for transforming elements; to filter, use `.filter()`.
@@ -1389,7 +1389,7 @@ public class EvenOddFilter {
 
 ---
 
-<details>
+<details open>
 <summary><strong>🔍 19. String vs StringBuilder Comparison Explained</strong></summary>
 
 ```java
@@ -1438,7 +1438,7 @@ Because `.intern()` returns the canonical representation from the String Pool.
 
 </details>
 
-<details>
+<details open>
 <summary><strong>✨ 20. Find Palindromes using Streams</strong></summary>
 
 * Palindrome: a string that reads the same forwards and backwards.  
@@ -1492,7 +1492,7 @@ Palindromes: [level, madam, racecar]
 
 ---
 
-<details>
+<details open>
 <summary><strong>Check if a given string is palindrome using recursion.</strong></summary>
 
 ```java
@@ -1534,7 +1534,7 @@ public class InterviewBit {
 
 ---
 
-<details>
+<details open>
 <summary><strong>⚡ 21. Sort Map by Values (Streams, TreeMap, Comparator)</strong></summary>
 
 * By default, `HashMap` doesn’t maintain order.  
@@ -1613,7 +1613,7 @@ TreeMap Sorted by Key: {David=95, Dino=65, Jane=80, Lisa=78, Mary=97}
 
 ---
 
-<details>
+<details open>
 <summary><strong>🌀 22. Swap Values without Using Another Variable</strong></summary>
 
 * Normally, swapping uses a temporary variable:  
@@ -1689,7 +1689,7 @@ After Swap (XOR): val1 = 10, val2 = 9
 
 ---
 
-<details>
+<details open>
 <summary><strong>🎯 23. Two Sum using Streams</strong></summary>
 
 * Stream approach:  
@@ -1745,7 +1745,7 @@ Indices: [0, 1]
 
 ---
 
-<details>
+<details open>
 <summary><strong>🗂️ 24. Group Employees by Department & Filter by Year using Streams</strong></summary>
 
 * **Group by Department** → use `Collectors.groupingBy(Employee::getDepartment)`.  
@@ -1862,7 +1862,7 @@ Descending: [Eva (2022-07-05), Charlie (2021-06-20), Alice (2020-01-10), Frank (
 
 ---
 
-<details>
+<details open>
 <summary><strong> Reorder numbers so that negative/positive pairs appear together </strong></summary>
 
 Example:

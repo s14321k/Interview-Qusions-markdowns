@@ -33,7 +33,7 @@ Let me know if you need a specific workflow example! 😊
 
 # 🔄 Rollback Strategy in DevOps
 
-<details>
+<details open>
 <summary><strong>🔄 Rollback Strategy in DevOps</summary></strong>
 
 In DevOps, ensuring a **rollback strategy** is critical for maintaining application stability during failed deployments.
@@ -41,7 +41,7 @@ A solid rollback plan reduces downtime and prevents broken code from affecting u
 
 ---
 
-<details>
+<details open>
 <summary>1️⃣ ✅ Version Control</summary>
 
 * Every deployment is **versioned** using Git tags or commit hashes.
@@ -59,7 +59,7 @@ git push origin main
 
 ---
 
-<details>
+<details open>
 <summary>2️⃣ 🧪 Canary & Blue-Green Deployments</summary>
 
 * **Canary Deployment:** Roll out changes to a small portion of users first.
@@ -86,7 +86,7 @@ This lets only part of the traffic hit the new version.
 
 ---
 
-<details>
+<details open>
 <summary>3️⃣ 🧰 Infrastructure as Code (IaC)</summary>
 
 * Using tools like **Terraform**, infra changes are tracked in code.
@@ -103,7 +103,7 @@ terraform apply "previous_plan.tfplan"
 
 ---
 
-<details>
+<details open>
 <summary>4️⃣ 📦 Immutable Deployments</summary>
 
 * Containers/images are **immutable** → no in-place edits.
@@ -120,7 +120,7 @@ docker run myapp:v1.2.3
 
 ---
 
-<details>
+<details open>
 <summary>5️⃣ 📜 Rollback Scripts & CI/CD Logic</summary>
 
 * CI/CD pipelines (GitHub Actions, Jenkins, GitLab CI) monitor deployment health.
@@ -191,7 +191,7 @@ A strong rollback strategy = 🔐 **safer deployments** + 😌 **peace of mind**
 
 # 📚 Loading a Shared Library in a Jenkinsfile
 
-<details>
+<details open>
 <summary><strong> Loading a Shared Library in a Jenkinsfile</summary></strong>
 
 A **Jenkins Shared Library** is stored in a Git repository and allows you to reuse pipeline functions and classes across multiple Jenkins pipelines.
@@ -199,7 +199,7 @@ You load it in your **Jenkinsfile** using the `@Library` annotation (or the `lib
 
 ---
 
-<details>
+<details open>
 <summary>1️⃣ Preconfigured Global Library</summary>
 
 👉 If your Jenkins admin has already set up the shared library in
@@ -230,7 +230,7 @@ pipeline {
 
 ---
 
-<details>
+<details open>
 <summary>2️⃣ Load Dynamically from GitHub</summary>
 
 👉 If not preconfigured globally, you can load the library directly from Git.
@@ -264,7 +264,7 @@ pipeline {
 
 ---
 
-<details>
+<details open>
 <summary>3️⃣ Version-Specific Library</summary>
 
 👉 To ensure **stability across teams**, load a specific version or tag.
@@ -329,7 +329,7 @@ Perfect 🙌 Let me enhance your UCD versioning explanation into the same **stru
 
 # 🌟 How IBM UrbanCode Deploy (UCD) Handles Versioning
 
-<details>
+<details open>
 <summary><strong>How IBM UrbanCode Deploy (UCD) Handles Versioning</summary></strong>
 
 ✅ In IBM **UrbanCode Deploy (UCD)**, versioning is a **core feature** that ensures deployments are:
@@ -340,7 +340,7 @@ Perfect 🙌 Let me enhance your UCD versioning explanation into the same **stru
 
 ---
 
-<details>
+<details open>
 <summary>1️⃣ 📦 Component Versions</summary>
 
 * Every build artifact (**JAR, WAR, config files, Docker image**) is stored as a **version** in UCD.
@@ -350,7 +350,7 @@ Perfect 🙌 Let me enhance your UCD versioning explanation into the same **stru
 
 ---
 
-<details>
+<details open>
 <summary>2️⃣ 🗄️ CodeStation Repository</summary>
 
 * UCD’s **internal artifact repo** = CodeStation.
@@ -361,7 +361,7 @@ Perfect 🙌 Let me enhance your UCD versioning explanation into the same **stru
 
 ---
 
-<details>
+<details open>
 <summary>3️⃣ 🔄 Rollbacks</summary>
 
 * Since all past versions are retained, UCD enables **rollback to any previous version** with just a few clicks.
@@ -371,7 +371,7 @@ Perfect 🙌 Let me enhance your UCD versioning explanation into the same **stru
 
 ---
 
-<details>
+<details open>
 <summary>4️⃣ 🌐 Deployment Mapping</summary>
 
 * Each environment (Dev, QA, Prod) can be mapped to **different versions** of the same component.
@@ -384,7 +384,7 @@ Perfect 🙌 Let me enhance your UCD versioning explanation into the same **stru
 
 ---
 
-<details>
+<details open>
 <summary>5️⃣ ⚙️ Automation</summary>
 
 * Deployment processes can:
@@ -443,7 +443,7 @@ Great question 🙌 Let’s enhance your OpenShift vs Kubernetes explanation int
 
 # 🌟 OpenShift vs Kubernetes
 
-<details>
+<details open>
 <summary><strong>OpenShift vs Kubernetes</summary></strong>
 
 👉 **OpenShift** is a **container application platform** built on top of **Kubernetes** 🚀.
@@ -451,7 +451,7 @@ It provides all Kubernetes features (**orchestration, scaling, self-healing**) p
 
 ---
 
-<details>
+<details open>
 <summary>1️⃣ 🔒 Security (SCC vs PSP)</summary>
 
 * **Kubernetes**:
@@ -466,7 +466,7 @@ It provides all Kubernetes features (**orchestration, scaling, self-healing**) p
 
 ---
 
-<details>
+<details open>
 <summary>2️⃣ 🌐 Networking & Routing</summary>
 
 * **Kubernetes**: Uses **Ingress** to expose services externally.
@@ -476,7 +476,7 @@ It provides all Kubernetes features (**orchestration, scaling, self-healing**) p
 
 ---
 
-<details>
+<details open>
 <summary>3️⃣ ⚙️ Built-in CI/CD</summary>
 
 * **Kubernetes**: No native CI/CD tools.
@@ -486,7 +486,7 @@ It provides all Kubernetes features (**orchestration, scaling, self-healing**) p
 
 ---
 
-<details>
+<details open>
 <summary>4️⃣ 📦 Image Management</summary>
 
 * **Kubernetes**: Pulls container images from **external registries** (DockerHub, ECR, GCR, etc).
@@ -496,7 +496,7 @@ It provides all Kubernetes features (**orchestration, scaling, self-healing**) p
 
 ---
 
-<details>
+<details open>
 <summary>5️⃣ 👥 Multi-Tenancy & Projects</summary>
 
 * **Kubernetes**: Uses **namespaces** for isolation.
@@ -507,7 +507,7 @@ It provides all Kubernetes features (**orchestration, scaling, self-healing**) p
 
 ---
 
-<details>
+<details open>
 <summary>6️⃣ 🔑 Authentication & Authorization</summary>
 
 * **Kubernetes**: Requires third-party solutions for RBAC + authentication (e.g., OIDC, Keycloak).
@@ -551,7 +551,7 @@ Here, the **parent** is the main question (`How do you deploy Docker images usin
 
 ---
 
-<details>
+<details open>
 <summary>🐳 How do you deploy Docker images using GitLab?</summary>
 
 👉 In GitLab CI/CD, deploying Docker images usually involves **3 main steps**:
@@ -561,7 +561,7 @@ Here, the **parent** is the main question (`How do you deploy Docker images usin
 
 ---
 
-<details>
+<details open>
 <summary>1️⃣ Configure GitLab CI/CD</summary>
 
 * Add a **`.gitlab-ci.yml`** file in your repo.
@@ -571,7 +571,7 @@ Here, the **parent** is the main question (`How do you deploy Docker images usin
 
 ---
 
-<details>
+<details open>
 <summary>2️⃣ Authenticate with Registry 🔑</summary>
 
 * Store your registry credentials as **CI/CD variables**:
@@ -585,7 +585,7 @@ Here, the **parent** is the main question (`How do you deploy Docker images usin
 
 ---
 
-<details>
+<details open>
 <summary>3️⃣ Build & Push the Image 🏗️➡️</summary>
 
 **`.gitlab-ci.yml` snippet:**
@@ -612,7 +612,7 @@ docker_build:
 
 ---
 
-<details>
+<details open>
 <summary>4️⃣ Deploy the Image 🚀</summary>
 
 Example for **Kubernetes deployment**:

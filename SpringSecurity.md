@@ -12,7 +12,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>ADFS, OAuth 1 & 2, JWT</strong></summary>
 
 
@@ -657,7 +657,7 @@ spring:
 </details>
 ---
 
-<details>
+<details open>
 <summary><strong>LDAP</strong></summary>
 
 # 🔹 **What is LDAP?**
@@ -928,7 +928,7 @@ Instead:
 
 ---
 
-<details>
+<details open>
 <summary><strong> JWT </strong></summary>
 
 # 🔹 **JWT (JSON Web Token)**
@@ -1149,7 +1149,7 @@ Perfect 👍 — let’s build a **detailed ASCII flow** that ties **everything 
 
 # 🍪 Cookies in Spring Boot
 
-<details>
+<details open>
 <summary><strong>1. What Cookies Should Be Sent from a Spring Boot Application to the Frontend?</strong></summary>
 
 Cookies are commonly used for **authentication**, **security**, **session management**, and **user preferences**.
@@ -1212,7 +1212,7 @@ response.addHeader(HttpHeaders.SET_COOKIE, themeCookie.toString());
 
 ---
 
-<details>
+<details open>
 <summary><strong>2. How to Delete a Frontend Cookie from a Spring Boot Application?</strong></summary>
 
 To delete a cookie:
@@ -1254,7 +1254,7 @@ document.cookie = "cookieName=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
 
 ---
 
-<details>
+<details open>
 <summary><strong>3. Summary Table of Important Cookies</strong></summary>
 
 | Cookie Name     | Purpose             | HttpOnly | Secure | SameSite | Frontend Readable |
@@ -1270,7 +1270,7 @@ document.cookie = "cookieName=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
 
 ---
 
-<details>
+<details open>
 <summary><strong>4. Abbreviations and Their Meanings</strong></summary>
 
 | Abbreviation | Meaning                      |
@@ -1286,7 +1286,7 @@ document.cookie = "cookieName=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
 
 ---
 
-<details>
+<details open>
 <summary><strong>5. Conclusion (Cookie Handling)</strong></summary>
 
 * Use **HttpOnly, Secure, and SameSite Strict** for auth cookies.
@@ -1300,7 +1300,7 @@ document.cookie = "cookieName=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
 
 # 🌐 CORS and COR
 
-<details>
+<details open>
 <summary><strong>1. What is CORS?</strong></summary>
 
 **Cross-Origin Resource Sharing (CORS)** is a browser security feature controlling cross-domain requests.
@@ -1335,7 +1335,7 @@ public class CorsConfig {
 
 ---
 
-<details>
+<details open>
 <summary><strong>2. What is COR (Cross-Origin Requests)?</strong></summary>
 
 COR refers to requests from a frontend on one domain to a backend on another.
@@ -1350,7 +1350,7 @@ COR refers to requests from a frontend on one domain to a backend on another.
 
 ---
 
-<details>
+<details open>
 <summary><strong>3. How to Send Cookies in COR Requests?</strong></summary>
 
 ### JavaScript (Frontend)
@@ -1377,7 +1377,7 @@ Ensure:
 
 ---
 
-<details>
+<details open>
 <summary><strong>4. Do Cookies Themselves Include CORS?</strong></summary>
 
 No — **CORS is not part of a cookie**. But browsers **enforce CORS** to decide if cookies should be sent.
@@ -1391,7 +1391,7 @@ No — **CORS is not part of a cookie**. But browsers **enforce CORS** to decide
 
 ---
 
-<details>
+<details open>
 <summary><strong>5. Summary Table: CORS vs Cookies</strong></summary>
 
 | Feature                          | Affects Cookies? | Is It Necessary?                       |
@@ -1405,7 +1405,7 @@ No — **CORS is not part of a cookie**. But browsers **enforce CORS** to decide
 
 ---
 
-<details>
+<details open>
 <summary><strong>6. Final Thoughts</strong></summary>
 
 * CORS must be correctly configured to allow cookies in cross-origin requests.
@@ -1417,7 +1417,7 @@ No — **CORS is not part of a cookie**. But browsers **enforce CORS** to decide
 
 ---
 
-<details>
+<details open>
 <summary><strong>🍪 Cookies in Spring Boot</strong></summary>
 
 # 🍪 Cookies in Spring Boot (Extended)
@@ -1445,7 +1445,7 @@ participant BE as Spring Boot Backend
 
 Would you like me to also make a **sequence diagram style version** (step-by-step timeline of request/response with cookies + CORS checks)?
 
-<details>
+<details open>
 <summary><strong>6. Where and How Cookies Can Be Used</strong></summary>
 
 ### 6.1 Authentication & Authorization
@@ -1519,7 +1519,7 @@ Would you like me to also make a **sequence diagram style version** (step-by-ste
 
 # 🌐 CORS and COR (Extended)
 
-<details>
+<details open>
 <summary><strong>7. Where and How CORS Can Be Used</strong></summary>
 
 ### 7.1 Frontend-Backend Separation

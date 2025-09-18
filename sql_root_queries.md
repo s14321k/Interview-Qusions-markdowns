@@ -2,7 +2,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>1. Show Existing Databases and Users</strong></summary>
 
 ```sql

@@ -9,7 +9,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>1. Git vs GitHub</strong></summary>
 
 * **Git:** A distributed version control system to track changes in source code during software development.

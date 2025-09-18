@@ -25,7 +25,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>GCP Commands</strong></summary>
 
 * `gcloud auth login`
@@ -53,7 +53,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>O'Reilly Project Commands</strong></summary>
 
 ### Local Development
@@ -106,7 +106,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>Kubernetes Commands for Deployment</strong></summary>
 
 9. Install GKE authentication plugin (if not installed):

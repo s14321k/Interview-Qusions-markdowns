@@ -141,7 +141,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>📦 Microservice Architecture Overview</strong></summary>
 
 Microservices architecture is an approach where an application is composed of **loosely coupled, independently deployable services**. Each service is:

@@ -17,7 +17,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>📘 React Overview</strong></summary>
 
 🔗 Interview Questions:
@@ -34,7 +34,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>⚙️ Installation</strong></summary>
 
 * Install [Node.js](https://nodejs.org/)
@@ -44,7 +44,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>🚀 Create React App</strong></summary>
 
 1. Open a terminal in your folder.
@@ -74,10 +74,10 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>🧱 React Basics</strong></summary>
 
-<details>
+<details open>
 <summary><strong>📦 Components</strong></summary>
 
 * Components describe parts of UI and are reusable.
@@ -89,7 +89,7 @@
 
 ---
 
-<details>
+<details open>
 <summary><strong>🧩 Functional (Stateless) Components</strong></summary>
 
 * JavaScript functions returning JSX.
@@ -106,7 +106,7 @@ A[Props] --> B[Function] --> C[JSX]
 
 </details>
 
-<details>
+<details open>
 <summary><strong>🧠 Class (Stateful) Components</strong></summary>
 
 * Extend `React.Component`
@@ -123,7 +123,7 @@ A[Props] --> B[Class] --> C[JSX]
 
 ---
 
-<details>
+<details open>
 <summary><strong>📐 JSX (JavaScript XML)</strong></summary>
 
 * JSX allows HTML in JS
@@ -136,7 +136,7 @@ A[Props] --> B[Class] --> C[JSX]
 
 </details>
 
-<details>
+<details open>
 <summary><strong>🧩 React Fragments</strong></summary>
 
 * Use empty tags `<> ... </>` instead of extra `<div>` to group children
@@ -150,7 +150,7 @@ A[Props] --> B[Class] --> C[JSX]
 
 </details>
 
-<details>
+<details open>
 <summary><strong>⚓ React Hooks (Since 2018)</strong></summary>
 
 * Use state/lifecycle in function components
@@ -164,7 +164,7 @@ A[Props] --> B[Class] --> C[JSX]
 
 </details>
 
-<details>
+<details open>
 <summary><strong>📬 Props</strong></summary>
 
 * Props = Parameters
@@ -174,7 +174,7 @@ A[Props] --> B[Class] --> C[JSX]
 
 </details>
 
-<details>
+<details open>
 <summary><strong>📦 State</strong></summary>
 
 * State = Local component data
@@ -194,7 +194,7 @@ A[Props] --> B[Class] --> C[JSX]
 
 </details>
 
-<details>
+<details open>
 <summary><strong>🌐 DOM vs Virtual DOM</strong></summary>
 
 * React doesn't directly manipulate the real DOM.

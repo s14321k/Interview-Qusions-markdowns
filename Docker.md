@@ -1,6 +1,6 @@
 # Docker
 
-<details>
+<details open>
 <summary><strong>Vm vs Containers</strong></summary>
 
 ![Container](images/vmVsContainers.png)
