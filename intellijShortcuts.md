@@ -1,6 +1,6 @@
 # Shrotcuts
 
-- `Ctrl+Shift+R` -> Find and Replace
+- `Ctrl+Shift+R` -> [Find and Replace](https://www.jetbrains.com/help/idea/finding-and-replacing-text-in-project.html#replace_search_string_in_project)
 - `Ctrl+Shift+L` -> Format Code
 - `Ctrl+Alt+L`   -> Reformat Format Code
 - `Ctrl+J`     -> To see the list of suggestions

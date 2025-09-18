@@ -4,21 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="open all">
+    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="Remove TOC">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular Interview Questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/Angular Interview Questions.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Angular.md" beforeDir="false" afterPath="$PROJECT_DIR$/Angular.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GCP.md" beforeDir="false" afterPath="$PROJECT_DIR$/GCP.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Git.md" beforeDir="false" afterPath="$PROJECT_DIR$/Git.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Hibernate.md" beforeDir="false" afterPath="$PROJECT_DIR$/Hibernate.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaBasic.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaBasic.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microservice.md" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReactQuestionAnswers.md" beforeDir="false" afterPath="$PROJECT_DIR$/ReactQuestionAnswers.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQL.md" beforeDir="false" afterPath="$PROJECT_DIR$/SQL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/intellijShortcuts.md" beforeDir="false" afterPath="$PROJECT_DIR$/intellijShortcuts.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.md" beforeDir="false" afterPath="$PROJECT_DIR$/react.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repeatMCQ.md" beforeDir="false" afterPath="$PROJECT_DIR$/repeatMCQ.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -277,7 +267,7 @@
       <workItem from="1757870896086" duration="698000" />
       <workItem from="1757944042254" duration="13564000" />
       <workItem from="1758003748527" duration="11475000" />
-      <workItem from="1758179597757" duration="3724000" />
+      <workItem from="1758179597757" duration="5669000" />
     </task>
     <task id="LOCAL-00001" summary="added points and restructured the points">
       <option name="closed" value="true" />
@@ -537,7 +527,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758213667902</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Remove TOC">
+      <option name="closed" value="true" />
+      <created>1758214023529</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1758214023529</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -579,7 +577,8 @@
     <MESSAGE value="patterns and other changes" />
     <MESSAGE value="images and other addons" />
     <MESSAGE value="open all" />
-    <option name="LAST_COMMIT_MESSAGE" value="open all" />
+    <MESSAGE value="Remove TOC" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove TOC" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

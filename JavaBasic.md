@@ -149,19 +149,19 @@ System.out.println(cl); // Usually prints 'sun.misc.Launcher$AppClassLoader'
 
 ### Some Java Keywords
 
-| Keyword    | Usage                                       |
-|------------|---------------------------------------------|
-| `class`    | Declare a class                             |
-| `public`   | Accessibility modifier                      |
-| `static`   | Belongs to class rather than instance      |
-| `void`     | Method returns nothing                      |
-| `main`     | Entry point of Java program                 |
-| `new`      | Create new object                           |
-| `if`, `else` | Conditional statements                     |
-| `for`, `while`, `do` | Loop constructs                      |
-| `return`   | Exit method and optionally return value    |
-| `try`, `catch`, `finally` | Exception handling blocks          |
-| `throw`, `throws` | Exception declaration and throwing     |
+| Keyword                   | Usage                                   |
+|---------------------------|-----------------------------------------|
+| `class`                   | Declare a class                         |
+| `public`                  | Accessibility modifier                  |
+| `static`                  | Belongs to class rather than instance   |
+| `void`                    | Method returns nothing                  |
+| `main`                    | Entry point of Java program             |
+| `new`                     | Create new object                       |
+| `if`, `else`              | Conditional statements                  |
+| `for`, `while`, `do`      | Loop constructs                         |
+| `return`                  | Exit method and optionally return value |
+| `try`, `catch`, `finally` | Exception handling blocks               |
+| `throw`, `throws`         | Exception declaration and throwing      |
 
 
 ### Java Identifiers (Short & Simple)
@@ -325,7 +325,7 @@ class Main {
 ## 📚 Common Java Terms
 
 | Term                 | Explanation                                                      |
-| -------------------- | ---------------------------------------------------------------- |
+|----------------------|------------------------------------------------------------------|
 | `import java.io.*;`  | Import all classes from `java.io` package                        |
 | `class`              | Defines a class containing data and methods                      |
 | `static void main()` | `static` means method can be called without object instantiation |
@@ -439,7 +439,7 @@ public class UtilityClass {
 # Private Class vs Private Constructor
 
 | Feature           | Private Class                                  | Private Constructor                                     |
-| ----------------- | ---------------------------------------------- | ------------------------------------------------------- |
+|-------------------|------------------------------------------------|---------------------------------------------------------|
 | **Scope**         | Accessible only within the enclosing class     | Accessible only within the class itself                 |
 | **Purpose**       | Encapsulate helper functionality, inner logic  | Prevent external instantiation of the class             |
 | **Instantiation** | Can be instantiated inside the enclosing class | Prevents instantiation except from within the class     |
@@ -552,7 +552,7 @@ public class UtilityClass {
 ## 2. Non-Access Modifiers
 
 | Modifier   | Applies To                        | Purpose                                                                              |
-| ---------- | --------------------------------- | ------------------------------------------------------------------------------------ |
+|------------|-----------------------------------|--------------------------------------------------------------------------------------|
 | `static`   | Variables, methods, inner classes | Makes members belong to the class rather than instances                              |
 | `final`    | Variables, methods, classes       | Prevents reassignment, method overriding, or subclassing                             |
 | `abstract` | Classes, methods                  | Defines classes or methods that cannot be instantiated or must be overridden         |
@@ -3059,6 +3059,47 @@ CompletableFuture.supplyAsync(() -> "result")
 @Async
 public void asyncMethod() { /* async task */ }
 ```
+
+Got it 👍 You want to add **Virtual Threads (Java 21)** as another async/concurrency option in your list, like you did with `CompletableFuture` and `@Async`.
+
+Here’s how you could present **6. Virtual Threads (Java 21)**:
+
+---
+
+### 6. Virtual Threads (Java 21)
+
+Virtual threads are lightweight threads introduced in Java 21 (as part of Project Loom) that allow writing concurrent code in a **synchronous style** without the overhead of traditional platform threads.
+
+```java
+public class VirtualThreadExample {
+    public static void main(String[] args) throws Exception {
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            List<Callable<String>> tasks = List.of(
+                () -> {
+                    Thread.sleep(1000);
+                    return "Task 1 done on " + Thread.currentThread();
+                },
+                () -> {
+                    Thread.sleep(500);
+                    return "Task 2 done on " + Thread.currentThread();
+                }
+            );
+
+            var results = executor.invokeAll(tasks);
+            for (var result : results) {
+                System.out.println(result.get());
+            }
+        }
+    }
+}
+```
+
+✅ **Key Points**
+
+* Each task runs on its own virtual thread.
+* Virtual threads are **cheap to create** (thousands or millions possible).
+* They simplify asynchronous programming by letting you write **blocking code without blocking resources**.
+* Best suited for high-concurrency applications (like servers).
 
 </details>
 
