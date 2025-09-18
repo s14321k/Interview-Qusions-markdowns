@@ -1,22 +1,3 @@
-<!-- TOC -->
-
-- [React](#react)
-  - [Install](#install)
-  - [Create React App](#create-react-app)
-- [React Basics](#react-basics)
-  - [Component](#component)
-    - [Stateless / Dumb / Presentational / functional component](#stateless--dumb--presentational--functional-component)
-    - [Stateful / Smart / Container / class component](#stateful--smart--container--class-component)
-    - [JSX - JavaScript XML allows us to write HTML.](#jsx---javascript-xml-allows-us-to-write-html)
-      - [Imperative vs Declarative](#imperative-vs-declarative)
-    - [Fragments \<\>\</\> (empty tag in react)](#fragments--empty-tag-in-react)
-    - [Hooks (2018)](#hooks-2018)
-    - [Props](#props)
-    - [State](#state)
-
-
----
-
 <details open>
 <summary><strong>📘 React Overview</strong></summary>
 

@@ -1,26 +1,3 @@
-<!-- TOC -->
-* [GCP Commands](#gcp-commands)
-    * [To run Cloud PostgreSQL](#to-run-cloud-postgresql)
-    * [To get SSL certificates for Cloud SQL](#to-get-ssl-certificates-for-cloud-sql)
-    * [Local Development](#local-development)
-    * [Push Docker Image from Local](#push-docker-image-from-local)
-  * [🚀 GCP Compute Services Comparison](#-gcp-compute-services-comparison)
-  * [🔍 Use Case Recommendations](#-use-case-recommendations)
-  * [🎯 Visual Summary](#-visual-summary)
-* [⚖️ Why **Pub/Sub** instead of **Kafka** or **gRPC** in Cloud Run / Cloud Functions?](#-why-pubsub-instead-of-kafka-or-grpc-in-cloud-run--cloud-functions)
-    * [1. **Cloud Functions / Cloud Run are serverless & event-driven**](#1-cloud-functions--cloud-run-are-serverless--event-driven)
-    * [2. **gRPC is synchronous, but Functions are async**](#2-grpc-is-synchronous-but-functions-are-async)
-    * [3. **Pub/Sub fits the “fire-and-forget” event model**](#3-pubsub-fits-the-fire-and-forget-event-model)
-    * [4. **Simplicity and ecosystem integration**](#4-simplicity-and-ecosystem-integration)
-* [✅ When to choose what (Rule of Thumb)](#-when-to-choose-what-rule-of-thumb)
-* [🔑 Key Takeaways](#-key-takeaways)
-    * [**1. Cloud Functions**](#1-cloud-functions)
-    * [**2. Cloud Run**](#2-cloud-run)
-    * [**Decision Guide**](#decision-guide)
-* [Stack Trace](#stack-trace)
-  * [OpenTelemetry](#opentelemetry)
-<!-- TOC -->
-
 # GCP Commands
 
 ---

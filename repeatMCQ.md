@@ -1,21 +1,3 @@
-<!-- TOC -->
-
-- [MCQ Questions](#mcq-questions)
-  - [Angular and Ng-Content](#angular-and-ng-content)
-  - [Shadow](#shadow)
-  - [Form Validation of a Text Input Type Correct](#form-validation-of-a-text-input-type-correct)
-  - [Dynamic Template Correct](#dynamic-template-correct)
-  - [Field Creation Correct](#field-creation-correct)
-  - [CSS3 Transform Correct](#css3-transform-correct)
-  - [Unique Tokens Incorrect](#unique-tokens-incorrect)
-  - [CSS Resize Correct](#css-resize-correct)
-  - [CSS3 Attribute Selector Partially correct](#css3-attribute-selector-partially-correct)
-  - [Weather](#weather)
-    - [ANSWER:-](#answer-)
-  - [Dog API](#dog-api)
-  - [Sell API](#sell-api)
-    - [other set](#other-set)
-
 # MCQ Questions
 
 ## Angular and Ng-Content

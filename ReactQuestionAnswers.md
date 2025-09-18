@@ -1,19 +1,3 @@
-<!-- TOC -->
-* [React Interview Questions & Answers](#react-interview-questions--answers)
-    * [Table of Contents](#table-of-contents)
-    * [Table of Contents](#table-of-contents-1)
-  * [Core React](#core-react)
-  * [React Router](#react-router)
-  * [React Internationalization](#react-internationalization)
-  * [React Testing](#react-testing)
-  * [React Redux](#react-redux)
-  * [React Native](#react-native)
-  * [React supported libraries & Integration](#react-supported-libraries--integration)
-  * [Miscellaneous](#miscellaneous)
-  * [Old Q&A](#old-qa)
-  * [Disclaimer](#disclaimer)
-<!-- TOC -->
-
 # React Interview Questions & Answers
 
 > Click :star:if you like the project. Pull Request are highly appreciated. Follow me [@SudheerJonna](https://twitter.com/SudheerJonna) for technical updates.

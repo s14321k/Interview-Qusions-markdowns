@@ -1,29 +1,4 @@
-
-<!-- TOC -->
-* [Hibernate Concepts Explained](#hibernate-concepts-explained)
-    * [What is it?](#what-is-it)
-    * [Why use?](#why-use)
-    * [Example:](#example)
-    * [Example PreparedStatement:](#example-preparedstatement)
-    * [Example Stored Procedure call:](#example-stored-procedure-call)
-    * [Example:](#example-1)
-    * [Example `get()`:](#example-get)
-    * [Example `load()`:](#example-load)
-    * [Choose Hibernate if:](#choose-hibernate-if)
-    * [Choose JPA if:](#choose-jpa-if)
-    * [Benefits:](#benefits)
-    * [Popular pools:](#popular-pools)
-    * [Example Spring Boot config:](#example-spring-boot-config)
-<!-- TOC -->
-
-
-Here is a **refactored, clear, and user-friendly** collapsible markdown summary covering your Hibernate topics with explanations, usage, and comparisons:
-
----
-
 # Hibernate Concepts Explained
-
----
 
 <details open>
 <summary><strong>1. Eager vs Lazy Loading</strong></summary>

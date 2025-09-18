@@ -1,7 +1,4 @@
-<!-- TOC -->
 * [Git & GitHub Q\&A and Commands](#git--github-qa-and-commands)
-<!-- TOC -->
-
 
 ---
 

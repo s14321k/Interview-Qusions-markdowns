@@ -4,23 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="images and other addons">
+    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="open all">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docker.md" beforeDir="false" afterPath="$PROJECT_DIR$/Docker.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular Interview Questions.md" beforeDir="false" afterPath="$PROJECT_DIR$/Angular Interview Questions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular.md" beforeDir="false" afterPath="$PROJECT_DIR$/Angular.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GCP.md" beforeDir="false" afterPath="$PROJECT_DIR$/GCP.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Git.md" beforeDir="false" afterPath="$PROJECT_DIR$/Git.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hibernate.md" beforeDir="false" afterPath="$PROJECT_DIR$/Hibernate.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java 8 to 17.md" beforeDir="false" afterPath="$PROJECT_DIR$/Java 8 to 17.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaBasic.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaBasic.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaQuestions.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaQuestions.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JenkinsAlternativesCICD.md" beforeDir="false" afterPath="$PROJECT_DIR$/JenkinsAlternativesCICD.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Kuberneties.md" beforeDir="false" afterPath="$PROJECT_DIR$/Kuberneties.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LogicsToSee.md" beforeDir="false" afterPath="$PROJECT_DIR$/LogicsToSee.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Microservice.md" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReactQuestionAnswers.md" beforeDir="false" afterPath="$PROJECT_DIR$/ReactQuestionAnswers.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SQL.md" beforeDir="false" afterPath="$PROJECT_DIR$/SQL.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpringSecurity.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringSecurity.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/intellijShortcuts.md" beforeDir="false" afterPath="$PROJECT_DIR$/intellijShortcuts.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/react.md" beforeDir="false" afterPath="$PROJECT_DIR$/react.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql_root_queries.md" beforeDir="false" afterPath="$PROJECT_DIR$/sql_root_queries.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repeatMCQ.md" beforeDir="false" afterPath="$PROJECT_DIR$/repeatMCQ.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -279,7 +277,7 @@
       <workItem from="1757870896086" duration="698000" />
       <workItem from="1757944042254" duration="13564000" />
       <workItem from="1758003748527" duration="11475000" />
-      <workItem from="1758179597757" duration="3385000" />
+      <workItem from="1758179597757" duration="3724000" />
     </task>
     <task id="LOCAL-00001" summary="added points and restructured the points">
       <option name="closed" value="true" />
@@ -531,7 +529,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758036888554</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="open all">
+      <option name="closed" value="true" />
+      <created>1758213667902</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1758213667902</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -572,7 +578,8 @@
     <MESSAGE value="removed security and moved to security file" />
     <MESSAGE value="patterns and other changes" />
     <MESSAGE value="images and other addons" />
-    <option name="LAST_COMMIT_MESSAGE" value="images and other addons" />
+    <MESSAGE value="open all" />
+    <option name="LAST_COMMIT_MESSAGE" value="open all" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
