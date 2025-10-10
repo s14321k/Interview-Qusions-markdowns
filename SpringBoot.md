@@ -12,12 +12,12 @@
 
 Spring Boot is a framework that makes it easy to create stand-alone, production-grade Spring-based Applications that you can "just run". It takes an opinionated view of the Spring platform, which paves the way for a faster and more efficient development experience.
 
-| Feature                  | Description                                                                 |
-| ------------------------ | --------------------------------------------------------------------------- |
-| **Auto-Configuration**   | Automatically configures the application based on JARs in the classpath.    |
-| **Starter Dependencies** | Simplifies dependency management with pre-configured bundles (e.g., `spring-boot-starter-web`). |
+| Feature                  | Description                                                                                       |
+|--------------------------|---------------------------------------------------------------------------------------------------|
+| **Auto-Configuration**   | Automatically configures the application based on JARs in the classpath.                          |
+| **Starter Dependencies** | Simplifies dependency management with pre-configured bundles (e.g., `spring-boot-starter-web`).   |
 | **Embedded Servers**     | Includes embedded servers like Tomcat, Jetty, or Undertow, so you don't need to deploy WAR files. |
-| **Production-Ready**     | Provides production-ready features like metrics, health checks, and externalized configuration. |
+| **Production-Ready**     | Provides production-ready features like metrics, health checks, and externalized configuration.   |
 
 </details>
 
@@ -40,12 +40,12 @@ These annotations work together to configure a Spring Boot application.
 
 Spring Boot Starters are a set of convenient dependency descriptors that you can include in your application. They simplify your build configuration by providing a one-stop-shop for all the Spring and related technologies that you need, without having to hunt down and configure compatible versions yourself.
 
-| Starter Example                  | Purpose                                                                 |
-| -------------------------------- | ----------------------------------------------------------------------- |
-| `spring-boot-starter-web`        | For building web applications, including RESTful APIs with Spring MVC.  |
-| `spring-boot-starter-data-jpa`   | For using Spring Data JPA with Hibernate for database access.           |
-| `spring-boot-starter-test`       | For testing Spring Boot applications with JUnit, Mockito, etc.          |
-| `spring-boot-starter-security`   | For adding authentication and authorization to your application.        |
+| Starter Example                | Purpose                                                                |
+|--------------------------------|------------------------------------------------------------------------|
+| `spring-boot-starter-web`      | For building web applications, including RESTful APIs with Spring MVC. |
+| `spring-boot-starter-data-jpa` | For using Spring Data JPA with Hibernate for database access.          |
+| `spring-boot-starter-test`     | For testing Spring Boot applications with JUnit, Mockito, etc.         |
+| `spring-boot-starter-security` | For adding authentication and authorization to your application.       |
 
 </details>
 
@@ -54,11 +54,11 @@ Spring Boot Starters are a set of convenient dependency descriptors that you can
 
 You can change the port by setting the `server.port` property.
 
-| Method                                      | Example                                         |
-| ------------------------------------------- | ----------------------------------------------- |
-| **`application.properties`**                | `server.port=8090`                              |
-| **`application.yml`**                       | `server: port: 8090`                            |
-| **Command-line argument**                   | `java -jar app.jar --server.port=8090`          |
+| Method                       | Example                                |
+|------------------------------|----------------------------------------|
+| **`application.properties`** | `server.port=8090`                     |
+| **`application.yml`**        | `server: port: 8090`                   |
+| **Command-line argument**    | `java -jar app.jar --server.port=8090` |
 
 </details>
 
@@ -67,11 +67,11 @@ You can change the port by setting the `server.port` property.
 
 Spring Actuator is a sub-project of Spring Boot that adds production-ready features to your application. It exposes a series of endpoints to help you monitor and manage your application in a production environment.
 
-| Advantage                  | Description                                                                 |
-| -------------------------- | --------------------------------------------------------------------------- |
-| **Monitoring & Management**| Exposes endpoints like `/health`, `/metrics`, `/info` to check application status. |
-| **Extensibility**          | Allows you to create custom Actuator endpoints.                             |
-| **Integration**            | Integrates with external monitoring systems like Prometheus and Grafana.    |
+| Advantage                   | Description                                                                        |
+|-----------------------------|------------------------------------------------------------------------------------|
+| **Monitoring & Management** | Exposes endpoints like `/health`, `/metrics`, `/info` to check application status. |
+| **Extensibility**           | Allows you to create custom Actuator endpoints.                                    |
+| **Integration**             | Integrates with external monitoring systems like Prometheus and Grafana.           |
 
 </details>
 
@@ -154,14 +154,14 @@ There are two primary ways to define a bean:
 **1. Using Stereotype Annotations:**
 The easiest way is to annotate your class with one of Spring's stereotype annotations. Spring's component scanning will automatically detect and register them as beans.
 
-| Annotation      | Purpose                                             |
-| --------------- | --------------------------------------------------- |
-| `@Component`    | Generic stereotype for any Spring-managed component. |
-| `@Service`      | For service layer classes (business logic).         |
-| `@Repository`   | For persistence layer classes (data access).        |
-| `@Controller`   | For Spring MVC controllers.                         |
-| `@RestController` | For RESTful controllers in Spring MVC.              |
-| `@Configuration`| For classes that define other beans.                |
+| Annotation        | Purpose                                              |
+|-------------------|------------------------------------------------------|
+| `@Component`      | Generic stereotype for any Spring-managed component. |
+| `@Service`        | For service layer classes (business logic).          |
+| `@Repository`     | For persistence layer classes (data access).         |
+| `@Controller`     | For Spring MVC controllers.                          |
+| `@RestController` | For RESTful controllers in Spring MVC.               |
+| `@Configuration`  | For classes that define other beans.                 |
 
 **Example:**
 
@@ -373,7 +373,7 @@ Now, any injection of `PaymentService` will receive `CreditCardPaymentService` b
 
 ---
 
-Great question — **cyclic dependency** (also called a *circular dependency*) happens when two or more beans in Spring depend on each other in a loop.
+**cyclic dependency** (also called a *circular dependency*) happens when two or more beans in Spring depend on each other in a loop.
 
 ---
 
@@ -590,13 +590,13 @@ This is discouraged because it hides bad design.
 
 The scope of a bean defines its lifecycle and visibility.
 
-| Scope          | Description                                                  |
-| -------------- | ------------------------------------------------------------ |
-| `singleton`    | (Default) Only one instance of the bean is created per container. |
-| `prototype`    | A new instance is created every time the bean is requested.  |
-| `request`      | (Web-aware) A new instance for each HTTP request.            |
-| `session`      | (Web-aware) A new instance for each HTTP session.            |
-| `application`  | (Web-aware) A single instance for the lifecycle of the `ServletContext`. |
+| Scope         | Description                                                              |
+|---------------|--------------------------------------------------------------------------|
+| `singleton`   | (Default) Only one instance of the bean is created per container.        |
+| `prototype`   | A new instance is created every time the bean is requested.              |
+| `request`     | (Web-aware) A new instance for each HTTP request.                        |
+| `session`     | (Web-aware) A new instance for each HTTP session.                        |
+| `application` | (Web-aware) A single instance for the lifecycle of the `ServletContext`. |
 
 **Example:**
 
@@ -4009,7 +4009,7 @@ With Istio/Linkerd, you don’t need Postman client certs — the **sidecar prox
 ---
 
 <details>
-<summary><strong>❓ How do you ensure observability in microservices? 🔍🧩</summary></strong>
+<summary><strong>❓ How do you ensure observability in microservices? 🔍🧩</strong></summary>
 
 🧠 Answer:
 
@@ -6642,6 +6642,703 @@ public class DemoApplication implements CommandLineRunner {
 ```
 
 </details>
+
+---
+
+## **11️⃣ How does Spring Boot auto-configuration work behind the scenes?**
+
+### 💡 Concept
+
+Spring Boot’s auto-configuration automatically sets up beans **based on what’s on the classpath** and **what you’ve configured**.
+It saves you from writing tons of `@Configuration` and `@Bean` definitions.
+
+---
+
+### ⚙️ **How It Works Internally**
+
+1. **`@SpringBootApplication`**
+   Combines:
+
+    * `@Configuration` (defines beans)
+    * `@EnableAutoConfiguration`
+    * `@ComponentScan`
+
+2. **`@EnableAutoConfiguration`**
+   Triggers loading of `AutoConfigurationImportSelector`, which:
+
+    * Reads all auto-configuration class names from:
+
+      ```
+      META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+      ```
+    * This list is provided by each starter (e.g., `spring-boot-autoconfigure` JAR).
+
+3. **Conditional evaluation**
+   Each auto-config class uses **`@Conditional` annotations** such as:
+
+    * `@ConditionalOnClass` → activates if a class is on the classpath
+    * `@ConditionalOnMissingBean` → only if a bean isn’t already defined
+    * `@ConditionalOnProperty` → based on `application.properties`
+
+4. **Result**
+   At runtime, only matching configurations are loaded into the `ApplicationContext`.
+
+---
+
+### ✅ Example
+
+```java
+@Configuration
+@ConditionalOnClass(DataSource.class)
+@ConditionalOnProperty(name = "spring.datasource.url")
+public class DataSourceAutoConfiguration {
+    @Bean
+    DataSource dataSource() { ... }
+}
+```
+
+If `spring.datasource.url` is defined and `DataSource` is on the classpath → the bean is created automatically.
+
+---
+
+### 🧠 In short
+
+> Auto-configuration = selective bean registration using conditions + classpath scanning, orchestrated by `@EnableAutoConfiguration`.
+
+---
+
+## **12️⃣ How do you handle circular dependencies between Spring beans?**
+
+### 🔁 Problem
+
+Occurs when **Bean A depends on Bean B and Bean B depends on Bean A**.
+
+```java
+@Component
+class A { @Autowired B b; }
+
+@Component
+class B { @Autowired A a; } // circular
+```
+
+Spring cannot fully initialize both → `BeanCurrentlyInCreationException`.
+
+---
+
+### 🧩 Solutions
+
+1. **Use `@Lazy` injection**
+
+   ```java
+   @Component
+   class A {
+       @Autowired @Lazy B b;
+   }
+   ```
+
+   → Spring creates a proxy for `B`, resolving the circular reference lazily.
+
+2. **Use setter or field injection instead of constructor injection**
+   Constructor injection circularity is fatal — Spring can’t build either bean.
+   Setter injection allows deferred resolution.
+
+3. **Refactor**
+
+    * Extract common dependencies into a third bean (`ServiceC`).
+    * Redesign to remove circular logic (best practice).
+
+4. **Spring Boot 2.6+**
+   By default, **circular references are disallowed**.
+   You can enable them (not recommended):
+
+   ```properties
+   spring.main.allow-circular-references=true
+   ```
+
+---
+
+## **13️⃣ What’s the use of `ApplicationContextAware` and `BeanPostProcessor`?**
+
+### **`ApplicationContextAware`**
+
+* Interface allowing a bean to **access the Spring `ApplicationContext`** it belongs to.
+* Implement `setApplicationContext(ApplicationContext ctx)`.
+
+✅ Example:
+
+```java
+@Component
+class MyBean implements ApplicationContextAware {
+    private ApplicationContext ctx;
+
+    @Override
+    public void setApplicationContext(ApplicationContext ctx) {
+        this.ctx = ctx;
+    }
+
+    public void printAllBeans() {
+        System.out.println(ctx.getBeanDefinitionCount());
+    }
+}
+```
+
+Use case: dynamic bean lookup, context-based decisions, or lazy retrieval of other beans.
+
+---
+
+### **`BeanPostProcessor`**
+
+* Hook into Spring’s bean lifecycle: runs **before and after initialization**.
+* Allows modifying or wrapping beans programmatically.
+
+✅ Example:
+
+```java
+@Component
+class LogPostProcessor implements BeanPostProcessor {
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String name) {
+        System.out.println("Before init: " + name);
+        return bean;
+    }
+
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String name) {
+        System.out.println("After init: " + name);
+        return bean;
+    }
+}
+```
+
+Use cases:
+
+* Inject proxies (AOP)
+* Add custom annotations support
+* Modify bean properties dynamically
+
+---
+
+## **14️⃣ How would you implement dynamic bean creation at runtime?**
+
+There are multiple ways to create and register beans **after context startup**.
+
+### 🧩 1. Using `BeanDefinitionRegistryPostProcessor`
+
+Allows registering new bean definitions before the context is fully initialized.
+
+```java
+@Component
+class DynamicBeanRegistrar implements BeanDefinitionRegistryPostProcessor {
+    @Override
+    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
+        GenericBeanDefinition bd = new GenericBeanDefinition();
+        bd.setBeanClass(MyDynamicService.class);
+        registry.registerBeanDefinition("myDynamicService", bd);
+    }
+}
+```
+
+---
+
+### 🧩 2. Using `ApplicationContext` + `ConfigurableListableBeanFactory`
+
+If you need to register beans **at runtime after startup**:
+
+```java
+@Autowired
+private ConfigurableListableBeanFactory beanFactory;
+
+public void createBeanDynamically() {
+    MyService instance = new MyService();
+    beanFactory.registerSingleton("myService", instance);
+}
+```
+
+---
+
+### 🧩 3. Using `BeanDefinitionBuilder`
+
+For more advanced control (constructor args, scopes, etc.):
+
+```java
+BeanDefinition bd = BeanDefinitionBuilder
+        .genericBeanDefinition(MyService.class)
+        .addPropertyValue("name", "Dynamic")
+        .getBeanDefinition();
+registry.registerBeanDefinition("myService", bd);
+```
+
+---
+
+## **15️⃣ How can you handle async REST calls in Spring Boot effectively?**
+
+### 💡 Goal
+
+Make REST endpoints **non-blocking** and scalable.
+
+---
+
+### ✅ 1. Using `@Async`
+
+Simplest approach: offload long-running tasks to a thread pool.
+
+```java
+@Service
+class MyService {
+    @Async
+    public CompletableFuture<String> process() {
+        // long-running task
+        return CompletableFuture.completedFuture("done");
+    }
+}
+```
+
+```java
+@EnableAsync
+@SpringBootApplication
+public class App {}
+```
+
+* Returns immediately.
+* Requires a `TaskExecutor` bean (custom or default).
+* Suitable for fire-and-forget or background tasks.
+
+---
+
+### ✅ 2. Using `WebClient` (Reactive, non-blocking)
+
+Spring WebFlux’s `WebClient` is preferred for **async HTTP calls**.
+
+```java
+WebClient client = WebClient.create();
+
+Mono<String> response = client.get()
+    .uri("https://api.example.com/data")
+    .retrieve()
+    .bodyToMono(String.class);
+
+response.subscribe(System.out::println);
+```
+
+* Non-blocking, uses **reactor threads**.
+* Can compose multiple async requests via `Mono.zip`, `flatMap`, etc.
+
+---
+
+### ✅ 3. Combining `@Async` with `CompletableFuture`
+
+For traditional Spring MVC controllers:
+
+```java
+@RestController
+class MyController {
+    @Autowired MyService service;
+
+    @GetMapping("/async")
+    public CompletableFuture<String> getAsync() {
+        return service.process();
+    }
+}
+```
+
+Spring automatically uses `DeferredResult` internally for async response handling.
+
+---
+
+### ✅ 4. Using `DeferredResult` or `WebAsyncTask`
+
+Low-level control over async response handling.
+
+```java
+@GetMapping("/async")
+public DeferredResult<String> handle() {
+    DeferredResult<String> result = new DeferredResult<>();
+    new Thread(() -> result.setResult("Hello")).start();
+    return result;
+}
+```
+
+---
+
+### ⚙️ Key differences
+
+| Approach            | Blocking?                      | Suitable for               |
+|---------------------|--------------------------------|----------------------------|
+| `@Async`            | Non-blocking for server thread | Background tasks           |
+| `CompletableFuture` | Non-blocking                   | Async chaining             |
+| `WebClient`         | Fully reactive                 | External async calls       |
+| `DeferredResult`    | Non-blocking MVC endpoint      | Fine-grained async control |
+
+---
+
+### ✅ **Summary Table**
+
+| #  | Topic                        | Key Takeaway                                                |
+|----|------------------------------|-------------------------------------------------------------|
+| 11 | Auto-configuration           | Conditional bean registration from `META-INF`               |
+| 12 | Circular dependency          | Use `@Lazy` or refactor; disallowed by default in Boot 2.6+ |
+| 13 | ContextAware / PostProcessor | Hooks into bean lifecycle & context access                  |
+| 14 | Dynamic beans                | Register via `BeanFactory` or `BeanDefinitionRegistry`      |
+| 15 | Async REST                   | Use `@Async`, `WebClient`, or reactive stack                |
+
+---
+
+Excellent 👏 — you’re now in the **Database & JPA** section — a critical area for backend and system design interviews.
+Let’s go deep into **Q 21–25** with high-level clarity and practical, code-oriented insights 💡
+
+---
+
+## **21️⃣ How do you optimize queries when using JPA with large datasets?**
+
+### 💡 Problem
+
+JPA abstracts SQL, but large datasets can easily lead to:
+
+* N+1 select problems
+* Huge memory usage
+* Inefficient joins or fetches
+
+---
+
+### 🧩 Key Optimization Strategies
+
+#### 1. **Use `JOIN FETCH` to avoid N+1**
+
+```java
+@Query("SELECT o FROM Order o JOIN FETCH o.items WHERE o.id = :id")
+Order findOrderWithItems(@Param("id") Long id);
+```
+
+> ✅ Loads order + items in one query instead of one per item.
+
+---
+
+#### 2. **Batch fetching / entity graph**
+
+```java
+@Entity
+@BatchSize(size = 20)
+class Order { ... }
+```
+
+> JPA will load related entities in batches instead of one by one.
+
+Or use:
+
+```java
+@EntityGraph(attributePaths = {"items", "customer"})
+List<Order> findAllWithGraph();
+```
+
+---
+
+#### 3. **Use projections instead of full entities**
+
+```java
+interface OrderSummary {
+    String getCustomerName();
+    BigDecimal getTotal();
+}
+
+@Query("SELECT o.customer.name AS customerName, o.total AS total FROM Order o")
+List<OrderSummary> findSummaries();
+```
+
+> Returns lightweight DTOs — no persistence overhead.
+
+---
+
+#### 4. **Pagination + streaming**
+
+Use `Pageable` or stream results for large tables:
+
+```java
+@QueryHints(@QueryHint(name = HINT_FETCH_SIZE, value = "100"))
+@Query("SELECT o FROM Order o")
+Stream<Order> streamAll();
+```
+
+> Prevents loading millions of rows in memory at once.
+
+---
+
+#### 5. **Disable dirty checking when reading only**
+
+```java
+entityManager.unwrap(Session.class)
+    .setDefaultReadOnly(true);
+```
+
+> Avoids JPA overhead for read-only queries.
+
+---
+
+#### 6. **Second-level cache**
+
+Enable 2nd-level or query cache with providers like **Ehcache / Redis** for frequently read data.
+
+---
+
+✅ **Rule of thumb:**
+
+> Don’t load objects when you only need data.
+> Use projections, fetch joins, and pagination for large datasets.
+
+---
+
+## **22️⃣ What’s the difference between `EntityManager.persist()` and `merge()`?**
+
+| Method      | Purpose                          | Behavior                                    | Return Type              |
+| ----------- | -------------------------------- | ------------------------------------------- | ------------------------ |
+| `persist()` | Insert new entity                | Makes entity *managed* and schedules insert | `void`                   |
+| `merge()`   | Update or attach detached entity | Returns a *new managed copy*                | Returns managed instance |
+
+---
+
+### 🔹 Example
+
+```java
+EntityManager em = ...;
+User u1 = new User("Alice");
+
+// persist
+em.persist(u1); // u1 becomes managed
+u1.setAge(30);  // tracked
+```
+
+```java
+User detached = new User(1L, "Bob"); // detached
+User merged = em.merge(detached); // merged is managed, detached is not
+```
+
+> ✅ **Important:** After `merge()`, always use the returned reference (`merged`), not the original object.
+
+---
+
+### 🧠 Notes
+
+* `persist()` → only for **new** entities.
+* `merge()` → for **detached or existing** entities.
+* Calling `merge()` on a transient entity creates a **new managed copy** with the same state.
+
+---
+
+## **23️⃣ How do you handle pagination efficiently in Spring Data JPA?**
+
+### 💡 Use `Pageable` and `Page<T>` API
+
+```java
+Page<Order> page = orderRepo.findAll(PageRequest.of(0, 10, Sort.by("date")));
+```
+
+---
+
+### 🧩 Why it’s efficient:
+
+* Translates to `LIMIT` + `OFFSET` in SQL automatically.
+* Returns metadata:
+
+  ```java
+  page.getContent(); // list
+  page.getTotalElements();
+  page.getTotalPages();
+  ```
+
+---
+
+### ⚙️ Optimization Tips
+
+1. **For large OFFSETs**, use **keyset pagination**:
+
+   ```sql
+   SELECT * FROM orders WHERE id > :lastId ORDER BY id ASC LIMIT 20;
+   ```
+
+   → faster for infinite scrolling.
+
+2. **Avoid unnecessary count queries**
+
+    * Use `Slice<T>` instead of `Page<T>` when total count not needed.
+
+   ```java
+   Slice<Order> slice = repo.findByStatus(status, PageRequest.of(0, 20));
+   ```
+
+3. **Index pagination columns** for efficiency.
+
+4. **Project only required columns** using DTOs.
+
+---
+
+## **24️⃣ How do you manage schema migrations across microservices?**
+
+### 💡 Problem
+
+Each service owns its own database — schema versions must evolve predictably across environments.
+
+---
+
+### 🧩 Best Practices
+
+#### 1. **Use database migration tools**
+
+* **Flyway** or **Liquibase** are the standards.
+* Place migration scripts under `src/main/resources/db/migration`.
+
+Example (Flyway):
+
+```
+V1__create_user_table.sql
+V2__add_index_to_email.sql
+```
+
+Spring Boot auto-runs them at startup:
+
+```yaml
+spring.flyway.enabled: true
+spring.flyway.locations: classpath:db/migration
+```
+
+---
+
+#### 2. **Each microservice manages its own schema**
+
+> Microservices must own their data — no shared schema.
+
+---
+
+#### 3. **Schema versioning per service**
+
+Maintain Flyway metadata table (`flyway_schema_history`) to track applied versions.
+
+---
+
+#### 4. **Pipeline integration**
+
+In CI/CD:
+
+* Run migrations before deploying new service version.
+* Rollback strategy: keep backward-compatible scripts.
+
+---
+
+#### 5. **Avoid cross-service joins**
+
+Instead use:
+
+* API calls or
+* Async events (Kafka, CDC via Debezium)
+
+---
+
+### ✅ Key idea:
+
+> Schema migrations are version-controlled, automated, and *owned* by each service independently.
+
+---
+
+## **25️⃣ What’s the best approach for auditing (`createdBy`, `updatedBy`) in JPA?**
+
+### 💡 Goal
+
+Track **who** created/updated a record and **when** it happened.
+
+---
+
+### 🧩 Option 1: **Spring Data JPA Auditing**
+
+1. **Enable auditing**
+
+   ```java
+   @EnableJpaAuditing
+   @SpringBootApplication
+   public class App {}
+   ```
+
+2. **Auditable base class**
+
+   ```java
+   @MappedSuperclass
+   @EntityListeners(AuditingEntityListener.class)
+   public abstract class Auditable {
+       @CreatedDate
+       private LocalDateTime createdAt;
+
+       @LastModifiedDate
+       private LocalDateTime updatedAt;
+
+       @CreatedBy
+       private String createdBy;
+
+       @LastModifiedBy
+       private String updatedBy;
+   }
+   ```
+
+3. **Extend entities**
+
+   ```java
+   @Entity
+   public class Order extends Auditable { ... }
+   ```
+
+4. **Provide AuditorAware**
+
+   ```java
+   @Component
+   public class AuditorAwareImpl implements AuditorAware<String> {
+       @Override
+       public Optional<String> getCurrentAuditor() {
+           return Optional.of(SecurityContextHolder.getContext().getAuthentication().getName());
+       }
+   }
+   ```
+
+> ✅ Automatically fills `createdBy`, `updatedBy`, `createdAt`, `updatedAt`.
+
+---
+
+### 🧩 Option 2: **Custom entity listener**
+
+If not using Spring Data:
+
+```java
+public class AuditListener {
+    @PrePersist
+    void prePersist(BaseEntity e) {
+        e.setCreatedAt(LocalDateTime.now());
+    }
+
+    @PreUpdate
+    void preUpdate(BaseEntity e) {
+        e.setUpdatedAt(LocalDateTime.now());
+    }
+}
+```
+
+---
+
+### 🧠 Best Practices
+
+* Store `userId` instead of username if possible.
+* Use `Instant` (UTC) for timestamps.
+* Avoid database triggers — keep audit logic in application for portability.
+
+---
+
+### ✅ **Summary Table**
+
+| #  | Topic                    | Key Takeaway                                          |
+| -- | ------------------------ | ----------------------------------------------------- |
+| 21 | JPA optimization         | Use projections, fetch joins, pagination, batch fetch |
+| 22 | `persist()` vs `merge()` | `persist` → new, `merge` → update/reattach            |
+| 23 | Pagination               | Use `Pageable`, `Slice`, and keyset pagination        |
+| 24 | Schema migrations        | Use Flyway/Liquibase per service                      |
+| 25 | Auditing                 | Use Spring Data Auditing or custom entity listeners   |
+
+---
+
+
 
 ---
 

@@ -4,11 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="Remove TOC">
+    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="re arange">
+      <change afterPath="$PROJECT_DIR$/SpringDATA.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java 8 to 17.md" beforeDir="false" afterPath="$PROJECT_DIR$/Java 8 to 17.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaBasic.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaBasic.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReactQuestionAnswers.md" beforeDir="false" afterPath="$PROJECT_DIR$/ReactQuestionAnswers.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/intellijShortcuts.md" beforeDir="false" afterPath="$PROJECT_DIR$/intellijShortcuts.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaQuestions.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaQuestions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Kuberneties.md" beforeDir="false" afterPath="$PROJECT_DIR$/Kuberneties.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice.md" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringSecurity.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringSecurity.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/react.md" beforeDir="false" afterPath="$PROJECT_DIR$/react.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +66,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Git/Hacker&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Git/Ford-Proj&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -267,7 +273,11 @@
       <workItem from="1757870896086" duration="698000" />
       <workItem from="1757944042254" duration="13564000" />
       <workItem from="1758003748527" duration="11475000" />
-      <workItem from="1758179597757" duration="5669000" />
+      <workItem from="1758179597757" duration="5726000" />
+      <workItem from="1758531161182" duration="5794000" />
+      <workItem from="1758604384621" duration="3874000" />
+      <workItem from="1758945744368" duration="5840000" />
+      <workItem from="1759387489699" duration="15287000" />
     </task>
     <task id="LOCAL-00001" summary="added points and restructured the points">
       <option name="closed" value="true" />
@@ -535,7 +545,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758214023529</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="re arange">
+      <option name="closed" value="true" />
+      <created>1758222043125</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1758222043125</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -578,7 +596,8 @@
     <MESSAGE value="images and other addons" />
     <MESSAGE value="open all" />
     <MESSAGE value="Remove TOC" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove TOC" />
+    <MESSAGE value="re arange" />
+    <option name="LAST_COMMIT_MESSAGE" value="re arange" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

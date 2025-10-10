@@ -187,4 +187,3 @@ A[Props] --> B[Class] --> C[JSX]
 
 ---
 
-Let me know if you want a downloadable `.md` version or to continue this structure with **lifecycle methods**, **useEffect**, **routing**, etc.

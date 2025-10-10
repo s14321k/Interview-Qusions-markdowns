@@ -112,6 +112,34 @@ First non-duplicate character: A
 * `groupingBy(..., Collectors.counting())` counts character frequency.
 * `findFirst()` returns the first character with frequency `1`.
 
+```java
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class NonRepeatingNames {
+public static void main(String[] args) {
+List<String> names = List.of("Alice", "Bob", "Alice", "Charlie", "Bob", "David");
+Set<String> seen = new HashSet<>();
+Set<String> duplicates = new HashSet<>();
+
+        // First pass: identify duplicates
+        names.stream()
+                .filter(s -> !seen.add(s)) // For every element, try to add it to `seen`.
+                                           // If `add` returns false, it's a duplicate.
+                .forEach(duplicates::add); // Add all duplicates to the `duplicates` set.
+
+        // Second pass: filter the original list again
+        List<String> nonRepeatingNames = names.stream()
+                .filter(s -> !duplicates.contains(s)) // Keep elements that are not in the `duplicates` set.
+                .collect(Collectors.toList());
+
+        System.out.println("Original list: " + names);
+        System.out.println("Non-repeating names: " + nonRepeatingNames);
+        // Output: [Charlie, David]
+    }
+}
+```
+
 </details>
 
 ---
@@ -1825,6 +1853,23 @@ public class EmployeeGroupFilter {
 
         System.out.println("Ascending: " + asc);
         System.out.println("Descending: " + desc);
+
+        // Find the second highest salary
+        Optional<Employee> secondHighestPaidEmployee = employees.stream()
+                // Sort employees by salary in descending order
+                .sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
+                // Remove employees with duplicate salaries
+                .distinct()
+                // Skip the first employee (the one with the highest salary)
+                .skip(1)
+                // Find the next employee
+                .findFirst();
+  
+        // Print the result if an employee is found
+        secondHighestPaidEmployee.ifPresentOrElse(
+                employee -> System.out.println("Second highest paid employee: " + employee),
+                () -> System.out.println("Could not find the second highest paid employee.")
+        );
     }
 }
 ````
@@ -1856,6 +1901,73 @@ Joined after 2018:
 [Alice (HR, 2020-01-10), Charlie (IT, 2021-06-20), Eva (HR, 2022-07-05), Frank (Finance, 2019-05-18)]
 Ascending: [David (2016-11-30), Bob (2017-03-15), Frank (2019-05-18), Alice (2020-01-10), Charlie (2021-06-20), Eva (2022-07-05)]
 Descending: [Eva (2022-07-05), Charlie (2021-06-20), Alice (2020-01-10), Frank (2019-05-18), Bob (2017-03-15), David (2016-11-30)]
+```
+
+</details>
+
+<details>
+<summary><strong>Sort by value in Map</strong></summary>
+
+In Java, a `HashMap` doesn’t maintain any order. If you want to sort it **by values**, you can use streams (Java 8+) or a `List<Map.Entry<K,V>>` with a comparator.
+
+Here’s a simple **Java 8+ solution** using streams:
+
+```java
+import java.util.*;
+import java.util.stream.*;
+
+public class SortMapByValue {
+    public static void main(String[] args) {
+        Map<String, Integer> unsortMap = new HashMap<>();
+
+        unsortMap.put("z", 10);
+        unsortMap.put("b", 5);
+        unsortMap.put("a", 6);
+        unsortMap.put("c", 20);
+        unsortMap.put("d", 1);
+        unsortMap.put("e", 7);
+        unsortMap.put("y", 8);
+        unsortMap.put("n", 99);
+        unsortMap.put("g", 50);
+        unsortMap.put("m", 2);
+        unsortMap.put("f", 9);
+
+        System.out.println("Original Map...");
+        System.out.println(unsortMap);
+
+        // Sort by value
+        Map<String, Integer> sortedMap = unsortMap.entrySet()
+            .stream()
+            .sorted(Map.Entry.comparingByValue()) // ascending
+            .collect(Collectors.toMap(
+                Map.Entry::getKey,
+                Map.Entry::getValue,
+                (oldValue, newValue) -> oldValue,
+                LinkedHashMap::new  // preserve order
+            ));
+
+        System.out.println("Sorted Map by Value...");
+        System.out.println(sortedMap);
+    }
+}
+```
+
+### Output:
+
+```
+Original Map...
+{a=6, b=5, c=20, d=1, e=7, f=9, g=50, m=2, n=99, y=8, z=10}
+
+Sorted Map by Value...
+{d=1, m=2, b=5, a=6, e=7, y=8, f=9, z=10, c=20, g=50, n=99}
+```
+
+---
+
+👉 If you want it in **descending order**, just replace:
+
+```java
+.sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
 ```
 
 </details>
@@ -1970,7 +2082,5 @@ public class PairOddCounter {
 2, [pair = 1, odd = 1]
 3, [pair = 1, odd = 0]
 ```
-
----
 
 </details>

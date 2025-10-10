@@ -1,7 +1,7 @@
 # Kubernetes
 
 ---
-
+[GKE](https://youtu.be/Rl5M1CzgEH4?si=LLoZH-khdcmeVe79)
 <details open>
 <summary><strong>Kubernetes Overview</strong></summary>
 

@@ -2065,6 +2065,8 @@ If `equals()` and `hashCode()` are **not overridden**, the two objects are treat
 
 </details>
 
+[INTERNAL WORKING OF HASHMAP](https://youtu.be/7k0VYHuUF6g?si=7bOzb74JFvNW2yD8)
+
 ---
 
 <details>
@@ -2109,18 +2111,18 @@ If `equals()` and `hashCode()` are **not overridden**, the two objects are treat
 <details>
 <summary>Java Collections Timeline & Features</summary>
 
-| **Java Version** | **New Collections & Features (null, Sync)**                                                                                                  | **Description & Key Features**                                            |
-|------------------|---------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| **JDK 1.0**      | - `Vector (many, Y)`<br>- `Stack (many, Y)`<br>- `Hashtable ((0, 0), Y)`<br>- `Properties ((0, many), Y)`<br>- `Enumeration`                 | Initial synchronized collections. `Hashtable` and `Properties` store key-value pairs. |
-| **JDK 1.2**      | - `ArrayList (many, N)`<br>- `LinkedList (many, N)`<br>- `HashSet (N/A, N)`<br>- `TreeSet (N/A, N)`<br>- `HashMap ((1, many), N)`<br>- `TreeMap ((0, many), N)`<br>- `Iterator`<br>- `ListIterator` | Core interfaces introduced (`Collection`, `Set`, `List`, `Map`). `TreeMap` disallows `null` keys. |
-| **JDK 1.4**      | - `LinkedHashSet (N/A, N)`<br>- `LinkedHashMap ((1, many), N)`                                                                             | Maintains insertion order. `LinkedHashMap` allows one `null` key.          |
-| **JDK 1.5**      | - `Queue (varies, N)`<br>- `CopyOnWriteArrayList (many, Y)`<br>- `CopyOnWriteArraySet (N/A, Y)`<br>- Enhanced for-each loop                  | `Queue` implementations vary in null handling (`PriorityQueue` disallows `null`). Thread-safe `CopyOnWriteArrayList`. |
-| **JDK 1.6**      | - `NavigableSet (N/A, N)`<br>- `NavigableMap ((0, many), N)`<br>- `Deque (varies, N)`<br>- `ArrayDeque (N/A, N)`<br>- `ConcurrentSkipListSet (N/A, Y)`<br>- `ConcurrentSkipListMap ((0, many), Y)` | Sorted and double-ended queue structures added. `ConcurrentSkipListMap` disallows `null` keys. |
-| **JDK 1.8**      | - `stream()`<br>- `parallelStream()`<br>- `spliterator()`<br>- `removeIf()`<br>- `HashMap` performance improvements                          | Functional programming (Streams API, lambdas). `HashMap` optimized internally with red-black trees. |
-| **JDK 9**        | - `List.of() (0, N)`<br>- `Set.of() (0, N)`<br>- `Map.of() ((0, 0), N)`<br>- `Map.ofEntries() ((0, 0), N)`                                  | Factory methods for **immutable** collections. Nulls not allowed.          |
-| **JDK 10**       | - `List.copyOf() (varies, N)`<br>- `Set.copyOf() (varies, N)`<br>- `Map.copyOf() ((varies, varies), N)`                                      | Unmodifiable copies creation methods. Null behavior depends on original collection. |
-| **JDK 11**       | - `Collection.toArray(IntFunction)`                                                                                                       | Converts collections to arrays of desired runtime type.                    |
-| **JDK 21**       | - `SequencedCollection (varies, N)`<br>- `SequencedSet (varies, N)`<br>- `SequencedMap ((varies, varies), N)`                              | Interfaces for collections with **defined order** and reversed views.      |
+| **Java Version** | **New Collections & Features (null, Sync)**                                                                                                                                                         | **Description & Key Features**                                                                                        |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| **JDK 1.0**      | - `Vector (many, Y)`<br>- `Stack (many, Y)`<br>- `Hashtable ((0, 0), Y)`<br>- `Properties ((0, many), Y)`<br>- `Enumeration`                                                                        | Initial synchronized collections. `Hashtable` and `Properties` store key-value pairs.                                 |
+| **JDK 1.2**      | - `ArrayList (many, N)`<br>- `LinkedList (many, N)`<br>- `HashSet (N/A, N)`<br>- `TreeSet (N/A, N)`<br>- `HashMap ((1, many), N)`<br>- `TreeMap ((0, many), N)`<br>- `Iterator`<br>- `ListIterator` | Core interfaces introduced (`Collection`, `Set`, `List`, `Map`). `TreeMap` disallows `null` keys.                     |
+| **JDK 1.4**      | - `LinkedHashSet (N/A, N)`<br>- `LinkedHashMap ((1, many), N)`                                                                                                                                      | Maintains insertion order. `LinkedHashMap` allows one `null` key.                                                     |
+| **JDK 1.5**      | - `Queue (varies, N)`<br>- `CopyOnWriteArrayList (many, Y)`<br>- `CopyOnWriteArraySet (N/A, Y)`<br>- Enhanced for-each loop                                                                         | `Queue` implementations vary in null handling (`PriorityQueue` disallows `null`). Thread-safe `CopyOnWriteArrayList`. |
+| **JDK 1.6**      | - `NavigableSet (N/A, N)`<br>- `NavigableMap ((0, many), N)`<br>- `Deque (varies, N)`<br>- `ArrayDeque (N/A, N)`<br>- `ConcurrentSkipListSet (N/A, Y)`<br>- `ConcurrentSkipListMap ((0, many), Y)`  | Sorted and double-ended queue structures added. `ConcurrentSkipListMap` disallows `null` keys.                        |
+| **JDK 1.8**      | - `stream()`<br>- `parallelStream()`<br>- `spliterator()`<br>- `removeIf()`<br>- `HashMap` performance improvements                                                                                 | Functional programming (Streams API, lambdas). `HashMap` optimized internally with red-black trees.                   |
+| **JDK 9**        | - `List.of() (0, N)`<br>- `Set.of() (0, N)`<br>- `Map.of() ((0, 0), N)`<br>- `Map.ofEntries() ((0, 0), N)`                                                                                          | Factory methods for **immutable** collections. Nulls not allowed.                                                     |
+| **JDK 10**       | - `List.copyOf() (varies, N)`<br>- `Set.copyOf() (varies, N)`<br>- `Map.copyOf() ((varies, varies), N)`                                                                                             | Unmodifiable copies creation methods. Null behavior depends on original collection.                                   |
+| **JDK 11**       | - `Collection.toArray(IntFunction)`                                                                                                                                                                 | Converts collections to arrays of desired runtime type.                                                               |
+| **JDK 21**       | - `SequencedCollection (varies, N)`<br>- `SequencedSet (varies, N)`<br>- `SequencedMap ((varies, varies), N)`                                                                                       | Interfaces for collections with **defined order** and reversed views.                                                 |
 
 </details>
 
@@ -2173,7 +2175,7 @@ If `equals()` and `hashCode()` are **not overridden**, the two objects are treat
 ---
 
 <details>
-<summary>Serialization and Deserialization</summary>
+<summary>Serialization/Marshaling and Deserialization/Unmarshaling</summary>
 
 - Serialization converts an object into a byte stream for storage or transmission.
 - Deserialization reconstructs the object from the byte stream.
@@ -2243,14 +2245,146 @@ Think of an object in memory like **a house**:
 
 ---
 
-<details>
-<summary>Transient Keyword</summary>
+**Transient Keywor**
 
 - Fields marked `transient` are **not serialized**.
 
-</details>
+**Marshaling (or marshalling)** and related terms like **unmarshaling**, **serialization**, and **deserialization** often confuse beginners in Java, so let’s break them down clearly and simply.
+
+---
+
+## 🧩 What is *Marshaling* in Java?
+
+**Marshaling** means **converting an object in memory into a format that can be transmitted or stored** — for example, converting a Java object into a byte stream, JSON, or XML so that it can be:
+
+* Sent over a network (e.g. in a web service call)
+* Saved to a file or database
+* Shared between two different programs or systems
+
+✅ **Example (Conceptually):**
+
+```java
+Employee emp = new Employee("John", 30);
+byte[] data = convertToBytes(emp);  // marshaling
+```
+
+Here, we "marshal" the `Employee` object into a transferable form (like bytes).
+
+---
+
+## 🔄 What is *Unmarshaling*?
+
+**Unmarshaling** is the **reverse process** — converting the transmitted or stored data *back* into a Java object.
+
+✅ Example:
+
+```java
+Employee emp = convertFromBytes(data);  // unmarshaling
+```
+
+So, after receiving the data (like from a network), we rebuild the original object.
+
+---
+
+## 🧠 Related Terms
+
+| Term                | Meaning                                                                       | Typical Use                                 |
+| ------------------- | ----------------------------------------------------------------------------- | ------------------------------------------- |
+| **Serialization**   | Converting an object to a byte stream (for storage or transfer)               | `ObjectOutputStream`                        |
+| **Deserialization** | Rebuilding the object from a byte stream                                      | `ObjectInputStream`                         |
+| **Marshalling**     | More general — converting object to any transferable format (XML, JSON, etc.) | Used in web services (e.g., JAXB, RMI)      |
+| **Unmarshalling**   | Converting data (XML/JSON/etc.) back into an object                           | Used when reading API responses, SOAP, etc. |
+
+---
+
+## 🧰 Examples of Marshalling in Java
+
+### 1️⃣ Java Serialization
+
+```java
+import java.io.*;
+
+class Employee implements Serializable {
+    String name;
+    int age;
+    
+    Employee(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        Employee emp = new Employee("John", 25);
+
+        // Marshalling (Serialization)
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("emp.ser"));
+        oos.writeObject(emp);
+        oos.close();
+
+        // Unmarshalling (Deserialization)
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("emp.ser"));
+        Employee emp2 = (Employee) ois.readObject();
+        ois.close();
+
+        System.out.println(emp2.name + " - " + emp2.age);
+    }
+}
+```
+
+---
+
+### 2️⃣ JAXB Example (XML Marshalling)
+
+If you’re working with **XML**, `JAXB` (Java Architecture for XML Binding) can marshal/unmarshal Java objects.
+
+```java
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.*;
+
+@XmlRootElement
+class Employee {
+    public String name;
+    public int age;
+}
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        Employee emp = new Employee();
+        emp.name = "John";
+        emp.age = 25;
+
+        // Marshalling: Java -> XML
+        JAXBContext context = JAXBContext.newInstance(Employee.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.marshal(emp, System.out);
+
+        // Unmarshalling: XML -> Java
+        String xml = "<employee><name>Jane</name><age>30</age></employee>";
+        Unmarshaller unmarshaller = context.createUnmarshaller();
+        Employee emp2 = (Employee) unmarshaller.unmarshal(new java.io.StringReader(xml));
+        System.out.println(emp2.name + " - " + emp2.age);
+    }
+}
+```
+
+---
+
+## 💡 Summary
+
+| Process             | Direction                | Example                        |
+| ------------------- | ------------------------ | ------------------------------ |
+| **Marshalling**     | Object → Transfer format | Java object → XML/JSON/Bytes   |
+| **Unmarshalling**   | Transfer format → Object | XML/JSON/Bytes → Java object   |
+| **Serialization**   | Object → Byte stream     | Java’s native serialization    |
+| **Deserialization** | Byte stream → Object     | Reading back serialized object |
+
+---
 
 </details>
+
+
 
 ---
 
@@ -2746,8 +2880,6 @@ try {
 - It's used for lightweight synchronization, often for flags.
 - Does **not** guarantee atomicity.
 
-Alright 👍 let’s ground the `volatile` keyword with a **real-world example**.
-
 ---
 
 ### **Scenario: Stopping a background thread**
@@ -3106,6 +3238,179 @@ public class VirtualThreadExample {
 ---
 
 <details>
+<summary>Synchronized & Asynchronous</summary>
+
+## 🧩 Two Separate Concepts
+
+| Concept            | Purpose                                                                                |
+| ------------------ | -------------------------------------------------------------------------------------- |
+| **`synchronized`** | Prevents multiple threads from running the same code at once → ensures *thread safety* |
+| **`asynchronous`** | Allows multiple tasks to run *concurrently* (non-blocking execution)                   |
+
+These two **can be combined**, but they are **not opposites** — they control *different* things:
+
+* `synchronized` → controls *who* can access the code.
+* `asynchronous` → controls *when/how* the code runs (often in another thread).
+
+---
+
+## ⚙️ 1. Synchronous Method
+
+A **normal** (non-async) method runs sequentially, on the same thread.
+
+```java
+public void doTask() {
+    System.out.println("Start");
+    heavyWork(); // blocks until finished
+    System.out.println("End");
+}
+```
+
+🧭 Runs in a single thread, step-by-step.
+
+---
+
+## 🧱 2. Synchronized Method
+
+A **synchronized method** adds a lock — only one thread can execute it on an object at a time.
+
+```java
+public synchronized void safeTask() {
+    System.out.println(Thread.currentThread().getName() + " entering...");
+    // critical section
+    try { Thread.sleep(1000); } catch (InterruptedException e) {}
+    System.out.println(Thread.currentThread().getName() + " leaving...");
+}
+```
+
+If two threads call `safeTask()` on the same object, one must **wait** for the other to finish.
+
+✅ Ensures safety,
+❌ But makes code synchronous (blocking for other threads).
+
+---
+
+## ⚡ 3. Asynchronous Method
+
+You can make a method **asynchronous** by spawning new threads or using `CompletableFuture`.
+
+```java
+public CompletableFuture<Void> asyncTask() {
+    return CompletableFuture.runAsync(() -> {
+        System.out.println(Thread.currentThread().getName() + " running async work...");
+        try { Thread.sleep(1000); } catch (InterruptedException e) {}
+        System.out.println(Thread.currentThread().getName() + " done!");
+    });
+}
+```
+
+✅ Runs concurrently
+✅ Doesn’t block the main thread
+❌ Must manage thread safety manually if sharing data
+
+---
+
+## 🔒 4. Synchronized Block (Inside a Method)
+
+If only **part of** the code must be thread-safe, use a synchronized block:
+
+```java
+private final Object lock = new Object();
+
+public void partialSyncTask() {
+    System.out.println("Before critical section");
+    synchronized (lock) {
+        // Only this part is locked
+        System.out.println("Inside synchronized block");
+    }
+    System.out.println("After critical section");
+}
+```
+
+✅ Gives fine-grained control
+✅ Other threads can still run non-critical parts
+
+---
+
+## 🚀 5. Asynchronous Block (Inside a Method)
+
+A block can also be **run asynchronously**, using threads or futures:
+
+```java
+public void asyncBlock() {
+    System.out.println("Main thread running...");
+    new Thread(() -> {
+        System.out.println("Running asynchronously inside block!");
+    }).start();
+}
+```
+
+✅ Only that block runs asynchronously
+✅ The rest of the method continues immediately
+
+---
+
+## 🔗 6. Combining Both (Synchronized + Asynchronous)
+
+You can combine them — for example, running multiple async tasks that each use synchronized blocks to access shared data safely:
+
+```java
+class Counter {
+    private int count = 0;
+    private final Object lock = new Object();
+
+    public void incrementAsync() {
+        CompletableFuture.runAsync(() -> {
+            synchronized (lock) {
+                count++;
+                System.out.println(Thread.currentThread().getName() + " -> count = " + count);
+            }
+        });
+    }
+}
+```
+
+✅ The work runs asynchronously (non-blocking)
+✅ The critical update is synchronized (thread-safe)
+
+---
+
+## 🧠 Summary Table
+
+| Type                    | Execution                   | Thread Safety             | Example Keyword               |
+| ----------------------- | --------------------------- | ------------------------- | ----------------------------- |
+| **Synchronous Method**  | Sequential                  | Depends on code           | (none)                        |
+| **Synchronized Method** | Sequential (locked)         | ✅ Safe                    | `synchronized`                |
+| **Asynchronous Method** | Concurrent (multi-threaded) | ❌ Unsafe (unless guarded) | `Thread`, `CompletableFuture` |
+| **Synchronized Block**  | Partially locked            | ✅ Safe                    | `synchronized(obj)`           |
+| **Asynchronous Block**  | Runs in background          | ❌ Unsafe (unless locked)  | `new Thread()`, `runAsync()`  |
+
+---
+
+### 🧩 Example Combo
+
+```java
+public void processDataAsync() {
+    CompletableFuture.runAsync(() -> {
+        synchronized (this) {
+            System.out.println(Thread.currentThread().getName() + " safely updating shared data...");
+        }
+    });
+}
+```
+
+✅ **Asynchronous execution** (non-blocking)
+✅ **Thread-safe update** (locked section)
+
+---
+
+
+
+</details>
+
+---
+
+<details>
 <summary>🔄 Synchronized Collections vs Non-Synchronized</summary>
 
 ### ✅ Synchronized
@@ -3237,6 +3542,439 @@ CompletableFuture.allOf(task1, task2).join();
 
 ---
 
+Excellent — this is a *classic Java concurrency interview question* that often separates those who just know multithreading syntax from those who understand *thread context and design trade-offs.*
+
+Let’s go through it **step-by-step — concept, internals, real-world use cases, and pitfalls.**
+
+---
+
+## 🧩 **1️⃣ What is `ThreadLocal`?**
+
+`ThreadLocal` provides **thread-scoped variables** — each thread that accesses it gets its **own independent copy** of the variable.
+
+So instead of sharing state across threads (which leads to synchronization problems),
+you give each thread its own **private storage**.
+
+---
+
+### 🔹 Example
+
+```java
+public class Example {
+    private static final ThreadLocal<Integer> counter =
+        ThreadLocal.withInitial(() -> 0);
+
+    public static void main(String[] args) {
+        Runnable task = () -> {
+            for (int i = 0; i < 3; i++) {
+                counter.set(counter.get() + 1);
+                System.out.println(Thread.currentThread().getName() + " -> " + counter.get());
+            }
+        };
+        new Thread(task, "T1").start();
+        new Thread(task, "T2").start();
+    }
+}
+```
+
+🧠 Output (conceptually):
+
+```
+T1 -> 1
+T1 -> 2
+T1 -> 3
+T2 -> 1
+T2 -> 2
+T2 -> 3
+```
+
+Even though both threads share the same static `ThreadLocal`,
+each has its *own* copy of `counter`.
+
+---
+
+## ⚙️ **2️⃣ How It Works Internally**
+
+Each `Thread` object contains a reference to a `ThreadLocalMap`.
+
+* `ThreadLocal` acts as the **key**.
+* The **value** is stored in that thread’s map.
+
+So:
+
+```
+Thread A → ThreadLocalMap → {ThreadLocal@1=ValueA}
+Thread B → ThreadLocalMap → {ThreadLocal@1=ValueB}
+```
+
+Thus, data is *logically global* (accessible anywhere in that thread) but *physically local* (isolated per thread).
+
+---
+
+## 💼 **3️⃣ Real-World Use Cases**
+
+Here’s where `ThreadLocal` shines — especially in multi-threaded frameworks or web apps.
+
+---
+
+### ✅ **Use Case 1: Request Context in Web Applications**
+
+In frameworks like Spring or custom web apps, each HTTP request is handled by a separate thread (from a thread pool).
+You can use `ThreadLocal` to store per-request data like a correlation ID, user info, or tenant ID.
+
+**Example:**
+
+```java
+public class RequestContext {
+    private static final ThreadLocal<String> userId = new ThreadLocal<>();
+
+    public static void setUserId(String id) { userId.set(id); }
+    public static String getUserId() { return userId.get(); }
+    public static void clear() { userId.remove(); }
+}
+```
+
+Then anywhere in your app:
+
+```java
+String user = RequestContext.getUserId();
+```
+
+📘 Used by:
+
+* Spring Security (for `SecurityContextHolder`)
+* MDC logging (Log4j, SLF4J’s `MDC.put()` uses `ThreadLocal`)
+
+---
+
+### ✅ **Use Case 2: Database Connection or Session Management**
+
+In frameworks that manage JDBC connections manually (not Spring Boot),
+you might use `ThreadLocal` to bind a database connection or transaction context to the current thread.
+
+**Example:**
+
+```java
+public class ConnectionManager {
+    private static final ThreadLocal<Connection> connectionHolder = new ThreadLocal<>();
+
+    public static Connection getConnection() {
+        Connection conn = connectionHolder.get();
+        if (conn == null) {
+            conn = DriverManager.getConnection(...);
+            connectionHolder.set(conn);
+        }
+        return conn;
+    }
+
+    public static void clear() {
+        connectionHolder.remove();
+    }
+}
+```
+
+> Ensures that all DAOs in the same thread use the *same* DB connection.
+
+---
+
+### ✅ **Use Case 3: Logging Context / Tracing**
+
+`ThreadLocal` is perfect for **distributed tracing** or **log correlation IDs**.
+
+Example with SLF4J MDC:
+
+```java
+MDC.put("traceId", UUID.randomUUID().toString());
+log.info("Processing request");
+MDC.clear();
+```
+
+Each thread’s logs automatically include its unique trace ID.
+
+---
+
+### ✅ **Use Case 4: Thread-Specific Formatter / Parser**
+
+Creating formatters (like `SimpleDateFormat`) is not thread-safe.
+Instead of synchronizing, use `ThreadLocal` to give each thread its own instance.
+
+```java
+private static final ThreadLocal<SimpleDateFormat> dateFormatter =
+    ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd"));
+```
+
+This eliminates contention and avoids shared-state corruption.
+
+---
+
+## ⚠️ **4️⃣ Pitfalls & Best Practices**
+
+| Risk                      | Description                                                                                     | Solution                                                                        |
+| ------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| **Memory leaks**          | In thread pools, threads are reused; old `ThreadLocal` values may stick around if not cleared.  | Always call `ThreadLocal.remove()` after use (e.g., in `finally`).              |
+| **Hidden coupling**       | Code using `ThreadLocal` relies on implicit context → harder to reason about or test.           | Keep `ThreadLocal` usage localized to infrastructure layers (logging, context). |
+| **Inheritance confusion** | `InheritableThreadLocal` shares value with child threads — can lead to unintended data sharing. | Use only if you explicitly need inherited context (e.g., async tracing).        |
+
+---
+
+### ✅ Safe usage pattern
+
+```java
+try {
+    RequestContext.setUserId("abc");
+    service.process();
+} finally {
+    RequestContext.clear(); // prevent leaks in thread pools
+}
+```
+
+---
+
+## 🧠 **5️⃣ Summary**
+
+| Concept       | Description                                                |
+| ------------- | ---------------------------------------------------------- |
+| **What**      | Thread-local variable = per-thread storage                 |
+| **Why**       | Avoid shared mutable state between threads                 |
+| **How**       | Each thread holds its own value in `ThreadLocalMap`        |
+| **Use cases** | Request context, logging (MDC), DB connections, formatters |
+| **Caution**   | Clean up after use; avoid in business logic layers         |
+
+---
+
+### 🚀 **In a Real Project**
+
+* You’d use it **in frameworks**, not business code.
+  e.g., Spring’s `SecurityContextHolder`, SLF4J’s `MDC`, or a custom `TenantContext` for multi-tenancy.
+* It allows passing contextual information *without modifying every method signature.*
+
+---
+
+🔥 Great question — and it shows you’re thinking beyond syntax into **Java design patterns and fluent APIs**.
+
+Yes — **constructor chaining** is just one form of “chaining,” but Java supports other kinds of chaining as well — especially in *method calls*, *builders*, and *functional streams*.
+
+Let’s go step by step 👇
+
+---
+
+## 🧩 **1️⃣ Constructor Chaining**
+
+You already know this one — when one constructor calls another within the same class (using `this()`) or a parent’s constructor (`super()`).
+
+```java
+class Vehicle {
+    Vehicle() { System.out.println("Vehicle"); }
+    Vehicle(String type) { this(); System.out.println(type); }
+}
+```
+
+✅ **Purpose:**
+Avoid code duplication and ensure consistent initialization.
+
+---
+
+## 🧱 **2️⃣ Method Chaining (Fluent Interface)**
+
+This is very common in modern Java APIs — a style where methods return `this` so calls can be chained.
+
+---
+
+### 🔹 Basic Example
+
+```java
+class Person {
+    private String name;
+    private int age;
+
+    public Person setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Person setAge(int age) {
+        this.age = age;
+        return this;
+    }
+}
+
+Person p = new Person()
+                .setName("Alice")
+                .setAge(30);
+```
+
+> ✅ Each setter returns the same object → allows continuous chaining.
+
+This is called the **Fluent Interface Pattern**.
+
+---
+
+### 🔹 Real-world Example: `StringBuilder`
+
+```java
+String result = new StringBuilder()
+                    .append("Hello ")
+                    .append("World")
+                    .append("!")
+                    .toString();
+```
+
+Each `.append()` returns the same `StringBuilder` instance — that’s **method chaining** in action.
+
+---
+
+### 🔹 Another Example: Streams API
+
+```java
+List<Integer> result = numbers.stream()
+                              .filter(n -> n % 2 == 0)
+                              .map(n -> n * 2)
+                              .sorted()
+                              .toList();
+```
+
+Here, every intermediate operation returns a new `Stream`, enabling chainable operations.
+
+---
+
+## 🧩 **3️⃣ Builder Pattern (Chaining for Object Construction)**
+
+Builder pattern is an **advanced form of method chaining** for immutable or complex objects.
+
+### Example:
+
+```java
+class User {
+    private final String name;
+    private final int age;
+
+    private User(Builder builder) {
+        this.name = builder.name;
+        this.age = builder.age;
+    }
+
+    public static class Builder {
+        private String name;
+        private int age;
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder age(int age) {
+            this.age = age;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
+    }
+}
+```
+
+Usage:
+
+```java
+User u = new User.Builder()
+                .name("Alice")
+                .age(25)
+                .build();
+```
+
+✅ **Why it’s popular:**
+
+* Makes object construction readable
+* Works well for immutable objects
+* Avoids telescoping constructors
+
+---
+
+## ⚙️ **4️⃣ Stream Chaining / Functional Chaining**
+
+In **functional programming style**, chaining is about **composing transformations**.
+
+Example:
+
+```java
+String result = Optional.of(" Java ")
+                        .map(String::trim)
+                        .map(String::toUpperCase)
+                        .orElse("EMPTY");
+```
+
+Each call returns another `Optional` → pure functional chaining.
+
+---
+
+## 🧠 **5️⃣ Operator / DSL-style Chaining**
+
+Some frameworks design **DSLs (Domain-Specific Languages)** using chaining to read like English.
+
+Example (in Spring Security or Mockito):
+
+```java
+http.authorizeRequests()
+    .antMatchers("/admin").hasRole("ADMIN")
+    .antMatchers("/user").authenticated()
+    .and()
+    .formLogin();
+```
+
+or
+
+```java
+verify(userService, times(1)).save(any());
+```
+
+> ✅ This chaining builds configuration objects step-by-step, making APIs more expressive.
+
+---
+
+## ⚡ **6️⃣ Other Types of “Chaining” Concepts**
+
+| Type                           | Description                                                    | Example                              |
+| ------------------------------ | -------------------------------------------------------------- | ------------------------------------ |
+| **Exception chaining**         | One exception wraps another (cause chaining)                   | `new RuntimeException("msg", cause)` |
+| **Stream/Functional chaining** | Each method returns a new instance for next transformation     | `.filter().map().collect()`          |
+| **Builder chaining**           | Build complex objects fluently                                 | `.name().age().build()`              |
+| **Pipeline chaining**          | Sequence of processing steps in design (e.g., servlet filters) | `doFilter(request, response)`        |
+
+---
+
+## ⚠️ **7️⃣ Pitfalls / Best Practices**
+
+* Return `this` **only when mutating the same instance**.
+  (Builder pattern creates new instance at the end.)
+* Avoid chaining **void** methods (they break the chain).
+* Ensure methods in the chain **don’t depend on execution order unexpectedly**.
+* Use chaining for **readability**, not just for compact code.
+
+---
+
+## ✅ **Summary**
+
+| Type                     | Example                       | Purpose                           |
+| ------------------------ | ----------------------------- | --------------------------------- |
+| **Constructor chaining** | `this()` / `super()`          | Reuse constructor logic           |
+| **Method chaining**      | `.setName().setAge()`         | Fluent interface / readability    |
+| **Builder chaining**     | `.name().age().build()`       | Complex immutable object creation |
+| **Stream chaining**      | `.filter().map().collect()`   | Functional data transformation    |
+| **Exception chaining**   | `new RuntimeException(cause)` | Error context propagation         |
+
+---
+
+### 🔑 TL;DR
+
+> ✅ *Constructor chaining* → within the same class.
+> ✅ *Method chaining* → between method calls returning `this` or new objects.
+> ✅ *Builder / Stream chaining* → modern fluent APIs and functional pipelines.
+
+---
+
+
+
 ### 📊 Which One Should You Use?
 
 | Approach            | Best When                                        |
@@ -3271,7 +4009,7 @@ synchronized (map) {
 
 ---
 
-### 2. ConcurrentHashMap\<K, V>
+### 2. [ConcurrentHashMap\<K, V>](https://javahungry.blogspot.com/2015/02/how-concurrenthashmap-works-in-java-internal-implementation.html)
 
 * Fine-grained locking or lock-free (Java 8+).
 * Allows concurrent access without blocking readers.
@@ -3329,6 +4067,8 @@ for (Map.Entry<String, String> entry : map.entrySet()) {
 * Ensures safe concurrent computation.
 
 </details>
+
+
 
 ---
 
@@ -4359,6 +5099,842 @@ Yet to do
 <https://wiki.sei.cmu.edu/confluence/display/java/OBJ58-J.+Limit+the+extensibility+of+classes+and+methods+with+invariants>
 
 ---
+
+# ⚙️ **Question:**
+
+💯 Excellent question — this one touches on *modern Java design evolution* — from the **classic Builder pattern** to **Java Records (introduced in Java 14, finalized in 16)**.
+
+Both deal with *data encapsulation and immutability*, but they serve **different purposes and design goals**.
+
+---
+
+## 🧩 **1️⃣ The Basics**
+
+| Concept                | Purpose                                              | First Introduced                   |
+| ---------------------- | ---------------------------------------------------- | ---------------------------------- |
+| 🧱 **Builder Pattern** | Build complex, possibly immutable objects fluently   | Since early Java                   |
+| 📦 **Record**          | Concise syntax for *immutable data carriers* (POJOs) | Java 14 (preview), finalized in 16 |
+
+---
+
+⚙️ **2️⃣ Builder Pattern — Classic Approach**
+
+Builder is a *design pattern* — not a language feature.
+You write it yourself (or use Lombok to generate it).
+
+### 🔹 Example
+
+```java
+public class User {
+    private final String name;
+    private final int age;
+    private final String email;
+
+    private User(Builder builder) {
+        this.name = builder.name;
+        this.age = builder.age;
+        this.email = builder.email;
+    }
+
+    public static class Builder {
+        private String name;
+        private int age;
+        private String email;
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        public Builder age(int age) {
+            this.age = age;
+            return this;
+        }
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+        public User build() {
+            return new User(this);
+        }
+    }
+}
+```
+
+Usage:
+
+```java
+User user = new User.Builder()
+    .name("Alice")
+    .age(30)
+    .email("alice@example.com")
+    .build();
+```
+
+✅ **Pros**
+
+* Flexible — can handle **optional fields**, **validation**, **default values**.
+* Works for **mutable or immutable** objects.
+* Clear, readable, and supports **fluent chaining**.
+
+❌ **Cons**
+
+* Verbose boilerplate code (especially for many fields).
+* Must manually maintain inner `Builder` class.
+* No compile-time immutability enforcement.
+
+---
+
+📦 **3️⃣ Record — Modern Java Approach**
+
+A **record** is a *special kind of class* for **immutable data**.
+It automatically provides:
+
+* `private final` fields
+* A canonical constructor
+* `equals()`, `hashCode()`, `toString()` implementations
+
+### 🔹 Example
+
+```java
+public record User(String name, int age, String email) {}
+```
+
+Usage:
+
+```java
+User user = new User("Alice", 30, "alice@example.com");
+System.out.println(user.name()); // getter
+```
+
+✅ **Pros**
+
+* Extremely concise (1 line = full immutable data class)
+* Automatically generates constructors, accessors, equals/hashCode/toString
+* Encourages **immutability** and **value semantics**
+* Great for **DTOs, API responses, data carriers**
+
+❌ **Cons**
+
+* No *optional* or *partial construction* support (all fields required)
+* No setter or builder-like flexibility
+* Cannot extend other classes (records are implicitly `final`)
+* Validation must be inside the canonical constructor or compact constructor
+
+---
+
+⚖️ **4️⃣ Side-by-Side Comparison**
+
+| Feature             | 🧱 Builder Pattern                                 | 📦 Record                                       |
+| ------------------- | -------------------------------------------------- | ----------------------------------------------- |
+| **Immutability**    | Optional (you decide)                              | Always immutable                                |
+| **Boilerplate**     | High (unless using Lombok)                         | Very low                                        |
+| **Flexibility**     | High — can handle optional/complex construction    | Low — all args must be provided                 |
+| **Inheritance**     | Can extend or be extended                          | Cannot extend, always `final`                   |
+| **Validation**      | In `build()` or constructor                        | In compact constructor                          |
+| **Optional fields** | Easy (skip setting)                                | Must be modeled explicitly (e.g. `Optional<T>`) |
+| **Usage style**     | Fluent (`.name().age().build()`)                   | Positional constructor or named factory         |
+| **Primary goal**    | Simplify object creation with many optional params | Represent immutable data compactly              |
+
+---
+
+🧠 **5️⃣ When to Use Which**
+
+| Scenario                                                              | Recommended                                                                   |
+| --------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| **Complex domain model** with optional fields, conditional validation | 🧱 Builder                                                                    |
+| **Simple data transfer object (DTO)** or **API response**             | 📦 Record                                                                     |
+| **Immutability + readability + less boilerplate**                     | 📦 Record                                                                     |
+| **Backwards-compatible POJO with customization logic**                | 🧱 Builder                                                                    |
+| **You’re using older Java (<14)**                                     | 🧱 Builder                                                                    |
+| **Interfacing with frameworks like Spring/JPA**                       | Usually 🧱 Builder or regular POJO (records don’t work well with proxies yet) |
+
+---
+
+🔍 **6️⃣ You Can Combine Them**
+
+In modern Java, you can actually **use a builder to create a record**, especially when there are many fields.
+
+Example:
+
+```java
+public record User(String name, int age, String email) {
+    public static class Builder {
+        private String name;
+        private int age;
+        private String email;
+
+        public Builder name(String name) { this.name = name; return this; }
+        public Builder age(int age) { this.age = age; return this; }
+        public Builder email(String email) { this.email = email; return this; }
+
+        public User build() {
+            return new User(name, age, email);
+        }
+    }
+}
+```
+
+Usage:
+
+```java
+User user = new User.Builder()
+    .name("Alice")
+    .age(25)
+    .build();
+```
+
+✅ You get:
+
+* Record’s immutability + conciseness
+* Builder’s readability + optional field handling
+
+---
+
+⚡ **7️⃣ Example Comparison**
+
+### Builder Style:
+
+```java
+Order order = new Order.Builder()
+    .id("123")
+    .discount(10)
+    .build();
+```
+
+### Record Style:
+
+```java
+Order order = new Order("123", 10);
+```
+
+> If all data is required and simple → record.
+> If data is optional or object is complex → builder.
+
+---
+
+🧠 **8️⃣ Quick Rule of Thumb**
+
+| Question                                            | If Yes → Use       |
+| --------------------------------------------------- | ------------------ |
+| Do I need optional or step-by-step object creation? | **Builder**        |
+| Is this a simple immutable data carrier?            | **Record**         |
+| Do I need inheritance or custom lifecycle logic?    | **Builder / POJO** |
+| Am I writing DTOs, value objects, or responses?     | **Record**         |
+
+---
+
+🧩 **TL;DR**
+
+| Aspect             | Builder               | Record                |
+| ------------------ | --------------------- | --------------------- |
+| Pattern or Feature | Design pattern        | Language feature      |
+| Mutability         | Optional              | Always immutable      |
+| Verbosity          | High                  | Low                   |
+| Optional Params    | Easy                  | Hard                  |
+| Use Case           | Complex domain models | Simple immutable data |
+
+---
+
+
+### **1️⃣ What happens if you override `hashCode()` but not `equals()`?**
+
+**Answer:**
+If you override `hashCode()` but *don’t* override `equals()`, your objects may **break the general contract** between `equals()` and `hashCode()`.
+
+#### 💡 Explanation
+
+The contract states:
+
+* If two objects are *equal* (`a.equals(b)` → `true`), they **must** have the same `hashCode()`.
+* The reverse is not required, but consistency matters.
+
+If you override `hashCode()` and not `equals()`, equality defaults to `Object.equals()` (identity comparison).
+→ So even if two objects have the same `hashCode()`, they’re considered *unequal* unless they’re the same instance.
+
+#### ⚠️ Effect
+
+Collections relying on hashing (`HashMap`, `HashSet`) will behave incorrectly:
+
+* Two logically “equal” objects may end up in **different buckets**.
+* Duplicate logical entries may appear.
+
+#### ✅ Example:
+
+```java
+class Person {
+    String name;
+    Person(String n) { this.name = n; }
+
+    @Override
+    public int hashCode() { return name.hashCode(); }
+}
+
+Person p1 = new Person("Alice");
+Person p2 = new Person("Alice");
+
+System.out.println(p1.equals(p2)); // false (identity)
+System.out.println(p1.hashCode() == p2.hashCode()); // true
+
+Set<Person> set = new HashSet<>();
+set.add(p1);
+set.add(p2);
+System.out.println(set.size()); // 2 — violates logical equality
+```
+
+---
+
+### **2️⃣ How does JVM handle method overloading and overriding internally?**
+
+#### 🔹 **Overloading** (compile-time polymorphism)
+
+* Determined at **compile time** by **method signature** (name + parameter types).
+* The **compiler** picks the correct method based on the *static type* of the reference.
+* JVM executes the resolved method directly — **no runtime dispatch**.
+
+Example:
+
+```java
+void print(Object o) { System.out.println("Object"); }
+void print(String s) { System.out.println("String"); }
+
+Object obj = "Hi";
+print(obj); // prints "Object" — chosen at compile time
+```
+
+Here, the compile-time type of `obj` is `Object`, so `print(Object)` is bound.
+
+---
+
+#### 🔹 **Overriding** (runtime polymorphism)
+
+* Determined at **runtime** based on the **actual object type**.
+* Implemented via **virtual method tables (v-tables)**.
+* Each class stores a table of method pointers.
+  When you call an overridden method, the JVM looks up the **runtime class’s** v-table and invokes the appropriate method.
+
+Example:
+
+```java
+class Parent { void show() { System.out.println("Parent"); } }
+class Child extends Parent { void show() { System.out.println("Child"); } }
+
+Parent p = new Child();
+p.show(); // "Child" — resolved via v-table at runtime
+```
+
+---
+
+### **3️⃣ Difference between `final`, effectively final, and `const`**
+
+| Concept                   | Meaning in Java                                                           | Example                          | Notes                                                                |
+|---------------------------|---------------------------------------------------------------------------|----------------------------------|----------------------------------------------------------------------|
+| `final`                   | Variable’s reference cannot change after assignment.                      | `final int x = 10;`              | For objects, the *reference* is final, not the contents.             |
+| **Effectively final**     | Variable not declared `final`, but never reassigned after initialization. | Used in lambdas / inner classes. | Compiler treats it as `final`.                                       |
+| `const` (other languages) | Compile-time constant (C/C++/C#).                                         | `const int x = 5;`               | Java reserved `const` but never implemented it — use `static final`. |
+
+#### Example:
+
+```java
+int a = 10; // effectively final
+Runnable r = () -> System.out.println(a); // allowed
+
+final int b = 20; // explicitly final
+// both `a` and `b` behave the same in this context
+```
+
+---
+
+### **4️⃣ Pass-by-value vs. reference in Java**
+
+> ✅ **Java is always pass-by-value**, but the value *can be a reference*.
+
+#### 💡 Explanation
+
+When you pass an object to a method, Java copies the **reference value** (the memory address).
+That means:
+
+* You can change the *object’s state* (since both references point to the same object).
+* You **cannot** change what the caller’s variable refers to.
+
+#### Example:
+
+```java
+void modify(StringBuilder sb) {
+    sb.append(" World");
+    sb = new StringBuilder("Hi"); // changes local reference only
+}
+
+StringBuilder s = new StringBuilder("Hello");
+modify(s);
+System.out.println(s); // "Hello World" — object modified
+```
+
+➡️ The object’s content changed, but the caller’s variable still points to the same object.
+
+---
+
+### **5️⃣ Implement an immutable list without using `Collections.unmodifiableList()`**
+
+We can make our own immutable class by:
+
+* Making the internal list `final`.
+* Wrapping it to prevent external mutation.
+* Exposing only read-only methods.
+
+#### ✅ Example:
+
+```java
+import java.util.*;
+
+final class ImmutableList<E> implements List<E> {
+    private final List<E> list;
+
+    private ImmutableList(List<E> list) {
+        this.list = List.copyOf(list); // defensive copy (Java 10+)
+    }
+
+    public static <E> ImmutableList<E> of(List<E> source) {
+        return new ImmutableList<>(source);
+    }
+
+    // Read-only methods delegate to internal list
+    @Override public E get(int index) { return list.get(index); }
+    @Override public int size() { return list.size(); }
+    @Override public boolean contains(Object o) { return list.contains(o); }
+    @Override public Iterator<E> iterator() { return Collections.unmodifiableList(list).iterator(); }
+
+    // Mutating methods throw exceptions
+    @Override public boolean add(E e) { throw new UnsupportedOperationException(); }
+    @Override public E remove(int index) { throw new UnsupportedOperationException(); }
+    @Override public void clear() { throw new UnsupportedOperationException(); }
+    // ... override all mutators similarly
+}
+```
+
+Usage:
+
+```java
+List<String> list = List.of("A", "B");
+ImmutableList<String> imm = ImmutableList.of(list);
+imm.add("C"); // throws UnsupportedOperationException
+```
+
+---
+
+✅ **Summary Table**
+
+| Topic                                   | Key Point                                                       |
+| --------------------------------------- | --------------------------------------------------------------- |
+| `hashCode()` without `equals()`         | Breaks hashing contract, leads to wrong behavior in sets/maps   |
+| Overloading vs Overriding               | Compile-time vs runtime dispatch; v-table lookup for overriding |
+| `final` vs effectively final vs `const` | Control mutability of references; no `const` in Java            |
+| Java parameter passing                  | Always pass-by-value (reference value for objects)              |
+| Immutable list                          | Custom wrapper with defensive copy + blocked mutation           |
+
+---
+
+> What if we have the same method name (and parameters) as the parent class, but **without** using the `@Override` annotation?
+
+---
+
+### ✅ **Short Answer:**
+
+If the child method **matches the parent method’s signature exactly**, it **still overrides** the parent’s method **even without the `@Override` annotation** — because overriding is determined by **method signature and inheritance**, not by the annotation.
+
+The `@Override` annotation only helps the **compiler catch mistakes**; it’s not required for overriding to occur.
+
+---
+
+### 🔍 **Detailed Explanation**
+
+#### 1️⃣ What determines overriding?
+
+A method in a subclass overrides a parent method **if and only if**:
+
+* The method has the **same name**.
+* The **same parameter types** (signature).
+* A **compatible return type** (covariant return allowed).
+* The **same or less restrictive access modifier**.
+* The **method is not `static`, `private`, or `final`** in the parent class.
+
+Example:
+
+```java
+class Parent {
+    void show() {
+        System.out.println("Parent show");
+    }
+}
+
+class Child extends Parent {
+    // No @Override, but still overrides Parent.show()
+    void show() {
+        System.out.println("Child show");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Parent p = new Child();
+        p.show();  // Output: Child show
+    }
+}
+```
+
+✅ Output confirms it’s overridden — runtime dispatch calls `Child.show()`.
+
+---
+
+#### 2️⃣ What does `@Override` actually do?
+
+It’s a **compile-time annotation only**.
+The compiler uses it to **verify** that the method *does* correctly override a superclass (or interface) method.
+
+If you make a mistake — for example, a typo in the method name, wrong parameter list, or incompatible signature — the compiler will catch it.
+
+Example:
+
+```java
+class Parent {
+    void display() {}
+}
+
+class Child extends Parent {
+    @Override
+    void Display() {} // ❌ compile-time error (method name mismatch)
+}
+```
+
+Without `@Override`, this compiles but results in a **new method (overloading)** instead of overriding.
+
+---
+
+#### 3️⃣ Why it matters
+
+If you **omit `@Override`**, and accidentally change:
+
+* method name (typo),
+* parameter list,
+* or return type,
+
+...you’ll create a **new method**, not an override.
+That can silently break polymorphism — your child class won’t behave as intended.
+
+Example:
+
+```java
+class Parent {
+    void print(String msg) {
+        System.out.println("Parent: " + msg);
+    }
+}
+
+class Child extends Parent {
+    // Forgot @Override, and accidentally changed parameter type
+    void print(Object msg) {
+        System.out.println("Child: " + msg);
+    }
+}
+
+Parent p = new Child();
+p.print("Hello");  // "Parent: Hello" 😱
+```
+
+Even though the method names are the same, this is **overloading**, not overriding — because parameter types differ.
+
+If you had used `@Override`, the compiler would’ve caught this mistake.
+
+---
+
+### ⚠️ **Special Cases**
+
+| Case                                          | Behavior                                                     |
+| --------------------------------------------- | ------------------------------------------------------------ |
+| Parent method is `static`                     | Child method with same name *hides* it, not overrides it.    |
+| Parent method is `private`                    | Child method is *new*, not visible to parent; no overriding. |
+| Parent method is `final`                      | Cannot be overridden — compile-time error.                   |
+| Parent method return type changed covariantly | Allowed (if subtype of parent’s return).                     |
+
+---
+
+### 🧠 **In summary**
+
+| With `@Override`                                  | Without `@Override`                                   |
+| ------------------------------------------------- | ----------------------------------------------------- |
+| Compiler checks correctness of override.          | Compiler doesn’t check — might accidentally overload. |
+| Optional but strongly recommended.                | Works fine if method truly overrides, but risky.      |
+| No runtime impact — only compile-time validation. | Same runtime behavior if truly overriding.            |
+
+---
+
+### ✅ **Takeaway**
+
+> `@Override` is not required for overriding, but it’s a **best practice** — it protects you from subtle bugs caused by typos or signature mismatches.
+
+---
+
+## **6️⃣ How does the ForkJoinPool work internally?**
+
+### 💡 Concept
+
+`ForkJoinPool` (introduced in Java 7) is a specialized thread pool designed for **divide-and-conquer** parallelism — especially **recursive, fine-grained tasks**.
+
+Typical usage:
+
+* `ForkJoinPool` manages **ForkJoinTasks** (`RecursiveTask` or `RecursiveAction`).
+* Tasks can **split (fork)** into subtasks and later **join** their results.
+
+### ⚙️ Internal Mechanics
+
+1. **Work-stealing algorithm**
+
+    * Each worker thread has its own **deque (double-ended queue)**.
+    * When a thread finishes its own tasks, it “steals” tasks from the **tail** of another thread’s deque.
+    * This minimizes contention and maximizes CPU utilization.
+
+2. **Task submission**
+
+    * Tasks are placed in a worker’s deque.
+    * If submitted externally (`pool.submit()`), they go into a shared submission queue.
+
+3. **Execution**
+
+    * Each worker thread repeatedly:
+
+        * Takes a task from the head of its deque.
+        * Executes it; if the task forks new subtasks, they are pushed at the head of its own deque.
+
+4. **Joining**
+
+    * When a task calls `join()`, it either:
+
+        * Gets the result immediately if already computed.
+        * Or suspends until the result is ready.
+        * The worker may “help” execute other tasks while waiting — improving throughput.
+
+5. **Parallelism control**
+
+    * `ForkJoinPool` maintains a parallelism level (usually `Runtime.getRuntime().availableProcessors()`).
+    * It dynamically manages worker threads for CPU saturation but avoids oversubscription.
+
+### ✅ Example
+
+```java
+class SumTask extends RecursiveTask<Integer> {
+    private final int[] arr;
+    private final int start, end;
+
+    SumTask(int[] arr, int start, int end) {
+        this.arr = arr; this.start = start; this.end = end;
+    }
+
+    @Override
+    protected Integer compute() {
+        if (end - start <= 10)
+            return Arrays.stream(arr, start, end).sum();
+
+        int mid = (start + end) / 2;
+        SumTask left = new SumTask(arr, start, mid);
+        SumTask right = new SumTask(arr, mid, end);
+        left.fork();
+        return right.compute() + left.join();
+    }
+}
+```
+
+**Under the hood:** The pool balances these subtasks across threads via work-stealing.
+
+---
+
+## **7️⃣ Difference between `synchronized`, `Lock`, and `StampedLock`**
+
+| Feature               | `synchronized`               | `Lock` (e.g. `ReentrantLock`)                  | `StampedLock`                                       |
+| --------------------- | ---------------------------- | ---------------------------------------------- | --------------------------------------------------- |
+| Type                  | JVM keyword                  | Java util class (`java.util.concurrent.locks`) | Newer lock (Java 8)                                 |
+| Granularity           | Implicit monitor per object  | Explicit lock objects                          | Stamp-based locking                                 |
+| Lock/Unlock           | Automatic (enter/exit block) | Manual (`lock()/unlock()`)                     | Manual (`writeLock()/readLock()/unlock()`)          |
+| Fairness              | No fairness guarantee        | Can be fair/unfair                             | No fairness, focus on speed                         |
+| Reentrancy            | Yes                          | Yes (`ReentrantLock`)                          | No                                                  |
+| Read/Write separation | No                           | Via `ReadWriteLock`                            | Yes (`readLock`, `writeLock`, and `optimisticRead`) |
+| Try/Timeout           | No                           | Yes (`tryLock(long, TimeUnit)`)                | Yes (`tryOptimisticRead`)                           |
+| Performance           | Simple but limited           | More control                                   | Fast for read-heavy workloads                       |
+| Typical use           | Basic synchronization        | Fine-grained, flexible control                 | Optimized read-dominated concurrency                |
+
+### 🧩 Example
+
+```java
+// synchronized
+synchronized void update() { /* critical section */ }
+
+// Lock
+lock.lock();
+try { /* critical section */ }
+finally { lock.unlock(); }
+
+// StampedLock
+long stamp = lock.writeLock();
+try { /* write section */ }
+finally { lock.unlockWrite(stamp); }
+```
+
+---
+
+## **8️⃣ CompletableFuture vs. traditional Future**
+
+| Aspect                | `Future` | `CompletableFuture`                    |
+| --------------------- | -------- | -------------------------------------- |
+| Introduced            | Java 5   | Java 8                                 |
+| Blocking get()        | Yes      | Optional — can compose non-blocking    |
+| Can complete manually | No       | Yes (`complete(value)`)                |
+| Chaining              | No       | Yes (`thenApply`, `thenCompose`, etc.) |
+| Exception handling    | Manual   | Built-in (`handle`, `exceptionally`)   |
+| Async composition     | No       | Yes — fluent pipeline                  |
+| Dependent stages      | No       | Yes, multiple dependent tasks          |
+
+### ✅ Example
+
+```java
+// Traditional Future
+Future<Integer> f = executor.submit(() -> 5 + 5);
+int result = f.get(); // blocks
+
+// CompletableFuture
+CompletableFuture.supplyAsync(() -> 5 + 5)
+    .thenApply(x -> x * 2)
+    .thenAccept(System.out::println);
+```
+
+* `CompletableFuture` supports **asynchronous chaining**, **combining** multiple futures, and **non-blocking** continuations.
+* Internally, it uses the **ForkJoinPool** by default for async execution.
+
+---
+
+## **9️⃣ Design a concurrent cache with Read-Write Locks**
+
+### 💡 Goal
+
+Allow multiple concurrent readers but only one writer.
+
+### ✅ Example Implementation
+
+```java
+import java.util.*;
+import java.util.concurrent.locks.*;
+
+class ConcurrentCache<K, V> {
+    private final Map<K, V> map = new HashMap<>();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
+
+    public V get(K key) {
+        lock.readLock().lock();
+        try {
+            return map.get(key);
+        } finally {
+            lock.readLock().unlock();
+        }
+    }
+
+    public void put(K key, V value) {
+        lock.writeLock().lock();
+        try {
+            map.put(key, value);
+        } finally {
+            lock.writeLock().unlock();
+        }
+    }
+
+    public int size() {
+        lock.readLock().lock();
+        try {
+            return map.size();
+        } finally {
+            lock.readLock().unlock();
+        }
+    }
+}
+```
+
+### 🚀 Optimization
+
+* Replace `HashMap` with `ConcurrentHashMap` for finer granularity.
+* For read-heavy workloads: `StampedLock` with optimistic reads:
+
+  ```java
+  long stamp = lock.tryOptimisticRead();
+  V val = map.get(key);
+  if (!lock.validate(stamp)) {
+      stamp = lock.readLock();
+      try { val = map.get(key); } finally { lock.unlockRead(stamp); }
+  }
+  return val;
+  ```
+
+---
+
+## **🔟 False Sharing and How to Avoid It**
+
+### 💡 Concept
+
+**False sharing** occurs when multiple threads modify *different variables* that reside on the **same CPU cache line** (typically 64 bytes).
+Even though threads access different data, cache coherency protocols (MESI) cause **cache invalidations**, leading to major performance degradation.
+
+### 🔍 Example
+
+```java
+class Counter {
+    volatile long a, b; // both may be on same cache line
+}
+
+Counter c = new Counter();
+Thread t1 = new Thread(() -> { for(int i=0;i<1_000_000;i++) c.a++; });
+Thread t2 = new Thread(() -> { for(int i=0;i<1_000_000;i++) c.b++; });
+```
+
+Both `a` and `b` are independent, but updates trigger invalidations on the same cache line.
+
+### 🚫 Effect
+
+* CPU cache thrashing
+* Reduced throughput on multi-core systems
+
+### ✅ Avoidance Techniques
+
+1. **Padding / Contention avoidance**
+
+   ```java
+   @Contended
+   class Counter {
+       volatile long a;
+       @Contended
+       volatile long b;
+   }
+   ```
+
+    * Use `@sun.misc.Contended` (requires JVM flag `-XX:-RestrictContended`).
+    * Or manually add padding fields to align to cache lines.
+
+2. **Separate objects**
+
+    * Store heavily-updated fields in separate objects to avoid co-location.
+
+3. **Use `LongAdder` / `LongAccumulator`**
+
+    * These classes are designed to **reduce contention and false sharing** by spreading updates across multiple variables internally.
+
+---
+
+## ✅ **Summary Table**
+
+| #  | Topic                               | Key Takeaway                                           |
+| -- | ----------------------------------- | ------------------------------------------------------ |
+| 6  | ForkJoinPool                        | Work-stealing pool for fine-grained parallelism        |
+| 7  | synchronized vs Lock vs StampedLock | Increasing flexibility and performance                 |
+| 8  | CompletableFuture                   | Asynchronous, composable, non-blocking futures         |
+| 9  | Concurrent cache                    | Use ReadWriteLock or StampedLock for safe access       |
+| 10 | False sharing                       | Cache-line contention — solved by padding or LongAdder |
+
+---
+
 
 ---
 

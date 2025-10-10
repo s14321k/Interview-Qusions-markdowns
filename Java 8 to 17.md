@@ -1235,9 +1235,97 @@ Optional<String> optional = Optional.of("Hello");
 optional.ifPresent(System.out::println); // Prints "Hello"
 ```
 
-**Notes:**
+---
 
-* Methods: `isPresent()`, `ifPresent()`, `orElse()`, `orElseGet()`, `map()`.
+## **Java Optional Cheat Sheet**
+
+| Method                                                              | Description                                                       | Example                                                                           |
+|---------------------------------------------------------------------|-------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| `of(T value)`                                                       | Returns an Optional with a **non-null** value; throws NPE if null | `Optional<String> opt = Optional.of("Hello");`                                    |
+| `ofNullable(T value)`                                               | Returns Optional containing value if non-null, else empty         | `Optional<String> opt = Optional.ofNullable(possibleNull);`                       |
+| `empty()`                                                           | Returns an empty Optional                                         | `Optional<String> opt = Optional.empty();`                                        |
+| `isPresent()`                                                       | Checks if a value is present                                      | `if(opt.isPresent()) { ... }`                                                     |
+| `isEmpty()`                                                         | Checks if Optional is empty (Java 11+)                            | `if(opt.isEmpty()) { ... }`                                                       |
+| `ifPresent(Consumer<? super T> action)`                             | Executes action if value is present                               | `opt.ifPresent(System.out::println);`                                             |
+| `ifPresentOrElse(Consumer<? super T> action, Runnable emptyAction)` | Executes action if present, else emptyAction (Java 9+)            | `opt.ifPresentOrElse(System.out::println, () -> System.out.println("No value"));` |
+| `get()`                                                             | Returns value if present, else throws `NoSuchElementException`    | `String s = opt.get();`                                                           |
+| `orElse(T other)`                                                   | Returns value if present, else `other`                            | `String s = opt.orElse("Default");`                                               |
+| `orElseGet(Supplier<? extends T> supplier)`                         | Returns value if present, else invokes supplier                   | `String s = opt.orElseGet(() -> "Generated");`                                    |
+| `orElseThrow()`                                                     | Returns value if present, else throws `NoSuchElementException`    | `String s = opt.orElseThrow();`                                                   |
+| `orElseThrow(Supplier<? extends X> exceptionSupplier)`              | Returns value if present, else throws custom exception            | `String s = opt.orElseThrow(() -> new RuntimeException("Missing"));`              |
+| `map(Function<? super T,? extends U> mapper)`                       | Transforms value if present and wraps in Optional                 | `Optional<Integer> len = opt.map(String::length);`                                |
+| `flatMap(Function<? super T, Optional<U>> mapper)`                  | Transforms value and avoids nested Optional                       | `Optional<Integer> len = opt.flatMap(s -> Optional.of(s.length()));`              |
+| `filter(Predicate<? super T> predicate)`                            | Returns Optional if value matches predicate, else empty           | `opt.filter(s -> s.length() > 3);`                                                |
+| `stream()`                                                          | Converts Optional to Stream (Java 9+)                             | `opt.stream().forEach(System.out::println);`                                      |
+
+---
+
+### **Example Using Multiple Methods**
+
+```java
+Optional<String> optional = Optional.ofNullable("Java");
+
+optional
+    .filter(s -> s.length() > 3)          // keeps "Java"
+    .map(String::toUpperCase)             // transforms to "JAVA"
+    .ifPresentOrElse(
+        System.out::println, 
+        () -> System.out.println("No value")
+    );
+
+String result = optional
+    .map(String::toLowerCase)
+    .orElse("default");                    // returns "java"
+```
+
+✅ **Key Notes:**
+
+* Use `map` for transformations, `flatMap` to avoid nested Optionals.
+* Prefer `orElseGet` for **expensive default computations**.
+* Use `ifPresentOrElse` instead of manually checking `isPresent()`.
+* `stream()` is great for functional pipelines.
+
+---
+
+```
+       Optional<T>
+       ┌─────────┐
+       │ present?│
+       └─────┬───┘
+          yes│        no
+             ▼
+         ┌──────────┐
+         │ map/     │  <-- Transform value if present
+         │ flatMap  │
+         └─────┬────┘
+               │
+        ┌──────▼─────┐
+        │ filter     │  <-- Keep value if predicate true
+        └──────┬─────┘
+               │
+          ┌────▼────┐
+          │ ifPresent │ <-- Execute action if value exists
+          └────┬────┘
+               │
+         ┌─────▼─────┐
+         │ orElse    │ <-- Return default if empty
+         │ orElseGet │
+         │ orElseThrow│
+         └───────────┘
+```
+
+### **How to Read It**
+
+1. Start with an `Optional<T>`.
+2. Check if value is **present**.
+3. If yes:
+
+  * Transform with `map`/`flatMap`.
+  * Filter with `filter`.
+  * Use `ifPresent` or continue chaining.
+4. If value is absent, handle with:
+
+  * `orElse` / `orElseGet` / `orElseThrow`.
 
 ---
 
