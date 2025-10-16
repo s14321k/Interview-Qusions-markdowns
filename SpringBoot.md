@@ -5,6 +5,19 @@
 
 <https://www.marcobehler.com/guides/spring-and-spring-boot-versions>
 
+🔹 Java + Spring → Enterprise Applications
+🔹 Java + Hibernate → Object-Relational Mapping
+🔹 Java + Android → Mobile App Development
+🔹 Java + Swing → Desktop GUI Applications
+🔹 Java + JavaFX → Modern GUI Applications
+🔹 Java + JUnit → Unit Testing
+🔹 Java + Maven → Project Management
+🔹 Java + Jenkins → Continuous Integration
+🔹 Java + Apache Kafka → Stream Processing
+🔹 Java + Apache Hadoop → Big Data Processing
+🔹 Java + Microservices → Scalable Services
+🔹 Java + Spring AI → AI-powered Applications 🤖
+
 ## [Top 15 Q&A](https://www.java67.com/2018/06/top-15-spring-boot-interview-questions-answers-java-jee-programmers.html)
 
 <details>

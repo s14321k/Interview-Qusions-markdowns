@@ -483,6 +483,17 @@ public class Singleton {
         return instance;
     }
 }
+
+public class Main {
+    public static void main(String[] args) {
+        // Access the Singleton instance
+        Singleton singleObject = Singleton.getInstance();
+
+        // Use its methods
+        singleObject.showMessage();
+    }
+}
+
 ```
 
 ---
@@ -491,6 +502,9 @@ public class Singleton {
 
 * **Private Class:** Controls access to the class itself (typically nested classes).
 * **Private Constructor:** Controls instantiation of the class.
+* You don’t use new Singleton() because the constructor is private.
+* You always call Singleton.getInstance() to get the single shared instance.
+* Every time you call getInstance(), it will return the same object.
 
 ---
 
@@ -4094,7 +4108,24 @@ public class Singleton {
     return instance;
   }
 }
+
+public class Main {
+    public static void main(String[] args) {
+        // Access the Singleton instance
+        Singleton singleObject = Singleton.getInstance();
+
+        // Use its methods
+        singleObject.showMessage();
+    }
+}
+
 ```
+
+* You don’t use new Singleton() because the constructor is private.
+
+* You always call Singleton.getInstance() to get the single shared instance.
+
+* Every time you call getInstance(), it will return the same object.
 
 ✅ Used for: Shared resources like DB connections, logging, configuration
 
@@ -4226,7 +4257,7 @@ class Decorator implements Component {
 <details>
 <summary>👀 <strong>7. Observer Pattern</strong></summary>
 
-One-to-many dependency; observers update when subject changes.
+One-to-many dependency; observers update when subject changes. Used in kkafka with Saga Design patterns
 
 ```java
 interface Observer { void update(String message); }

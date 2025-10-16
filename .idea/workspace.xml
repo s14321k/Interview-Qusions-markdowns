@@ -4,17 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="re arange">
-      <change afterPath="$PROJECT_DIR$/SpringDATA.md" afterDir="false" />
+    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="changes">
+      <change afterPath="$PROJECT_DIR$/html/es6.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/html/js.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pdf/API testing.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pdf/Microservice.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pdf/cicd1.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pdf/js1.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pdf/springboot1.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java 8 to 17.md" beforeDir="false" afterPath="$PROJECT_DIR$/Java 8 to 17.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaBasic.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaBasic.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaQuestions.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaQuestions.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Kuberneties.md" beforeDir="false" afterPath="$PROJECT_DIR$/Kuberneties.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microservice.md" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JenkinsAlternativesCICD.md" beforeDir="false" afterPath="$PROJECT_DIR$/CICD.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpringSecurity.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringSecurity.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/react.md" beforeDir="false" afterPath="$PROJECT_DIR$/react.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +68,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Git/Ford-Proj&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Intell/pdf&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -81,6 +83,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Intell\pdf" />
       <recent name="D:\Intell\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -277,7 +280,11 @@
       <workItem from="1758531161182" duration="5794000" />
       <workItem from="1758604384621" duration="3874000" />
       <workItem from="1758945744368" duration="5840000" />
-      <workItem from="1759387489699" duration="15287000" />
+      <workItem from="1759387489699" duration="15610000" />
+      <workItem from="1760247095745" duration="15000" />
+      <workItem from="1760280733645" duration="3368000" />
+      <workItem from="1760450209252" duration="84000" />
+      <workItem from="1760533564886" duration="1245000" />
     </task>
     <task id="LOCAL-00001" summary="added points and restructured the points">
       <option name="closed" value="true" />
@@ -553,7 +560,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758222043125</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="changes">
+      <option name="closed" value="true" />
+      <created>1760100580482</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1760100580482</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -589,7 +604,6 @@
     <MESSAGE value="Spring boot" />
     <MESSAGE value="refactor" />
     <MESSAGE value="ai changes" />
-    <MESSAGE value="changes" />
     <MESSAGE value="Security update" />
     <MESSAGE value="removed security and moved to security file" />
     <MESSAGE value="patterns and other changes" />
@@ -597,7 +611,8 @@
     <MESSAGE value="open all" />
     <MESSAGE value="Remove TOC" />
     <MESSAGE value="re arange" />
-    <option name="LAST_COMMIT_MESSAGE" value="re arange" />
+    <MESSAGE value="changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

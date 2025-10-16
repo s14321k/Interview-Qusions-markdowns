@@ -1368,6 +1368,30 @@ public class SecondLargestWithStreams {
 
 </details>
 
+Find the 3 largeest number in array
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class TopThreeNumbers {
+public static void main(String[] args) {
+int[] nums = {1, 2, 3, 5, 1, 5, 8, 6, 4, 8};
+
+        // Convert to stream → box to Integer → sort in reverse → limit to 3 → collect
+        List<Integer> top3 = Arrays.stream(nums)
+                .boxed()                               // convert int to Integer
+                .sorted((a, b) -> b - a)               // sort in descending order
+                .distinct()                            // optional: remove duplicates
+                .limit(3)                              // take top 3
+                .collect(Collectors.toList());
+
+        System.out.println("Top 3 largest numbers: " + top3);
+    }
+}
+```
+
 
 ---
 
@@ -1863,7 +1887,7 @@ public class EmployeeGroupFilter {
                 // Skip the first employee (the one with the highest salary)
                 .skip(1)
                 // Find the next employee
-                .findFirst();
+                .findFirst().;
   
         // Print the result if an employee is found
         secondHighestPaidEmployee.ifPresentOrElse(
@@ -1873,6 +1897,27 @@ public class EmployeeGroupFilter {
     }
 }
 ````
+
+```java
+import java.util.*;
+import java.util.stream.*;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> numList = Arrays.asList(20000, 30000, 50000, 90000, 50000, 40000, 70000);
+
+        Integer secondLargest = numList.stream()
+                .distinct()                                  // remove duplicates
+                .sorted(Comparator.reverseOrder())            // sort in descending order
+                .skip(1)                                      // skip the largest
+                .findFirst()                                  // get the next one
+                .orElse(null);                                // handle empty list
+
+        System.out.println("Second largest number: " + secondLargest);
+    }
+}
+
+```
 
 ---
 
