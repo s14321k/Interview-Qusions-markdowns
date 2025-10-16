@@ -36,7 +36,7 @@ Let me know if you need a specific workflow example! 😊
 # 🔄 Rollback Strategy in DevOps
 
 <details open>
-<summary><strong>🔄 Rollback Strategy in DevOps</summary></strong>
+<summary><strong>🔄 Rollback Strategy in DevOps</strong></summary>
 
 In DevOps, ensuring a **rollback strategy** is critical for maintaining application stability during failed deployments.
 A solid rollback plan reduces downtime and prevents broken code from affecting users.
@@ -194,7 +194,7 @@ A strong rollback strategy = 🔐 **safer deployments** + 😌 **peace of mind**
 # 📚 Loading a Shared Library in a Jenkinsfile
 
 <details open>
-<summary><strong> Loading a Shared Library in a Jenkinsfile</summary></strong>
+<summary><strong> Loading a Shared Library in a Jenkinsfile</strong></summary>
 
 A **Jenkins Shared Library** is stored in a Git repository and allows you to reuse pipeline functions and classes across multiple Jenkins pipelines.
 You load it in your **Jenkinsfile** using the `@Library` annotation (or the `library` step).
@@ -332,7 +332,7 @@ Perfect 🙌 Let me enhance your UCD versioning explanation into the same **stru
 # 🌟 How IBM UrbanCode Deploy (UCD) Handles Versioning
 
 <details open>
-<summary><strong>How IBM UrbanCode Deploy (UCD) Handles Versioning</summary></strong>
+<summary><strong>How IBM UrbanCode Deploy (UCD) Handles Versioning</strong></summary>
 
 ✅ In IBM **UrbanCode Deploy (UCD)**, versioning is a **core feature** that ensures deployments are:
 
@@ -446,7 +446,7 @@ Great question 🙌 Let’s enhance your OpenShift vs Kubernetes explanation int
 # 🌟 OpenShift vs Kubernetes
 
 <details open>
-<summary><strong>OpenShift vs Kubernetes</summary></strong>
+<summary><strong>OpenShift vs Kubernetes</strong></summary>
 
 👉 **OpenShift** is a **container application platform** built on top of **Kubernetes** 🚀.
 It provides all Kubernetes features (**orchestration, scaling, self-healing**) plus **enterprise-grade capabilities** for security, CI/CD, and developer productivity.
