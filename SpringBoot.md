@@ -712,7 +712,7 @@ The lifecycle of a Spring bean follows these main phases:
     * If the bean implements the `DisposableBean` interface, the `destroy()` method is called.
     * If a custom `destroy-method` is defined, it is invoked.
 
-![Bean Lifecycle](images/img_17.png)
+![Bean Lifecycle](images/SpringBoot/beanLifeCycle.png)
 
 ---
 
@@ -829,7 +829,7 @@ These annotations are fundamental for working with data persistence in Spring ap
 * **`@MappedSuperclass`**: Designates a class whose mapping information is applied to the entities that inherit from it.
 * **`@EntityListeners`**: Registers listener classes for an entity to respond to lifecycle events (e.g., for auditing).
 * **`@EntityGraph`**: Allows you to define a graph of associations to fetch eagerly, helping to solve the N+1 query problem.
-    ![EntityGraph](images/AnnotationEntityGraph.png)
+    ![EntityGraph](images/SpringBoot/AnnotationEntityGraph.png)
 * **`@EnableJpaRepositories`**: Enables Spring Data JPA repositories and scans for repository interfaces.
 * **`@EntityScan`**: Scans for entity classes.
 * **`@NamedQuery`**: Defines a static, named query that can be referenced by its name.
@@ -2751,7 +2751,7 @@ public class LogInterceptor implements HandlerInterceptor {
 * [Medium: Filter vs Interceptor in Spring Boot](https://senoritadeveloper.medium.com/filter-vs-interceptor-in-spring-boot-2e49089f682e)
 * [StackOverflow Discussion](https://stackoverflow.com/q/35856454)
 
-![Spring MVC Life Cycle](images/SpringMvcLifeCycle.png)
+![Spring MVC Life Cycle](images/SpringBoot/SpringMvcLifeCycle.png)
 
 </details>
 
@@ -2768,7 +2768,7 @@ public class LogInterceptor implements HandlerInterceptor {
 * `@ExceptionHandler`
   Used inside `@ControllerAdvice` or controllers to **handle specific exceptions** and send custom responses.
 
-![Exception Handling Annotations](images/AnnotationGlobalException.png)
+![Exception Handling Annotations](images/SpringBoot/AnnotationGlobalException.png)
 
 **Example usage**
 
@@ -2952,7 +2952,7 @@ public String getSessionData(@SessionAttribute("userId") Long userId) {
 * `@SpringBootApplication`
 * `@EnableCaching`
 * `@Cacheable("envProperty")`
-  ![AnnotationCachingSpringBoot](images/AnnotationCachingSpringBoot.png)
+  ![AnnotationCachingSpringBoot](images/SpringBoot/AnnotationCachingSpringBoot.png)
 * `@InitBinder` — to customize data binding, e.g., trimming strings from `@RequestParam` and `@ModelAttribute`.
 
 </details>
@@ -3149,7 +3149,7 @@ private Optional<SomeBean> someBean;
 | Purpose              | Traditional Spring MVC controller             | REST API controller                               |
 | Inheritance          | Specialization of `@Component`                | Specialization of `@Controller` + `@ResponseBody` |
 
-![Controller vs RestController](images/img_18.png)
+![Controller vs RestController](images/SpringBoot/ControllerVsRestController.png)
 
 </details>
 

@@ -519,7 +519,7 @@ It provides all Kubernetes features (**orchestration, scaling, self-healing**) p
 
 ---
 
-## 📊 ASCII Visual Flow
+### 📊 ASCII Visual Flow
 
 ```text
 Kubernetes (Core Features)
@@ -540,7 +540,7 @@ OpenShift = Kubernetes ➕ Enterprise Features
 
 ---
 
-## ✅ Short Interview Answer
+### ✅ Short Interview Answer
 
 **“OpenShift is Kubernetes with enterprise add-ons: stricter security (SCCs), built-in CI/CD, an integrated image registry, developer-friendly tooling, and OAuth integration. It makes Kubernetes more secure, easier to use, and production-ready for large organizations.”**
 
@@ -631,7 +631,6 @@ Other options:
 * Docker Swarm
 * Virtual Machines (via SSH & Docker CLI)
 
-</details>
 
 ```text
 👩‍💻 Developer Commit
@@ -662,4 +661,5 @@ Other options:
 
 </details>
 
+</details>
 ---

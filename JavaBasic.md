@@ -1,5 +1,367 @@
 <!-- TOC  Alt + insrt in intellij-->
 
+<!-- TOC -->
+* [Java Interview Question Bank](#java-interview-question-bank)
+  * [🚀 Primary Main Features of Java](#-primary-main-features-of-java)
+    * [Java's Main Features (with Examples)](#javas-main-features-with-examples)
+  * [🧩 Class Loaders in Java](#-class-loaders-in-java)
+    * [1. Bootstrap Class Loader](#1-bootstrap-class-loader)
+    * [2. Extension Class Loader](#2-extension-class-loader)
+    * [3. System/Application Class Loader](#3-systemapplication-class-loader)
+    * [Java Class Loaders (Simple & Clear)](#java-class-loaders-simple--clear)
+  * [🆔 Identifiers in Java](#-identifiers-in-java)
+    * [Some Java Keywords](#some-java-keywords)
+    * [Java Identifiers (Short & Simple)](#java-identifiers-short--simple)
+  * [🏷️ What is a Class?](#-what-is-a-class)
+  * [🏗️ Common Types of Classes in Java](#-common-types-of-classes-in-java)
+    * [1. Regular (Concrete) Class](#1-regular-concrete-class)
+    * [2. Abstract Class](#2-abstract-class)
+    * [3. Interface](#3-interface)
+    * [4. Final Class](#4-final-class)
+    * [5. Inner Class](#5-inner-class)
+    * [6. Static Nested Class](#6-static-nested-class)
+    * [7. Anonymous Class](#7-anonymous-class)
+  * [🧩 Example of Anonymous Class](#-example-of-anonymous-class)
+  * [📚 Common Java Terms](#-common-java-terms)
+* [Java Constructors](#java-constructors)
+  * [1. Default Constructor](#1-default-constructor)
+  * [2. Parameterized Constructor](#2-parameterized-constructor)
+  * [3. Copy Constructor](#3-copy-constructor)
+  * [4. Constructor Chaining](#4-constructor-chaining)
+  * [5. Private Constructor](#5-private-constructor)
+* [Private Class vs Private Constructor](#private-class-vs-private-constructor)
+  * [Example: Private Class](#example-private-class)
+  * [Example: Private Constructor (Singleton)](#example-private-constructor-singleton)
+  * [🧩 **1️⃣ Constructor Chaining**](#-1-constructor-chaining)
+  * [🧱 **2️⃣ Method Chaining (Fluent Interface)**](#-2-method-chaining-fluent-interface)
+    * [🔹 Basic Example](#-basic-example)
+    * [🔹 Real-world Example: `StringBuilder`](#-real-world-example-stringbuilder)
+    * [🔹 Another Example: Streams API](#-another-example-streams-api)
+  * [🧩 **3️⃣ Builder Pattern (Chaining for Object Construction)**](#-3-builder-pattern-chaining-for-object-construction)
+    * [Example:](#example)
+  * [⚙️ **4️⃣ Stream Chaining / Functional Chaining**](#-4-stream-chaining--functional-chaining)
+  * [🧠 **5️⃣ Operator / DSL-style Chaining**](#-5-operator--dsl-style-chaining)
+  * [⚡ **6️⃣ Other Types of “Chaining” Concepts**](#-6-other-types-of-chaining-concepts)
+  * [⚠️ **7️⃣ Pitfalls / Best Practices**](#-7-pitfalls--best-practices)
+  * [✅ **Summary**](#-summary)
+    * [🔑 TL;DR](#-tldr)
+    * [📊 Which One Should You Use?](#-which-one-should-you-use)
+* [Modifiers in Java](#modifiers-in-java)
+  * [1. Access Modifiers](#1-access-modifiers)
+    * [Details](#details)
+    * [Example of Private Modifier](#example-of-private-modifier)
+    * [Private Constructor](#private-constructor)
+  * [2. Non-Access Modifiers](#2-non-access-modifiers)
+    * [`static` Modifier](#static-modifier)
+    * [✅ Key Points about Static Blocks:](#-key-points-about-static-blocks)
+    * [📌 Example:](#-example)
+    * [⚡ Common Uses:](#-common-uses)
+    * [`final` Modifier](#final-modifier)
+    * [`abstract` Modifier](#abstract-modifier)
+    * [`native` Modifier](#native-modifier)
+      * [Summary Table](#summary-table)
+* [Strings in Java](#strings-in-java)
+  * [String vs StringBuffer vs StringBuilder vs String Pool](#string-vs-stringbuffer-vs-stringbuilder-vs-string-pool)
+    * [String vs StringBuffer vs StringBuilder](#string-vs-stringbuffer-vs-stringbuilder)
+    * [String Pool](#string-pool)
+    * [Memory Areas Related to Strings](#memory-areas-related-to-strings)
+    * [Memory Areas Related to Strings](#memory-areas-related-to-strings-1)
+    * [Memory Areas Explained](#memory-areas-explained)
+    * [Interning and String Pool](#interning-and-string-pool)
+    * [Example](#example-1)
+    * [Summary Table](#summary-table-1)
+  * [🧠 Java Memory Spaces (JVM Memory Structure)](#-java-memory-spaces-jvm-memory-structure)
+    * [🔁 Flow Diagram (Markdown Text Format)](#-flow-diagram-markdown-text-format)
+  * [🧩 JVM Memory Areas Explained](#-jvm-memory-areas-explained)
+    * [1. **Heap**](#1-heap)
+    * [2. **Young Generation (YG)**](#2-young-generation-yg)
+    * [3. **Old Generation (Tenured)**](#3-old-generation-tenured)
+    * [4. **Stack**](#4-stack)
+    * [5. **Metaspace** (Java 8+)](#5-metaspace-java-8)
+    * [6. **Program Counter (PC) Register**](#6-program-counter-pc-register)
+    * [7. **Native Method Stack**](#7-native-method-stack)
+      * [✅ Summary Table](#-summary-table)
+    * [JVM Memory Areas Explained](#jvm-memory-areas-explained)
+    * [String Literal vs String Object](#string-literal-vs-string-object)
+    * [String Manipulation: `concat()` vs `+` Operator](#string-manipulation-concat-vs--operator)
+    * [Deep Copy vs Shallow Copy](#deep-copy-vs-shallow-copy)
+    * [Why is String Immutable in Java?](#why-is-string-immutable-in-java)
+    * [Creating an Immutable Class in Java](#creating-an-immutable-class-in-java)
+    * [Creating a Singleton Class in Java](#creating-a-singleton-class-in-java)
+* [Wrapper Classes and Autoboxing](#wrapper-classes-and-autoboxing)
+    * [Autoboxing](#autoboxing)
+    * [Example Custom Wrapper Class Demonstrating Autoboxing](#example-custom-wrapper-class-demonstrating-autoboxing)
+    * [StackOverflow - Due to out of memory](#stackoverflow---due-to-out-of-memory)
+* [Object-Oriented Programming (OOP) in Java](#object-oriented-programming-oop-in-java)
+  * [1. Polymorphism](#1-polymorphism)
+    * [Definition](#definition)
+    * [Inheritance vs Polymorphism](#inheritance-vs-polymorphism)
+    * [Types of Inheritance](#types-of-inheritance)
+    * [Method Overloading](#method-overloading)
+    * [Constructor Overloading](#constructor-overloading)
+    * [Method Overriding](#method-overriding)
+      * [Covariant Return Type](#covariant-return-type)
+    * [Overriding Restrictions on private, static, final methods](#overriding-restrictions-on-private-static-final-methods)
+      * [Overloading allowed for private, static, final methods within same class](#overloading-allowed-for-private-static-final-methods-within-same-class)
+    * [Data Binding in Java](#data-binding-in-java)
+  * [2. Inheritance](#2-inheritance)
+  * [3. Encapsulation](#3-encapsulation)
+  * [4. Abstraction](#4-abstraction)
+  * [5. Interface](#5-interface)
+    * [Private methods in interface](#private-methods-in-interface)
+    * [Variables in Interfaces](#variables-in-interfaces)
+    * [Class inside Interface](#class-inside-interface)
+    * [Interface inside Class](#interface-inside-class)
+    * [Marker Interface vs Functional Interface](#marker-interface-vs-functional-interface)
+    * [Common Functional Interfaces and Marker Interfaces](#common-functional-interfaces-and-marker-interfaces)
+    * [Java 8+ Interface Enhancements](#java-8-interface-enhancements)
+  * [6. Functional Interfaces in Java (`java.util.function`)](#6-functional-interfaces-in-java-javautilfunction)
+  * [7. Comparable vs Comparator](#7-comparable-vs-comparator)
+  * [8. `implements` vs `extends`](#8-implements-vs-extends)
+  * [9. Interface vs Abstract Class](#9-interface-vs-abstract-class)
+    * [Why use interface over abstract class?](#why-use-interface-over-abstract-class)
+  * [10. Cohesion vs Coupling](#10-cohesion-vs-coupling)
+    * [Coupling](#coupling)
+    * [Cohesion](#cohesion)
+  * [Summary](#summary)
+* [🧱 Java Collections Framework Guide](#-java-collections-framework-guide)
+  * [🔍 Why Collections Framework?](#-why-collections-framework)
+      * [1. You need to store data with keys and values and want to sort them by keys:](#1-you-need-to-store-data-with-keys-and-values-and-want-to-sort-them-by-keys)
+      * [2. You want to store a list of names with duplicates and access by index:](#2-you-want-to-store-a-list-of-names-with-duplicates-and-access-by-index)
+      * [3. You want to store a set of unique cities, and order doesn’t matter:](#3-you-want-to-store-a-set-of-unique-cities-and-order-doesnt-matter)
+      * [4. You want to store key-value pairs with insertion order preserved and need thread safety:](#4-you-want-to-store-key-value-pairs-with-insertion-order-preserved-and-need-thread-safety)
+    * [Iterable vs Collection](#iterable-vs-collection)
+    * [Iterator vs Enumeration](#iterator-vs-enumeration)
+    * [Collection Interface Methods](#collection-interface-methods)
+    * [Iterator Interface](#iterator-interface)
+    * [Iterable Interface](#iterable-interface)
+  * [🧩 List Implementations](#-list-implementations)
+    * [ArrayList](#arraylist)
+    * [LinkedList](#linkedlist)
+    * [Vector (Legacy)](#vector-legacy)
+    * [Stack (Legacy)](#stack-legacy)
+  * [🌀 Queue Implementations](#-queue-implementations)
+  * [🎯 Set Implementations](#-set-implementations)
+    * [HashSet](#hashset)
+    * [LinkedHashSet](#linkedhashset)
+    * [TreeSet](#treeset)
+  * [🧮 Map Implementations](#-map-implementations)
+    * [🔑 **Key Differences Between `HashMap` and `Hashtable`**](#-key-differences-between-hashmap-and-hashtable)
+    * [✅ **When to Use**](#-when-to-use)
+    * [📌 Example](#-example-1)
+  * [🧠 Thread Safety Comparison](#-thread-safety-comparison)
+  * [🧠 `hashCode()` and `equals()` in Hash-Based Collections](#-hashcode-and-equals-in-hash-based-collections)
+    * [**When to override `hashCode()` and `equals()`**](#when-to-override-hashcode-and-equals)
+    * [**Rules**](#rules)
+    * [**When you don’t need them**](#when-you-dont-need-them)
+    * [**How it works**](#how-it-works)
+    * [**Example**](#example-2)
+  * [🔁 What Is Treeify and Threshold?](#-what-is-treeify-and-threshold)
+  * [🧩 Final Full ASCII Diagram with Treeify and Threshold](#-final-full-ascii-diagram-with-treeify-and-threshold)
+  * [⚙️ Behind the Scenes: Key Conditions](#-behind-the-scenes-key-conditions)
+  * [📊 Quick Summary Table](#-quick-summary-table)
+  * [🧪 How It Helps](#-how-it-helps)
+  * [✅ Final Notes](#-final-notes)
+  * [🧠 Imagine This First...](#-imagine-this-first)
+  * [🔍 Key Concepts (Simple Terms)](#-key-concepts-simple-terms)
+  * [🔄 Flow of How HashMap Works (Step-by-Step)](#-flow-of-how-hashmap-works-step-by-step)
+    * [Let's say:](#lets-say)
+    * [Step 1: **Key is Hashed**](#step-1-key-is-hashed)
+    * [Step 2: **Find the Right Bucket**](#step-2-find-the-right-bucket)
+    * [Step 3: **Handle Collisions (Chaining)**](#step-3-handle-collisions-chaining)
+    * [Step 4: **Retrieving a Value (get method)**](#step-4-retrieving-a-value-get-method)
+  * [🧱 ASCII Diagram: Internal Working of HashMap](#-ascii-diagram-internal-working-of-hashmap)
+    * [🔁 If there's a collision:](#-if-theres-a-collision)
+  * [⚙️ Internally (Technical, but simple)](#-internally-technical-but-simple)
+  * [📌 Summary (Even Simpler)](#-summary-even-simpler)
+  * [🧠 What Is ConcurrentHashMap?](#-what-is-concurrenthashmap)
+    * [✅ Why Use It?](#-why-use-it)
+  * [🔍 How It Differs from HashMap](#-how-it-differs-from-hashmap)
+  * [⚙️ Internal Working (Java 8 and above)](#-internal-working-java-8-and-above)
+    * [🔩 Core Concepts:](#-core-concepts)
+  * [🔄 Insertion Flow (Put Operation)](#-insertion-flow-put-operation)
+    * [🧱 ASCII Diagram of ConcurrentHashMap (Simplified)](#-ascii-diagram-of-concurrenthashmap-simplified)
+  * [🧪 Read Operation (Get)](#-read-operation-get)
+  * [🔐 Treeification & Resizing](#-treeification--resizing)
+  * [🚨 What It Doesn’t Do](#-what-it-doesnt-do)
+  * [✅ When to Use ConcurrentHashMap](#-when-to-use-concurrenthashmap)
+  * [📌 Summary](#-summary-1)
+    * [1. Collections.synchronizedMap(Map\<K, V>)](#1-collectionssynchronizedmapmapk-v)
+    * [2. ConcurrentHashMap\<K, V>](#2-concurrenthashmapk-v-)
+    * [⚖️ Key Differences](#-key-differences)
+    * [🧭 When to Use What?](#-when-to-use-what)
+    * [❗ Why ConcurrentHashMap Disallows Nulls?](#-why-concurrenthashmap-disallows-nulls)
+  * [🛡️ Summary: When to Use What?](#-summary-when-to-use-what)
+* [**Java Collections Framework Overview (Java 1.0 - Java 21)**](#java-collections-framework-overview-java-10---java-21)
+    * [Legend:](#legend)
+    * [Key Takeaways:](#key-takeaways)
+    * [**1. What is Serialization?**](#1-what-is-serialization)
+    * [**2. Why do we need to serialize if an object is already in memory (which is bytes anyway)?**](#2-why-do-we-need-to-serialize-if-an-object-is-already-in-memory-which-is-bytes-anyway)
+    * [**3. Why Serialization is Needed (Use Cases)**](#3-why-serialization-is-needed-use-cases)
+    * [**4. Analogy**](#4-analogy)
+  * [Marshaling/Unmarshaling](#marshalingunmarshaling)
+    * [🧩 What is *Marshaling* in Java?](#-what-is-marshaling-in-java)
+    * [🔄 What is *Unmarshaling*?](#-what-is-unmarshaling)
+    * [🧠 Related Terms](#-related-terms)
+  * [🧰 Examples of Marshalling in Java](#-examples-of-marshalling-in-java)
+    * [1️⃣ Java Serialization](#1-java-serialization)
+    * [2️⃣ JAXB Example (XML Marshalling)](#2-jaxb-example-xml-marshalling)
+  * [💡 Summary](#-summary-2)
+    * [Boxing & Autoboxing (Primitive → Wrapper Object)](#boxing--autoboxing-primitive--wrapper-object)
+    * [Unboxing & Auto-unboxing (Wrapper Object → Primitive)](#unboxing--auto-unboxing-wrapper-object--primitive)
+    * [Why?](#why)
+    * [`final` keyword](#final-keyword)
+    * [`finally` block](#finally-block)
+    * [`finalize()` method](#finalize-method)
+    * [Example:](#example-3)
+  * [Caching in java](#caching-in-java)
+* [Two types of error:-](#two-types-of-error-)
+  * [Exception Handling](#exception-handling)
+  * [throw new and throws](#throw-new-and-throws)
+    * [`throw`](#throw)
+    * [`throws`](#throws)
+  * [Checked and Unchecked Exceptions](#checked-and-unchecked-exceptions)
+    * [1. **Checked Exceptions**](#1-checked-exceptions)
+    * [2. **Unchecked Exceptions**](#2-unchecked-exceptions)
+  * [Try with Resource (Java 7 and Java 9 Improvements)](#try-with-resource--java-7-and-java-9-improvements-)
+  * [</details>](#details-1)
+* [Multithreading](#multithreading)
+  * [Volatile Keyword](#volatile-keyword)
+    * [**Scenario: Stopping a background thread**](#scenario-stopping-a-background-thread)
+    * [**Example**](#example-4)
+    * [**Why `volatile` matters here**](#why-volatile-matters-here)
+    * [**Key Points**](#key-points)
+  * [Deadlock](#deadlock)
+    * [🔹 (threads & resources)](#-threads--resources)
+    * [🔹 Key characteristics of Deadlock](#-key-characteristics-of-deadlock)
+    * [🔹 Simple Java Example](#-simple-java-example)
+  * [Race Condition](#race-condition)
+    * [✅ Fail-Safe:](#-fail-safe)
+    * [❌ Fail-Fast:](#-fail-fast)
+  * [📞 Callable vs Runnable](#-callable-vs-runnable)
+    * [🔸 Method-Level](#-method-level)
+    * [🔸 Block-Level](#-block-level)
+    * [🔸 Class-Level](#-class-level)
+    * [🔸 wait/notify/notifyAll](#-waitnotifynotifyall)
+    * [🔸 Explicit Lock (ReentrantLock)](#-explicit-lock-reentrantlock)
+    * [🔸 volatile](#-volatile)
+    * [1. Threads](#1-threads)
+    * [2. ExecutorService](#2-executorservice)
+    * [3. CompletableFuture (Java 8+)](#3-completablefuture-java-8)
+    * [4. CompletableFuture with Callback](#4-completablefuture-with-callback)
+    * [5. Spring @Async](#5-spring-async)
+    * [6. Virtual Threads (Java 21)](#6-virtual-threads-java-21)
+  * [🧩 Two Separate Concepts](#-two-separate-concepts)
+  * [⚙️ 1. Synchronous Method](#-1-synchronous-method)
+  * [🧱 2. Synchronized Method](#-2-synchronized-method)
+  * [⚡ 3. Asynchronous Method](#-3-asynchronous-method)
+  * [🔒 4. Synchronized Block (Inside a Method)](#-4-synchronized-block-inside-a-method)
+  * [🚀 5. Asynchronous Block (Inside a Method)](#-5-asynchronous-block-inside-a-method)
+  * [🔗 6. Combining Both (Synchronized + Asynchronous)](#-6-combining-both-synchronized--asynchronous)
+      * [🧠 Summary Table](#-summary-table-1)
+    * [🧩 Example Combo](#-example-combo)
+    * [✅ Synchronized](#-synchronized)
+    * [❌ Non-Synchronized](#-non-synchronized)
+* [🧵 Multithreading Concepts: Advanced](#-multithreading-concepts-advanced)
+    * [🧩 **Process Synchronization**](#-process-synchronization)
+      * [🔐 Common IPC Mechanisms:](#-common-ipc-mechanisms)
+    * [🧵 **Thread Synchronization**](#-thread-synchronization)
+      * [☑️ Techniques:](#-techniques)
+    * [1️⃣ **Using `Thread` Class (Basic)**](#1-using-thread-class-basic)
+    * [2️⃣ **Using `Runnable` Interface**](#2-using-runnable-interface)
+    * [3️⃣ **Using `ExecutorService` (Thread Pool)**](#3-using-executorservice-thread-pool)
+    * [4️⃣ **Using `CompletableFuture` (Java 8+)**](#4-using-completablefuture-java-8)
+  * [🧩 **1️⃣ What is `ThreadLocal`?**](#-1-what-is-threadlocal)
+    * [🔹 Example](#-example-2)
+  * [⚙️ **2️⃣ How It Works Internally**](#-2-how-it-works-internally)
+  * [💼 **3️⃣ Real-World Use Cases**](#-3-real-world-use-cases)
+    * [✅ **Use Case 1: Request Context in Web Applications**](#-use-case-1-request-context-in-web-applications)
+    * [✅ **Use Case 2: Database Connection or Session Management**](#-use-case-2-database-connection-or-session-management)
+    * [✅ **Use Case 3: Logging Context / Tracing**](#-use-case-3-logging-context--tracing)
+    * [✅ **Use Case 4: Thread-Specific Formatter / Parser**](#-use-case-4-thread-specific-formatter--parser)
+  * [⚠️ **4️⃣ Pitfalls & Best Practices**](#-4-pitfalls--best-practices)
+    * [✅ Safe usage pattern](#-safe-usage-pattern)
+  * [🧠 **5️⃣ Summary**](#-5-summary)
+    * [🚀 **In a Real Project**](#-in-a-real-project)
+  * [🧵 1️⃣ Using `Thread` + `wait/notify`](#-1-using-thread--waitnotify)
+  * [⚙️ 2️⃣ Using `ExecutorService` + `Lock` + `Condition`](#-2-using-executorservice--lock--condition)
+* [🧩 Design Patterns in Java](#-design-patterns-in-java)
+  * [🔒 Singleton Pattern](#-singleton-pattern)
+  * [🏭 Factory Pattern](#-factory-pattern)
+  * [🏭🏢 Abstract Factory Pattern](#-abstract-factory-pattern)
+  * [🏗️ Builder Pattern](#-builder-pattern)
+  * [🔌 Adapter Pattern](#-adapter-pattern)
+  * [🎨 Decorator Pattern](#-decorator-pattern)
+  * [👀 Observer Pattern](#-observer-pattern)
+  * [🧠 Strategy Pattern](#-strategy-pattern)
+  * [🕹️ Command Pattern](#-command-pattern)
+  * [📐 MVC Pattern](#-mvc-pattern)
+    * [Summary](#summary-1)
+    * [Tabular Comparison](#tabular-comparison)
+    * [Example with warning:](#example-with-warning)
+    * [Suppressing warnings:](#suppressing-warnings)
+    * [Notes:](#notes)
+    * [1. Trigonometric:](#1-trigonometric)
+    * [2. Exponential / Logarithmic:](#2-exponential--logarithmic)
+    * [3. Power / Root:](#3-power--root)
+    * [4. Rounding:](#4-rounding)
+    * [5. Misc:](#5-misc)
+    * [Math.max():](#mathmax)
+    * [Math.min():](#mathmin)
+* [Java Principles & Best Practices](#java-principles--best-practices)
+* [Java Memory Management Principles](#java-memory-management-principles)
+  * [26. What is the difference between install and deploy](#26-what-is-the-difference-between-install-and-deploy)
+* [⚙️ **Question:**](#-question)
+  * [🧩 **1️⃣ The Basics**](#-1-the-basics)
+    * [🔹 Example](#-example-3)
+    * [🔹 Example](#-example-4)
+    * [Builder Style:](#builder-style)
+    * [Record Style:](#record-style)
+    * [**1️⃣ What happens if you override `hashCode()` but not `equals()`?**](#1-what-happens-if-you-override-hashcode-but-not-equals)
+      * [💡 Explanation](#-explanation)
+      * [⚠️ Effect](#-effect)
+      * [✅ Example:](#-example-5)
+    * [**2️⃣ How does JVM handle method overloading and overriding internally?**](#2-how-does-jvm-handle-method-overloading-and-overriding-internally)
+      * [🔹 **Overloading** (compile-time polymorphism)](#-overloading-compile-time-polymorphism)
+      * [🔹 **Overriding** (runtime polymorphism)](#-overriding-runtime-polymorphism)
+    * [**3️⃣ Difference between `final`, effectively final, and `const`**](#3-difference-between-final-effectively-final-and-const)
+      * [Example:](#example-5)
+    * [**4️⃣ Pass-by-value vs. reference in Java**](#4-pass-by-value-vs-reference-in-java)
+      * [💡 Explanation](#-explanation-1)
+      * [Example:](#example-6)
+    * [**5️⃣ Implement an immutable list without using `Collections.unmodifiableList()`**](#5-implement-an-immutable-list-without-using-collectionsunmodifiablelist)
+      * [✅ Example:](#-example-6)
+    * [✅ **Short Answer:**](#-short-answer)
+    * [🔍 **Detailed Explanation**](#-detailed-explanation)
+      * [1️⃣ What determines overriding?](#1-what-determines-overriding)
+      * [2️⃣ What does `@Override` actually do?](#2-what-does-override-actually-do)
+      * [3️⃣ Why it matters](#3-why-it-matters)
+    * [⚠️ **Special Cases**](#-special-cases)
+    * [🧠 **In summary**](#-in-summary)
+    * [✅ **Takeaway**](#-takeaway)
+  * [**6️⃣ How does the ForkJoinPool work internally?**](#6-how-does-the-forkjoinpool-work-internally)
+    * [💡 Concept](#-concept)
+    * [⚙️ Internal Mechanics](#-internal-mechanics)
+    * [✅ Example](#-example-7)
+  * [**7️⃣ Difference between `synchronized`, `Lock`, and `StampedLock`**](#7-difference-between-synchronized-lock-and-stampedlock)
+    * [🧩 Example](#-example-8)
+  * [**8️⃣ CompletableFuture vs. traditional Future**](#8-completablefuture-vs-traditional-future)
+    * [✅ Example](#-example-9)
+  * [**9️⃣ Design a concurrent cache with Read-Write Locks**](#9-design-a-concurrent-cache-with-read-write-locks)
+    * [💡 Goal](#-goal)
+    * [✅ Example Implementation](#-example-implementation)
+    * [🚀 Optimization](#-optimization)
+  * [**🔟 False Sharing and How to Avoid It**](#-false-sharing-and-how-to-avoid-it)
+    * [💡 Concept](#-concept-1)
+    * [🔍 Example](#-example-10)
+    * [🚫 Effect](#-effect-1)
+    * [✅ Avoidance Techniques](#-avoidance-techniques)
+      * [✅ **Summary Table**](#-summary-table-2)
+* [Junit](#junit)
+  * [Junit mockito](#junit-mockito)
+  * [Java Questions](#java-questions)
+<!-- TOC -->
+
 # Java Interview Question Bank
 
 - [Java Interview Questions 1](https://www.java2novice.com/java-interview-questions/)
@@ -508,6 +870,246 @@ public class Main {
 
 ---
 
+<details>
+
+Yes — **constructor chaining** is just one form of “chaining,” but Java supports other kinds of chaining as well — especially in *method calls*, *builders*, and *functional streams*.
+
+Let’s go step by step 👇
+
+---
+
+## 🧩 **1️⃣ Constructor Chaining**
+
+You already know this one — when one constructor calls another within the same class (using `this()`) or a parent’s constructor (`super()`).
+
+```java
+class Vehicle {
+    Vehicle() { System.out.println("Vehicle"); }
+    Vehicle(String type) { this(); System.out.println(type); }
+}
+```
+
+✅ **Purpose:**
+Avoid code duplication and ensure consistent initialization.
+
+---
+
+## 🧱 **2️⃣ Method Chaining (Fluent Interface)**
+
+This is very common in modern Java APIs — a style where methods return `this` so calls can be chained.
+
+---
+
+### 🔹 Basic Example
+
+```java
+class Person {
+    private String name;
+    private int age;
+
+    public Person setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Person setAge(int age) {
+        this.age = age;
+        return this;
+    }
+}
+
+Person p = new Person()
+                .setName("Alice")
+                .setAge(30);
+```
+
+> ✅ Each setter returns the same object → allows continuous chaining.
+
+This is called the **Fluent Interface Pattern**.
+
+---
+
+### 🔹 Real-world Example: `StringBuilder`
+
+```java
+String result = new StringBuilder()
+                    .append("Hello ")
+                    .append("World")
+                    .append("!")
+                    .toString();
+```
+
+Each `.append()` returns the same `StringBuilder` instance — that’s **method chaining** in action.
+
+---
+
+### 🔹 Another Example: Streams API
+
+```java
+List<Integer> result = numbers.stream()
+                              .filter(n -> n % 2 == 0)
+                              .map(n -> n * 2)
+                              .sorted()
+                              .toList();
+```
+
+Here, every intermediate operation returns a new `Stream`, enabling chainable operations.
+
+---
+
+## 🧩 **3️⃣ Builder Pattern (Chaining for Object Construction)**
+
+Builder pattern is an **advanced form of method chaining** for immutable or complex objects.
+
+### Example:
+
+```java
+class User {
+    private final String name;
+    private final int age;
+
+    private User(Builder builder) {
+        this.name = builder.name;
+        this.age = builder.age;
+    }
+
+    public static class Builder {
+        private String name;
+        private int age;
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder age(int age) {
+            this.age = age;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
+    }
+}
+```
+
+Usage:
+
+```java
+User u = new User.Builder()
+                .name("Alice")
+                .age(25)
+                .build();
+```
+
+✅ **Why it’s popular:**
+
+* Makes object construction readable
+* Works well for immutable objects
+* Avoids telescoping constructors
+
+---
+
+## ⚙️ **4️⃣ Stream Chaining / Functional Chaining**
+
+In **functional programming style**, chaining is about **composing transformations**.
+
+Example:
+
+```java
+String result = Optional.of(" Java ")
+                        .map(String::trim)
+                        .map(String::toUpperCase)
+                        .orElse("EMPTY");
+```
+
+Each call returns another `Optional` → pure functional chaining.
+
+---
+
+## 🧠 **5️⃣ Operator / DSL-style Chaining**
+
+Some frameworks design **DSLs (Domain-Specific Languages)** using chaining to read like English.
+
+Example (in Spring Security or Mockito):
+
+```java
+http.authorizeRequests()
+    .antMatchers("/admin").hasRole("ADMIN")
+    .antMatchers("/user").authenticated()
+    .and()
+    .formLogin();
+```
+
+or
+
+```java
+verify(userService, times(1)).save(any());
+```
+
+> ✅ This chaining builds configuration objects step-by-step, making APIs more expressive.
+
+---
+
+## ⚡ **6️⃣ Other Types of “Chaining” Concepts**
+
+| Type                           | Description                                                    | Example                              |
+| ------------------------------ | -------------------------------------------------------------- | ------------------------------------ |
+| **Exception chaining**         | One exception wraps another (cause chaining)                   | `new RuntimeException("msg", cause)` |
+| **Stream/Functional chaining** | Each method returns a new instance for next transformation     | `.filter().map().collect()`          |
+| **Builder chaining**           | Build complex objects fluently                                 | `.name().age().build()`              |
+| **Pipeline chaining**          | Sequence of processing steps in design (e.g., servlet filters) | `doFilter(request, response)`        |
+
+---
+
+## ⚠️ **7️⃣ Pitfalls / Best Practices**
+
+* Return `this` **only when mutating the same instance**.
+  (Builder pattern creates new instance at the end.)
+* Avoid chaining **void** methods (they break the chain).
+* Ensure methods in the chain **don’t depend on execution order unexpectedly**.
+* Use chaining for **readability**, not just for compact code.
+
+---
+
+## ✅ **Summary**
+
+| Type                     | Example                       | Purpose                           |
+| ------------------------ | ----------------------------- | --------------------------------- |
+| **Constructor chaining** | `this()` / `super()`          | Reuse constructor logic           |
+| **Method chaining**      | `.setName().setAge()`         | Fluent interface / readability    |
+| **Builder chaining**     | `.name().age().build()`       | Complex immutable object creation |
+| **Stream chaining**      | `.filter().map().collect()`   | Functional data transformation    |
+| **Exception chaining**   | `new RuntimeException(cause)` | Error context propagation         |
+
+---
+
+### 🔑 TL;DR
+
+> ✅ *Constructor chaining* → within the same class.
+> ✅ *Method chaining* → between method calls returning `this` or new objects.
+> ✅ *Builder / Stream chaining* → modern fluent APIs and functional pipelines.
+
+---
+
+
+
+### 📊 Which One Should You Use?
+
+| Approach            | Best When                                        |
+| ------------------- | ------------------------------------------------ |
+| `Thread`            | Simple and quick demos/tests                     |
+| `Runnable`          | Cleaner logic, reusable, better practice         |
+| `ExecutorService`   | Managing **many tasks**, scalability and control |
+| `CompletableFuture` | Asynchronous, reactive programming, modern Java  |
+
+</details>
+
+---
+
+---
+
 # Modifiers in Java
 
 ---
@@ -762,7 +1364,7 @@ public native void nativeMethod();
 
 ---
 
-### Summary Table
+#### Summary Table
 
 | Modifier    | Type       | Can apply to           | Effect / Use case                              |
 | ----------- | ---------- | ---------------------- | ---------------------------------------------- |
@@ -853,7 +1455,7 @@ flowchart TD
 
 ### Memory Areas Explained
 
-![HeapPermgenSpace](images/HeapPermgenSpace.png)
+![HeapPermgenSpace](images/JavaBasic/HeapPermgenSpace.png)
 
 | Area          | Description                                              | Java Version     |
 | ------------- | -------------------------------------------------------- | ---------------- |
@@ -1005,7 +1607,7 @@ flowchart TD
 
 ---
 
-## ✅ Summary Table
+#### ✅ Summary Table
 
 | Memory Area       | Purpose                               | Collected by GC | Thread Scoped |
 | ----------------- | ------------------------------------- | --------------- | ------------- |
@@ -1246,7 +1848,7 @@ public class Example {
 
 ### Data Binding in Java
 
-![staticVsDynamicBinding](images/staticVsDynamicBinding.png)
+![staticVsDynamicBinding](images/JavaBasic/staticVsDynamicBinding.png)
 
 * **Static Binding (Early Binding)**: Method calls resolved at compile-time (static, private, final methods).
 * **Dynamic Binding (Late Binding)**: Method calls resolved at runtime via overriding (non-static, non-final, non-private methods).
@@ -1492,7 +2094,7 @@ Comparator<Student> nameComparator = (s1, s2) -> s1.name.compareTo(s2.name);
 
 > Spring Framework uses **Dependency Injection (DI)** to reduce tight coupling via POJOs.
 
-![Coupling.png](images/Coupling.png)
+![Coupling.png](images/JavaBasic/Coupling.png)
 
 ---
 
@@ -1505,7 +2107,7 @@ Comparator<Student> nameComparator = (s1, s2) -> s1.name.compareTo(s2.name);
 | High Cohesion | Class has well-defined responsibility, easier to maintain & reuse.        |
 | Low Cohesion  | Class handles many unrelated tasks. Difficult to understand and maintain. |
 
-![Cohesion.png](images/Cohesion.png)
+![Cohesion.png](images/JavaBasic/Cohesion.png)
 
 **Comparison:**
 
@@ -1539,7 +2141,7 @@ Comparator<Student> nameComparator = (s1, s2) -> s1.name.compareTo(s2.name);
 
 ---
 
-![Collection](images/ListQueueSet.png)
+![Collection](images/JavaBasic/ListQueueSet.png)
 
 ---
 
@@ -1751,15 +2353,15 @@ flowchart TD
 * Insertion/deletion faster (O(1) at ends)
 * Slower random access (O(n))
 
-![ArrayListVsLinkedList](images/ArrayListVsLinkedList.png)
+![ArrayListVsLinkedList](images/JavaBasic/ArrayListVsLinkedList.png)
 
-![singlyLinkedList](images/singlyLinkedList.png)
+![singlyLinkedList](images/JavaBasic/singlyLinkedList.png)
 
-![doublyLinkedList](images/doublyLinkedList.png)
+![doublyLinkedList](images/JavaBasic/doublyLinkedList.png)
 
-![singlyVsDouble1](images/singlyVsDouble1.png)
+![singlyVsDouble1](images/JavaBasic/singlyVsDouble1.png)
 
-![singlyVsDouble2](images/singlyVsDouble2.png)
+![singlyVsDouble2](images/JavaBasic/singlyVsDouble2.png)
 
 ### Vector (Legacy)
 
@@ -1781,13 +2383,13 @@ flowchart TD
 <summary><strong>🔄 Queue & Deque</strong></summary>
 
 | Interface       | Implementations                             | Notes                                    |
-| --------------- | ------------------------------------------- | ---------------------------------------- |
+|-----------------|---------------------------------------------|------------------------------------------|
 | `Queue`         | `LinkedList`, `PriorityQueue`               | FIFO, priority-based                     |
 | `Deque`         | `ArrayDeque`, `LinkedList`                  | Double-ended (add/remove from both ends) |
 | `BlockingQueue` | `LinkedBlockingQueue`, `ArrayBlockingQueue` | Thread-safe queues                       |
 
 | Type                                         | Order Maintained | Sorted | Allows Duplicates | Thread Safe               | Nulls Allowed             |
-| -------------------------------------------- | ---------------- | ------ | ----------------- | ------------------------- | ------------------------- |
+|----------------------------------------------|------------------|--------|-------------------|---------------------------|---------------------------|
 | **Queue (Interface)**                        | ✅ FIFO           | ❌ No   | ✅ Yes             | Depends on implementation | Depends on implementation |
 | **Deque (Interface)**                        | ✅ Ends           | ❌ No   | ✅ Yes             | Depends on implementation | Depends on implementation |
 | **ArrayDeque**                               | ✅ Yes            | ❌ No   | ✅ Yes             | ❌ No                      | **No nulls**              |
@@ -1832,7 +2434,7 @@ flowchart TD
 * Time complexity: O(log n)
 
 | Type              | Order Maintained | Sorted | Allows Duplicates | Thread Safe | Nulls Allowed                                                                                        |
-| ----------------- | ---------------- | ------ | ----------------- | ----------- | ---------------------------------------------------------------------------------------------------- |
+|-------------------|------------------|--------|-------------------|-------------|------------------------------------------------------------------------------------------------------|
 | **HashSet**       | ❌                | ❌      | ❌                 | ❌           | **One null**                                                                                         |
 | **LinkedHashSet** | ✅                | ❌      | ❌                 | ❌           | **One null**                                                                                         |
 | **TreeSet**       | ✅ (Sorted)       | ✅      | ❌                 | ❌           | **None** (throws `NullPointerException` if you add null, since it uses `Comparable` or `Comparator`) |
@@ -1844,7 +2446,7 @@ flowchart TD
 ## 🧮 Map Implementations
 
 | Type                  | Ordered?   | Thread Safe | Notes                               | Nulls Allowed                                                                        |
-| --------------------- | ---------- | ----------- | ----------------------------------- | ------------------------------------------------------------------------------------ |
+|-----------------------|------------|-------------|-------------------------------------|--------------------------------------------------------------------------------------|
 | **HashMap**           | ❌          | ❌           | Most used, allows one null key      | **1 null key, multiple null values**                                                 |
 | **LinkedHashMap**     | ✅          | ❌           | Preserves insertion order           | **1 null key, multiple null values**                                                 |
 | **TreeMap**           | ✅ (Sorted) | ❌           | Sorted by natural/comparator key    | **No null keys, multiple null values** (unless comparator supports nulls explicitly) |
@@ -1856,7 +2458,7 @@ flowchart TD
 ### 🔑 **Key Differences Between `HashMap` and `Hashtable`**
 
 | Feature              | `HashMap`                                                                                          | `Hashtable`                                                                        |
-| -------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+|----------------------|----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
 | **Thread-safety**    | Not synchronized (not thread-safe). Must be synchronized externally if used in multithreaded code. | Synchronized (thread-safe for concurrent access).                                  |
 | **Performance**      | Faster, since no synchronization overhead.                                                         | Slower, due to synchronized methods.                                               |
 | **Null Keys/Values** | Allows **one `null` key** and multiple `null` values.                                              | **Does not allow** `null` keys or `null` values.                                   |
@@ -1905,7 +2507,7 @@ public class MapExample {
 ## 🧠 Thread Safety Comparison
 
 | Collection | Thread Safe? | Alternative                                  |
-| ---------- | ------------ | -------------------------------------------- |
+|------------|--------------|----------------------------------------------|
 | ArrayList  | ❌            | `CopyOnWriteArrayList`                       |
 | HashMap    | ❌            | `ConcurrentHashMap`                          |
 | HashSet    | ❌            | `Collections.synchronizedSet()`              |
@@ -1920,9 +2522,9 @@ public class MapExample {
 <details>
 <summary><strong>🧠 equals() vs == vs hashCode()</strong></summary>
 
-![equalsHashCode](images/equalsHashCode.png)
+![equalsHashCode](images/JavaBasic/equalsHashCode.png)
 
-![equalsVsDoubleEqual](images/equalsVsDoubleEqual.png)
+![equalsVsDoubleEqual](images/JavaBasic/equalsVsDoubleEqual.png)
 
 * When used as keys in `HashMap` or elements in `HashSet`, override both.
 * **Contract:**
@@ -2005,46 +2607,6 @@ map.put(new Person(1, "Alice"), "Manager"); // Without proper equals & hashCode,
 
 ---
 
-Alright 👍 let’s visualize how **`hashCode()`** and **`equals()`** work together inside a **HashMap / HashSet**.
-
----
-
-### **Step-by-Step Flow (HashMap/HashSet lookup & insert)**
-
-```
-              +---------------------------+
-              |   Object to be inserted   |
-              +---------------------------+
-                           |
-                           v
-                 1. Compute hashCode()
-                           |
-                           v
-                 +-------------------+
-                 | Hash bucket index |
-                 +-------------------+
-                           |
-                           v
-          --------------------------------------
-          |            Bucket[] array          |
-          --------------------------------------
-            |        |        |        |       
-            v        v        v        v       
-          Bucket0  Bucket1  Bucket2  Bucket3 ...
-                     |
-                     v
-         [Existing entries with same hash]
-                     |
-          +-------------------------+
-          |   Compare equals() ?    |
-          +-------------------------+
-                     |
-          Yes ---------------------> Replace/Return
-          No  ---------------------> Insert new
-```
-
----
-
 ### **How it works**
 1. When you insert or lookup an object:
   - `hashCode()` determines **which bucket** to look in.
@@ -2081,7 +2643,505 @@ If `equals()` and `hashCode()` are **not overridden**, the two objects are treat
 
 [INTERNAL WORKING OF HASHMAP](https://youtu.be/7k0VYHuUF6g?si=7bOzb74JFvNW2yD8)
 
+* **Threshold**
+* **Resizing**
+* **When a bucket becomes a linked list**
+* **When it is "treeified" (converted to a red-black tree)**
+
+This will help you clearly understand the **internal working of Java’s `HashMap`**, including what happens **before and after collisions**, and how it maintains **performance**.
+
 ---
+
+## 🔁 What Is Treeify and Threshold?
+
+| Concept       | Description                                                                                                                                                                                                                   |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Threshold** | When the number of key-value pairs exceeds `capacity * loadFactor` (default `0.75`), the map **resizes** (doubles in size).                                                                                                   |
+| **Treeify**   | When **many entries exist in a single bucket** (≥ 8 entries) **and total capacity ≥ 64**, the bucket is **converted from a linked list to a red-black tree**. This improves lookup performance from **O(n)** to **O(log n)**. |
+| **Untreeify** | If the bucket size drops below 6 after deletions, the tree is **converted back to a linked list**.                                                                                                                            |
+
+---
+
+## 🧩 Final Full ASCII Diagram with Treeify and Threshold
+
+```
+              +---------------------------+
+              |   Object to be inserted   |
+              +---------------------------+
+                           |
+                           v
+                 1. Compute hashCode()
+                           |
+                           v
+                 +-------------------+
+                 | Hash bucket index |
+                 +-------------------+
+                           |
+                           v
+          --------------------------------------
+          |         HashMap Table[] (Buckets)  |
+          --------------------------------------
+            |        |        |        |       
+            v        v        v        v       
+          Bucket0  Bucket1  Bucket2  Bucket3 ...
+                               |
+                               v
+        +-----------------------------------------+
+        |   Linked List of Nodes (same index)     |
+        +-----------------------------------------+
+        | Node1 (key1, value1) ->                 |
+        | Node2 (key2, value2) ->                 |
+        | Node3 (key3, value3) -> ...             |
+        | ...                                     |
+        +-----------------------------------------+
+                               |
+          If entries in list >= 8 AND capacity >= 64
+                               |
+                               v
+          +-------------------------------------+
+          | Convert list to Red-Black Tree      |
+          | (Treeify: O(n) → O(log n) access)   |
+          +-------------------------------------+
+
+⬇️
+
+Now Bucket[i] points to:
+        +------------------------------+
+        |   Red-Black Tree (TreeNode) |
+        +------------------------------+
+
+          /        \
+     key3           key1
+       \            /
+      key5        key2
+
+(Organized for efficient search & insert)
+
+```
+
+---
+
+## ⚙️ Behind the Scenes: Key Conditions
+
+| Feature         | Condition (When It Happens)                                                                  |
+|-----------------|----------------------------------------------------------------------------------------------|
+| **Resize**      | When number of entries > `capacity * loadFactor` (e.g., 12 entries in 16 buckets at 0.75 LF) |
+| **Treeify**     | When a single bucket has ≥ **8 nodes** and total capacity ≥ **64**                           |
+| **Linked List** | Default structure for collisions                                                             |
+| **Untreeify**   | When nodes in a tree < **6**, convert back to list                                           |
+
+---
+
+## 📊 Quick Summary Table
+
+| Key Concept                 | Default Value / Behavior     |
+|-----------------------------|------------------------------|
+| Initial Capacity            | 16 buckets                   |
+| Load Factor                 | 0.75                         |
+| Resize Threshold            | 16 × 0.75 = 12 entries       |
+| Treeify Threshold           | 8 entries in a single bucket |
+| Minimum Capacity to Treeify | 64 buckets                   |
+| Untreeify Threshold         | <6 entries in a tree bucket  |
+
+---
+
+## 🧪 How It Helps
+
+* **Resizing** ensures the map doesn’t get too crowded → keeps lookup fast
+* **Treeify** ensures performance doesn't degrade with many hash collisions
+* **Linked list** is simple and used unless there’s a high number of collisions
+
+---
+
+## ✅ Final Notes
+
+* Java 8 introduced **treeification** for performance improvements
+* You don’t see this as a user, but it **silently keeps `HashMap` fast**
+* Good hash functions help avoid treeification altogether
+
+---
+
+## 🧠 Imagine This First...
+
+Think of a **HashMap like a school locker system**:
+
+* You have **lots of lockers** (slots or buckets).
+* Each locker has a **number**.
+* To store your stuff (data), you:
+
+    * Use a **key** (like your name or ID)
+    * The school gives you a **locker number** based on your key
+* Later, you can find your stuff by giving the **same key** — and the school knows **exactly where to look**.
+
+That’s how a **HashMap** works!
+
+---
+
+## 🔍 Key Concepts (Simple Terms)
+
+| Term          | Meaning (Easy Explanation)                           |
+|---------------|------------------------------------------------------|
+| **Key**       | A name or ID (like "John", "Math", etc.)             |
+| **Value**     | The thing you want to store (like marks, info, etc.) |
+| **Hash**      | A number generated from the key                      |
+| **Bucket**    | A locker where the value is stored                   |
+| **Collision** | When two keys point to the same locker               |
+
+---
+
+## 🔄 Flow of How HashMap Works (Step-by-Step)
+
+### Let's say:
+
+```java
+map.put("Apple", "Red");
+map.put("Banana", "Yellow");
+map.put("Grapes", "Green");
+```
+
+---
+
+### Step 1: **Key is Hashed**
+
+Java runs a **hash function** on the key to convert it into a number.
+
+For example:
+
+| Key    | Hash | Bucket Index (hash % size) |
+|--------|------|----------------------------|
+| Apple  | 1234 | 2                          |
+| Banana | 4567 | 7                          |
+| Grapes | 7890 | 0                          |
+
+---
+
+### Step 2: **Find the Right Bucket**
+
+HashMap has an internal array (like lockers):
+
+```
+Index:   0   1   2   3   4   5   6   7
+        [ ] [ ] [ ] [ ] [ ] [ ] [ ] [ ]
+```
+
+Now it places the key-value pairs at the calculated index:
+
+```
+Index:   0   1   2            7
+        [ ] [ ] [Apple=Red] [Banana=Yellow]
+        [Grapes=Green]
+```
+
+---
+
+### Step 3: **Handle Collisions (Chaining)**
+
+If two keys point to the same index, Java **links them in a list** (like hanging keys on a hook):
+
+```
+Index:   0
+        [Grapes=Green] -> [AnotherKey=Value] -> null
+```
+
+---
+
+### Step 4: **Retrieving a Value (get method)**
+
+```java
+map.get("Banana");
+```
+
+* Java calculates the **hash** of "Banana"
+* Finds **index 7**
+* Checks the bucket at index 7
+* Finds `"Banana=Yellow"` and returns `"Yellow"`
+
+---
+
+## 🧱 ASCII Diagram: Internal Working of HashMap
+
+```
+               ┌───────────────┐
+   "Apple" --> │ Hash Function │ --> 1234 --> Index 2
+               └───────────────┘
+                             ↓
+                   ┌───────────────────┐
+ HashMap Array --> │ ... │ [2] │ [7] │ ...
+                   └───────────────────┘
+                             ↓
+                        ┌────────────┐
+                        │ Apple=Red  │
+                        └────────────┘
+
+Now another key:
+
+   "Banana" --> Hash --> 4567 --> Index 7
+                             ↓
+                        ┌──────────────┐
+                        │ Banana=Yellow│
+                        └──────────────┘
+```
+
+### 🔁 If there's a collision:
+
+```
+Two keys go to the same index (e.g., 7):
+
+Index 7:
+┌────────────────────────────────────┐
+│ Banana=Yellow → Mango=Orange → null│
+└────────────────────────────────────┘
+```
+
+---
+
+## ⚙️ Internally (Technical, but simple)
+
+* Uses an **array of buckets**
+* Each bucket is a **linked list** or **tree** (if too many items)
+* Hash function: `hashCode()` → processes it → gets index
+* Resizes when too full (e.g., 75% of capacity)
+
+---
+
+## 📌 Summary (Even Simpler)
+
+| What You Do       | What HashMap Does Internally         |
+| ----------------- | ------------------------------------ |
+| `put(key, value)` | Calculates where to store            |
+| `get(key)`        | Calculates where to find             |
+| Keys collide      | Links multiple values in same bucket |
+| Too many entries  | HashMap grows automatically          |
+
+---
+
+Great question! Let’s now dive into **ConcurrentHashMap** — what it is, **how it's different from HashMap**, and **how it works internally**, especially in **multi-threaded environments**.
+
+---
+
+## 🧠 What Is ConcurrentHashMap?
+
+`ConcurrentHashMap` is a **thread-safe** version of `HashMap` in Java.
+
+### ✅ Why Use It?
+
+Because **regular `HashMap` is not thread-safe**. In a multithreaded program:
+
+* Two threads inserting data at the same time → can corrupt the internal structure of `HashMap`.
+* This could lead to **infinite loops**, data loss, or unpredictable results.
+
+`ConcurrentHashMap` allows:
+
+* **Multiple threads** to **read and write** safely
+* Without needing to **synchronize the whole map**
+
+---
+
+## 🔍 How It Differs from HashMap
+
+| Feature                      | HashMap                      | ConcurrentHashMap                        |
+| ---------------------------- | ---------------------------- | ---------------------------------------- |
+| Thread-safe?                 | ❌ No                         | ✅ Yes                                    |
+| Allows null keys/values      | ✅ Yes                        | ❌ No (throws NPE)                        |
+| Synchronization              | ❌ None                       | ✅ Fine-grained (segments / nodes)        |
+| Performance (multi-threaded) | ⚠️ Poor                      | 🚀 Optimized                             |
+| Internal Structure           | Buckets + Linked List / Tree | Similar, but with **thread-safe access** |
+
+---
+
+## ⚙️ Internal Working (Java 8 and above)
+
+In **Java 8**, `ConcurrentHashMap` uses a **lock-free, non-blocking approach** for most operations, with **segment-like behavior** for write safety.
+
+### 🔩 Core Concepts:
+
+* **Bucket Array (like HashMap)**: Holds data
+* **Synchronized only parts** of the array (not the whole map)
+* Uses:
+
+    * `synchronized` blocks only when needed (not whole map)
+    * **CAS (Compare-And-Swap)** operations for atomic updates
+    * **Concurrent reads** without locking
+    * **Lock striping**: Only one bucket is locked, not the whole map
+
+---
+
+## 🔄 Insertion Flow (Put Operation)
+
+Let’s break it down step-by-step:
+
+```
+Thread 1 → map.put("A", 100);
+Thread 2 → map.put("B", 200);
+```
+
+* Each thread computes hash of key ("A", "B")
+* Finds the **bucket (index)**
+* **If no collision**:
+
+    * Uses **CAS (lock-free)** to insert the node
+* **If collision** (another entry at same index):
+
+    * Synchronizes **only that bucket's node**
+    * Traverses or treeifies if needed
+* No global lock!
+
+---
+
+### 🧱 ASCII Diagram of ConcurrentHashMap (Simplified)
+
+```
++-------------------------------+
+|        ConcurrentHashMap     |
++-------------------------------+
+|  [0]  [1]  [2]  [3]  [4] ...  |
+|  |     |     |     |         |
+|  v     v     v     v         |
+|Node  Node  null  Node        |
+| A=100 B=200      C=300       |
+| (locked by T1) (locked by T2)|
++-------------------------------+
+
+Multiple threads:
+- T1 inserts "A" in bucket 0 → locks bucket 0
+- T2 inserts "B" in bucket 1 → locks bucket 1
+→ No interference!
+```
+
+---
+
+## 🧪 Read Operation (Get)
+
+* **Fully non-blocking**
+* Multiple threads can **read without locks**
+* Achieved using **volatile** and safe memory visibility guarantees
+
+---
+
+## 🔐 Treeification & Resizing
+
+* Just like `HashMap`, if too many collisions in a bucket, it **treeifies** to Red-Black Tree.
+* Resizing is done using **thread-safe cooperative techniques**:
+
+    * Multiple threads help resize
+    * Old buckets are gradually copied to new array
+
+---
+
+## 🚨 What It Doesn’t Do
+
+* Doesn’t support `null` **keys or values**:
+
+  ```java
+  map.put(null, "test"); // Throws NullPointerException
+  ```
+* Doesn’t allow locking the entire map directly (use `Collections.synchronizedMap()` if you need coarse locking).
+
+---
+
+## ✅ When to Use ConcurrentHashMap
+
+| Use Case                             | Recommendation |
+|--------------------------------------|----------------|
+| Multi-threaded caching               | ✅ Yes          |
+| Shared state in web server           | ✅ Yes          |
+| Replace `synchronizedMap()`          | ✅ Better       |
+| Single-threaded or read-heavy access | ❌ Overkill     |
+
+---
+
+## 📌 Summary
+
+| Feature          | Details                      |
+|------------------|------------------------------|
+| Thread-safe?     | ✅ Yes (fine-grained locking) |
+| Read operations  | Lock-free                    |
+| Write operations | Per-bucket locking + CAS     |
+| Structure        | Buckets + linked list / tree |
+| Null keys/values | ❌ Not allowed                |
+| Performance      | 🚀 Highly optimized          |
+
+---
+
+<details>
+<summary>🔁 <strong>Collections.synchronizedMap() vs ConcurrentHashMap</strong></summary>
+
+### 1. Collections.synchronizedMap(Map\<K, V>)
+
+* Wraps a regular map with synchronized methods.
+* Synchronizes on the entire map for every operation.
+* Slower under high concurrency due to full-map lock.
+* Manual synchronization needed during iteration.
+
+```java
+Map<String, String> map = Collections.synchronizedMap(new HashMap<>());
+synchronized (map) {
+    for (Map.Entry<String, String> entry : map.entrySet()) {
+        System.out.println(entry.getKey() + " -> " + entry.getValue());
+    }
+}
+```
+
+---
+
+### 2. [ConcurrentHashMap\<K, V>](https://javahungry.blogspot.com/2015/02/how-concurrenthashmap-works-in-java-internal-implementation.html)
+
+* Fine-grained locking or lock-free (Java 8+).
+* Allows concurrent access without blocking readers.
+* Weakly consistent iterator (no ConcurrentModificationException).
+* Best for high-concurrency scenarios.
+
+```java
+Map<String, String> map = new ConcurrentHashMap<>();
+map.put("A", "Apple");
+map.put("B", "Banana");
+
+for (Map.Entry<String, String> entry : map.entrySet()) {
+    System.out.println(entry.getKey() + " -> " + entry.getValue());
+}
+```
+
+---
+
+### ⚖️ Key Differences
+
+| Feature           | `Collections.synchronizedMap()` | `ConcurrentHashMap`  |
+| ----------------- | ------------------------------- | -------------------- |
+| Locking Mechanism | Entire map                      | Fine-grained locking |
+| Concurrency       | Low                             | High                 |
+| Read Operations   | Blocking                        | Lock-free (Java 8+)  |
+| Write Operations  | Full lock                       | Partial locking      |
+| Iteration Safety  | Must synchronize manually       | Weakly consistent    |
+| Null Keys/Values  | ✅ Yes                           | ❌ No (NPE thrown)    |
+| Performance       | Lower under contention          | High scalability     |
+
+---
+
+### 🧭 When to Use What?
+
+* ✅ Use `Collections.synchronizedMap()` when:
+
+    * Few concurrent threads
+    * You need `null` keys/values
+    * Simplicity is more important than performance
+
+* ✅ Use `ConcurrentHashMap` when:
+
+    * High concurrency & performance is required
+    * Safe iteration without locking is needed
+    * `null` keys/values are not needed
+
+---
+
+### ❗ Why ConcurrentHashMap Disallows Nulls?
+
+* Prevents ambiguity in `map.get(key)`:
+
+    * `null` might mean missing key or `null` value.
+* Avoids needing extra synchronization for `null` checks.
+* Ensures safe concurrent computation.
+
+</details>
 
 <details>
 <summary><strong>🧵 Synchronized & Concurrent Collections</strong></summary>
@@ -2189,7 +3249,7 @@ If `equals()` and `hashCode()` are **not overridden**, the two objects are treat
 ---
 
 <details>
-<summary>Serialization/Marshaling and Deserialization/Unmarshaling</summary>
+<summary>Serialization & Deserialization</summary>
 
 - Serialization converts an object into a byte stream for storage or transmission.
 - Deserialization reconstructs the object from the byte stream.
@@ -2267,7 +3327,9 @@ Think of an object in memory like **a house**:
 
 ---
 
-## 🧩 What is *Marshaling* in Java?
+## Marshaling/Unmarshaling
+
+### 🧩 What is *Marshaling* in Java?
 
 **Marshaling** means **converting an object in memory into a format that can be transmitted or stored** — for example, converting a Java object into a byte stream, JSON, or XML so that it can be:
 
@@ -2286,7 +3348,7 @@ Here, we "marshal" the `Employee` object into a transferable form (like bytes).
 
 ---
 
-## 🔄 What is *Unmarshaling*?
+### 🔄 What is *Unmarshaling*?
 
 **Unmarshaling** is the **reverse process** — converting the transmitted or stored data *back* into a Java object.
 
@@ -2300,7 +3362,7 @@ So, after receiving the data (like from a network), we rebuild the original obje
 
 ---
 
-## 🧠 Related Terms
+### 🧠 Related Terms
 
 | Term                | Meaning                                                                       | Typical Use                                 |
 | ------------------- | ----------------------------------------------------------------------------- | ------------------------------------------- |
@@ -2491,7 +3553,7 @@ See [StackOverflow: int vs Integer](https://stackoverflow.com/questions/8660691/
 
 ### `final` keyword
 
-![FinalKeyWord](images/FinalKeyWord.png)
+![FinalKeyWord](images/JavaBasic/FinalKeyWord.png)
 
 * Used to declare constants, prevent method overriding or inheritance.
 
@@ -2553,13 +3615,11 @@ Runtime.getRuntime().gc();
 
 - Caching is a technique wherein objects in your application are stored in a temporary storage area known as cache.
 
-![CacheFlow.png](images/CacheFlow.png)
+![CacheFlow.png](images/SpringBoot/CacheFlow.png)
 
 ---
 
 # Two types of error:-
-
-# Two types of error
 
 <details>
 <summary>🛑 1. Syntax Error or Compile Time Error</summary>
@@ -2580,7 +3640,7 @@ Runtime.getRuntime().gc();
 </details>
 
 ---
-# Exception Handling
+## Exception Handling
 
 <details>
 <summary>📌 Overview of Exception Hierarchy</summary>
@@ -2677,7 +3737,7 @@ public void myMethod() throws IOException {
 <details>
 <summary>✅ Checked vs Unchecked Exceptions</summary>
 
-![Checked vs Unchecked](images/Checked_UnChecked.png)
+![Checked vs Unchecked](images/JavaBasic/Checked_UnChecked.png)
 
 ### 1. **Checked Exceptions**
 
@@ -2887,6 +3947,8 @@ try {
 
 # [Multithreading](https://codegym.cc/groups/multithreading-in-java)
 
+## Volatile Keyword
+
 <details>
 <summary>🧮 Volatile Keyword</summary>
 
@@ -2961,6 +4023,8 @@ public static void main(String[] args) throws InterruptedException {
 
 ---
 
+## Deadlock
+
 <details>
 <summary>🔒 Deadlock</summary>
 
@@ -3019,6 +4083,8 @@ class DeadlockDemo {
 
 ---
 
+## Race Condition
+
 <details>
 <summary>⚡ Race Condition</summary>
 
@@ -3060,11 +4126,13 @@ list.add("item2"); // Throws exception
 
 ---
 
+## 📞 Callable vs Runnable
+
 <details>
 <summary>📞 Callable vs Runnable</summary>
 
 | Feature             | Runnable         | Callable         |
-| ------------------- | ---------------- | ---------------- |
+|---------------------|------------------|------------------|
 | Return Value        | No               | Yes (`V call()`) |
 | Can throw Exception | No               | Yes              |
 | Submission          | Thread, Executor | Executor only    |
@@ -3075,7 +4143,7 @@ Future<String> future = executor.submit(task);
 String result = future.get(); // blocks until done
 ```
 
-![img.png](images/CallableVsRunnable.png)
+![CallableVsRunnable.png](images/JavaBasic/CallableVsRunnable.png)
 
 </details>
 
@@ -3205,12 +4273,6 @@ CompletableFuture.supplyAsync(() -> "result")
 @Async
 public void asyncMethod() { /* async task */ }
 ```
-
-Got it 👍 You want to add **Virtual Threads (Java 21)** as another async/concurrency option in your list, like you did with `CompletableFuture` and `@Async`.
-
-Here’s how you could present **6. Virtual Threads (Java 21)**:
-
----
 
 ### 6. Virtual Threads (Java 21)
 
@@ -3389,10 +4451,10 @@ class Counter {
 
 ---
 
-## 🧠 Summary Table
+#### 🧠 Summary Table
 
 | Type                    | Execution                   | Thread Safety             | Example Keyword               |
-| ----------------------- | --------------------------- | ------------------------- | ----------------------------- |
+|-------------------------|-----------------------------|---------------------------|-------------------------------|
 | **Synchronous Method**  | Sequential                  | Depends on code           | (none)                        |
 | **Synchronized Method** | Sequential (locked)         | ✅ Safe                    | `synchronized`                |
 | **Asynchronous Method** | Concurrent (multi-threaded) | ❌ Unsafe (unless guarded) | `Thread`, `CompletableFuture` |
@@ -3415,10 +4477,6 @@ public void processDataAsync() {
 
 ✅ **Asynchronous execution** (non-blocking)
 ✅ **Thread-safe update** (locked section)
-
----
-
-
 
 </details>
 
@@ -3507,6 +4565,17 @@ class Task2 extends Thread {
         for (int i = 1; i <= 5; i++) System.out.println("Task2 - Count: " + i);
     }
 }
+
+public class Main {
+    public static void main(String[] args) {
+        Task1 t1 = new Task1(); // create thread 1
+        Task2 t2 = new Task2(); // create thread 2
+
+        t1.start(); // ✅ run Task1 in parallel
+        t2.start(); // ✅ run Task2 in parallel
+    }
+}
+
 ````
 
 🟡 **`start()` runs them in parallel**, but order is not guaranteed.
@@ -3554,13 +4623,7 @@ CompletableFuture.allOf(task1, task2).join();
 
 ✅ Best for **non-blocking**, modern async tasks.
 
----
-
-Excellent — this is a *classic Java concurrency interview question* that often separates those who just know multithreading syntax from those who understand *thread context and design trade-offs.*
-
-Let’s go through it **step-by-step — concept, internals, real-world use cases, and pitfalls.**
-
----
+*thread context and design trade-offs.*
 
 ## 🧩 **1️⃣ What is `ThreadLocal`?**
 
@@ -3764,329 +4827,155 @@ try {
 
 ---
 
-🔥 Great question — and it shows you’re thinking beyond syntax into **Java design patterns and fluent APIs**.
-
-Yes — **constructor chaining** is just one form of “chaining,” but Java supports other kinds of chaining as well — especially in *method calls*, *builders*, and *functional streams*.
-
-Let’s go step by step 👇
+**independent Java programs** for printing **odd and even numbers alternately**, starting with **odd** — one using `Thread`, the other using `ExecutorService`.
 
 ---
 
-## 🧩 **1️⃣ Constructor Chaining**
-
-You already know this one — when one constructor calls another within the same class (using `this()`) or a parent’s constructor (`super()`).
+## 🧵 1️⃣ Using `Thread` + `wait/notify`
 
 ```java
-class Vehicle {
-    Vehicle() { System.out.println("Vehicle"); }
-    Vehicle(String type) { this(); System.out.println(type); }
-}
-```
+public class OddEvenThreadExample {
+    private final int limit = 10;
+    private int number = 1;
+    private final Object lock = new Object();
 
-✅ **Purpose:**
-Avoid code duplication and ensure consistent initialization.
-
----
-
-## 🧱 **2️⃣ Method Chaining (Fluent Interface)**
-
-This is very common in modern Java APIs — a style where methods return `this` so calls can be chained.
-
----
-
-### 🔹 Basic Example
-
-```java
-class Person {
-    private String name;
-    private int age;
-
-    public Person setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public Person setAge(int age) {
-        this.age = age;
-        return this;
-    }
-}
-
-Person p = new Person()
-                .setName("Alice")
-                .setAge(30);
-```
-
-> ✅ Each setter returns the same object → allows continuous chaining.
-
-This is called the **Fluent Interface Pattern**.
-
----
-
-### 🔹 Real-world Example: `StringBuilder`
-
-```java
-String result = new StringBuilder()
-                    .append("Hello ")
-                    .append("World")
-                    .append("!")
-                    .toString();
-```
-
-Each `.append()` returns the same `StringBuilder` instance — that’s **method chaining** in action.
-
----
-
-### 🔹 Another Example: Streams API
-
-```java
-List<Integer> result = numbers.stream()
-                              .filter(n -> n % 2 == 0)
-                              .map(n -> n * 2)
-                              .sorted()
-                              .toList();
-```
-
-Here, every intermediate operation returns a new `Stream`, enabling chainable operations.
-
----
-
-## 🧩 **3️⃣ Builder Pattern (Chaining for Object Construction)**
-
-Builder pattern is an **advanced form of method chaining** for immutable or complex objects.
-
-### Example:
-
-```java
-class User {
-    private final String name;
-    private final int age;
-
-    private User(Builder builder) {
-        this.name = builder.name;
-        this.age = builder.age;
-    }
-
-    public static class Builder {
-        private String name;
-        private int age;
-
-        public Builder name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Builder age(int age) {
-            this.age = age;
-            return this;
-        }
-
-        public User build() {
-            return new User(this);
+    public void printOdd() {
+        synchronized (lock) {
+            while (number <= limit) {
+                if (number % 2 == 1) {
+                    System.out.println("Odd : " + number);
+                    number++;
+                    lock.notify();
+                } else {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
+            }
         }
     }
-}
-```
 
-Usage:
+    public void printEven() {
+        synchronized (lock) {
+            while (number <= limit) {
+                if (number % 2 == 0) {
+                    System.out.println("Even: " + number);
+                    number++;
+                    lock.notify();
+                } else {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
+            }
+        }
+    }
 
-```java
-User u = new User.Builder()
-                .name("Alice")
-                .age(25)
-                .build();
-```
+    public static void main(String[] args) {
+        OddEvenThreadExample printer = new OddEvenThreadExample();
 
-✅ **Why it’s popular:**
+        Thread oddThread = new Thread(printer::printOdd);
+        Thread evenThread = new Thread(printer::printEven);
 
-* Makes object construction readable
-* Works well for immutable objects
-* Avoids telescoping constructors
-
----
-
-## ⚙️ **4️⃣ Stream Chaining / Functional Chaining**
-
-In **functional programming style**, chaining is about **composing transformations**.
-
-Example:
-
-```java
-String result = Optional.of(" Java ")
-                        .map(String::trim)
-                        .map(String::toUpperCase)
-                        .orElse("EMPTY");
-```
-
-Each call returns another `Optional` → pure functional chaining.
-
----
-
-## 🧠 **5️⃣ Operator / DSL-style Chaining**
-
-Some frameworks design **DSLs (Domain-Specific Languages)** using chaining to read like English.
-
-Example (in Spring Security or Mockito):
-
-```java
-http.authorizeRequests()
-    .antMatchers("/admin").hasRole("ADMIN")
-    .antMatchers("/user").authenticated()
-    .and()
-    .formLogin();
-```
-
-or
-
-```java
-verify(userService, times(1)).save(any());
-```
-
-> ✅ This chaining builds configuration objects step-by-step, making APIs more expressive.
-
----
-
-## ⚡ **6️⃣ Other Types of “Chaining” Concepts**
-
-| Type                           | Description                                                    | Example                              |
-| ------------------------------ | -------------------------------------------------------------- | ------------------------------------ |
-| **Exception chaining**         | One exception wraps another (cause chaining)                   | `new RuntimeException("msg", cause)` |
-| **Stream/Functional chaining** | Each method returns a new instance for next transformation     | `.filter().map().collect()`          |
-| **Builder chaining**           | Build complex objects fluently                                 | `.name().age().build()`              |
-| **Pipeline chaining**          | Sequence of processing steps in design (e.g., servlet filters) | `doFilter(request, response)`        |
-
----
-
-## ⚠️ **7️⃣ Pitfalls / Best Practices**
-
-* Return `this` **only when mutating the same instance**.
-  (Builder pattern creates new instance at the end.)
-* Avoid chaining **void** methods (they break the chain).
-* Ensure methods in the chain **don’t depend on execution order unexpectedly**.
-* Use chaining for **readability**, not just for compact code.
-
----
-
-## ✅ **Summary**
-
-| Type                     | Example                       | Purpose                           |
-| ------------------------ | ----------------------------- | --------------------------------- |
-| **Constructor chaining** | `this()` / `super()`          | Reuse constructor logic           |
-| **Method chaining**      | `.setName().setAge()`         | Fluent interface / readability    |
-| **Builder chaining**     | `.name().age().build()`       | Complex immutable object creation |
-| **Stream chaining**      | `.filter().map().collect()`   | Functional data transformation    |
-| **Exception chaining**   | `new RuntimeException(cause)` | Error context propagation         |
-
----
-
-### 🔑 TL;DR
-
-> ✅ *Constructor chaining* → within the same class.
-> ✅ *Method chaining* → between method calls returning `this` or new objects.
-> ✅ *Builder / Stream chaining* → modern fluent APIs and functional pipelines.
-
----
-
-
-
-### 📊 Which One Should You Use?
-
-| Approach            | Best When                                        |
-| ------------------- | ------------------------------------------------ |
-| `Thread`            | Simple and quick demos/tests                     |
-| `Runnable`          | Cleaner logic, reusable, better practice         |
-| `ExecutorService`   | Managing **many tasks**, scalability and control |
-| `CompletableFuture` | Asynchronous, reactive programming, modern Java  |
-
-</details>
-
----
-
-<details>
-<summary>🔁 <strong>Collections.synchronizedMap() vs ConcurrentHashMap</strong></summary>
-
-### 1. Collections.synchronizedMap(Map\<K, V>)
-
-* Wraps a regular map with synchronized methods.
-* Synchronizes on the entire map for every operation.
-* Slower under high concurrency due to full-map lock.
-* Manual synchronization needed during iteration.
-
-```java
-Map<String, String> map = Collections.synchronizedMap(new HashMap<>());
-synchronized (map) {
-    for (Map.Entry<String, String> entry : map.entrySet()) {
-        System.out.println(entry.getKey() + " -> " + entry.getValue());
+        oddThread.start();
+        evenThread.start();
     }
 }
 ```
 
+🟡 Uses `synchronized`, `wait()` and `notify()` for thread coordination.
+🟢 Output: Alternating odd and even numbers, starting with odd.
+
 ---
 
-### 2. [ConcurrentHashMap\<K, V>](https://javahungry.blogspot.com/2015/02/how-concurrenthashmap-works-in-java-internal-implementation.html)
-
-* Fine-grained locking or lock-free (Java 8+).
-* Allows concurrent access without blocking readers.
-* Weakly consistent iterator (no ConcurrentModificationException).
-* Best for high-concurrency scenarios.
+## ⚙️ 2️⃣ Using `ExecutorService` + `Lock` + `Condition`
 
 ```java
-Map<String, String> map = new ConcurrentHashMap<>();
-map.put("A", "Apple");
-map.put("B", "Banana");
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-for (Map.Entry<String, String> entry : map.entrySet()) {
-    System.out.println(entry.getKey() + " -> " + entry.getValue());
+public class OddEvenExecutorExample {
+    private final int limit = 10;
+    private int number = 1;
+
+    private final Lock lock = new ReentrantLock();
+    private final Condition oddTurn = lock.newCondition();
+    private final Condition evenTurn = lock.newCondition();
+
+    public void printOdd() {
+        while (number <= limit) {
+            lock.lock();
+            try {
+                if (number % 2 == 0) {
+                    oddTurn.await();
+                } else {
+                    System.out.println("Odd : " + number);
+                    number++;
+                    evenTurn.signal();
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } finally {
+                lock.unlock();
+            }
+        }
+    }
+
+    public void printEven() {
+        while (number <= limit) {
+            lock.lock();
+            try {
+                if (number % 2 == 1) {
+                    evenTurn.await();
+                } else {
+                    System.out.println("Even: " + number);
+                    number++;
+                    oddTurn.signal();
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } finally {
+                lock.unlock();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        OddEvenExecutorExample printer = new OddEvenExecutorExample();
+
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        executor.submit(printer::printOdd);
+        executor.submit(printer::printEven);
+
+        executor.shutdown();
+    }
 }
 ```
 
----
-
-### ⚖️ Key Differences
-
-| Feature           | `Collections.synchronizedMap()` | `ConcurrentHashMap`  |
-| ----------------- | ------------------------------- | -------------------- |
-| Locking Mechanism | Entire map                      | Fine-grained locking |
-| Concurrency       | Low                             | High                 |
-| Read Operations   | Blocking                        | Lock-free (Java 8+)  |
-| Write Operations  | Full lock                       | Partial locking      |
-| Iteration Safety  | Must synchronize manually       | Weakly consistent    |
-| Null Keys/Values  | ✅ Yes                           | ❌ No (NPE thrown)    |
-| Performance       | Lower under contention          | High scalability     |
-
----
-
-### 🧭 When to Use What?
-
-* ✅ Use `Collections.synchronizedMap()` when:
-
-  * Few concurrent threads
-  * You need `null` keys/values
-  * Simplicity is more important than performance
-
-* ✅ Use `ConcurrentHashMap` when:
-
-  * High concurrency & performance is required
-  * Safe iteration without locking is needed
-  * `null` keys/values are not needed
-
----
-
-### ❗ Why ConcurrentHashMap Disallows Nulls?
-
-* Prevents ambiguity in `map.get(key)`:
-
-  * `null` might mean missing key or `null` value.
-* Avoids needing extra synchronization for `null` checks.
-* Ensures safe concurrent computation.
-
-</details>
-
-
+🟢 Uses `ReentrantLock`, `Condition`, and `ExecutorService`.
+🔒 Offers **better control** in multithreaded systems.
 
 ---
 
 # 🧩 Design Patterns in Java
+
+- [🔒 Singleton Pattern](#-singleton-pattern)
+- [🏭 Factory Pattern](#-factory-pattern)
+- [🏭🏢 Abstract Factory Pattern](#-abstract-factory-pattern)
+- [🏗️ Builder Pattern](#-builder-pattern)
+- [🔌 Adapter Pattern](#-adapter-pattern)
+- [🎨 Decorator Pattern](#-decorator-pattern)
+- [👀 Observer Pattern](#-observer-pattern)
+- [🧠 Strategy Pattern](#-strategy-pattern)
+- [🕹️ Command Pattern](#-command-pattern)
+- [📐 MVC Pattern](#-mvc-pattern)
 
 <details>
 <summary>🧩 <strong>Design Patterns in Java</strong></summary>
@@ -4346,7 +5235,7 @@ class Invoker {
 * URI syntax:
   `scheme:[//authority]path[?query][#fragment]`
 
-![UrlUri.png](images/UrlUri.png)
+![UrlUri.png](images/SpringBoot/UrlUri.png)
 
 ### Tabular Comparison
 
@@ -4354,7 +5243,7 @@ class Invoker {
 | ----------------------------------------------------------- | --------------------------------------------------------- |
 | Uniform Resource Locator: Contains info to fetch a resource | Uniform Resource Identifier: Identifies a resource        |
 | `<Protocol><domain><path>`                                  | `<protocol>://<service-name>/<ResourceType>/<ResourceID>` |
-| ![img\_15.png](images/img_15.png)                           | ![img\_14.png](images/img_14.png)                         |
+| ![img\_15.png](images/SpringBoot/URI-URN-Domain-Path.png)                           | ![img\_14.png](images/SpringBoot/URI-URN.png)                         |
 
 </details>
 
@@ -4389,7 +5278,7 @@ class Invoker {
 <details>
 <summary>📋 <strong>Loggers Overview</strong></summary>
 
-![Loggers.png](images/Loggers.png)
+![Loggers.png](images/SpringBoot/Loggers.png)
 
 * Commonly used loggers: SLF4J, Log4j2, java.util.logging, Logback.
 * Helps in decoupling code from the logging implementation.
@@ -4411,7 +5300,7 @@ flowchart TB
     A -- Strong (Tight Coupling) --> C[Composition]
 ```
 
-![AssosiationAggregation.png](images/AssosiationAggregation.png)
+![AssosiationAggregation.png](images/JavaBasic/AssosiationAggregation.png)
 
 * Spring Boot MongoDB Join Example: [Link](https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html)
 
@@ -5954,7 +6843,7 @@ Both `a` and `b` are independent, but updates trigger invalidations on the same 
 
 ---
 
-## ✅ **Summary Table**
+#### ✅ **Summary Table**
 
 | #  | Topic                               | Key Takeaway                                           |
 | -- | ----------------------------------- | ------------------------------------------------------ |

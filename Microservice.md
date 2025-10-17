@@ -303,7 +303,7 @@ It directs incoming requests to a randomly selected server from the available po
 It directs incoming requests to the server currently utilizing the least amount of bandwidth.  
 This approach helps to ensure that servers are not overwhelmed by network traffic.
 
-![LoadBalancingAlgo](images/LoadBalancingAlgos.png)
+![LoadBalancingAlgo](images/SpringBoot/LoadBalancingAlgos.png)
 
 </details>
 
@@ -816,7 +816,7 @@ The **Strangler Fig Pattern** is a migration strategy used to **gradually replac
 ### 🧠 **How It Works**
 
 | Phase                             | Description                                                                                                           |
-| --------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+|-----------------------------------|-----------------------------------------------------------------------------------------------------------------------|
 | **1. Identify Boundaries**        | Choose a part of the legacy system (e.g., a module or service) that can be separated.                                 |
 | **2. Create Proxy/Routing Layer** | Use a façade or API Gateway to intercept requests and direct some to the legacy system and some to new microservices. |
 | **3. Replace Incrementally**      | One piece at a time, rewrite legacy functionality as a microservice and update routing.                               |

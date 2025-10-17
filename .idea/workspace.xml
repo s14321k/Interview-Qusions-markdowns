@@ -5,8 +5,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="new additions and changes">
+      <change afterPath="$PROJECT_DIR$/images/SpringBoot/APIcode.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CICD.md" beforeDir="false" afterPath="$PROJECT_DIR$/CICD.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaBasic.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaBasic.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice.md" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL.md" beforeDir="false" afterPath="$PROJECT_DIR$/SQL.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/AnnotationCachingSpringBoot.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/AnnotationCachingSpringBoot.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/AnnotationEntityGraph.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/AnnotationEntityGraph.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/AnnotationGlobalException.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/AnnotationGlobalException.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/ArrayListVsLinkedList.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/ArrayListVsLinkedList.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/AssosiationAggregation.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/AssosiationAggregation.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/CacheFlow.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/CacheFlow.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/CallableVsRunnable.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/CallableVsRunnable.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Checked_UnChecked.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/Checked_UnChecked.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Cohesion.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/Cohesion.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Coupling.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/Coupling.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/FinalKeyWord.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/FinalKeyWord.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/HeapPermgenSpace.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/HeapPermgenSpace.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/ListQueueSet.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/ListQueueSet.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/LoadBalancingAlgos.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/LoadBalancingAlgos.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/Loggers.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/Loggers.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/SpringMvcLifeCycle.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/SpringMvcLifeCycle.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/StringBufferBuilder.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/StringBufferBuilder.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/UrlUri.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/UrlUri.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/doublyLinkedList.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/doublyLinkedList.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/equalsHashCode.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/equalsHashCode.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/equalsVsDoubleEqual.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/equalsVsDoubleEqual.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/img_12.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/SpringBootFlow.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/img_13.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/SpringBootFlow2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/img_14.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/URI-URN.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/img_15.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/URI-URN-Domain-Path.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/img_17.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/beanLifeCycle.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/img_18.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/ControllerVsRestController.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/img_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/oneToOneRelation.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/img_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/oneToManyRelation.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/img_4.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/ManyToOneRelation.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/img_5.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/ManyToManyRelation.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/permGenVsMetaData.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/permGenVsMetaData.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/singlyLinkedList.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/singlyLinkedList.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/singlyVsDouble1.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/singlyVsDouble1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/singlyVsDouble2.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/singlyVsDouble2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/staticVsDynamicBinding.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/staticVsDynamicBinding.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +118,8 @@
       <recent name="D:\Intell\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Git\Angular\Java-Interview-Qus\images\SpringBoot" />
+      <recent name="D:\Git\Angular\Java-Interview-Qus\images\JavaBasic" />
       <recent name="D:\Intell\images" />
       <recent name="D:\Git\Angular\Java-Interview-Qus\images" />
     </key>
@@ -101,19 +144,6 @@
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
       <method v="2" />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Intell" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Intell" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
       <module name="Intell" />
@@ -174,6 +204,19 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Intell" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Intell" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
   </component>
   <component name="SharedIndexes">

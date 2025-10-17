@@ -114,9 +114,9 @@ WHERE e.salary > m.salary;
 
 | Type                      | Description         | Image                                                      |
 | ------------------------- | ------------------- | ---------------------------------------------------------- |
-| One to One                | 1 record ↔ 1 record | ![img\_2](images/img_2.png)                                |
-| One to Many / Many to One | 1 record ↔ many     | ![img\_3](images/img_3.png)<br>![img\_4](images/img_4.png) |
-| Many to Many              | many ↔ many         | ![img\_5](images/img_5.png)                                |
+| One to One                | 1 record ↔ 1 record | ![img\_2](images/oneToOneRelation.png)                                |
+| One to Many / Many to One | 1 record ↔ many     | ![img\_3](images/oneToManyRelation.png)<br>![img\_4](images/ManyToOneRelation.png) |
+| Many to Many              | many ↔ many         | ![img\_5](images/ManyToManyRelation.png)                                |
 
 🔗 [Javatpoint Article](https://www.javatpoint.com/types-of-relationship-in-database-table)
 
