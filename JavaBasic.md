@@ -2145,8 +2145,7 @@ Comparator<Student> nameComparator = (s1, s2) -> s1.name.compareTo(s2.name);
 
 ---
 
-<details>
-<summary>## 🌐 Collections Hierarchy Overview</summary>
+### 🌐 Collections Hierarchy Overview
 
 ```mermaid
 flowchart TD
@@ -2178,12 +2177,9 @@ flowchart TD
     Map --> TreeMap["TreeMap"]
 ```
 
-</details>
-
 ---
 
-<details>
-<summary>## 🧭 Interactive Decision Flowchart: Pick the Right Collection</summary>
+### 🧭 Interactive Decision Flowchart: Pick the Right Collection
 
 ```mermaid
 flowchart TD
@@ -2233,12 +2229,9 @@ flowchart TD
     HashSet --> AfterSelection
 ```
 
-</details>
-
 ---
 
-<details>
-<summary>🧠 Example Scenarios</summary>
+#### 🧠 Example Scenarios
 
 #### 1. You need to store data with keys and values and want to sort them by keys:
 
@@ -2256,15 +2249,12 @@ flowchart TD
 
 → `LinkedHashMap` + `Collections.synchronizedMap(...)`
 
-</details>
-
 ---
 
-<details>
-<summary>🧰 Summary Table</summary>
+#### 🧰 Summary Table
 
 | Need                           | Collection                                                           |
-| ------------------------------ | -------------------------------------------------------------------- |
+|--------------------------------|----------------------------------------------------------------------|
 | Key-value with sorted keys     | `TreeMap`                                                            |
 | Key-value with insertion order | `LinkedHashMap`                                                      |
 | Simple key-value (no order)    | `HashMap`                                                            |
@@ -2275,24 +2265,21 @@ flowchart TD
 | Unique, no order               | `HashSet`                                                            |
 | Thread safety                  | `ConcurrentHashMap`, `CopyOnWriteArrayList`, `synchronizedMap`, etc. |
 
-</details>
-
 ---
 
-<details>
-<summary>🛠 Core Interfaces and Key Differences</summary>
+## 🛠 Core Interfaces and Key Differences
 
 ### Iterable vs Collection
 
 | Interface    | Role                                   |
-| ------------ | -------------------------------------- |
+|--------------|----------------------------------------|
 | `Iterable`   | Root interface for iteration           |
 | `Collection` | Base interface for Lists, Sets, Queues |
 
 ### Iterator vs Enumeration
 
 | Feature        | Iterator                                      | Enumeration                                    |
-| -------------- | --------------------------------------------- | ---------------------------------------------- |
+|----------------|-----------------------------------------------|------------------------------------------------|
 | Remove Element | ✅ Allows remove() during traversal            | ❌ Read-only; cannot modify                     |
 | Coverage       | Universal cursor (works with all collections) | Only for legacy classes like Vector, Hashtable |
 | Method Support | hasNext(), next(), remove()                   | hasMoreElements(), nextElement()               |
@@ -2300,8 +2287,6 @@ flowchart TD
 | Used For       | All modern collections                        | Legacy (Vector, Hashtable)                     |
 | Thread Safety  | Not thread-safe by default                    | ❌ Not thread-safe                              |
 | Fail-fast      | ✅                                             | ❌                                              |
-
-</details>
 
 ---
 
@@ -2721,7 +2706,7 @@ Now Bucket[i] points to:
 
 ---
 
-## ⚙️ Behind the Scenes: Key Conditions
+### ⚙️ Behind the Scenes: Key Conditions
 
 | Feature         | Condition (When It Happens)                                                                  |
 |-----------------|----------------------------------------------------------------------------------------------|
@@ -2732,7 +2717,7 @@ Now Bucket[i] points to:
 
 ---
 
-## 📊 Quick Summary Table
+### 📊 Quick Summary Table
 
 | Key Concept                 | Default Value / Behavior     |
 |-----------------------------|------------------------------|
@@ -2745,7 +2730,7 @@ Now Bucket[i] points to:
 
 ---
 
-## 🧪 How It Helps
+### 🧪 How It Helps
 
 * **Resizing** ensures the map doesn’t get too crowded → keeps lookup fast
 * **Treeify** ensures performance doesn't degrade with many hash collisions
@@ -2753,7 +2738,7 @@ Now Bucket[i] points to:
 
 ---
 
-## ✅ Final Notes
+### ✅ Final Notes
 
 * Java 8 introduced **treeification** for performance improvements
 * You don’t see this as a user, but it **silently keeps `HashMap` fast**
@@ -2761,7 +2746,7 @@ Now Bucket[i] points to:
 
 ---
 
-## 🧠 Imagine This First...
+### 🧠 Imagine This First...
 
 Think of a **HashMap like a school locker system**:
 
@@ -2777,7 +2762,7 @@ That’s how a **HashMap** works!
 
 ---
 
-## 🔍 Key Concepts (Simple Terms)
+### 🔍 Key Concepts (Simple Terms)
 
 | Term          | Meaning (Easy Explanation)                           |
 |---------------|------------------------------------------------------|
@@ -2789,9 +2774,9 @@ That’s how a **HashMap** works!
 
 ---
 
-## 🔄 Flow of How HashMap Works (Step-by-Step)
+### 🔄 Flow of How HashMap Works (Step-by-Step)
 
-### Let's say:
+#### Let's say:
 
 ```java
 map.put("Apple", "Red");
@@ -2858,7 +2843,7 @@ map.get("Banana");
 
 ---
 
-## 🧱 ASCII Diagram: Internal Working of HashMap
+#### 🧱 ASCII Diagram: Internal Working of HashMap
 
 ```
                ┌───────────────┐
@@ -2895,7 +2880,7 @@ Index 7:
 
 ---
 
-## ⚙️ Internally (Technical, but simple)
+### ⚙️ Internally (Technical, but simple)
 
 * Uses an **array of buckets**
 * Each bucket is a **linked list** or **tree** (if too many items)
@@ -2904,7 +2889,7 @@ Index 7:
 
 ---
 
-## 📌 Summary (Even Simpler)
+### 📌 Summary (Even Simpler)
 
 | What You Do       | What HashMap Does Internally         |
 | ----------------- | ------------------------------------ |
@@ -2937,7 +2922,7 @@ Because **regular `HashMap` is not thread-safe**. In a multithreaded program:
 
 ---
 
-## 🔍 How It Differs from HashMap
+### 🔍 How It Differs from HashMap
 
 | Feature                      | HashMap                      | ConcurrentHashMap                        |
 | ---------------------------- | ---------------------------- | ---------------------------------------- |
@@ -2949,11 +2934,11 @@ Because **regular `HashMap` is not thread-safe**. In a multithreaded program:
 
 ---
 
-## ⚙️ Internal Working (Java 8 and above)
+### ⚙️ Internal Working (Java 8 and above)
 
 In **Java 8**, `ConcurrentHashMap` uses a **lock-free, non-blocking approach** for most operations, with **segment-like behavior** for write safety.
 
-### 🔩 Core Concepts:
+#### 🔩 Core Concepts:
 
 * **Bucket Array (like HashMap)**: Holds data
 * **Synchronized only parts** of the array (not the whole map)
@@ -2966,7 +2951,7 @@ In **Java 8**, `ConcurrentHashMap` uses a **lock-free, non-blocking approach** f
 
 ---
 
-## 🔄 Insertion Flow (Put Operation)
+### 🔄 Insertion Flow (Put Operation)
 
 Let’s break it down step-by-step:
 
@@ -2988,7 +2973,7 @@ Thread 2 → map.put("B", 200);
 
 ---
 
-### 🧱 ASCII Diagram of ConcurrentHashMap (Simplified)
+#### 🧱 ASCII Diagram of ConcurrentHashMap (Simplified)
 
 ```
 +-------------------------------+
@@ -3010,7 +2995,7 @@ Multiple threads:
 
 ---
 
-## 🧪 Read Operation (Get)
+### 🧪 Read Operation (Get)
 
 * **Fully non-blocking**
 * Multiple threads can **read without locks**
@@ -3018,7 +3003,7 @@ Multiple threads:
 
 ---
 
-## 🔐 Treeification & Resizing
+### 🔐 Treeification & Resizing
 
 * Just like `HashMap`, if too many collisions in a bucket, it **treeifies** to Red-Black Tree.
 * Resizing is done using **thread-safe cooperative techniques**:
@@ -3028,7 +3013,7 @@ Multiple threads:
 
 ---
 
-## 🚨 What It Doesn’t Do
+### 🚨 What It Doesn’t Do
 
 * Doesn’t support `null` **keys or values**:
 
@@ -3039,7 +3024,7 @@ Multiple threads:
 
 ---
 
-## ✅ When to Use ConcurrentHashMap
+### ✅ When to Use ConcurrentHashMap
 
 | Use Case                             | Recommendation |
 |--------------------------------------|----------------|
@@ -3050,7 +3035,7 @@ Multiple threads:
 
 ---
 
-## 📌 Summary
+### 📌 Summary
 
 | Feature          | Details                      |
 |------------------|------------------------------|
@@ -3103,7 +3088,7 @@ for (Map.Entry<String, String> entry : map.entrySet()) {
 
 ---
 
-### ⚖️ Key Differences
+#### ⚖️ Key Differences
 
 | Feature           | `Collections.synchronizedMap()` | `ConcurrentHashMap`  |
 | ----------------- | ------------------------------- | -------------------- |
