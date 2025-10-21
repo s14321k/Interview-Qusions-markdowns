@@ -18,6 +18,57 @@
 🔹 Java + Microservices → Scalable Services
 🔹 Java + Spring AI → AI-powered Applications 🤖
 
+## PHASE 1 - Basics
+
+• Creating a spring boot project using spring initializr
+• Maven and gradle build tools
+• Annotations
+• Profiles and environment-specific configurations
+• @getmapping, @postmapping, @putmapping, @deletemapping
+• Handling path variables and request parameters
+• Setting up database connection (h2, mysql, postgresql)
+• Using jparepository and crudrepository
+• Introduction to spring boot devtools
+• Enabling hot reloading
+• Spring batch, scheduling and cron expressions
+
+
+## PHASE 2 - Intermediate
+
+• Using @controlleradvice and @exceptionhandler
+• Custom error responses and exception classes
+• Global exception handling
+• Basic authentication
+• Configuring security for apis
+• Implementing jwt (json web tokens) for stateless authentication
+• Introduction to hateoas
+• Versioning rest apis (uri, parameter, headers)
+• Unit testing with junit and mockito
+• Writing integration tests with spring boot test
+• Testing restful services with mockmvc
+• Exploring actuator endpoints
+• Creating custom health indicators
+
+
+## PHASE 3 - Advanced
+
+• Using @profile annotation
+• Configuring environment-specific beans
+• Switching profiles for different environments
+• Setting up a spring cloud project
+• Key components of spring cloud
+• Setting up eureka server
+• Registering microservices with eureka
+• Service discovery in action
+• Introduction to api gateway
+• Setting up spring cloud gateway
+• Configuring routes and filters
+• Setting up spring cloud config server
+• Managing configuration in a centralized repository
+• Configuring spring boot applications to use config server
+
+![springBootRoadMap](images/SpringBoot/SpringBootRoadMap.gif)
+
 ## [Top 15 Q&A](https://www.java67.com/2018/06/top-15-spring-boot-interview-questions-answers-java-jee-programmers.html)
 
 <details>
@@ -3190,6 +3241,24 @@ private Optional<SomeBean> someBean;
   Saves an entity and immediately flushes changes to the database (committing within the transaction).
 
 🔗 [Baeldung on Propagation & Isolation](https://www.baeldung.com/spring-transactional-propagation-isolation)
+
+![RollBack](images/SpringBoot/RollBack.jpg)
+
+When we call processRefund() from inside the same class, this is a direct method call (self-invocation).
+
+- It never goes through the Spring proxy.
+
+- As a result, the @Transactional annotation is ignored.
+
+- No rollback occurs when the exception is thrown.
+
+So,
+
+**Self-invocation problem:**
+
+1. Transactional methods must be invoked via a Spring proxy.
+
+2. Direct method calls inside the same class bypass transaction handling.
 
 </details>
 
@@ -8146,7 +8215,185 @@ Server failed to process a valid request.
 - All calls to graphQL are post calls.
 - GraphQlQueryResolver is used instead of JPARepo.
 
+## ⚔️ REST API vs. GraphQL
 
+---
 
+<details>
+<summary><strong>REST API</strong></summary>
 
+- Uses standard HTTP methods like **GET**, **POST**, **PUT**, **DELETE** for CRUD operations.
+- Works well when you need **simple, uniform interfaces** between separate services or applications.
+- **Caching strategies** are straightforward to implement.
+- The downside is it may require **multiple round trips** to assemble related data from separate endpoints.
+
+</details>
+
+---
+
+<details>
+<summary><strong>GraphQL</strong></summary>
+
+- Provides a **single endpoint** for clients to query precisely the data they need.
+- Clients specify the **exact fields** required in nested queries, and the server returns **optimized payloads** containing just those fields.
+- Supports **Mutations** (for modifying data) and **Subscriptions** (for real-time notifications).
+- Excellent for **aggregating data** from multiple sources and adapting to **rapidly evolving frontend requirements**.
+- However, it shifts **complexity to the client** and can allow **abusive queries** if not properly safeguarded.
+- **Caching strategies** can be more complicated than in REST.
+
+</details>
+
+[RestVsGraphQl](images/SpringBoot/RestVsGraphQl.jpg)
+
+# Top 6 API Styles: Choosing the Best Fit for Your Project
+
+APIs are the backbone of modern software, enabling smooth integration and communication between systems. Here’s a look at the top six API architecture styles and when to use each:
+
+[Top6Api](images/SpringBoot/TOP6API.gif)
+
+---
+
+### 1. **SOAP (Simple Object Access Protocol)**
+**Best for:** Enterprise applications needing a standardized, secure protocol.  
+SOAP offers strong typing and robust security features, making it ideal for complex and regulated environments.
+
+---
+
+### 2. **RESTful (Representational State Transfer)**
+**Best for:** Web services, especially public-facing applications.  
+It prioritizes simplicity and scalability with a stateless, resource-oriented design that enables efficient client-server communication.
+
+---
+
+### 3. **GraphQL**
+**Best for:** Scenarios requiring flexible, client-driven data retrieval.  
+Clients can specify exactly what data they need, reducing over-fetching and under-fetching, and optimizing performance.
+
+---
+
+### 4. **gRPC**
+**Best for:** High-performance, low-latency communication in microservices architectures.  
+It supports efficient serialization and bi-directional streaming, making it ideal for real-time apps and distributed systems.
+
+---
+
+### 5. **WebSockets**
+**Best for:** Real-time, bidirectional communication (e.g., chat apps, online gaming).  
+Persistent connections allow instant data updates and seamless user interaction.
+
+---
+
+### 6. **Webhooks**
+**Best for:** Event-driven systems.  
+They let applications react to events in real time, making them perfect for notifications and automated actions.
+
+---
+
+### 🧭 **Conclusion**
+Choosing the right API style enhances **performance**, **scalability**, and **user experience** by aligning architectural strengths with project needs.
+
+---
+
+# 🧠 Mastering APIs
+
+---
+
+<details>
+<summary><strong>1. Introduction to APIs</strong></summary>
+
+💡 **Definition of API:**  
+An API is a set of rules and protocols that allows different software applications to communicate with each other.
+
+✅️ **Types of APIs:**
+- **Public:** Openly available for any developers.
+- **Private:** Restricted for internal use within an organization.
+- **Partner:** Shared with specific partners.
+- **Composite APIs:** Combine multiple APIs into one, allowing complex operations to be executed with a single call.
+
+</details>
+
+---
+
+<details>
+<summary><strong>2. API Architectures</strong></summary>
+
+💡 **Describes different architectural styles for designing APIs:**
+
+- **REST:** Representational State Transfer, a widely used architectural style leveraging standard HTTP methods.
+- **GraphQL:** A query language for APIs allowing clients to specify exactly what data they need.
+- **SOAP:** Simple Object Access Protocol, a protocol for exchanging structured information.
+- **gRPC:** A high-performance RPC framework using HTTP/2.
+- **WebSockets:** Enables real-time, two-way communication between client and server.
+- **Webhooks:** Allow servers to send callbacks to clients when events occur.
+- **AMQP:** Advanced Message Queuing Protocol for messaging.
+- **MQTT:** Lightweight messaging protocol for small sensors and devices.
+
+</details>
+
+---
+
+<details>
+<summary><strong>3. API Security</strong></summary>
+
+💡 **Focuses on securing APIs to prevent unauthorized access:**
+
+- **Authentication:** Verifies the identity of a user or application.
+- **OAuth:** Standard for token-based authorization.
+- **JWT:** JSON Web Tokens for secure data transmission.
+- **Basic Authentication:** Uses username and password.
+- **Rate Limiting:** Controls the number of API calls a client can make in a certain time.
+- **Encryption:** Secures data in transit using protocols like TLS/SSL.
+- **Authorization:** Ensures that authenticated users have permission to perform specific actions.
+
+</details>
+
+---
+
+<details>
+<summary><strong>4. API Design Best Practices</strong></summary>
+
+🔧 **Principles to create robust APIs:**
+
+- **RESTful Conventions:** Following REST principles for resource design.
+- **Versioning:** Managing API updates without breaking existing clients.
+- **Pagination:** Handling large data sets efficiently.
+- **HATEOAS:** Hypermedia as the engine of application state, guiding clients through available actions.
+
+</details>
+
+---
+
+<details>
+<summary><strong>5. API Documentation</strong></summary>
+
+💡 **Guides developers on how to use APIs:**
+
+- **Swagger:** OpenAPI specification, a powerful tool for API documentation.
+- **Postman:** Platform for testing APIs.
+- **OpenAPI Specification:** Standard that defines how APIs should be described.
+- **Redoc:** API documentation generator.
+
+</details>
+
+---
+
+<details>
+<summary><strong>6. API Testing</strong></summary>
+
+💡 **Tools and frameworks to test APIs:**
+
+- **Postman:** For manual and automated testing.
+- **SoapUI:** Testing SOAP and REST APIs.
+- **Katalon Studio:** Automation testing.
+- **Insomnia:** REST client for debugging APIs.
+- **JMeter:** Performance testing.
+- **Pact:** Consumer-driven contract testing.
+- **Karate:** API testing automation.
+- **Rest-Assured:** Java library for testing REST services.
+- **Newman:** CLI agent for Postman collections.
+- **Cypress:** End-to-end testing.
+
+</details>
+
+[Mastering API](images/SpringBoot/Mastering%20API.gif)
 

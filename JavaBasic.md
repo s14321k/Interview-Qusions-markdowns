@@ -126,10 +126,15 @@
   * [Summary](#summary)
 * [🧱 Java Collections Framework Guide](#-java-collections-framework-guide)
   * [🔍 Why Collections Framework?](#-why-collections-framework)
+    * [🌐 Collections Hierarchy Overview](#-collections-hierarchy-overview)
+    * [🧭 Interactive Decision Flowchart: Pick the Right Collection](#-interactive-decision-flowchart-pick-the-right-collection)
+      * [🧠 Example Scenarios](#-example-scenarios)
       * [1. You need to store data with keys and values and want to sort them by keys:](#1-you-need-to-store-data-with-keys-and-values-and-want-to-sort-them-by-keys)
       * [2. You want to store a list of names with duplicates and access by index:](#2-you-want-to-store-a-list-of-names-with-duplicates-and-access-by-index)
       * [3. You want to store a set of unique cities, and order doesn’t matter:](#3-you-want-to-store-a-set-of-unique-cities-and-order-doesnt-matter)
       * [4. You want to store key-value pairs with insertion order preserved and need thread safety:](#4-you-want-to-store-key-value-pairs-with-insertion-order-preserved-and-need-thread-safety)
+      * [🧰 Summary Table](#-summary-table-1)
+  * [🛠 Core Interfaces and Key Differences](#-core-interfaces-and-key-differences)
     * [Iterable vs Collection](#iterable-vs-collection)
     * [Iterator vs Enumeration](#iterator-vs-enumeration)
     * [Collection Interface Methods](#collection-interface-methods)
@@ -158,37 +163,37 @@
     * [**Example**](#example-2)
   * [🔁 What Is Treeify and Threshold?](#-what-is-treeify-and-threshold)
   * [🧩 Final Full ASCII Diagram with Treeify and Threshold](#-final-full-ascii-diagram-with-treeify-and-threshold)
-  * [⚙️ Behind the Scenes: Key Conditions](#-behind-the-scenes-key-conditions)
-  * [📊 Quick Summary Table](#-quick-summary-table)
-  * [🧪 How It Helps](#-how-it-helps)
-  * [✅ Final Notes](#-final-notes)
-  * [🧠 Imagine This First...](#-imagine-this-first)
-  * [🔍 Key Concepts (Simple Terms)](#-key-concepts-simple-terms)
-  * [🔄 Flow of How HashMap Works (Step-by-Step)](#-flow-of-how-hashmap-works-step-by-step)
-    * [Let's say:](#lets-say)
+    * [⚙️ Behind the Scenes: Key Conditions](#-behind-the-scenes-key-conditions)
+    * [📊 Quick Summary Table](#-quick-summary-table)
+    * [🧪 How It Helps](#-how-it-helps)
+    * [✅ Final Notes](#-final-notes)
+    * [🧠 Imagine This First...](#-imagine-this-first)
+    * [🔍 Key Concepts (Simple Terms)](#-key-concepts-simple-terms)
+    * [🔄 Flow of How HashMap Works (Step-by-Step)](#-flow-of-how-hashmap-works-step-by-step)
+      * [Let's say:](#lets-say)
     * [Step 1: **Key is Hashed**](#step-1-key-is-hashed)
     * [Step 2: **Find the Right Bucket**](#step-2-find-the-right-bucket)
     * [Step 3: **Handle Collisions (Chaining)**](#step-3-handle-collisions-chaining)
     * [Step 4: **Retrieving a Value (get method)**](#step-4-retrieving-a-value-get-method)
-  * [🧱 ASCII Diagram: Internal Working of HashMap](#-ascii-diagram-internal-working-of-hashmap)
+      * [🧱 ASCII Diagram: Internal Working of HashMap](#-ascii-diagram-internal-working-of-hashmap)
     * [🔁 If there's a collision:](#-if-theres-a-collision)
-  * [⚙️ Internally (Technical, but simple)](#-internally-technical-but-simple)
-  * [📌 Summary (Even Simpler)](#-summary-even-simpler)
+    * [⚙️ Internally (Technical, but simple)](#-internally-technical-but-simple)
+    * [📌 Summary (Even Simpler)](#-summary-even-simpler)
   * [🧠 What Is ConcurrentHashMap?](#-what-is-concurrenthashmap)
     * [✅ Why Use It?](#-why-use-it)
-  * [🔍 How It Differs from HashMap](#-how-it-differs-from-hashmap)
-  * [⚙️ Internal Working (Java 8 and above)](#-internal-working-java-8-and-above)
-    * [🔩 Core Concepts:](#-core-concepts)
-  * [🔄 Insertion Flow (Put Operation)](#-insertion-flow-put-operation)
-    * [🧱 ASCII Diagram of ConcurrentHashMap (Simplified)](#-ascii-diagram-of-concurrenthashmap-simplified)
-  * [🧪 Read Operation (Get)](#-read-operation-get)
-  * [🔐 Treeification & Resizing](#-treeification--resizing)
-  * [🚨 What It Doesn’t Do](#-what-it-doesnt-do)
-  * [✅ When to Use ConcurrentHashMap](#-when-to-use-concurrenthashmap)
-  * [📌 Summary](#-summary-1)
+    * [🔍 How It Differs from HashMap](#-how-it-differs-from-hashmap)
+    * [⚙️ Internal Working (Java 8 and above)](#-internal-working-java-8-and-above)
+      * [🔩 Core Concepts:](#-core-concepts)
+    * [🔄 Insertion Flow (Put Operation)](#-insertion-flow-put-operation)
+      * [🧱 ASCII Diagram of ConcurrentHashMap (Simplified)](#-ascii-diagram-of-concurrenthashmap-simplified)
+    * [🧪 Read Operation (Get)](#-read-operation-get)
+    * [🔐 Treeification & Resizing](#-treeification--resizing)
+    * [🚨 What It Doesn’t Do](#-what-it-doesnt-do)
+    * [✅ When to Use ConcurrentHashMap](#-when-to-use-concurrenthashmap)
+    * [📌 Summary](#-summary-1)
     * [1. Collections.synchronizedMap(Map\<K, V>)](#1-collectionssynchronizedmapmapk-v)
     * [2. ConcurrentHashMap\<K, V>](#2-concurrenthashmapk-v-)
-    * [⚖️ Key Differences](#-key-differences)
+      * [⚖️ Key Differences](#-key-differences)
     * [🧭 When to Use What?](#-when-to-use-what)
     * [❗ Why ConcurrentHashMap Disallows Nulls?](#-why-concurrenthashmap-disallows-nulls)
   * [🛡️ Summary: When to Use What?](#-summary-when-to-use-what)
@@ -258,7 +263,7 @@
   * [🔒 4. Synchronized Block (Inside a Method)](#-4-synchronized-block-inside-a-method)
   * [🚀 5. Asynchronous Block (Inside a Method)](#-5-asynchronous-block-inside-a-method)
   * [🔗 6. Combining Both (Synchronized + Asynchronous)](#-6-combining-both-synchronized--asynchronous)
-      * [🧠 Summary Table](#-summary-table-1)
+      * [🧠 Summary Table](#-summary-table-2)
     * [🧩 Example Combo](#-example-combo)
     * [✅ Synchronized](#-synchronized)
     * [❌ Non-Synchronized](#-non-synchronized)
@@ -356,7 +361,7 @@
     * [🔍 Example](#-example-10)
     * [🚫 Effect](#-effect-1)
     * [✅ Avoidance Techniques](#-avoidance-techniques)
-      * [✅ **Summary Table**](#-summary-table-2)
+      * [✅ **Summary Table**](#-summary-table-3)
 * [Junit](#junit)
   * [Junit mockito](#junit-mockito)
   * [Java Questions](#java-questions)
@@ -3234,6 +3239,17 @@ for (Map.Entry<String, String> entry : map.entrySet()) {
 ---
 
 <details>
+<summary>Variables in Java</summary>
+
+* **Local:** Inside method body; cannot be `static`.
+* **Instance:** Inside class body; each object has its own copy.
+* **Static:** Shared across all instances; memory allocated once when class loads.
+
+</details>
+
+---
+
+<details>
 <summary>Serialization & Deserialization</summary>
 
 - Serialization converts an object into a byte stream for storage or transmission.
@@ -3441,11 +3457,7 @@ public class Main {
 | **Serialization**   | Object → Byte stream     | Java’s native serialization    |
 | **Deserialization** | Byte stream → Object     | Reading back serialized object |
 
----
-
 </details>
-
-
 
 ---
 
@@ -3465,17 +3477,6 @@ Integer autoBoxedValue = 10;                // Autoboxing
 int unboxedValue = boxedValue.intValue();  // Unboxing
 int autoUnboxedValue = boxedValue;         // Auto-unboxing
 ```
-
-</details>
-
----
-
-<details>
-<summary>Variables in Java</summary>
-
-* **Local:** Inside method body; cannot be `static`.
-* **Instance:** Inside class body; each object has its own copy.
-* **Static:** Shared across all instances; memory allocated once when class loads.
 
 </details>
 
@@ -3593,8 +3594,6 @@ Runtime.getRuntime().gc();
 </details>
 
 ---
-
-
 
 ## Caching in java
 
@@ -4001,8 +4000,6 @@ public static void main(String[] args) throws InterruptedException {
 
 * ✅ `volatile` ensures **visibility** of changes between threads.
 * ❌ It does **not ensure atomicity** — if you had `running++` instead of a simple boolean flag, you’d still need synchronization or `AtomicInteger`.
-
----
 
 </details>
 
@@ -4946,6 +4943,10 @@ public class OddEvenExecutorExample {
 
 🟢 Uses `ReentrantLock`, `Condition`, and `ExecutorService`.
 🔒 Offers **better control** in multithreaded systems.
+
+</details>
+
+</details>
 
 ---
 

@@ -4,50 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="new additions and changes">
-      <change afterPath="$PROJECT_DIR$/images/SpringBoot/APIcode.png" afterDir="false" />
+    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="remove details">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CICD.md" beforeDir="false" afterPath="$PROJECT_DIR$/CICD.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DBPerformance/DbPerform.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GCP.md" beforeDir="false" afterPath="$PROJECT_DIR$/GCP.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaBasic.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaBasic.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaQuestions.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaQuestions.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Kuberneties.md" beforeDir="false" afterPath="$PROJECT_DIR$/Kuberneties.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Microservice.md" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SQL.md" beforeDir="false" afterPath="$PROJECT_DIR$/SQL.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/AnnotationCachingSpringBoot.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/AnnotationCachingSpringBoot.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/AnnotationEntityGraph.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/AnnotationEntityGraph.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/AnnotationGlobalException.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/AnnotationGlobalException.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/ArrayListVsLinkedList.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/ArrayListVsLinkedList.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/AssosiationAggregation.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/AssosiationAggregation.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/CacheFlow.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/CacheFlow.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/CallableVsRunnable.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/CallableVsRunnable.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/Checked_UnChecked.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/Checked_UnChecked.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/Cohesion.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/Cohesion.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/Coupling.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/Coupling.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/FinalKeyWord.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/FinalKeyWord.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/HeapPermgenSpace.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/HeapPermgenSpace.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/ListQueueSet.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/ListQueueSet.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/LoadBalancingAlgos.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/LoadBalancingAlgos.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/Loggers.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/Loggers.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/SpringMvcLifeCycle.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/SpringMvcLifeCycle.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/StringBufferBuilder.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/StringBufferBuilder.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/UrlUri.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/UrlUri.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/doublyLinkedList.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/doublyLinkedList.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/equalsHashCode.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/equalsHashCode.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/equalsVsDoubleEqual.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/equalsVsDoubleEqual.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/img_12.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/SpringBootFlow.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/img_13.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/SpringBootFlow2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/img_14.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/URI-URN.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/img_15.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/URI-URN-Domain-Path.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/img_17.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/beanLifeCycle.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/img_18.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/SpringBoot/ControllerVsRestController.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/img_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/oneToOneRelation.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/img_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/oneToManyRelation.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/img_4.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/ManyToOneRelation.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/img_5.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/ManyToManyRelation.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/permGenVsMetaData.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/permGenVsMetaData.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/singlyLinkedList.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/singlyLinkedList.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/singlyVsDouble1.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/singlyVsDouble1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/singlyVsDouble2.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/singlyVsDouble2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/staticVsDynamicBinding.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/JavaBasic/staticVsDynamicBinding.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/  .png" beforePathEscaped="$PROJECT_DIR$/images/𝐌𝐢𝐜𝐫𝐨𝐬𝐞𝐫𝐯𝐢𝐜𝐞𝐬 𝐃𝐞𝐬𝐢𝐠𝐧 𝐏𝐚𝐭𝐭𝐞𝐫𝐧𝐬.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/  .gif" afterPathEscaped="$PROJECT_DIR$/images/𝐌𝐢𝐜𝐫𝐨𝐬𝐞𝐫𝐯𝐢𝐜𝐞𝐬 𝐃𝐞𝐬𝐢𝐠𝐧 𝐏𝐚𝐭𝐭𝐞𝐫𝐧𝐬.gif" afterDir="false" />
+    </list>
+    <list id="85d93f7a-76e3-4a1a-8bb8-992724df3493" name="ide" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.edit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/kubernetes-settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,16 +39,38 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
+  &quot;lastFilter&quot;: {}
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/s14321k/Interview-Qusions-markdowns.git&quot;,
+    &quot;accountId&quot;: &quot;779f868d-e9f7-4dd3-9283-81697c857bd4&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="779f868d-e9f7-4dd3-9283-81697c857bd4" />
-        <option name="url" value="https://github.com/s14321k/Interview-Qusions-markdowns.git" />
-      </UrlAndAccount>
-    </option>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/.idea/workspace.xml">
+      <ranges>
+        <range start1="6" end1="8" start2="6" end2="7" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="9" end1="10" start2="8" end2="10" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="11" end1="11" start2="11" end2="13" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="14" end1="50" start2="16" end2="26" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="65" end1="67" start2="41" end2="42" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="68" end1="75" start2="43" end2="73" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="86" end1="87" start2="84" end2="84" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="93" end1="93" start2="90" end2="91" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="95" end1="95" start2="93" end2="95" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="98" end1="98" start2="98" end2="99" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="100" end1="100" start2="101" end2="102" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="111" end1="111" start2="113" end2="114" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="120" end1="120" start2="123" end2="124" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="224" end1="226" start2="228" end2="229" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="233" end1="233" start2="236" end2="237" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="320" end1="320" start2="324" end2="331" changelist="b8aa6009-274e-4246-a698-3123fcdc3310" />
+        <range start1="611" end1="612" start2="622" end2="647" changelist="85d93f7a-76e3-4a1a-8bb8-992724df3493" />
+        <range start1="631" end1="633" start2="666" end2="666" changelist="85d93f7a-76e3-4a1a-8bb8-992724df3493" />
+        <range start1="656" end1="657" start2="689" end2="692" changelist="85d93f7a-76e3-4a1a-8bb8-992724df3493" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -84,20 +82,24 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2ewfTbzlXuHBjEc1Woh2MKWpooO" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;false&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/Intell/pdf&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -109,6 +111,7 @@
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -118,6 +121,7 @@
       <recent name="D:\Intell\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Git\Angular\Java-Interview-Qus\DBPerformance" />
       <recent name="D:\Git\Angular\Java-Interview-Qus\images\SpringBoot" />
       <recent name="D:\Git\Angular\Java-Interview-Qus\images\JavaBasic" />
       <recent name="D:\Intell\images" />
@@ -222,8 +226,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.28774.11" />
       </set>
     </attachedChunks>
   </component>
@@ -231,6 +234,7 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="" />
+      <changelist id="85d93f7a-76e3-4a1a-8bb8-992724df3493" name="ide" comment="" />
       <created>1712820569516</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -318,6 +322,13 @@
       <workItem from="1760280733645" duration="3368000" />
       <workItem from="1760450209252" duration="84000" />
       <workItem from="1760533564886" duration="2004000" />
+      <workItem from="1760720757680" duration="429000" />
+      <workItem from="1760721484642" duration="1367000" />
+      <workItem from="1760722894849" duration="434000" />
+      <workItem from="1760723369706" duration="1183000" />
+      <workItem from="1760724618673" duration="393000" />
+      <workItem from="1760779141020" duration="2579000" />
+      <workItem from="1760890107288" duration="11598000" />
     </task>
     <task id="LOCAL-00001" summary="added points and restructured the points">
       <option name="closed" value="true" />

@@ -1,5 +1,9 @@
 # Kubernetes
 
+![java-mysql](images/Kuberneties/java-MySql-K8.gif)
+
+[java kuberneties deployment](https://devopscube.com/deploy-java-app-kubernetes/)
+
 ---
 [GKE](https://youtu.be/Rl5M1CzgEH4?si=LLoZH-khdcmeVe79)
 <details open>
@@ -187,5 +191,7 @@ kubectl get service
 * [https://cloud.google.com/kubernetes-engine/docs/concepts/architecture](https://cloud.google.com/kubernetes-engine/docs/concepts/architecture)
 
 </details>
+
+
 
 ---

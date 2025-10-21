@@ -1,6 +1,6 @@
-## [Java Questions Link](https://www.java2novice.com/-)
+# [Java Questions Link](https://www.java2novice.com/-)
 
-## Codings
+[java visual rep](https://algorithm-visualizer.org/brute-force/insertion-sort)
 
 <details open>
 <summary>1. Java Program to Remove All Whitespaces Without Using replace()</summary>
@@ -2127,5 +2127,98 @@ public class PairOddCounter {
 2, [pair = 1, odd = 1]
 3, [pair = 1, odd = 0]
 ```
+
+</details>
+
+<details>
+<summary>Palindrome Check Using Java Streams</summary>
+---
+
+### ✅ **Palindrome Check Using Java Streams**
+
+```java
+import java.util.stream.IntStream;
+
+public class PalindromeCheck {
+    public static boolean isPalindrome(String str) {
+        String cleaned = str.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        return IntStream.range(0, cleaned.length() / 2)
+                .allMatch(i -> cleaned.charAt(i) == cleaned.charAt(cleaned.length() - i - 1));
+    }
+
+    public static void main(String[] args) {
+        String input1 = "Madam";
+        String input2 = "Hello";
+
+        System.out.println(input1 + " → " + isPalindrome(input1)); // true
+        System.out.println(input2 + " → " + isPalindrome(input2)); // false
+    }
+}
+
+import java.util.stream.IntStream;
+
+public class ParallelPalindrome {
+  public static boolean isPalindrome(String str) {
+    String cleaned = str.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+    return IntStream.range(0, cleaned.length() / 2)
+            .parallel() // 👈 enable parallel processing
+            .allMatch(i -> cleaned.charAt(i) == cleaned.charAt(cleaned.length() - i - 1));
+  }
+
+  public static void main(String[] args) {
+    String input1 = "Madam";
+    String input2 = "Hello";
+
+    System.out.println(input1 + " → " + isPalindrome(input1)); // true
+    System.out.println(input2 + " → " + isPalindrome(input2)); // false
+  }
+}
+
+```
+
+---
+
+### 🧠 **Explanation**
+
+* `replaceAll("[^a-zA-Z0-9]", "")`: removes all non-alphanumeric characters.
+* `toLowerCase()`: makes the comparison case-insensitive.
+* `IntStream.range(0, cleaned.length() / 2)`: iterates from start to the middle.
+* `allMatch(...)`: ensures all symmetric character pairs match.
+
+
+* `IntStream.range(0, cleaned.length() / 2)` → generates index positions to compare.
+* `.parallel()` → splits the range across multiple threads.
+* `.allMatch(...)` → ensures all comparisons return `true` in all threads.
+
+If **any** pair doesn’t match, it short-circuits and returns `false`.
+
+---
+
+#### Example Output
+
+```
+Madam → true
+Hello → false
+```
+
+---
+
+### ⚙️ **Is parallel really faster?**
+
+In this case, **no** — not for small or medium-sized strings.
+Parallel streams add thread-splitting and coordination overhead.
+
+| String Size                  | Sequential Time | Parallel Time       |
+|------------------------------|-----------------|---------------------|
+| Short (like "madam")         | ✅ Faster        | ❌ Slower (overhead) |
+| Large (like 1 million chars) | ⚠️ Slower       | ✅ Can be faster     |
+
+So:
+
+* ✅ Works perfectly fine.
+* ⚡ Only beneficial for **very large strings**.
+
+---
 
 </details>

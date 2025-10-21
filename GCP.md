@@ -117,7 +117,7 @@
 **clear comparison between App Engine, Cloud Run, Cloud Functions, and GKE**—the four major compute options in **Google Cloud Platform (GCP)**—so you can choose the right one based on your needs:
 
 | Feature / Service      | **App Engine**                      | **Cloud Run**                             | **Cloud Functions**                        | **GKE (Kubernetes Engine)**             |
-| ---------------------- | ----------------------------------- | ----------------------------------------- | ------------------------------------------ | --------------------------------------- |
+|------------------------|-------------------------------------|-------------------------------------------|--------------------------------------------|-----------------------------------------|
 | **Type**               | PaaS                                | Serverless Containers (CaaS)              | FaaS (Function as a Service)               | Container Orchestration (IaaS-like)     |
 | **Unit of Deployment** | Application                         | Container image                           | Single function                            | Pods / Containers                       |
 | **Scaling**            | Automatic                           | Automatic / manual                        | Automatic                                  | Manual / auto (with config)             |
@@ -135,7 +135,7 @@
 ## 🔍 Use Case Recommendations
 
 | Scenario                                       | Recommended Service     |
-| ---------------------------------------------- | ----------------------- |
+|------------------------------------------------|-------------------------|
 | Quick app/web backend with minimal setup       | **App Engine**          |
 | Run any language in a Docker container         | **Cloud Run**           |
 | Respond to events (e.g., file upload, pub/sub) | **Cloud Functions**     |
@@ -156,8 +156,6 @@ Complex orchestration     → GKE
 ```
 
 ---
-
-Good question 👍 — let’s break it down carefully.
 
 When you see **Google Cloud Pub/Sub** being used with **Cloud Run** or **Cloud Functions**, it’s usually because of **how these services are designed** compared to Kafka or gRPC.
 
@@ -372,7 +370,7 @@ Choosing between **Cloud Functions** and **Cloud Run** depends on the nature of 
 ### **Decision Guide**
 
 | Criteria              | Cloud Functions                 | Cloud Run                                 |
-| --------------------- | ------------------------------- | ----------------------------------------- |
+|-----------------------|---------------------------------|-------------------------------------------|
 | Execution Type        | Short, event-driven             | Long-running HTTP services                |
 | Runtime Flexibility   | Limited (predefined languages)  | Fully customizable (any container)        |
 | Scaling               | Automatic, instant              | Automatic, may have small startup latency |
@@ -417,13 +415,13 @@ Choose Dataproc if you need:
 
 Key Differences Summarized
 
-| Feature | Dataflow | Dataproc  |
-| --- | --- | --- |
-| Underlying Technology | Apache Beam | Apache Spark, Hadoop, etc.  |
-| Operational Model | Serverless and fully managed | Managed service for Hadoop/Spark clusters  |
-| Infrastructure Management | Largely automated | Requires more cluster and infrastructure management  |
-| Workload Focus | Unified batch and stream processing | Batch, streaming, querying, machine learning with Hadoop/Spark tools  |
-| Scaling | Automatic, dynamic, and granular | Cluster-based, with autoscaling policies available  |
+| Feature                   | Dataflow                            | Dataproc                                                             |
+|---------------------------|-------------------------------------|----------------------------------------------------------------------|
+| Underlying Technology     | Apache Beam                         | Apache Spark, Hadoop, etc.                                           |
+| Operational Model         | Serverless and fully managed        | Managed service for Hadoop/Spark clusters                            |
+| Infrastructure Management | Largely automated                   | Requires more cluster and infrastructure management                  |
+| Workload Focus            | Unified batch and stream processing | Batch, streaming, querying, machine learning with Hadoop/Spark tools |
+| Scaling                   | Automatic, dynamic, and granular    | Cluster-based, with autoscaling policies available                   |
 
 AI responses may include mistakes.
 

@@ -910,7 +910,7 @@ EXPLAIN SELECT id, password FROM users WHERE email = 'test@example.com';
 
 # Top Ways to Improve Database Performance
 
-![dbPerform](DBPerformance/DbPerform.png)
+![dbPerformance](DBPerformance/dbPerformance.gif)
 
 ## 1. Indexing
 Create the right indexes based on query patterns to speed up data retrieval.
