@@ -13,6 +13,10 @@
 
 ---
 
+![BestPractices](images/Microservice/BestPractices.jpg)
+
+![Microservice Architech](images/Microservice/Microservice%20Architech.gif)
+
 <details open>
 <summary><strong>📦 Microservice Architecture Overview</strong></summary>
 
@@ -122,6 +126,10 @@ Caching improves performance, reduces latency, and decreases load on services.
 
 ### 🔂 Common Caching Patterns:
 
+![CacheFullstack](images/Microservice/CacheFullstack.jpg)
+
+![CacheGoWrong](images/SpringBoot/CacheGoWrong.gif)
+
 * **Client-Side Cache:** Stores data locally (e.g., browser cache).
 * **Server-Side Cache:** Shared cache used by services (e.g., Redis, Memcached).
 * **CDN (Edge Cache):** For static content close to end-users.
@@ -183,6 +191,8 @@ Service discovery helps services find each other dynamically without hardcoding 
 
 <details>
 <summary><strong>⚖️ Load Balancing in Microservices</strong></summary>
+
+![LoadBalancerVsAPIGateWay](images/Microservice/LoadBalancerVsAPIGateWay.jpg)
 
 Load balancing ensures traffic is evenly distributed across service instances, improving **performance**, **reliability**, and **scalability**.
 
@@ -1326,14 +1336,14 @@ The two sides can be synchronized using events. When the command side processes 
 
 ![CQRS Architecture](https://i.imgur.com/example.png)  <!-- Replace with a real image URL if available -->
 
-| Component         | Description                                                                                             |
-| ----------------- | ------------------------------------------------------------------------------------------------------- |
-| **Command**       | An object that represents an intent to change the state of the system (e.g., `CreateUserCommand`).      |
-| **Command Handler** | Processes the command and executes the business logic.                                                  |
-| **Query**         | An object that represents a request for data (e.g., `GetUserByIdQuery`).                                |
-| **Query Handler** | Retrieves data from the read store and returns it.                                                      |
-| **Event Store**   | Often used with CQRS, especially with Event Sourcing. Stores a sequence of events that represent changes. |
-| **Read Model**    | A denormalized view of the data, optimized for a specific query.                                        |
+| Component           | Description                                                                                               |
+|---------------------|-----------------------------------------------------------------------------------------------------------|
+| **Command**         | An object that represents an intent to change the state of the system (e.g., `CreateUserCommand`).        |
+| **Command Handler** | Processes the command and executes the business logic.                                                    |
+| **Query**           | An object that represents a request for data (e.g., `GetUserByIdQuery`).                                  |
+| **Query Handler**   | Retrieves data from the read store and returns it.                                                        |
+| **Event Store**     | Often used with CQRS, especially with Event Sourcing. Stores a sequence of events that represent changes. |
+| **Read Model**      | A denormalized view of the data, optimized for a specific query.                                          |
 
 ---
 
@@ -2359,6 +2369,8 @@ Alright 👍
 * **Distributed tracing:** track requests across services (e.g., Jaeger, Zipkin).
 * **Metrics monitoring:** track service health, latency, and throughput (Prometheus, Grafana).
 * **Alerting:** trigger alerts when failures or anomalies occur.
+
+![LogTraceMetrics](images/Microservice/LogTraceMetrics.gif)
 
 ---
 

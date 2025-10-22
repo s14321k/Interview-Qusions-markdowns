@@ -1,3 +1,258 @@
+<!-- TOC -->
+* [Spring Boot](#spring-boot)
+  * [PHASE 1 - Basics](#phase-1---basics)
+  * [PHASE 2 - Intermediate](#phase-2---intermediate)
+  * [PHASE 3 - Advanced](#phase-3---advanced)
+  * [Top 15 Q&A](#top-15-qa)
+* [Annotations in Spring boot](#annotations-in-spring-boot)
+* [⚙️ Bean Definitions & Dependency Injection - A Deep Dive](#-bean-definitions--dependency-injection---a-deep-dive)
+  * [🔹 Field Injection](#-field-injection)
+  * [🔹 Constructor Injection](#-constructor-injection)
+  * [🔹 Which one should you use?](#-which-one-should-you-use)
+    * [🔹 Example of Cyclic Dependency](#-example-of-cyclic-dependency)
+    * [🔹 Causes of Cyclic Dependency](#-causes-of-cyclic-dependency)
+    * [🔹 How to Fix It](#-how-to-fix-it)
+    * [🔹 Key takeaway](#-key-takeaway)
+  * [📝 Example: Cyclic Dependency in Spring Boot](#-example-cyclic-dependency-in-spring-boot)
+    * [1. Create two services that depend on each other](#1-create-two-services-that-depend-on-each-other)
+    * [2. Create the main Spring Boot application](#2-create-the-main-spring-boot-application)
+    * [3. Run the app 🚀](#3-run-the-app-)
+  * [🔹 How to Fix It](#-how-to-fix-it-1)
+    * [🔁 Bean Scopes](#-bean-scopes)
+    * [🌱 Bean Lifecycle Overview](#-bean-lifecycle-overview)
+    * [🧷 Other Important Annotations](#-other-important-annotations)
+    * [How to Enable Auditing](#how-to-enable-auditing)
+    * [Core Auditing Annotations](#core-auditing-annotations)
+    * [Example Implementation](#example-implementation)
+    * [Advanced Auditing with Hibernate Envers](#advanced-auditing-with-hibernate-envers)
+* [⚡ Spring Boot Caching Annotations – Complete Guide](#-spring-boot-caching-annotations--complete-guide)
+    * [✅ Parameters](#-parameters)
+    * [🛠️ Examples](#-examples)
+    * [🛠️ Examples](#-examples-1)
+    * [⏱ Scheduled Eviction](#-scheduled-eviction)
+    * [🛠️ Examples](#-examples-2)
+    * [✅ Implementation Steps](#-implementation-steps)
+    * [🛠️ Example](#-example)
+    * [1. Caffeine Cache Configuration](#1-caffeine-cache-configuration)
+    * [2. EhCache (JCache - JSR-107) Configuration](#2-ehcache-jcache---jsr-107-configuration)
+    * [3. Redis Cache Configuration](#3-redis-cache-configuration)
+    * [1. Defining Profile-Specific Properties](#1-defining-profile-specific-properties)
+    * [2. Using the `@Profile` Annotation](#2-using-the-profile-annotation)
+    * [3. Activating Profiles](#3-activating-profiles)
+    * [1. Profile-Specific Properties Files](#1-profile-specific-properties-files)
+    * [2. Profile Groups (Spring Boot 2.4+)](#2-profile-groups-spring-boot-24)
+    * [3. The `default` Profile](#3-the-default-profile)
+    * [4. Best Practices](#4-best-practices)
+  * [❓ Why Use Spring Boot?](#-why-use-spring-boot)
+  * [✨ Key Features of Spring Boot](#-key-features-of-spring-boot)
+    * [1. Starter Dependencies](#1-starter-dependencies)
+    * [2. Auto-Configuration](#2-auto-configuration)
+    * [3. Embedded Servers](#3-embedded-servers)
+    * [4. Spring Actuator](#4-spring-actuator)
+    * [5. Externalized Configuration](#5-externalized-configuration)
+  * [⚙️ External Configuration Sources](#-external-configuration-sources)
+  * [Design Patterns](#design-patterns)
+    * [🔁 1. Singleton Pattern](#-1-singleton-pattern)
+    * [🧩 2. Dependency Injection (DI)](#-2-dependency-injection-di)
+    * [📦 3. Factory Pattern](#-3-factory-pattern)
+    * [🏭 4. Prototype Pattern](#-4-prototype-pattern)
+    * [🧵 5. Proxy Pattern (AOP)](#-5-proxy-pattern-aop)
+    * [⚙️ 6. Template Method Pattern](#-6-template-method-pattern)
+    * [🧠 7. Observer Pattern (Events)](#-7-observer-pattern-events)
+    * [🔐 8. Strategy Pattern](#-8-strategy-pattern)
+  * [📚 Spring Boot Advanced Concepts](#-spring-boot-advanced-concepts)
+    * [🔄 Bean Lifecycle Phases](#-bean-lifecycle-phases)
+    * [🔧 Configure Bean Lifecycle Using](#-configure-bean-lifecycle-using)
+* [JPA](#jpa)
+  * [🧠 Java Persistence API (JPA) – Custom Queries](#-java-persistence-api-jpa--custom-queries)
+    * [1. **Named Queries**](#1-named-queries)
+    * [2. **Dynamic Queries (Criteria API)**](#2-dynamic-queries-criteria-api)
+    * [3. **Native SQL Queries**](#3-native-sql-queries)
+    * [4. **JPQL (Java Persistence Query Language)**](#4-jpql-java-persistence-query-language)
+    * [5. **Criteria API**](#5-criteria-api)
+  * [🔎 Query Types in @Repository](#-query-types-in-repository)
+    * [1. **Basic Derived Query**](#1-basic-derived-query)
+    * [2. **Derived Query with Parameters**](#2-derived-query-with-parameters)
+    * [3. **Custom JPQL Query**](#3-custom-jpql-query)
+    * [4. **Native SQL Query**](#4-native-sql-query)
+    * [5. **Query with Sorting**](#5-query-with-sorting)
+  * [💾 Database Transaction Approaches in Java](#-database-transaction-approaches-in-java)
+    * [✅ Summary Table](#-summary-table)
+* [Spring Configuration & REST API Client Overview](#spring-configuration--rest-api-client-overview)
+    * [Common Methods for GET Requests](#common-methods-for-get-requests)
+    * [Basic Setup](#basic-setup)
+    * [Usage in Service](#usage-in-service)
+    * [Or Without Bean Injection](#or-without-bean-injection)
+    * [Key Methods in `WebClient`](#key-methods-in-webclient)
+    * [Example with headers](#example-with-headers)
+    * [When to choose?](#when-to-choose)
+    * [1. Dependencies (`pom.xml`)](#1-dependencies-pomxml)
+    * [2. Configuration (`application.properties`)](#2-configuration-applicationproperties)
+    * [3. The Declarative HTTP Client (`@HttpExchange`)](#3-the-declarative-http-client-httpexchange)
+    * [4. Client and Resilience Configuration](#4-client-and-resilience-configuration)
+    * [5. The Resilient and Observable Service](#5-the-resilient-and-observable-service)
+    * [Aspect Order](#aspect-order)
+    * [🔄 Execution Order with Both Bulkheads](#-execution-order-with-both-bulkheads)
+    * [6. Global Exception Handling with Problem Details](#6-global-exception-handling-with-problem-details)
+    * [Summary of the Flow](#summary-of-the-flow)
+    * [Useful Resources](#useful-resources)
+* [Spring MVC Concepts & Exception Handling](#spring-mvc-concepts--exception-handling)
+    * [Overview](#overview)
+    * [Lifecycle Methods of HandlerInterceptor](#lifecycle-methods-of-handlerinterceptor)
+    * [References](#references)
+    * [Key Annotations](#key-annotations)
+* [Spring Boot Annotations for Extracting Values from URI and Requests](#spring-boot-annotations-for-extracting-values-from-uri-and-requests)
+    * [Common Spring Boot annotations](#common-spring-boot-annotations)
+* [Spring Dependency Injection & Controller Annotations](#spring-dependency-injection--controller-annotations)
+      * [Qualifier usage at method level example](#qualifier-usage-at-method-level-example)
+    * [Field Injection](#field-injection)
+    * [Setter Injection](#setter-injection)
+    * [Constructor Injection (Recommended)](#constructor-injection-recommended)
+    * [With @Qualifier for multiple beans](#with-qualifier-for-multiple-beans)
+    * [Optional dependencies](#optional-dependencies)
+* [Spring Transaction Management & Pagination with JPA](#spring-transaction-management--pagination-with-jpa)
+    * [Propagation Types](#propagation-types)
+    * [Useful Methods](#useful-methods)
+  * [Pagination](#pagination)
+    * [📄 𝐏𝐚𝐠𝐢𝐧𝐚𝐭𝐢𝐨𝐧 𝐓𝐞𝐜𝐡𝐧𝐢𝐪𝐮𝐞𝐬 𝐢𝐧 𝐀𝐏𝐈𝐬](#-𝐏𝐚𝐠𝐢𝐧𝐚𝐭𝐢𝐨𝐧-𝐓𝐞𝐜𝐡𝐧𝐢𝐪𝐮𝐞𝐬-𝐢𝐧-𝐀𝐏𝐈𝐬)
+    * [📘 Summary Table](#-summary-table-1)
+    * [🚀 Modern High-Performance Pagination: Keyset, Slices, and Projections](#-modern-high-performance-pagination-keyset-slices-and-projections)
+* [Dependency Injection (DI) in Spring Boot](#dependency-injection-di-in-spring-boot)
+  * [✅ Spring Boot Auto-Configuration - Structured Guide](#-spring-boot-auto-configuration---structured-guide)
+    * [Common Conditional Variants](#common-conditional-variants)
+    * [Steps to Create](#steps-to-create)
+    * [Notes](#notes)
+    * [Drawbacks](#drawbacks)
+  * [🔄 Load Balancing in Spring Boot](#-load-balancing-in-spring-boot)
+    * [✅ Nginx Example Configuration](#-nginx-example-configuration)
+    * [✅ Dependencies](#-dependencies)
+    * [✅ Configuration (application.properties)](#-configuration-applicationproperties)
+    * [✅ LoadBalanced `RestTemplate` Bean](#-loadbalanced-resttemplate-bean)
+    * [✅ Example `spring-boot-service.yaml`](#-example-spring-boot-serviceyaml)
+    * [📌 Final Thoughts](#-final-thoughts)
+  * [🔑 What is SSO?](#-what-is-sso)
+  * [🔗 Integration with Spring Security OAuth2 or Keycloak](#-integration-with-spring-security-oauth2-or-keycloak)
+  * [📚 Spring Method Security Reference](#-spring-method-security-reference)
+* [🔐 Secure Communication Between Microservices in Spring Boot](#-secure-communication-between-microservices-in-spring-boot)
+* [🧪 Testing Secure Microservices with Postman](#-testing-secure-microservices-with-postman)
+* [⚙️ Aspect-Oriented Programming (AOP) in Spring Boot](#-aspect-oriented-programming-aop-in-spring-boot)
+  * [🛠️ How AOP Works in Spring Boot](#-how-aop-works-in-spring-boot)
+    * [1. **Add Spring AOP Dependency**](#1-add-spring-aop-dependency)
+    * [2. **Enable Aspect Support**](#2-enable-aspect-support)
+    * [3. **Create an Aspect Class**](#3-create-an-aspect-class)
+    * [4. **Define Pointcuts**](#4-define-pointcuts)
+    * [5. **Use AOP with Your Services**](#5-use-aop-with-your-services)
+    * [🔐 Security](#-security)
+    * [🧾 Auditing](#-auditing)
+    * [🔁 Retry Logic (Custom)](#-retry-logic-custom)
+    * [@Around("@annotation(Retryable)")](#aroundannotationretryable)
+      * [1. **Calling Unreliable External Services or APIs**](#1-calling-unreliable-external-services-or-apis)
+      * [2. **Handling Transient Database Errors**](#2-handling-transient-database-errors)
+      * [3. **Consuming Messages from a Queue**](#3-consuming-messages-from-a-queue)
+      * [Why Use `@Around` Advice for This?](#why-use-around-advice-for-this)
+      * [Summary of Roles](#summary-of-roles)
+      * [Execution Order and Layering](#execution-order-and-layering)
+      * [Good Practice vs. Bad Practice](#good-practice-vs-bad-practice)
+      * [Which Tool Should You Use? A Scenario-Based Guide](#which-tool-should-you-use-a-scenario-based-guide)
+  * [**11️⃣ How does Spring Boot auto-configuration work behind the scenes?**](#11-how-does-spring-boot-auto-configuration-work-behind-the-scenes)
+    * [💡 Concept](#-concept)
+    * [⚙️ **How It Works Internally**](#-how-it-works-internally)
+    * [✅ Example](#-example-1)
+    * [🧠 In short](#-in-short)
+  * [**12️⃣ How do you handle circular dependencies between Spring beans?**](#12-how-do-you-handle-circular-dependencies-between-spring-beans)
+    * [🔁 Problem](#-problem)
+    * [🧩 Solutions](#-solutions)
+  * [**13️⃣ What’s the use of `ApplicationContextAware` and `BeanPostProcessor`?**](#13-whats-the-use-of-applicationcontextaware-and-beanpostprocessor)
+    * [**`ApplicationContextAware`**](#applicationcontextaware)
+    * [**`BeanPostProcessor`**](#beanpostprocessor)
+  * [**14️⃣ How would you implement dynamic bean creation at runtime?**](#14-how-would-you-implement-dynamic-bean-creation-at-runtime)
+    * [🧩 1. Using `BeanDefinitionRegistryPostProcessor`](#-1-using-beandefinitionregistrypostprocessor)
+    * [🧩 2. Using `ApplicationContext` + `ConfigurableListableBeanFactory`](#-2-using-applicationcontext--configurablelistablebeanfactory)
+    * [🧩 3. Using `BeanDefinitionBuilder`](#-3-using-beandefinitionbuilder)
+  * [**15️⃣ How can you handle async REST calls in Spring Boot effectively?**](#15-how-can-you-handle-async-rest-calls-in-spring-boot-effectively)
+    * [💡 Goal](#-goal)
+    * [✅ 1. Using `@Async`](#-1-using-async)
+    * [✅ 2. Using `WebClient` (Reactive, non-blocking)](#-2-using-webclient-reactive-non-blocking)
+    * [✅ 3. Combining `@Async` with `CompletableFuture`](#-3-combining-async-with-completablefuture)
+    * [✅ 4. Using `DeferredResult` or `WebAsyncTask`](#-4-using-deferredresult-or-webasynctask)
+    * [⚙️ Key differences](#-key-differences)
+    * [✅ **Summary Table**](#-summary-table-2)
+  * [**21️⃣ How do you optimize queries when using JPA with large datasets?**](#21-how-do-you-optimize-queries-when-using-jpa-with-large-datasets)
+    * [💡 Problem](#-problem-1)
+    * [🧩 Key Optimization Strategies](#-key-optimization-strategies)
+      * [1. **Use `JOIN FETCH` to avoid N+1**](#1-use-join-fetch-to-avoid-n1)
+      * [2. **Batch fetching / entity graph**](#2-batch-fetching--entity-graph)
+      * [3. **Use projections instead of full entities**](#3-use-projections-instead-of-full-entities)
+      * [4. **Pagination + streaming**](#4-pagination--streaming)
+      * [5. **Disable dirty checking when reading only**](#5-disable-dirty-checking-when-reading-only)
+      * [6. **Second-level cache**](#6-second-level-cache)
+  * [**22️⃣ What’s the difference between `EntityManager.persist()` and `merge()`?**](#22-whats-the-difference-between-entitymanagerpersist-and-merge)
+    * [🔹 Example](#-example-2)
+    * [🧠 Notes](#-notes)
+  * [**23️⃣ How do you handle pagination efficiently in Spring Data JPA?**](#23-how-do-you-handle-pagination-efficiently-in-spring-data-jpa)
+    * [💡 Use `Pageable` and `Page<T>` API](#-use-pageable-and-paget-api)
+    * [🧩 Why it’s efficient:](#-why-its-efficient)
+    * [⚙️ Optimization Tips](#-optimization-tips)
+  * [**24️⃣ How do you manage schema migrations across microservices?**](#24-how-do-you-manage-schema-migrations-across-microservices)
+    * [💡 Problem](#-problem-2)
+    * [🧩 Best Practices](#-best-practices)
+      * [1. **Use database migration tools**](#1-use-database-migration-tools)
+      * [2. **Each microservice manages its own schema**](#2-each-microservice-manages-its-own-schema)
+      * [3. **Schema versioning per service**](#3-schema-versioning-per-service)
+      * [4. **Pipeline integration**](#4-pipeline-integration)
+      * [5. **Avoid cross-service joins**](#5-avoid-cross-service-joins)
+    * [✅ Key idea:](#-key-idea)
+  * [**25️⃣ What’s the best approach for auditing (`createdBy`, `updatedBy`) in JPA?**](#25-whats-the-best-approach-for-auditing-createdby-updatedby-in-jpa)
+    * [💡 Goal](#-goal-1)
+    * [🧩 Option 1: **Spring Data JPA Auditing**](#-option-1-spring-data-jpa-auditing)
+    * [🧩 Option 2: **Custom entity listener**](#-option-2-custom-entity-listener)
+    * [🧠 Best Practices](#-best-practices-1)
+    * [✅ **Summary Table**](#-summary-table-3)
+* [📦 AOP in Spring Boot – Explained (with Custom Annotations + Logging)](#-aop-in-spring-boot--explained-with-custom-annotations--logging)
+    * [Corresponding Aspect](#corresponding-aspect)
+    * [Retry Logic Aspect](#retry-logic-aspect)
+    * [SLF4J is used for logging with support from Logback](#slf4j-is-used-for-logging-with-support-from-logback)
+* [Spotless lint](#spotless-lint)
+* [Zipkin](#zipkin)
+* [Traceable](#traceable)
+  * [🔎 Elasticsearch in Spring Boot](#-elasticsearch-in-spring-boot)
+  * [⚡ Redis in Spring Boot](#-redis-in-spring-boot)
+  * [✅ When to Use What](#-when-to-use-what)
+  * [🚀 Combined Usage in Spring Boot](#-combined-usage-in-spring-boot)
+* [📊 Detailed Comparison Table](#-detailed-comparison-table)
+* [🔑 When to Use (with examples)](#-when-to-use-with-examples)
+    * [✅ gRPC](#-grpc)
+    * [✅ Kafka](#-kafka)
+    * [✅ RabbitMQ](#-rabbitmq)
+    * [✅ GraphQL](#-graphql)
+    * [✅ REST API](#-rest-api)
+* [🌐 Together (Common Architecture)](#-together-common-architecture)
+* [✅ Rule of Thumb (Expanded)](#-rule-of-thumb-expanded)
+* [📊 HTTP Status Codes](#-http-status-codes)
+  * [🔵 **1xx — Informational**](#-1xx--informational)
+  * [🟢 **2xx — Success**](#-2xx--success)
+  * [🟡 **3xx — Redirection**](#-3xx--redirection)
+  * [🟠 **4xx — Client Errors**](#-4xx--client-errors)
+  * [🔴 **5xx — Server Errors**](#-5xx--server-errors)
+* [🔑 Idempotency in REST API Methods](#-idempotency-in-rest-api-methods)
+  * [✅ Idempotent HTTP Methods](#-idempotent-http-methods)
+  * [❌ Non-Idempotent HTTP Methods](#-non-idempotent-http-methods)
+* [🧭 Why Idempotency Matters](#-why-idempotency-matters)
+* [GraphQL](#graphql)
+  * [⚔️ REST API vs. GraphQL](#-rest-api-vs-graphql)
+* [Top 6 API Styles: Choosing the Best Fit for Your Project](#top-6-api-styles-choosing-the-best-fit-for-your-project)
+    * [1. **SOAP (Simple Object Access Protocol)**](#1-soap-simple-object-access-protocol)
+    * [2. **RESTful (Representational State Transfer)**](#2-restful-representational-state-transfer)
+    * [3. **GraphQL**](#3-graphql)
+    * [4. **gRPC**](#4-grpc)
+    * [5. **WebSockets**](#5-websockets)
+    * [6. **Webhooks**](#6-webhooks)
+    * [🧭 **Conclusion**](#-conclusion)
+* [🧠 Mastering APIs](#-mastering-apis)
+<!-- TOC -->
+
+# Spring Boot
+
 <https://www.interviewbit.com/rest-api-interview-questions/>
 <https://www.interviewbit.com/spring-boot-interview-questions/>
 <https://www.baeldung.com/spring-mvc-session-attributes>
@@ -903,12 +1158,12 @@ Spring Data JPA provides powerful auditing capabilities to automatically track c
 
 ### Core Auditing Annotations
 
-| Annotation          | Purpose                                     | When Set      |
-| ------------------- | ------------------------------------------- | ------------- |
-| `@CreatedDate`      | Stores the creation timestamp of an entity. | On INSERT     |
-| `@CreatedBy`        | Stores the user who created the entity.     | On INSERT     |
-| `@LastModifiedDate` | Stores the last modification timestamp.     | On UPDATE     |
-| `@LastModifiedBy`   | Stores the user who last modified the entity. | On UPDATE     |
+| Annotation          | Purpose                                       | When Set  |
+|---------------------|-----------------------------------------------|-----------|
+| `@CreatedDate`      | Stores the creation timestamp of an entity.   | On INSERT |
+| `@CreatedBy`        | Stores the user who created the entity.       | On INSERT |
+| `@LastModifiedDate` | Stores the last modification timestamp.       | On UPDATE |
+| `@LastModifiedBy`   | Stores the user who last modified the entity. | On UPDATE |
 
 ### Example Implementation
 
@@ -3266,6 +3521,163 @@ So,
 
 ## Pagination
 
+![Pagination](images/SpringBoot/Pagination.gif)
+
+**KeySet is the best for large data files instead of offSet**
+
+### 📄 𝐏𝐚𝐠𝐢𝐧𝐚𝐭𝐢𝐨𝐧 𝐓𝐞𝐜𝐡𝐧𝐢𝐪𝐮𝐞𝐬 𝐢𝐧 𝐀𝐏𝐈𝐬
+
+Efficient pagination ensures scalable data access and optimal performance for APIs handling large datasets.  
+Below are the major pagination strategies, their use cases, advantages, and drawbacks.
+
+---
+
+<details>
+<summary><strong>🔹 Offset-based Pagination</strong></summary>
+
+**Description:**  
+Uses an **offset** and **limit** parameter to define the starting point and number of records to return.
+
+- **Example:**  
+  `GET /orders?offset=0&limit=3`
+
+**✅ Pros:**
+- Simple to implement and understand.
+- Works well for small datasets.
+
+**⚠️ Cons:**
+- Inefficient for large offsets — the database must **scan and skip** many rows.
+- Can produce **inconsistent results** if data changes between requests.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔹 Cursor-based Pagination</strong></summary>
+
+**Description:**  
+Uses a **cursor (unique identifier)** to mark a specific record position. The cursor is usually an encoded string.
+
+- **Example:**  
+  `GET /orders?cursor=xxx`
+
+**✅ Pros:**
+- Efficient for large datasets.
+- Avoids the overhead of scanning skipped records.
+
+**⚠️ Cons:**
+- Slightly more complex to implement and maintain.
+- Cursor encoding/decoding adds logic overhead.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔹 Page-based Pagination</strong></summary>
+
+**Description:**  
+Specifies the **page number** and the **page size** to fetch paginated data.
+
+- **Example:**  
+  `GET /items?page=2&size=3`
+
+**✅ Pros:**
+- Intuitive for end users.
+- Easy to integrate into UI elements like pagination controls.
+
+**⚠️ Cons:**
+- Suffers from similar inefficiencies as offset-based pagination.
+- Data may **shift between pages** if items are added or removed.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔹 Keyset-based Pagination</strong></summary>
+
+**Description:**  
+Uses a **key value** (like a primary key or indexed column) to fetch the next set of records.
+
+- **Example:**  
+  `GET /items?after_id=102&limit=3`
+
+**✅ Pros:**
+- Highly efficient for large datasets.
+- Avoids performance issues caused by large offsets.
+
+**⚠️ Cons:**
+- Requires a **unique and indexed key**.
+- Implementation can be more complex than offset or page-based methods.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔹 Time-based Pagination</strong></summary>
+
+**Description:**  
+Paginates records based on **timestamps** or **date ranges**.
+
+- **Example:**  
+  `GET /items?start_time=xxx&end_time=yyy`
+
+**✅ Pros:**
+- Ideal for **time-ordered datasets** (e.g., logs, events).
+- Ensures **no missed records** when new data is added in real-time.
+
+**⚠️ Cons:**
+- Relies on consistent and reliable timestamps.
+- Handling overlapping time ranges requires care.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔹 Hybrid Pagination</strong></summary>
+
+**Description:**  
+Combines multiple pagination techniques to balance efficiency and complexity.
+
+- **Example:**  
+  `GET /items?cursor=abc&start_time=xxx&end_time=yyy`
+
+**✅ Pros:**
+- Provides **flexibility** and **performance** for complex use cases.
+- Useful for **infinite scrolling** or real-time event feeds.
+
+**⚠️ Cons:**
+- More complex design and implementation.
+- Requires careful synchronization between mechanisms.
+
+</details>
+
+---
+
+### 📘 Summary Table
+
+| Technique | Parameters | Best For | Pros | Cons |
+|------------|-------------|-----------|------|------|
+| Offset-based | `offset`, `limit` | Simple datasets | Easy to implement | Slow for large offsets |
+| Cursor-based | `cursor` | Large dynamic data | Efficient and consistent | Complex encoding |
+| Page-based | `page`, `size` | UI-driven pagination | User-friendly | Data shifts possible |
+| Keyset-based | `after_id`, `limit` | Large ordered data | High performance | Requires unique key |
+| Time-based | `start_time`, `end_time` | Time-ordered logs | Handles real-time data | Timestamp accuracy |
+| Hybrid | mixed | Complex datasets | Flexible and powerful | High implementation cost |
+
+---
+
+💡 **Tip:**  
+Choose your pagination technique based on **dataset size**, **query frequency**, and **data volatility**.  
+For modern scalable systems, **cursor-based or keyset-based pagination** is often preferred over offset-based methods.
+
+
+---
+
 <details>
 <summary><strong>Pagination using Spring Data JPA</strong></summary>
 
@@ -3310,6 +3722,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 </details>
 
+---
+
 <details>
 <summary><strong>2. Using `Slice<T>` for Infinite Scroll</strong></summary>
 
@@ -3331,6 +3745,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 Your service can then check `slice.hasNext()` to inform the UI.
 </details>
+
+---
 
 <details>
 <summary><strong>3. DTO Projections for Leaner Payloads</strong></summary>
@@ -3358,6 +3774,8 @@ You rarely need to send the entire entity to the client. DTO (Data Transfer Obje
     *Note: We use `Pageable` here with `PageRequest.ofSize(10)` to control the limit dynamically.*
 
 </details>
+
+---
 
 <details>
 <summary><strong>✅ Summary: The Ultimate Combination</strong></summary>
@@ -3720,6 +4138,138 @@ spec:
   * ✅ **Nginx/Apache** – Best for on-prem or standalone deployments
   * ✅ **Spring Cloud** – Ideal for microservices with service discovery
   * ✅ **Kubernetes** – Preferred in containerized, cloud-native deployments
+
+# 🔐 𝐀𝐮𝐭𝐡𝐞𝐧𝐭𝐢𝐜𝐚𝐭𝐢𝐨𝐧 𝐢𝐧 𝐑𝐄𝐒𝐓 𝐀𝐏𝐈𝐬
+
+![Authentication](images/SpringBoot/Authentication.gif)
+
+Authentication in REST APIs acts as the **gateway** that ensures only authorized users or applications can access API resources.  
+Different authentication methods provide varying balances between **simplicity**, **security**, and **scalability**.
+
+---
+
+<details>
+<summary><strong>1️⃣ Basic Authentication</strong></summary>
+
+**Description:**  
+Sends a **username** and **password** with each HTTP request, typically encoded in Base64 and included in the `Authorization` header.
+
+- **Example Header:**  
+  `Authorization: Basic dXNlcjpwYXNzd29yZA==`
+
+**✅ Pros:**
+- Simple and easy to implement.
+- Works well for basic internal APIs or prototypes.
+
+**⚠️ Cons:**
+- Insecure without HTTPS (credentials are easily decoded).
+- Requires sending credentials on every request.
+
+**🕓 When to Use:**
+- For **simple or internal** applications where security is not critical.
+- When used over **secured HTTPS** connections.
+
+</details>
+
+---
+
+<details>
+<summary><strong>2️⃣ Token-based Authentication (e.g., JWT)</strong></summary>
+
+**Description:**  
+After successful login, the server issues a **token** (such as a JSON Web Token – JWT) that the client includes in subsequent requests.
+
+- **Example Header:**  
+  `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
+
+**✅ Pros:**
+- No need to resend credentials after login.
+- Scalable — works well for stateless, distributed systems.
+- Easy integration with mobile or SPA frontends.
+
+**⚠️ Cons:**
+- Requires secure token storage (e.g., local storage or cookies).
+- Token invalidation can be complex.
+
+**🕓 When to Use:**
+- For **secure and scalable** APIs.
+- When you want to **avoid sending credentials** on each request.
+
+</details>
+
+---
+
+<details>
+<summary><strong>3️⃣ OAuth 2.0 Authentication</strong></summary>
+
+**Description:**  
+Allows **third-party applications** to access user data without exposing user credentials.  
+Uses **access tokens** and **refresh tokens** after user consent.
+
+**OAuth Roles:**
+- **Resource Owner** – The user.
+- **Client** – The third-party app requesting access.
+- **Authorization Server** – Issues tokens.
+- **Resource Server** – Hosts the protected resources.
+
+**✅ Pros:**
+- Industry standard for third-party authorization.
+- Fine-grained control over permissions and scopes.
+- Widely used by major platforms (Google, GitHub, etc.).
+
+**⚠️ Cons:**
+- Complex to implement correctly.
+- Token management and refresh flows require additional setup.
+
+**🕓 When to Use:**
+- For APIs requiring **third-party access** to user resources.
+- For applications integrating with **external identity providers**.
+
+</details>
+
+---
+
+<details>
+<summary><strong>4️⃣ API Key Authentication</strong></summary>
+
+**Description:**  
+Each client is assigned a unique **API key**, sent via headers or query parameters.
+
+- **Example Header:**  
+  `x-api-key: abc123xyz`
+
+**✅ Pros:**
+- Simple and lightweight.
+- Easy to revoke or regenerate keys.
+- Useful for monitoring and rate-limiting API usage.
+
+**⚠️ Cons:**
+- Less secure than tokens (keys can be easily shared or leaked).
+- No user identity verification built-in.
+
+**🕓 When to Use:**
+- For **simple public APIs** or **internal services**.
+- For granting **basic access control** without complex user authentication.
+
+</details>
+
+---
+
+### 🧩 Summary Table
+
+| Method | Mechanism | Security | Complexity | Typical Use Case |
+|--------|------------|-----------|-------------|------------------|
+| **Basic Auth** | Username + Password | 🔸 Low (unless HTTPS) | 🟢 Simple | Internal or simple APIs |
+| **Token (JWT)** | Bearer Token | 🟢 Medium–High | 🟡 Moderate | Secure stateless APIs |
+| **OAuth 2.0** | Access/Refresh Tokens | 🟢 High | 🔴 Complex | Third-party integrations |
+| **API Key** | Unique Key per Client | 🔸 Low–Medium | 🟢 Simple | Basic access control or public APIs |
+
+---
+
+💡 **Tip:**  
+For production systems, avoid Basic or API Key authentication alone.  
+Use **Token-based (JWT)** or **OAuth 2.0** for robust security and scalability.
+
 
 <details>
 <summary><strong>SSO (Single Sign-On)</strong></summary>
@@ -5076,7 +5626,7 @@ livenessProbe:
 <summary>📋 Comparison Table</summary>  
 
 | Strategy                  | Tools / Tech Examples                   | Purpose 🚀                              |
-| ------------------------- | --------------------------------------- | --------------------------------------- |
+|---------------------------|-----------------------------------------|-----------------------------------------|
 | **Containerization**      | Docker, Kubernetes, Docker Swarm        | Run multiple instances easily           |
 | **Load Balancing**        | NGINX, AWS ALB, Istio, Envoy            | Distribute traffic across pods          |
 | **Auto-Scaling**          | Kubernetes HPA, AWS ASG, GCP Autoscaler | Adjust capacity dynamically             |
@@ -5216,7 +5766,7 @@ env:
 <summary>📋 Comparison Table</summary>  
 
 | Approach                       | Tools / Tech Examples                         | Purpose 🚀                   |
-| ------------------------------ | --------------------------------------------- | ---------------------------- |
+|--------------------------------|-----------------------------------------------|------------------------------|
 | **Profiles**                   | `application-dev.yml`, `application-prod.yml` | Simple environment switching |
 | **Spring Cloud Config Server** | Git-backed Config Server                      | Centralized, dynamic configs |
 | **Environment Variables**      | Vault, AWS Secrets Manager, K8s Secrets       | Secure secrets mgmt          |
@@ -5352,7 +5902,7 @@ public static void main(String[] args) {
 <summary>📋 Step Reference Table</summary>  
 
 | Step | Action ⚡        | Example                                          |
-| ---- | --------------- | ------------------------------------------------ |
+|------|-----------------|--------------------------------------------------|
 | 1️⃣  | Run Entry Point | `SpringApplication.run()`                        |
 | 2️⃣  | IoC Container   | `ApplicationContext`                             |
 | 3️⃣  | Load Configs    | `application.yml`, ENV vars                      |
@@ -5484,7 +6034,7 @@ Client ----> API Gateway ----> v1 Service (Legacy)
 <summary>📋 Comparison Table</summary>  
 
 | Strategy                | Purpose 🚀                 | Example                |
-| ----------------------- | -------------------------- | ---------------------- |
+|-------------------------|----------------------------|------------------------|
 | **API Versioning** 📌   | Isolate breaking changes   | `/v1`, `/v2`           |
 | **Backward Compat** 🛡️ | Avoid breaking old clients | Default values         |
 | **Feature Toggles** ⚙️  | Gradual rollout            | Enable flag per client |
@@ -5756,7 +6306,7 @@ Client → Auth Service 🔑 → Token 🎟️
 <summary>📋 Comparison Table</summary>  
 
 | Step | Approach                    | Purpose 🚀                                     |
-| ---- | --------------------------- | ---------------------------------------------- |
+|------|-----------------------------|------------------------------------------------|
 | 1️⃣  | Centralized Auth Service 🔑 | Single source of truth for authentication      |
 | 2️⃣  | Token-Based Auth 🎟️        | Stateless, scalable session management         |
 | 3️⃣  | Local Verification 📌       | Services validate tokens independently         |
@@ -8177,6 +8727,8 @@ Server failed to process a valid request.
 
 ## ✅ Idempotent HTTP Methods
 
+![HttpMethods](images/SpringBoot/HttpMethods.gif)
+
 * **GET** → Safe and idempotent.
 
   * Example: `GET /users/123` always retrieves the same user.
@@ -8243,7 +8795,7 @@ Server failed to process a valid request.
 
 </details>
 
-[RestVsGraphQl](images/SpringBoot/RestVsGraphQl.jpg)
+[RestVsGraphQl](images/SpringBoot/RestVsGraphQl.gif)
 
 # Top 6 API Styles: Choosing the Best Fit for Your Project
 
@@ -8335,6 +8887,8 @@ An API is a set of rules and protocols that allows different software applicatio
 <details>
 <summary><strong>3. API Security</strong></summary>
 
+![APISecurity](images/SpringBoot/APISecurity.gif)
+
 💡 **Focuses on securing APIs to prevent unauthorized access:**
 
 - **Authentication:** Verifies the identity of a user or application.
@@ -8395,5 +8949,7 @@ An API is a set of rules and protocols that allows different software applicatio
 
 </details>
 
-[Mastering API](images/SpringBoot/Mastering%20API.gif)
+![Mastering API](images/SpringBoot/Mastering%20API.gif)
+
+![images/SpringBoot/EncodingVsEncryVsTokerniz.gif](images/SpringBoot/EncodingVsEncryVsTokerniz.gif)
 

@@ -5,6 +5,8 @@
 
 ![Container](images/vmVsContainers.png)
 
+![DockerArch](images/Docker/DockerArch.gif)
+
 </details>
 
 <details>

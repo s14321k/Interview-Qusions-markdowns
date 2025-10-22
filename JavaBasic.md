@@ -2,6 +2,8 @@
 
 <!-- TOC -->
 * [Java Interview Question Bank](#java-interview-question-bank)
+* [Java Principles & Best Practices , Memory Management](#java-principles--best-practices--memory-management)
+* [Java Memory Management Principles](#java-memory-management-principles)
   * [🚀 Primary Main Features of Java](#-primary-main-features-of-java)
     * [Java's Main Features (with Examples)](#javas-main-features-with-examples)
   * [🧩 Class Loaders in Java](#-class-loaders-in-java)
@@ -123,7 +125,27 @@
   * [10. Cohesion vs Coupling](#10-cohesion-vs-coupling)
     * [Coupling](#coupling)
     * [Cohesion](#cohesion)
-  * [Summary](#summary)
+* [Association, Aggregation, and Composition (IS-A / HAS-A)](#association-aggregation-and-composition-is-a--has-a)
+  * [🧩 1. What is an “IS-A” relationship?](#-1-what-is-an-is-a-relationship)
+    * [➡️ Example](#-example-1)
+    * [🧠 Conceptually:](#-conceptually)
+      * [🪶 ASCII diagram:](#-ascii-diagram)
+  * [🧩 2. What is a “HAS-A” relationship?](#-2-what-is-a-has-a-relationship)
+    * [➡️ Example](#-example-2)
+    * [🧠 Conceptually:](#-conceptually-1)
+      * [🪶 ASCII diagram:](#-ascii-diagram-1)
+      * [⚖️ Summary Table](#-summary-table-1)
+      * [🧠 Key Takeaways](#-key-takeaways)
+* [🧩 HAS-A Relationship Types in Java](#-has-a-relationship-types-in-java)
+  * [⚙️ 1. Composition — *Strong HAS-A relationship*](#-1-composition--strong-has-a-relationship)
+    * [➡️ Example: Car **has** an Engine](#-example-car-has-an-engine)
+      * [🪶 ASCII Diagram](#-ascii-diagram-2)
+  * [⚙️ 2. Aggregation — *Weak HAS-A relationship*](#-2-aggregation--weak-has-a-relationship)
+    * [➡️ Example: Department **has** Employees](#-example-department-has-employees)
+      * [🪶 ASCII Diagram](#-ascii-diagram-3)
+    * [🧠 Quick Comparison Table](#-quick-comparison-table)
+      * [🧩 Summary Diagram (All Relationships)](#-summary-diagram-all-relationships)
+      * [Summary](#summary)
 * [🧱 Java Collections Framework Guide](#-java-collections-framework-guide)
   * [🔍 Why Collections Framework?](#-why-collections-framework)
     * [🌐 Collections Hierarchy Overview](#-collections-hierarchy-overview)
@@ -133,7 +155,7 @@
       * [2. You want to store a list of names with duplicates and access by index:](#2-you-want-to-store-a-list-of-names-with-duplicates-and-access-by-index)
       * [3. You want to store a set of unique cities, and order doesn’t matter:](#3-you-want-to-store-a-set-of-unique-cities-and-order-doesnt-matter)
       * [4. You want to store key-value pairs with insertion order preserved and need thread safety:](#4-you-want-to-store-key-value-pairs-with-insertion-order-preserved-and-need-thread-safety)
-      * [🧰 Summary Table](#-summary-table-1)
+      * [🧰 Summary Table](#-summary-table-2)
   * [🛠 Core Interfaces and Key Differences](#-core-interfaces-and-key-differences)
     * [Iterable vs Collection](#iterable-vs-collection)
     * [Iterator vs Enumeration](#iterator-vs-enumeration)
@@ -153,7 +175,7 @@
   * [🧮 Map Implementations](#-map-implementations)
     * [🔑 **Key Differences Between `HashMap` and `Hashtable`**](#-key-differences-between-hashmap-and-hashtable)
     * [✅ **When to Use**](#-when-to-use)
-    * [📌 Example](#-example-1)
+    * [📌 Example](#-example-3)
   * [🧠 Thread Safety Comparison](#-thread-safety-comparison)
   * [🧠 `hashCode()` and `equals()` in Hash-Based Collections](#-hashcode-and-equals-in-hash-based-collections)
     * [**When to override `hashCode()` and `equals()`**](#when-to-override-hashcode-and-equals)
@@ -219,6 +241,7 @@
     * [`finally` block](#finally-block)
     * [`finalize()` method](#finalize-method)
     * [Example:](#example-3)
+* [⚙️ 𝐂𝐚𝐜𝐡𝐢𝐧𝐠 𝐒𝐭𝐫𝐚𝐭𝐞𝐠𝐢𝐞𝐬 & 𝐁𝐞𝐬𝐭 𝐏𝐫𝐚𝐜𝐭𝐢𝐜𝐞𝐬](#-𝐂𝐚𝐜𝐡𝐢𝐧𝐠-𝐒𝐭𝐫𝐚𝐭𝐞𝐠𝐢𝐞𝐬--𝐁𝐞𝐬𝐭-𝐏𝐫𝐚𝐜𝐭𝐢𝐜𝐞𝐬)
   * [Caching in java](#caching-in-java)
 * [Two types of error:-](#two-types-of-error-)
   * [Exception Handling](#exception-handling)
@@ -229,6 +252,9 @@
     * [1. **Checked Exceptions**](#1-checked-exceptions)
     * [2. **Unchecked Exceptions**](#2-unchecked-exceptions)
   * [Try with Resource (Java 7 and Java 9 Improvements)](#try-with-resource--java-7-and-java-9-improvements-)
+  * [⚙️ **1. Nested try-catch**](#-1-nested-try-catch)
+  * [⚙️ **2. Handling multiple exceptions**](#-2-handling-multiple-exceptions)
+    * [🧠 Quick Summary Table](#-quick-summary-table-1)
   * [</details>](#details-1)
 * [Multithreading](#multithreading)
   * [Volatile Keyword](#volatile-keyword)
@@ -243,7 +269,7 @@
   * [Race Condition](#race-condition)
     * [✅ Fail-Safe:](#-fail-safe)
     * [❌ Fail-Fast:](#-fail-fast)
-  * [📞 Callable vs Runnable](#-callable-vs-runnable)
+  * [📞 Runnable vs Callable](#-runnable-vs-callable)
     * [🔸 Method-Level](#-method-level)
     * [🔸 Block-Level](#-block-level)
     * [🔸 Class-Level](#-class-level)
@@ -263,7 +289,7 @@
   * [🔒 4. Synchronized Block (Inside a Method)](#-4-synchronized-block-inside-a-method)
   * [🚀 5. Asynchronous Block (Inside a Method)](#-5-asynchronous-block-inside-a-method)
   * [🔗 6. Combining Both (Synchronized + Asynchronous)](#-6-combining-both-synchronized--asynchronous)
-      * [🧠 Summary Table](#-summary-table-2)
+      * [🧠 Summary Table](#-summary-table-3)
     * [🧩 Example Combo](#-example-combo)
     * [✅ Synchronized](#-synchronized)
     * [❌ Non-Synchronized](#-non-synchronized)
@@ -277,7 +303,7 @@
     * [3️⃣ **Using `ExecutorService` (Thread Pool)**](#3-using-executorservice-thread-pool)
     * [4️⃣ **Using `CompletableFuture` (Java 8+)**](#4-using-completablefuture-java-8)
   * [🧩 **1️⃣ What is `ThreadLocal`?**](#-1-what-is-threadlocal)
-    * [🔹 Example](#-example-2)
+    * [🔹 Example](#-example-4)
   * [⚙️ **2️⃣ How It Works Internally**](#-2-how-it-works-internally)
   * [💼 **3️⃣ Real-World Use Cases**](#-3-real-world-use-cases)
     * [✅ **Use Case 1: Request Context in Web Applications**](#-use-case-1-request-context-in-web-applications)
@@ -300,7 +326,7 @@
   * [👀 Observer Pattern](#-observer-pattern)
   * [🧠 Strategy Pattern](#-strategy-pattern)
   * [🕹️ Command Pattern](#-command-pattern)
-  * [📐 MVC Pattern](#-mvc-pattern)
+  * [Basic](#basic)
     * [Summary](#summary-1)
     * [Tabular Comparison](#tabular-comparison)
     * [Example with warning:](#example-with-warning)
@@ -313,29 +339,20 @@
     * [5. Misc:](#5-misc)
     * [Math.max():](#mathmax)
     * [Math.min():](#mathmin)
-* [Java Principles & Best Practices](#java-principles--best-practices)
-* [Java Memory Management Principles](#java-memory-management-principles)
   * [26. What is the difference between install and deploy](#26-what-is-the-difference-between-install-and-deploy)
 * [⚙️ **Question:**](#-question)
   * [🧩 **1️⃣ The Basics**](#-1-the-basics)
-    * [🔹 Example](#-example-3)
-    * [🔹 Example](#-example-4)
+    * [🔹 Example](#-example-5)
+    * [🔹 Example](#-example-6)
     * [Builder Style:](#builder-style)
     * [Record Style:](#record-style)
     * [**1️⃣ What happens if you override `hashCode()` but not `equals()`?**](#1-what-happens-if-you-override-hashcode-but-not-equals)
       * [💡 Explanation](#-explanation)
       * [⚠️ Effect](#-effect)
-      * [✅ Example:](#-example-5)
+      * [✅ Example:](#-example-7)
     * [**2️⃣ How does JVM handle method overloading and overriding internally?**](#2-how-does-jvm-handle-method-overloading-and-overriding-internally)
       * [🔹 **Overloading** (compile-time polymorphism)](#-overloading-compile-time-polymorphism)
       * [🔹 **Overriding** (runtime polymorphism)](#-overriding-runtime-polymorphism)
-    * [**3️⃣ Difference between `final`, effectively final, and `const`**](#3-difference-between-final-effectively-final-and-const)
-      * [Example:](#example-5)
-    * [**4️⃣ Pass-by-value vs. reference in Java**](#4-pass-by-value-vs-reference-in-java)
-      * [💡 Explanation](#-explanation-1)
-      * [Example:](#example-6)
-    * [**5️⃣ Implement an immutable list without using `Collections.unmodifiableList()`**](#5-implement-an-immutable-list-without-using-collectionsunmodifiablelist)
-      * [✅ Example:](#-example-6)
     * [✅ **Short Answer:**](#-short-answer)
     * [🔍 **Detailed Explanation**](#-detailed-explanation)
       * [1️⃣ What determines overriding?](#1-what-determines-overriding)
@@ -344,24 +361,31 @@
     * [⚠️ **Special Cases**](#-special-cases)
     * [🧠 **In summary**](#-in-summary)
     * [✅ **Takeaway**](#-takeaway)
+    * [**3️⃣ Difference between `final`, effectively final, and `const`**](#3-difference-between-final-effectively-final-and-const)
+      * [Example:](#example-5)
+    * [**4️⃣ Pass-by-value vs. reference in Java**](#4-pass-by-value-vs-reference-in-java)
+      * [💡 Explanation](#-explanation-1)
+      * [Example:](#example-6)
+    * [**5️⃣ Implement an immutable list without using `Collections.unmodifiableList()`**](#5-implement-an-immutable-list-without-using-collectionsunmodifiablelist)
+      * [✅ Example:](#-example-8)
   * [**6️⃣ How does the ForkJoinPool work internally?**](#6-how-does-the-forkjoinpool-work-internally)
     * [💡 Concept](#-concept)
     * [⚙️ Internal Mechanics](#-internal-mechanics)
-    * [✅ Example](#-example-7)
-  * [**7️⃣ Difference between `synchronized`, `Lock`, and `StampedLock`**](#7-difference-between-synchronized-lock-and-stampedlock)
-    * [🧩 Example](#-example-8)
-  * [**8️⃣ CompletableFuture vs. traditional Future**](#8-completablefuture-vs-traditional-future)
     * [✅ Example](#-example-9)
+  * [**7️⃣ Difference between `synchronized`, `Lock`, and `StampedLock`**](#7-difference-between-synchronized-lock-and-stampedlock)
+    * [🧩 Example](#-example-10)
+  * [**8️⃣ CompletableFuture vs. traditional Future**](#8-completablefuture-vs-traditional-future)
+    * [✅ Example](#-example-11)
   * [**9️⃣ Design a concurrent cache with Read-Write Locks**](#9-design-a-concurrent-cache-with-read-write-locks)
     * [💡 Goal](#-goal)
     * [✅ Example Implementation](#-example-implementation)
     * [🚀 Optimization](#-optimization)
   * [**🔟 False Sharing and How to Avoid It**](#-false-sharing-and-how-to-avoid-it)
     * [💡 Concept](#-concept-1)
-    * [🔍 Example](#-example-10)
+    * [🔍 Example](#-example-12)
     * [🚫 Effect](#-effect-1)
     * [✅ Avoidance Techniques](#-avoidance-techniques)
-      * [✅ **Summary Table**](#-summary-table-3)
+      * [✅ **Summary Table**](#-summary-table-4)
 * [Junit](#junit)
   * [Junit mockito](#junit-mockito)
   * [Java Questions](#java-questions)
@@ -372,6 +396,600 @@
 - [Java Interview Questions 1](https://www.java2novice.com/java-interview-questions/)
 - [Java Interview Questions 2](https://www.java67.com/2015/03/top-40-core-java-interview-questions-answers-telephonic-round.html)
 - [Java Go through Points](https://www.javamadesoeasy.com/)
+
+---
+
+# Java Principles & Best Practices , Memory Management
+
+<details>
+<summary><strong>Java Principles & Best Practices</strong></summary>
+
+<details>
+<summary>1. Single Responsibility Principle (SRP)</summary>
+
+A class should have **only one reason to change**.
+
+**Bad Example:**
+
+```java
+class User {
+    void saveToDatabase() {}
+    void printUserDetails() {}
+}
+```
+
+**Good Example:**
+
+```java
+class User {}
+class UserRepository {
+    void save(User user) {}
+}
+class UserPrinter {
+    void print(User user) {}
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>2. Open/Closed Principle (OCP)</summary>
+
+Classes should be **open for extension, but closed for modification**.
+
+**Bad Example:**
+
+```java
+class Discount {
+    double getDiscount(String type) {
+        if (type.equals("STUDENT")) return 0.2;
+        if (type.equals("SENIOR")) return 0.3;
+        return 0;
+    }
+}
+```
+
+**Good Example (using polymorphism):**
+
+```java
+interface Discount {
+    double getDiscount();
+}
+
+class StudentDiscount implements Discount {
+    public double getDiscount() { return 0.2; }
+}
+
+class SeniorDiscount implements Discount {
+    public double getDiscount() { return 0.3; }
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>3. Liskov Substitution Principle (LSP)</summary>
+
+Subtypes must be **replaceable** with their base types without breaking the program.
+
+**Bad Example:**
+
+```java
+class Bird {
+    void fly() {}
+}
+class Ostrich extends Bird {  // Ostrich can't fly
+    void fly() { throw new UnsupportedOperationException(); }
+}
+```
+
+**Good Example:**
+
+```java
+interface Bird {}
+interface Flyable extends Bird { void fly(); }
+
+class Sparrow implements Flyable {
+    public void fly() { System.out.println("Flying"); }
+}
+
+class Ostrich implements Bird {}
+```
+
+</details>
+
+---
+
+<details>
+<summary>4. Interface Segregation Principle (ISP)</summary>
+
+Clients should not be forced to implement **unnecessary methods**.
+
+**Bad Example:**
+
+```java
+interface Worker {
+    void work();
+    void eat();
+}
+
+class Robot implements Worker {
+    public void work() {}
+    public void eat() {} // Not applicable
+}
+```
+
+**Good Example:**
+
+```java
+interface Workable { void work(); }
+interface Eatable { void eat(); }
+
+class Robot implements Workable {
+    public void work() {}
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>5. Dependency Inversion Principle (DIP)</summary>
+
+Depend on **abstractions**, not on concrete implementations.
+
+**Bad Example:**
+
+```java
+class MySQLDatabase {
+    void connect() {}
+}
+
+class App {
+    MySQLDatabase db = new MySQLDatabase();
+}
+```
+
+**Good Example:**
+
+```java
+interface Database { void connect(); }
+
+class MySQLDatabase implements Database {
+    public void connect() {}
+}
+
+class App {
+    private Database db;
+    App(Database db) { this.db = db; }
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>6. DRY (Don’t Repeat Yourself)</summary>
+
+Avoid duplicating logic. Extract common behavior into methods/classes.
+
+**Bad Example:**
+
+```java
+int areaSquare(int side) { return side * side; }
+int areaRectangle(int length, int width) { return length * width; }
+```
+
+**Good Example:**
+
+```java
+class ShapeUtils {
+    static int area(int a, int b) { return a * b; }
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>7. KISS (Keep It Simple, Stupid)</summary>
+
+Prefer **simple and clear solutions** over clever but complex ones.
+
+**Bad Example:**
+
+```java
+int add(int a, int b) {
+    return (a | b) + (a & b); // Bitwise trick
+}
+```
+
+**Good Example:**
+
+```java
+int add(int a, int b) {
+    return a + b;
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>8. YAGNI (You Aren’t Gonna Need It)</summary>
+
+Don’t write code for future needs that may never come.
+
+**Bad Example:**
+
+```java
+class Car {
+    void fly() {}  // Not needed now
+}
+```
+
+**Good Example:**
+
+```java
+class Car {
+    void drive() {}
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>9. Validate Before Use</summary>
+
+Always **validate inputs** before using them to avoid crashes and bugs.
+
+**Bad Example:**
+
+```java
+int divide(int a, int b) {
+    return a / b;  // Risk of divide by zero
+}
+```
+
+**Good Example:**
+
+```java
+int divide(int a, int b) {
+    if (b == 0) throw new IllegalArgumentException("Divider cannot be zero");
+    return a / b;
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>10. Favor Composition Over Inheritance</summary>
+
+Use **composition** instead of inheritance when possible.
+
+**Bad Example:**
+
+```java
+class Engine {}
+class Car extends Engine {}  // Wrong: Car is not an Engine
+```
+
+**Good Example:**
+
+```java
+class Engine {}
+class Car {
+    private Engine engine;
+    Car(Engine engine) { this.engine = engine; }
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>11. Law of Demeter (LoD)</summary>
+
+An object should only talk to its **direct friends**, not strangers.
+
+**Bad Example:**
+
+```java
+order.getCustomer().getAddress().getCity();
+```
+
+**Good Example:**
+
+```java
+class Order {
+    Customer customer;
+    String getCustomerCity() {
+        return customer.getCity();
+    }
+}
+order.getCustomerCity();
+```
+
+</details>
+
+---
+
+<details>
+<summary>12. Fail Fast Principle</summary>
+
+Detect and report errors **early**, instead of failing silently.
+
+**Usage Example:**
+
+```java
+if (list == null) throw new IllegalArgumentException("List cannot be null");
+```
+
+</details>
+
+---
+
+# Java Memory Management Principles
+
+<details>
+<summary>1. Avoid Creating Unnecessary Objects</summary>
+
+Unnecessary objects increase memory usage and GC pressure.
+
+**Bad Example:**
+
+```java
+String s1 = new String("Hello"); // Creates unnecessary object
+```
+
+**Good Example:**
+
+```java
+String s1 = "Hello"; // Uses string pool
+```
+
+</details>
+
+---
+
+<details>
+<summary>2. Prefer Immutability</summary>
+
+Immutable objects are thread-safe and reduce errors.
+
+**Usage Example:**
+
+```java
+final class Person {
+    private final String name;
+    Person(String name) { this.name = name; }
+    String getName() { return name; }
+}
+```
+
+Immutable objects also reduce chances of memory leaks caused by unintended modifications.
+
+</details>
+
+---
+
+<details>
+<summary>3. Use Primitive Types Instead of Wrappers (when possible)</summary>
+
+Wrappers (`Integer`, `Double`) consume more memory than primitives (`int`, `double`).
+
+**Bad Example:**
+
+```java
+Integer sum = 0;
+for (Integer i = 0; i < 1000; i++) {
+    sum += i;
+}
+```
+
+**Good Example:**
+
+```java
+int sum = 0;
+for (int i = 0; i < 1000; i++) {
+    sum += i;
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>4. Reuse Objects When Possible</summary>
+
+For heavy objects, reuse instances instead of creating new ones repeatedly.
+
+**Usage Example:**
+
+```java
+// Reuse Random instead of creating in every method call
+private static final Random random = new Random();
+```
+
+</details>
+
+---
+
+<details>
+<summary>5. Be Careful with Static References</summary>
+
+Static references live until the class is unloaded and may cause **memory leaks**.
+
+**Bad Example:**
+
+```java
+static List<String> cache = new ArrayList<>();
+```
+
+**Good Example:**
+
+* Use weak references (`WeakHashMap`) if cache entries can be discarded.
+* Clean up static fields when not needed.
+
+</details>
+
+---
+
+<details>
+<summary>6. Close Resources Properly</summary>
+
+Unclosed resources (files, sockets, DB connections) leak memory.
+
+**Bad Example:**
+
+```java
+FileInputStream fis = new FileInputStream("data.txt");
+```
+
+**Good Example (try-with-resources):**
+
+```java
+try (FileInputStream fis = new FileInputStream("data.txt")) {
+    // use fis
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>7. Use StringBuilder/StringBuffer for Concatenation in Loops</summary>
+
+String concatenation in loops creates multiple intermediate objects.
+
+**Bad Example:**
+
+```java
+String result = "";
+for (int i = 0; i < 100; i++) {
+    result += i;
+}
+```
+
+**Good Example:**
+
+```java
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i < 100; i++) {
+    sb.append(i);
+}
+String result = sb.toString();
+```
+
+</details>
+
+---
+
+<details>
+<summary>8. Avoid Memory Leaks with Collections</summary>
+
+Collections can hold references long after they are needed.
+
+**Bad Example:**
+
+```java
+List<byte[]> list = new ArrayList<>();
+while (true) {
+    list.add(new byte[1024]); // OutOfMemoryError
+}
+```
+
+**Good Example:**
+
+```java
+list.clear(); // Release references when no longer needed
+```
+
+Or use `WeakHashMap` when keys should be garbage collected.
+
+</details>
+
+---
+
+<details>
+<summary>9. Use Object Pooling Carefully</summary>
+
+* For lightweight objects, let GC handle them.
+* For expensive resources (DB connections, threads), use pooling (`ExecutorService`, connection pools).
+
+**Usage Example:**
+
+```java
+ExecutorService executor = Executors.newFixedThreadPool(5);
+```
+
+</details>
+
+---
+
+<details>
+<summary>10. Monitor and Tune Garbage Collection</summary>
+
+* Use JVM options to optimize GC (`-Xms`, `-Xmx`, `-XX:+UseG1GC`).
+* Monitor memory with tools like **VisualVM, JConsole, Flight Recorder**.
+
+**Usage:**
+
+```bash
+java -Xms512m -Xmx1024m -XX:+UseG1GC MyApp
+```
+
+</details>
+
+---
+
+<details>
+<summary>11. Weak References for Caching</summary>
+
+Use `WeakReference` or `WeakHashMap` for objects that can be garbage collected.
+
+**Usage Example:**
+
+```java
+Map<Object, String> cache = new WeakHashMap<>();
+```
+
+</details>
+
+---
+
+<details>
+<summary>12. Prefer Local Variables Over Instance Variables</summary>
+
+Local variables are eligible for GC as soon as the method exits, while instance variables may remain longer.
+
+**Usage Example:**
+
+```java
+public int compute() {
+    int temp = 100;  // released quickly
+    return temp * 2;
+}
+```
+
+</details>
+
+</details>
 
 ---
 
@@ -1060,7 +1678,7 @@ verify(userService, times(1)).save(any());
 ## ⚡ **6️⃣ Other Types of “Chaining” Concepts**
 
 | Type                           | Description                                                    | Example                              |
-| ------------------------------ | -------------------------------------------------------------- | ------------------------------------ |
+|--------------------------------|----------------------------------------------------------------|--------------------------------------|
 | **Exception chaining**         | One exception wraps another (cause chaining)                   | `new RuntimeException("msg", cause)` |
 | **Stream/Functional chaining** | Each method returns a new instance for next transformation     | `.filter().map().collect()`          |
 | **Builder chaining**           | Build complex objects fluently                                 | `.name().age().build()`              |
@@ -1081,7 +1699,7 @@ verify(userService, times(1)).save(any());
 ## ✅ **Summary**
 
 | Type                     | Example                       | Purpose                           |
-| ------------------------ | ----------------------------- | --------------------------------- |
+|--------------------------|-------------------------------|-----------------------------------|
 | **Constructor chaining** | `this()` / `super()`          | Reuse constructor logic           |
 | **Method chaining**      | `.setName().setAge()`         | Fluent interface / readability    |
 | **Builder chaining**     | `.name().age().build()`       | Complex immutable object creation |
@@ -1103,7 +1721,7 @@ verify(userService, times(1)).save(any());
 ### 📊 Which One Should You Use?
 
 | Approach            | Best When                                        |
-| ------------------- | ------------------------------------------------ |
+|---------------------|--------------------------------------------------|
 | `Thread`            | Simple and quick demos/tests                     |
 | `Runnable`          | Cleaner logic, reusable, better practice         |
 | `ExecutorService`   | Managing **many tasks**, scalability and control |
@@ -1121,12 +1739,12 @@ verify(userService, times(1)).save(any());
 
 ## 1. Access Modifiers
 
-| Modifier  | Access within class | Access within package | Access outside package by subclass | Access outside package (non-subclass) |
-| --------- | ------------------- | -------------------- | --------------------------------- | ------------------------------------ |
-| **public**    | Yes                 | Yes                  | Yes                               | Yes                                  |
-| **protected** | Yes                 | Yes                  | Yes                               | No                                   |
-| **default**   | Yes                 | Yes                  | No                                | No                                   |
-| **private**   | Yes                 | No                   | No                                | No                                   |
+| Modifier      | Access within class | Access within package | Access outside package by subclass | Access outside package (non-subclass) |
+|---------------|---------------------|-----------------------|------------------------------------|---------------------------------------|
+| **public**    | Yes                 | Yes                   | Yes                                | Yes                                   |
+| **protected** | Yes                 | Yes                   | Yes                                | No                                    |
+| **default**   | Yes                 | Yes                   | No                                 | No                                    |
+| **private**   | Yes                 | No                    | No                                 | No                                    |
 
 ### Details
 
@@ -1973,7 +2591,7 @@ class Impl implements Outer.InnerInterface {
 ### Marker Interface vs Functional Interface
 
 | Interface Type       | Description                                                  | Example        |
-| -------------------- | ------------------------------------------------------------ | -------------- |
+|----------------------|--------------------------------------------------------------|----------------|
 | Marker Interface     | No methods; used to mark a class for special treatment       | `Serializable` |
 | Functional Interface | Exactly one abstract method; can have default/static methods | `Runnable`     |
 
@@ -1982,7 +2600,7 @@ class Impl implements Outer.InnerInterface {
 ### Common Functional Interfaces and Marker Interfaces
 
 | Interface  | Method Signature          | Notes                                         |
-| ---------- | ------------------------- | --------------------------------------------- |
+|------------|---------------------------|-----------------------------------------------|
 | Runnable   | `void run()`              | Used for threads, no return value             |
 | Callable   | `V call()`                | Returns a value, can throw checked exceptions |
 | Cloneable  | `Object clone()`          | Marker interface, enables object cloning      |
@@ -2108,7 +2726,7 @@ Comparator<Student> nameComparator = (s1, s2) -> s1.name.compareTo(s2.name);
 **Definition:** Degree to which class members (methods/variables) are related to each other.
 
 | Type          | Description                                                               |
-| ------------- | ------------------------------------------------------------------------- |
+|---------------|---------------------------------------------------------------------------|
 | High Cohesion | Class has well-defined responsibility, easier to maintain & reuse.        |
 | Low Cohesion  | Class handles many unrelated tasks. Difficult to understand and maintain. |
 
@@ -2119,12 +2737,328 @@ Comparator<Student> nameComparator = (s1, s2) -> s1.name.compareTo(s2.name);
 * **High Cohesion**: Specific, clear responsibilities. 👍
 * **Low Cohesion**: General, unrelated logic. 👎
 
+# Association, Aggregation, and Composition (IS-A / HAS-A)
+
+<details>
+<summary>🔗 <strong>Association, Aggregation, and Composition (IS-A / HAS-A)</strong></summary>
+
+* **Association**: General relationship between classes.
+* **Aggregation**: "Has-a" relationship, loosely coupled.
+* **Composition**: Strong ownership, tightly coupled.
+
+```mermaid
+flowchart TB
+    A[Association] -- Weak (Loose Coupling) --> B[Aggregation]
+    A -- Strong (Tight Coupling) --> C[Composition]
+```
+
+![AssosiationAggregation.png](images/JavaBasic/AssosiationAggregation.png)
+
+* Spring Boot MongoDB Join Example: [Link](https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html)
+
 ---
 
-## Summary
+## 🧩 1. What is an “IS-A” relationship?
+
+**Definition:**
+An **IS-A** relationship represents **inheritance** — one class **inherits** from another.
+It means **“is a kind of”** relationship between two classes.
+
+### ➡️ Example
+
+```java
+class Animal {
+    void eat() {
+        System.out.println("Animal eats food");
+    }
+}
+
+class Dog extends Animal {
+    void bark() {
+        System.out.println("Dog barks");
+    }
+}
+```
+
+Here:
+
+* `Dog` **is an** `Animal`
+* So, the **IS-A relationship** exists between `Dog` and `Animal`.
+
+✅ We can write:
+
+```java
+Dog d = new Dog();
+d.eat(); // Inherited from Animal
+```
+
+### 🧠 Conceptually:
+
+* The subclass (child) **inherits** the behavior and properties of the parent.
+* It helps achieve **code reuse** and **polymorphism**.
+
+#### 🪶 ASCII diagram:
+
+```
+   Animal
+     ↑
+     |
+    Dog
+```
+
+👉 `Dog IS-A Animal`
+
+---
+
+## 🧩 2. What is a “HAS-A” relationship?
+
+**Definition:**
+A **HAS-A** relationship represents **composition** or **aggregation** — one class **contains** another class as a member.
+
+It means **“has a”** or **“contains a”** relationship.
+
+### ➡️ Example
+
+```java
+class Engine {
+    void start() {
+        System.out.println("Engine starts");
+    }
+}
+
+class Car {
+    private Engine engine = new Engine();  // Car HAS-A Engine
+
+    void startCar() {
+        engine.start();
+        System.out.println("Car is running");
+    }
+}
+```
+
+Here:
+
+* `Car` **has an** `Engine`.
+* The **HAS-A relationship** exists between `Car` and `Engine`.
+
+✅ We can write:
+
+```java
+Car car = new Car();
+car.startCar();
+```
+
+### 🧠 Conceptually:
+
+* One class **uses or contains** another class.
+* It’s **composition** if the contained object’s lifetime depends on the container.
+  Example: A `Car`’s `Engine` exists only as long as the `Car` exists.
+* It’s **aggregation** if they can exist independently.
+  Example: A `Department` **has many** `Employees`, but `Employee` can exist without `Department`.
+
+#### 🪶 ASCII diagram:
+
+```
+Car -----> Engine
+   (has-a)
+```
+
+👉 `Car HAS-A Engine`
+
+---
+
+#### ⚖️ Summary Table
+
+| Concept   | Relationship Type         | Implementation           | Keyword Used            | Example              | Meaning             |
+| --------- | ------------------------- | ------------------------ | ----------------------- | -------------------- | ------------------- |
+| **IS-A**  | Inheritance               | `extends` / `implements` | `extends`, `implements` | `Dog extends Animal` | “Dog is an Animal”  |
+| **HAS-A** | Composition / Aggregation | Member object            | Instance field          | `Car has Engine`     | “Car has an Engine” |
+
+---
+
+#### 🧠 Key Takeaways
+
+* Use **IS-A** when one class is a specialized type of another → inheritance.
+  Example: `class Manager extends Employee`
+* Use **HAS-A** when one class uses or contains another → composition.
+  Example: `class Employee { Address address; }`
+
+---
+
+**difference between Composition and Aggregation**,
+
+which are the **two types of “HAS-A” relationships** in Java.
+
+---
+
+# 🧩 HAS-A Relationship Types in Java
+
+A “HAS-A” relationship means **one class contains another**.
+But **how tightly** one class owns the other defines whether it’s:
+
+* **Composition** (strong ownership)
+* **Aggregation** (weak ownership)
+
+---
+
+## ⚙️ 1. Composition — *Strong HAS-A relationship*
+
+**Definition:**
+When one class **owns** another class completely —
+the contained object **cannot exist independently** of the container.
+
+* **Lifetime is dependent:**
+  If the container object is destroyed, the contained object is also destroyed.
+
+### ➡️ Example: Car **has** an Engine
+
+```java
+class Engine {
+    void start() {
+        System.out.println("Engine starts");
+    }
+}
+
+class Car {
+    private Engine engine; // Composition
+
+    Car() {
+        engine = new Engine(); // Car creates and owns Engine
+    }
+
+    void startCar() {
+        engine.start();
+        System.out.println("Car is running");
+    }
+}
+```
+
+✅ **Explanation:**
+
+* `Car` **creates** the `Engine` object.
+* If the `Car` object is destroyed → its `Engine` object also ceases to exist.
+* `Engine`’s lifecycle is **tied** to `Car`.
+
+#### 🪶 ASCII Diagram
+
+```
+[Car] ♦───>[Engine]
+   Composition (strong ownership)
+```
+
+Diamond (♦) denotes *composition* (from UML).
+
+---
+
+## ⚙️ 2. Aggregation — *Weak HAS-A relationship*
+
+**Definition:**
+When one class **uses** another class **without owning it**.
+The contained object can **exist independently**.
+
+* **Lifetime is independent:**
+  If the container is destroyed, the contained object still exists elsewhere.
+
+### ➡️ Example: Department **has** Employees
+
+```java
+class Employee {
+    String name;
+    Employee(String name) {
+        this.name = name;
+    }
+}
+
+class Department {
+    private String deptName;
+    private List<Employee> employees; // Aggregation
+
+    Department(String deptName, List<Employee> employees) {
+        this.deptName = deptName;
+        this.employees = employees; // Injected from outside
+    }
+
+    void showEmployees() {
+        for (Employee e : employees)
+            System.out.println(e.name);
+    }
+}
+```
+
+✅ **Explanation:**
+
+* `Employee` objects are created **outside** the `Department`.
+* `Department` just **uses a reference** to them.
+* Even if the `Department` is deleted, employees can exist independently.
+
+#### 🪶 ASCII Diagram
+
+```
+[Department] ◇───>[Employee]
+    Aggregation (weak ownership)
+```
+
+Hollow diamond (◇) denotes *aggregation* (from UML).
+
+---
+
+### 🧠 Quick Comparison Table
+
+| Feature             | **Composition**                                  | **Aggregation**                         |
+| ------------------- | ------------------------------------------------ | --------------------------------------- |
+| **Type**            | Strong HAS-A                                     | Weak HAS-A                              |
+| **Ownership**       | One class **owns** the other                     | One class **uses** the other            |
+| **Object lifetime** | Dependent – contained object dies with container | Independent – contained object lives on |
+| **Instantiation**   | Usually created inside container                 | Usually passed in from outside          |
+| **Example**         | `Car` has an `Engine`                            | `Department` has `Employees`            |
+| **UML symbol**      | ♦ (filled diamond)                               | ◇ (hollow diamond)                      |
+
+---
+
+#### 🧩 Summary Diagram (All Relationships)
+
+```
+             ┌──────────────┐
+             │   Animal     │
+             └──────▲───────┘
+                    │ IS-A
+             ┌──────┴───────┐
+             │     Dog      │
+             └──────────────┘
+
+             ┌──────────────┐
+             │     Car      │
+             └──────♦───────┘   Composition
+                    │
+             ┌──────┴───────┐
+             │    Engine    │
+             └──────────────┘
+
+             ┌──────────────┐
+             │ Department   │
+             └──────◇───────┘   Aggregation
+                    │
+             ┌──────┴───────┐
+             │  Employee    │
+             └──────────────┘
+```
+
+---
+
+✅ **In short:**
+
+* **IS-A** → Inheritance (`extends` / `implements`)
+* **HAS-A (Composition)** → Strong containment (one object *owns* another)
+* **HAS-A (Aggregation)** → Weak containment (one object *uses* another)
+
+</details>
+
+---
+
+#### Summary
 
 | Concept            | Goal                                            |
-| ------------------ | ----------------------------------------------- |
+|--------------------|-------------------------------------------------|
 | **Polymorphism**   | Same interface, different behavior              |
 | **Encapsulation**  | Hide internal details                           |
 | **Inheritance**    | Code reuse, hierarchical logic                  |
@@ -3366,7 +4300,7 @@ So, after receiving the data (like from a network), we rebuild the original obje
 ### 🧠 Related Terms
 
 | Term                | Meaning                                                                       | Typical Use                                 |
-| ------------------- | ----------------------------------------------------------------------------- | ------------------------------------------- |
+|---------------------|-------------------------------------------------------------------------------|---------------------------------------------|
 | **Serialization**   | Converting an object to a byte stream (for storage or transfer)               | `ObjectOutputStream`                        |
 | **Deserialization** | Rebuilding the object from a byte stream                                      | `ObjectInputStream`                         |
 | **Marshalling**     | More general — converting object to any transferable format (XML, JSON, etc.) | Used in web services (e.g., JAXB, RMI)      |
@@ -3595,11 +4529,77 @@ Runtime.getRuntime().gc();
 
 ---
 
-## Caching in java
+# ⚙️ 𝐂𝐚𝐜𝐡𝐢𝐧𝐠 𝐒𝐭𝐫𝐚𝐭𝐞𝐠𝐢𝐞𝐬 & 𝐁𝐞𝐬𝐭 𝐏𝐫𝐚𝐜𝐭𝐢𝐜𝐞𝐬
 
 - Caching is a technique wherein objects in your application are stored in a temporary storage area known as cache.
 
 ![CacheFlow.png](images/SpringBoot/CacheFlow.png)
+
+## Caching in java
+
+![CachingJava](images/JavaBasic/CachingJava.jpg)
+
+---
+
+<details>
+<summary><strong>📌 Suitable Scenarios</strong></summary>
+
+- 🧠 **In-memory solution** — ideal when data must be fetched extremely fast.
+- 📚 **Read-heavy systems** — caching helps offload database reads.
+- 🔄 **Data not frequently updated** — best suited for stable datasets or reference data.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🧩 Caching Techniques</strong></summary>
+
+- **Cache Aside:** Application reads from cache first, then falls back to the database if missing, and updates the cache.
+- **Write-Through:** Data is written to the cache and the database simultaneously.
+- **Read-Through:** Application requests data from the cache; if missing, the cache fetches from the database.
+- **Write-Around:** Writes go directly to the database, bypassing the cache; cache is updated only on reads.
+- **Write-Back:** Data is first written to the cache and asynchronously persisted to the database later.
+
+</details>
+
+---
+
+<details>
+<summary><strong>🧮 Cache Eviction Algorithms</strong></summary>
+
+- **LRU (Least Recently Used):** Removes items that haven’t been accessed recently.
+- **LFU (Least Frequently Used):** Removes items accessed least often.
+- **FIFO (First-In, First-Out):** Evicts the oldest entries first.
+- **RR (Random Replacement):** Randomly evicts items when space is needed.
+
+</details>
+
+---
+
+<details>
+<summary><strong>📊 Key Metrics</strong></summary>
+
+- **Cache Hit Ratio:** Percentage of requests served from cache.
+- **Latency:** Time taken to retrieve data.
+- **Throughput:** Number of requests processed per second.
+- **Invalidation Rate:** Frequency of cache entries being invalidated or refreshed.
+- **Memory Usage:** Total memory consumed by cache.
+- **CPU Usage:** Processor overhead for cache operations.
+- **Network Usage:** Bandwidth impact due to cache synchronization or invalidations.
+
+</details>
+
+---
+
+<details>
+<summary><strong>⚠️ Other Issues</strong></summary>
+
+- **Thunder Herd on Cold Start:** Surge of concurrent requests when the cache is empty.
+- **TTL (Time-To-Live):** Controls how long data remains valid in cache before expiration.
+
+</details>
+
 
 ---
 
@@ -3906,6 +4906,93 @@ try {
 catch (Exception | IOException e) { ... }
 ```
 
+**Nested try blocks** and **Multiple exception handling** in Java 👇
+
+---
+
+## ⚙️ **1. Nested try-catch**
+
+✅ **Allowed:** You can put one `try` block inside another.
+
+```java
+try {
+    try {
+        int[] arr = new int[3];
+        arr[5] = 10; // inner exception
+    } catch (ArrayIndexOutOfBoundsException e) {
+        System.out.println("Inner catch: " + e);
+    }
+
+    int a = 10 / 0; // outer exception
+} catch (ArithmeticException e) {
+    System.out.println("Outer catch: " + e);
+}
+```
+
+🧠 **Use only when:**
+
+* Inner code needs its own handling logic inside a larger risky operation.
+  ⚠️ Avoid overusing — it reduces readability.
+  Prefer **separate try blocks** or **try-with-resources** for cleaner code.
+
+---
+
+## ⚙️ **2. Handling multiple exceptions**
+
+✅ **Option 1 – Multi-catch (Java 7+):**
+
+```java
+try {
+    int a = 10 / 0;
+    int[] arr = new int[3];
+    arr[5] = 42;
+} catch (ArithmeticException | ArrayIndexOutOfBoundsException e) {
+    System.out.println("Caught: " + e);
+}
+```
+
+➡️ Use when **different exceptions need the same handling logic**.
+
+---
+
+✅ **Option 2 – Multiple catch blocks:**
+
+```java
+try {
+    int[] arr = new int[3];
+    arr[5] = 42;
+    int a = 10 / 0;
+} catch (ArrayIndexOutOfBoundsException e) {
+    System.out.println("Index error");
+} catch (ArithmeticException e) {
+    System.out.println("Math error");
+} catch (Exception e) {
+    System.out.println("Generic error");
+}
+```
+
+➡️ Use when **each exception needs different handling**.
+Always order: **specific → general**, else compiler error.
+
+---
+
+### 🧠 Quick Summary Table
+
+| Concept              | Allowed     | Use When                               | Best Practice            |
+| -------------------- | ----------- | -------------------------------------- | ------------------------ |
+| **Nested try**       | ✅           | Inner risky block needs local handling | Avoid deep nesting       |
+| **Multi-catch**      | ✅ (Java 7+) | Same logic for multiple exceptions     | Cleaner & shorter        |
+| **Multiple catches** | ✅           | Different logic per exception          | Order specific → general |
+
+---
+
+✅ **In short:**
+
+> ✔ Nested try is allowed but use sparingly.
+> ✔ Multi-catch handles similar exceptions together.
+> ✔ Separate catches for different handling logic.
+
+
 </details>
 
 ---
@@ -4006,6 +5093,8 @@ public static void main(String[] args) throws InterruptedException {
 ---
 
 ## Deadlock
+
+![DeadLock](images/JavaBasic/DeadLock.gif)
 
 <details>
 <summary>🔒 Deadlock</summary>
@@ -4108,10 +5197,10 @@ list.add("item2"); // Throws exception
 
 ---
 
-## 📞 Callable vs Runnable
+## 📞 Runnable vs Callable
 
 <details>
-<summary>📞 Callable vs Runnable</summary>
+<summary>📞 Runnable vs Callable</summary>
 
 | Feature             | Runnable         | Callable         |
 |---------------------|------------------|------------------|
@@ -4167,6 +5256,11 @@ System.out.println(future.get()); // Waits for result
 
 <details>
 <summary>🛡️ Synchronization Mechanisms</summary>
+
+**Synchronization applies only to:**
+- Methods
+- Code blocks
+- (and by extension) class-level locks via static synchronized or custom lock objects.
 
 ### 🔸 Method-Level
 
@@ -5195,8 +6289,6 @@ class Invoker {
 
 ---
 
-## 📐 MVC Pattern
-
 <details>
 <summary>📐 <strong>10. MVC Pattern (Model-View-Controller)</strong></summary>
 
@@ -5212,6 +6304,8 @@ class Invoker {
 
 ---
 
+## Basic
+
 <details>
 <summary>🌐 <strong>URL vs URI</strong></summary>
 
@@ -5223,13 +6317,17 @@ class Invoker {
 
 ![UrlUri.png](images/SpringBoot/UrlUri.png)
 
+![URLvsURNvsURI](images/JavaBasic/URLvsURNvsURI.jpg)
+
+![StructureOfURL](images/JavaBasic/StructureOfURL.jpg)
+
 ### Tabular Comparison
 
 | URL                                                         | URI                                                       |
-| ----------------------------------------------------------- | --------------------------------------------------------- |
+|-------------------------------------------------------------|-----------------------------------------------------------|
 | Uniform Resource Locator: Contains info to fetch a resource | Uniform Resource Identifier: Identifies a resource        |
 | `<Protocol><domain><path>`                                  | `<protocol>://<service-name>/<ResourceType>/<ResourceID>` |
-| ![img\_15.png](images/SpringBoot/URI-URN-Domain-Path.png)                           | ![img\_14.png](images/SpringBoot/URI-URN.png)                         |
+| ![img\_15.png](images/SpringBoot/URI-URN-Domain-Path.png)   | ![img\_14.png](images/SpringBoot/URI-URN.png)             |
 
 </details>
 
@@ -5268,27 +6366,6 @@ class Invoker {
 
 * Commonly used loggers: SLF4J, Log4j2, java.util.logging, Logback.
 * Helps in decoupling code from the logging implementation.
-
-</details>
-
----
-
-<details>
-<summary>🔗 <strong>Association, Aggregation, and Composition</strong></summary>
-
-* **Association**: General relationship between classes.
-* **Aggregation**: "Has-a" relationship, loosely coupled.
-* **Composition**: Strong ownership, tightly coupled.
-
-```mermaid
-flowchart TB
-    A[Association] -- Weak (Loose Coupling) --> B[Aggregation]
-    A -- Strong (Tight Coupling) --> C[Composition]
-```
-
-![AssosiationAggregation.png](images/JavaBasic/AssosiationAggregation.png)
-
-* Spring Boot MongoDB Join Example: [Link](https://www.javaprogramto.com/2020/05/spring-boot-data-mongodb-projections-aggregations.html)
 
 </details>
 
@@ -5400,595 +6477,6 @@ Supports: `int`, `long`, `float`, `double`
 
 ---
 
-# Java Principles & Best Practices
-
-<details>
-<summary>1. Single Responsibility Principle (SRP)</summary>
-
-A class should have **only one reason to change**.
-
-**Bad Example:**
-
-```java
-class User {
-    void saveToDatabase() {}
-    void printUserDetails() {}
-}
-```
-
-**Good Example:**
-
-```java
-class User {}
-class UserRepository {
-    void save(User user) {}
-}
-class UserPrinter {
-    void print(User user) {}
-}
-```
-
-</details>
-
----
-
-<details>
-<summary>2. Open/Closed Principle (OCP)</summary>
-
-Classes should be **open for extension, but closed for modification**.
-
-**Bad Example:**
-
-```java
-class Discount {
-    double getDiscount(String type) {
-        if (type.equals("STUDENT")) return 0.2;
-        if (type.equals("SENIOR")) return 0.3;
-        return 0;
-    }
-}
-```
-
-**Good Example (using polymorphism):**
-
-```java
-interface Discount {
-    double getDiscount();
-}
-
-class StudentDiscount implements Discount {
-    public double getDiscount() { return 0.2; }
-}
-
-class SeniorDiscount implements Discount {
-    public double getDiscount() { return 0.3; }
-}
-```
-
-</details>
-
----
-
-<details>
-<summary>3. Liskov Substitution Principle (LSP)</summary>
-
-Subtypes must be **replaceable** with their base types without breaking the program.
-
-**Bad Example:**
-
-```java
-class Bird {
-    void fly() {}
-}
-class Ostrich extends Bird {  // Ostrich can't fly
-    void fly() { throw new UnsupportedOperationException(); }
-}
-```
-
-**Good Example:**
-
-```java
-interface Bird {}
-interface Flyable extends Bird { void fly(); }
-
-class Sparrow implements Flyable {
-    public void fly() { System.out.println("Flying"); }
-}
-
-class Ostrich implements Bird {}
-```
-
-</details>
-
----
-
-<details>
-<summary>4. Interface Segregation Principle (ISP)</summary>
-
-Clients should not be forced to implement **unnecessary methods**.
-
-**Bad Example:**
-
-```java
-interface Worker {
-    void work();
-    void eat();
-}
-
-class Robot implements Worker {
-    public void work() {}
-    public void eat() {} // Not applicable
-}
-```
-
-**Good Example:**
-
-```java
-interface Workable { void work(); }
-interface Eatable { void eat(); }
-
-class Robot implements Workable {
-    public void work() {}
-}
-```
-
-</details>
-
----
-
-<details>
-<summary>5. Dependency Inversion Principle (DIP)</summary>
-
-Depend on **abstractions**, not on concrete implementations.
-
-**Bad Example:**
-
-```java
-class MySQLDatabase {
-    void connect() {}
-}
-
-class App {
-    MySQLDatabase db = new MySQLDatabase();
-}
-```
-
-**Good Example:**
-
-```java
-interface Database { void connect(); }
-
-class MySQLDatabase implements Database {
-    public void connect() {}
-}
-
-class App {
-    private Database db;
-    App(Database db) { this.db = db; }
-}
-```
-
-</details>
-
----
-
-<details>
-<summary>6. DRY (Don’t Repeat Yourself)</summary>
-
-Avoid duplicating logic. Extract common behavior into methods/classes.
-
-**Bad Example:**
-
-```java
-int areaSquare(int side) { return side * side; }
-int areaRectangle(int length, int width) { return length * width; }
-```
-
-**Good Example:**
-
-```java
-class ShapeUtils {
-    static int area(int a, int b) { return a * b; }
-}
-```
-
-</details>
-
----
-
-<details>
-<summary>7. KISS (Keep It Simple, Stupid)</summary>
-
-Prefer **simple and clear solutions** over clever but complex ones.
-
-**Bad Example:**
-
-```java
-int add(int a, int b) {
-    return (a | b) + (a & b); // Bitwise trick
-}
-```
-
-**Good Example:**
-
-```java
-int add(int a, int b) {
-    return a + b;
-}
-```
-
-</details>
-
----
-
-<details>
-<summary>8. YAGNI (You Aren’t Gonna Need It)</summary>
-
-Don’t write code for future needs that may never come.
-
-**Bad Example:**
-
-```java
-class Car {
-    void fly() {}  // Not needed now
-}
-```
-
-**Good Example:**
-
-```java
-class Car {
-    void drive() {}
-}
-```
-
-</details>
-
----
-
-<details>
-<summary>9. Validate Before Use</summary>
-
-Always **validate inputs** before using them to avoid crashes and bugs.
-
-**Bad Example:**
-
-```java
-int divide(int a, int b) {
-    return a / b;  // Risk of divide by zero
-}
-```
-
-**Good Example:**
-
-```java
-int divide(int a, int b) {
-    if (b == 0) throw new IllegalArgumentException("Divider cannot be zero");
-    return a / b;
-}
-```
-
-</details>
-
----
-
-<details>
-<summary>10. Favor Composition Over Inheritance</summary>
-
-Use **composition** instead of inheritance when possible.
-
-**Bad Example:**
-
-```java
-class Engine {}
-class Car extends Engine {}  // Wrong: Car is not an Engine
-```
-
-**Good Example:**
-
-```java
-class Engine {}
-class Car {
-    private Engine engine;
-    Car(Engine engine) { this.engine = engine; }
-}
-```
-
-</details>
-
----
-
-<details>
-<summary>11. Law of Demeter (LoD)</summary>
-
-An object should only talk to its **direct friends**, not strangers.
-
-**Bad Example:**
-
-```java
-order.getCustomer().getAddress().getCity();
-```
-
-**Good Example:**
-
-```java
-class Order {
-    Customer customer;
-    String getCustomerCity() {
-        return customer.getCity();
-    }
-}
-order.getCustomerCity();
-```
-
-</details>
-
----
-
-<details>
-<summary>12. Fail Fast Principle</summary>
-
-Detect and report errors **early**, instead of failing silently.
-
-**Usage Example:**
-
-```java
-if (list == null) throw new IllegalArgumentException("List cannot be null");
-```
-
-</details>
-
----
-
-# Java Memory Management Principles
-
-<details>
-<summary>1. Avoid Creating Unnecessary Objects</summary>
-
-Unnecessary objects increase memory usage and GC pressure.
-
-**Bad Example:**
-
-```java
-String s1 = new String("Hello"); // Creates unnecessary object
-```
-
-**Good Example:**
-
-```java
-String s1 = "Hello"; // Uses string pool
-```
-
-</details>
-
----
-
-<details>
-<summary>2. Prefer Immutability</summary>
-
-Immutable objects are thread-safe and reduce errors.
-
-**Usage Example:**
-
-```java
-final class Person {
-    private final String name;
-    Person(String name) { this.name = name; }
-    String getName() { return name; }
-}
-```
-
-Immutable objects also reduce chances of memory leaks caused by unintended modifications.
-
-</details>
-
----
-
-<details>
-<summary>3. Use Primitive Types Instead of Wrappers (when possible)</summary>
-
-Wrappers (`Integer`, `Double`) consume more memory than primitives (`int`, `double`).
-
-**Bad Example:**
-
-```java
-Integer sum = 0;
-for (Integer i = 0; i < 1000; i++) {
-    sum += i;
-}
-```
-
-**Good Example:**
-
-```java
-int sum = 0;
-for (int i = 0; i < 1000; i++) {
-    sum += i;
-}
-```
-
-</details>
-
----
-
-<details>
-<summary>4. Reuse Objects When Possible</summary>
-
-For heavy objects, reuse instances instead of creating new ones repeatedly.
-
-**Usage Example:**
-
-```java
-// Reuse Random instead of creating in every method call
-private static final Random random = new Random();
-```
-
-</details>
-
----
-
-<details>
-<summary>5. Be Careful with Static References</summary>
-
-Static references live until the class is unloaded and may cause **memory leaks**.
-
-**Bad Example:**
-
-```java
-static List<String> cache = new ArrayList<>();
-```
-
-**Good Example:**
-
-* Use weak references (`WeakHashMap`) if cache entries can be discarded.
-* Clean up static fields when not needed.
-
-</details>
-
----
-
-<details>
-<summary>6. Close Resources Properly</summary>
-
-Unclosed resources (files, sockets, DB connections) leak memory.
-
-**Bad Example:**
-
-```java
-FileInputStream fis = new FileInputStream("data.txt");
-```
-
-**Good Example (try-with-resources):**
-
-```java
-try (FileInputStream fis = new FileInputStream("data.txt")) {
-    // use fis
-}
-```
-
-</details>
-
----
-
-<details>
-<summary>7. Use StringBuilder/StringBuffer for Concatenation in Loops</summary>
-
-String concatenation in loops creates multiple intermediate objects.
-
-**Bad Example:**
-
-```java
-String result = "";
-for (int i = 0; i < 100; i++) {
-    result += i;
-}
-```
-
-**Good Example:**
-
-```java
-StringBuilder sb = new StringBuilder();
-for (int i = 0; i < 100; i++) {
-    sb.append(i);
-}
-String result = sb.toString();
-```
-
-</details>
-
----
-
-<details>
-<summary>8. Avoid Memory Leaks with Collections</summary>
-
-Collections can hold references long after they are needed.
-
-**Bad Example:**
-
-```java
-List<byte[]> list = new ArrayList<>();
-while (true) {
-    list.add(new byte[1024]); // OutOfMemoryError
-}
-```
-
-**Good Example:**
-
-```java
-list.clear(); // Release references when no longer needed
-```
-
-Or use `WeakHashMap` when keys should be garbage collected.
-
-</details>
-
----
-
-<details>
-<summary>9. Use Object Pooling Carefully</summary>
-
-* For lightweight objects, let GC handle them.
-* For expensive resources (DB connections, threads), use pooling (`ExecutorService`, connection pools).
-
-**Usage Example:**
-
-```java
-ExecutorService executor = Executors.newFixedThreadPool(5);
-```
-
-</details>
-
----
-
-<details>
-<summary>10. Monitor and Tune Garbage Collection</summary>
-
-* Use JVM options to optimize GC (`-Xms`, `-Xmx`, `-XX:+UseG1GC`).
-* Monitor memory with tools like **VisualVM, JConsole, Flight Recorder**.
-
-**Usage:**
-
-```bash
-java -Xms512m -Xmx1024m -XX:+UseG1GC MyApp
-```
-
-</details>
-
----
-
-<details>
-<summary>11. Weak References for Caching</summary>
-
-Use `WeakReference` or `WeakHashMap` for objects that can be garbage collected.
-
-**Usage Example:**
-
-```java
-Map<Object, String> cache = new WeakHashMap<>();
-```
-
-</details>
-
----
-
-<details>
-<summary>12. Prefer Local Variables Over Instance Variables</summary>
-
-Local variables are eligible for GC as soon as the method exits, while instance variables may remain longer.
-
-**Usage Example:**
-
-```java
-public int compute() {
-    int temp = 100;  // released quickly
-    return temp * 2;
-}
-```
-
-</details>
-
----
-
 ## 26. What is the difference between install and deploy
 
 - Running an installer executable to install a software application on a computer.
@@ -6017,7 +6505,7 @@ Both deal with *data encapsulation and immutability*, but they serve **different
 ## 🧩 **1️⃣ The Basics**
 
 | Concept                | Purpose                                              | First Introduced                   |
-| ---------------------- | ---------------------------------------------------- | ---------------------------------- |
+|------------------------|------------------------------------------------------|------------------------------------|
 | 🧱 **Builder Pattern** | Build complex, possibly immutable objects fluently   | Since early Java                   |
 | 📦 **Record**          | Concise syntax for *immutable data carriers* (POJOs) | Java 14 (preview), finalized in 16 |
 
@@ -6328,117 +6816,6 @@ Parent p = new Child();
 p.show(); // "Child" — resolved via v-table at runtime
 ```
 
----
-
-### **3️⃣ Difference between `final`, effectively final, and `const`**
-
-| Concept                   | Meaning in Java                                                           | Example                          | Notes                                                                |
-|---------------------------|---------------------------------------------------------------------------|----------------------------------|----------------------------------------------------------------------|
-| `final`                   | Variable’s reference cannot change after assignment.                      | `final int x = 10;`              | For objects, the *reference* is final, not the contents.             |
-| **Effectively final**     | Variable not declared `final`, but never reassigned after initialization. | Used in lambdas / inner classes. | Compiler treats it as `final`.                                       |
-| `const` (other languages) | Compile-time constant (C/C++/C#).                                         | `const int x = 5;`               | Java reserved `const` but never implemented it — use `static final`. |
-
-#### Example:
-
-```java
-int a = 10; // effectively final
-Runnable r = () -> System.out.println(a); // allowed
-
-final int b = 20; // explicitly final
-// both `a` and `b` behave the same in this context
-```
-
----
-
-### **4️⃣ Pass-by-value vs. reference in Java**
-
-> ✅ **Java is always pass-by-value**, but the value *can be a reference*.
-
-#### 💡 Explanation
-
-When you pass an object to a method, Java copies the **reference value** (the memory address).
-That means:
-
-* You can change the *object’s state* (since both references point to the same object).
-* You **cannot** change what the caller’s variable refers to.
-
-#### Example:
-
-```java
-void modify(StringBuilder sb) {
-    sb.append(" World");
-    sb = new StringBuilder("Hi"); // changes local reference only
-}
-
-StringBuilder s = new StringBuilder("Hello");
-modify(s);
-System.out.println(s); // "Hello World" — object modified
-```
-
-➡️ The object’s content changed, but the caller’s variable still points to the same object.
-
----
-
-### **5️⃣ Implement an immutable list without using `Collections.unmodifiableList()`**
-
-We can make our own immutable class by:
-
-* Making the internal list `final`.
-* Wrapping it to prevent external mutation.
-* Exposing only read-only methods.
-
-#### ✅ Example:
-
-```java
-import java.util.*;
-
-final class ImmutableList<E> implements List<E> {
-    private final List<E> list;
-
-    private ImmutableList(List<E> list) {
-        this.list = List.copyOf(list); // defensive copy (Java 10+)
-    }
-
-    public static <E> ImmutableList<E> of(List<E> source) {
-        return new ImmutableList<>(source);
-    }
-
-    // Read-only methods delegate to internal list
-    @Override public E get(int index) { return list.get(index); }
-    @Override public int size() { return list.size(); }
-    @Override public boolean contains(Object o) { return list.contains(o); }
-    @Override public Iterator<E> iterator() { return Collections.unmodifiableList(list).iterator(); }
-
-    // Mutating methods throw exceptions
-    @Override public boolean add(E e) { throw new UnsupportedOperationException(); }
-    @Override public E remove(int index) { throw new UnsupportedOperationException(); }
-    @Override public void clear() { throw new UnsupportedOperationException(); }
-    // ... override all mutators similarly
-}
-```
-
-Usage:
-
-```java
-List<String> list = List.of("A", "B");
-ImmutableList<String> imm = ImmutableList.of(list);
-imm.add("C"); // throws UnsupportedOperationException
-```
-
----
-
-✅ **Summary Table**
-
-| Topic                                   | Key Point                                                       |
-| --------------------------------------- | --------------------------------------------------------------- |
-| `hashCode()` without `equals()`         | Breaks hashing contract, leads to wrong behavior in sets/maps   |
-| Overloading vs Overriding               | Compile-time vs runtime dispatch; v-table lookup for overriding |
-| `final` vs effectively final vs `const` | Control mutability of references; no `const` in Java            |
-| Java parameter passing                  | Always pass-by-value (reference value for objects)              |
-| Immutable list                          | Custom wrapper with defensive copy + blocked mutation           |
-
----
-
 > What if we have the same method name (and parameters) as the parent class, but **without** using the `@Override` annotation?
 
 ---
@@ -6555,7 +6932,7 @@ If you had used `@Override`, the compiler would’ve caught this mistake.
 ### ⚠️ **Special Cases**
 
 | Case                                          | Behavior                                                     |
-| --------------------------------------------- | ------------------------------------------------------------ |
+|-----------------------------------------------|--------------------------------------------------------------|
 | Parent method is `static`                     | Child method with same name *hides* it, not overrides it.    |
 | Parent method is `private`                    | Child method is *new*, not visible to parent; no overriding. |
 | Parent method is `final`                      | Cannot be overridden — compile-time error.                   |
@@ -6566,7 +6943,7 @@ If you had used `@Override`, the compiler would’ve caught this mistake.
 ### 🧠 **In summary**
 
 | With `@Override`                                  | Without `@Override`                                   |
-| ------------------------------------------------- | ----------------------------------------------------- |
+|---------------------------------------------------|-------------------------------------------------------|
 | Compiler checks correctness of override.          | Compiler doesn’t check — might accidentally overload. |
 | Optional but strongly recommended.                | Works fine if method truly overrides, but risky.      |
 | No runtime impact — only compile-time validation. | Same runtime behavior if truly overriding.            |
@@ -6576,6 +6953,115 @@ If you had used `@Override`, the compiler would’ve caught this mistake.
 ### ✅ **Takeaway**
 
 > `@Override` is not required for overriding, but it’s a **best practice** — it protects you from subtle bugs caused by typos or signature mismatches.
+
+---
+
+### **3️⃣ Difference between `final`, effectively final, and `const`**
+
+| Concept                   | Meaning in Java                                                           | Example                          | Notes                                                                |
+|---------------------------|---------------------------------------------------------------------------|----------------------------------|----------------------------------------------------------------------|
+| `final`                   | Variable’s reference cannot change after assignment.                      | `final int x = 10;`              | For objects, the *reference* is final, not the contents.             |
+| **Effectively final**     | Variable not declared `final`, but never reassigned after initialization. | Used in lambdas / inner classes. | Compiler treats it as `final`.                                       |
+| `const` (other languages) | Compile-time constant (C/C++/C#).                                         | `const int x = 5;`               | Java reserved `const` but never implemented it — use `static final`. |
+
+#### Example:
+
+```java
+int a = 10; // effectively final
+Runnable r = () -> System.out.println(a); // allowed
+
+final int b = 20; // explicitly final
+// both `a` and `b` behave the same in this context
+```
+
+---
+
+### **4️⃣ Pass-by-value vs. reference in Java**
+
+> ✅ **Java is always pass-by-value**, but the value *can be a reference*.
+
+#### 💡 Explanation
+
+When you pass an object to a method, Java copies the **reference value** (the memory address).
+That means:
+
+* You can change the *object’s state* (since both references point to the same object).
+* You **cannot** change what the caller’s variable refers to.
+
+#### Example:
+
+```java
+void modify(StringBuilder sb) {
+    sb.append(" World");
+    sb = new StringBuilder("Hi"); // changes local reference only
+}
+
+StringBuilder s = new StringBuilder("Hello");
+modify(s);
+System.out.println(s); // "Hello World" — object modified
+```
+
+➡️ The object’s content changed, but the caller’s variable still points to the same object.
+
+---
+
+### **5️⃣ Implement an immutable list without using `Collections.unmodifiableList()`**
+
+We can make our own immutable class by:
+
+* Making the internal list `final`.
+* Wrapping it to prevent external mutation.
+* Exposing only read-only methods.
+
+#### ✅ Example:
+
+```java
+import java.util.*;
+
+final class ImmutableList<E> implements List<E> {
+    private final List<E> list;
+
+    private ImmutableList(List<E> list) {
+        this.list = List.copyOf(list); // defensive copy (Java 10+)
+    }
+
+    public static <E> ImmutableList<E> of(List<E> source) {
+        return new ImmutableList<>(source);
+    }
+
+    // Read-only methods delegate to internal list
+    @Override public E get(int index) { return list.get(index); }
+    @Override public int size() { return list.size(); }
+    @Override public boolean contains(Object o) { return list.contains(o); }
+    @Override public Iterator<E> iterator() { return Collections.unmodifiableList(list).iterator(); }
+
+    // Mutating methods throw exceptions
+    @Override public boolean add(E e) { throw new UnsupportedOperationException(); }
+    @Override public E remove(int index) { throw new UnsupportedOperationException(); }
+    @Override public void clear() { throw new UnsupportedOperationException(); }
+    // ... override all mutators similarly
+}
+```
+
+Usage:
+
+```java
+List<String> list = List.of("A", "B");
+ImmutableList<String> imm = ImmutableList.of(list);
+imm.add("C"); // throws UnsupportedOperationException
+```
+
+---
+
+✅ **Summary Table**
+
+| Topic                                   | Key Point                                                       |
+|-----------------------------------------|-----------------------------------------------------------------|
+| `hashCode()` without `equals()`         | Breaks hashing contract, leads to wrong behavior in sets/maps   |
+| Overloading vs Overriding               | Compile-time vs runtime dispatch; v-table lookup for overriding |
+| `final` vs effectively final vs `const` | Control mutability of references; no `const` in Java            |
+| Java parameter passing                  | Always pass-by-value (reference value for objects)              |
+| Immutable list                          | Custom wrapper with defensive copy + blocked mutation           |
 
 ---
 

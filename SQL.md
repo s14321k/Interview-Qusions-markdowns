@@ -4,6 +4,8 @@
 
 ---
 
+![SQLorder](images/SQL/SQLorder.gif)
+
 <details open>
 <summary><strong>🔢 1. Max & Nth Max Salary</strong></summary>
 
@@ -249,6 +251,8 @@ CREATE TABLE Orders (
 <summary><strong>🔗 7. SQL Joins</strong></summary>
 
 ### 📌 Types of Joins
+
+![Joins](images/SQL/Joins.gif)
 
 | Join Type          | Description                                                                 |
 | ------------------ | --------------------------------------------------------------------------- |

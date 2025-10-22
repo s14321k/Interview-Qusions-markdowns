@@ -4,3 +4,6 @@
 4. function composition
 5. event delegation
 6. web workers
+7. Event loop
+
+[FEPerformance](images/HTMLjs/FEPerformance.gif)
