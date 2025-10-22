@@ -1,6 +1,168 @@
+<!-- TOC -->
+* [Java 8 Streams vs Collections](#java-8-streams-vs-collections)
+  * [🌊 Stream API Overview](#-stream-api-overview)
+  * [Stream API](#stream-api)
+  * [⚖️ Key Differences](#-key-differences)
+  * [💡 Example Comparison](#-example-comparison)
+  * [🧱 Stream Operations: Intermediate vs Terminal](#-stream-operations-intermediate-vs-terminal)
+    * [🔁 Intermediate Operations](#-intermediate-operations)
+    * [✅ Terminal Operations](#-terminal-operations)
+      * [🧩 Summary](#-summary)
+* [⚙️ **ForkJoinPool, Stream & ParallelStream — Summary**](#-forkjoinpool-stream--parallelstream--summary)
+  * [🧩 **1️⃣ ForkJoinPool Overview**](#-1-forkjoinpool-overview)
+    * [🔸 Example:](#-example)
+  * [⚔️ **2️⃣ ForkJoinPool vs Threads vs ExecutorService**](#-2-forkjoinpool-vs-threads-vs-executorservice)
+    * [⚡ **3️⃣ Still Used in Java 21?**](#-3-still-used-in-java-21)
+    * [🧠 **4️⃣ Stream Internals**](#-4-stream-internals)
+    * [⚡ **5️⃣ Parallel Stream — How It Works**](#-5-parallel-stream--how-it-works)
+    * [🔍 **6️⃣ Stream vs ParallelStream**](#-6-stream-vs-parallelstream)
+    * [⚖️ **7️⃣ When to Use Parallel Streams**](#-7-when-to-use-parallel-streams)
+      * [✅ **In Short**](#-in-short)
+  * [📦 `Collectors` from `java.util.stream`](#-collectors-from-javautilstream)
+    * [🔧 Common Collector Methods](#-common-collector-methods)
+    * [🔗 Joining Strings](#-joining-strings)
+    * [🔢 Counting & Summarizing](#-counting--summarizing)
+    * [🧮 Grouping & Partitioning](#-grouping--partitioning)
+    * [➕ Reducing](#-reducing)
+    * [🛠️ Post-processing](#-post-processing)
+    * [🔝 Min / Max](#-min--max)
+* [📘 Java Features from 8 to 21 (LTS)](#-java-features-from-8-to-21-lts)
+    * [☕ Java 8 (2014)](#-java-8-2014)
+    * [☕ Java 9 (2017)](#-java-9-2017)
+    * [☕ Java 10 (2018)](#-java-10-2018)
+    * [☕ Java 11 (2018) – LTS](#-java-11-2018--lts)
+    * [☕ Java 12 (2019)](#-java-12-2019)
+    * [☕ Java 13–14 (2019–2020)](#-java-1314-20192020)
+    * [☕ Java 15–16 (2020–2021)](#-java-1516-20202021)
+    * [☕ Java 17 (2021) – LTS](#-java-17-2021--lts)
+    * [☕ Java 19–20 (2022–2023)](#-java-1920-20222023)
+    * [☕ Java 21 (2023) – LTS](#-java-21-2023--lts)
+    * [✅ Summary Table](#-summary-table)
+  * [Java 8](#java8)
+    * [1. Lambda Expressions & Stream API](#1-lambda-expressions--streamapi)
+      * [Stream Basics](#stream-basics)
+    * [2. Method References](#2-method-references)
+    * [3. Default & Static Methods in Interfaces](#3-default--static-methods-in-interfaces)
+    * [4. Type Annotations & Repeating Annotations](#4-type-annotations--repeating-annotations)
+    * [5. Method Parameter Reflection](#5-method-parameter-reflection)
+    * [6. Optional, Date‑Time, and CompletableFuture](#6-optional-datetime-and-completablefuture)
+    * [7. `java.util.function` Package](#7-javautilfunction-package)
+    * [8. Collections & Comparator Improvements](#8-collections--comparator-improvements)
+    * [9. Primitive Streams & Spliterator](#9-primitive-streams--spliterator)
+    * [Java 8 Key Features](#java-8-key-features)
+* [@SafeVarargs in Java](#safevarargs-in-java)
+  * [What is `@SafeVarargs`?](#what-is-safevarargs)
+  * [Why use `@SafeVarargs`?](#why-use-safevarargs)
+  * [Example without `@SafeVarargs` (generates warning)](#example-without-safevarargs-generates-warning)
+  * [Example with `@SafeVarargs` (no warning)](#example-with-safevarargs-no-warning)
+  * [Important Notes](#important-notes)
+  * [When to use?](#when-to-use)
+* [Java 8](#java-8)
+  * [1. Lambda Expressions](#1-lambda-expressions)
+  * [2. Functional Interfaces](#2-functional-interfaces)
+  * [3. Streams API](#3-streams-api)
+  * [4. Optional Class](#4-optional-class)
+  * [**Java Optional Cheat Sheet**](#java-optional-cheat-sheet)
+    * [**Example Using Multiple Methods**](#example-using-multiple-methods)
+    * [**How to Read It**](#how-to-read-it)
+  * [5. Default and Static Methods in Interfaces](#5-default-and-static-methods-in-interfaces)
+  * [6. Date and Time API (`java.time`)](#6-date-and-time-api-javatime)
+  * [7. Method References](#7-method-references)
+  * [8. Repeatable Annotations](#8-repeatable-annotations)
+  * [9. Type Annotations](#9-type-annotations)
+  * [10. Nashorn JavaScript Engine](#10-nashorn-javascript-engine)
+* [Java 9](#java-9)
+  * [1. Module System (Project Jigsaw)](#1-module-system-project-jigsaw)
+  * [2. JShell (REPL)](#2-jshell-repl)
+  * [3. Private Methods in Interfaces](#3-private-methods-in-interfaces)
+  * [4. Collection Factory Methods](#4-collection-factory-methods)
+  * [5. Stream API Improvements](#5-stream-api-improvements)
+  * [6. Optional Enhancements](#6-optional-enhancements)
+  * [7. Process API Updates](#7-process-api-updates)
+* [Java 10](#java-10)
+  * [1. Local-Variable Type Inference (`var`)](#1-local-variable-type-inference-var)
+  * [2. Application Class-Data Sharing (AppCDS)](#2-application-class-data-sharing-appcds)
+  * [3. Parallel Full GC for G1](#3-parallel-full-gc-for-g1)
+  * [4. Thread-Local Handshakes](#4-thread-local-handshakes)
+  * [5. Root Certificates in JDK](#5-root-certificates-in-jdk)
+* [Java 11](#java-11)
+  * [1. HTTP Client API (Standardized)](#1-http-client-api-standardized)
+  * [2. Local-Variable Syntax for Lambda Parameters](#2-local-variable-syntax-for-lambda-parameters)
+  * [3. New String Methods](#3-new-string-methods)
+  * [4. Collection toArray(IntFunction)](#4-collection-toarrayintfunction)
+  * [5. File Methods (`readString`, `writeString`)](#5-file-methods-readstring-writestring)
+  * [6. Running Java Files Directly](#6-running-java-files-directly)
+  * [7. Other Notable Features](#7-other-notable-features)
+* [Java 12](#java-12)
+  * [1. Switch Expressions (Preview)](#1-switch-expressions-preview)
+  * [2. New JVM Constants API](#2-new-jvm-constants-api)
+  * [3. Shenandoah & Abortable Mixed GC Improvements](#3-shenandoah--abortable-mixed-gc-improvements)
+  * [4. Compact Number Formatting](#4-compact-number-formatting)
+  * [5. Additional Features](#5-additional-features)
+* [Java 13](#java-13)
+  * [1. Text Blocks (Preview)](#1-text-blocks-preview)
+  * [2. Switch Expressions Enhancements](#2-switch-expressions-enhancements)
+  * [3. Reimplement the Legacy Socket API](#3-reimplement-the-legacy-socket-api)
+  * [4. Other Minor Features](#4-other-minor-features)
+* [Java 14](#java-14)
+  * [1. Records (Preview)](#1-records-preview)
+  * [2. Pattern Matching for `instanceof` (Preview)](#2-pattern-matching-for-instanceof-preview)
+  * [3. Helpful NullPointerExceptions](#3-helpful-nullpointerexceptions)
+  * [4. Switch Expressions (Second Preview)](#4-switch-expressions-second-preview)
+  * [5. Records, Pattern Matching, and NVM-support for JFR](#5-records-pattern-matching-and-nvm-support-for-jfr)
+* [Java 15](#java-15)
+  * [1. Sealed Classes (Preview)](#1-sealed-classes-preview)
+  * [2. Hidden Classes](#2-hidden-classes)
+  * [3. Text Blocks (Standardized)](#3-text-blocks-standardized)
+  * [4. Records (Second Preview)](#4-records-second-preview)
+  * [5. Pattern Matching for `instanceof` (Second Preview)](#5-pattern-matching-for-instanceof-second-preview)
+  * [6. Other Notable Features](#6-other-notable-features)
+* [Java 16](#java-16)
+  * [1. Records (Standardized)](#1-records-standardized)
+  * [2. Pattern Matching for `instanceof` (Standardized)](#2-pattern-matching-for-instanceof-standardized)
+  * [3. Sealed Classes (Second Preview)](#3-sealed-classes-second-preview)
+  * [4. Vector API (Incubator)](#4-vector-api-incubator)
+  * [5. Foreign Linker API (Incubator)](#5-foreign-linker-api-incubator)
+  * [6. Other Features](#6-other-features)
+* [Java 17](#java-17)
+  * [1. Sealed Classes (Standardized)](#1-sealed-classes-standardized)
+  * [2. Pattern Matching for `switch` (Preview)](#2-pattern-matching-for-switch-preview)
+  * [3. Strong Encapsulation of JDK Internals](#3-strong-encapsulation-of-jdk-internals)
+  * [4. New macOS Rendering Pipeline](#4-new-macos-rendering-pipeline)
+  * [5. Foreign Function & Memory API (Incubator)](#5-foreign-function--memory-api-incubator)
+  * [6. Other Notable Features](#6-other-notable-features-1)
+* [Java 18](#java-18)
+  * [1. Simple Web Server](#1-simple-web-server)
+  * [2. UTF-8 by Default](#2-utf-8-by-default)
+  * [3. Vector API (Second Incubator)](#3-vector-api-second-incubator)
+  * [4. Code Snippets in Java API Documentation](#4-code-snippets-in-java-api-documentation)
+  * [5. Other Notable Features](#5-other-notable-features)
+* [Java 19](#java-19)
+  * [1. Virtual Threads (Preview)](#1-virtual-threads-preview)
+  * [2. Record Patterns (Preview)](#2-record-patterns-preview)
+  * [3. Pattern Matching for `switch` (Second Preview)](#3-pattern-matching-for-switch-second-preview)
+  * [4. Foreign Function & Memory API (Second Incubator)](#4-foreign-function--memory-api-second-incubator)
+  * [5. Other Notable Features](#5-other-notable-features-1)
+* [Java 20](#java-20)
+  * [1. Virtual Threads (Second Preview)](#1-virtual-threads-second-preview)
+  * [2. Record Patterns (Second Preview)](#2-record-patterns-second-preview)
+  * [3. Pattern Matching for `switch` (Third Preview)](#3-pattern-matching-for-switch-third-preview)
+  * [4. Scoped Values (Incubator)](#4-scoped-values-incubator)
+  * [5. Foreign Function & Memory API (Third Incubator)](#5-foreign-function--memory-api-third-incubator)
+  * [6. Other Notable Features](#6-other-notable-features-2)
+* [Java 21](#java-21)
+  * [1. Virtual Threads (Standardized)](#1-virtual-threads-standardized)
+  * [2. Pattern Matching for `switch` (Standardized)](#2-pattern-matching-for-switch-standardized)
+  * [3. Sequenced Collections](#3-sequenced-collections)
+  * [4. String Templates (Preview)](#4-string-templates-preview)
+  * [5. Record Patterns (Third Preview)](#5-record-patterns-third-preview)
+  * [6. Structured Concurrency (Incubator)](#6-structured-concurrency-incubator)
+  * [7. Foreign Function & Memory API (Fourth Incubator)](#7-foreign-function--memory-api-fourth-incubator)
+<!-- TOC -->
+
 # [Java 8 Streams vs Collections](https://www.java2novice.com/java_interview_questions/java-8-streams-vs-collection-framework/)
 
-## 📺 [Video Explanation](https://youtu.be/lyl2Y5rwfx4?si=WiTKZxZDzVDnEVFV)
+📺 [Video Explanation](https://youtu.be/lyl2Y5rwfx4?si=WiTKZxZDzVDnEVFV)
 
 ---
 
@@ -115,7 +277,7 @@ Stream operations are divided into:
 <summary><strong>Click to view Intermediate Operations</strong></summary>
 
 | Method                            | Description                    | Example                                    |
-| --------------------------------- | ------------------------------ | ------------------------------------------ |
+|-----------------------------------|--------------------------------|--------------------------------------------|
 | `filter(Predicate<T>)`            | Filters elements by condition. | `stream.filter(x -> x > 5)`                |
 | `map(Function<T, R>)`             | Transforms elements.           | `stream.map(x -> x * 2)`                   |
 | `flatMap(Function<T, Stream<R>>)` | Flattens nested streams.       | `stream.flatMap(x -> Stream.of(x, x * 2))` |
@@ -135,7 +297,7 @@ Stream operations are divided into:
 <summary><strong>Click to view Terminal Operations</strong></summary>
 
 | Method                                                         | Description                       | Example                                 |
-| -------------------------------------------------------------- | --------------------------------- | --------------------------------------- |
+|----------------------------------------------------------------|-----------------------------------|-----------------------------------------|
 | `forEach(Consumer<T>)`                                         | Performs action on each element.  | `stream.forEach(System.out::println)`   |
 | `toArray()`                                                    | Converts stream to array.         | `Object[] arr = stream.toArray()`       |
 | `reduce(BinaryOperator<T>)`                                    | Reduces elements to single value. | `stream.reduce((a, b) -> a + b)`        |
@@ -151,16 +313,152 @@ Stream operations are divided into:
 
 ---
 
-## 🧩 Summary
+#### 🧩 Summary
 
 | Feature       | Collections     | Streams                      |
-| ------------- | --------------- | ---------------------------- |
+|---------------|-----------------|------------------------------|
 | Data Handling | Stores data     | Processes data               |
 | Mutability    | Mutable         | Immutable                    |
 | Evaluation    | Eager           | Lazy                         |
 | Iteration     | External        | Internal                     |
 | Use Case      | CRUD operations | Data transformation          |
 | Parallelism   | Manual          | Easy with `parallelStream()` |
+
+---
+
+# ⚙️ **ForkJoinPool, Stream & ParallelStream — Summary**
+
+<details>
+<summary><strong>**ForkJoinPool** and **Stream / ParallelStream (internal working)** — all key points kept intact 👇</strong></summary>
+
+## 🧩 **1️⃣ ForkJoinPool Overview**
+
+* Introduced in **Java 7** for **parallel, divide-and-conquer** tasks.
+* Uses **work-stealing algorithm** — idle threads “steal” tasks from others.
+* Backbone for **parallel streams** and **CompletableFuture**.
+
+### 🔸 Example:
+
+```java
+ForkJoinPool pool = new ForkJoinPool();
+pool.invoke(new RecursiveTaskExample());
+```
+
+---
+
+## ⚔️ **2️⃣ ForkJoinPool vs Threads vs ExecutorService**
+
+| Feature    | Thread                | ExecutorService                   | ForkJoinPool                |
+| ---------- | --------------------- | --------------------------------- | --------------------------- |
+| Creation   | Manual (`new Thread`) | Managed pool                      | Specialized pool            |
+| Work Model | 1 task/thread         | Queued tasks                      | Split–merge recursive tasks |
+| Best For   | Simple async jobs     | Batch tasks                       | CPU-bound parallel compute  |
+| Example    | `new Thread()`        | `Executors.newFixedThreadPool(5)` | `new ForkJoinPool()`        |
+
+---
+
+### ⚡ **3️⃣ Still Used in Java 21?**
+
+✅ **Yes** — powers:
+
+* `parallelStream()`
+* `CompletableFuture`
+* Some structured concurrency APIs
+
+But now we also have **Virtual Threads** (Java 21) for **I/O-bound** concurrency.
+
+| Feature  | ForkJoinPool               | Virtual Threads         |
+| -------- | -------------------------- | ----------------------- |
+| Model    | Work-stealing              | Lightweight threads     |
+| Best For | CPU-bound parallel compute | Massive I/O concurrency |
+| Threads  | Few (≈ CPU cores)          | Thousands possible      |
+
+---
+
+### 🧠 **4️⃣ Stream Internals**
+
+A **Stream** is a **lazy pipeline** of operations:
+
+```
+Source → Intermediate Ops → Terminal Op
+```
+
+* **Source:** collection, array, I/O
+* **Intermediate:** `filter()`, `map()`, etc. (lazy)
+* **Terminal:** `forEach()`, `collect()` → triggers execution
+
+Each element flows through all ops in order once a terminal op runs.
+
+Internally uses:
+
+* **Spliterator** → splits data
+* **PipelineHelper / Sink** → chains ops
+* **StreamOpFlags** → manage properties (ORDERED, DISTINCT, etc.)
+
+---
+
+### ⚡ **5️⃣ Parallel Stream — How It Works**
+
+When you call `parallelStream()`:
+
+1. **Spliterator** divides source into chunks.
+2. Tasks submitted to **ForkJoinPool.commonPool()**.
+3. Threads process chunks in parallel.
+4. Results are merged (joined).
+
+```
+Source → Split → Threads → Join → Output
+```
+
+---
+
+### 🔍 **6️⃣ Stream vs ParallelStream**
+
+| Feature     | `stream()`     | `parallelStream()`          |
+| ----------- | -------------- | --------------------------- |
+| Execution   | Single thread  | Multi-thread (ForkJoinPool) |
+| Thread Pool | Main thread    | `ForkJoinPool.commonPool()` |
+| Ordering    | Maintained     | May reorder                 |
+| Performance | Small / simple | Large, CPU-bound            |
+| Best For    | Small data     | Large data, heavy CPU tasks |
+
+---
+
+### ⚖️ **7️⃣ When to Use Parallel Streams**
+
+✅ Use when:
+
+* Data is large
+* CPU-bound (no I/O)
+* No shared mutable state
+
+❌ Avoid when:
+
+* Task is I/O-bound
+* Order must be preserved
+* Shared state causes race conditions
+
+---
+
+#### ✅ **In Short**
+
+| Concept                    | Description                                          |
+| -------------------------- | ---------------------------------------------------- |
+| **ForkJoinPool**           | Core parallel engine (split + join tasks)            |
+| **Stream**                 | Sequential lazy pipeline                             |
+| **ParallelStream**         | Same pipeline, but split across ForkJoinPool threads |
+| **Spliterator**            | Splits source data                                   |
+| **Still used in Java 21?** | ✅ Yes — for parallel compute (CPU tasks)             |
+| **Virtual Threads**        | 🚀 New in Java 21 — for I/O-bound concurrency        |
+
+---
+
+> 🧠 **Summary Tip:**
+> **Stream** → sequential (main thread)
+> **ParallelStream** → multi-threaded using **ForkJoinPool**
+> **Virtual Threads** → many lightweight threads for I/O.
+
+</details>
 
 ---
 
@@ -643,10 +941,6 @@ timeline
 ```
 
 </details>
-
----
-
-Here’s a **refactored**, **expanded**, and **collapsible** Markdown cheat‑sheet for **Java 8**. I’ve added a few commonly overlooked features and organized each feature into its own `<details>` block.
 
 ---
 

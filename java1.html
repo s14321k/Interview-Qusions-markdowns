@@ -1,0 +1,307 @@
+<h1 id="java-principles-best-practices-memory-management">Java Principles &amp; Best Practices , Memory Management</h1>
+<details>
+    <summary><strong>Java Principles &amp; Best Practices</strong></summary>
+
+    <details>
+        <summary>1. Single Responsibility Principle (SRP)</summary>
+
+        A class should have <strong>only one reason to change</strong>.
+
+        <strong>Bad Example:</strong>
+
+        <code>java
+            class User {
+            void saveToDatabase() {}
+            void printUserDetails() {}
+            }</code>
+
+        <strong>Good Example:</strong>
+
+        <code>java
+            class User {}
+            class UserRepository {
+            void save(User user) {}
+            }
+            class UserPrinter {
+            void print(User user) {}
+            }</code>
+
+    </details>
+
+    <hr>
+    <details>
+        <summary>2. Open/Closed Principle (OCP)</summary>
+
+        Classes should be <strong>open for extension, but closed for modification</strong>.
+
+        <strong>Bad Example:</strong>
+
+        <code>java
+            class Discount {
+            double getDiscount(String type) {
+            if (type.equals(&quot;STUDENT&quot;)) return 0.2;
+            if (type.equals(&quot;SENIOR&quot;)) return 0.3;
+            return 0;
+            }
+            }</code>
+
+        <strong>Good Example (using polymorphism):</strong>
+
+        <code>java
+            interface Discount {
+            double getDiscount();
+            }
+
+            class StudentDiscount implements Discount {
+            public double getDiscount() { return 0.2; }
+            }
+
+            class SeniorDiscount implements Discount {
+            public double getDiscount() { return 0.3; }
+            }</code>
+
+    </details>
+
+    <hr>
+    <details>
+        <summary>3. Liskov Substitution Principle (LSP)</summary>
+
+        Subtypes must be <strong>replaceable</strong> with their base types without breaking the program.
+
+        <strong>Bad Example:</strong>
+
+        <code>java
+            class Bird {
+            void fly() {}
+            }
+            class Ostrich extends Bird {  // Ostrich can&#39;t fly
+            void fly() { throw new UnsupportedOperationException(); }
+            }</code>
+
+        <strong>Good Example:</strong>
+
+        <code>java
+            interface Bird {}
+            interface Flyable extends Bird { void fly(); }
+
+            class Sparrow implements Flyable {
+            public void fly() { System.out.println(&quot;Flying&quot;); }
+            }
+
+            class Ostrich implements Bird {}</code>
+
+    </details>
+
+    <hr>
+    <details>
+        <summary>4. Interface Segregation Principle (ISP)</summary>
+
+        Clients should not be forced to implement <strong>unnecessary methods</strong>.
+
+        <strong>Bad Example:</strong>
+
+        <code>java
+            interface Worker {
+            void work();
+            void eat();
+            }
+
+            class Robot implements Worker {
+            public void work() {}
+            public void eat() {} // Not applicable
+            }</code>
+
+        <strong>Good Example:</strong>
+
+        <code>java
+            interface Workable { void work(); }
+            interface Eatable { void eat(); }
+
+            class Robot implements Workable {
+            public void work() {}
+            }</code>
+
+    </details>
+
+    <hr>
+    <details>
+        <summary>5. Dependency Inversion Principle (DIP)</summary>
+
+        Depend on <strong>abstractions</strong>, not on concrete implementations.
+
+        <strong>Bad Example:</strong>
+
+        <code>java
+            class MySQLDatabase {
+            void connect() {}
+            }
+
+            class App {
+            MySQLDatabase db = new MySQLDatabase();
+            }</code>
+
+        <strong>Good Example:</strong>
+
+        <code>java
+            interface Database { void connect(); }
+
+            class MySQLDatabase implements Database {
+            public void connect() {}
+            }
+
+            class App {
+            private Database db;
+            App(Database db) { this.db = db; }
+            }</code>
+
+    </details>
+
+    <hr>
+    <details>
+        <summary>6. DRY (Don’t Repeat Yourself)</summary>
+
+        Avoid duplicating logic. Extract common behavior into methods/classes.
+
+        <strong>Bad Example:</strong>
+
+        <code>java
+            int areaSquare(int side) { return side * side; }
+            int areaRectangle(int length, int width) { return length * width; }</code>
+
+        <strong>Good Example:</strong>
+
+        <code>java
+            class ShapeUtils {
+            static int area(int a, int b) { return a * b; }
+            }</code>
+
+    </details>
+
+    <hr>
+    <details>
+        <summary>7. KISS (Keep It Simple, Stupid)</summary>
+
+        Prefer <strong>simple and clear solutions</strong> over clever but complex ones.
+
+        <strong>Bad Example:</strong>
+
+        <code>java
+            int add(int a, int b) {
+            return (a | b) + (a &amp; b); // Bitwise trick
+            }</code>
+
+        <strong>Good Example:</strong>
+
+        <code>java
+            int add(int a, int b) {
+            return a + b;
+            }</code>
+
+    </details>
+
+    <hr>
+    <details>
+        <summary>8. YAGNI (You Aren’t Gonna Need It)</summary>
+
+        Don’t write code for future needs that may never come.
+
+        <strong>Bad Example:</strong>
+
+        <code>java
+            class Car {
+            void fly() {}  // Not needed now
+            }</code>
+
+        <strong>Good Example:</strong>
+
+        <code>java
+            class Car {
+            void drive() {}
+            }</code>
+
+    </details>
+
+    <hr>
+    <details>
+        <summary>9. Validate Before Use</summary>
+
+        Always <strong>validate inputs</strong> before using them to avoid crashes and bugs.
+
+        <strong>Bad Example:</strong>
+
+        <code>java
+            int divide(int a, int b) {
+            return a / b;  // Risk of divide by zero
+            }</code>
+
+        <strong>Good Example:</strong>
+
+        <code>java
+            int divide(int a, int b) {
+            if (b == 0) throw new IllegalArgumentException(&quot;Divider cannot be zero&quot;);
+            return a / b;
+            }</code>
+
+    </details>
+
+    <hr>
+    <details>
+        <summary>10. Favor Composition Over Inheritance</summary>
+
+        Use <strong>composition</strong> instead of inheritance when possible.
+
+        <strong>Bad Example:</strong>
+
+        <code>java
+            class Engine {}
+            class Car extends Engine {}  // Wrong: Car is not an Engine</code>
+
+        <strong>Good Example:</strong>
+
+        <code>java
+            class Engine {}
+            class Car {
+            private Engine engine;
+            Car(Engine engine) { this.engine = engine; }
+            }</code>
+
+    </details>
+
+    <hr>
+    <details>
+        <summary>11. Law of Demeter (LoD)</summary>
+
+        An object should only talk to its <strong>direct friends</strong>, not strangers.
+
+        <strong>Bad Example:</strong>
+
+        <code>java
+            order.getCustomer().getAddress().getCity();</code>
+
+        <strong>Good Example:</strong>
+
+        <code>java
+            class Order {
+            Customer customer;
+            String getCustomerCity() {
+            return customer.getCity();
+            }
+            }
+            order.getCustomerCity();</code>
+
+    </details>
+
+    <hr>
+    <details>
+        <summary>12. Fail Fast Principle</summary>
+
+        Detect and report errors <strong>early</strong>, instead of failing silently.
+
+        <strong>Usage Example:</strong>
+
+        <code>java
+            if (list == null) throw new IllegalArgumentException(&quot;List cannot be null&quot;);</code>
+
+    </details>
+
+    <hr>
