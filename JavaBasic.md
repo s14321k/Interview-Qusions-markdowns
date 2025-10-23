@@ -742,7 +742,7 @@ if (list == null) throw new IllegalArgumentException("List cannot be null");
 
 ---
 
-# Java Memory Management Principles
+## Java Memory Management Principles
 
 <details>
 <summary>1. Avoid Creating Unnecessary Objects</summary>
@@ -993,9 +993,9 @@ public int compute() {
 
 ---
 
-## 🚀 Primary Main Features of Java
+# 🚀 Primary Main Features of Java
 
-<details open>
+<details>
 <summary>Click to expand Java main features</summary>
 
 1. Platform Independent  
@@ -1123,10 +1123,10 @@ System.out.println(cl); // Usually prints 'sun.misc.Launcher$AppClassLoader'
 
 ---
 
-## 🆔 Identifiers in Java
+# 🆔 Identifiers in Java
 
 <details>
-<summary>Click to expand Java Identifiers and Keywords</summary>
+<summary>Java Identifiers and Keywords</summary>
 
 - Identifiers start with alphabets, underscore `_`, or dollar `$`.
 - Case sensitive.
