@@ -4,22 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="forkjoinpool in java 8 and html1 page">
-      <change afterPath="$PROJECT_DIR$/css/floating.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaCodeHTML/CreatingImmutable.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaHTML/1.JavaPrinciplesBestPractices&amp;MemoryManagement.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaHTML/2.PrimaryMainFeature.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaHTML/3.IdentifiersClass.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaHTML/4.Constructors.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaHTML/5.String.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaHTML/FloatingMenu.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/javaHTML/button.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/floating.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/scripts.js" afterDir="false" />
+    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="TOC update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaBasic.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaBasic.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java1.html" beforeDir="false" afterPath="$PROJECT_DIR$/java1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Microservice.md" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpringSecurity.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringSecurity.md" afterDir="false" />
     </list>
     <list id="85d93f7a-76e3-4a1a-8bb8-992724df3493" name="ide" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" afterDir="false" />
@@ -309,7 +298,8 @@
       <workItem from="1760779141020" duration="2579000" />
       <workItem from="1760890107288" duration="11786000" />
       <workItem from="1761108874143" duration="29007000" />
-      <workItem from="1761165990153" duration="9229000" />
+      <workItem from="1761165990153" duration="9668000" />
+      <workItem from="1761203793122" duration="922000" />
     </task>
     <task id="LOCAL-00001" summary="added points and restructured the points">
       <option name="closed" value="true" />
@@ -649,7 +639,23 @@
       <option name="project" value="LOCAL" />
       <updated>1761151361498</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="front end implementations">
+      <option name="closed" value="true" />
+      <created>1761203306286</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1761203306286</updated>
+    </task>
+    <task id="LOCAL-00046" summary="TOC update">
+      <option name="closed" value="true" />
+      <created>1761203369299</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1761203369299</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -669,8 +675,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="java basic changes" />
-    <MESSAGE value="Changed order" />
     <MESSAGE value="Added points" />
     <MESSAGE value="Jenkins Kubernetis" />
     <MESSAGE value="1. Git commands&#10;2. Docker commands&#10;3. Removed docker cmds from kuberneties" />
@@ -694,7 +698,9 @@
     <MESSAGE value="addition of logics and images and changes" />
     <MESSAGE value="Additional points and immage added" />
     <MESSAGE value="forkjoinpool in java 8 and html1 page" />
-    <option name="LAST_COMMIT_MESSAGE" value="forkjoinpool in java 8 and html1 page" />
+    <MESSAGE value="front end implementations" />
+    <MESSAGE value="TOC update" />
+    <option name="LAST_COMMIT_MESSAGE" value="TOC update" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

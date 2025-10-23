@@ -1,3 +1,135 @@
+<!-- TOC -->
+* [Default configuration](#default-configuration)
+  * [**1. ADFS (Active Directory Federation Services)**](#1-adfs-active-directory-federation-services)
+  * [**2. OAuth (OAuth 1.0 & OAuth 2.0)**](#2-oauth-oauth-10--oauth-20)
+  * [**3. OAuth 2.0 (Modern Version of OAuth)**](#3-oauth-20-modern-version-of-oauth)
+  * [**4. JWT (JSON Web Token)**](#4-jwt-json-web-token)
+  * [**How They Relate**](#how-they-relate)
+  * [**Quick Cheat Sheet**](#quick-cheat-sheet)
+* [🔐 𝐀𝐮𝐭𝐡𝐞𝐧𝐭𝐢𝐜𝐚𝐭𝐢𝐨𝐧 𝐢𝐧 𝐑𝐄𝐒𝐓 𝐀𝐏𝐈𝐬](#-𝐀𝐮𝐭𝐡𝐞𝐧𝐭𝐢𝐜𝐚𝐭𝐢𝐨𝐧-𝐢𝐧-𝐑𝐄𝐒𝐓-𝐀𝐏𝐈𝐬)
+    * [🧩 Summary Table](#-summary-table)
+  * [🔑 What is SSO?](#-what-is-sso)
+  * [🔗 Integration with Spring Security OAuth2 or Keycloak](#-integration-with-spring-security-oauth2-or-keycloak)
+  * [📚 Spring Method Security Reference](#-spring-method-security-reference)
+* [🔐 Secure Communication Between Microservices in Spring Boot](#-secure-communication-between-microservices-in-spring-boot)
+* [🧪 Testing Secure Microservices with Postman](#-testing-secure-microservices-with-postman)
+* [**1. OAuth2.0 + JWT Flow in Spring Boot**](#1-oauth20--jwt-flow-in-spring-boot)
+* [**2. ADFS + Spring Boot Flow (OAuth2.0 or SAML)**](#2-adfs--spring-boot-flow-oauth20-or-saml)
+* [**3. Key Differences (OAuth2.0+JWT vs ADFS)**](#3-key-differences-oauth20jwt-vs-adfs)
+  * [🔹 **How Spring Security Works Here**](#-how-spring-security-works-here)
+  * [🔹 **JWT and Spring Security – Are They the Same?**](#-jwt-and-spring-security--are-they-the-same)
+  * [🔹 **What Should You Choose for a New Application?**](#-what-should-you-choose-for-a-new-application)
+  * [🔹 **Concrete Example: New Spring Boot App**](#-concrete-example-new-spring-boot-app)
+  * [🔹 **Final Recommendation**](#-final-recommendation)
+* [🔹 **1. Spring Boot with Keycloak/Auth0 (OIDC + JWT)**](#-1-spring-boot-with-keycloakauth0-oidc--jwt)
+    * [`pom.xml` dependencies](#pomxml-dependencies)
+    * [`application.yml`](#applicationyml)
+    * [Security Config (if you need role-based rules)](#security-config-if-you-need-role-based-rules)
+* [🔹 **2. Spring Boot with ADFS (Enterprise OIDC/OAuth2)**](#-2-spring-boot-with-adfs-enterprise-oidcoauth2)
+    * [`pom.xml` dependencies](#pomxml-dependencies-1)
+    * [`application.yml`](#applicationyml-1)
+    * [Security Config](#security-config)
+* [🔹 **Which One Should You Pick?**](#-which-one-should-you-pick)
+* [🔹 **Spring Boot Security Auth Flows (All Possibilities)**](#-spring-boot-security-auth-flows-all-possibilities)
+* [🔹 **Key Takeaways from the Flows**](#-key-takeaways-from-the-flows)
+* [🔹 **Detailed OAuth2 + OIDC + JWT Flow (Angular + Spring Boot)**](#-detailed-oauth2--oidc--jwt-flow-angular--spring-boot)
+* [🔹 **Tokens in Play**](#-tokens-in-play)
+* [🔹 **Spring Boot Config**](#-spring-boot-config)
+* [🔹 **What is LDAP?**](#-what-is-ldap)
+* [🔹 **LDAP Structure**](#-ldap-structure)
+* [🔹 **Where LDAP is Used**](#-where-ldap-is-used)
+* [🔹 **LDAP in Your Spring Boot + OAuth2 + JWT Flow**](#-ldap-in-your-spring-boot--oauth2--jwt-flow)
+* [🔹 **Example: Keycloak + LDAP**](#-example-keycloak--ldap)
+* [🔹 **Spring Boot Direct LDAP Authentication (without OAuth2)**](#-spring-boot-direct-ldap-authentication-without-oauth2)
+* [🔹 **Best Practice for Your New App**](#-best-practice-for-your-new-app)
+* [🔹 **LDAP vs ADFS: Core Difference**](#-ldap-vs-adfs-core-difference)
+* [🔹 **When to Choose LDAP (Direct Integration)**](#-when-to-choose-ldap-direct-integration)
+* [🔹 **When to Choose ADFS (or any IdP: Keycloak, Auth0, Okta, Azure AD)**](#-when-to-choose-adfs-or-any-idp-keycloak-auth0-okta-azure-ad)
+* [🔹 **ASCII Flow Comparison**](#-ascii-flow-comparison)
+    * [**Direct LDAP (Legacy Style)**](#direct-ldap-legacy-style)
+    * [**ADFS (Modern Style, Recommended)**](#adfs-modern-style-recommended)
+* [🔹 **Recommendation for Your Case (New Angular + Spring Boot App)**](#-recommendation-for-your-case-new-angular--spring-boot-app)
+* [🔹 **JWT (JSON Web Token)**](#-jwt-json-web-token)
+* [🔹 **OAuth2.0**](#-oauth20)
+* [🔹 **How They Work Together**](#-how-they-work-together)
+* [🔹 **Analogy**](#-analogy)
+* [🔹 **Quick Answer**](#-quick-answer)
+* [🔹 **Complete Flow: Angular + Spring Boot + OAuth2.0 + OIDC + JWT + LDAP**](#-complete-flow-angular--spring-boot--oauth20--oidc--jwt--ldap)
+* [🔹 **Roles of Each Piece**](#-roles-of-each-piece)
+* [🔹 **Decoded JWT Example (Access Token)**](#-decoded-jwt-example-access-token)
+* [🍪 Cookies in Spring Boot](#-cookies-in-spring-boot)
+    * [1.1 Authentication Cookies](#11-authentication-cookies)
+    * [1.2 CSRF Protection Cookies](#12-csrf-protection-cookies)
+    * [1.3 User Preference / Custom Cookies](#13-user-preference--custom-cookies)
+    * [2.1 Using `ResponseCookie`](#21-using-responsecookie)
+    * [2.2 Using `HttpServletResponse`](#22-using-httpservletresponse)
+    * [2.3 JavaScript (only if not HttpOnly)](#23-javascript-only-if-not-httponly)
+* [🌐 CORS and COR](#-cors-and-cor)
+    * [Does CORS affect cookies?](#does-cors-affect-cookies)
+    * [Spring Boot CORS Example](#spring-boot-cors-example)
+    * [JavaScript (Frontend)](#javascript-frontend)
+    * [Spring Boot (Backend)](#spring-boot-backend)
+    * [When CORS is needed](#when-cors-is-needed)
+* [🍪 Cookies in Spring Boot (Extended)](#-cookies-in-spring-boot-extended)
+    * [6.1 Authentication & Authorization](#61-authentication--authorization)
+    * [6.2 CSRF Protection](#62-csrf-protection)
+    * [6.3 Tracking and Personalization](#63-tracking-and-personalization)
+    * [6.4 Shopping Carts / E-commerce](#64-shopping-carts--e-commerce)
+    * [6.5 Rate Limiting & Security](#65-rate-limiting--security)
+    * [6.6 SSO (Single Sign-On)](#66-sso-single-sign-on)
+    * [6.7 Cookie Lifetime Strategies](#67-cookie-lifetime-strategies)
+* [🌐 CORS and COR (Extended)](#-cors-and-cor-extended)
+    * [7.1 Frontend-Backend Separation](#71-frontend-backend-separation)
+    * [7.2 Mobile & Desktop Clients](#72-mobile--desktop-clients)
+    * [7.3 Third-Party Integrations](#73-third-party-integrations)
+    * [7.4 Microservices / API Gateway](#74-microservices--api-gateway)
+    * [7.5 Security Considerations](#75-security-considerations)
+    * [7.6 Debugging CORS Issues](#76-debugging-cors-issues)
+    * [7.7 CORS + Cookies in Real Use Case](#77-cors--cookies-in-real-use-case)
+* [🚀 Final Enriched Takeaways](#-final-enriched-takeaways)
+* [🏗️ Spring Boot Application Example (Cookies + CORS)](#-spring-boot-application-example-cookies--cors)
+  * [1️⃣ CORS Configuration (Backend Allowing Cookies)](#1-cors-configuration-backend-allowing-cookies)
+  * [2️⃣ Controller Handling Cookies](#2-controller-handling-cookies)
+  * [3️⃣ User Preferences (Theme / Language Cookie)](#3-user-preferences-theme--language-cookie)
+  * [4️⃣ Frontend (React / Angular / Vue) Fetch Example](#4-frontend-react--angular--vue-fetch-example)
+* [🔑 How This Application Uses Cookies + CORS Together](#-how-this-application-uses-cookies--cors-together)
+* [🛡️ Spring Boot + Spring Security with JWT + CSRF](#-spring-boot--spring-security-with-jwt--csrf)
+  * [1️⃣ Security Configuration](#1-security-configuration)
+  * [2️⃣ JWT Authentication Filter](#2-jwt-authentication-filter)
+  * [3️⃣ JWT Service](#3-jwt-service)
+  * [4️⃣ Auth Controller (Login + Refresh + Logout)](#4-auth-controller-login--refresh--logout)
+  * [5️⃣ CSRF Handling](#5-csrf-handling)
+* [🔑 How It All Works Together](#-how-it-all-works-together)
+    * [🔑 Explanation:](#-explanation)
+    * [🔑 What’s New Here](#-whats-new-here)
+  * [**1️⃣ Central Idea**](#1-central-idea)
+  * [**2️⃣ How JWT Works Across Microservices**](#2-how-jwt-works-across-microservices)
+    * [🔹 Step 1: Authentication](#-step-1-authentication)
+    * [🔹 Step 2: Client Sends JWT](#-step-2-client-sends-jwt)
+    * [🔹 Step 3: API Gateway Verification](#-step-3-api-gateway-verification)
+    * [🔹 Step 4: Downstream Service Communication](#-step-4-downstream-service-communication)
+    * [🔹 Step 5: Optional Service-to-Service Security](#-step-5-optional-service-to-service-security)
+  * [**3️⃣ Best Practices**](#3-best-practices)
+  * [**4️⃣ Architecture Overview**](#4-architecture-overview)
+    * [✅ **TL;DR**](#-tldr)
+  * [**1️⃣ Two Scenarios**](#1-two-scenarios)
+    * [**Scenario 1: Propagate User Authentication (JWT)**](#scenario-1-propagate-user-authentication-jwt)
+    * [**Scenario 2: Internal Service-to-Service Call (Service Credentials)**](#scenario-2-internal-service-to-service-call-service-credentials)
+  * [**2️⃣ Best Practices**](#2-best-practices)
+  * [**3️⃣ Typical Patterns in Microservices**](#3-typical-patterns-in-microservices)
+    * [✅ TL;DR](#-tldr-1)
+    * [**Explanation**](#explanation)
+  * [**1️⃣ Generate JWT in Auth Service**](#1-generate-jwt-in-auth-service)
+  * [**2️⃣ Validate JWT in Service A**](#2-validate-jwt-in-service-a)
+    * [**Security Filter**](#security-filter)
+    * [**Register Filter**](#register-filter)
+  * [**3️⃣ Propagate JWT to Service B**](#3-propagate-jwt-to-service-b)
+    * [**Using RestTemplate**](#using-resttemplate)
+    * [**Using WebClient (Reactive)**](#using-webclient-reactive)
+  * [**4️⃣ Service B validates the JWT**](#4-service-b-validates-the-jwt)
+  * [**5️⃣ Summary**](#5-summary)
+<!-- TOC -->
+
 # Default configuration
 
 - SpringBootWebSecurityConfiguration.java
@@ -90,6 +222,509 @@
 * Use **ADFS** if you’re integrating with a Microsoft/Enterprise environment.
 
 ---
+
+# 🔐 𝐀𝐮𝐭𝐡𝐞𝐧𝐭𝐢𝐜𝐚𝐭𝐢𝐨𝐧 𝐢𝐧 𝐑𝐄𝐒𝐓 𝐀𝐏𝐈𝐬
+
+![Authentication](images/SpringBoot/Authentication.gif)
+
+Authentication in REST APIs acts as the **gateway** that ensures only authorized users or applications can access API resources.  
+Different authentication methods provide varying balances between **simplicity**, **security**, and **scalability**.
+
+---
+
+<details>
+<summary><strong>1️⃣ Basic Authentication</strong></summary>
+
+**Description:**  
+Sends a **username** and **password** with each HTTP request, typically encoded in Base64 and included in the `Authorization` header.
+
+- **Example Header:**  
+  `Authorization: Basic dXNlcjpwYXNzd29yZA==`
+
+**✅ Pros:**
+- Simple and easy to implement.
+- Works well for basic internal APIs or prototypes.
+
+**⚠️ Cons:**
+- Insecure without HTTPS (credentials are easily decoded).
+- Requires sending credentials on every request.
+
+**🕓 When to Use:**
+- For **simple or internal** applications where security is not critical.
+- When used over **secured HTTPS** connections.
+
+</details>
+
+---
+
+<details>
+<summary><strong>2️⃣ Token-based Authentication (e.g., JWT)</strong></summary>
+
+**Description:**  
+After successful login, the server issues a **token** (such as a JSON Web Token – JWT) that the client includes in subsequent requests.
+
+- **Example Header:**  
+  `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
+
+**✅ Pros:**
+- No need to resend credentials after login.
+- Scalable — works well for stateless, distributed systems.
+- Easy integration with mobile or SPA frontends.
+
+**⚠️ Cons:**
+- Requires secure token storage (e.g., local storage or cookies).
+- Token invalidation can be complex.
+
+**🕓 When to Use:**
+- For **secure and scalable** APIs.
+- When you want to **avoid sending credentials** on each request.
+
+</details>
+
+---
+
+<details>
+<summary><strong>3️⃣ OAuth 2.0 Authentication</strong></summary>
+
+**Description:**  
+Allows **third-party applications** to access user data without exposing user credentials.  
+Uses **access tokens** and **refresh tokens** after user consent.
+
+**OAuth Roles:**
+- **Resource Owner** – The user.
+- **Client** – The third-party app requesting access.
+- **Authorization Server** – Issues tokens.
+- **Resource Server** – Hosts the protected resources.
+
+**✅ Pros:**
+- Industry standard for third-party authorization.
+- Fine-grained control over permissions and scopes.
+- Widely used by major platforms (Google, GitHub, etc.).
+
+**⚠️ Cons:**
+- Complex to implement correctly.
+- Token management and refresh flows require additional setup.
+
+**🕓 When to Use:**
+- For APIs requiring **third-party access** to user resources.
+- For applications integrating with **external identity providers**.
+
+</details>
+
+---
+
+<details>
+<summary><strong>4️⃣ API Key Authentication</strong></summary>
+
+**Description:**  
+Each client is assigned a unique **API key**, sent via headers or query parameters.
+
+- **Example Header:**  
+  `x-api-key: abc123xyz`
+
+**✅ Pros:**
+- Simple and lightweight.
+- Easy to revoke or regenerate keys.
+- Useful for monitoring and rate-limiting API usage.
+
+**⚠️ Cons:**
+- Less secure than tokens (keys can be easily shared or leaked).
+- No user identity verification built-in.
+
+**🕓 When to Use:**
+- For **simple public APIs** or **internal services**.
+- For granting **basic access control** without complex user authentication.
+
+</details>
+
+---
+
+### 🧩 Summary Table
+
+| Method | Mechanism | Security | Complexity | Typical Use Case |
+|--------|------------|-----------|-------------|------------------|
+| **Basic Auth** | Username + Password | 🔸 Low (unless HTTPS) | 🟢 Simple | Internal or simple APIs |
+| **Token (JWT)** | Bearer Token | 🟢 Medium–High | 🟡 Moderate | Secure stateless APIs |
+| **OAuth 2.0** | Access/Refresh Tokens | 🟢 High | 🔴 Complex | Third-party integrations |
+| **API Key** | Unique Key per Client | 🔸 Low–Medium | 🟢 Simple | Basic access control or public APIs |
+
+---
+
+💡 **Tip:**  
+For production systems, avoid Basic or API Key authentication alone.  
+Use **Token-based (JWT)** or **OAuth 2.0** for robust security and scalability.
+
+
+<details>
+<summary><strong>SSO (Single Sign-On)</strong></summary>
+
+## 🔑 What is SSO?
+
+Single Sign-On (SSO) is an authentication process allowing a user to access multiple applications or services with one set of credentials after an initial login. It improves convenience and security by eliminating repeated login prompts.
+
+<details>
+<summary><strong>Key Points About SSO</strong></summary>
+
+1. **Single Authentication:** User authenticates once via an Identity Provider (IdP).
+2. **Access to Multiple Services:** Enables seamless access without re-entering credentials.
+3. **Common Use Cases:** Internal apps, email, cloud services, intranet portals.
+4. **Identity Providers:** Examples include Microsoft Azure AD, Okta, Google Identity Platform.
+5. **Federated Identity:** Uses protocols like SAML, OAuth, OpenID Connect for trust between IdP and service providers.
+6. **User Experience:** Simplifies login, reduces password fatigue.
+7. **Security Benefits:** Centralized authentication policies, enables MFA.
+8. **User Provisioning:** Allows automated access control for employees joining/leaving.
+9. **Logging & Auditing:** Centralized monitoring of access.
+10. **Single Log-Out:** Logs out from all services simultaneously.
+11. **Challenges:** Credential compromise risks mitigated by MFA and strong policies.
+
+</details>
+
+---
+
+## 🔗 Integration with Spring Security OAuth2 or Keycloak
+
+* Spring Security OAuth2 and Keycloak are popular tools for implementing SSO in Spring Boot.
+* They act as the Identity Provider or integrate with one.
+* Support OAuth2 and OpenID Connect protocols.
+
+---
+
+## 📚 [Spring Method Security Reference](https://www.baeldung.com/spring-security-method-security)
+
+</details>
+
+---
+
+# 🔐 Secure Communication Between Microservices in Spring Boot
+
+<details>
+<summary>1️⃣ HTTPS (TLS/SSL)</summary>
+
+**application.yml** (Service B, the receiver):
+
+```yaml
+server:
+  port: 8443
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-password: changeit
+    key-store-type: PKCS12
+    key-alias: mycert
+```
+
+**Client call (Service A):**
+
+```java
+@Bean
+public RestTemplate restTemplate(RestTemplateBuilder builder) throws Exception {
+    SSLContext sslContext = SSLContextBuilder
+            .create()
+            .loadTrustMaterial(new File("truststore.p12"), "changeit".toCharArray())
+            .build();
+
+    HttpClient client = HttpClients.custom()
+            .setSSLContext(sslContext)
+            .build();
+
+    return builder
+            .requestFactory(() -> new HttpComponentsClientHttpRequestFactory(client))
+            .build();
+}
+```
+
+This ensures communication is encrypted.
+
+</details>
+
+---
+
+<details>
+<summary>2️⃣ Mutual TLS (mTLS)</summary>
+
+**application.yml** (Service B):
+
+```yaml
+server:
+  ssl:
+    key-store: classpath:server-keystore.p12
+    key-store-password: changeit
+    trust-store: classpath:server-truststore.p12
+    trust-store-password: changeit
+    client-auth: need
+```
+
+**RestTemplate in Service A:**
+
+```java
+@Bean
+public RestTemplate restTemplate() throws Exception {
+    SSLContext sslContext = SSLContextBuilder.create()
+            .loadKeyMaterial(new File("client-keystore.p12"), "changeit".toCharArray(), "changeit".toCharArray())
+            .loadTrustMaterial(new File("client-truststore.p12"), "changeit".toCharArray())
+            .build();
+
+    HttpClient client = HttpClients.custom()
+            .setSSLContext(sslContext)
+            .build();
+
+    return new RestTemplate(new HttpComponentsClientHttpRequestFactory(client));
+}
+```
+
+This ensures **both services authenticate each other**.
+
+</details>
+
+---
+
+<details>
+<summary>3️⃣ Token-Based Authentication (JWT / OAuth2)</summary>
+
+**Service B (Resource Server):**
+
+`build.gradle` or `pom.xml` dependency:
+
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+</dependency>
+```
+
+**application.yml**:
+
+```yaml
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://auth-server.example.com/
+```
+
+**Security Config (Service B):**
+
+```java
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(auth -> auth
+                .anyRequest().authenticated()
+            )
+            .oauth2ResourceServer(oauth2 -> oauth2.jwt());
+        return http.build();
+    }
+}
+```
+
+**Service A (caller with JWT):**
+
+```java
+public class ApiClient {
+
+    private final RestTemplate restTemplate;
+
+    public ApiClient(RestTemplateBuilder builder) {
+        this.restTemplate = builder.build();
+    }
+
+    public String callServiceB(String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(token);
+        HttpEntity<Void> entity = new HttpEntity<>(headers);
+
+        return restTemplate.exchange(
+                "https://service-b.example.com/api/data",
+                HttpMethod.GET,
+                entity,
+                String.class
+        ).getBody();
+    }
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary>4️⃣ API Gateway (Optional)</summary>
+
+Use **Spring Cloud Gateway** as the entry point.
+
+**application.yml**:
+
+```yaml
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: service-b
+          uri: https://service-b:8443
+          predicates:
+            - Path=/api/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - TokenRelay
+```
+
+Gateway can validate JWT and forward authenticated requests to downstream services.
+
+</details>
+
+---
+
+<details>
+<summary>5️⃣ Service Mesh (Istio/Linkerd)</summary>
+
+* Define **mTLS policies** at the mesh level.
+* Example (Istio `PeerAuthentication`):
+
+```yaml
+apiVersion: security.istio.io/v1beta1
+kind: PeerAuthentication
+metadata:
+  name: default
+  namespace: my-namespace
+spec:
+  mtls:
+    mode: STRICT
+```
+
+This enforces **mTLS automatically**, without code changes.
+
+</details>
+
+---
+
+✅ Recommendation:
+
+* **Small scale:** Use **HTTPS + JWT**.
+* **Enterprise / Kubernetes:** Use **Service Mesh (mTLS)** + **OAuth2/JWT**.
+
+---
+
+# 🧪 Testing Secure Microservices with Postman
+
+<details>
+<summary>1️⃣ Testing HTTPS (TLS/SSL)</summary>
+
+1. Export your **server certificate** from the keystore.
+
+   ```bash
+   keytool -export -alias mycert -keystore keystore.p12 -file service-b.crt -storepass changeit
+   ```
+
+2. In **Postman**, go to:
+
+  * ⚙️ Settings → Certificates → Add Certificate.
+  * Host: `localhost`
+  * Port: `8443`
+  * Add `service-b.crt` as the CA file.
+
+3. Test request in Postman:
+
+  * `GET https://localhost:8443/api/hello`
+  * Should return 200 OK (encrypted with TLS).
+
+</details>
+
+---
+
+<details>
+<summary>2️⃣ Testing Mutual TLS (mTLS)</summary>
+
+1. Export **client certificate** (`client.p12`) and **server certificate** (`server.crt`).
+
+2. In **Postman** → Settings → Certificates → Add Certificate:
+
+  * Host: `localhost`
+  * Port: `8443`
+  * Client Certificate: `client.p12`
+  * Passphrase: `changeit`
+
+3. Send request:
+
+  * `GET https://localhost:8443/api/secure-data`
+  * If certs match → ✅ 200 OK
+  * If missing → ❌ 401 Unauthorized
+
+</details>
+
+---
+
+<details>
+<summary>3️⃣ Testing JWT Authentication</summary>
+
+1. Obtain a **JWT token** from your Authorization Server (Keycloak/Auth0/etc).
+
+  * Example via curl:
+
+    ```bash
+    curl -X POST https://auth-server.example.com/realms/myrealm/protocol/openid-connect/token \
+      -d "client_id=myclient" \
+      -d "client_secret=mysecret" \
+      -d "grant_type=client_credentials"
+    ```
+  * Response contains `"access_token": "eyJhbGciOi..."`.
+
+2. In **Postman**:
+
+  * Open request → **Authorization tab**.
+  * Type: `Bearer Token`.
+  * Paste the JWT.
+
+3. Call Service B:
+
+   ```
+   GET https://localhost:8443/api/data
+   Authorization: Bearer <jwt-token>
+   ```
+
+  * ✅ 200 OK if token is valid.
+  * ❌ 401 Unauthorized if token is missing or invalid.
+
+</details>
+
+---
+
+<details>
+<summary>4️⃣ Testing via API Gateway</summary>
+
+1. Configure Gateway with `TokenRelay` filter.
+2. In Postman, call only the Gateway endpoint:
+
+   ```
+   GET https://gateway.example.com/api/data
+   Authorization: Bearer <jwt-token>
+   ```
+3. Gateway forwards token → Service B validates it.
+
+</details>
+
+---
+
+<details>
+<summary>5️⃣ Testing Service Mesh (mTLS)</summary>
+
+With Istio/Linkerd, you don’t need Postman client certs — the **sidecar proxy handles TLS**.
+
+1. Deploy both services in the mesh.
+2. In Postman, call the public ingress gateway:
+
+   ```
+   GET https://<istio-ingress-ip>/api/data
+   ```
+3. The mesh enforces mTLS automatically between pods.
+
+</details>
+
+---
+
+
 
 # **1. OAuth2.0 + JWT Flow in Spring Boot**
 
@@ -655,6 +1290,7 @@ spring:
 * Angular stays frontend-only (no secrets, no password handling).
 
 </details>
+
 ---
 
 <details open>
