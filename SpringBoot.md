@@ -255,67 +255,67 @@
 
 <https://www.marcobehler.com/guides/spring-and-spring-boot-versions>
 
-🔹 Java + Spring → Enterprise Applications
-🔹 Java + Hibernate → Object-Relational Mapping
-🔹 Java + Android → Mobile App Development
-🔹 Java + Swing → Desktop GUI Applications
-🔹 Java + JavaFX → Modern GUI Applications
-🔹 Java + JUnit → Unit Testing
-🔹 Java + Maven → Project Management
-🔹 Java + Jenkins → Continuous Integration
-🔹 Java + Apache Kafka → Stream Processing
-🔹 Java + Apache Hadoop → Big Data Processing
-🔹 Java + Microservices → Scalable Services
-🔹 Java + Spring AI → AI-powered Applications 🤖
+- 🔹 Java + Spring → Enterprise Applications
+- 🔹 Java + Hibernate → Object-Relational Mapping
+- 🔹 Java + Android → Mobile App Development
+- 🔹 Java + Swing → Desktop GUI Applications
+- 🔹 Java + JavaFX → Modern GUI Applications
+- 🔹 Java + JUnit → Unit Testing
+- 🔹 Java + Maven → Project Management
+- 🔹 Java + Jenkins → Continuous Integration
+- 🔹 Java + Apache Kafka → Stream Processing
+- 🔹 Java + Apache Hadoop → Big Data Processing
+- 🔹 Java + Microservices → Scalable Services
+- 🔹 Java + Spring AI → AI-powered Applications 🤖
 
 ## PHASE 1 - Basics
 
-• Creating a spring boot project using spring initializr
-• Maven and gradle build tools
-• Annotations
-• Profiles and environment-specific configurations
-• @getmapping, @postmapping, @putmapping, @deletemapping
-• Handling path variables and request parameters
-• Setting up database connection (h2, mysql, postgresql)
-• Using jparepository and crudrepository
-• Introduction to spring boot devtools
-• Enabling hot reloading
-• Spring batch, scheduling and cron expressions
+- • Creating a spring boot project using spring initializr
+- • Maven and gradle build tools
+- • Annotations
+- • Profiles and environment-specific configurations
+- • @getmapping, @postmapping, @putmapping, @deletemapping
+- • Handling path variables and request parameters
+- • Setting up database connection (h2, mysql, postgresql)
+- • Using jparepository and crudrepository
+- • Introduction to spring boot devtools
+- • Enabling hot reloading
+- • Spring batch, scheduling and cron expressions
 
 
 ## PHASE 2 - Intermediate
 
-• Using @controlleradvice and @exceptionhandler
-• Custom error responses and exception classes
-• Global exception handling
-• Basic authentication
-• Configuring security for apis
-• Implementing jwt (json web tokens) for stateless authentication
-• Introduction to hateoas
-• Versioning rest apis (uri, parameter, headers)
-• Unit testing with junit and mockito
-• Writing integration tests with spring boot test
-• Testing restful services with mockmvc
-• Exploring actuator endpoints
-• Creating custom health indicators
+- • Using @controlleradvice and @exceptionhandler
+- • Custom error responses and exception classes
+- • Global exception handling
+- • Basic authentication
+- • Configuring security for apis
+- • Implementing jwt (json web tokens) for stateless authentication
+- • Introduction to hateoas
+- • Versioning rest apis (uri, parameter, headers)
+- • Unit testing with junit and mockito
+- • Writing integration tests with spring boot test
+- • Testing restful services with mockmvc
+- • Exploring actuator endpoints
+- • Creating custom health indicators
 
 
 ## PHASE 3 - Advanced
 
-• Using @profile annotation
-• Configuring environment-specific beans
-• Switching profiles for different environments
-• Setting up a spring cloud project
-• Key components of spring cloud
-• Setting up eureka server
-• Registering microservices with eureka
-• Service discovery in action
-• Introduction to api gateway
-• Setting up spring cloud gateway
-• Configuring routes and filters
-• Setting up spring cloud config server
-• Managing configuration in a centralized repository
-• Configuring spring boot applications to use config server
+- • Using @profile annotation
+- • Configuring environment-specific beans
+- • Switching profiles for different environments
+- • Setting up a spring cloud project
+- • Key components of spring cloud
+- • Setting up eureka server
+- • Registering microservices with eureka
+- • Service discovery in action
+- • Introduction to api gateway
+- • Setting up spring cloud gateway
+- • Configuring routes and filters
+- • Setting up spring cloud config server
+- • Managing configuration in a centralized repository
+- • Configuring spring boot applications to use config server
 
 ![springBootRoadMap](images/SpringBoot/SpringBootRoadMap.gif)
 
@@ -3444,7 +3444,7 @@ private Optional<SomeBean> someBean;
 <summary><strong>@Controller vs @RestController</strong></summary>
 
 | Aspect               | @Controller                                   | @RestController                                   |
-| -------------------- | --------------------------------------------- | ------------------------------------------------- |
+|----------------------|-----------------------------------------------|---------------------------------------------------|
 | ResponseBody needed? | Yes, must add `@ResponseBody` to each method  | No, implicit on all methods                       |
 | Return type          | Can return views (e.g., JSP, Thymeleaf pages) | Returns JSON/XML directly                         |
 | Purpose              | Traditional Spring MVC controller             | REST API controller                               |
@@ -3655,14 +3655,14 @@ Combines multiple pagination techniques to balance efficiency and complexity.
 
 ### 📘 Summary Table
 
-| Technique | Parameters | Best For | Pros | Cons |
-|------------|-------------|-----------|------|------|
-| Offset-based | `offset`, `limit` | Simple datasets | Easy to implement | Slow for large offsets |
-| Cursor-based | `cursor` | Large dynamic data | Efficient and consistent | Complex encoding |
-| Page-based | `page`, `size` | UI-driven pagination | User-friendly | Data shifts possible |
-| Keyset-based | `after_id`, `limit` | Large ordered data | High performance | Requires unique key |
-| Time-based | `start_time`, `end_time` | Time-ordered logs | Handles real-time data | Timestamp accuracy |
-| Hybrid | mixed | Complex datasets | Flexible and powerful | High implementation cost |
+| Technique    | Parameters               | Best For             | Pros                     | Cons                     |
+|--------------|--------------------------|----------------------|--------------------------|--------------------------|
+| Offset-based | `offset`, `limit`        | Simple datasets      | Easy to implement        | Slow for large offsets   |
+| Cursor-based | `cursor`                 | Large dynamic data   | Efficient and consistent | Complex encoding         |
+| Page-based   | `page`, `size`           | UI-driven pagination | User-friendly            | Data shifts possible     |
+| Keyset-based | `after_id`, `limit`      | Large ordered data   | High performance         | Requires unique key      |
+| Time-based   | `start_time`, `end_time` | Time-ordered logs    | Handles real-time data   | Timestamp accuracy       |
+| Hybrid       | mixed                    | Complex datasets     | Flexible and powerful    | High implementation cost |
 
 ---
 
@@ -4691,7 +4691,7 @@ Retry-After: 60
 <summary>📋 Strategies to Handle Millions of Concurrent Logins</summary>
 
 | Mitigation Strategy            | Tools / Tech Examples                   | Purpose 🚀                                            |
-| ------------------------------ | --------------------------------------- | ----------------------------------------------------- |
+|--------------------------------|-----------------------------------------|-------------------------------------------------------|
 | **Load Balancing**             | NGINX, HAProxy, AWS ELB, GCP LB         | Distribute traffic evenly across servers              |
 | **Horizontal Scaling**         | Kubernetes HPA, AWS ASG, GCP Autoscaler | Add/remove servers dynamically on demand              |
 | **Caching**                    | Redis, Memcached                        | Reduce DB load by serving frequently accessed data    |
@@ -4801,7 +4801,7 @@ UserSvc     OrderSvc    PaymentSvc
 <summary>📋 Comparison Table</summary>
 
 | Approach                    | Tools / Tech Examples             | Use Case 🚀                        |
-| --------------------------- | --------------------------------- | ---------------------------------- |
+|-----------------------------|-----------------------------------|------------------------------------|
 | **DB per Service**          | MySQL, PostgreSQL, MongoDB        | Core best practice, full ownership |
 | **Data via APIs**           | REST, gRPC, GraphQL               | Real-time synchronous data needs   |
 | **Event-Driven**            | Kafka, RabbitMQ, AWS SQS, NATS    | Async updates, decoupling services |
@@ -4949,7 +4949,7 @@ pool.awaitTermination(30, TimeUnit.SECONDS);
 <summary>📋 Strategy → Tools/Tech Table</summary>
 
 | Area                   | Tools / APIs (Java/Spring)                                    | Purpose                      |
-| ---------------------- | ------------------------------------------------------------- | ---------------------------- |
+|------------------------|---------------------------------------------------------------|------------------------------|
 | Thread Pooling         | `ExecutorService`, `ForkJoinPool`, Spring `@Async`            | Controlled concurrency       |
 | Batching & Pagination  | JDBC pagination, Spring Data `Page<T>`                        | Memory safety & locality     |
 | Backpressure           | `LinkedBlockingQueue(cap)`, Reactor (`Flux`/`onBackpressure`) | Balance producer/consumer    |

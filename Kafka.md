@@ -8,6 +8,8 @@
 
 ![MessagingQueArchitech](images/Kafka/MessagingQueArchitech.gif)
 
+[Kafka Hello World](https://www.javainuse.com/spring/spring-boot-apache-kafka-hello-world)
+
 # 📨 Evolution of Message Queue Architectures
 ### IBM MQ → RabbitMQ → Kafka → Pulsar
 

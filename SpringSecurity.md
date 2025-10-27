@@ -132,6 +132,8 @@
 
 # Default configuration
 
+[OAuth2](https://www.javainuse.com/spring/spring-boot-oauth-introduction)
+
 - SpringBootWebSecurityConfiguration.java
 
 - withDefaultPasswordEncoder - should not be used in production. Can be only used in sample development.
@@ -1910,7 +1912,7 @@ document.cookie = "cookieName=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
 <summary><strong>4. Abbreviations and Their Meanings</strong></summary>
 
 | Abbreviation | Meaning                      |
-| ------------ | ---------------------------- |
+|--------------|------------------------------|
 | CSRF         | Cross-Site Request Forgery   |
 | JWT          | JSON Web Token               |
 | XSRF         | Spring Security’s CSRF token |
@@ -2031,7 +2033,7 @@ No — **CORS is not part of a cookie**. But browsers **enforce CORS** to decide
 <summary><strong>5. Summary Table: CORS vs Cookies</strong></summary>
 
 | Feature                          | Affects Cookies? | Is It Necessary?                       |
-| -------------------------------- | ---------------- | -------------------------------------- |
+|----------------------------------|------------------|----------------------------------------|
 | CORS                             | ✅ Yes            | ✅ If frontend/backend differ in origin |
 | COR                              | ✅ Yes            | ✅ If cookies are used                  |
 | Access-Control-Allow-Credentials | ✅ Yes            | ✅ For cookie transmission              |
@@ -2751,9 +2753,7 @@ stateDiagram-v2
 
 ---
 
-Got it ✅ — let’s extend the **JWT lifecycle state diagram** with the **CSRF token lifecycle**, since in Spring Security both interact for secure requests.
-
-Here’s the **Mermaid state diagram**:
+**JWT lifecycle state diagram** with the **CSRF token lifecycle**, since in Spring Security both interact for secure requests.
 
 ```mermaid
 stateDiagram-v2
@@ -2796,6 +2796,8 @@ stateDiagram-v2
   * Frontend must send it back as a header (`X-XSRF-TOKEN`).
   * If mismatch/missing → request rejected → server may re-issue a new CSRF cookie.
   * Cleared on logout as well.
+
+[Youtube Video](https://youtu.be/eWEgUcHPle0?si=k7oDcHGn_WwZxe00)
 
 
 👉 This shows that **JWT = identity/authentication** while **CSRF token = request integrity**.
