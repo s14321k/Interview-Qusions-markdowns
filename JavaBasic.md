@@ -1177,6 +1177,17 @@ double $salary;
 
 ---
 
+<details>
+<summary>Variables in Java</summary>
+
+* **Local:** Inside method body; cannot be `static`.
+* **Instance:** Inside class body; each object has its own copy.
+* **Static:** Shared across all instances; memory allocated once when class loads.
+
+</details>
+
+---
+
 ## 🏷️ What is a Class?
 
 A **class** is a blueprint or template from which objects are created. It contains data (fields) and behaviors (methods).
@@ -4167,17 +4178,6 @@ for (Map.Entry<String, String> entry : map.entrySet()) {
 - `public void start()`: Called after `init()` or when browser is maximized; starts the applet.
 - `public void stop()`: Called when applet is stopped or browser minimized; stops the applet.
 - `public void destroy()`: Called once to destroy the applet.
-
-</details>
-
----
-
-<details>
-<summary>Variables in Java</summary>
-
-* **Local:** Inside method body; cannot be `static`.
-* **Instance:** Inside class body; each object has its own copy.
-* **Static:** Shared across all instances; memory allocated once when class loads.
 
 </details>
 

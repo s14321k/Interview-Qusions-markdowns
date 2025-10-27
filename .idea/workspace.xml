@@ -6,9 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="TOC update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microservice.md" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpringSecurity.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringSecurity.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaBasic.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaBasic.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/floating.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/java1.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javaCodeHTML/CreatingImmutable.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javaHTML/1.JavaPrinciplesBestPractices&amp;MemoryManagement.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javaHTML/2.PrimaryMainFeature.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javaHTML/3.IdentifiersClass.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javaHTML/4.Constructors.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javaHTML/5.String.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javaHTML/FloatingMenu.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/javaHTML/button.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/floating.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/scripts.js" beforeDir="false" />
     </list>
     <list id="85d93f7a-76e3-4a1a-8bb8-992724df3493" name="ide" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" afterDir="false" />
@@ -299,7 +310,10 @@
       <workItem from="1760890107288" duration="11786000" />
       <workItem from="1761108874143" duration="29007000" />
       <workItem from="1761165990153" duration="9668000" />
-      <workItem from="1761203793122" duration="922000" />
+      <workItem from="1761203793122" duration="1349000" />
+      <workItem from="1761218293127" duration="4382000" />
+      <workItem from="1761232790971" duration="2489000" />
+      <workItem from="1761294934642" duration="589000" />
     </task>
     <task id="LOCAL-00001" summary="added points and restructured the points">
       <option name="closed" value="true" />
@@ -655,7 +669,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761203369299</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="TOC update">
+      <option name="closed" value="true" />
+      <created>1761205124663</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1761205124663</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
