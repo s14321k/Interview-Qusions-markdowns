@@ -1233,7 +1233,7 @@ Hi This Is Sarath. Im Attending Interview
 ### Explanation
 
 | Line                           | Explanation                            |
-| ------------------------------ | -------------------------------------- |
+|--------------------------------|----------------------------------------|
 | `if (charValu[i] == ' ')`      | Check for space character              |
 | `repValu.append(charValu[i]);` | Append space itself                    |
 | `if (i + 1 < charValu.length)` | Boundary check before next char access |
@@ -1441,6 +1441,256 @@ public class EvenOddFilter {
 
 ---
 
+<details>
+<summary>🧩 Example using <code>Runnable</code> and <code>wait/notify</code></summary>
+
+```java
+public class OddEvenPrinter {
+
+    private static final Object lock = new Object();
+    private static int count = 1;
+    private static final int MAX = 10;
+
+    public static void main(String[] args) {
+
+        Runnable printOdd = () -> {
+            while (count <= MAX) {
+                synchronized (lock) {
+                    while (count % 2 == 0) {
+                        try {
+                            lock.wait();
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
+                    if (count <= MAX) {
+                        System.out.println("Odd: " + count);
+                        count++;
+                        lock.notify();
+                    }
+                }
+            }
+        };
+
+        Runnable printEven = () -> {
+            while (count <= MAX) {
+                synchronized (lock) {
+                    while (count % 2 == 1) {
+                        try {
+                            lock.wait();
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
+                    }
+                    if (count <= MAX) {
+                        System.out.println("Even: " + count);
+                        count++;
+                        lock.notify();
+                    }
+                }
+            }
+        };
+
+        Thread t1 = new Thread(printOdd);
+        Thread t2 = new Thread(printEven);
+
+        t1.start();
+        t2.start();
+    }
+}
+```
+
+✅ **Output (approx):**
+```
+Odd: 1
+Even: 2
+Odd: 3
+Even: 4
+Odd: 5
+Even: 6
+Odd: 7
+Even: 8
+Odd: 9
+Even: 10
+```
+
+---
+
+🧠 Explanation
+
+- `count` is shared by both threads.
+- `lock` ensures **synchronization**.
+- When one thread is not supposed to print (e.g. even thread sees an odd number), it calls `lock.wait()` and releases the lock.
+- After printing, the thread increments `count` and calls `lock.notify()` to wake up the other thread.
+- This repeats until the count reaches 10.
+
+</details>
+
+---
+
+<details>
+<summary>⚙️ Alternative using <code>Callable</code> + <code>ExecutorService</code></summary>
+
+You can also use `Callable<Void>` if you prefer an executor-based approach:
+
+```java
+import java.util.concurrent.*;
+
+public class OddEvenCallable {
+
+    private static final Object lock = new Object();
+    private static int count = 1;
+    private static final int MAX = 10;
+
+    public static void main(String[] args) throws Exception {
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+
+        Callable<Void> oddTask = () -> {
+            while (count <= MAX) {
+                synchronized (lock) {
+                    while (count % 2 == 0) lock.wait();
+                    if (count <= MAX) {
+                        System.out.println("Odd: " + count);
+                        count++;
+                        lock.notify();
+                    }
+                }
+            }
+            return null;
+        };
+
+        Callable<Void> evenTask = () -> {
+            while (count <= MAX) {
+                synchronized (lock) {
+                    while (count % 2 == 1) lock.wait();
+                    if (count <= MAX) {
+                        System.out.println("Even: " + count);
+                        count++;
+                        lock.notify();
+                    }
+                }
+            }
+            return null;
+        };
+
+        executor.submit(oddTask);
+        executor.submit(evenTask);
+
+        executor.shutdown();
+    }
+}
+```
+
+This behaves the same, but uses an `ExecutorService` to manage threads.
+
+</details>
+
+---
+
+**cleaner and safer version** using `Lock` and `Condition` instead of `wait/notify`.
+
+---
+
+<details>
+<summary>🧩 Using <code>Lock</code> and <code>Condition</code> (Recommended Way)</summary>
+
+```java
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class OddEvenLockExample {
+
+    private static int count = 1;
+    private static final int MAX = 10;
+
+    private static final Lock lock = new ReentrantLock();
+    private static final Condition oddTurn = lock.newCondition();
+    private static final Condition evenTurn = lock.newCondition();
+
+    public static void main(String[] args) {
+        Runnable oddPrinter = () -> {
+            while (count <= MAX) {
+                lock.lock();
+                try {
+                    while (count % 2 == 0) {
+                        oddTurn.await(); // wait until it's odd's turn
+                    }
+                    if (count <= MAX) {
+                        System.out.println("Odd: " + count);
+                        count++;
+                        evenTurn.signal(); // signal even thread
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } finally {
+                    lock.unlock();
+                }
+            }
+        };
+
+        Runnable evenPrinter = () -> {
+            while (count <= MAX) {
+                lock.lock();
+                try {
+                    while (count % 2 == 1) {
+                        evenTurn.await(); // wait until it's even's turn
+                    }
+                    if (count <= MAX) {
+                        System.out.println("Even: " + count);
+                        count++;
+                        oddTurn.signal(); // signal odd thread
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } finally {
+                    lock.unlock();
+                }
+            }
+        };
+
+        Thread t1 = new Thread(oddPrinter, "OddThread");
+        Thread t2 = new Thread(evenPrinter, "EvenThread");
+
+        t1.start();
+        t2.start();
+    }
+}
+```
+
+---
+
+✅ **Output:**
+
+```
+
+Odd: 1
+Even: 2
+Odd: 3
+Even: 4
+Odd: 5
+Even: 6
+Odd: 7
+Even: 8
+Odd: 9
+Even: 10
+
+```
+
+---
+
+<details>
+<summary>🧠 Why this is better than <code>wait/notify</code></summary>
+
+* `Condition` objects (`oddTurn` and `evenTurn`) are **more readable** than arbitrary `wait()`/`notify()` calls.
+* `Lock` provides **fine-grained control** over which condition to signal.
+* No need for `synchronized` blocks — the `lock` ensures mutual exclusion.
+* Avoids accidental wake-ups (spurious wakeups) better than plain `Object.wait()`.
+
+</details>
+
+---
+
 <details open>
 <summary><strong>🔍 19. String vs StringBuilder Comparison Explained</strong></summary>
 
@@ -1461,7 +1711,7 @@ System.out.println(sb1.toString().equals(s1));// true or false?
 ### What prints and why?
 
 | Line                                             | Output  | Explanation                                                                                 |
-| ------------------------------------------------ | ------- | ------------------------------------------------------------------------------------------- |
+|--------------------------------------------------|---------|---------------------------------------------------------------------------------------------|
 | `System.out.println(s1 == s2);`                  | `true`  | Both refer to the same interned string literal in the String Pool, so references are equal. |
 | `System.out.println(s1.equals(s2));`             | `true`  | Contents are the same, so `.equals()` returns true.                                         |
 | `System.out.println(sb1.toString() == s1);`      | `false` | `sb1.toString()` creates a new String object, so reference comparison is false.             |
@@ -1490,7 +1740,7 @@ Because `.intern()` returns the canonical representation from the String Pool.
 
 </details>
 
-<details open>
+<details>
 <summary><strong>✨ 20. Find Palindromes using Streams</strong></summary>
 
 * Palindrome: a string that reads the same forwards and backwards.  
@@ -1527,7 +1777,7 @@ public class PalindromeFinder {
 ### Explanation
 
 | Operation          | Stream Method     | Logic                                                         |
-| ------------------ | ----------------- | ------------------------------------------------------------- |
+|--------------------|-------------------|---------------------------------------------------------------|
 | Convert array      | `Arrays.stream()` | Turn the array into a stream.                                 |
 | Filter palindromes | `.filter()`       | Keep only words where `word.equalsIgnoreCase(reverse(word))`. |
 | Collect results    | `.collect()`      | Collect into a `List<String>`.                                |
@@ -1644,11 +1894,11 @@ public class MapSortByValue {
 
 ### Explanation
 
-| Method                           | Approach                                                                 |
-| -------------------------------- | ------------------------------------------------------------------------ |
-| Streams + `sorted`               | Sort by values (`comparingByValue`), then collect into `LinkedHashMap`.   |
-| Streams + reverseOrder           | Same as above, but descending order.                                     |
-| TreeMap with Comparator          | Sorts by **keys**, not values (but useful to show difference).           |
+| Method                  | Approach                                                                |
+|-------------------------|-------------------------------------------------------------------------|
+| Streams + `sorted`      | Sort by values (`comparingByValue`), then collect into `LinkedHashMap`. |
+| Streams + reverseOrder  | Same as above, but descending order.                                    |
+| TreeMap with Comparator | Sorts by **keys**, not values (but useful to show difference).          |
 
 ---
 
@@ -1779,7 +2029,7 @@ public class TwoSumStream {
 ### Explanation
 
 | Operation              | Stream API Used                        | Purpose                                              |
-| ---------------------- | -------------------------------------- | ---------------------------------------------------- |
+|------------------------|----------------------------------------|------------------------------------------------------|
 | Generate indices       | `IntStream.range(0, n)`                | Iterate over all possible `i`.                       |
 | Pair with next indices | `flatMap(IntStream.range)`             | Generate all pairs `(i, j)` with `j > i`.            |
 | Filter matching sums   | `.filter(nums[i] + nums[j] == target)` | Keep only pairs that match the target.               |
@@ -1923,14 +2173,13 @@ public class Main {
 
 ### Explanation
 
-| Operation           | Stream API                                          |
-| ------------------- | --------------------------------------------------- |
-| Group by department | `Collectors.groupingBy(Employee::getDepartment)`    |
-| Filter by year      | `.filter(e -> e.getJoiningDate().getYear() > 2018)` |
-| Collect results     | `.collect(Collectors.toList())`                     |
-| Sort by date asc  | `.sorted(Comparator.comparing(Employee::getJoiningDate))`            |
-| Sort by date desc | `.sorted(Comparator.comparing(Employee::getJoiningDate).reversed())` |
-
+| Operation           | Stream API                                                           |
+|---------------------|----------------------------------------------------------------------|
+| Group by department | `Collectors.groupingBy(Employee::getDepartment)`                     |
+| Filter by year      | `.filter(e -> e.getJoiningDate().getYear() > 2018)`                  |
+| Collect results     | `.collect(Collectors.toList())`                                      |
+| Sort by date asc    | `.sorted(Comparator.comparing(Employee::getJoiningDate))`            |
+| Sort by date desc   | `.sorted(Comparator.comparing(Employee::getJoiningDate).reversed())` |
 
 ---
 
@@ -1995,6 +2244,7 @@ public class SortMapByValue {
         System.out.println(sortedMap);
     }
 }
+
 ```
 
 ### Output:
@@ -2220,5 +2470,7 @@ So:
 * ⚡ Only beneficial for **very large strings**.
 
 ---
+
+</details>
 
 </details>
