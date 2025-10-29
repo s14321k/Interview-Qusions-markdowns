@@ -298,7 +298,7 @@ Perfect 👍 — here’s an **ASCII flow diagram** (Markdown) showing how **Pub
 
 ---
 
-# 🔑 Key Takeaways
+**✅ Key Takeaway**
 
 * **Pub/Sub + Cloud Functions/Run** → Event-driven, serverless, auto-scaling, scale-to-zero.
 * **Kafka** → High-throughput, persistent streaming backbone, needs long-running consumers.

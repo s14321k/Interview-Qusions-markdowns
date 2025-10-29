@@ -135,7 +135,6 @@
     * [🧠 Conceptually:](#-conceptually-1)
       * [🪶 ASCII diagram:](#-ascii-diagram-1)
       * [⚖️ Summary Table](#-summary-table-1)
-      * [🧠 Key Takeaways](#-key-takeaways)
 * [🧩 HAS-A Relationship Types in Java](#-has-a-relationship-types-in-java)
   * [⚙️ 1. Composition — *Strong HAS-A relationship*](#-1-composition--strong-has-a-relationship)
     * [➡️ Example: Car **has** an Engine](#-example-car-has-an-engine)
@@ -221,7 +220,6 @@
   * [🛡️ Summary: When to Use What?](#-summary-when-to-use-what)
 * [**Java Collections Framework Overview (Java 1.0 - Java 21)**](#java-collections-framework-overview-java-10---java-21)
     * [Legend:](#legend)
-    * [Key Takeaways:](#key-takeaways)
     * [**1. What is Serialization?**](#1-what-is-serialization)
     * [**2. Why do we need to serialize if an object is already in memory (which is bytes anyway)?**](#2-why-do-we-need-to-serialize-if-an-object-is-already-in-memory-which-is-bytes-anyway)
     * [**3. Why Serialization is Needed (Use Cases)**](#3-why-serialization-is-needed-use-cases)
@@ -2883,7 +2881,7 @@ Car -----> Engine
 
 ---
 
-#### 🧠 Key Takeaways
+**✅ Key Takeaway**
 
 * Use **IS-A** when one class is a specialized type of another → inheritance.
   Example: `class Manager extends Employee`
@@ -4144,7 +4142,7 @@ for (Map.Entry<String, String> entry : map.entrySet()) {
 
 ---
 
-### Key Takeaways:
+**✅ Key Takeaway**
 
 - **Thread-Safe Collections:**  
   Legacy classes like `Vector` and `Hashtable` are synchronized but modern alternatives such as `ConcurrentHashMap` and `CopyOnWriteArrayList` provide better concurrency.
@@ -7314,7 +7312,7 @@ Both `a` and `b` are independent, but updates trigger invalidations on the same 
 #### ✅ **Summary Table**
 
 | #  | Topic                               | Key Takeaway                                           |
-| -- | ----------------------------------- | ------------------------------------------------------ |
+|----|-------------------------------------|--------------------------------------------------------|
 | 6  | ForkJoinPool                        | Work-stealing pool for fine-grained parallelism        |
 | 7  | synchronized vs Lock vs StampedLock | Increasing flexibility and performance                 |
 | 8  | CompletableFuture                   | Asynchronous, composable, non-blocking futures         |

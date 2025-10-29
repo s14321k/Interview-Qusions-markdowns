@@ -31,7 +31,6 @@
     * [Security Config](#security-config)
 * [🔹 **Which One Should You Pick?**](#-which-one-should-you-pick)
 * [🔹 **Spring Boot Security Auth Flows (All Possibilities)**](#-spring-boot-security-auth-flows-all-possibilities)
-* [🔹 **Key Takeaways from the Flows**](#-key-takeaways-from-the-flows)
 * [🔹 **Detailed OAuth2 + OIDC + JWT Flow (Angular + Spring Boot)**](#-detailed-oauth2--oidc--jwt-flow-angular--spring-boot)
 * [🔹 **Tokens in Play**](#-tokens-in-play)
 * [🔹 **Spring Boot Config**](#-spring-boot-config)
@@ -1158,7 +1157,7 @@ Perfect 👍 — let’s create a **big ASCII flow diagram** that shows how auth
 
 ---
 
-# 🔹 **Key Takeaways from the Flows**
+🔹 **Key Takeaways from the Flows**
 
 * **Raw JWT (custom):**
 
@@ -2446,16 +2445,13 @@ fetch("https://api.backend.com/api/user/theme/dark", {
 
 ---
 
-Perfect 👍
-Now let’s move from the **lightweight demo** into a **Spring Security–enabled application** that uses:
+# 🛡️ Spring Boot + Spring Security with JWT + CSRF
+
+**lightweight demo** into a **Spring Security–enabled application** that uses:
 
 * ✅ **JWT authentication** (access + refresh tokens in HttpOnly cookies)
 * ✅ **CSRF protection** (with a readable `XSRF-TOKEN` cookie)
 * ✅ **CORS setup** (for cross-origin frontend → backend requests with cookies)
-
----
-
-# 🛡️ Spring Boot + Spring Security with JWT + CSRF
 
 ## 1️⃣ Security Configuration
 

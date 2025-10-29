@@ -21,7 +21,7 @@
 | **Best For**                  | Automating software delivery (CI/CD)                     | Managing infrastructure resources in the cloud                     | Deploying & managing containerized applications               |
 | **Commonly Used With**        | Terraform, Kubernetes, Docker, GitHub Actions            | Jenkins, Kubernetes, AWS, GCP, Azure                               | Terraform, Jenkins, Docker, Helm                              |
 
-### **Key Takeaways**  
+**✅ Key Takeaway** 
 - **Jenkins** automates software deployment (CI/CD).  
 - **Terraform** provisions and manages cloud infrastructure (IaC).  
 - **Kubernetes** manages and orchestrates containerized applications.  

@@ -389,19 +389,17 @@ Spring Actuator is a sub-project of Spring Boot that adds production-ready featu
 
 </details>
 
-* `Projection interface` - Creating interface to write particular queries in custom we can use projection
-
 # [Annotations in Spring boot](https://www.javatpoint.com/spring-boot-annotations)
 
 <details>
 <summary><strong>Core Application Annotations</strong></summary>
 
-| Annotation | Description |
-|---|---|
-| `@SpringBootApplication` | A convenience annotation that combines `@Configuration`, `@EnableAutoConfiguration`, and `@ComponentScan`. It's the entry point of the application. |
-| `@Configuration` | Marks a class as a source of bean definitions. |
-| `@EnableAutoConfiguration` | Enables Spring Boot's auto-configuration, attempting to configure the application based on classpath dependencies. |
-| `@ComponentScan` | Configures component scanning directives. It tells Spring where to look for components (`@Service`, `@Controller`, etc.). |
+| Annotation                 | Description                                                                                                                                         |
+|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| `@SpringBootApplication`   | A convenience annotation that combines `@Configuration`, `@EnableAutoConfiguration`, and `@ComponentScan`. It's the entry point of the application. |
+| `@Configuration`           | Marks a class as a source of bean definitions.                                                                                                      |
+| `@EnableAutoConfiguration` | Enables Spring Boot's auto-configuration, attempting to configure the application based on classpath dependencies.                                  |
+| `@ComponentScan`           | Configures component scanning directives. It tells Spring where to look for components (`@Service`, `@Controller`, etc.).                           |
 
 </details>
 
@@ -411,6 +409,8 @@ Spring Actuator is a sub-project of Spring Boot that adds production-ready featu
 <summary><strong>🧩 Bean Definitions & Dependency Injection</strong></summary>
 
 In Spring, the concepts of **Beans** and **Dependency Injection (DI)** are fundamental. They are the core principles of the Inversion of Control (IoC) container.
+
+</details>
 
 ---
 
@@ -770,15 +770,11 @@ When Spring tries to create `AService`, it first needs `BService`, but `BService
 
 ---
 
-### 🔹 Key takeaway
+🔹**Key takeaway**
 
 * **Cyclic dependency = bean A needs bean B, and bean B needs bean A.**
 * Usually indicates **poor architecture** — classes should not be so tightly coupled.
 * Preferred fix → **refactor** instead of relying on `@Lazy`.
-
----
-
-Perfect 👍 Let’s walk through a **real Spring Boot example** that shows what happens when there’s a cyclic dependency.
 
 ---
 
@@ -895,37 +891,6 @@ This is discouraged because it hides bad design.
 
 ---
 
-
-
----
-
-<details>
-<summary><strong>🔁 Bean Scopes</strong></summary>
-
-The scope of a bean defines its lifecycle and visibility.
-
-| Scope         | Description                                                              |
-|---------------|--------------------------------------------------------------------------|
-| `singleton`   | (Default) Only one instance of the bean is created per container.        |
-| `prototype`   | A new instance is created every time the bean is requested.              |
-| `request`     | (Web-aware) A new instance for each HTTP request.                        |
-| `session`     | (Web-aware) A new instance for each HTTP session.                        |
-| `application` | (Web-aware) A single instance for the lifecycle of the `ServletContext`. |
-
-**Example:**
-
-```java
-@Component
-@Scope("prototype")
-public class MyPrototypeBean {
-    // ...
-}
-```
-
-</details>
-
----
-
 <details>
 <summary><strong>🌱 Bean Lifecycle Callbacks</strong></summary>
 
@@ -961,6 +926,31 @@ public class MyBean {
 ---
 
 ### 🔁 Bean Scopes
+
+<details>
+<summary><strong>🔁 Bean Scopes</strong></summary>
+
+The scope of a bean defines its lifecycle and visibility.
+
+| Scope         | Description                                                              |
+|---------------|--------------------------------------------------------------------------|
+| `singleton`   | (Default) Only one instance of the bean is created per container.        |
+| `prototype`   | A new instance is created every time the bean is requested.              |
+| `request`     | (Web-aware) A new instance for each HTTP request.                        |
+| `session`     | (Web-aware) A new instance for each HTTP session.                        |
+| `application` | (Web-aware) A single instance for the lifecycle of the `ServletContext`. |
+
+**Example:**
+
+```java
+@Component
+@Scope("prototype")
+public class MyPrototypeBean {
+    // ...
+}
+```
+
+</details>
 
 > The scope of a bean defines the lifecycle and visibility of that bean. Spring supports several scopes, which determine how many instances of a bean are created and how they are shared.
 
@@ -2275,7 +2265,103 @@ List<User> findByAgeGreaterThanOrderByLastNameAsc(int age);
 ```
 
 </details>
+
+---
+
+## Projection interface
+
+<details>
+<summary>📘 What is a Projection Interface?</summary>
+
+A **Projection Interface** in Spring Data JPA allows you to define an **interface** with **getter methods** for only the fields you want from the entity — instead of fetching the entire entity object.
+
+This helps:
+
+* Improve performance (fetches only required columns)
+* Simplify DTO creation (no manual mapping)
+
+> 1️⃣ Entity Class
+
+```java
+@Entity
+public class Employee {
+    @Id
+    private Long id;
+    private String name;
+    private String department;
+    private Double salary;
+
+    // Getters and Setters
+}
 ```
+
+> 2️⃣ Projection Interface
+
+```java
+public interface EmployeeNameProjection {
+    String getName();
+    String getDepartment();
+}
+```
+
+- 💡 The method names must match the **entity field names** (case-insensitive).
+
+> 3️⃣ Repository
+
+```java
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+    
+    // Use projection in query method
+    List<EmployeeNameProjection> findByDepartment(String department);
+}
+```
+
+> 4️⃣ Usage
+
+```java
+@Autowired
+private EmployeeRepository repo;
+
+public void showEmployees() {
+    List<EmployeeNameProjection> employees = repo.findByDepartment("IT");
+    employees.forEach(e -> 
+        System.out.println(e.getName() + " - " + e.getDepartment())
+    );
+}
+```
+
+<summary><strong>🔍 Types of Projections</strong></summary>
+
+1. **Interface-based projection** → uses getter methods.
+   ✅ Most common and efficient.
+
+2. **Class-based projection (DTO projection)** → uses constructor expressions.
+   Example:
+
+   ```java
+   @Query("SELECT new com.example.EmployeeDTO(e.name, e.department) FROM Employee e")
+   List<EmployeeDTO> findEmployeeDetails();
+   ```
+
+3. **Dynamic projections** → choose projection type at runtime.
+
+   ```java
+   <T> List<T> findByDepartment(String department, Class<T> type);
+   ```
+
+   Usage:
+
+   ```java
+   repo.findByDepartment("IT", EmployeeNameProjection.class);
+   ```
+
+<summary>💡 When to Use Projection</summary>
+
+✅ When you only need **partial data** from a table.
+✅ When you want to **optimize performance** by avoiding fetching unnecessary columns.
+✅ When creating **lightweight API responses** without exposing entire entities.
+
+</details>
 
 ---
 
@@ -3785,7 +3871,8 @@ This approach provides a superior user experience for features like infinite scr
 </details>
 
 </details>
-</details>
+
+---
 
 # Dependency Injection (DI) in Spring Boot
 

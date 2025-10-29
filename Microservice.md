@@ -142,7 +142,6 @@
       * [❌ Using `volatile` only (WRONG)](#-using-volatile-only-wrong)
       * [✅ Correct Approach: Use `AtomicInteger`](#-correct-approach-use-atomicinteger)
     * [**Real-World Microservice Example**](#real-world-microservice-example)
-    * [✅ Key Takeaway](#-key-takeaway)
 * [Microservice questions](#microservice-questions)
     * [**1. What are microservices, and how do they differ from monolithic architecture?**](#1-what-are-microservices-and-how-do-they-differ-from-monolithic-architecture)
     * [**2. What are the main advantages of using microservices?**](#2-what-are-the-main-advantages-of-using-microservices)
@@ -480,7 +479,7 @@ For multi-region or high availability:
 ### ⚙️ Load Balancing Algorithms
 
 | Algorithm                | Description                        |
-| ------------------------ | ---------------------------------- |
+|--------------------------|------------------------------------|
 | **Round Robin**          | Sequential request distribution    |
 | **Least Connections**    | Sends to least busy instance       |
 | **IP Hash**              | Sticky sessions based on client IP |
@@ -605,7 +604,7 @@ A circuit breaker **prevents cascading failures** by stopping calls to a failing
 ### 🔁 Circuit Breaker States
 
 | State         | Description                                                   |
-| ------------- | ------------------------------------------------------------- |
+|---------------|---------------------------------------------------------------|
 | **Closed**    | Normal operation. Requests flow through.                      |
 | **Open**      | Too many failures. All calls blocked.                         |
 | **Half-Open** | Trial state. A few requests allowed to test service recovery. |
@@ -648,7 +647,7 @@ resilience4j.circuitbreaker:
 ### 🧰 Common Libraries
 
 | Tool                             | Notes                                           |
-| -------------------------------- | ----------------------------------------------- |
+|----------------------------------|-------------------------------------------------|
 | **Hystrix**                      | Netflix's legacy library (no longer maintained) |
 | **Resilience4j**                 | Lightweight, modern, Java 8+ functional         |
 | **Spring Cloud Circuit Breaker** | Abstraction for different circuit breaker tools |
@@ -671,7 +670,7 @@ An **API Gateway** is a **centralized entry point** for handling all requests in
 ### 🧭 Key Responsibilities of an API Gateway
 
 | Feature                              | Description                                                        |
-| ------------------------------------ | ------------------------------------------------------------------ |
+|--------------------------------------|--------------------------------------------------------------------|
 | **Routing**                          | Directs requests to the correct backend service.                   |
 | **Load Balancing**                   | Distributes incoming traffic across multiple service instances.    |
 | **Authentication & Authorization**   | Ensures only verified clients can access services.                 |
@@ -713,7 +712,7 @@ API Gateways use filters for cross-cutting concerns.
 ### 🧰 Popular API Gateway Solutions
 
 | Gateway                  | Type                      | Description                                                                                           |
-| ------------------------ | ------------------------- | ----------------------------------------------------------------------------------------------------- |
+|--------------------------|---------------------------|-------------------------------------------------------------------------------------------------------|
 | **Apigee**               | Commercial (Google Cloud) | Enterprise-grade API management. Full support for analytics, rate limiting, monetization, and OAuth2. |
 | **Kong Gateway**         | Open Source / Enterprise  | Built on NGINX. Plugin-based. Scalable and performant.                                                |
 | **Apache APISIX**        | Open Source               | High-performance, dynamic, cloud-native API Gateway built on OpenResty.                               |
@@ -761,7 +760,7 @@ Formatted in both **table form** and **collapsible markdown** for clear, structu
 ### 📊 Feature Comparison Table
 
 | Feature / Capability                | **Eureka (Netflix OSS)**                   | **Apigee (Google Cloud API Gateway)**                |
-| ----------------------------------- | ------------------------------------------ | ---------------------------------------------------- |
+|-------------------------------------|--------------------------------------------|------------------------------------------------------|
 | **Type**                            | Service Discovery                          | Full-featured API Gateway & Management Platform      |
 | **Provider**                        | Netflix OSS, Spring Cloud Netflix          | Google Cloud (Enterprise Product)                    |
 | **Primary Role**                    | Registers and discovers microservices      | Routes, secures, monitors, and manages APIs          |
@@ -782,7 +781,7 @@ Formatted in both **table form** and **collapsible markdown** for clear, structu
 ### ⚙️ Configuration Overview
 
 | Configuration Step        | **Eureka**                                                | **Apigee**                                         |
-| ------------------------- | --------------------------------------------------------- | -------------------------------------------------- |
+|---------------------------|-----------------------------------------------------------|----------------------------------------------------|
 | **1. Add Dependencies**   | `spring-cloud-starter-netflix-eureka-server`              | No dependencies; managed via GCP & API proxies     |
 | **2. Enable Server**      | `@EnableEurekaServer` on a Spring Boot app                | Create API proxies in Apigee UI or via Apigee APIs |
 | **3. Register Clients**   | `@EnableEurekaClient` + service name in `application.yml` | Upload or define OpenAPI spec or proxy endpoint    |
@@ -797,7 +796,7 @@ Formatted in both **table form** and **collapsible markdown** for clear, structu
 ### ✅ When to Use What?
 
 | Use Case                             | Use **Eureka**              | Use **Apigee**                                      |
-| ------------------------------------ | --------------------------- | --------------------------------------------------- |
+|--------------------------------------|-----------------------------|-----------------------------------------------------|
 | Internal service discovery           | ✔️ Yes                      | ✖️ Overkill for internal use only                   |
 | Public API management                | ✖️ Not suitable             | ✔️ Ideal for managing and exposing public APIs      |
 | API monetization / external clients  | ✖️ Not supported            | ✔️ Monetization, subscriptions, analytics           |
@@ -1092,7 +1091,7 @@ Imagine a legacy e-commerce app:
 <summary><strong>🧱 1. Microservices vs Monolithic Architecture</strong></summary>
 
 | Feature              | Monolithic                        | Microservices                                |
-| -------------------- | --------------------------------- | -------------------------------------------- |
+|----------------------|-----------------------------------|----------------------------------------------|
 | **Architecture**     | Single codebase                   | Distributed services                         |
 | **Deployment**       | One deployment for all modules    | Independent deployment per service           |
 | **Scalability**      | Scale whole app                   | Scale individual services                    |
@@ -1124,7 +1123,7 @@ Microservices must talk to each other in a decoupled and efficient way:
 🔁 **When to use what?**
 
 | Communication | Use Case                                   |
-| ------------- | ------------------------------------------ |
+|---------------|--------------------------------------------|
 | REST/gRPC     | Real-time, blocking requests               |
 | Kafka         | Event-driven, high throughput, scalability |
 | RabbitMQ      | Queued, reliable delivery of tasks         |
@@ -1198,7 +1197,7 @@ Microservices must talk to each other in a decoupled and efficient way:
 ### 📘 Key Concepts
 
 | Feature     | Description                                         |
-| ----------- | --------------------------------------------------- |
+|-------------|-----------------------------------------------------|
 | **Logging** | Use centralized log collectors (e.g., ELK stack)    |
 | **Metrics** | Use Prometheus, Micrometer, Grafana for stats       |
 | **Tracing** | Use OpenTelemetry, Jaeger, Zipkin to trace requests |
@@ -1235,7 +1234,7 @@ Microservices must talk to each other in a decoupled and efficient way:
 ### 🧰 Tools
 
 | Layer             | Tools                                 |
-| ----------------- | ------------------------------------- |
+|-------------------|---------------------------------------|
 | **Containers**    | Docker                                |
 | **Orchestration** | Kubernetes, Docker Swarm              |
 | **Service Mesh**  | Istio, Linkerd                        |
@@ -1256,7 +1255,7 @@ Microservices must talk to each other in a decoupled and efficient way:
 <summary><strong>📦 8. Microservices Testing Types</strong></summary>
 
 | Test Type            | Purpose                                 |
-| -------------------- | --------------------------------------- |
+|----------------------|-----------------------------------------|
 | **Unit Test**        | Test logic in isolation                 |
 | **Integration Test** | Test interaction between components     |
 | **Contract Test**    | Verify service communication agreements |
@@ -1314,37 +1313,37 @@ A **Service Mesh** is a dedicated infrastructure layer for making service-to-ser
 
 A service mesh works by deploying a lightweight network proxy, called a **sidecar**, alongside each service instance. All traffic into and out of the service is routed through this proxy, which forms the **data plane**. A central **control plane** manages and configures all the sidecars.
 
-| Component       | Description                                                              |
-| --------------- | ------------------------------------------------------------------------ |
-| **Data Plane**  | Composed of sidecar proxies (e.g., Envoy, Linkerd2-proxy) that sit next to each service. Handles the actual traffic. |
-| **Control Plane** | The "brain" of the mesh. Configures the proxies to enforce policies. Manages service discovery, routing rules, etc. |
+| Component         | Description                                                                                                          |
+|-------------------|----------------------------------------------------------------------------------------------------------------------|
+| **Data Plane**    | Composed of sidecar proxies (e.g., Envoy, Linkerd2-proxy) that sit next to each service. Handles the actual traffic. |
+| **Control Plane** | The "brain" of the mesh. Configures the proxies to enforce policies. Manages service discovery, routing rules, etc.  |
 
 ---
 
 ### 🏛️ Key Pillars of a Service Mesh
 
-| Pillar                   | Description                                                                                             |
-| ------------------------ | ------------------------------------------------------------------------------------------------------- |
-| **Traffic Management**   | Fine-grained control over traffic: dynamic routing, canary releases, A/B testing, retries, timeouts.    |
-| **Security**             | Secure communication between services with mutual TLS (mTLS). Enforces access control policies.         |
-| **Observability**        | Provides detailed telemetry (metrics, logs, traces) for all traffic without needing to change app code. |
+| Pillar                 | Description                                                                                             |
+|------------------------|---------------------------------------------------------------------------------------------------------|
+| **Traffic Management** | Fine-grained control over traffic: dynamic routing, canary releases, A/B testing, retries, timeouts.    |
+| **Security**           | Secure communication between services with mutual TLS (mTLS). Enforces access control policies.         |
+| **Observability**      | Provides detailed telemetry (metrics, logs, traces) for all traffic without needing to change app code. |
 
 ---
 
 ### 🧰 Popular Tools
 
-| Tool         | Description                                                                                             |
-| ------------ | ------------------------------------------------------------------------------------------------------- |
-| **Istio**    | The most feature-rich and widely adopted service mesh. Uses Envoy as its sidecar proxy.                 |
-| **Linkerd**  | Focuses on simplicity, performance, and low resource overhead. Uses a custom micro-proxy written in Rust. |
-| **Consul**   | Originally for service discovery, now includes a full-featured service mesh (Consul Connect).           |
+| Tool        | Description                                                                                               |
+|-------------|-----------------------------------------------------------------------------------------------------------|
+| **Istio**   | The most feature-rich and widely adopted service mesh. Uses Envoy as its sidecar proxy.                   |
+| **Linkerd** | Focuses on simplicity, performance, and low resource overhead. Uses a custom micro-proxy written in Rust. |
+| **Consul**  | Originally for service discovery, now includes a full-featured service mesh (Consul Connect).             |
 
 ---
 
 ### ✅ When to Use What?
 
-| Scenario                               | Recommendation                                                                    |
-| -------------------------------------- | --------------------------------------------------------------------------------- |
+| Scenario                               | Recommendation                                                                        |
+|----------------------------------------|---------------------------------------------------------------------------------------|
 | **Complex, large-scale enterprise**    | **Istio**: Offers the most extensive feature set for traffic management and security. |
 | **Simplicity and performance**         | **Linkerd**: Known for its ease of use, low resource footprint, and high performance. |
 | **Already using Consul for discovery** | **Consul Connect**: A natural extension if you're already in the HashiCorp ecosystem. |
@@ -1413,13 +1412,13 @@ The Cloud Native Computing Foundation (CNCF) defines cloud native with these key
 
 ### ✅ How Microservices Enable a Cloud-Native Approach
 
-| Cloud-Native Goal      | How Microservices Help                                                              |
-| ---------------------- | ----------------------------------------------------------------------------------- |
-| **Agility & Speed**    | Small, independent teams can develop, deploy, and scale their services separately.  |
-| **Scalability**        | Services can be scaled horizontally and automatically based on demand.              |
-| **Resilience**         | Failure in one service doesn't bring down the entire application.                   |
-| **Flexibility**        | Teams can choose the best technology stack for their specific service.              |
-| **Portability**        | Containers make it easy to run services consistently across different environments. |
+| Cloud-Native Goal   | How Microservices Help                                                              |
+|---------------------|-------------------------------------------------------------------------------------|
+| **Agility & Speed** | Small, independent teams can develop, deploy, and scale their services separately.  |
+| **Scalability**     | Services can be scaled horizontally and automatically based on demand.              |
+| **Resilience**      | Failure in one service doesn't bring down the entire application.                   |
+| **Flexibility**     | Teams can choose the best technology stack for their specific service.              |
+| **Portability**     | Containers make it easy to run services consistently across different environments. |
 
 ---
 
@@ -1436,13 +1435,13 @@ The Cloud Native Computing Foundation (CNCF) defines cloud native with these key
 
 ### ✅ When to Go Cloud Native
 
-| Scenario                                  | Recommendation                                                                                             |
-| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| **New Greenfield Projects**               | **Yes**: Start with a cloud-native approach from day one for maximum agility.                              |
-| **Modernizing a Monolith**                | **Yes, gradually**: Use patterns like Strangler Fig to migrate parts of the monolith to cloud-native services. |
-| **High Scalability & Resilience Needs**   | **Yes**: Cloud-native is designed for systems that need to scale dynamically and withstand failures.       |
-| **Small, Simple Applications**            | **Maybe not**: The overhead of Kubernetes and other tools might be overkill for simple apps with low traffic.  |
-| **Team without DevOps/Cloud Experience**  | **With caution**: Adopting cloud-native requires a shift in culture and skills. Invest in training first.    |
+| Scenario                                 | Recommendation                                                                                                 |
+|------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| **New Greenfield Projects**              | **Yes**: Start with a cloud-native approach from day one for maximum agility.                                  |
+| **Modernizing a Monolith**               | **Yes, gradually**: Use patterns like Strangler Fig to migrate parts of the monolith to cloud-native services. |
+| **High Scalability & Resilience Needs**  | **Yes**: Cloud-native is designed for systems that need to scale dynamically and withstand failures.           |
+| **Small, Simple Applications**           | **Maybe not**: The overhead of Kubernetes and other tools might be overkill for simple apps with low traffic.  |
+| **Team without DevOps/Cloud Experience** | **With caution**: Adopting cloud-native requires a shift in culture and skills. Invest in training first.      |
 
 </details>
 
@@ -1476,11 +1475,11 @@ There are two common ways to coordinate a saga:
 
 ### ✅ Choreography vs. Orchestration: When to Use What?
 
-| Scenario                                    | Recommendation    | Reason                                                                        |
-| ------------------------------------------- | ----------------- | ----------------------------------------------------------------------------- |
-| **Simple workflows with few participants**  | **Choreography**  | Avoids the complexity of a central orchestrator. Services are more decoupled. |
-| **Complex workflows with many participants**| **Orchestration** | Centralized logic is easier to manage, monitor, and debug.                    |
-| **Need for high-level visibility**          | **Orchestration** | The orchestrator provides a single place to see the status of a transaction.  |
+| Scenario                                     | Recommendation    | Reason                                                                        |
+|----------------------------------------------|-------------------|-------------------------------------------------------------------------------|
+| **Simple workflows with few participants**   | **Choreography**  | Avoids the complexity of a central orchestrator. Services are more decoupled. |
+| **Complex workflows with many participants** | **Orchestration** | Centralized logic is easier to manage, monitor, and debug.                    |
+| **Need for high-level visibility**           | **Orchestration** | The orchestrator provides a single place to see the status of a transaction.  |
 | **Rapidly evolving services**                | **Choreography**  | Services can be added or changed without modifying a central orchestrator.    |
 
 ---
@@ -1572,13 +1571,13 @@ The two sides can be synchronized using events. When the command side processes 
 
 ### ✅ When to Use CQRS
 
-| Scenario                                      | Recommendation                                                                                             |
-| --------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| **High-performance applications**             | **Yes**: Optimize read and write workloads independently. Scale the read side for many users.              |
-| **Complex business domains**                  | **Yes**: Simplifies models by separating concerns. Different models for writing and reading are clearer.   |
-| **Collaborative environments**                | **Yes**: Multiple users working on the same data can benefit from a command-based model to avoid conflicts. |
-| **Simple CRUD-based applications**            | **No**: The complexity of CQRS is likely overkill. A traditional model is simpler to implement and maintain. |
-| **Systems requiring strong consistency**      | **With caution**: The eventual consistency of the read model can be a challenge.                           |
+| Scenario                                 | Recommendation                                                                                               |
+|------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| **High-performance applications**        | **Yes**: Optimize read and write workloads independently. Scale the read side for many users.                |
+| **Complex business domains**             | **Yes**: Simplifies models by separating concerns. Different models for writing and reading are clearer.     |
+| **Collaborative environments**           | **Yes**: Multiple users working on the same data can benefit from a command-based model to avoid conflicts.  |
+| **Simple CRUD-based applications**       | **No**: The complexity of CQRS is likely overkill. A traditional model is simpler to implement and maintain. |
+| **Systems requiring strong consistency** | **With caution**: The eventual consistency of the read model can be a challenge.                             |
 
 ---
 
@@ -1752,13 +1751,13 @@ The Rate Limiter pattern controls the consumption of resources by limiting the r
 
 ### ✅ When to Use Which Resilience Pattern?
 
-| Pattern             | When to Use It                                                                        |
-| ------------------- | ------------------------------------------------------------------------------------- |
-| **Retry**           | For transient, temporary failures (e.g., brief network error, temporary DB lock).       |
-| **Timeout**         | To prevent a single long-running request from consuming resources indefinitely.         |
+| Pattern             | When to Use It                                                                                         |
+|---------------------|--------------------------------------------------------------------------------------------------------|
+| **Retry**           | For transient, temporary failures (e.g., brief network error, temporary DB lock).                      |
+| **Timeout**         | To prevent a single long-running request from consuming resources indefinitely.                        |
 | **Circuit Breaker** | To prevent cascading failures when a downstream service is completely unavailable or has high latency. |
-| **Bulkhead**        | To isolate failures and prevent one misbehaving service from exhausting all resources. |
-| **Rate Limiter**    | To protect a service from being overwhelmed by too many requests in a short period.   |
+| **Bulkhead**        | To isolate failures and prevent one misbehaving service from exhausting all resources.                 |
+| **Rate Limiter**    | To protect a service from being overwhelmed by too many requests in a short period.                    |
 
 ---
 
@@ -1941,7 +1940,7 @@ DB (own)   Logs 📊   🔐 Secure
 <summary>📋 Quick Reference Table</summary>  
 
 | Component               | Purpose                              | Examples                         |
-| ----------------------- | ------------------------------------ | -------------------------------- |
+|-------------------------|--------------------------------------|----------------------------------|
 | 🛠 API Gateway          | Entry point, routing, security       | Spring Cloud Gateway, Zuul       |
 | 📘 Service Registry     | Service discovery, avoid hardcoding  | Eureka, Consul, Zookeeper        |
 | ⚖️ Load Balancer        | Distribute traffic, improve uptime   | Ribbon, NGINX, K8s Services      |
@@ -2073,7 +2072,7 @@ Microservices architecture is powered by **API gateways, service discovery, load
 <summary>📋 Quick Reference Table</summary>  
 
 | Strategy            | Tool/Tech Examples         | Purpose 🚀              |
-| ------------------- | -------------------------- | ----------------------- |
+|---------------------|----------------------------|-------------------------|
 | Tracing & Logs      | Sleuth, Zipkin, Jaeger     | Detect bottlenecks      |
 | Timeouts ⏳          | RestTemplate, WebClient    | Avoid thread blocking   |
 | Circuit Breaker ⚡   | Resilience4j, Hystrix      | Stop cascading failures |
@@ -2209,7 +2208,7 @@ resilience4j:
 <summary>📋 Quick Reference Table</summary>  
 
 | Feature            | Implementation                   | Purpose 🚀                |
-| ------------------ | -------------------------------- | ------------------------- |
+|--------------------|----------------------------------|---------------------------|
 | Timeout ⏳          | `responseTimeout(3s)`            | Avoid hanging calls       |
 | Circuit Breaker ⚡  | Resilience4j (`@CircuitBreaker`) | Stop cascading failures   |
 | Fallback 🔄        | `fallbackResponse()` method      | Graceful degradation      |
@@ -2410,7 +2409,7 @@ public class RequestController {
 
 ---
 
-### ✅ Key Takeaway
+**✅ Key Takeaway**
 
 * Use `volatile` when you need **visibility** only (flags, shutdown signals).
 * Use `AtomicInteger`, `AtomicLong`, or `synchronized` when you also need **atomicity** (counters, financial transactions, etc.).
@@ -2786,7 +2785,7 @@ We need to design communication that *fails gracefully* and *recovers automatica
 ### 🧩 Fault-tolerance Techniques
 
 | Technique                            | Description                                                              | Example                                    |
-| ------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------ |
+|--------------------------------------|--------------------------------------------------------------------------|--------------------------------------------|
 | **Retries with backoff**             | Retry transient failures with exponential delays                         | Spring Cloud Retry, Resilience4j `Retry`   |
 | **Circuit Breaker**                  | Stop calling a failing service temporarily to avoid cascading failures   | Resilience4j `CircuitBreaker`              |
 | **Bulkhead isolation**               | Limit concurrent calls per dependency to prevent total thread exhaustion | Thread-pool or semaphore isolation         |
@@ -2824,7 +2823,7 @@ Combine **Resilience4j + Spring Cloud CircuitBreaker + Service Discovery (Eureka
 ## **17️⃣ What’s the difference between API Gateway vs Load Balancer?**
 
 | Feature              | **API Gateway**                                                                      | **Load Balancer**                                                  |
-| -------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------ |
+|----------------------|--------------------------------------------------------------------------------------|--------------------------------------------------------------------|
 | **Purpose**          | Single entry point for client → handles routing, authentication, rate limiting, etc. | Distributes traffic among multiple instances of the *same* service |
 | **Layer**            | Application layer (L7)                                                               | Transport/network layer (L4 / L7)                                  |
 | **Routing logic**    | Can route by path, header, or user                                                   | Purely round-robin / least-connections                             |
@@ -2916,7 +2915,7 @@ Break a distributed transaction into a **series of local transactions**, coordin
 ### 🔹 Types
 
 | Type              | Coordination                         | Description                                               |
-| ----------------- | ------------------------------------ | --------------------------------------------------------- |
+|-------------------|--------------------------------------|-----------------------------------------------------------|
 | **Choreography**  | Event-based (no central coordinator) | Each service listens to previous event and emits the next |
 | **Orchestration** | Central Saga Orchestrator            | A controller directs each step and compensations          |
 
@@ -2994,7 +2993,7 @@ Tools like **Istio**, **Linkerd**, or **Consul Connect** automate:
 ### ✅ **Summary Table**
 
 | #  | Topic                       | Key Takeaway                                            |
-| -- | --------------------------- | ------------------------------------------------------- |
+|----|-----------------------------|---------------------------------------------------------|
 | 16 | Fault-tolerant comms        | Use retry, circuit-breaker, timeouts, async messaging   |
 | 17 | API Gateway vs LB           | Gateway = smart entry point; LB = traffic distributor   |
 | 18 | Distributed tracing         | Trace & span IDs + Zipkin/Jaeger/Micrometer Tracing     |

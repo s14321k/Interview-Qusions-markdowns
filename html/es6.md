@@ -166,7 +166,7 @@ person.balk(); // "balk"
 
 ---
 
-### 💡 Key Takeaway
+**✅ Key Takeaway**
 
 Understanding **classes**, **`this` context**, **arrow functions**, and **destructuring** helps you write cleaner, modern ES6+ JavaScript — especially in React environments.
 

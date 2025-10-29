@@ -152,7 +152,7 @@ Together, they create the illusion of concurrency.
 
 ---
 
-## 💡 Key Takeaway
+💡 **Key Takeaway**
 
 Even though **JavaScript runs on one thread**,
 its **environment** provides background workers to handle async operations,
