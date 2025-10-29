@@ -4166,6 +4166,8 @@ Here’s how I ensure strong observability in microservices:
 	•	Tools like Jaeger or OpenTelemetry help trace a request as it flows through multiple services.
 	•	Useful for diagnosing bottlenecks or latency issues in service-to-service calls 🔄.
 
+⸻
+
 🔸 4. Health Checks & Alerts 🚨
 	•	Define readiness and liveness probes (especially in Kubernetes).
 	•	Set up alerts via Grafana, PagerDuty, or Opsgenie when thresholds are crossed.
@@ -4649,8 +4651,8 @@ Retry-After: 60
 
 ---
 
-<details>
-<summary>📊 ASCII Flow Diagram</summary>
+
+<summary><strong>📊 ASCII Flow Diagram</strong></summary>
 
 ```text
 🙋 Millions of Users Login
@@ -4679,8 +4681,6 @@ Retry-After: 60
             v
 ✅ Stable & Scalable Login Experience
 ```
-
-</details>
 
 ---
 

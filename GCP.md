@@ -378,6 +378,138 @@ Choosing between **Cloud Functions** and **Cloud Run** depends on the nature of 
 | Cost                  | Pay per execution               | Pay per instance runtime                  |
 | Use Case Examples     | Pub/Sub triggers, webhook, CRON | REST APIs, microservices, backend apps    |
 
+## 🧩 **1. Google Compute Engine (GCE)** — *Virtual Machines (IaaS)*
+
+💡 Think of this as: “Your own server in the cloud.”
+
+### ✅ You can run:
+
+* **DevOps tools**: Jenkins, SonarQube, Nexus, GitLab Runner
+* **Databases**: MySQL, PostgreSQL, MongoDB
+* **Middleware**: Apache, Nginx, Tomcat, WebLogic
+* **Container runtimes**: Docker, containerd
+* **Security tools**: Vault, ELK Stack (Elastic, Logstash, Kibana)
+* **Networking / Infra agents**: Prometheus, Grafana, Consul, etc.
+* **Custom enterprise apps** (legacy or modern)
+
+🧠 Basically: Anything you can install on a Linux/Windows VM — including full control of OS, packages, and networking.
+
+---
+
+## 🚀 **2. App Engine (GAE)** — *Platform-as-a-Service (PaaS)*
+
+💡 Think of this as: “Just deploy your code — Google handles the rest.”
+
+### ✅ You can run:
+
+* Web APIs and apps written in:
+
+    * **Python**, **Java**, **Node.js**, **Go**, **PHP**, **.NET**, **Ruby**
+* REST APIs, backend web services
+* Lightweight **microservices**
+* Websites or dashboards
+
+### ❌ Not suitable for:
+
+* Jenkins, SonarQube, or tools needing full OS access
+* Custom binaries or background daemons
+
+🧠 It’s **code-only deployment**, not infrastructure-level — good for *developers*, not sysadmins.
+
+---
+
+## 🐳 **3. Cloud Run** — *Serverless Containers (CaaS)*
+
+💡 Think of this as: “Deploy any container easily, without managing servers.”
+
+### ✅ You can run:
+
+* **Docker containers** with any runtime or language
+* Microservices built with Spring Boot, Flask, Express.js, etc.
+* **APIs or backend tasks** (HTTP-based)
+* **Event-driven jobs** using Pub/Sub triggers
+* **Lightweight tools** like:
+
+    * API wrappers, webhook receivers, schedulers, CI helpers
+
+### ❌ Not suitable for:
+
+* Stateful apps (like Jenkins master or databases)
+* Long-running background services (timeout limits)
+
+🧠 Great for *stateless containerized workloads* with scaling to zero.
+
+---
+
+## ☸️ **4. Google Kubernetes Engine (GKE)** — *Managed Kubernetes*
+
+💡 Think of this as: “You manage apps inside containers, Google manages the cluster.”
+
+### ✅ You can run:
+
+* **Microservices architecture**
+* **Jenkins (in containers)**
+* **SonarQube**, **Apigee hybrid gateway**, **ELK stack**
+* **Custom container workloads**
+* **Message processing apps** using **Pub/Sub**, Kafka, RabbitMQ
+* **ML pipelines** using TensorFlow Serving, Kubeflow
+
+### ❌ Not ideal for:
+
+* Tiny single-function apps — overhead is higher
+* Purely serverless use cases (Cloud Run fits better)
+
+🧠 GKE gives you container orchestration power with scaling, networking, and resilience — ideal for modern DevOps teams.
+
+---
+
+## ⚙️ **5. Cloud Functions** — *Serverless Functions (FaaS)*
+
+💡 Think of this as: “Run small pieces of code when something happens.”
+
+### ✅ You can run:
+
+* **Event-driven logic**, e.g.:
+
+    * Triggered by **Pub/Sub**, **Cloud Storage**, **HTTP**, or **Firestore**
+* **Lightweight APIs**
+* **CI/CD triggers**
+* **Data processing tasks**
+
+### ❌ Not suitable for:
+
+* Stateful or long-running jobs
+* Jenkins, Docker, or anything needing an OS
+
+🧠 Use for automation, glue code, and backend triggers — not for full applications.
+
+---
+
+## 🧱 **Summary Table**
+
+| GCP Service                 | Type        | Control Level   | Examples You Can Run                         | Ideal For                     |
+|-----------------------------|-------------|-----------------|----------------------------------------------|-------------------------------|
+| **Compute Engine**          | IaaS        | Full (VM-level) | Jenkins, SonarQube, Docker, DBs, ELK         | Traditional apps, infra tools |
+| **App Engine**              | PaaS        | Limited         | Web APIs, Dashboards                         | Code-only apps                |
+| **Cloud Run**               | CaaS        | Medium          | Dockerized APIs, microservices               | Stateless containers          |
+| **GKE (Kubernetes Engine)** | Managed K8s | High            | Jenkins agents, Apigee hybrid, Microservices | Container orchestration       |
+| **Cloud Functions**         | FaaS        | Minimal         | Event-driven code, triggers                  | Serverless automation         |
+
+---
+
+## ⚡ Example Use Case Mapping
+
+| Tool / Service                 | Best Place to Run                                                  |
+|--------------------------------|--------------------------------------------------------------------|
+| **Jenkins**                    | Compute Engine (VM) or GKE                                         |
+| **SonarQube**                  | Compute Engine or GKE                                              |
+| **Docker**                     | GCE, GKE, or Cloud Run                                             |
+| **Kubernetes**                 | GKE (native)                                                       |
+| **Apigee**                     | Managed by GCP (Apigee X) or GKE (Apigee hybrid)                   |
+| **Pub/Sub**                    | It’s a **service** (not hosted), can trigger Cloud Functions / Run |
+| **Grafana / Prometheus**       | GCE or GKE                                                         |
+| **Databases** (Postgres/MySQL) | Cloud SQL (managed) or GCE (self-hosted)                           |
+
 ---
 
 ✅ **Rule of Thumb:**

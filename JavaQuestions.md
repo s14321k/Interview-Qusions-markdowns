@@ -31,6 +31,26 @@ public class RemoveWhiteSpaces {
 }
 ````
 
+```java
+
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		String str1 = "Communication process";
+		
+		Set<Character> uniqCharSet = new LinkedHashSet<>();
+		
+		String str2 = str1.chars().mapToObj(c -> String.valueOf((char) c)).distinct().collect(Collectors.joining());
+		
+		System.out.println(str2);
+	}
+}
+
+```
+
 ---
 
 ### 📌 Output
@@ -677,11 +697,30 @@ public class StreamAddition {
         System.out.println("Sum: " + sum); // Output: Sum: 30
     }
 }
+
 ```
 
 * `Stream.of()` creates a stream of the two numbers.
 * `.mapToInt()` converts the stream to an `IntStream`.
 * `.sum()` gives the total.
+
+### Sum largest and smallest num
+
+```java
+
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		int[] value = {4,9,2,1,8};
+		
+		System.out.println(Arrays.stream(value).max().getAsInt()-Arrays.stream(value).min().getAsInt());
+	}
+}
+
+```
 
 ---
 

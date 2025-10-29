@@ -274,7 +274,7 @@ Stream operations are divided into:
 ### 🔁 Intermediate Operations
 
 <details>
-<summary><strong>Click to view Intermediate Operations</strong></summary>
+<summary><strong>Intermediate Operations</strong></summary>
 
 | Method                            | Description                    | Example                                    |
 |-----------------------------------|--------------------------------|--------------------------------------------|
@@ -294,7 +294,7 @@ Stream operations are divided into:
 ### ✅ Terminal Operations
 
 <details>
-<summary><strong>Click to view Terminal Operations</strong></summary>
+<summary><strong>Terminal Operations</strong></summary>
 
 | Method                                                         | Description                       | Example                                 |
 |----------------------------------------------------------------|-----------------------------------|-----------------------------------------|

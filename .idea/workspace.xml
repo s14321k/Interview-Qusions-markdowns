@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="remove frnt end">
+    <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Kafka.md" beforeDir="false" afterPath="$PROJECT_DIR$/Kafka.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GCP.md" beforeDir="false" afterPath="$PROJECT_DIR$/GCP.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java 8 to 17.md" beforeDir="false" afterPath="$PROJECT_DIR$/Java 8 to 17.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaBasic.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaBasic.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaQuestions.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaQuestions.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpringSecurity.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringSecurity.md" afterDir="false" />
     </list>
     <list id="85d93f7a-76e3-4a1a-8bb8-992724df3493" name="ide" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" afterDir="false" />
@@ -304,15 +306,9 @@
       <workItem from="1761232790971" duration="2489000" />
       <workItem from="1761294934642" duration="589000" />
       <workItem from="1761561571473" duration="74000" />
-      <workItem from="1761561947432" duration="893000" />
-    </task>
-    <task id="LOCAL-00001" summary="added points and restructured the points">
-      <option name="closed" value="true" />
-      <created>1712836785110</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1712836785110</updated>
+      <workItem from="1761561947432" duration="1789000" />
+      <workItem from="1761623601372" duration="8109000" />
+      <workItem from="1761751850989" duration="917000" />
     </task>
     <task id="LOCAL-00002" summary="added points and restructured the points">
       <option name="closed" value="true" />
@@ -676,7 +672,23 @@
       <option name="project" value="LOCAL" />
       <updated>1761561625671</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="changes">
+      <option name="closed" value="true" />
+      <created>1761563275819</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1761563275819</updated>
+    </task>
+    <task id="LOCAL-00050" summary="changes">
+      <option name="closed" value="true" />
+      <created>1761625521545</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1761625521545</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -711,7 +723,6 @@
     <MESSAGE value="open all" />
     <MESSAGE value="Remove TOC" />
     <MESSAGE value="re arange" />
-    <MESSAGE value="changes" />
     <MESSAGE value="new additions and changes" />
     <MESSAGE value="image place change and toc in java basic" />
     <MESSAGE value="remove details" />
@@ -721,7 +732,8 @@
     <MESSAGE value="front end implementations" />
     <MESSAGE value="TOC update" />
     <MESSAGE value="remove frnt end" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove frnt end" />
+    <MESSAGE value="changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

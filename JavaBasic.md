@@ -996,7 +996,7 @@ public int compute() {
 # 🚀 Primary Main Features of Java
 
 <details>
-<summary>Click to expand Java main features</summary>
+<summary>Java main features</summary>
 
 1. Platform Independent  
 2. Object Oriented Programming Language  
@@ -1075,7 +1075,7 @@ public int compute() {
 ## 🧩 Class Loaders in Java
 
 <details>
-<summary>Click to expand Class Loaders explanation</summary>
+<summary>Class Loaders explanation</summary>
 
 ### 1. Bootstrap Class Loader
 
@@ -1171,8 +1171,6 @@ double $salary;
 **Common Java Keywords:**
 `class`, `public`, `static`, `void`, `if`, `else`, `for`, `while`, `return`, `try`, `catch`, `throw`, `throws`
 
----
-
 </details>
 
 ---
@@ -1197,7 +1195,7 @@ A **class** is a blueprint or template from which objects are created. It contai
 ## 🏗️ Common Types of Classes in Java
 
 <details>
-<summary>Click to expand Common Java Class Types</summary>
+<summary>Common Java Class Types</summary>
 
 ### 1. Regular (Concrete) Class
 - Can be instantiated to create objects.
@@ -1926,8 +1924,6 @@ Value = 42
    ```
 
 3. **Configuration setup** (e.g., reading from a file or environment variables at class load time).
-
----
 
 ---
 
