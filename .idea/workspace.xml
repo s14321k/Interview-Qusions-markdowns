@@ -6,14 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b8aa6009-274e-4246-a698-3123fcdc3310" name="Changes" comment="changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CICD.md" beforeDir="false" afterPath="$PROJECT_DIR$/CICD.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GCP.md" beforeDir="false" afterPath="$PROJECT_DIR$/GCP.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docker.md" beforeDir="false" afterPath="$PROJECT_DIR$/Docker.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaBasic.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaBasic.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Microservice.md" beforeDir="false" afterPath="$PROJECT_DIR$/Microservice.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpringBoot.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringBoot.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpringSecurity.md" beforeDir="false" afterPath="$PROJECT_DIR$/SpringSecurity.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/es6.md" beforeDir="false" afterPath="$PROJECT_DIR$/html/es6.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/js.md" beforeDir="false" afterPath="$PROJECT_DIR$/html/js.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaQuestions.md" beforeDir="false" afterPath="$PROJECT_DIR$/JavaQuestions.md" afterDir="false" />
     </list>
     <list id="85d93f7a-76e3-4a1a-8bb8-992724df3493" name="ide" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" afterDir="false" />
@@ -199,7 +194,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.28774.11" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.29188.11" />
       </set>
     </attachedChunks>
   </component>
@@ -312,15 +307,11 @@
       <workItem from="1761561947432" duration="1789000" />
       <workItem from="1761623601372" duration="8109000" />
       <workItem from="1761751850989" duration="2510000" />
-      <workItem from="1761758664466" duration="2926000" />
-    </task>
-    <task id="LOCAL-00003" summary="added points">
-      <option name="closed" value="true" />
-      <created>1712841276723</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1712841276723</updated>
+      <workItem from="1761758664466" duration="3159000" />
+      <workItem from="1761821717594" duration="922000" />
+      <workItem from="1761902432777" duration="41000" />
+      <workItem from="1762269924701" duration="837000" />
+      <workItem from="1762576200407" duration="3982000" />
     </task>
     <task id="LOCAL-00004" summary="added points">
       <option name="closed" value="true" />
@@ -692,7 +683,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761752945329</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="changes">
+      <option name="closed" value="true" />
+      <created>1761762631070</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1761762631070</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

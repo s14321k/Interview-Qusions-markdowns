@@ -372,7 +372,7 @@ docker-compose build
 <summary>✅ Bonus: Useful Commands Summary Table</summary>
 
 | Task                 | Command                       |
-| -------------------- | ----------------------------- |
+|----------------------|-------------------------------|
 | Run a container      | `docker run`                  |
 | List containers      | `docker ps [-a]`              |
 | Start/stop           | `docker start/stop`           |
@@ -779,7 +779,7 @@ curl http://localhost:8800/actuator/health
 ### Bonus: Curl Cheat Sheet Summary
 
 | Task            | Command                                                                   |
-| --------------- | ------------------------------------------------------------------------- |
+|-----------------|---------------------------------------------------------------------------|
 | Basic GET       | `curl http://localhost:8080`                                              |
 | POST JSON       | `curl -X POST -H "Content-Type: application/json" -d '{"key":"val"}' URL` |
 | PUT/DELETE      | `curl -X PUT/DELETE URL`                                                  |
@@ -883,7 +883,7 @@ lsof -i :8080
 ### Summary Table
 
 | Tool              | Purpose                  |
-| ----------------- | ------------------------ |
+|-------------------|--------------------------|
 | http (httpie)     | Easier curl alternative  |
 | ping, telnet, nc  | Connectivity checks      |
 | wget              | File downloads           |

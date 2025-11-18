@@ -91,6 +91,12 @@
     * [Creating an Immutable Class in Java](#creating-an-immutable-class-in-java)
     * [Creating a Singleton Class in Java](#creating-a-singleton-class-in-java)
 * [Wrapper Classes and Autoboxing](#wrapper-classes-and-autoboxing)
+    * [🔹 **1. Definition**](#-1-definition)
+    * [🔹 **2. Why Wrapper Classes Exist**](#-2-why-wrapper-classes-exist)
+    * [🔹 **3. Auto-Boxing & Unboxing**](#-3-auto-boxing--unboxing)
+    * [🔹 **4. Example — boolean vs Boolean**](#-4-example--boolean-vs-boolean)
+    * [🔹 **5. Key Differences Summary**](#-5-key-differences-summary)
+    * [🧠 **In short**](#-in-short)
     * [Autoboxing](#autoboxing)
     * [Example Custom Wrapper Class Demonstrating Autoboxing](#example-custom-wrapper-class-demonstrating-autoboxing)
     * [StackOverflow - Due to out of memory](#stackoverflow---due-to-out-of-memory)
@@ -2334,7 +2340,7 @@ public class Database {
 Java provides wrapper classes for primitives to allow objects to represent primitive types.
 
 | Primitive Type | Wrapper Class |
-| -------------- | ------------- |
+|----------------|---------------|
 | int            | Integer       |
 | long           | Long          |
 | short          | Short         |
@@ -2343,6 +2349,102 @@ Java provides wrapper classes for primitives to allow objects to represent primi
 | float          | Float         |
 | double         | Double        |
 | boolean        | Boolean       |
+
+---
+
+<details>
+<summary>🧩 Primitive vs Wrapper Class in Java</summary>
+
+### 🔹 **1. Definition**
+
+| Type              | Example                                     | Stored in                    | Default Value      | Nullable | Usage                                                         |
+|-------------------|---------------------------------------------|------------------------------|--------------------|----------|---------------------------------------------------------------|
+| **Primitive**     | `int`, `boolean`, `char`, `double`          | Stack / directly in variable | `0`, `false`, etc. | ❌ No     | Fast and memory-efficient                                     |
+| **Wrapper Class** | `Integer`, `Boolean`, `Character`, `Double` | Heap (as an Object)          | `null`             | ✅ Yes    | Used with Collections, Generics, or when `null` is meaningful |
+
+---
+
+### 🔹 **2. Why Wrapper Classes Exist**
+
+Java’s **Collections (e.g., List, Map, Set)** and **Generics** can only work with *objects*, not primitive types.
+
+Example:
+
+```java
+List<int> list = new ArrayList<>();   // ❌ Not allowed
+List<Integer> list = new ArrayList<>(); // ✅ Works
+```
+
+Wrapper classes wrap the primitive in an object so it can behave like any other reference type.
+
+---
+
+### 🔹 **3. Auto-Boxing & Unboxing**
+
+Java automatically converts between primitives and their wrappers:
+
+```java
+int a = 10;
+Integer b = a;  // Auto-boxing (primitive -> wrapper)
+int c = b;      // Unboxing (wrapper -> primitive)
+```
+
+---
+
+### 🔹 **4. Example — boolean vs Boolean**
+
+```java
+class Example {
+    boolean primitiveBool;
+    Boolean wrapperBool;
+
+    void showDefaults() {
+        System.out.println("boolean default: " + primitiveBool);
+        System.out.println("Boolean default: " + wrapperBool);
+    }
+
+    public static void main(String[] args) {
+        new Example().showDefaults();
+    }
+}
+```
+
+**Output:**
+
+```
+boolean default: false
+Boolean default: null
+```
+
+✅ **Explanation:**
+
+* `boolean` → primitive, default is `false`.
+* `Boolean` → object, default is `null`.
+
+---
+
+### 🔹 **5. Key Differences Summary**
+
+| Feature                 | Primitive         | Wrapper Class        |
+| ----------------------- | ----------------- | -------------------- |
+| **Type**                | Data type         | Object               |
+| **Default Value**       | e.g. `0`, `false` | `null`               |
+| **Can be null?**        | ❌ No              | ✅ Yes                |
+| **Stored in**           | Stack             | Heap                 |
+| **Performance**         | Fast              | Slightly slower      |
+| **Used in Collections** | ❌ No              | ✅ Yes                |
+| **Example**             | `int`, `boolean`  | `Integer`, `Boolean` |
+
+---
+
+### 🧠 **In short**
+
+* Use **primitives** when performance and memory are critical.
+* Use **wrappers** when you need `null` values, or when working with **Collections** or **Generics**.
+
+</details>
+
+---
 
 ### Autoboxing
 

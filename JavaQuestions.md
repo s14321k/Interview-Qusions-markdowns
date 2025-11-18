@@ -137,27 +137,68 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class NonRepeatingNames {
-public static void main(String[] args) {
-List<String> names = List.of("Alice", "Bob", "Alice", "Charlie", "Bob", "David");
-Set<String> seen = new HashSet<>();
-Set<String> duplicates = new HashSet<>();
+    public static void main(String[] args) {
+        List<String> names = List.of("Alice", "Bob", "Alice", "Charlie", "Bob", "David");
+        Set<String> seen = new HashSet<>();
+        Set<String> duplicates = new HashSet<>();
+        
+                // First pass: identify duplicates
+                names.stream()
+                        .filter(s -> !seen.add(s)) // For every element, try to add it to `seen`.
+                                                   // If `add` returns false, it's a duplicate.
+                        .forEach(duplicates::add); // Add all duplicates to the `duplicates` set.
+        
+                // Second pass: filter the original list again
+                List<String> nonRepeatingNames = names.stream()
+                        .filter(s -> !duplicates.contains(s)) // Keep elements that are not in the `duplicates` set.
+                        .collect(Collectors.toList());
+        
+                System.out.println("Original list: " + names);
+                System.out.println("Non-repeating names: " + nonRepeatingNames);
+                // Output: [Charlie, David]
+        }
+}
+```
 
-        // First pass: identify duplicates
-        names.stream()
-                .filter(s -> !seen.add(s)) // For every element, try to add it to `seen`.
-                                           // If `add` returns false, it's a duplicate.
-                .forEach(duplicates::add); // Add all duplicates to the `duplicates` set.
+```java
 
-        // Second pass: filter the original list again
-        List<String> nonRepeatingNames = names.stream()
-                .filter(s -> !duplicates.contains(s)) // Keep elements that are not in the `duplicates` set.
+import java.util.*;
+import java.util.stream.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		List<Integer> names = List.of(1,2,3,3,2,5,6,7,9);
+
+        List<Integer> uniqueOnlyOnce = names.stream()
+                .filter(name -> Collections.frequency(names, name) > 1)
                 .collect(Collectors.toList());
 
-        System.out.println("Original list: " + names);
-        System.out.println("Non-repeating names: " + nonRepeatingNames);
-        // Output: [Charlie, David]
+        System.out.println(uniqueOnlyOnce);
+	}
+}
+
+```
+
+```java
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class ChekUniqueInString {
+
+    public static void main(String[] args) {
+        String value = "hello world";
+        List<Character> valueCharArr = value.chars()
+                .mapToObj(s -> (char) s)
+                .collect(Collectors.toList());
+        valueCharArr.stream()
+                .filter(s -> Collections.frequency(valueCharArr, s) == 1)
+                .forEach(System.out::println);
     }
 }
+
 ```
 
 </details>
