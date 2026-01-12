@@ -1084,8 +1084,7 @@ Imagine a legacy e-commerce app:
 
 ---
 
-# **important topics in Microservices**
----
+# Important topics in Microservices
 
 <details>
 <summary><strong>🧱 1. Microservices vs Monolithic Architecture</strong></summary>
@@ -2331,7 +2330,7 @@ Scale ID generation?      → Snowflake
 
 ---
 
-# Below is a ready-to-copy Spring Boot starter template that already includes:
+## Below is a ready-to-copy Spring Boot starter template that already includes:
 
 ✅ Idempotency Key (Redis)
 ✅ Request ID + Correlation ID
