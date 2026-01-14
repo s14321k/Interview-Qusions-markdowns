@@ -2553,4 +2553,53 @@ So:
 
 </details>
 
+
+
+## Find both the count of `'h'` and its positions in the given string.
+
+### Solution:
+```java
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class CharStreamExample {
+    public static void main(String[] args) {
+        String name = "sarathkumar";
+        char target = 'h';
+
+        // Count occurrences of 'h'
+        long count = name.chars()
+                         .filter(ch -> ch == target)
+                         .count();
+
+        // Find positions of 'h'
+        List<Integer> positions = IntStream.range(0, name.length())
+                                           .filter(i -> name.charAt(i) == target)
+                                           .boxed()
+                                           .collect(Collectors.toList());
+
+        System.out.println("Count of '" + target + "': " + count);
+        System.out.println("Positions of '" + target + "': " + positions);
+    }
+}
+```
+
+### Explanation:
+1. **Counting 'h' occurrences**:
+    - `name.chars()` converts the string into an IntStream of ASCII values.
+    - `.filter(ch -> ch == target)` filters out only the occurrences of `'h'`.
+    - `.count()` gives the total count.
+
+2. **Finding positions of 'h'**:
+    - `IntStream.range(0, name.length())` generates indices from `0` to `name.length() - 1`.
+    - `.filter(i -> name.charAt(i) == target)` keeps only the indices where `'h'` appears.
+    - `.boxed().collect(Collectors.toList())` converts the stream into a list.
+
+### Output:
+```
+Count of 'h': 1
+Positions of 'h': [5]
+```
+
 </details>

@@ -2704,15 +2704,145 @@ class Impl implements Outer.InnerInterface {
 
 ---
 
-### Common Functional Interfaces and Marker Interfaces
+Below is a **refactored, expandable / collapsible Markdown section** that cleanly **extends your table** and **covers all commonly used Functional Interfaces and Marker Interfaces**, without repetition and in an **exam-ready + interview-ready** structure.
 
-| Interface  | Method Signature          | Notes                                         |
-|------------|---------------------------|-----------------------------------------------|
-| Runnable   | `void run()`              | Used for threads, no return value             |
-| Callable   | `V call()`                | Returns a value, can throw checked exceptions |
-| Cloneable  | `Object clone()`          | Marker interface, enables object cloning      |
-| Comparable | `int compareTo(T o)`      | Defines natural order                         |
-| Comparator | `int compare(T o1, T o2)` | Custom ordering                               |
+You can directly paste this into your master notes.
+
+---
+
+## 🧩 Common Functional Interfaces & Marker Interfaces (Java)
+
+<details>
+<summary><strong>📌 What are Functional Interfaces?</strong></summary>
+
+* A **Functional Interface** has **exactly one abstract method**
+* Introduced mainly for **Lambda expressions** (Java 8)
+* Can have:
+
+    * default methods
+    * static methods
+* Annotated with `@FunctionalInterface` (optional but recommended)
+
+</details>
+
+---
+
+<details>
+<summary><strong>⚙️ Core Functional Interfaces (java.lang & java.util.concurrent)</strong></summary>
+
+| Interface  | Method Signature          | Notes                                      |
+| ---------- | ------------------------- | ------------------------------------------ |
+| Runnable   | `void run()`              | Used in threads, no return value           |
+| Callable   | `V call()`                | Returns value, can throw checked exception |
+| Comparable | `int compareTo(T o)`      | Defines natural ordering                   |
+| Comparator | `int compare(T o1, T o2)` | Custom sorting logic                       |
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔁 Core Functional Interfaces (java.util.function)</strong></summary>
+
+| Interface         | Method            | Input    | Output    | Use Case               |
+| ----------------- | ----------------- | -------- | --------- | ---------------------- |
+| Supplier<T>       | `T get()`         | ❌        | ✅         | Supplies data          |
+| Consumer<T>       | `void accept(T)`  | ✅        | ❌         | Consumes data          |
+| Predicate<T>      | `boolean test(T)` | ✅        | boolean   | Condition check        |
+| Function<T,R>     | `R apply(T)`      | ✅        | ✅         | Transformation         |
+| UnaryOperator<T>  | `T apply(T)`      | ✅        | Same type | Single input operation |
+| BinaryOperator<T> | `T apply(T,T)`    | 2 inputs | Same type | Combine two values     |
+
+</details>
+
+---
+
+<details>
+<summary><strong>🧠 Primitive Specializations</strong></summary>
+
+Used to **avoid autoboxing overhead**.
+
+| Interface      | Example                |
+| -------------- | ---------------------- |
+| IntPredicate   | `boolean test(int)`    |
+| LongConsumer   | `void accept(long)`    |
+| DoubleSupplier | `double getAsDouble()` |
+| IntFunction<R> | `R apply(int)`         |
+
+</details>
+
+---
+
+<details>
+<summary><strong>🧪 Examples (Lambda Ready)</strong></summary>
+
+```java
+Supplier<String> supplier = () -> "Hello";
+
+Consumer<String> consumer = s -> System.out.println(s);
+
+Predicate<Integer> isPositive = x -> x > 0;
+
+Function<String, Integer> length = s -> s.length();
+
+UnaryOperator<Integer> square = x -> x * x;
+
+BinaryOperator<Integer> sum = (a, b) -> a + b;
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>🏷️ What are Marker Interfaces?</strong></summary>
+
+* Marker interfaces **do not have methods**
+* Used to **mark a class**
+* JVM or frameworks check presence using `instanceof`
+* Enable or change behavior implicitly
+
+</details>
+
+---
+
+<details>
+<summary><strong>🏷️ Common Marker Interfaces</strong></summary>
+
+| Interface                        | Purpose                                  |
+| -------------------------------- | ---------------------------------------- |
+| Cloneable                        | Allows object cloning using `clone()`    |
+| Serializable                     | Enables object serialization             |
+| RandomAccess                     | Indicates fast random access (ArrayList) |
+| SingleThreadModel *(deprecated)* | Thread control in servlets               |
+
+</details>
+
+---
+
+<details>
+<summary><strong>📌 Marker vs Functional Interface</strong></summary>
+
+| Aspect    | Functional Interface | Marker Interface         |
+| --------- | -------------------- | ------------------------ |
+| Methods   | Exactly one abstract | No methods               |
+| Purpose   | Lambda expressions   | Metadata / behavior hint |
+| Example   | Supplier, Predicate  | Serializable, Cloneable  |
+| JVM usage | Executes logic       | Checks capability        |
+
+</details>
+
+---
+
+<details>
+<summary><strong>🧠 Interview One-Liners</strong></summary>
+
+* **Runnable vs Callable** → Callable returns value & throws checked exception
+* **Predicate vs Function** → Predicate returns boolean, Function returns object
+* **UnaryOperator** → Function with same input/output type
+* **Marker Interface** → Enables behavior without methods
+
+</details>
 
 ---
 
