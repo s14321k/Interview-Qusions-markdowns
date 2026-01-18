@@ -4,6 +4,205 @@
 
 [Tekton vs Jenkins](https://youtu.be/7aSe1HQ2lXo?si=koGlTYcQP2O4Wevw)
 
+![CI/CD Pipelines](images/CICD/CICD_Pipelines.png)
+
+# 🚀 Production-Grade DevOps CI/CD Architecture
+
+This document describes a **real-world, production-ready DevOps CI/CD architecture** that is **simple, automated, reliable, and scalable**.
+
+---
+
+## 🧩 High-Level Overview
+
+<details>
+<summary><strong>Click to expand summary</strong></summary>
+
+A developer pushes code to **GitHub/GitLab**, which automatically triggers **Jenkins**.  
+Jenkins builds, tests, containerizes, and deploys the application to **Amazon EKS (Kubernetes)**.  
+All infrastructure is provisioned using **Terraform (IaC)**.  
+The application is exposed securely via **ALB Ingress**, monitored using **Prometheus, Grafana, and CloudWatch**, and alerts are delivered through **SNS**.
+
+This setup ensures:
+- Zero-downtime deployments
+- Automated infrastructure
+- Observability and reliability
+- Fast feedback loops
+
+</details>
+
+---
+
+## 🔁 CI/CD Workflow (Jenkins)
+
+<details>
+<summary><strong>CI/CD Flow Details</strong></summary>
+
+1. Developer pushes code to **GitHub / GitLab**
+2. Webhook triggers **Jenkins pipeline**
+3. Jenkins performs:
+  - Source code checkout
+  - Build and unit tests
+  - Docker image build
+  - Push image to AWS container registry (ECR)
+  - Deploy application to Kubernetes (EKS)
+
+Jenkins acts as the **central CI/CD engine**, enforcing consistency and automation across environments.
+
+</details>
+
+---
+
+## 🏗️ Infrastructure as Code (Terraform)
+
+<details>
+<summary><strong>Infrastructure Provisioning</strong></summary>
+
+All infrastructure is provisioned automatically using **Terraform**, ensuring repeatability and version control.
+
+Terraform provisions:
+- VPC and networking
+- Public and private subnets
+- Amazon EKS cluster
+- Worker node groups
+- IAM roles and policies
+- Application Load Balancer (ALB)
+- Monitoring and logging components
+
+✅ No manual setup  
+✅ Fully reproducible environments  
+✅ Easy scaling and teardown
+
+</details>
+
+---
+
+## ☸️ Kubernetes on Amazon EKS
+
+<details>
+<summary><strong>Application Architecture</strong></summary>
+
+The application runs on **Amazon EKS**, following containerized microservice principles:
+
+- Frontend Pod
+- Backend Pod
+- Kubernetes Services for internal communication
+
+Kubernetes handles:
+- Scheduling
+- Self-healing
+- Rolling updates
+- Horizontal scaling
+
+</details>
+
+---
+
+## 🌐 Ingress & Traffic Management
+
+<details>
+<summary><strong>Ingress & Load Balancing</strong></summary>
+
+- **AWS Application Load Balancer (ALB)** is used as the Kubernetes Ingress
+- Securely exposes the application to the internet
+- Enables:
+  - Zero-downtime deployments
+  - Path-based routing
+  - TLS termination
+
+This ensures high availability and seamless user experience.
+
+</details>
+
+---
+
+## 🗄️ Data Layer (Outside Kubernetes)
+
+<details>
+<summary><strong>Database & Storage Design</strong></summary>
+
+Best practice: **Databases are not deployed inside Kubernetes**
+
+- **Amazon RDS**
+  - Relational data
+  - Backups, failover, managed scaling
+- **Amazon DynamoDB**
+  - Key-value storage
+  - Session management
+  - Low-latency access
+
+This design improves durability, scalability, and operational simplicity.
+
+</details>
+
+---
+
+## 📊 Monitoring & Observability
+
+<details>
+<summary><strong>Monitoring Stack</strong></summary>
+
+Monitoring and reliability are built-in:
+
+- **Prometheus**
+  - Collects application and cluster metrics
+- **Grafana**
+  - Visual dashboards
+  - Performance and health monitoring
+- **Amazon CloudWatch**
+  - Centralized logs
+  - Alarms and metrics
+
+Teams can detect issues **before users are impacted**.
+
+</details>
+
+---
+
+## 🚨 Alerts & Incident Response
+
+<details>
+<summary><strong>Alerting & Notifications</strong></summary>
+
+When something breaks:
+
+- Alerts are triggered in CloudWatch / Prometheus
+- Notifications flow through **Amazon SNS**
+- Delivered via:
+  - Email
+  - Slack
+
+This enables rapid incident response and proactive operations.
+
+</details>
+
+---
+
+## ✅ Why This Is Real DevOps
+
+<details>
+<summary><strong>Key DevOps Principles</strong></summary>
+
+✔ Continuous Integration & Deployment  
+✔ Infrastructure as Code  
+✔ Kubernetes orchestration  
+✔ Monitoring & alerting  
+✔ Secure, scalable, production-ready architecture
+
+This is how **REAL DevOps** works in production.
+
+</details>
+
+---
+
+## 🏁 Final Takeaway
+
+<details>
+<summary><strong>Closing Summary</strong></summary>
+
+This architecture represents a **battle-tested DevOps setup** used in real production environments.  
+It combines automation, observability, scalability, and reliability—allowing teams to move fast **without breaking things**.
+
+</details>
 
 ## Comparison** of **Jenkins, Terraform, and Kubernetes** in a table format:  
 

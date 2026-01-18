@@ -2,7 +2,11 @@
 
 ![java-mysql](images/Kuberneties/java-MySql-K8.gif)
 
+![kubernetis](images/Kuberneties/K8%20Full%20working.jpg)
+
 [java kuberneties deployment](https://devopscube.com/deploy-java-app-kubernetes/)
+
+
 
 ---
 [GKE](https://youtu.be/Rl5M1CzgEH4?si=LLoZH-khdcmeVe79)

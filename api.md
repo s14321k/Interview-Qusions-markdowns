@@ -300,6 +300,644 @@ Here is the **refactored, clean, exam-ready version** with an added **“Purpose
                    POST, PATCH ❌
 ```
 
+![Payment Idempotency](images/API/PaymentAPI.png)
+
+# 🔁 Idempotency in Microservices — Why It Matters More Than You Think
+
+In **microservices architectures**, failures are normal.
+
+Networks fail.  
+Services retry.  
+Users click buttons twice.
+
+That’s exactly why **idempotency** is not a “nice to have” — it’s **critical**.
+
+---
+
+## 🧠 What Is Idempotency?
+
+<details>
+<summary><strong>Click to expand</strong></summary>
+
+**Idempotency** means:
+
+> If the same request is sent multiple times, the outcome should be the same as if it were sent only once.
+
+No duplicate side effects.  
+No unexpected behavior.
+
+</details>
+
+---
+
+## ❓ Why Idempotency Matters in Real Systems
+
+<details>
+<summary><strong>Real-world failure scenarios</strong></summary>
+
+In production systems:
+
+- APIs are retried automatically
+- Clients may resend requests
+- API gateways may timeout and retry
+- Messages can be delivered more than once
+- Distributed systems are *eventually consistent*
+
+❌ Without idempotency → **duplicate actions happen**
+
+</details>
+
+---
+
+## 💳 Real-Time Example: Payment Service
+
+<details>
+<summary><strong>What can go wrong?</strong></summary>
+
+### Scenario:
+
+1. User clicks **“Pay ₹5,000”**
+2. Payment service processes the request
+3. Network timeout occurs
+4. Client retries the same request
+
+👉 If the service is **not idempotent**:
+
+- Payment is processed **twice**
+- User is charged **₹10,000 😨**
+
+This is one of the most common and dangerous production bugs.
+
+</details>
+
+---
+
+## ✅ How Idempotency Solves This Problem
+
+<details>
+<summary><strong>Idempotency in action</strong></summary>
+
+### Step-by-step solution:
+
+- Client sends a **unique Idempotency Key**  
+  _(example: `txn-123`)_
+- Payment service stores:
+  - Idempotency key
+  - Request result
+- When the same request arrives again:
+  - Service detects the duplicate key
+  - Returns the **previous response**
+  - ❌ Does NOT charge again
+
+</details>
+
+---
+
+## 🎯 Result
+
+<details>
+<summary><strong>What you gain</strong></summary>
+
+- ✅ One payment
+- ✅ Safe retries
+- ✅ No duplicate charges
+- ✅ Happy customers
+
+</details>
+
+---
+
+## 📌 APIs That MUST Be Idempotent
+
+<details>
+<summary><strong>Critical use cases</strong></summary>
+
+Idempotency is mandatory for:
+
+- Payments
+- Order creation
+- Inventory updates
+- Refunds
+- Message processing (Kafka, SQS, RabbitMQ, etc.)
+
+Anywhere retries can happen → idempotency is required.
+
+</details>
+
+---
+
+## 🧩 Key Takeaway
+
+<details>
+<summary><strong>Final thoughts</strong></summary>
+
+Retries are unavoidable in microservices.  
+Duplicate side effects are **not**.
+
+If your API can be retried:
+**Idempotency is not optional — it’s mandatory.**
+
+</details>
+
+# 🔁 Idempotency in Microservices — Why It Matters More Than You Think
+
+In microservices, failures are normal.  
+Networks fail. Services retry. Clients double-click.
+
+That’s why **idempotency is mandatory, not optional**.
+
+---
+
+## 🧠 What Is Idempotency?
+
+<details>
+<summary><strong>Concept</strong></summary>
+
+**Idempotency** means:
+
+> Sending the same request multiple times produces the same result as sending it once.
+
+No duplicate side effects.  
+No inconsistent state.
+
+</details>
+
+---
+
+## 🔄 Why Idempotency Is Critical
+
+<details>
+<summary><strong>Real-world realities</strong></summary>
+
+- APIs retry automatically  
+- Clients resend requests  
+- Gateways timeout and retry  
+- Messages can be delivered more than once  
+- Distributed systems are unreliable by nature  
+
+❌ Without idempotency → **duplicate actions happen**
+
+</details>
+
+---
+
+## 💳 Payment Service Example (Problem)
+
+<details>
+<summary><strong>Failure scenario</strong></summary>
+
+1. User clicks **Pay ₹5,000**
+2. Payment service processes the request
+3. Network timeout occurs
+4. Client retries the same request
+
+👉 Without idempotency → **₹10,000 charged**
+
+</details>
+
+---
+
+## 🧭 Sequence Diagram — Without Idempotency
+
+<details>
+<summary><strong>Duplicate payment flow</strong></summary>
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant PaymentService
+    participant Bank
+
+    Client->>PaymentService: Pay ₹5000
+    PaymentService->>Bank: Charge ₹5000
+    Bank-->>PaymentService: Success
+    PaymentService-->>Client: Timeout
+
+    Client->>PaymentService: Retry Pay ₹5000
+    PaymentService->>Bank: Charge ₹5000
+    Bank-->>PaymentService: Success
+    PaymentService-->>Client: Success
+````
+
+❌ Result: **Two charges**
+
+</details>
+
+---
+
+## ✅ How Idempotency Fixes This
+
+<details>
+<summary><strong>Key idea</strong></summary>
+
+* Client sends an **Idempotency Key**
+* Service stores the key + response
+* Duplicate request → return cached response
+* No duplicate side effects
+
+</details>
+
+---
+
+## 🧭 Sequence Diagram — With Idempotency
+
+<details>
+<summary><strong>Safe retry flow</strong></summary>
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant PaymentService
+    participant DB
+    participant Bank
+
+    Client->>PaymentService: Pay ₹5000 (key=txn-123)
+    PaymentService->>DB: Check key txn-123
+    DB-->>PaymentService: Not found
+    PaymentService->>Bank: Charge ₹5000
+    Bank-->>PaymentService: Success
+    PaymentService->>DB: Store key + result
+    PaymentService-->>Client: Success
+
+    Client->>PaymentService: Retry Pay ₹5000 (key=txn-123)
+    PaymentService->>DB: Check key txn-123
+    DB-->>PaymentService: Found
+    PaymentService-->>Client: Previous success response
+```
+
+✅ Result: **One charge, safe retry**
+
+</details>
+
+---
+
+## 🧩 REST API — Idempotent Payment Example
+
+<details>
+<summary><strong>REST API implementation</strong></summary>
+
+### Request
+
+```http
+POST /payments
+Idempotency-Key: txn-123
+Content-Type: application/json
+
+{
+  "amount": 5000,
+  "currency": "INR",
+  "userId": "u-101"
+}
+```
+
+### Backend Logic (Pseudo-Code)
+
+```java
+public PaymentResponse createPayment(Request request, String key) {
+    Optional<PaymentRecord> existing = repo.findByKey(key);
+
+    if (existing.isPresent()) {
+        return existing.get().getResponse();
+    }
+
+    PaymentResult result = bank.charge(request);
+    repo.save(key, result);
+
+    return result;
+}
+```
+
+### Database Table (Example)
+
+```text
+idempotency_key | response | created_at
+--------------------------------------
+txn-123         | SUCCESS  | 2026-01-18
+```
+
+</details>
+
+---
+
+## 📦 Kafka / Message Queue — Idempotent Consumer
+
+<details>
+<summary><strong>Kafka consumer example</strong></summary>
+
+### Problem
+
+Kafka guarantees **at-least-once delivery**
+→ Messages **can be processed more than once**
+
+### Solution: Idempotent Consumer
+
+```java
+@KafkaListener(topics = "payments")
+public void processPayment(PaymentEvent event) {
+
+    if (processedEventRepo.exists(event.getEventId())) {
+        return; // duplicate message
+    }
+
+    process(event);
+    processedEventRepo.save(event.getEventId());
+}
+```
+
+### Storage for Deduplication
+
+* Database table
+* Redis
+* DynamoDB
+
+```text
+event_id     | processed_at
+----------------------------
+evt-789      | 2026-01-18
+```
+
+</details>
+
+---
+
+## 📌 APIs That MUST Be Idempotent
+
+<details>
+<summary><strong>Non-negotiable use cases</strong></summary>
+
+* Payments
+* Order creation
+* Inventory updates
+* Refunds
+* Kafka / queue consumers
+* Webhooks
+
+Anywhere retries exist → idempotency is required.
+
+</details>
+
+---
+
+## 🏁 Final Takeaway
+
+<details>
+<summary><strong>Key lesson</strong></summary>
+
+Retries are unavoidable in microservices.
+Duplicate side effects are **not**.
+
+If your API can be retried,
+**Idempotency is mandatory — not optional.**
+
+</details>
+
+## ⏳ TTL Strategies for Idempotency Keys (Production-Grade)
+
+Idempotency keys **cannot live forever**.
+Without proper TTL (Time-To-Live), systems become slower, costlier, and harder to maintain.
+
+The goal:
+> Keep idempotency data **long enough to handle retries**, but **not forever**.
+
+---
+
+## 🎯 Why TTL Is Important
+
+<details>
+<summary><strong>Problems without TTL</strong></summary>
+
+- Infinite growth of idempotency tables
+- Higher storage and query costs
+- Slower lookups
+- Harder operational cleanup
+- Compliance & data retention issues
+
+TTL keeps idempotency **safe, efficient, and scalable**.
+
+</details>
+
+---
+
+## 🧠 Core TTL Design Principles
+
+<details>
+<summary><strong>Golden rules</strong></summary>
+
+1. TTL must be **longer than the maximum retry window**
+2. TTL depends on **business criticality**
+3. High-risk actions → longer TTL
+4. Low-risk actions → shorter TTL
+5. TTL should be **configurable**, not hardcoded
+
+</details>
+
+---
+
+## ⏱️ Common TTL Strategies
+
+### 1️⃣ Fixed TTL (Most Common)
+
+<details>
+<summary><strong>Simple & effective</strong></summary>
+
+- Assign a fixed expiration time to idempotency keys
+- Example:
+  - Payments → 24 hours
+  - Orders → 12 hours
+  - Inventory updates → 1 hour
+
+**Pros**
+- Simple implementation
+- Easy to reason about
+
+**Cons**
+- May keep data longer than needed
+
+</details>
+
+---
+
+### 2️⃣ Retry-Window-Based TTL (Best Practice)
+
+<details>
+<summary><strong>TTL tied to retry behavior</strong></summary>
+
+TTL = **Max retry duration + safety buffer**
+
+Example:
+- Client retries for 30 minutes
+- Gateway retries for 10 minutes
+- Add 2× buffer
+
+➡ TTL ≈ **2 hours**
+
+**Pros**
+- Efficient storage
+- Aligns with real retry patterns
+
+**Cons**
+- Requires understanding retry policies
+
+</details>
+
+---
+
+### 3️⃣ State-Based TTL (Advanced)
+
+<details>
+<summary><strong>Different TTL per state</strong></summary>
+
+TTL varies based on request outcome:
+
+| State      | TTL Example |
+|-----------|-------------|
+| SUCCESS   | 24 hours    |
+| FAILED    | 5 minutes   |
+| PENDING   | 1 hour      |
+
+**Why?**
+- Failures retry quickly
+- Success needs longer protection
+
+**Pros**
+- Optimized storage
+- Business-aware logic
+
+**Cons**
+- More complex implementation
+
+</details>
+
+---
+
+### 4️⃣ Sliding TTL (Rare but Useful)
+
+<details>
+<summary><strong>TTL extends on retry</strong></summary>
+
+- TTL resets every time the same idempotency key is received
+- Useful for long-running or async workflows
+
+**Pros**
+- Handles delayed retries well
+
+**Cons**
+- Risk of keys never expiring
+- Requires max TTL cap
+
+</details>
+
+---
+
+### 5️⃣ Permanent + Archival (High-Risk Systems)
+
+<details>
+<summary><strong>Financial-grade systems</strong></summary>
+
+- Store idempotency records permanently
+- Move older records to cold storage (S3)
+
+Used for:
+- Banking
+- Ledger systems
+- Regulatory compliance
+
+**Pros**
+- Full audit trail
+- Zero risk of duplicate financial actions
+
+**Cons**
+- Higher storage cost
+- Requires archival strategy
+
+</details>
+
+---
+
+## 🗄️ TTL by Storage Type
+
+<details>
+<summary><strong>Where TTL is enforced</strong></summary>
+
+### Redis
+- Native TTL support
+- Ideal for short-lived keys (minutes → hours)
+
+```text
+SET txn-123 response EX 7200
+````
+
+### DynamoDB
+
+* Native TTL attribute
+* Auto cleanup by AWS
+
+```text
+ttl = epoch_timestamp
+```
+
+### SQL Databases
+
+* Scheduled cleanup jobs
+* Index on `created_at`
+
+```sql
+DELETE FROM idempotency_keys
+WHERE created_at < NOW() - INTERVAL '24 hours';
+```
+
+</details>
+
+---
+
+## 🧭 Recommended TTLs (Real-World Defaults)
+
+<details>
+<summary><strong>Production-ready guidance</strong></summary>
+
+| Use Case          | Recommended TTL |
+| ----------------- | --------------- |
+| Payments          | 24–72 hours     |
+| Orders            | 12–24 hours     |
+| Refunds           | 48–72 hours     |
+| Inventory updates | 1–6 hours       |
+| Webhooks          | 24 hours        |
+| Kafka consumers   | 1–7 days        |
+
+</details>
+
+---
+
+## ⚠️ Common TTL Mistakes
+
+<details>
+<summary><strong>What to avoid</strong></summary>
+
+* TTL shorter than retry window ❌
+* No TTL at all ❌
+* Hardcoded TTL values ❌
+* Same TTL for all APIs ❌
+* Not monitoring TTL cleanup ❌
+
+</details>
+
+---
+
+## 🏁 Final Rule of Thumb
+
+<details>
+<summary><strong>TL;DR</strong></summary>
+
+> TTL should outlive retries — not business records.
+
+Retries are temporary.
+Idempotency protection should be too.
+
+Design TTLs deliberately, and your microservices will scale safely.
+
+</details>
+```
+
 ---
 
 ## 4️⃣ HTTP Status Code Guidelines

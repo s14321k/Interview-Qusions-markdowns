@@ -579,3 +579,176 @@ This system keeps track of all microservices and their instances, allowing servi
 ## 10. Service Coordination (e.g., Zookeeper)
 Tools like Zookeeper help manage and coordinate distributed services, ensuring they work together smoothly.
 
+# ☁️ Multi-Cloud Cheat Sheet — AWS | Azure | Google Cloud
+
+As more organizations adopt **multi-cloud strategies**, understanding how services **map across AWS, Azure, and Google Cloud** becomes essential.
+
+This cheat sheet focuses on **concept-to-concept mapping**, not vendor-specific marketing terms—making it easier to design **portable and cloud-agnostic architectures**.
+
+![Multi cloud](images/CICD/multi_Cloud.png)
+
+---
+
+## 🧩 High-Level Summary
+
+<details>
+<summary><strong>Click to expand overview</strong></summary>
+
+Each major cloud provider offers similar core building blocks:
+- Compute
+- Storage
+- Databases
+- Networking
+- Security
+- DevOps & CI/CD
+- AI/ML
+
+The names differ, but the **concepts remain the same**.
+
+</details>
+
+---
+
+## ☁️ Compute
+
+<details>
+<summary><strong>Compute service mapping</strong></summary>
+
+| Concept                | AWS                         | Azure                    | GCP                         |
+|------------------------|-----------------------------|--------------------------|-----------------------------|
+| Virtual Machines       | EC2                         | Virtual Machines         | Compute Engine              |
+| Serverless Functions   | Lambda                      | Azure Functions          | Cloud Functions             |
+| Container Service      | ECS                         | Container Apps           | Cloud Run                   |
+| Managed Kubernetes     | EKS                         | AKS                      | GKE                         |
+
+</details>
+
+---
+
+## 📦 Storage
+
+<details>
+<summary><strong>Storage service mapping</strong></summary>
+
+| Concept                | AWS           | Azure               | GCP                 |
+|------------------------|---------------|---------------------|---------------------|
+| Object Storage         | S3            | Blob Storage        | Cloud Storage       |
+| Block Storage          | EBS           | Managed Disks       | Persistent Disk     |
+| File Storage           | EFS           | Azure Files         | Filestore           |
+
+</details>
+
+---
+
+## 🛠 Databases
+
+<details>
+<summary><strong>Database service mapping</strong></summary>
+
+### Relational Databases
+- **AWS:** RDS  
+- **Azure:** Azure SQL / SQL Managed Instance  
+- **GCP:** Cloud SQL  
+
+### NoSQL Databases
+- **AWS:** DynamoDB  
+- **Azure:** Cosmos DB  
+- **GCP:** Firestore / Bigtable  
+
+### Data Warehousing
+- **AWS:** Redshift  
+- **Azure:** Synapse Analytics  
+- **GCP:** BigQuery  
+
+</details>
+
+---
+
+## 🌐 Networking
+
+<details>
+<summary><strong>Networking service mapping</strong></summary>
+
+| Concept                | AWS               | Azure                    | GCP                 |
+|------------------------|-------------------|--------------------------|---------------------|
+| Virtual Network        | VPC               | VNet                     | VPC                 |
+| Load Balancer          | ALB / NLB         | Azure LB / Front Door    | Cloud Load Balancer |
+| DNS                    | Route 53          | Azure DNS                | Cloud DNS           |
+
+</details>
+
+---
+
+## 🔐 Security
+
+<details>
+<summary><strong>Security & identity mapping</strong></summary>
+
+| Concept                | AWS                   | Azure                         | GCP                 |
+|------------------------|-----------------------|-------------------------------|---------------------|
+| Identity & Access      | IAM                   | Azure AD (Entra ID)           | IAM                 |
+| Secrets Management     | Secrets Manager       | Key Vault                     | Secret Manager      |
+| Web Application Firewall | AWS WAF            | Azure WAF                     | Cloud Armor         |
+
+</details>
+
+---
+
+## 🔄 DevOps & CI/CD
+
+<details>
+<summary><strong>DevOps tooling mapping</strong></summary>
+
+| Concept                | AWS                | Azure              | GCP                   |
+|------------------------|--------------------|--------------------|-----------------------|
+| CI/CD Pipelines        | CodePipeline       | Azure DevOps       | Cloud Build           |
+| Monitoring & Logging   | CloudWatch         | Azure Monitor      | Cloud Monitoring      |
+| Infrastructure as Code| CloudFormation     | ARM / Bicep        | Deployment Manager    |
+
+</details>
+
+---
+
+## 🤖 AI / ML
+
+<details>
+<summary><strong>AI & ML service mapping</strong></summary>
+
+| Concept                | AWS            | Azure              | GCP           |
+|------------------------|----------------|--------------------|---------------|
+| ML Platform            | SageMaker      | Azure ML           | Vertex AI     |
+| Vision / Speech APIs   | Rekognition    | Cognitive Services | Vision / Speech APIs |
+
+</details>
+
+---
+
+## 💡 Multi-Cloud Design Tip
+
+<details>
+<summary><strong>Key insight</strong></summary>
+
+❌ Don’t compare clouds **feature-by-feature**  
+✅ Compare them **concept-to-concept**
+
+Once you understand the mapping:
+- Architectures become portable
+- Vendor lock-in is reduced
+- Migration and hybrid strategies are easier
+
+</details>
+
+---
+
+## 🏁 Final Takeaway
+
+<details>
+<summary><strong>TL;DR</strong></summary>
+
+Cloud providers differ in naming and tooling,  
+but the **core primitives are the same**.
+
+Master the concepts — and every cloud becomes familiar.
+
+</details>
+```
